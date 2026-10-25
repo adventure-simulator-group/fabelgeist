@@ -1,0 +1,354 @@
+{
+  "id": "CONT08-CONTRACT-002",
+  "at": "2026-10-25T08:03:34.177824+00:00",
+  "lens": "08 behavior-preservation",
+  "comparison": "Isolated physical P16 base a120390 to frozen dirty0393295, never substituted PR/current main.",
+  "rows": [
+    {
+      "scope_index": 63,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_movement.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "086c2055231445836bac21e3ffa931c0909cd95def8d4fa7e4f041a2fe629e86",
+      "after_sha256": "3fcb38f4034fe1eccf1d7d99ee3310fed62812d16ef25d547e79e009e4425c33",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0063-base-086c2055231445836bac21e3ffa931c0909cd95def8d4fa7e4f041a2fe629e86",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3fcb38f4034fe1eccf1d7d99ee3310fed62812d16ef25d547e79e009e4425c33",
+      "diff": "source-evidence/0063.diff",
+      "diff_sha256": "6e8f27a48f0f73eb8b0cb55c18cf4d38943d419a2434522956ae7394c8e64465",
+      "head_body_read_ranges": [
+        [
+          1,
+          392
+        ]
+      ],
+      "old_new_comparison": "Entire actual diff personally consumed; unchanged local context read in the full head body. Earlier own08 reads retained, no other-lens verdict credit.",
+      "contract": "Opposed finite movement integration and collision clipping",
+      "observations": [
+        "ground_drive_acceleration23\u201337 is unchanged; mass/strength/gravity/traction max/min order is retained.",
+        "integrate_axis110\u2013149 retains elapsed/max-speed/acceleration clamps, target velocity, trapezoidal arithmetic and previous SpeedError overflow check. New SignedLength admission checks the final per-axis displacement.",
+        "integrate_opposed_movement43\u2013104 retains first-then-second integration, ordered native sum, final distance clamp and travel-fraction clipping. The raw summed distance remains native f32 until its final clamp, so overflow of the sum of individually finite contributions is not rejected merely for that intermediate.",
+        "Existing fixture bodies151\u2013392 were read: zero acceleration/elapsed, physical mass, reversal, opposed closure/chase, collision floor, bounded travel and substep behavior. Only constructor/access/result adaptation changed; none executed."
+      ],
+      "triggering_inputs_and_observable_behavior": [
+        {
+          "input": "Ordinary finite speed/acceleration/elapsed with a finite per-axis displacement and ordered valid bounds.",
+          "old": "Raw f32 displacement; native sum/clamp/fraction law.",
+          "new": "Same arithmetic then exact finite SignedLength storage.",
+          "result": "Same finite numbers and clipping signs; no observed valid local result change."
+        },
+        {
+          "input": "API-level first velocity=-1e38, Close intent, maximum speed=1e38, acceleration=0, elapsed=4; second stationary; center distance2 and bounds[0.8,10]. All supplied leaf values are finite.",
+          "old": "After-acceleration speed remains finite; displacement overflows to negative infinity. Distance clamps to0.8 and velocity clips to0; diagnostic displacement becomes NaN through infinity*0. Ordinary mobility reads distance and velocities, not that displacement field.",
+          "new": "SignedLength::from_metres rejects overflowing axis displacement at147 before opposed clipping.",
+          "result": "Real changed error behavior for extreme internal-API input. Old complete AxisMotion was nonfinite; whether preserving only its used finite projections is intended is a policy question. Not an ordinary battle occurrence claim."
+        }
+      ],
+      "disposition": "Bounded local behavior comparison complete with qualifications; connected source inventory remains incomplete. No source-family or lens clearance.",
+      "limits": [
+        "Exact API witness is analytical source reasoning, not execution. Mobility caps ordinary movement using authored guarded2/lunge5.5 values; these exclude the supplied huge-speed witness on that actual path. Full public recipient and input-admission inventory remains pending."
+      ],
+      "connected_repair_obligation": "If a real behavior difference is retained as a defect, change the complete producer, operation, retained state and receiving error path together. No implementation selected during discovery.",
+      "acceptance": "Retain supported finite scalar results, operation order, signed zero and boundary inclusion; keep intentional finite-output rejection explicit. Preserve deterministic draw order on successful paths. Existing fixtures are source evidence only.",
+      "checks": "Not run; source review only."
+    },
+    {
+      "scope_index": 66,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "201e0aa26a4ceec81c0caa799acc2dae96ad3d1600ed6184aef8f671e3becf1c",
+      "after_sha256": "6807ada697c587ffd96f625c61692de55a4ae1548d7dcd9e5d2d539e5f6187c0",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0066-base-201e0aa26a4ceec81c0caa799acc2dae96ad3d1600ed6184aef8f671e3becf1c",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6807ada697c587ffd96f625c61692de55a4ae1548d7dcd9e5d2d539e5f6187c0",
+      "diff": "source-evidence/0066.diff",
+      "diff_sha256": "95fc7363e1451a038fa9770aa574c8d223dd1d8e4cdc59e62e7ca68a44dac0f2",
+      "head_body_read_ranges": [
+        [
+          1,
+          234
+        ]
+      ],
+      "old_new_comparison": "Entire actual diff personally consumed; unchanged local context read in the full head body. Earlier own08 reads retained, no other-lens verdict credit.",
+      "contract": "Pair movement preview, intent and admission ordering",
+      "observations": [
+        "Private MeleePairMovement extracts the old preview tuple without changing the three outputs. The same actor order, speed cap, force/mass inputs and surface/center conversion are retained.",
+        "Intent comparisons preserve strict versus inclusive bounds. preferred_melee_measure now uses match instead of eager map_or; selected branch arithmetic is unchanged and discarded floating arithmetic never trapped.",
+        "available_attack_start77\u201385 retains inclusive start<=window_end. advance_melee_pair143\u2013196 retains zero-elapsed/defeated early return, existing target-pair initialization before preview, and stable combatant-ID report order.",
+        "Connected source63 bounded law, source81 preferred-measure body, source68 scheduling and source69 equipment accessors were personally compared for08."
+      ],
+      "triggering_inputs_and_observable_behavior": [
+        {
+          "input": "Finite ordinary geometry at exact preferred reach, long-weapon threshold, minimum center separation or zero elapsed.",
+          "old": "Same <, >=, min/max and early-return law.",
+          "new": "Native scalar extraction with unchanged comparisons and finite checked output.",
+          "result": "Same local intent/boundary choice on successful paths."
+        },
+        {
+          "input": "Geometry arithmetic whose newly owned output overflows.",
+          "old": "May retain a nonfinite preview member or later scalar projection.",
+          "new": "Returns geometry error through BattleResolutionResult.",
+          "result": "Earlier rejection must be preserved as an intentional admission qualification, not called a global transaction guarantee."
+        }
+      ],
+      "disposition": "Bounded local behavior comparison complete with qualifications; connected source inventory remains incomplete. No source-family or lens clearance.",
+      "limits": [
+        "Actual equipment catalogue projection/Serde migration and all downstream error recipients are not yet fully compared. Target initialization still mutates before preview, as before."
+      ],
+      "connected_repair_obligation": "If a real behavior difference is retained as a defect, change the complete producer, operation, retained state and receiving error path together. No implementation selected during discovery.",
+      "acceptance": "Retain supported finite scalar results, operation order, signed zero and boundary inclusion; keep intentional finite-output rejection explicit. Preserve deterministic draw order on successful paths. Existing fixtures are source evidence only.",
+      "checks": "Not run; source review only."
+    },
+    {
+      "scope_index": 68,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+      "after_sha256": "170846de4c534120087f3f12c2fd365b8f2103c97d270ff28d71bee179d6e147",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0068-base-9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/170846de4c534120087f3f12c2fd365b8f2103c97d270ff28d71bee179d6e147",
+      "diff": "source-evidence/0068.diff",
+      "diff_sha256": "9f1869a2f0d77652b1a824d5a322c16460dd19c5bf894fee31e22568d05d77ae",
+      "head_body_read_ranges": [
+        [
+          1,
+          391
+        ]
+      ],
+      "old_new_comparison": "Entire actual diff personally consumed; unchanged local context read in the full head body. Earlier own08 reads retained, no other-lens verdict credit.",
+      "contract": "Engagement observation and melee schedule timing",
+      "observations": [
+        "Full391-line body and actual diff read. Fields become SignedLength; same target identity checks, prior engagement precedence, clamp-zero and commit conditions remain.",
+        "initialize_melee_phases92\u2013129 keeps stable sorted-ID random consumption, initiative expression, reflex clamp and per-actor output publication order. It is not an all-actor transaction.",
+        "schedule_attacker184\u2013277 keeps defeated/empty/nonmelee exits, unavailable-attack yielded mutation, existing contact reuse, distance>reach+max-travel check, readiness/interval preparation, jitter draw and then commits in the same order.",
+        "Inclusive contact/window comparisons, stale scheduled-attack identity check and target fallback logic at297\u2013391 are unchanged. Additional geometry errors propagate before later schedule commits."
+      ],
+      "triggering_inputs_and_observable_behavior": [
+        {
+          "input": "Contact exactly window end, attack start exactly available boundary, equal reach+travel distance, existing matching target, or stale timing IDs.",
+          "old": "Respective <= inclusion, strict > distance rejection and exact timing identity guards.",
+          "new": "Same predicates and ordering after scalar extraction.",
+          "result": "Same local successful event inclusion and RNG order."
+        }
+      ],
+      "disposition": "Bounded local behavior comparison complete with qualifications; connected source inventory remains incomplete. No source-family or lens clearance.",
+      "limits": [
+        "Full assignment, timing/error wrapper and emitted-schema recipients remain separate pending sources; this is not a battle or wire-family clearance."
+      ],
+      "connected_repair_obligation": "If a real behavior difference is retained as a defect, change the complete producer, operation, retained state and receiving error path together. No implementation selected during discovery.",
+      "acceptance": "Retain supported finite scalar results, operation order, signed zero and boundary inclusion; keep intentional finite-output rejection explicit. Preserve deterministic draw order on successful paths. Existing fixtures are source evidence only.",
+      "checks": "Not run; source review only."
+    },
+    {
+      "scope_index": 69,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/model.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+      "after_sha256": "b1b76643680707125e6bd040b60703127a2ed09cc460e226b2c4f08c90724ffe",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0069-base-20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/b1b76643680707125e6bd040b60703127a2ed09cc460e226b2c4f08c90724ffe",
+      "diff": "source-evidence/0069.diff",
+      "diff_sha256": "bbf5ee2128710e8687a9df38186e1b076fa7bee388f45f0c0ad23269bedfcf54",
+      "head_body_read_ranges": [
+        [
+          1,
+          364
+        ]
+      ],
+      "old_new_comparison": "Entire actual diff personally consumed; unchanged local context read in the full head body. Earlier own08 reads retained, no other-lens verdict credit.",
+      "contract": "CombatWeapon length slots, defaults and equipment role projection",
+      "observations": [
+        "Full364-line body plus entire diff read. Five raw f32 length/range fields become SignedLength. Default remains positive zero through the previously read exact SignedLength default.",
+        "for_melee and for_ranged251\u2013265 still clone then select the same weapon/holding side. PlayerEquipment295\u2013306 returns the same selected length or ZERO for absent weapon; None is not changed into an armed weapon.",
+        "All unrelated body, skills, armor, inventory and boolean/Option defaults and their behavior are unchanged in this increment."
+      ],
+      "triggering_inputs_and_observable_behavior": [
+        {
+          "input": "No weapon, default CombatWeapon, ranged/melee role selection, finite zero/negative/subnormal length leaf.",
+          "old": "f32 default0 or same selected raw field.",
+          "new": "SignedLength ZERO or exact selected finite field.",
+          "result": "Same role/default scalar behavior; a present default weapon remains distinct from None as before."
+        }
+      ],
+      "disposition": "Bounded local behavior comparison complete with qualifications; connected source inventory remains incomplete. No source-family or lens clearance.",
+      "limits": [
+        "Public raw-field API changes intentionally require canonical typed construction. Catalogue and DB producers of CombatWeapon remain pending; no broad claim of ordinary admission correctness."
+      ],
+      "connected_repair_obligation": "If a real behavior difference is retained as a defect, change the complete producer, operation, retained state and receiving error path together. No implementation selected during discovery.",
+      "acceptance": "Retain supported finite scalar results, operation order, signed zero and boundary inclusion; keep intentional finite-output rejection explicit. Preserve deterministic draw order on successful paths. Existing fixtures are source evidence only.",
+      "checks": "Not run; source review only."
+    },
+    {
+      "scope_index": 81,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/contact_geometry.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "8be98e18f4aa0d7bb6fbc302c7a10e6df912a744927240f6a4618ce41541e75f",
+      "after_sha256": "49172abd688b3e643d98f8214b92848a339da49622b13331988449baffcb93f5",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0081-base-8be98e18f4aa0d7bb6fbc302c7a10e6df912a744927240f6a4618ce41541e75f",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/49172abd688b3e643d98f8214b92848a339da49622b13331988449baffcb93f5",
+      "diff": "source-evidence/0081.diff",
+      "diff_sha256": "f5bafad3337a593d6de5fe81769e14673c7f77c23acafb90d6e802a0e0460ac9",
+      "head_body_read_ranges": [
+        [
+          1,
+          489
+        ]
+      ],
+      "old_new_comparison": "Entire actual diff personally consumed; unchanged local context read in the full head body. Earlier own08 reads retained, no other-lens verdict credit.",
+      "contract": "Contact-at-time classification, energy and preferred measure",
+      "observations": [
+        "Full489-line body and complete571-line actual diff read. Native min/max/clamp arithmetic and positive/negative lever branches retain their operand order.",
+        "invalid_contact_cause160\u2013181 retains negative or nonpositive-reach InvalidGeometry and strict outside-reach comparison; nonfinite leaf inputs cannot be constructed through checked SignedLength and now fail at admission instead of returning InvalidGeometry at this helper.",
+        "Pommel equality, positive-head boundary >=, continuous blade versus distal head, material selection, energy fraction and measure-accuracy law retain their previous successful-input arithmetic. Native unary negation now uses the exact previously compared negated method.",
+        "Existing source fixtures309\u2013489 cover head/haft boundary continuity, close sword energy, hammer pommel, outside reach, preferred head band, ideal measure independence and continuous accuracy. Assertions and native sample numbers remain, wrappers adapt; no fixture executed."
+      ],
+      "triggering_inputs_and_observable_behavior": [
+        {
+          "input": "Finite nonnegative facts; effective reach>0; actual exactly reach or head start; lever exactly0; signed zero leaf; scheduled measure differs from authored ideal.",
+          "old": "Same branch comparisons and scalar law.",
+          "new": "Exact finite stored scalar projections and same branch logic.",
+          "result": "Same local classification/material/energy on finite successful calculation."
+        },
+        {
+          "input": "Distal preferred-measure helper with huge finite effective reach causing head_start+reach overflow.",
+          "old": "Returns nonfinite preferred measure.",
+          "new": "Returns geometry error after the complete original expression.",
+          "result": "Finite-owned-output tightening; no observed lost finite old result from that expression."
+        }
+      ],
+      "disposition": "Bounded local behavior comparison complete with qualifications; connected source inventory remains incomplete. No source-family or lens clearance.",
+      "limits": [
+        "Finiteness is not a proof that accuracy/energy is finite for every API combination: tiny positive effective reach can underflow tolerance to0 and leave0/0 unchanged. This is retained behavior, not a new08 regression. Ordinary producers and all actual contact recipients are not fully compared."
+      ],
+      "connected_repair_obligation": "If a real behavior difference is retained as a defect, change the complete producer, operation, retained state and receiving error path together. No implementation selected during discovery.",
+      "acceptance": "Retain supported finite scalar results, operation order, signed zero and boundary inclusion; keep intentional finite-output rejection explicit. Preserve deterministic draw order on successful paths. Existing fixtures are source evidence only.",
+      "checks": "Not run; source review only."
+    }
+  ],
+  "partial_sources": [
+    {
+      "scope_index": 40,
+      "source_id": "physical-p16:content/tactical/combat.yaml",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "after_sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0040-base-05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "diff": "source-evidence/0040.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_ranges_read": [
+        [
+          1,
+          67
+        ]
+      ],
+      "status": "partial own08 source reading; no full-role credit",
+      "notes": "Unchanged P16 YAML source read at actual autoresolve values; guarded2, lunge5.5 and formation2 provide ordinary caps. Remaining YAML source role not read for08."
+    },
+    {
+      "scope_index": 50,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "after_sha256": "0b6aef0b8e1be9846beaae48cc8f7130333b0b4634acbd0b2f8b393ee40d5cef",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0050-base-cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/0b6aef0b8e1be9846beaae48cc8f7130333b0b4634acbd0b2f8b393ee40d5cef",
+      "diff": "source-evidence/0050.diff",
+      "diff_sha256": "8a666b57b7f12ab154ce0f30cfa792a8164f4944f0673c4af3a8ce115dd48bf7",
+      "head_ranges_read": [
+        [
+          240,
+          325
+        ],
+        [
+          610,
+          715
+        ],
+        [
+          884,
+          1000
+        ]
+      ],
+      "status": "partial own08 source reading; no full-role credit",
+      "notes": "Entire231-line diff consumed. Formation-radius and ranged-range numeric extraction preserve arithmetic; complete opening_volley_plans894\u2013960 read. resolve_battle638 uses embedded parameters directly, no validate call at that entry. Changed telemetry/state and remaining unchanged recipients/fixtures not fully read."
+    },
+    {
+      "scope_index": 57,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_exchange.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "24f36a32ff70fea580b9c7b902884edc25bf7c01b0d6feb3e03b35f257c93935",
+      "after_sha256": "cfc25332b52f4fc560e46cefc37fe47517c27237a47cd1d54f512161635b229b",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0057-base-24f36a32ff70fea580b9c7b902884edc25bf7c01b0d6feb3e03b35f257c93935",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/cfc25332b52f4fc560e46cefc37fe47517c27237a47cd1d54f512161635b229b",
+      "diff": "source-evidence/0057.diff",
+      "diff_sha256": "f3b54ee0cec5e8c0cbde27189a677f7a4aa4be243464ee95402d3970f96ff481",
+      "head_ranges_read": [
+        [
+          100,
+          190
+        ]
+      ],
+      "status": "partial own08 source reading; no full-role credit",
+      "notes": "Only contact fixture helper and connected location recipient read; full293 role pending."
+    },
+    {
+      "scope_index": 60,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "204c03d01cb76d4603c9c42a010a5ccf300f65abe20d62ab307212fe2fac19bc",
+      "after_sha256": "a806a6dd4779dabe9e140cdc109d4450a5d400c0460b862e157ad4f73b58c345",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0060-base-204c03d01cb76d4603c9c42a010a5ccf300f65abe20d62ab307212fe2fac19bc",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/a806a6dd4779dabe9e140cdc109d4450a5d400c0460b862e157ad4f73b58c345",
+      "diff": "source-evidence/0060.diff",
+      "diff_sha256": "fc7d67a1e18cbf858f2cae89d29eeebb270805d78ea00742ed1614928b10fdad",
+      "head_ranges_read": [
+        [
+          170,
+          280
+        ]
+      ],
+      "status": "partial own08 source reading; no full-role credit",
+      "notes": "Actual band/revalidation evidence producers read; outputs use checked local geometry and propagate errors. Remaining447 role and entire old/new diff pending."
+    },
+    {
+      "scope_index": 67,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "after_sha256": "4d44aec14335abdea2ad0899a2d41cf09c7b5677fcb850b2ede69174596d3a34",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0067-base-3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4d44aec14335abdea2ad0899a2d41cf09c7b5677fcb850b2ede69174596d3a34",
+      "diff": "source-evidence/0067.diff",
+      "diff_sha256": "2d5bac7c14fcf442adb22b7009344277b7c89d78222100f3c726bb5af4dd3fb3",
+      "head_ranges_read": [
+        [
+          330,
+          430
+        ]
+      ],
+      "status": "partial own08 source reading; no full-role credit",
+      "notes": "prepare_melee_exchange359\u2013397 propagates preferred/reach/contact errors after the same attack-power std::mem::replace ordering; later random draws do not occur on a new error. Full597 role and all old/new hunks pending."
+    }
+  ],
+  "open_policy_questions": [
+    {
+      "id": "CONT08-Q001",
+      "source_indices": [
+        63,
+        66
+      ],
+      "question": "Must a previously finite used distance/velocity projection remain successful when the old unused axis-displacement member was nonfinite?",
+      "qualified_disposition": "Explicit unresolved extreme internal-API finite-output policy; ordinary authored speed caps exclude supplied witness. No runtime or gameplay regression claim.",
+      "required_acceptance": "Declare the intended owned-result boundary, preserve complete native clipping arithmetic and either admit only complete finite results or prove an intentional scalar projection contract. Do not silently insert checks at arbitrary intermediates."
+    }
+  ],
+  "next_frontier": "Continue affected P16 recipients/model projections before returning to native originalindex0 actual changed-call context. All original2853/246/62/merged38 inventory remains unfinished.",
+  "prohibitions_observed": "No source repairs, plans, tests, project checks, CI, publication, external messages or new agents."
+}

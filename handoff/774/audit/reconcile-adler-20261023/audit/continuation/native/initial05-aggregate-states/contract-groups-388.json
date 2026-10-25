@@ -1,0 +1,50 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-388",
+  "at": "2026-10-23T12:58:49.843192+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/authored_weapon.rs",
+      "sha256": "446d7c751bfec9680b1aaf74efb82a38f44b145076a521b5bd5c0ea14844003c",
+      "scope072_index": 858,
+      "actual_EOF": 127,
+      "scoped_ranges_compared": [
+        [
+          1,
+          127
+        ]
+      ],
+      "actual05_comparison": "Fresh whole source; same-definition weapon/recipe projection and checked attack-cycle composition, plus original impairment equivalence/movement fixtures source intent compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/incapacitation_tests.rs",
+      "sha256": "82fefbb149fc497e21bc9a6807ba2c59a7ede49ce15681838342a37fdd4a6527",
+      "scope072_index": 861,
+      "actual_EOF": 86,
+      "scoped_ranges_compared": [
+        [
+          1,
+          86
+        ]
+      ],
+      "actual05_comparison": "Fresh whole source; same-definition weapon/recipe projection and checked attack-cycle composition, plus original impairment equivalence/movement fixtures source intent compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "authored melee projection uses one definition and recipe identity",
+      "comparison": "858 full127 fresh. Rejects nonweapon or ranged/notmelee; timing fromsame preferredstyle+inertia. default_design resolves exactdefinitionID then derive_properties errorspropagate, skilldistribution copiedsamekind; headlength fromresolvedrecipe, dimensions/grip/mass/precision fromdefinition. Attack interval checkedadds embeddedwindup andactualrecovery beforeSelf, so no unhandled durationoverflow success. Native balance canoverflow forrawextremes (existingRootF041 helpergraph), not impliedfinite by enteringthisfunction. Missingequipment mapsgrip0/dimensions0 ratherthanrejecting here; normalacceptedcatalogue mandatoryequipment/physicalgate is separate actualprecondition (Camera03F004omittedcapabilityqualification retained). SameIDdoesnot byitselfprove independentlymutatedrawdefinition physicalfacts matchrecipe. No accepted raw literal seal / ordinarybadcatalogue/runclaim."
+    },
+    {
+      "id": "incapacitation fixture confirms intended single impairment relation",
+      "comparison": "861 whole86 originalsourceonly. Actualroster setup then equivalent +.2fatigue versus+.2startingincapacitation compares canonicalperformance andsameexchange deterministicfixed samples; movementfixturefatigue.6 preservesspeed; burden+30 fixture leavesphysicalskillunchanged and checksdelta appears exactlyonce inincapacitation. These are relevantexistingacceptanceintent alignedAGENTS; neverintroducefatiguedirectspeedpenalty/separateoxygenpool. No execution/ordinaryoutcomeclaim; actual canonicalmechanical getters reside parent857/currentlowercells. No newtests/assertions authored."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual parent857 CombatWeapon/Combatant admission and catalogue physical facts remain separate independent source cells."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

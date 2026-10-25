@@ -1,0 +1,149 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-262",
+  "at": "2026-10-23T06:18:36.111350+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index.rs",
+      "sha256": "d2e0b7635bddd25114a9b505fbe03ea8ac464fff52e2bba8a9dc62a28d88ac71",
+      "scope065_index": 621,
+      "actual_EOF": 268,
+      "scoped_ranges_compared": [
+        [
+          1,
+          268
+        ]
+      ],
+      "actual05_comparison": "Fresh exact current scoped source. P16RoomIndex/error actual complete bounded counterpart text compared to freshly read PR then current ordinal/nativeerror role independently analyzed. No omitted Timber/Storey/PlanPolygon helper or fixture credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index/checked.rs",
+      "sha256": "c22c004b9567bec8accd9108a2d1c0d3da7bec4f0e08068281b3c1e8179e02c9",
+      "scope065_index": 622,
+      "actual_EOF": 28,
+      "scoped_ranges_compared": [
+        [
+          1,
+          28
+        ]
+      ],
+      "actual05_comparison": "Fresh exact current scoped source. P16RoomIndex/error actual complete bounded counterpart text compared to freshly read PR then current ordinal/nativeerror role independently analyzed. No omitted Timber/Storey/PlanPolygon helper or fixture credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/room_index.rs",
+      "sha256": "09a150e0b0d2873609095c1d8e6f9cf8a4e2117df74ded1787a03d6f647f23cb",
+      "scope065_index": 649,
+      "actual_EOF": 45,
+      "scoped_ranges_compared": [
+        [
+          1,
+          45
+        ]
+      ],
+      "actual05_comparison": "Fresh exact current scoped source. P16RoomIndex/error actual complete bounded counterpart text compared to freshly read PR then current ordinal/nativeerror role independently analyzed. No omitted Timber/Storey/PlanPolygon helper or fixture credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/storey_index.rs",
+      "sha256": "399c8ab44cc2dd0c22df8ab1cb88d4284837f7aaccd08f14cb1e4fefcd58c05c",
+      "scope065_index": 2479,
+      "actual_EOF": 137,
+      "scoped_ranges_compared": [
+        [
+          1,
+          137
+        ]
+      ],
+      "actual05_comparison": "Fresh exact current scoped source. P16RoomIndex/error actual complete bounded counterpart text compared to freshly read PR then current ordinal/nativeerror role independently analyzed. No omitted Timber/Storey/PlanPolygon helper or fixture credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/timber.rs",
+      "sha256": "452e6d4196200a40485612e2a5717561e708e0ebbaa595e20cb9b26b43ba599b",
+      "scope065_index": 2480,
+      "actual_EOF": 310,
+      "scoped_ranges_compared": [
+        [
+          1,
+          45
+        ],
+        [
+          136,
+          158
+        ]
+      ],
+      "actual05_comparison": "Fresh exact current scoped source. P16RoomIndex/error actual complete bounded counterpart text compared to freshly read PR then current ordinal/nativeerror role independently analyzed. No omitted Timber/Storey/PlanPolygon helper or fixture credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/model/room_index.rs",
+      "sha256": "09a150e0b0d2873609095c1d8e6f9cf8a4e2117df74ded1787a03d6f647f23cb",
+      "scope065_index": 2553,
+      "actual_EOF": 45,
+      "scoped_ranges_compared": [
+        [
+          1,
+          45
+        ]
+      ],
+      "actual05_comparison": "Fresh exact current scoped source. P16RoomIndex/error actual complete bounded counterpart text compared to freshly read PR then current ordinal/nativeerror role independently analyzed. No omitted Timber/Storey/PlanPolygon helper or fixture credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/model/storey_index.rs",
+      "sha256": "399c8ab44cc2dd0c22df8ab1cb88d4284837f7aaccd08f14cb1e4fefcd58c05c",
+      "scope065_index": 2554,
+      "actual_EOF": 137,
+      "scoped_ranges_compared": [
+        [
+          79,
+          90
+        ]
+      ],
+      "actual05_comparison": "Fresh exact current scoped source. P16RoomIndex/error actual complete bounded counterpart text compared to freshly read PR then current ordinal/nativeerror role independently analyzed. No omitted Timber/Storey/PlanPolygon helper or fixture credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/plan_geometry.rs",
+      "sha256": "a767ca4e45d2c04ddf94d1f23452ecbb3a5c6c864bc8ce63fc673e6f39e5b92b",
+      "scope065_index": 2555,
+      "actual_EOF": 341,
+      "scoped_ranges_compared": [
+        [
+          1,
+          49
+        ]
+      ],
+      "actual05_comparison": "Fresh exact current scoped source. P16RoomIndex/error actual complete bounded counterpart text compared to freshly read PR then current ordinal/nativeerror role independently analyzed. No omitted Timber/Storey/PlanPolygon helper or fixture credit."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "source-ordered broad phase and referent lifetime",
+      "comparison": "overlapping_solids computes exactly one checked query_bounds per original solid and builds private BoundsIndex from that same Vec. bounds[a] uses enumerated original index; returned indices originated only0..bounds.len, b>a yields each unordered pair once. Returned references borrow SAME unchanged input slice, so no independent row alignment/mutation race. query_bounds unions yaw-only and fully oriented envelopes for distinct recipient predicates; conservative overlap does not replace exact geometry acceptance. Each computed bound error retains actual solid sourceID."
+    },
+    {
+      "id": "private partition correlation",
+      "comparison": "Empty index has None root. Otherwise indices0..len are permuted/split recursively against same immutable bounds Vec. Node union uses those indices; len<=8 leaf copies same subset. Larger branch chooses longest checkedextent, checks every centre before doubled-centre sorting, ties sourceindex, splits atlen/2 into nonempty disjoint children. Query tests parent then exactleafsource; finalsort restores source order/deterministic first-match purpose. Tree shape does not become source authority. Actual original fixture compares brute force contacts/empty and huge-coordinate leaf versus rejected arithmetic-using branch. No executed result."
+    },
+    {
+      "id": "topology-specific admission and short-circuit",
+      "comparison": "Single degenerate bound atMAX intentionally accepted leaf: it never computes doubledcentre/extent. Branch actually uses those representations and rejects invalid arithmetic before sorting. Avoid a blanket finite-range strengthening on unused leaf operations. Generic backing encapsulation RootG007 still qualifies typedSelf; no currentinvalidSelf. try_any/all hold no cached product: evaluate actual predicate Result before bool decision, propagate first evaluatederror; stop atfirsttrue/false, laterunvisited items not globally validated. Empty anyfalse/alltrue intentional."
+    },
+    {
+      "id": "ordinal representation versus membership",
+      "comparison": "RoomIndex privateu16, checkedusizeconversion, directserializedallbits0/MAX; no roommembership/one-based promise. StoreyIndex privateusize acceptsallwords; packedserialization explicitlycheckedu16, decoderu16legitimate. FromElevation divides/rounds then requiresfinite/nonnegative roundedstation<=65535; tinynegative coordinate canroundnegativezero->GROUND per documentedrounding, not a below-ground rawposition seal. P16 scoped79–90 is only RecipeOrdinalRole/OrdinalError metadata; same failedconversion ordinal/role/nativecause bound together. No P16constructor/test credit. Original PRstorey137 tests readnotrun."
+    },
+    {
+      "id": "timber endpoint graph obligations",
+      "comparison": "TimberFrameMember139–157 retains endpoint positions plus corresponding node/joint IDs, solidID and fixedpair supportIDs. Member-local species/grade intentionally differs acrossrepairs/upperadditions, not duplicatedframeauthority. Fixed[2] gives cardinality, not referent existence/correctendpoint binding. PublicSerde record not an accepted graphbrand; actualnode/joint/solid/support producers/receivers remain necessary independent inventory. No minimumlength/positive section inferred from leaves. Source1–45 IDs/seamconstants only,136priorbrace/138currentderive contextual; no46–135 or159+ graph bodies."
+    },
+    {
+      "id": "single P16 plan point nonapplicability",
+      "comparison": "Actual P16PlanGeometry1–49 defines private finiteVec2 ArchitecturalPlanPoint with manualSerde/TryFrom samefinitefactory/outputonly port, no independent relation/collection retained. PlanVertex trait exposes numericadapter only. No strictconvex PlanPolygon50+ or entire341/nativealgorithm proof inferred. OpaqueReflection copies existingtypedSelf, not rawreconstruction."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Timber endpoint/node/joint/support graph current producers and receivers remain explicit independent obligations, not leaf-type clearance.",
+    "New065 coif1–12 pending own05 role; no source credit from global metadata."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

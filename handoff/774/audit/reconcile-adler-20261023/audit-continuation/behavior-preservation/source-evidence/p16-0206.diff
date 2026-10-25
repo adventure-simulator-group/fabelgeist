@@ -1,0 +1,13 @@
+--- p16base/crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs
+@@ -299,9 +299,9 @@
+     request_id: String,
+     expected_revision: u64,
+     attempt_generation: u64,
+     action: IngredientPreparationAction,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     crate::strategic::require_strategic_gateway(ctx)?;
+     // Exact replay is resolved solely from the immutable submitted tuple and
+     // durable receipt, before consulting any mutable live state.
+     if let Some(receipt) = ctx

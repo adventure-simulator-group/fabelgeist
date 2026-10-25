@@ -1,0 +1,657 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1008",
+  "at": "2026-10-25T17:29:36.646736+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1173,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/marriage.rs",
+      "sha256": "7db20bedd436e3f4c0c34e23b008cc4a1fb306e04c3453eb410a267de62a8d2b",
+      "actual_EOF": 106,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/marriage.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/relationship/tests/marriage.rs",
+        "sha256": "7db20bedd436e3f4c0c34e23b008cc4a1fb306e04c3453eb410a267de62a8d2b",
+        "bytes": 3987,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-db-sources.json",
+            "ranges": [
+              [
+                1,
+                106
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-DB-001",
+              "RIG-SUPP-DB-002"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 304,
+            "read_ranges": [
+              [
+                1,
+                106
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-DB-RESIDENCE-RUNNER-050"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/relationship/tests/marriage.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-RELATIONSHIP-RECEIVERS-030",
+            "json_pointer": "/current_sources/15",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/marriage.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                106
+              ]
+            ],
+            "source_context": {
+              "packet_index": 15,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/marriage.rs",
+              "sha256": "7db20bedd436e3f4c0c34e23b008cc4a1fb306e04c3453eb410a267de62a8d2b",
+              "read_ranges": [
+                [
+                  1,
+                  106
+                ]
+              ],
+              "current_variants": [
+                {
+                  "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/marriage.rs",
+                  "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/relationship/tests/marriage.rs",
+                  "expected_sha256": "7db20bedd436e3f4c0c34e23b008cc4a1fb306e04c3453eb410a267de62a8d2b",
+                  "observed_sha256": "7db20bedd436e3f4c0c34e23b008cc4a1fb306e04c3453eb410a267de62a8d2b",
+                  "actual_line_count": 106
+                },
+                {
+                  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/tests/marriage.rs",
+                  "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/relationship/tests/marriage.rs",
+                  "expected_sha256": "7db20bedd436e3f4c0c34e23b008cc4a1fb306e04c3453eb410a267de62a8d2b",
+                  "observed_sha256": "7db20bedd436e3f4c0c34e23b008cc4a1fb306e04c3453eb410a267de62a8d2b",
+                  "actual_line_count": 106
+                }
+              ],
+              "proof_mode": "Fresh PR material body read; physical-p16 exact identical whole-source SHA verified, so requested role/range proof applies without inventing distinct code."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-031",
+            "json_pointer": "/fresh_current_source_reads/15",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/marriage.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                106
+              ]
+            ],
+            "source_context": {
+              "packet_index": 15,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/marriage.rs",
+              "sha256": "7db20bedd436e3f4c0c34e23b008cc4a1fb306e04c3453eb410a267de62a8d2b",
+              "read_ranges": [
+                [
+                  1,
+                  106
+                ]
+              ],
+              "current_variants": [
+                {
+                  "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/marriage.rs",
+                  "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/relationship/tests/marriage.rs",
+                  "expected_sha256": "7db20bedd436e3f4c0c34e23b008cc4a1fb306e04c3453eb410a267de62a8d2b",
+                  "observed_sha256": "7db20bedd436e3f4c0c34e23b008cc4a1fb306e04c3453eb410a267de62a8d2b",
+                  "actual_line_count": 106
+                },
+                {
+                  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/tests/marriage.rs",
+                  "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/relationship/tests/marriage.rs",
+                  "expected_sha256": "7db20bedd436e3f4c0c34e23b008cc4a1fb306e04c3453eb410a267de62a8d2b",
+                  "observed_sha256": "7db20bedd436e3f4c0c34e23b008cc4a1fb306e04c3453eb410a267de62a8d2b",
+                  "actual_line_count": 106
+                }
+              ],
+              "proof_mode": "Fresh PR material body read; physical-p16 exact identical whole-source SHA verified, so requested role/range proof applies without inventing distinct code."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 491,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full fixture body consumed: wedding effective history, dowry escrow, household cleanup and cancellation fixtures. Native setup/assertions and already-native string comparisons only, no handwritten trait/type codec. Not executed; source-text references not additional body proof or passing tests."
+    },
+    {
+      "scope_index": 1174,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/projections.rs",
+      "sha256": "59bd74bd660a2b5d71cbd3f5e559e0813bd415941f1fee1871eadc996367133b",
+      "actual_EOF": 47,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/projections.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/relationship/tests/projections.rs",
+        "sha256": "59bd74bd660a2b5d71cbd3f5e559e0813bd415941f1fee1871eadc996367133b",
+        "bytes": 1956,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-db-sources.json",
+            "ranges": [
+              [
+                1,
+                47
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-DB-001",
+              "RIG-SUPP-DB-002"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 305,
+            "read_ranges": [
+              [
+                1,
+                47
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-DB-RESIDENCE-RUNNER-050"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/relationship/tests/projections.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-RELATIONSHIP-RECEIVERS-030",
+            "json_pointer": "/current_sources/14",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/projections.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                47
+              ]
+            ],
+            "source_context": {
+              "packet_index": 14,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/projections.rs",
+              "sha256": "59bd74bd660a2b5d71cbd3f5e559e0813bd415941f1fee1871eadc996367133b",
+              "read_ranges": [
+                [
+                  1,
+                  47
+                ]
+              ],
+              "current_variants": [
+                {
+                  "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/projections.rs",
+                  "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/relationship/tests/projections.rs",
+                  "expected_sha256": "59bd74bd660a2b5d71cbd3f5e559e0813bd415941f1fee1871eadc996367133b",
+                  "observed_sha256": "59bd74bd660a2b5d71cbd3f5e559e0813bd415941f1fee1871eadc996367133b",
+                  "actual_line_count": 47
+                },
+                {
+                  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/tests/projections.rs",
+                  "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/relationship/tests/projections.rs",
+                  "expected_sha256": "59bd74bd660a2b5d71cbd3f5e559e0813bd415941f1fee1871eadc996367133b",
+                  "observed_sha256": "59bd74bd660a2b5d71cbd3f5e559e0813bd415941f1fee1871eadc996367133b",
+                  "actual_line_count": 47
+                }
+              ],
+              "proof_mode": "Fresh PR material body read; physical-p16 exact identical whole-source SHA verified, so requested role/range proof applies without inventing distinct code."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-031",
+            "json_pointer": "/fresh_current_source_reads/14",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/projections.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                47
+              ]
+            ],
+            "source_context": {
+              "packet_index": 14,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/projections.rs",
+              "sha256": "59bd74bd660a2b5d71cbd3f5e559e0813bd415941f1fee1871eadc996367133b",
+              "read_ranges": [
+                [
+                  1,
+                  47
+                ]
+              ],
+              "current_variants": [
+                {
+                  "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/projections.rs",
+                  "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/relationship/tests/projections.rs",
+                  "expected_sha256": "59bd74bd660a2b5d71cbd3f5e559e0813bd415941f1fee1871eadc996367133b",
+                  "observed_sha256": "59bd74bd660a2b5d71cbd3f5e559e0813bd415941f1fee1871eadc996367133b",
+                  "actual_line_count": 47
+                },
+                {
+                  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/tests/projections.rs",
+                  "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/relationship/tests/projections.rs",
+                  "expected_sha256": "59bd74bd660a2b5d71cbd3f5e559e0813bd415941f1fee1871eadc996367133b",
+                  "observed_sha256": "59bd74bd660a2b5d71cbd3f5e559e0813bd415941f1fee1871eadc996367133b",
+                  "actual_line_count": 47
+                }
+              ],
+              "proof_mode": "Fresh PR material body read; physical-p16 exact identical whole-source SHA verified, so requested role/range proof applies without inventing distinct code."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 492,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full fixture body consumed: relationship/discovery observer-date gateway projections and born child fixtures. Native setup/assertions and already-native string comparisons only, no handwritten trait/type codec. Not executed; source-text references not additional body proof or passing tests."
+    },
+    {
+      "scope_index": 1175,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/reproduction.rs",
+      "sha256": "0e0078377860f90b7206461268146733a810756a7831e1b48426082105c3f6d1",
+      "actual_EOF": 71,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/reproduction.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/relationship/tests/reproduction.rs",
+        "sha256": "0e0078377860f90b7206461268146733a810756a7831e1b48426082105c3f6d1",
+        "bytes": 3119,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-db-sources.json",
+            "ranges": [
+              [
+                1,
+                71
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-DB-001",
+              "RIG-SUPP-DB-002"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 306,
+            "read_ranges": [
+              [
+                1,
+                71
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-DB-RESIDENCE-RUNNER-050"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/relationship/tests/reproduction.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-RELATIONSHIP-RECEIVERS-030",
+            "json_pointer": "/current_sources/18",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/reproduction.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                71
+              ]
+            ],
+            "source_context": {
+              "packet_index": 18,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/reproduction.rs",
+              "sha256": "0e0078377860f90b7206461268146733a810756a7831e1b48426082105c3f6d1",
+              "read_ranges": [
+                [
+                  1,
+                  71
+                ]
+              ],
+              "current_variants": [
+                {
+                  "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/reproduction.rs",
+                  "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/relationship/tests/reproduction.rs",
+                  "expected_sha256": "0e0078377860f90b7206461268146733a810756a7831e1b48426082105c3f6d1",
+                  "observed_sha256": "0e0078377860f90b7206461268146733a810756a7831e1b48426082105c3f6d1",
+                  "actual_line_count": 71
+                },
+                {
+                  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/tests/reproduction.rs",
+                  "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/relationship/tests/reproduction.rs",
+                  "expected_sha256": "0e0078377860f90b7206461268146733a810756a7831e1b48426082105c3f6d1",
+                  "observed_sha256": "0e0078377860f90b7206461268146733a810756a7831e1b48426082105c3f6d1",
+                  "actual_line_count": 71
+                }
+              ],
+              "proof_mode": "Fresh PR material body read; physical-p16 exact identical whole-source SHA verified, so requested role/range proof applies without inventing distinct code."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-031",
+            "json_pointer": "/fresh_current_source_reads/18",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/reproduction.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                71
+              ]
+            ],
+            "source_context": {
+              "packet_index": 18,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/reproduction.rs",
+              "sha256": "0e0078377860f90b7206461268146733a810756a7831e1b48426082105c3f6d1",
+              "read_ranges": [
+                [
+                  1,
+                  71
+                ]
+              ],
+              "current_variants": [
+                {
+                  "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/reproduction.rs",
+                  "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/relationship/tests/reproduction.rs",
+                  "expected_sha256": "0e0078377860f90b7206461268146733a810756a7831e1b48426082105c3f6d1",
+                  "observed_sha256": "0e0078377860f90b7206461268146733a810756a7831e1b48426082105c3f6d1",
+                  "actual_line_count": 71
+                },
+                {
+                  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/tests/reproduction.rs",
+                  "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/relationship/tests/reproduction.rs",
+                  "expected_sha256": "0e0078377860f90b7206461268146733a810756a7831e1b48426082105c3f6d1",
+                  "observed_sha256": "0e0078377860f90b7206461268146733a810756a7831e1b48426082105c3f6d1",
+                  "actual_line_count": 71
+                }
+              ],
+              "proof_mode": "Fresh PR material body read; physical-p16 exact identical whole-source SHA verified, so requested role/range proof applies without inventing distinct code."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 493,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full fixture body consumed: reserved newborn/name/residence and conserved spouse-leisure/morale fixtures. Native setup/assertions and already-native string comparisons only, no handwritten trait/type codec. Not executed; source-text references not additional body proof or passing tests."
+    },
+    {
+      "scope_index": 1176,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/socializing.rs",
+      "sha256": "32c533258dc4025806873c22b508462bd9674bbdfea82c12d61df8b94b14ee4d",
+      "actual_EOF": 62,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/socializing.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/relationship/tests/socializing.rs",
+        "sha256": "32c533258dc4025806873c22b508462bd9674bbdfea82c12d61df8b94b14ee4d",
+        "bytes": 2798,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-db-sources.json",
+            "ranges": [
+              [
+                1,
+                62
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-DB-001",
+              "RIG-SUPP-DB-002"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 307,
+            "read_ranges": [
+              [
+                1,
+                62
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-DB-RESIDENCE-RUNNER-050"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/relationship/tests/socializing.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-RELATIONSHIP-RECEIVERS-030",
+            "json_pointer": "/current_sources/13",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/socializing.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                62
+              ]
+            ],
+            "source_context": {
+              "packet_index": 13,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/socializing.rs",
+              "sha256": "32c533258dc4025806873c22b508462bd9674bbdfea82c12d61df8b94b14ee4d",
+              "read_ranges": [
+                [
+                  1,
+                  62
+                ]
+              ],
+              "current_variants": [
+                {
+                  "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/socializing.rs",
+                  "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/relationship/tests/socializing.rs",
+                  "expected_sha256": "32c533258dc4025806873c22b508462bd9674bbdfea82c12d61df8b94b14ee4d",
+                  "observed_sha256": "32c533258dc4025806873c22b508462bd9674bbdfea82c12d61df8b94b14ee4d",
+                  "actual_line_count": 62
+                },
+                {
+                  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/tests/socializing.rs",
+                  "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/relationship/tests/socializing.rs",
+                  "expected_sha256": "32c533258dc4025806873c22b508462bd9674bbdfea82c12d61df8b94b14ee4d",
+                  "observed_sha256": "32c533258dc4025806873c22b508462bd9674bbdfea82c12d61df8b94b14ee4d",
+                  "actual_line_count": 62
+                }
+              ],
+              "proof_mode": "Fresh PR material body read; physical-p16 exact identical whole-source SHA verified, so requested role/range proof applies without inventing distinct code."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-031",
+            "json_pointer": "/fresh_current_source_reads/13",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/socializing.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                62
+              ]
+            ],
+            "source_context": {
+              "packet_index": 13,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/socializing.rs",
+              "sha256": "32c533258dc4025806873c22b508462bd9674bbdfea82c12d61df8b94b14ee4d",
+              "read_ranges": [
+                [
+                  1,
+                  62
+                ]
+              ],
+              "current_variants": [
+                {
+                  "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/socializing.rs",
+                  "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/relationship/tests/socializing.rs",
+                  "expected_sha256": "32c533258dc4025806873c22b508462bd9674bbdfea82c12d61df8b94b14ee4d",
+                  "observed_sha256": "32c533258dc4025806873c22b508462bd9674bbdfea82c12d61df8b94b14ee4d",
+                  "actual_line_count": 62
+                },
+                {
+                  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/tests/socializing.rs",
+                  "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/relationship/tests/socializing.rs",
+                  "expected_sha256": "32c533258dc4025806873c22b508462bd9674bbdfea82c12d61df8b94b14ee4d",
+                  "observed_sha256": "32c533258dc4025806873c22b508462bd9674bbdfea82c12d61df8b94b14ee4d",
+                  "actual_line_count": 62
+                }
+              ],
+              "proof_mode": "Fresh PR material body read; physical-p16 exact identical whole-source SHA verified, so requested role/range proof applies without inventing distinct code."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 494,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full fixture body consumed: cumulative socializing receipt/target and availability boundary fixtures. Native setup/assertions and already-native string comparisons only, no handwritten trait/type codec. Not executed; source-text references not additional body proof or passing tests."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Remaining relationship fixture derivability",
+      "disposition": "No handwritten mechanical trait in four enumerated complete fixture bodies. Keep semantic assertions, no correctness clearance or execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1177,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/repair.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

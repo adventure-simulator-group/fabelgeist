@@ -1,0 +1,92 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-352",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/assembly.rs",
+      "sha256": "a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+      "actual_EOF": 1443,
+      "actual_compared_ranges": [
+        [
+          1,
+          1443
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/audit.rs",
+      "sha256": "d5c30cf48e89ffd626d8a3df81a151478fb15f25b92fe5bdaa4b1ca8bdb2674c",
+      "actual_EOF": 78,
+      "actual_compared_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/mod.rs",
+      "sha256": "d413a6b7b05742aa234bab8a83285df33f25133338fe51fb9eebe1327680ac64",
+      "actual_EOF": 35,
+      "actual_compared_ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Quest assembly constructs bounded local graphs and validates before publishing",
+      "source_ranges": {
+        "quest_generation/assembly.rs": [
+          [
+            1,
+            1443
+          ]
+        ]
+      },
+      "disposition": "Full1443 lines personally read in five chunks. canonical_context precedes solver/indexing; supplied solver indices and hard-zero victim candidate selection remain dependent checked contracts, not inferred full solver coverage. Fixed two-segment trails and small objective paths use statically valid counts, indexes0/1 only after constructing twoactions. Local action-output/evidence bridge extensions dedup IDs, factor trace bounded by record and byte budgets before manifest publication. Final validate gate prevents publishing invalid source graph; builder owns no persistent state. Catalog members passed to bestiary.profile come from solved cause, unlike arbitrary lexical ThreatId profile candidate; actual solver membership must be preserved. No current source build execution or fixture run."
+    },
+    {
+      "contract": "Outbreak chronology handles prior-time clipping and terminal precedence explicitly",
+      "source_ranges": {
+        "quest_generation/assembly.rs": [
+          [
+            835,
+            1443
+          ]
+        ]
+      },
+      "disposition": "Fresh fullbodyanalysis. Disease selection closed6 index and route from actual definition; at least2witness candidates checked before0/1. Course duration fixedsmall authorship, exposed_at saturates subtraction tozero, onset adds boundedincubation, terminal function result filtered<=now before disease death. Carrierattack time max(onset,now-1day), must<=now and precede terminal; no death event in future. At veryearly generation clocks onset mayfuture and finalvalidate mayreject; no ordinary runtime clock witness claimed. Outbreak source/remediation/carrier typed correspondence local matches, public symptoms/evidence deliberately nonspecific and disease identity private. Fixed raw outbreak proposition literals versus scoped observer IDs are an identity/producer dependency in inherited evidence, no inferred permission to blindly remap catalog or external IDs."
+    },
+    {
+      "contract": "Quest module include boundary and source diagnostic harness are not execution",
+      "source_ranges": {
+        "quest_generation/audit.rs": [
+          [
+            1,
+            78
+          ]
+        ],
+        "quest_generation/mod.rs": [
+          [
+            1,
+            35
+          ]
+        ]
+      },
+      "disposition": "Bothwholefilesread. Module includes share intended privacy scope; source ownership of generation/validation/audit explicitly separated. audit(seeds) loops0..seeds and increments one familycounter atmostseeds times, so u64counter cannotoverflow even atMAX represented seed count; unrealistic work budget input is tooling concern, no automatic harnessrun. Three explicit test_witnesses records fullread, fixedIDs1..3 plus bounded circumstances intentional fixturedata; no current database resident identity claim."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs"
+}

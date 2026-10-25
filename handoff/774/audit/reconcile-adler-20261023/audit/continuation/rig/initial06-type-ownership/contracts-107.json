@@ -1,0 +1,27 @@
+{
+  "id": "RIG-INITIAL06-GROUP-107",
+  "at": "2026-10-23T02:10:35.396741+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "attack-coordinate-delta-readiness-and-tangent-are-distinct": {
+      "comparison": "Fresh PR pose_coordinates94 and continuation_parameters112 full definitions/constructors/Serde helpers. AttackPoseCoordinate finite signed coordinate accepts negative drawback and overshoot>1, unlike UnitInterval phase/blend and cyclic phase. ActionProgressDelta finite signed nonwrapping difference is not the coordinate itself, like displacement versus position; equal finite f32 predicate does not establish same meaning. IncomingAttackTangent is finite nonnegative attack-coordinate change over readiness interval, zero valid/negative-zero normalized; it is not metre NonnegativeLength, elapsed seconds/sample count or unit fraction. ContinuationReadiness strict0<phase<0.5 differs from inclusive UnitInterval and from a duration; preparation_fraction scales actual phase by2 at numeric formula port. Do not lower attack-specific knot/curve policy to generic physical geometry merely to share finite checks. Per-value NonFinite versus completed-arithmetic Overflow diagnostic context preserved. Custom tangent/progress decode normalizes finite negative/out-of-range values at this explicit boundary but rejects nonfinite; canonical constructors can be stricter without representing another owner. AttackContinuation is a two-value observation of current authoritative continuation, not another persisted action authority; using it for partial observation is legitimate and does not certify every mutable action/collision field. Existing checked leaf owners in TacticalCore animation are coherent below client/render/server users, no competing complete scalar implementation found.",
+      "disposition": "Preserve semantic coordinate/difference/tangent/readiness/phase distinctions and their own actual bounds/zero/policy."
+    },
+    "old-p16-action-port-versus-current-checked-retention": {
+      "comparison": "Fresh exact old P16 state1707–1752 selection and1895–1988 timed transition, source2806. Selected StrikeFamily/AttackAnimation/Hand/Spec describe different identity/control axes; support/continuation/idle selects an admitted authored action seam, not canonical battle/weapon/actor identity. AnimationSampleTick absolute sample coordinate versus AnimationSampleSpan difference remains distinct from StrategicMinute/AnimationElapsed; actual timeline helpers reused. Target height uses explicit finite/clamp/default input policy, not pose coordinate bounds. Finite transition phase is admitted via UnitInterval then curve computes pose coordinate; typed error.into into operation AnimationValueError context is appropriate, not lazy raw-value erasure. P16 stores raw incoming_tangent and .coordinate() extracts raw queued start. Fresh current PR state1856–1957 instead computes IncomingAttackTangent::from_arithmetic before queued assignment and retains AttackPoseCoordinate directly, including 1+overshoot construction with contextual errors. This is real migration progress: preserve current PR checked retention/first failure before mutation rather than importing old P16 state body wholesale. Only exact old P16 sender/selection roles analyzed; its stale wider schema/action model/motor/tests receive no credit. Current PR main1781 remains partial1856–1957 support, not whole file cleared. No source execution or statement that a queued action guarantees all numeric/collision admissions.",
+      "disposition": "Canonical current attack leaves should propagate through exact old reached ports without regressing newer PR semantics; different snapshots preserved."
+    }
+  },
+  "supporting_partial_current_source": {
+    "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state.rs",
+    "sha256": "48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+    "fresh_actual_ranges": [
+      [
+        1856,
+        1957
+      ]
+    ],
+    "limits": "Only timed attack operation/actual new leaf retention compared, remaining current state source incomplete."
+  },
+  "limits": "Three exact source variants, two PR definitions full and P16 state only1707–1752/1895–1988. No P16wide schema/PRwhole/actual helper bodies or other-lens credit. No source edits/execution, audit then handover."
+}

@@ -1,0 +1,26 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-637",
+  "at": "2026-10-25T16:19:37.976673+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 953,
+  "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+  "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+  "actual_compared_ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Consequence/localproblem aggregators422\u2013495 implement filtering/order/truncation/scaling/caps; adjust_price497\u2013506 is rounded/capped arithmetic, not derived conversion.",
+    "DiscoveryAction already structural derives; discovery_action is policy classification. referral_presentation535\u2013564 and ReferralPresentation::text583\u2013590 compute safe player-visible text and omit topic ID from visible text, not trait formatting boilerplate. No handwritten trait/codec through660; fixture bodies source-only."
+  ],
+  "first_unfinished": {
+    "scope_index": 953,
+    "line": 661
+  },
+  "execution": "none"
+}

@@ -1,0 +1,475 @@
+{
+  "raw_hunks": 282,
+  "unique_hunks": [
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/generation/error.rs",
+      "line": 1,
+      "before": "//! Preparation failures retain their owning causes until the presentation boundary.\nuse adventuresim_building_generator::{\n    GenerationError, interior::InteriorLayoutError, spatial_geometry::GeometryError,\n};\n",
+      "after": "//! Preparation failures retain their owning causes until the presentation boundary.\nuse crate::presentation::vista::VistaMeshError;\nuse adventuresim_building_generator::{\n    GenerationError, interior::InteriorLayoutError, spatial_geometry::GeometryError,\n};\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/generation/error.rs",
+      "line": 5,
+      "before": "use adventuresim_tactical_core::scene_input::{SceneBuildingId, SceneInputError};\nuse crate::presentation::vista::VistaMeshError;\nuse thiserror::Error;\n\npub(crate) type PreparationResult<T> = std::result::Result<T, PreparationError>;\n",
+      "after": "use adventuresim_tactical_core::scene_input::{SceneBuildingId, SceneInputError};\nuse thiserror::Error;\n\npub(crate) type PreparationResult<T> = std::result::Result<T, PreparationError>;\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/error.rs",
+      "line": 1,
+      "before": "//! Required vista geometry fails before replacing its prepared presentation.\nuse adventuresim_building_generator::spatial_geometry::GeometryError;\nuse adventuresim_tactical_core::{\n    scene::TerrainSupportError,\n    scene_coordinates::ScenePlanPoint,\n    scene_input::VistaLevelIndex,\n};\n\npub(crate) type VistaMeshResult<T> = Result<T, VistaMeshError>;\n",
+      "after": "//! Required vista geometry fails before replacing its prepared presentation.\nuse adventuresim_building_generator::spatial_geometry::GeometryError;\nuse adventuresim_tactical_core::{\n    scene::TerrainSupportError, scene_coordinates::ScenePlanPoint, scene_input::VistaLevelIndex,\n};\n\npub(crate) type VistaMeshResult<T> = Result<T, VistaMeshError>;\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/focused.rs",
+      "line": 93,
+      "before": "        for chunk in ground.vista {\n            chunk.spawn(&mut commands, root, &mut meshes, vista_material.clone());\n        }\n        let paving_materials = paving\n            .spawn_focused(\n                &mut commands,\n                &product.ground,\n                streets::FocusedPavingPlacement {\n                    root,\n                    frame,\n                    weather: environment.weather,\n                },\n                &mut meshes,\n                &mut images,\n            )?;\n        state.apply(world);\n        Ok(Self {\n            support: ground.support,\n",
+      "after": "        for chunk in ground.vista {\n            chunk.spawn(&mut commands, root, &mut meshes, vista_material.clone());\n        }\n        let paving_materials = paving.spawn_focused(\n            &mut commands,\n            &product.ground,\n            streets::FocusedPavingPlacement {\n                root,\n                frame,\n                weather: environment.weather,\n            },\n            &mut meshes,\n            &mut images,\n        )?;\n        state.apply(world);\n        Ok(Self {\n            support: ground.support,\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/grass/tests.rs",
+      "line": 69,
+      "before": "                PlanDisplacement::try_from(point).unwrap(),\n                placement.playable_half_extent,\n            )\n            .unwrap().metres();\n            assert!(\n                (old_height - 7.0).abs() > 0.1,\n                \"fixture must expose old restitching\"\n",
+      "after": "                PlanDisplacement::try_from(point).unwrap(),\n                placement.playable_half_extent,\n            )\n            .unwrap()\n            .metres();\n            assert!(\n                (old_height - 7.0).abs() > 0.1,\n                \"fixture must expose old restitching\"\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/grass/tests.rs",
+      "line": 113,
+      "before": "        )\n        .unwrap();\n        let point = ScenePlanPoint::from_metres(point).unwrap();\n        assert_eq!(\n            placement.height(point),\n            Some(expected)\n        );\n    });\n}\n",
+      "after": "        )\n        .unwrap();\n        let point = ScenePlanPoint::from_metres(point).unwrap();\n        assert_eq!(placement.height(point), Some(expected));\n    });\n}\n",
+      "matches": 1,
+      "log_separator_removed_at_eof": true
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/grass.rs",
+      "line": 4,
+      "before": "    GrassWorld, MINIMUM_GRASS_SLOPE_NORMAL_Y, TierSpeciesBatches, TuftPigment, TuftPlacement,\n    grass_scatter_density, scatter_cell_tufts, spawn_tuft_batches,\n};\nuse adventuresim_tactical_core::{\n    city_layout::grounding::{SupportElevation, SupportQuery},\n    scene_coordinates::ScenePlanPoint,\n",
+      "after": "    GrassWorld, MINIMUM_GRASS_SLOPE_NORMAL_Y, TierSpeciesBatches, TuftPigment, TuftPlacement,\n    grass_scatter_density, scatter_cell_tufts, spawn_tuft_batches,\n};\nuse adventuresim_building_generator::spatial_geometry::PositiveLength;\nuse adventuresim_tactical_core::{\n    city_layout::grounding::{SupportElevation, SupportQuery},\n    scene_coordinates::ScenePlanPoint,\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/grass.rs",
+      "line": 10,
+      "before": "};\nuse adventuresim_building_generator::spatial_geometry::PositiveLength;\nuse fabelgeist_determinism::Seed;\n\n/// Instance placement for the vista rings: the same tuft lattice as the\n",
+      "after": "};\nuse fabelgeist_determinism::Seed;\n\n/// Instance placement for the vista rings: the same tuft lattice as the\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/ground/tests.rs",
+      "line": 52,
+      "before": "    for point in [Vec2::new(40.0, 30.0), Vec2::new(-45.0, -30.0)] {\n        let point = ScenePlanPoint::from_metres(point).unwrap();\n        assert!(\n            (presented_height_at(&lod, point, Some(&coarse)).unwrap().metres() - 7.0).abs() > 1.0\n        );\n        for (lod, next) in [(&lod, Some(&coarse)), (&coarse, None)] {\n            assert!(\n",
+      "after": "    for point in [Vec2::new(40.0, 30.0), Vec2::new(-45.0, -30.0)] {\n        let point = ScenePlanPoint::from_metres(point).unwrap();\n        assert!(\n            (presented_height_at(&lod, point, Some(&coarse))\n                .unwrap()\n                .metres()\n                - 7.0)\n                .abs()\n                > 1.0\n        );\n        for (lod, next) in [(&lod, Some(&coarse)), (&coarse, None)] {\n            assert!(\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/ground/tests.rs",
+      "line": 133,
+      "before": "        tree_root_height(&terrain, &lod, None, point),\n        presented_height_at(&lod, point, None)\n    );\n    let expected =\n        presented_vista_vertex_height(&lod, None, Some(&terrain), point.offset_from_origin(), Vec2::ONE)\n            .unwrap().metres();\n    let rock = vista_scatter_transform(\n        &lod,\n        None,\n",
+      "after": "        tree_root_height(&terrain, &lod, None, point),\n        presented_height_at(&lod, point, None)\n    );\n    let expected = presented_vista_vertex_height(\n        &lod,\n        None,\n        Some(&terrain),\n        point.offset_from_origin(),\n        Vec2::ONE,\n    )\n    .unwrap()\n    .metres();\n    let rock = vista_scatter_transform(\n        &lod,\n        None,\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/ground.rs",
+      "line": 1,
+      "before": "//! Select the physical surface for vista meshes and scenery placement.\nuse super::*;\nuse adventuresim_tactical_core::{\n    city_layout::grounding::{SupportElevation, SupportQuery, SurfaceHit},\n    scene_coordinates::ScenePlanPoint,\n",
+      "after": "//! Select the physical surface for vista meshes and scenery placement.\nuse super::*;\nuse adventuresim_building_generator::spatial_geometry::{Position, PositiveLength, SignedLength};\nuse adventuresim_tactical_core::scene_coordinates::Scene;\nuse adventuresim_tactical_core::{\n    city_layout::grounding::{SupportElevation, SupportQuery, SurfaceHit},\n    scene_coordinates::ScenePlanPoint,\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/ground.rs",
+      "line": 6,
+      "before": "};\nuse adventuresim_building_generator::spatial_geometry::{Position, PositiveLength, SignedLength};\nuse adventuresim_tactical_core::scene_coordinates::Scene;\nuse fabelgeist_determinism::Seed;\n\nconst MINIMUM_VISTA_ROCK_SLOPE_NORMAL_Y: f32 = 0.72;\n",
+      "after": "};\nuse fabelgeist_determinism::Seed;\n\nconst MINIMUM_VISTA_ROCK_SLOPE_NORMAL_Y: f32 = 0.72;\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/ground.rs",
+      "line": 67,
+      "before": "        return None;\n    }\n    let position = Position::<Scene>::from_metres(Vec3::new(\n            point.metres().x,\n            hit.elevation.metres() + lift.metres(),\n            point.metres().y,\n        )).ok()?;\n    Some(\n        Transform::from_translation(position.metres())\n        .with_rotation(\n            Quat::from_rotation_arc(Vec3::Y, *hit.normal)\n                * Quat::from_rotation_y(\n                    streams::ROCK_YAW.rng(hash, &[]).inclusive_unit_f32() * core::f32::consts::TAU,\n",
+      "after": "        return None;\n    }\n    let position = Position::<Scene>::from_metres(Vec3::new(\n        point.metres().x,\n        hit.elevation.metres() + lift.metres(),\n        point.metres().y,\n    ))\n    .ok()?;\n    Some(\n        Transform::from_translation(position.metres()).with_rotation(\n            Quat::from_rotation_arc(Vec3::Y, *hit.normal)\n                * Quat::from_rotation_y(\n                    streams::ROCK_YAW.rng(hash, &[]).inclusive_unit_f32() * core::f32::consts::TAU,\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/ground.rs",
+      "line": 120,
+      "before": "    let tangent_x = geometry.east_tangent().metres();\n    let tangent_z = geometry.north_tangent().metres();\n    let normal = tangent_z.cross(tangent_x);\n    Some(SurfaceHit::new(geometry.elevation(), Dir3::new(normal).ok()?))\n}\n\n#[cfg(test)]\n",
+      "after": "    let tangent_x = geometry.east_tangent().metres();\n    let tangent_z = geometry.north_tangent().metres();\n    let normal = tangent_z.cross(tangent_x);\n    Some(SurfaceHit::new(\n        geometry.elevation(),\n        Dir3::new(normal).ok()?,\n    ))\n}\n\n#[cfg(test)]\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/natural.rs",
+      "line": 13,
+      "before": "}\n\nimpl SampledVistaMesher<'_> {\n    fn chunk(&self, chunk_x: usize, chunk_z: usize, chunk_cells: usize) -> VistaMeshResult<Option<Mesh>> {\n        let width = usize::from(self.lod.width);\n        let depth = usize::from(self.lod.depth);\n        let center_x = (width - 1) as f32 * 0.5;\n",
+      "after": "}\n\nimpl SampledVistaMesher<'_> {\n    fn chunk(\n        &self,\n        chunk_x: usize,\n        chunk_z: usize,\n        chunk_cells: usize,\n    ) -> VistaMeshResult<Option<Mesh>> {\n        let width = usize::from(self.lod.width);\n        let depth = usize::from(self.lod.depth);\n        let center_x = (width - 1) as f32 * 0.5;\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/natural.rs",
+      "line": 43,
+      "before": "                    {\n                        let base = positions.len() as u32;\n                        let vertices = [\n                            self.vertex(PlanDisplacement::try_from(Vec2::new(minimum_x, minimum_z))?)?,\n                            self.vertex(PlanDisplacement::try_from(Vec2::new(maximum_x, minimum_z))?)?,\n                            self.vertex(PlanDisplacement::try_from(Vec2::new(maximum_x, maximum_z))?)?,\n                            self.vertex(PlanDisplacement::try_from(Vec2::new(minimum_x, maximum_z))?)?,\n                        ];\n                        positions.extend(vertices.map(|vertex| vertex.0));\n                        normals.extend(vertices.map(|vertex| vertex.1));\n",
+      "after": "                    {\n                        let base = positions.len() as u32;\n                        let vertices = [\n                            self.vertex(PlanDisplacement::try_from(Vec2::new(\n                                minimum_x, minimum_z,\n                            ))?)?,\n                            self.vertex(PlanDisplacement::try_from(Vec2::new(\n                                maximum_x, minimum_z,\n                            ))?)?,\n                            self.vertex(PlanDisplacement::try_from(Vec2::new(\n                                maximum_x, maximum_z,\n                            ))?)?,\n                            self.vertex(PlanDisplacement::try_from(Vec2::new(\n                                minimum_x, maximum_z,\n                            ))?)?,\n                        ];\n                        positions.extend(vertices.map(|vertex| vertex.0));\n                        normals.extend(vertices.map(|vertex| vertex.1));\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/natural.rs",
+      "line": 86,
+      "before": "            local,\n            self.inner_half_extent,\n            self.normal_sample_distance,\n        ).ok_or(TerrainSupportError::MissingSupport { point })?;\n        let tangent_x = geometry.east_tangent().metres();\n        let tangent_z = geometry.north_tangent().metres();\n        let normal = tangent_z.cross(tangent_x).try_normalize()\n            .ok_or(VistaMeshError::DegenerateNormal { point })?;\n        let color = self.colors.at(local, self.inner_half_extent)\n            .ok_or(VistaMeshError::MissingColor { point })?;\n        let local = local.metres();\n        Ok((\n",
+      "after": "            local,\n            self.inner_half_extent,\n            self.normal_sample_distance,\n        )\n        .ok_or(TerrainSupportError::MissingSupport { point })?;\n        let tangent_x = geometry.east_tangent().metres();\n        let tangent_z = geometry.north_tangent().metres();\n        let normal = tangent_z\n            .cross(tangent_x)\n            .try_normalize()\n            .ok_or(VistaMeshError::DegenerateNormal { point })?;\n        let color = self\n            .colors\n            .at(local, self.inner_half_extent)\n            .ok_or(VistaMeshError::MissingColor { point })?;\n        let local = local.metres();\n        Ok((\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/natural.rs",
+      "line": 138,
+      "before": "}\n\npub(super) fn validate_source(lod: &VistaLod) -> VistaMeshResult<()> {\n    if !lod.has_height_grid()\n        || lod.environment.len() != lod.heights_metres.len()\n    {\n        return Err(VistaMeshError::InvalidLod { level: lod.level });\n    }\n    Ok(())\n",
+      "after": "}\n\npub(super) fn validate_source(lod: &VistaLod) -> VistaMeshResult<()> {\n    if !lod.has_height_grid() || lod.environment.len() != lod.heights_metres.len() {\n        return Err(VistaMeshError::InvalidLod { level: lod.level });\n    }\n    Ok(())\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/owned/tests.rs",
+      "line": 116,
+      "before": "    let mut inner = Vec2::new(terrain.width(), terrain.depth()) * 0.5;\n    let environment = input.environment_snapshot(generated.digest);\n    for (i, lod) in input.vista.lods.iter().enumerate() {\n        meshes.extend(vista_lod_meshes_with_morph(\n            lod,\n            inner,\n            input.vista.lods.get(i + 1),\n            Some(terrain),\n            Some(&environment),\n            environment.weather,\n            None,\n        ).unwrap());\n        inner = Vec2::new(f32::from(lod.width - 1), f32::from(lod.depth - 1))\n            * lod.spacing_metres\n            * 0.5;\n",
+      "after": "    let mut inner = Vec2::new(terrain.width(), terrain.depth()) * 0.5;\n    let environment = input.environment_snapshot(generated.digest);\n    for (i, lod) in input.vista.lods.iter().enumerate() {\n        meshes.extend(\n            vista_lod_meshes_with_morph(\n                lod,\n                inner,\n                input.vista.lods.get(i + 1),\n                Some(terrain),\n                Some(&environment),\n                environment.weather,\n                None,\n            )\n            .unwrap(),\n        );\n        inner = Vec2::new(f32::from(lod.width - 1), f32::from(lod.depth - 1))\n            * lod.spacing_metres\n            * 0.5;\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/owned.rs",
+      "line": 109,
+      "before": "            .map(|p| {\n                let local = PlanDisplacement::try_from(Vec2::new(p[0], p[2]))?;\n                let point = lod.scene_point(local)?;\n                colors.at(local, inner).ok_or(VistaMeshError::MissingColor { point })\n            })\n            .collect::<VistaMeshResult<Vec<_>>>()?;\n        let mut mesh = position_mesh(positions);\n",
+      "after": "            .map(|p| {\n                let local = PlanDisplacement::try_from(Vec2::new(p[0], p[2]))?;\n                let point = lod.scene_point(local)?;\n                colors\n                    .at(local, inner)\n                    .ok_or(VistaMeshError::MissingColor { point })\n            })\n            .collect::<VistaMeshResult<Vec<_>>>()?;\n        let mut mesh = position_mesh(positions);\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/pigment/tests.rs",
+      "line": 108,
+      "before": "                playable,\n                environment.weather,\n                None,\n            ).unwrap();\n            for mesh in meshes {\n                let positions = mesh\n                    .attribute(Mesh::ATTRIBUTE_POSITION)\n",
+      "after": "                playable,\n                environment.weather,\n                None,\n            )\n            .unwrap();\n            for mesh in meshes {\n                let positions = mesh\n                    .attribute(Mesh::ATTRIBUTE_POSITION)\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/pigment.rs",
+      "line": 27,
+      "before": "        }\n    }\n\n    pub(super) fn at(&self, local: PlanDisplacement, playable_half_extent: Vec2) -> Option<[f32; 4]> {\n        let lod = self.own.lod;\n        let world = lod.scene_point(local).ok()?;\n        let own = self.own.at(world)?;\n",
+      "after": "        }\n    }\n\n    pub(super) fn at(\n        &self,\n        local: PlanDisplacement,\n        playable_half_extent: Vec2,\n    ) -> Option<[f32; 4]> {\n        let lod = self.own.lod;\n        let world = lod.scene_point(local).ok()?;\n        let own = self.own.at(world)?;\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/prepared.rs",
+      "line": 44,
+      "before": "                0 | 1 => VistaSceneryRange::Near,\n                _ => VistaSceneryRange::Distant,\n            };\n            prepared.push(Self { scenery, lod, coarser, inner_half_extent, meshes });\n            let half_extent = f32::from(lod.width.saturating_sub(1)) * lod.spacing_metres * 0.5;\n            inner_half_extent = Vec2::new(\n                half_extent,\n",
+      "after": "                0 | 1 => VistaSceneryRange::Near,\n                _ => VistaSceneryRange::Distant,\n            };\n            prepared.push(Self {\n                scenery,\n                lod,\n                coarser,\n                inner_half_extent,\n                meshes,\n            });\n            let half_extent = f32::from(lod.width.saturating_sub(1)) * lod.spacing_metres * 0.5;\n            inner_half_extent = Vec2::new(\n                half_extent,\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/strategic.rs",
+      "line": 36,
+      "before": "}\n\nimpl StrategicBackdrop {\n    pub(crate) fn new(\n        input: &TacticalSceneInput,\n        maximum_lods: usize,\n    ) -> BackdropResult<Self> {\n        let terrain = SceneTerrain::from_heightmap(\n            usize::from(input.playable.width),\n            usize::from(input.playable.depth),\n",
+      "after": "}\n\nimpl StrategicBackdrop {\n    pub(crate) fn new(input: &TacticalSceneInput, maximum_lods: usize) -> BackdropResult<Self> {\n        let terrain = SceneTerrain::from_heightmap(\n            usize::from(input.playable.width),\n            usize::from(input.playable.depth),\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/strategic.rs",
+      "line": 107,
+      "before": "        let mut chunks = Vec::new();\n        let mut mesh = backdrop.terrain.mesh();\n        mesh.remove_attribute(Mesh::ATTRIBUTE_UV_0);\n        let foreground = backdrop.foreground.iter()\n            .map(|sample| pigment::vista_sample_color(*sample, environment.weather).to_array())\n            .collect::<Vec<_>>();\n        mesh.insert_attribute(Mesh::ATTRIBUTE_COLOR, foreground.clone());\n",
+      "after": "        let mut chunks = Vec::new();\n        let mut mesh = backdrop.terrain.mesh();\n        mesh.remove_attribute(Mesh::ATTRIBUTE_UV_0);\n        let foreground = backdrop\n            .foreground\n            .iter()\n            .map(|sample| pigment::vista_sample_color(*sample, environment.weather).to_array())\n            .collect::<Vec<_>>();\n        mesh.insert_attribute(Mesh::ATTRIBUTE_COLOR, foreground.clone());\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/strategic.rs",
+      "line": 114,
+      "before": "        chunks.push(BackdropChunk { mesh, origin: Vec3::ZERO });\n        let lods = backdrop.lods.iter().collect::<Vec<_>>();\n        let mut inner = Vec2::new(backdrop.terrain.width(), backdrop.terrain.depth()) * 0.5;\n        for (index, lod) in lods.iter().copied().enumerate() {\n",
+      "after": "        chunks.push(BackdropChunk {\n            mesh,\n            origin: Vec3::ZERO,\n        });\n        let lods = backdrop.lods.iter().collect::<Vec<_>>();\n        let mut inner = Vec2::new(backdrop.terrain.width(), backdrop.terrain.depth()) * 0.5;\n        for (index, lod) in lods.iter().copied().enumerate() {\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/strategic.rs",
+      "line": 127,
+      "before": "                    backdrop.stitch_colors(&mut mesh, &foreground, lod.spacing_metres);\n                }\n                let origin = Vec3::new(\n                    lod.origin_east_metres as f32, 0.0, lod.origin_north_metres as f32,\n                );\n                chunks.push(BackdropChunk { mesh, origin });\n            }\n",
+      "after": "                    backdrop.stitch_colors(&mut mesh, &foreground, lod.spacing_metres);\n                }\n                let origin = Vec3::new(\n                    lod.origin_east_metres as f32,\n                    0.0,\n                    lod.origin_north_metres as f32,\n                );\n                chunks.push(BackdropChunk { mesh, origin });\n            }\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/strategic.rs",
+      "line": 134,
+      "before": "            inner = Vec2::new(f32::from(lod.width - 1), f32::from(lod.depth - 1))\n                * lod.spacing_metres * 0.5;\n        }\n        Ok(Self { backdrop, environment, chunks })\n    }\n\n    pub(crate) fn backdrop(&self) -> &StrategicBackdrop {\n",
+      "after": "            inner = Vec2::new(f32::from(lod.width - 1), f32::from(lod.depth - 1))\n                * lod.spacing_metres\n                * 0.5;\n        }\n        Ok(Self {\n            backdrop,\n            environment,\n            chunks,\n        })\n    }\n\n    pub(crate) fn backdrop(&self) -> &StrategicBackdrop {\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/strategic.rs",
+      "line": 142,
+      "before": "    }\n\n    pub(crate) fn spawn(self, commands: &mut Commands, root: Entity) {\n        let Self { backdrop, environment, chunks } = self;\n        commands.spawn((environment.clone(), backdrop, ChildOf(root)));\n        commands.queue(move |world: &mut World| {\n            let material = world.resource_mut::<Assets<TacticalVistaMaterial>>().add(vista_material(\n                environment.weather, grass_terminal_pigment(&environment),\n            ));\n            for chunk in chunks {\n                spawn_mesh(world, root, chunk.mesh, material.clone(), chunk.origin);\n            }\n",
+      "after": "    }\n\n    pub(crate) fn spawn(self, commands: &mut Commands, root: Entity) {\n        let Self {\n            backdrop,\n            environment,\n            chunks,\n        } = self;\n        commands.spawn((environment.clone(), backdrop, ChildOf(root)));\n        commands.queue(move |world: &mut World| {\n            let material =\n                world\n                    .resource_mut::<Assets<TacticalVistaMaterial>>()\n                    .add(vista_material(\n                        environment.weather,\n                        grass_terminal_pigment(&environment),\n                    ));\n            for chunk in chunks {\n                spawn_mesh(world, root, chunk.mesh, material.clone(), chunk.origin);\n            }\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared/extent_tests.rs",
+      "line": 65,
+      "before": "                (index == 0).then_some(&environment),\n                environment.weather,\n                input.landform.map(|r| r.transition_collar()),\n            ).unwrap() {\n                native.add_mesh(\n                    &mesh,\n                    Vec3::new(\n",
+      "after": "                (index == 0).then_some(&environment),\n                environment.weather,\n                input.landform.map(|r| r.transition_collar()),\n            )\n            .unwrap()\n            {\n                native.add_mesh(\n                    &mesh,\n                    Vec3::new(\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared.rs",
+      "line": 1,
+      "before": "//! Pure street clipping and retained upload-ready city-ground batches.\nuse super::*;\nuse crate::presentation::{\n    ownership::{PresentationOwner, PresentationOwners},\n    terrain::PreparedTerrainLandform,\n",
+      "after": "//! Pure street clipping and retained upload-ready city-ground batches.\nuse super::*;\nuse crate::presentation::generation::PreparationResult;\nuse crate::presentation::{\n    ownership::{PresentationOwner, PresentationOwners},\n    terrain::PreparedTerrainLandform,\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared.rs",
+      "line": 6,
+      "before": "    vista::geographic_ground,\n};\nuse crate::presentation::generation::PreparationResult;\nuse std::sync::{Arc, OnceLock};\n\ntype InstalledGround = Vec<(traffic::TrafficTile, CityGroundKind, Handle<Mesh>, usize)>;\n",
+      "after": "    vista::geographic_ground,\n};\nuse std::sync::{Arc, OnceLock};\n\ntype InstalledGround = Vec<(traffic::TrafficTile, CityGroundKind, Handle<Mesh>, usize)>;\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/streets.rs",
+      "line": 58,
+      "before": "        placement: FocusedPavingPlacement,\n        meshes: &mut Assets<Mesh>,\n        images: &mut Assets<Image>,\n    ) -> Result<Vec<Handle<CityGroundMaterial>>, std::sync::Arc<super::geographic_ground::GeographicGroundError>>\n    {\n        let owner = crate::presentation::ownership::PresentationOwner::RegionalMap;\n        let uploaded = prepared.meshes(owner, meshes)?;\n        let mask = traffic::TrafficMask::neutral(images);\n",
+      "after": "        placement: FocusedPavingPlacement,\n        meshes: &mut Assets<Mesh>,\n        images: &mut Assets<Image>,\n    ) -> Result<\n        Vec<Handle<CityGroundMaterial>>,\n        std::sync::Arc<super::geographic_ground::GeographicGroundError>,\n    > {\n        let owner = crate::presentation::ownership::PresentationOwner::RegionalMap;\n        let uploaded = prepared.meshes(owner, meshes)?;\n        let mask = traffic::TrafficMask::neutral(images);\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista.rs",
+      "line": 1,
+      "before": "use super::ground_scatter::TacticalGrassInstancedMaterial;\nuse super::*;\nuse adventuresim_tactical_core::scene_coordinates::{PlanDisplacement, ScenePlanPoint};\n#[cfg(test)]\nuse adventuresim_tactical_core::city_layout::grounding::SupportElevation;\nuse adventuresim_tactical_core::scene_input::VistaLevelIndex;\nuse adventuresim_tactical_core::vista_surface::*;\nuse details::*;\n",
+      "after": "use super::ground_scatter::TacticalGrassInstancedMaterial;\nuse super::*;\n#[cfg(test)]\nuse adventuresim_tactical_core::city_layout::grounding::SupportElevation;\nuse adventuresim_tactical_core::scene_coordinates::{PlanDisplacement, ScenePlanPoint};\nuse adventuresim_tactical_core::scene_input::VistaLevelIndex;\nuse adventuresim_tactical_core::vista_surface::*;\nuse details::*;\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista.rs",
+      "line": 11,
+      "before": "use grass::spawn_near_vista_scatter;\nuse ground::{tree_root_height, vista_lod_meshes_with_morph, vista_scatter_transform};\nuse pigment::{VistaVertexColors, vista_sward_coverage};\nuse prepared::{PreparedVistaLod, VistaSceneryRange};\n#[cfg(test)]\nuse pigment::{presented_color, stitch_vista_color_to_playable_edge, vista_sample_color};\npub(crate) use strategic::{BackdropError, PreparedBackdrop, StrategicBackdrop};\npub(crate) use streets::CityGroundMaterial;\nuse streets::UrbanGround;\n",
+      "after": "use grass::spawn_near_vista_scatter;\nuse ground::{tree_root_height, vista_lod_meshes_with_morph, vista_scatter_transform};\nuse pigment::{VistaVertexColors, vista_sward_coverage};\n#[cfg(test)]\nuse pigment::{presented_color, stitch_vista_color_to_playable_edge, vista_sample_color};\nuse prepared::{PreparedVistaLod, VistaSceneryRange};\npub(crate) use strategic::{BackdropError, PreparedBackdrop, StrategicBackdrop};\npub(crate) use streets::CityGroundMaterial;\nuse streets::UrbanGround;\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista.rs",
+      "line": 117,
+      "before": "        .take(settings.config.rendering.vista.maximum_lods)\n        .collect::<Vec<_>>();\n    let prepared = match PreparedVistaLod::prepare_all(\n        &visible_lods, bundle.playable_half_extent_metres, terrain, environment, landform,\n    ) {\n        Ok(prepared) => prepared,\n        Err(error) => {\n",
+      "after": "        .take(settings.config.rendering.vista.maximum_lods)\n        .collect::<Vec<_>>();\n    let prepared = match PreparedVistaLod::prepare_all(\n        &visible_lods,\n        bundle.playable_half_extent_metres,\n        terrain,\n        environment,\n        landform,\n    ) {\n        Ok(prepared) => prepared,\n        Err(error) => {\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista.rs",
+      "line": 194,
+      "before": "        None,\n        clear_vista_weather(),\n        None,\n    ).unwrap()\n}\n\npub(super) fn vista_material(\n",
+      "after": "        None,\n        clear_vista_weather(),\n        None,\n    )\n    .unwrap()\n}\n\npub(super) fn vista_material(\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista.rs",
+      "line": 703,
+      "before": "                half_extent,\n                250.0,\n                SupportElevation::from_metres(112.0).unwrap(),\n            ).unwrap().metres(),\n            12.0\n        );\n        assert_eq!(\n",
+      "after": "                half_extent,\n                250.0,\n                SupportElevation::from_metres(112.0).unwrap(),\n            )\n            .unwrap()\n            .metres(),\n            12.0\n        );\n        assert_eq!(\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista.rs",
+      "line": 713,
+      "before": "                half_extent,\n                250.0,\n                SupportElevation::from_metres(112.0).unwrap(),\n            ).unwrap().metres(),\n            62.0\n        );\n        assert_eq!(\n",
+      "after": "                half_extent,\n                250.0,\n                SupportElevation::from_metres(112.0).unwrap(),\n            )\n            .unwrap()\n            .metres(),\n            62.0\n        );\n        assert_eq!(\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista.rs",
+      "line": 723,
+      "before": "                half_extent,\n                250.0,\n                SupportElevation::from_metres(112.0).unwrap(),\n            ).unwrap().metres(),\n            112.0\n        );\n    }\n",
+      "after": "                half_extent,\n                250.0,\n                SupportElevation::from_metres(112.0).unwrap(),\n            )\n            .unwrap()\n            .metres(),\n            112.0\n        );\n    }\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista.rs",
+      "line": 789,
+      "before": "            None,\n            clear_vista_weather(),\n            None,\n        ).unwrap();\n        let mut east_edge = Vec::new();\n        for mesh in meshes {\n            let Some(VertexAttributeValues::Float32x3(positions)) =\n",
+      "after": "            None,\n            clear_vista_weather(),\n            None,\n        )\n        .unwrap();\n        let mut east_edge = Vec::new();\n        for mesh in meshes {\n            let Some(VertexAttributeValues::Float32x3(positions)) =\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista.rs",
+      "line": 1133,
+      "before": "            None,\n            clear_vista_weather(),\n            None,\n        ).unwrap();\n        let mut checked = 0;\n        for mesh in meshes {\n            let positions = mesh\n",
+      "after": "            None,\n            clear_vista_weather(),\n            None,\n        )\n        .unwrap();\n        let mut checked = 0;\n        for mesh in meshes {\n            let positions = mesh\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista.rs",
+      "line": 1157,
+      "before": "                    &terrain,\n                    ScenePlanPoint::try_from(p.xz()).unwrap(),\n                )\n                .unwrap().metres();\n                assert!((actual - p.y).abs() < 0.0001, \"{p:?}: {actual}\");\n                checked += 1;\n            }\n",
+      "after": "                    &terrain,\n                    ScenePlanPoint::try_from(p.xz()).unwrap(),\n                )\n                .unwrap()\n                .metres();\n                assert!((actual - p.y).abs() < 0.0001, \"{p:?}: {actual}\");\n                checked += 1;\n            }\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/strategic_scene/world.rs",
+      "line": 129,
+      "before": ") -> PreparationResult<()> {\n    let backdrop = crate::presentation::StrategicBackdrop::new(input, maximum_lods)?;\n    let backdrop = crate::presentation::PreparedBackdrop::new(\n        backdrop, input.environment_snapshot(generated.digest.clone()),\n    )?;\n    retained.venues = buildings::prepare_venues(\n        input, view, &mut generated, &mut retained.street, backdrop.backdrop(),\n    )?;\n    retained.digest = generated.digest.clone();\n    let root = commands\n",
+      "after": ") -> PreparationResult<()> {\n    let backdrop = crate::presentation::StrategicBackdrop::new(input, maximum_lods)?;\n    let backdrop = crate::presentation::PreparedBackdrop::new(\n        backdrop,\n        input.environment_snapshot(generated.digest.clone()),\n    )?;\n    retained.venues = buildings::prepare_venues(\n        input,\n        view,\n        &mut generated,\n        &mut retained.street,\n        backdrop.backdrop(),\n    )?;\n    retained.digest = generated.digest.clone();\n    let root = commands\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/constraints.rs",
+      "line": 116,
+      "before": "        } else {\n            (self.minimum + self.maximum) * 0.5\n        };\n        SignedLength::from_metres(shift as f32).map_err(|cause| SupportDiagnostic::framed_geometry(\n            &plan.property, plan.property.plot.centre_metres(), cause,\n        ))\n    }\n}\n\n",
+      "after": "        } else {\n            (self.minimum + self.maximum) * 0.5\n        };\n        SignedLength::from_metres(shift as f32).map_err(|cause| {\n            SupportDiagnostic::framed_geometry(\n                &plan.property,\n                plan.property.plot.centre_metres(),\n                cause,\n            )\n        })\n    }\n}\n\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source/presented.rs",
+      "line": 83,
+      "before": "                                terrain,\n                                crate::scene_coordinates::PlanDisplacement::from_metres(point)?,\n                                inner_half_extent,\n                            )?.metres(),\n                            z,\n                        ))\n                    };\n",
+      "after": "                                terrain,\n                                crate::scene_coordinates::PlanDisplacement::from_metres(point)?,\n                                inner_half_extent,\n                            )?\n                            .metres(),\n                            z,\n                        ))\n                    };\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source/presented.rs",
+      "line": 164,
+      "before": "            Vec2::new(-0.4, 1.6),\n            Vec2::new(3.1, 2.4),\n        ] {\n            let expected =\n                vista_triangle_height(\n                    &vista.lods[0],\n                    Some(&vista.lods[1]),\n                    &terrain,\n                    crate::scene_coordinates::ScenePlanPoint::try_from(point).unwrap(),\n                ).unwrap().metres();\n            assert!(\n                (source\n                    .elevation_at(\n",
+      "after": "            Vec2::new(-0.4, 1.6),\n            Vec2::new(3.1, 2.4),\n        ] {\n            let expected = vista_triangle_height(\n                &vista.lods[0],\n                Some(&vista.lods[1]),\n                &terrain,\n                crate::scene_coordinates::ScenePlanPoint::try_from(point).unwrap(),\n            )\n            .unwrap()\n            .metres();\n            assert!(\n                (source\n                    .elevation_at(\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs",
+      "line": 59,
+      "before": "    pub(super) fn bounded_floor_shift(\n        &self,\n        source: &GeographicSurface,\n    ) -> Result<adventuresim_building_generator::spatial_geometry::SignedLength, SupportDiagnostic> {\n        constraints::floor_shift(self, source)\n    }\n}\n",
+      "after": "    pub(super) fn bounded_floor_shift(\n        &self,\n        source: &GeographicSurface,\n    ) -> Result<adventuresim_building_generator::spatial_geometry::SignedLength, SupportDiagnostic>\n    {\n        constraints::floor_shift(self, source)\n    }\n}\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/city_layout/grounding/mesh/grid.rs",
+      "line": 267,
+      "before": "                ScenePlanPolygon::from_ordered_vertices(\n                    [(x[0], z[0]), (x[1], z[0]), (x[1], z[1]), (x[0], z[1])]\n                        .into_iter()\n                        .map(|(x, z)| ScenePlanPoint::try_from(world(plan, x, z, SupportElevation::ZERO).xz()))\n                        .collect::<Result<Vec<_>, _>>()?,\n                )?,\n            )?);\n",
+      "after": "                ScenePlanPolygon::from_ordered_vertices(\n                    [(x[0], z[0]), (x[1], z[0]), (x[1], z[1]), (x[0], z[1])]\n                        .into_iter()\n                        .map(|(x, z)| {\n                            ScenePlanPoint::try_from(world(plan, x, z, SupportElevation::ZERO).xz())\n                        })\n                        .collect::<Result<Vec<_>, _>>()?,\n                )?,\n            )?);\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/city_layout/grounding/selection.rs",
+      "line": 95,
+      "before": "        let unbound = CompoundSupportPlan::compile(self.property, levels, self.limits, treatment)?;\n        let shift = unbound.bounded_floor_shift(self.geographic)?;\n        let mut selected = unbound.levels;\n        let geometry_error = |cause| SupportDiagnostic::framed_geometry(\n            self.property, self.property.plot.centre_metres(), cause,\n        );\n        selected.front.elevation = selected.front.elevation.translated(shift).map_err(geometry_error)?;\n        selected.rear.elevation = selected.rear.elevation.translated(shift).map_err(geometry_error)?;\n        selected.court = selected.court.translated(shift).map_err(geometry_error)?;\n        let plan = CompoundSupportPlan::compile(self.property, selected, self.limits, treatment)?\n            .bind_street_entry(\n",
+      "after": "        let unbound = CompoundSupportPlan::compile(self.property, levels, self.limits, treatment)?;\n        let shift = unbound.bounded_floor_shift(self.geographic)?;\n        let mut selected = unbound.levels;\n        let geometry_error = |cause| {\n            SupportDiagnostic::framed_geometry(\n                self.property,\n                self.property.plot.centre_metres(),\n                cause,\n            )\n        };\n        selected.front.elevation = selected\n            .front\n            .elevation\n            .translated(shift)\n            .map_err(geometry_error)?;\n        selected.rear.elevation = selected\n            .rear\n            .elevation\n            .translated(shift)\n            .map_err(geometry_error)?;\n        selected.court = selected.court.translated(shift).map_err(geometry_error)?;\n        let plan = CompoundSupportPlan::compile(self.property, selected, self.limits, treatment)?\n            .bind_street_entry(\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/city_layout/grounding/stairs.rs",
+      "line": 1,
+      "before": "//! Narrow flights connect a level court to independently supported floors.\n//! Step dimensions are supplied by the caller; no movement limit is relaxed.\nuse super::*;\nuse adventuresim_building_generator::spatial_geometry::{GeometryError, GeometryResult, PositiveLength, SignedLength};\nuse crate::scene_coordinates::ScenePlanPoint;\nuse std::num::NonZeroU16;\n\n/// A court flight in scene east/north coordinates and absolute support datums.\n",
+      "after": "//! Narrow flights connect a level court to independently supported floors.\n//! Step dimensions are supplied by the caller; no movement limit is relaxed.\nuse super::*;\nuse crate::scene_coordinates::ScenePlanPoint;\nuse adventuresim_building_generator::spatial_geometry::{\n    GeometryError, GeometryResult, PositiveLength, SignedLength,\n};\nuse std::num::NonZeroU16;\n\n/// A court flight in scene east/north coordinates and absolute support datums.\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/city_layout/grounding/stairs.rs",
+      "line": 183,
+      "before": "                .world_to_local(point - property.plot.centre_metres())\n        };\n        let geometry_error = |cause| SupportDiagnostic::framed_geometry(property, court_end, cause);\n        let riser_count = NonZeroU16::new(count as u16).ok_or_else(|| geometry_error(GeometryError::InvalidProjection))?;\n        Ok(Some(Self {\n            flight: SupportStairFlight {\n                top: ScenePlanPoint::try_from(top).map_err(geometry_error)?,\n",
+      "after": "                .world_to_local(point - property.plot.centre_metres())\n        };\n        let geometry_error = |cause| SupportDiagnostic::framed_geometry(property, court_end, cause);\n        let riser_count = NonZeroU16::new(count as u16)\n            .ok_or_else(|| geometry_error(GeometryError::InvalidProjection))?;\n        Ok(Some(Self {\n            flight: SupportStairFlight {\n                top: ScenePlanPoint::try_from(top).map_err(geometry_error)?,\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/city_layout/grounding/stairs.rs",
+      "line": 198,
+      "before": "            top_local: local(top),\n            bottom_local: local(bottom),\n            floor_local: local(route.end_metres()),\n            floor_landing_half_length_metres: PositiveLength::from_metres(floor_landing).map_err(geometry_error)?,\n            floor_elevation_metres: floor,\n        }))\n    }\n",
+      "after": "            top_local: local(top),\n            bottom_local: local(bottom),\n            floor_local: local(route.end_metres()),\n            floor_landing_half_length_metres: PositiveLength::from_metres(floor_landing)\n                .map_err(geometry_error)?,\n            floor_elevation_metres: floor,\n        }))\n    }\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/city_layout/grounding/stairs.rs",
+      "line": 225,
+      "before": "        }\n        let count = f32::from(self.flight.riser_count.get());\n        let tread = (distance / length * count).ceil().clamp(0.0, count);\n        Some(SupportElevation::from_metres(\n            self.flight.bottom_elevation_metres.metres()\n                + (self.flight.top_elevation_metres.metres() - self.flight.bottom_elevation_metres.metres()) * tread\n                    / count,\n        ).ok_or(GeometryError::InvalidProjection))\n    }\n\n    pub fn local_cuts(&self) -> (Vec<f32>, Vec<f32>) {\n",
+      "after": "        }\n        let count = f32::from(self.flight.riser_count.get());\n        let tread = (distance / length * count).ceil().clamp(0.0, count);\n        Some(\n            SupportElevation::from_metres(\n                self.flight.bottom_elevation_metres.metres()\n                    + (self.flight.top_elevation_metres.metres()\n                        - self.flight.bottom_elevation_metres.metres())\n                        * tread\n                        / count,\n            )\n            .ok_or(GeometryError::InvalidProjection),\n        )\n    }\n\n    pub fn local_cuts(&self) -> (Vec<f32>, Vec<f32>) {\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/city_layout/grounding/tests.rs",
+      "line": 725,
+      "before": "    let flights: Vec<_> = plan.stair_flights().collect();\n    assert_eq!(flights.len(), 2);\n    for flight in flights {\n        let riser = (flight.top_elevation_metres.metres() - flight.bottom_elevation_metres.metres())\n            / f32::from(flight.riser_count.get());\n        assert!(riser <= 0.19);\n        assert!(flight.going_metres.metres() >= 0.25);\n",
+      "after": "    let flights: Vec<_> = plan.stair_flights().collect();\n    assert_eq!(flights.len(), 2);\n    for flight in flights {\n        let riser = (flight.top_elevation_metres.metres()\n            - flight.bottom_elevation_metres.metres())\n            / f32::from(flight.riser_count.get());\n        assert!(riser <= 0.19);\n        assert!(flight.going_metres.metres() >= 0.25);\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "line": 91,
+      "before": "        self,\n        offset: adventuresim_building_generator::spatial_geometry::SignedLength,\n    ) -> adventuresim_building_generator::spatial_geometry::GeometryResult<Self> {\n        use adventuresim_building_generator::spatial_geometry::{CoordinateAxis, GeometryError, GeometryRole};\n        Self::from_metres(self.0 + offset.metres()).ok_or(GeometryError::NonFinite {\n            role: GeometryRole::Elevation,\n            axis: CoordinateAxis::Y,\n",
+      "after": "        self,\n        offset: adventuresim_building_generator::spatial_geometry::SignedLength,\n    ) -> adventuresim_building_generator::spatial_geometry::GeometryResult<Self> {\n        use adventuresim_building_generator::spatial_geometry::{\n            CoordinateAxis, GeometryError, GeometryRole,\n        };\n        Self::from_metres(self.0 + offset.metres()).ok_or(GeometryError::NonFinite {\n            role: GeometryRole::Elevation,\n            axis: CoordinateAxis::Y,\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "line": 295,
+      "before": "        foundations::compile(&self.support_surface()?, geographic, embedment)\n    }\n\n    pub fn stair_flights(\n        &self,\n    ) -> impl Iterator<Item = &SupportStairFlight> {\n        self.court_stairs.iter().map(|stair| &stair.flight)\n    }\n\n",
+      "after": "        foundations::compile(&self.support_surface()?, geographic, embedment)\n    }\n\n    pub fn stair_flights(&self) -> impl Iterator<Item = &SupportStairFlight> {\n        self.court_stairs.iter().map(|stair| &stair.flight)\n    }\n\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "line": 320,
+      "before": "    /// triangle locations. It is never installed or accepted as a support plan.\n    fn floor_translation_basis(&self) -> Result<Self, SupportDiagnostic> {\n        let mut basis = self.clone();\n        let geometry_error = |cause| SupportDiagnostic::framed_geometry(\n            &self.property, self.property.plot.centre_metres(), cause,\n        );\n        let offset = adventuresim_building_generator::spatial_geometry::SignedLength::from_metres(1.0)\n            .map_err(geometry_error)?;\n        basis.levels.front.elevation = basis.levels.front.elevation.translated(offset).map_err(geometry_error)?;\n        basis.levels.rear.elevation = basis.levels.rear.elevation.translated(offset).map_err(geometry_error)?;\n        basis.levels.court = basis.levels.court.translated(offset).map_err(geometry_error)?;\n        let invalid = |error: profile::ProfileError| {\n            SupportDiagnostic::new(\n                &self.property,\n",
+      "after": "    /// triangle locations. It is never installed or accepted as a support plan.\n    fn floor_translation_basis(&self) -> Result<Self, SupportDiagnostic> {\n        let mut basis = self.clone();\n        let geometry_error = |cause| {\n            SupportDiagnostic::framed_geometry(\n                &self.property,\n                self.property.plot.centre_metres(),\n                cause,\n            )\n        };\n        let offset =\n            adventuresim_building_generator::spatial_geometry::SignedLength::from_metres(1.0)\n                .map_err(geometry_error)?;\n        basis.levels.front.elevation = basis\n            .levels\n            .front\n            .elevation\n            .translated(offset)\n            .map_err(geometry_error)?;\n        basis.levels.rear.elevation = basis\n            .levels\n            .rear\n            .elevation\n            .translated(offset)\n            .map_err(geometry_error)?;\n        basis.levels.court = basis\n            .levels\n            .court\n            .translated(offset)\n            .map_err(geometry_error)?;\n        let invalid = |error: profile::ProfileError| {\n            SupportDiagnostic::new(\n                &self.property,\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "line": 28,
+      "before": "        normal_sample_distance: PositiveLength,\n    ) -> Option<Self> {\n        let height = native_presented_vista_vertex_height(\n            lod, coarser, terrain, local, playable_half_extent,\n        )?;\n        let delta = normal_sample_distance.metres();\n        let at = |offset: Vec2| {\n",
+      "after": "        normal_sample_distance: PositiveLength,\n    ) -> Option<Self> {\n        let height = native_presented_vista_vertex_height(\n            lod,\n            coarser,\n            terrain,\n            local,\n            playable_half_extent,\n        )?;\n        let delta = normal_sample_distance.metres();\n        let at = |offset: Vec2| {\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "line": 35,
+      "before": "            PlanDisplacement::from_metres(local.metres() + offset)\n                .and_then(|probe| native_presented_vista_vertex_height(\n                    lod, coarser, terrain, probe, playable_half_extent,\n                ))\n                .unwrap_or(height)\n        };\n        Some(Self {\n",
+      "after": "            PlanDisplacement::from_metres(local.metres() + offset)\n                .and_then(|probe| {\n                    native_presented_vista_vertex_height(\n                        lod,\n                        coarser,\n                        terrain,\n                        probe,\n                        playable_half_extent,\n                    )\n                })\n                .unwrap_or(height)\n        };\n        Some(Self {\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "line": 42,
+      "before": "            elevation: SupportElevation::from_metres(height)?,\n            east_tangent: Displacement::from_metres(Vec3::new(\n                delta * 2.0, at(Vec2::X * delta) - at(-Vec2::X * delta), 0.0,\n            )).ok()?,\n            north_tangent: Displacement::from_metres(Vec3::new(\n                0.0, at(Vec2::Y * delta) - at(-Vec2::Y * delta), delta * 2.0,\n            )).ok()?,\n        })\n    }\n\n",
+      "after": "            elevation: SupportElevation::from_metres(height)?,\n            east_tangent: Displacement::from_metres(Vec3::new(\n                delta * 2.0,\n                at(Vec2::X * delta) - at(-Vec2::X * delta),\n                0.0,\n            ))\n            .ok()?,\n            north_tangent: Displacement::from_metres(Vec3::new(\n                0.0,\n                at(Vec2::Y * delta) - at(-Vec2::Y * delta),\n                delta * 2.0,\n            ))\n            .ok()?,\n        })\n    }\n\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "line": 76,
+      "before": "    }\n\n    pub fn scene_point(&self, local: PlanDisplacement) -> GeometryResult<ScenePlanPoint> {\n        ScenePlanPoint::try_from(local.metres() + Vec2::new(\n            self.origin_east_metres as f32,\n            self.origin_north_metres as f32,\n        ))\n    }\n\n    pub fn local_offset(&self, point: ScenePlanPoint) -> GeometryResult<PlanDisplacement> {\n",
+      "after": "    }\n\n    pub fn scene_point(&self, local: PlanDisplacement) -> GeometryResult<ScenePlanPoint> {\n        ScenePlanPoint::try_from(\n            local.metres()\n                + Vec2::new(\n                    self.origin_east_metres as f32,\n                    self.origin_north_metres as f32,\n                ),\n        )\n    }\n\n    pub fn local_offset(&self, point: ScenePlanPoint) -> GeometryResult<PlanDisplacement> {\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "line": 86,
+      "before": "        PlanDisplacement::try_from(point.metres() - Vec2::new(\n            self.origin_east_metres as f32,\n            self.origin_north_metres as f32,\n        ))\n    }\n}\n\n",
+      "after": "        PlanDisplacement::try_from(\n            point.metres()\n                - Vec2::new(\n                    self.origin_east_metres as f32,\n                    self.origin_north_metres as f32,\n                ),\n        )\n    }\n}\n\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "line": 98,
+      "before": "    playable_half_extent: Vec2,\n) -> Option<SupportElevation> {\n    SupportElevation::from_metres(native_presented_vista_vertex_height(\n        lod, coarser_lod, playable_terrain, local, playable_half_extent,\n    )?)\n}\n\n",
+      "after": "    playable_half_extent: Vec2,\n) -> Option<SupportElevation> {\n    SupportElevation::from_metres(native_presented_vista_vertex_height(\n        lod,\n        coarser_lod,\n        playable_terrain,\n        local,\n        playable_half_extent,\n    )?)\n}\n\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "line": 180,
+      "before": "    vista_height: SupportElevation,\n) -> Option<SupportElevation> {\n    SupportElevation::from_metres(native_stitch_vista_height_to_playable_edge(\n        terrain, local, playable_half_extent, transition_width, vista_height.metres(),\n    ))\n}\n\n",
+      "after": "    vista_height: SupportElevation,\n) -> Option<SupportElevation> {\n    SupportElevation::from_metres(native_stitch_vista_height_to_playable_edge(\n        terrain,\n        local,\n        playable_half_extent,\n        transition_width,\n        vista_height.metres(),\n    ))\n}\n\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "line": 323,
+      "before": "            if local.x < x0 || local.x > x1 || local.y < z0 || local.y > z1 {\n                continue;\n            }\n            let vertex =\n                |x, z| native_presented_vista_vertex_height(\n                    lod, coarser, terrain, PlanDisplacement::from_metres(Vec2::new(x, z))?, half,\n                );\n            let a = vertex(x0, z0)?;\n            let b = vertex(x1, z0)?;\n            let c = vertex(x1, z1)?;\n",
+      "after": "            if local.x < x0 || local.x > x1 || local.y < z0 || local.y > z1 {\n                continue;\n            }\n            let vertex = |x, z| {\n                native_presented_vista_vertex_height(\n                    lod,\n                    coarser,\n                    terrain,\n                    PlanDisplacement::from_metres(Vec2::new(x, z))?,\n                    half,\n                )\n            };\n            let a = vertex(x0, z0)?;\n            let b = vertex(x1, z0)?;\n            let c = vertex(x1, z1)?;\n",
+      "matches": 1
+    },
+    {
+      "file": "crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/source.rs",
+      "line": 21,
+      "before": "    pub(super) fn height_at(&self, point: ScenePlanPoint) -> Option<SupportElevation> {\n        self.terrain.height_at(point).or_else(|| {\n            self.vista.lods.iter().enumerate().find_map(|(index, lod)| {\n                vista_triangle_height(\n                    lod,\n                    self.vista.lods.get(index + 1),\n                    self.terrain,\n                    point,\n                )\n            })\n        })\n    }\n",
+      "after": "    pub(super) fn height_at(&self, point: ScenePlanPoint) -> Option<SupportElevation> {\n        self.terrain.height_at(point).or_else(|| {\n            self.vista.lods.iter().enumerate().find_map(|(index, lod)| {\n                vista_triangle_height(lod, self.vista.lods.get(index + 1), self.terrain, point)\n            })\n        })\n    }\n",
+      "matches": 1
+    }
+  ]
+}
