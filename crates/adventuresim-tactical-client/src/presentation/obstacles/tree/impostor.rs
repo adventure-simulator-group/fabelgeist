@@ -726,22 +726,21 @@ pub(in crate::presentation) fn tree_source_geometry_hash(
         hash = hash.wrapping_mul(0x100_0000_01b3);
     }
     for leaf in leaves {
-        for value in [
-            leaf.petiole_start.x,
-            leaf.petiole_start.y,
-            leaf.petiole_start.z,
-            leaf.center.x,
-            leaf.center.y,
-            leaf.center.z,
-            leaf.length,
-            leaf.width,
+        // Geometry uses native float bits; identity retains its full integer word.
+        for word in [
+            u64::from(leaf.petiole_start.x.to_bits()),
+            u64::from(leaf.petiole_start.y.to_bits()),
+            u64::from(leaf.petiole_start.z.to_bits()),
+            u64::from(leaf.center.x.to_bits()),
+            u64::from(leaf.center.y.to_bits()),
+            u64::from(leaf.center.z.to_bits()),
+            u64::from(leaf.length.to_bits()),
+            u64::from(leaf.width.to_bits()),
+            leaf.shoot_id.seed().to_u64(),
         ] {
-            hash ^= u64::from(value.to_bits());
+            hash ^= word;
             hash = hash.wrapping_mul(0x100_0000_01b3);
         }
-        // Identity is a native integer hash input; float conversion loses bits.
-        hash ^= leaf.shoot_id.seed().to_u64();
-        hash = hash.wrapping_mul(0x100_0000_01b3);
     }
     hash
 }
