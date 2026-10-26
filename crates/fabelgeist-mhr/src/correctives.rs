@@ -8,7 +8,7 @@ use std::path::Path;
 
 use anyhow::{Context, Result, bail};
 use burn::tensor::{Device, Tensor, TensorData, activation};
-use fabelgeist_numpy_storage::Npz;
+use fabelgeist_numpy_storage::{NpyDimension, Npz};
 
 /// The first two joints do not define a local pose, so they carry no feature.
 pub const SKIPPED_JOINTS: usize = 2;
@@ -79,14 +79,16 @@ impl PoseCorrectives {
         let basis = archive
             .array(BASIS_ARRAY)
             .context("reading the corrective basis")?;
-        let (components, basis_vertices) = match basis.shape[..] {
-            [components, vertices, 3] => (components, vertices),
+        let (components, basis_vertices) = match basis.shape().dimensions() {
+            &[components, vertices, coordinates] if coordinates == NpyDimension::from(3) => {
+                (components, vertices)
+            }
             _ => bail!(
                 "{BASIS_ARRAY} has shape {:?}, expected [components, vertices, 3]",
-                basis.shape
+                basis.shape()
             ),
         };
-        if basis_vertices != num_vertices {
+        if basis_vertices != NpyDimension::from(num_vertices) {
             bail!(
                 "corrective basis covers {basis_vertices} vertices but the mesh has {num_vertices}"
             );
@@ -94,7 +96,7 @@ impl PoseCorrectives {
 
         let posed_joints = num_joints - SKIPPED_JOINTS;
         let hidden = posed_joints * HIDDEN_PER_JOINT;
-        if components != hidden {
+        if components != NpyDimension::from(hidden) {
             bail!("corrective basis has {components} components, expected {hidden}");
         }
 
@@ -130,7 +132,7 @@ impl PoseCorrectives {
         Ok(Some(Self {
             activation: Tensor::from_data(TensorData::new(dense, [inputs, hidden]), device),
             basis: Tensor::from_data(
-                TensorData::new(basis.to_f32(), [components, num_vertices * 3]),
+                TensorData::new(basis.to_f32(), [usize::from(components), num_vertices * 3]),
                 device,
             ),
             posed_joints,
