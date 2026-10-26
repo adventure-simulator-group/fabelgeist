@@ -1,8 +1,10 @@
+use super::ValidationObservation;
 use anyhow::{Result, anyhow};
+pub use blitter::Blitter;
 use std::sync::Arc;
 use wgpu::{Adapter, Device, Instance, Queue};
+
 pub mod blitter;
-pub use blitter::Blitter;
 
 #[derive(Clone)]
 pub struct WgpuContext {
@@ -15,23 +17,18 @@ pub struct WgpuContext {
     pub surface: Option<Arc<wgpu::Surface<'static>>>,
     pub blitter: Option<Arc<Blitter>>,
     pub blit_lock: Arc<async_lock::Mutex<()>>,
-    /// Whether shader and pipeline creation may drain the queue to read back a
-    /// validation error scope.
+    /// How shader, pipeline and whole-texture format-view creation observe
+    /// native validation errors.
     ///
-    /// On a device this context owns, draining is instant and the error scope
-    /// turns a bad shader into a `Result` instead of a panic -- worth having.
-    /// On a *borrowed* device it is a trap: an application's render loop is
-    /// submitting continuously, so waiting for the queue to empty blocks until
-    /// the driver's watchdog gives up and removes the device. Borrowed devices
-    /// therefore skip it and let wgpu's uncaptured-error handler report,
-    /// which costs nothing: the naga validator has already run over the
-    /// source by that point and catches essentially everything.
+    /// Contexts that create a native device select blocking scopes. Contexts
+    /// wrapping an existing device and browser targets select uncaptured errors
+    /// to avoid synchronously waiting on another application's active device or
+    /// the browser event loop.
     ///
-    /// Only the shader and pipeline paths honour this so far. Texture
-    /// creation drains the queue the same way and would hang a borrowed
-    /// device identically -- nothing reaches it on a borrowed context today,
-    /// but that is the place to look if one ever does.
-    pub blocking_validation: bool,
+    /// Texture constructors and cube subresource views have separate validation
+    /// paths and do not yet consistently honor this policy. Observing a scope
+    /// does not establish the device's global health or roll back prior work.
+    pub validation_observation: ValidationObservation,
 }
 
 /// Reports which GPU the adapter request actually landed on. `device_type: Cpu`
@@ -116,7 +113,7 @@ impl WgpuContext {
             blit_lock: Arc::new(async_lock::Mutex::new(())),
             // Someone else's device, and very likely someone else's render
             // loop with it.
-            blocking_validation: false,
+            validation_observation: ValidationObservation::Uncaptured,
         }
     }
 
@@ -131,7 +128,7 @@ impl WgpuContext {
     /// Waits on a submission index rather than the whole queue, so it is safe
     /// on a device shared with a renderer -- unlike `poll(wait_indefinitely)`,
     /// which never returns while something else keeps submitting. See
-    /// [`WgpuContext::blocking_validation`].
+    /// [`WgpuContext::validation_observation`].
     pub async fn submitted_work_done(&self) {
         #[cfg(not(target_arch = "wasm32"))]
         {
@@ -270,7 +267,11 @@ impl WgpuContext {
             surface,
             blitter,
             blit_lock: Arc::new(async_lock::Mutex::new(())),
-            blocking_validation: !cfg!(target_arch = "wasm32"),
+            validation_observation: if cfg!(target_arch = "wasm32") {
+                ValidationObservation::Uncaptured
+            } else {
+                ValidationObservation::BlockingScopes
+            },
         })
     }
 }
@@ -294,7 +295,10 @@ mod tests {
     async fn a_borrowed_device_skips_blocking_validation() -> Result<()> {
         let owned = WgpuContext::new().await?;
         assert!(
-            owned.blocking_validation,
+            matches!(
+                owned.validation_observation,
+                ValidationObservation::BlockingScopes
+            ),
             "a context that owns its device can afford to read the error scope"
         );
 
@@ -305,8 +309,11 @@ mod tests {
             owned.queue.clone(),
         );
         assert!(
-            !borrowed.blocking_validation,
-            "a borrowed device may have someone else submitting to it; draining              its queue would block until the driver gives up"
+            matches!(
+                borrowed.validation_observation,
+                ValidationObservation::Uncaptured
+            ),
+            "a borrowed device may have someone else submitting to it; draining its queue would block until the driver gives up"
         );
         assert!(borrowed.surface.is_none());
         Ok(())
