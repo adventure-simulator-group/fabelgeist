@@ -8,10 +8,10 @@ use bevy::{
     },
     shader::ShaderRef,
 };
-use bevy_eidolon::prelude::InstancedMaterial;
+
+use crate::presentation::chunk_instancing::{ChunkInstancedMaterial, enable_alpha_to_coverage};
 
 const GRASS_INSTANCED_SHADER: &str = "shaders/tactical_grass_instanced.wgsl";
-const GRASS_CULL_SHADER: &str = "shaders/tactical_grass_cull.wgsl";
 
 #[derive(Asset, TypePath, AsBindGroup, Debug, Clone)]
 #[uniform(0, TacticalGrassInstancedUniform)]
@@ -51,26 +51,8 @@ impl From<&TacticalGrassInstancedMaterial> for TacticalGrassInstancedUniform {
     }
 }
 
-impl InstancedMaterial for TacticalGrassInstancedMaterial {
-    fn prepass_shader() -> ShaderRef {
-        GRASS_INSTANCED_SHADER.into()
-    }
-
-    /// The prepass runs this material's own vertex function and repeats its
-    /// discards, so its depth matches the main pass exactly.
-    fn prepass_fragment() -> bool {
-        true
-    }
-
-    fn cull_shader() -> ShaderRef {
-        GRASS_CULL_SHADER.into()
-    }
-
-    fn vertex_shader() -> ShaderRef {
-        GRASS_INSTANCED_SHADER.into()
-    }
-
-    fn fragment_shader() -> ShaderRef {
+impl ChunkInstancedMaterial for TacticalGrassInstancedMaterial {
+    fn shader() -> ShaderRef {
         GRASS_INSTANCED_SHADER.into()
     }
 
@@ -83,7 +65,7 @@ impl InstancedMaterial for TacticalGrassInstancedMaterial {
         // to hardware coverage samples under MSAA exactly like the legacy
         // AlphaToCoverage foliage material.
         descriptor.primitive.cull_mode = None;
-        crate::presentation::enable_instanced_alpha_to_coverage(descriptor);
+        enable_alpha_to_coverage(descriptor);
         Ok(())
     }
 }

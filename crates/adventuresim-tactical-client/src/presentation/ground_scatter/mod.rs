@@ -481,11 +481,7 @@ impl Material for TacticalFoliageMaterial {
         key: bevy::pbr::MaterialPipelineKey<Self>,
     ) -> Result<(), SpecializedMeshPipelineError> {
         descriptor.primitive.cull_mode = None;
-        if descriptor
-            .vertex
-            .shader_defs
-            .contains(&"PREPASS_PIPELINE".into())
-        {
+        if adventuresim_procedural_materials::is_prepass_pipeline(&descriptor.vertex.shader_defs) {
             // Blade shaping reads the authored normal, which Bevy's depth-only
             // prepass does not bind. Append it at the shader's slot 3.
             let normal = layout

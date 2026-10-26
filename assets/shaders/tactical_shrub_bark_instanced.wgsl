@@ -14,9 +14,9 @@
 }
 #endif
 
-#import bevy_eidolon::render::utils
-#import bevy_eidolon::render::bindings::instance_uniforms
-#import bevy_eidolon::render::io_types::Vertex
+#import fablegeist::chunk_instancing::{
+    Vertex, chunk_band, instance_world_matrix, visibility_range_dither_level,
+}
 
 // Linear bark pigment; w is perceptual roughness (unused by the fast model
 // but kept for parity with the source material).
@@ -34,12 +34,7 @@ struct ShrubVertexOutput {
 @vertex
 fn vertex(vertex: Vertex) -> ShrubVertexOutput {
     var out: ShrubVertexOutput;
-    let batch = instance_uniforms[vertex.i_batch_id];
-    let instance_matrix = utils::calc_instance_world_matrix(
-        vertex.i_pos_scale,
-        vertex.i_rotation,
-        batch.world_from_local,
-    );
+    let instance_matrix = instance_world_matrix(vertex.i_pos_scale, vertex.i_rotation);
     let world_position = instance_matrix * vec4<f32>(vertex.position, 1.0);
     out.world_position = world_position;
     out.clip_position = position_world_to_clip(world_position.xyz);
@@ -60,7 +55,7 @@ fn vertex(vertex: Vertex) -> ShrubVertexOutput {
 #ifdef VISIBILITY_RANGE_DITHER
     let instance_origin = instance_matrix * vec4<f32>(0.0, 0.0, 0.0, 1.0);
     out.visibility_range_dither =
-        utils::get_visibility_range_dither_level(batch.visibility_range, instance_origin);
+        visibility_range_dither_level(chunk_band.visibility_range, instance_origin.xyz);
 #endif
     return out;
 }

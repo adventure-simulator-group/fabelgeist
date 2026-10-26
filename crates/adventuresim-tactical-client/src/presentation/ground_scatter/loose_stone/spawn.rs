@@ -31,7 +31,7 @@ pub(in crate::presentation::ground_scatter) fn spawn(
     // 3--8 cm diameter that tilt is below one pixel well before the hero band
     // ends, and the slope rejection in `PatchPlacement` already keeps patches
     // off ground steep enough for it to read.
-    let mut per_variant: Vec<Vec<InstanceData>> =
+    let mut per_variant: Vec<Vec<ChunkInstance>> =
         vec![Vec::new(); PebbleDensity::ALL.len() * MESH_VARIANTS as usize];
     for (index, sample) in ground.samples().iter().enumerate() {
         let Some(PatchPlacement {
@@ -42,13 +42,12 @@ pub(in crate::presentation::ground_scatter) fn spawn(
         else {
             continue;
         };
-        per_variant[variant].push(InstanceData {
+        per_variant[variant].push(ChunkInstance {
             position: transform.translation,
             scale: transform.scale.x,
             rotation: transform.rotation.to_euler(bevy::math::EulerRot::YXZ).0,
             seed: (streams::INSTANCE.seed(base_seed, &[index as u64]).to_u64() & 0xffff_ffff)
                 as u32,
-            ..Default::default()
         });
     }
     super::batches::spawn(

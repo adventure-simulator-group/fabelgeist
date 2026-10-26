@@ -1,6 +1,6 @@
-// GPU-instanced distant loose-stone billboards.
+// Chunk-instanced distant loose-stone billboards.
 //
-// A port of `tactical_pebble_billboard.wgsl` onto the eidolon instance buffer.
+// A port of `tactical_pebble_billboard.wgsl` onto the chunk instance buffer.
 // The patch mesh still stores each pebble's centre in the unused normal channel
 // and its positions as quad offsets, so every member of a patch faces the camera
 // independently; the only change is that the patch's world matrix now comes
@@ -20,9 +20,9 @@ diagnostic(off, derivative_uniformity);
 }
 #endif
 
-#import bevy_eidolon::render::utils
-#import bevy_eidolon::render::bindings::instance_uniforms
-#import bevy_eidolon::render::io_types::Vertex
+#import fablegeist::chunk_instancing::{
+    Vertex, chunk_band, instance_world_matrix, visibility_range_dither_level,
+}
 
 struct TacticalPebbleBillboardInstancedMaterial {
     color: vec4<f32>,
@@ -44,12 +44,7 @@ struct BillboardVertexOutput {
 @vertex
 fn vertex(vertex: Vertex) -> BillboardVertexOutput {
     var out: BillboardVertexOutput;
-    let batch = instance_uniforms[vertex.i_batch_id];
-    let instance_matrix = utils::calc_instance_world_matrix(
-        vertex.i_pos_scale,
-        vertex.i_rotation,
-        batch.world_from_local,
-    );
+    let instance_matrix = instance_world_matrix(vertex.i_pos_scale, vertex.i_rotation);
 
     var centre_local = vec3<f32>(0.0, 0.0, 0.0);
 #ifdef VERTEX_NORMALS
@@ -79,7 +74,7 @@ fn vertex(vertex: Vertex) -> BillboardVertexOutput {
 #ifdef VISIBILITY_RANGE_DITHER
     let instance_origin = instance_matrix * vec4<f32>(0.0, 0.0, 0.0, 1.0);
     out.visibility_range_dither =
-        utils::get_visibility_range_dither_level(batch.visibility_range, instance_origin);
+        visibility_range_dither_level(chunk_band.visibility_range, instance_origin.xyz);
 #endif
     return out;
 }

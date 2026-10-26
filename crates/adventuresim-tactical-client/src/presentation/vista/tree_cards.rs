@@ -1,38 +1,38 @@
-//! GPU-instanced vista tree cards.
+//! Chunk-instanced vista tree cards.
 //!
 //! A dense woodland vista resolves to tens of thousands of whole-tree
 //! billboards - measured at 29,247 for `dense-woodland`, nearly all of them in
 //! the 250 m LOD ring. As one entity each they dominated
 //! `check_visibility_cpu_culling`, which sweeps every renderable entity once
-//! per frame and runs serially on wasm. Batched, the same stands cost one
-//! entity per distinct card variant.
+//! per frame and runs serially on wasm. Chunked, the same stands cost one
+//! entity per distinct card variant per wide ground cell.
 //!
-//! Every per-card difference fits `InstanceData`: position and uniform scale,
+//! Every per-card difference fits `ChunkInstance`: position and uniform scale,
 //! with no rotation at all (the shader yaws each card to the camera). The one
 //! value that did not fit is the near cutoff, which scales with the card's own
 //! height; `tactical_vista_tree_instanced.wgsl` evaluates it per instance.
 
-use std::sync::Arc;
-
 use bevy::{
-    camera::{primitives::Aabb, visibility::NoFrustumCulling},
-    color::LinearRgba,
     ecs::system::SystemParam,
-    prelude::{
-        Asset, Assets, Commands, Handle, Image, Mesh, Mesh3d, Name, ResMut, Transform, TypePath,
-        Vec4, Visibility,
-    },
+    prelude::{Asset, Assets, Commands, Handle, Image, Mesh, Name, ResMut, TypePath, Vec4},
     render::render_resource::{
         AsBindGroup, RenderPipelineDescriptor, SpecializedMeshPipelineError,
     },
     shader::ShaderRef,
 };
-use bevy_eidolon::prelude::*;
+
+use crate::presentation::chunk_instancing::{
+    ChunkInstance, ChunkInstancedMaterial, ChunkSize, FadeBand, InstanceBatch, InstanceReach,
+    enable_alpha_to_coverage,
+};
 
 use super::{VistaLod, VistaTerrain};
 use crate::presentation::obstacles::tree::TacticalTreeImpostorMaterial;
 
 const VISTA_TREE_SHADER: &str = "shaders/tactical_vista_tree_instanced.wgsl";
+/// Vista rings span kilometres of sparse stands; wide cells keep the entity
+/// count low enough for serial CPU culling on wasm.
+const VISTA_CARD_CHUNK_SIZE: ChunkSize = ChunkSize(256.0);
 
 /// Instanced twin of `TacticalTreeImpostorMaterial`, restricted to the
 /// whole-tree camera-facing representation every vista stand uses.
@@ -53,22 +53,8 @@ pub(in crate::presentation) struct TacticalVistaTreeInstancedMaterial {
     pub(in crate::presentation) ambient: Vec4,
 }
 
-impl InstancedMaterial for TacticalVistaTreeInstancedMaterial {
-    fn prepass_shader() -> ShaderRef {
-        VISTA_TREE_SHADER.into()
-    }
-
-    /// The prepass runs this material's own vertex function and repeats its
-    /// discards, so its depth matches the main pass exactly.
-    fn prepass_fragment() -> bool {
-        true
-    }
-
-    fn vertex_shader() -> ShaderRef {
-        VISTA_TREE_SHADER.into()
-    }
-
-    fn fragment_shader() -> ShaderRef {
+impl ChunkInstancedMaterial for TacticalVistaTreeInstancedMaterial {
+    fn shader() -> ShaderRef {
         VISTA_TREE_SHADER.into()
     }
 
@@ -79,7 +65,7 @@ impl InstancedMaterial for TacticalVistaTreeInstancedMaterial {
     ) -> Result<(), SpecializedMeshPipelineError> {
         // Cards are two-sided and cut out of the atlas through coverage.
         descriptor.primitive.cull_mode = None;
-        crate::presentation::enable_instanced_alpha_to_coverage(descriptor);
+        enable_alpha_to_coverage(descriptor);
         Ok(())
     }
 }
@@ -102,7 +88,7 @@ struct VistaCardGroup {
     mesh: Handle<Mesh>,
     source: Handle<TacticalTreeImpostorMaterial>,
     card_height: f32,
-    instances: Vec<InstanceData>,
+    instances: Vec<ChunkInstance>,
 }
 
 impl VistaCardBatches {
@@ -111,7 +97,7 @@ impl VistaCardBatches {
         mesh: &Handle<Mesh>,
         source: &Handle<TacticalTreeImpostorMaterial>,
         card_height: f32,
-        instance: InstanceData,
+        instance: ChunkInstance,
     ) {
         if let Some(group) = self
             .groups
@@ -129,7 +115,7 @@ impl VistaCardBatches {
         });
     }
 
-    /// Spawns one batch per variant. `far_band` is the LOD ring's fade-out;
+    /// Spawns chunks per variant. `far_band` is the LOD ring's fade-out;
     /// the near end stays zero because the shader applies each card's own
     /// cutoff, which varies with its instance scale.
     pub(super) fn spawn(
@@ -141,13 +127,11 @@ impl VistaCardBatches {
         // Cards in a ring share the ring's fade-out; only the near cutoff
         // varies per card, and the shader derives that from the instance scale.
         let far = super::vista_tree_visibility(lod.spacing_metres, 1.0, 1.0).end_margin;
-        let far_band = (far.start, far.end);
         let level = lod.level;
         for group in self.groups {
             let Some(source) = materials.impostor.get(&group.source) else {
                 continue;
             };
-            let instances = Arc::new(group.instances);
             let material = materials.cards.add(TacticalVistaTreeInstancedMaterial {
                 baked_color: source.baked_color.clone(),
                 parameters: Vec4::new(
@@ -159,44 +143,27 @@ impl VistaCardBatches {
                 lighting: source.lighting,
                 ambient: source.ambient,
             });
-            let aabb = card_batch_aabb(&instances, group.card_height);
-            commands.spawn((
-                Name::new(format!("Instanced vista tree cards ({})", instances.len())),
-                VistaTerrain(level),
-                super::VistaTreePresentation,
-                GpuCullCompute,
-                // Whole-ring batches: culling belongs to the GPU compute pass,
-                // and a CPU-culled frame would free the retained instance
-                // buffers (see the grass batches).
-                NoFrustumCulling,
-                Mesh3d(group.mesh),
-                aabb,
-                InstanceMaterialData {
-                    instances,
-                    color: LinearRgba::WHITE,
-                    visibility_range: Vec4::new(0.0, 0.001, far_band.0, far_band.1),
+            InstanceBatch {
+                mesh: group.mesh,
+                material,
+                instances: group.instances,
+                band: FadeBand::until(far.clone()),
+                // Cards turn to face the camera, so their width reaches as
+                // far as their height in every direction.
+                reach: InstanceReach {
+                    horizontal: group.card_height,
+                    above: group.card_height,
+                    below: 0.0,
                 },
-                InstancedMeshMaterial(material),
-                Transform::default(),
-                Visibility::Inherited,
-            ));
+                chunk_size: VISTA_CARD_CHUNK_SIZE,
+            }
+            .spawn(commands, |chunk| {
+                (
+                    Name::new(format!("Instanced vista tree cards ({})", chunk.len())),
+                    VistaTerrain(level),
+                    super::VistaTreePresentation,
+                )
+            });
         }
     }
-}
-
-/// Bounds every card in the batch. Cards are camera-facing, so the horizontal
-/// half-extent uses the card height too rather than an authored width.
-fn card_batch_aabb(instances: &[InstanceData], card_height: f32) -> Aabb {
-    let mut minimum = bevy::math::Vec3::splat(f32::INFINITY);
-    let mut maximum = bevy::math::Vec3::splat(f32::NEG_INFINITY);
-    let mut widest = 1.0_f32;
-    for instance in instances {
-        minimum = minimum.min(instance.position);
-        maximum = maximum.max(instance.position);
-        widest = widest.max(instance.scale);
-    }
-    let reach = card_height * widest;
-    let minimum = minimum - bevy::math::Vec3::new(reach, 0.0, reach);
-    let maximum = maximum + bevy::math::Vec3::new(reach, reach, reach);
-    Aabb::from_min_max(minimum, maximum)
 }

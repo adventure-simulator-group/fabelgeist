@@ -230,7 +230,7 @@ pub(super) fn spawn_vista_trees(
                     &cached.mesh,
                     &cached.material,
                     card_height,
-                    bevy_eidolon::prelude::InstanceData {
+                    crate::presentation::chunk_instancing::ChunkInstance {
                         position: Vec3::new(local.x, height, local.y),
                         scale,
                         ..Default::default()

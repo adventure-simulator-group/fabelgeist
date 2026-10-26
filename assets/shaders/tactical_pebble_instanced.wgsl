@@ -1,11 +1,11 @@
-// GPU-instanced loose-stone pebble patches (hero and near LODs).
+// Chunk-instanced loose-stone pebble patches (hero and near LODs).
 //
 // Shading is a straight port of `tactical_pebble.wgsl`: flat ambient plus a
 // Lambert term with one clamped cascade fetch, normalised the same way, so the
 // instanced path is pixel-equivalent on the lit face. Only the vertex stage
-// differs - the world matrix comes from the eidolon instance buffer rather than
-// from a per-entity mesh uniform, and the LOD hand-off dithers against the
-// batch's visibility range instead of Bevy's per-instance range table.
+// differs - the world matrix comes from the chunk's instance buffer rather than
+// from a per-entity mesh uniform, and the LOD hand-off dithers each instance
+// against the chunk's band instead of Bevy's per-entity range table.
 
 #ifdef PREPASS_PIPELINE
 #import bevy_pbr::mesh_view_bindings::view
@@ -18,9 +18,9 @@
 }
 #endif
 
-#import bevy_eidolon::render::utils
-#import bevy_eidolon::render::bindings::instance_uniforms
-#import bevy_eidolon::render::io_types::Vertex
+#import fablegeist::chunk_instancing::{
+    Vertex, chunk_band, instance_world_matrix, visibility_range_dither_level,
+}
 
 // Linear albedo in rgb, flat-ambient scale in w.
 @group(3) @binding(0) var<uniform> surface: vec4<f32>;
@@ -37,12 +37,7 @@ struct PebbleVertexOutput {
 @vertex
 fn vertex(vertex: Vertex) -> PebbleVertexOutput {
     var out: PebbleVertexOutput;
-    let batch = instance_uniforms[vertex.i_batch_id];
-    let instance_matrix = utils::calc_instance_world_matrix(
-        vertex.i_pos_scale,
-        vertex.i_rotation,
-        batch.world_from_local,
-    );
+    let instance_matrix = instance_world_matrix(vertex.i_pos_scale, vertex.i_rotation);
     let world_position = instance_matrix * vec4<f32>(vertex.position, 1.0);
     out.world_position = world_position;
     out.clip_position = position_world_to_clip(world_position.xyz);
@@ -63,7 +58,7 @@ fn vertex(vertex: Vertex) -> PebbleVertexOutput {
 #ifdef VISIBILITY_RANGE_DITHER
     let instance_origin = instance_matrix * vec4<f32>(0.0, 0.0, 0.0, 1.0);
     out.visibility_range_dither =
-        utils::get_visibility_range_dither_level(batch.visibility_range, instance_origin);
+        visibility_range_dither_level(chunk_band.visibility_range, instance_origin.xyz);
 #endif
     return out;
 }

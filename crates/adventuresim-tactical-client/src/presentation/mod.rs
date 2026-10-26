@@ -26,6 +26,7 @@ mod furniture;
 pub(crate) use furniture::{InteriorFurnitureExhibition, PresentedFurnitureMesh};
 mod building_closures;
 mod celestial_materials;
+pub(crate) mod chunk_instancing;
 mod environment;
 pub(crate) mod ground_scatter;
 pub(crate) use ground_scatter::gardens::ManagedGardenPlant;
@@ -210,10 +211,8 @@ fn tactical_global_ambient_light() -> GlobalAmbientLight {
 
 impl Plugin for TacticalPresentationPlugin {
     fn build(&self, app: &mut App) {
-        // GPU-instanced grass renders through bevy_eidolon on native and wasm
-        // (the fork's WebGPU draw path substitutes draw_indexed_indirect for
-        // multi-draw-indirect on the browser backend).
         app.add_plugins((
+            chunk_instancing::ChunkInstancingPlugin,
             ground_scatter::InstancedGrassPlugin,
             ground_scatter::gardens::GardenPresentationPlugin,
         ));
@@ -393,20 +392,5 @@ mod tests {
                 declared = true;
             }
         }
-    }
-}
-
-/// Instanced cutouts resolve fractional alpha to MSAA sample coverage. Only
-/// the main pass has a color target; WebGPU rejects AlphaToCoverage on the
-/// depth-only prepass, whose shaders discard instead.
-pub(in crate::presentation) fn enable_instanced_alpha_to_coverage(
-    descriptor: &mut bevy::render::render_resource::RenderPipelineDescriptor,
-) {
-    let has_color_target = descriptor
-        .fragment
-        .as_ref()
-        .is_some_and(|fragment| !fragment.targets.is_empty());
-    if has_color_target && descriptor.multisample.count > 1 {
-        descriptor.multisample.alpha_to_coverage_enabled = true;
     }
 }

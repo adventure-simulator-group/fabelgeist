@@ -17,10 +17,12 @@ use bevy::{
     },
     shader::ShaderRef,
 };
-use bevy_eidolon::prelude::*;
 use fabelgeist_determinism::Seed;
 
-use crate::presentation::obstacles::rock::rock_color;
+use crate::presentation::{
+    chunk_instancing::{ChunkInstance, ChunkInstancedMaterial},
+    obstacles::rock::rock_color,
+};
 
 mod batches;
 
@@ -63,22 +65,8 @@ pub(crate) struct TacticalPebbleBillboardMaterial {
     pub(in crate::presentation) ambient: Vec4,
 }
 
-impl InstancedMaterial for TacticalPebbleBillboardMaterial {
-    fn prepass_shader() -> ShaderRef {
-        PEBBLE_BILLBOARD_SHADER.into()
-    }
-
-    /// The prepass runs this material's own vertex function and repeats its
-    /// discards, so its depth matches the main pass exactly.
-    fn prepass_fragment() -> bool {
-        true
-    }
-
-    fn vertex_shader() -> ShaderRef {
-        PEBBLE_BILLBOARD_SHADER.into()
-    }
-
-    fn fragment_shader() -> ShaderRef {
+impl ChunkInstancedMaterial for TacticalPebbleBillboardMaterial {
+    fn shader() -> ShaderRef {
         PEBBLE_BILLBOARD_SHADER.into()
     }
 
@@ -112,22 +100,8 @@ impl TacticalPebbleMaterial {
     }
 }
 
-impl InstancedMaterial for TacticalPebbleMaterial {
-    fn prepass_shader() -> ShaderRef {
-        PEBBLE_SHADER.into()
-    }
-
-    /// The prepass runs this material's own vertex function and repeats its
-    /// discards, so its depth matches the main pass exactly.
-    fn prepass_fragment() -> bool {
-        true
-    }
-
-    fn vertex_shader() -> ShaderRef {
-        PEBBLE_SHADER.into()
-    }
-
-    fn fragment_shader() -> ShaderRef {
+impl ChunkInstancedMaterial for TacticalPebbleMaterial {
+    fn shader() -> ShaderRef {
         PEBBLE_SHADER.into()
     }
 }
@@ -655,9 +629,9 @@ mod tests {
 
         // Foreground LODs render on the cheap material; only the distant
         // stochastic billboard keeps its dedicated camera-facing shader.
-        // Instances read the batch band from the eidolon uniform rather than
-        // Bevy's per-instance visibility-range table.
-        assert!(shader.contains("batch.visibility_range"));
+        // Instances dither against their chunk's band rather than Bevy's
+        // per-entity visibility-range table.
+        assert!(shader.contains("chunk_band.visibility_range"));
         let granite = TacticalPebbleMaterial::new(rock_color(RockLithology::Granite));
         assert_eq!(granite.surface.w, PEBBLE_AMBIENT_SCALE);
     }

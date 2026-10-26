@@ -1,14 +1,14 @@
-// GPU-instanced distant vista tree cards.
+// Chunk-instanced distant vista tree cards.
 //
 // A port of the level-4 branch of `tactical_tree_impostor.wgsl` onto the
-// eidolon instance buffer. Vista stands are always whole-tree camera-facing
+// chunk instance buffer. Vista stands are always whole-tree camera-facing
 // cards, so the representation branch is gone; what remains is the billboard
 // basis, the wind sway, the eight-view atlas selection and the cutout.
 //
-// The near cutoff is the one thing that could not move to the batch. The
+// The near cutoff is the one thing that could not move to the chunk. The
 // per-entity renderer gave every card its own `VisibilityRange` whose start
 // distance scales with that card's height, keeping a stand out of the near
-// field until it subtends at most 16 degrees. Eidolon bands are per batch, so
+// field until it subtends at most 16 degrees. Chunk bands are shared, so
 // that test is evaluated here per instance instead, from the instance's own
 // uniform scale.
 
@@ -27,9 +27,9 @@ diagnostic(off, derivative_uniformity);
 }
 #endif
 
-#import bevy_eidolon::render::utils
-#import bevy_eidolon::render::bindings::instance_uniforms
-#import bevy_eidolon::render::io_types::Vertex
+#import fablegeist::chunk_instancing::{
+    Vertex, chunk_band, instance_world_matrix, visibility_range_dither_level,
+}
 
 @group(3) @binding(0) var baked_color: texture_2d<f32>;
 @group(3) @binding(1) var baked_color_sampler: sampler;
@@ -64,12 +64,7 @@ struct VistaCardVertexOutput {
 @vertex
 fn vertex(vertex: Vertex) -> VistaCardVertexOutput {
     var out: VistaCardVertexOutput;
-    let batch = instance_uniforms[vertex.i_batch_id];
-    let instance_matrix = utils::calc_instance_world_matrix(
-        vertex.i_pos_scale,
-        vertex.i_rotation,
-        batch.world_from_local,
-    );
+    let instance_matrix = instance_world_matrix(vertex.i_pos_scale, vertex.i_rotation);
     let root_world = (instance_matrix * vec4<f32>(0.0, 0.0, 0.0, 1.0)).xyz;
     let scale = vertex.i_pos_scale.w;
 
@@ -113,7 +108,7 @@ fn vertex(vertex: Vertex) -> VistaCardVertexOutput {
 #ifdef VISIBILITY_RANGE_DITHER
     let instance_origin = vec4<f32>(root_world, 1.0);
     out.visibility_range_dither =
-        utils::get_visibility_range_dither_level(batch.visibility_range, instance_origin);
+        visibility_range_dither_level(chunk_band.visibility_range, instance_origin.xyz);
 #endif
     return out;
 }

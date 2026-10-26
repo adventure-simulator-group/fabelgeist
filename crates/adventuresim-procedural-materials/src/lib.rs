@@ -169,8 +169,13 @@ pub fn is_camera_depth_prepass(
     vertex_shader_defs: &[bevy::shader::ShaderDefVal],
     mesh_key: bevy::pbr::MeshPipelineKey,
 ) -> bool {
-    mesh_key.msaa_samples() > 1
-        && vertex_shader_defs.contains(&bevy::shader::ShaderDefVal::from("PREPASS_PIPELINE"))
+    mesh_key.msaa_samples() > 1 && is_prepass_pipeline(vertex_shader_defs)
+}
+
+/// Whether Bevy is specializing a prepass (camera or shadow) pipeline rather
+/// than the main pass.
+pub fn is_prepass_pipeline(vertex_shader_defs: &[bevy::shader::ShaderDefVal]) -> bool {
+    vertex_shader_defs.contains(&bevy::shader::ShaderDefVal::from("PREPASS_PIPELINE"))
 }
 
 /// Bevy omits the prepass fragment stage for AlphaToCoverage under MSAA, so

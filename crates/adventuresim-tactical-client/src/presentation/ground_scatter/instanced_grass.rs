@@ -1,4 +1,4 @@
-//! GPU-instanced grass on `bevy_eidolon`, for every sward in the scene.
+//! Chunk-instanced grass for every sward in the scene.
 //!
 //! One instance is a multi-blade tuft whose mesh reuses the shared blade,
 //! species, and pigment construction (`grass_tuft_mesh`). Placement keeps the
@@ -9,9 +9,7 @@
 //!
 //! The playable scene and the vista rings differ only in where height,
 //! coverage, and community come from, so both go through [`TuftPlacement`] and
-//! share one lattice walk and one batching path. Native and wasm run the same
-//! renderer: the fork's WebGPU draw path loops `draw_indexed_indirect` where
-//! the native backend issues `multi_draw_indexed_indirect`.
+//! share one lattice walk and one batching path.
 
 mod streams;
 mod variation;
@@ -19,15 +17,13 @@ use fabelgeist_determinism::Seed;
 use std::sync::Arc;
 
 use adventuresim_tactical_core::prelude::{SceneEnvironment, SceneGround, SceneTerrain};
-use bevy::{
-    camera::{primitives::Aabb, visibility::NoFrustumCulling},
-    color::Color,
-    light::NotShadowCaster,
-    prelude::*,
-};
-use bevy_eidolon::{prelude::*, prepass::CullComputeCamera};
+use bevy::{color::Color, prelude::*};
 
-use crate::presentation::{bps, stable_text_seed};
+use crate::presentation::{
+    bps,
+    chunk_instancing::{ChunkInstance, ChunkMaterialPlugin, FadeBand, InstanceReach},
+    stable_text_seed,
+};
 
 use super::{
     GrassInteractor, GroundScatterLayer,
@@ -40,11 +36,9 @@ use super::{
 
 use super::cover_mask::CoverageMask;
 mod batches;
-mod culling;
 mod diagnostics;
 pub(in crate::presentation) use batches::{PreparedTufts, spawn_tuft_batches};
 mod material;
-mod view_culling;
 pub(crate) use diagnostics::GrassTriangleCount;
 pub(in crate::presentation) use material::TacticalGrassInstancedMaterial;
 
@@ -53,23 +47,14 @@ pub(crate) struct InstancedGrassPlugin;
 impl Plugin for InstancedGrassPlugin {
     fn build(&self, app: &mut App) {
         app.add_plugins((
-            InstancedMaterialCorePlugin,
-            GpuComputeCullCorePlugin,
-            InstancedMaterialPlugin::<TacticalGrassInstancedMaterial>::default(),
-            view_culling::GrassCullingPlugin,
-            InstancedMaterialPlugin::<super::TacticalShrubBarkInstancedMaterial>::default(),
-            GpuCullComputePlugin::<super::TacticalShrubBarkInstancedMaterial>::default(),
-            InstancedMaterialPlugin::<super::TacticalShrubLeafInstancedMaterial>::default(),
-            GpuCullComputePlugin::<super::TacticalShrubLeafInstancedMaterial>::default(),
+            ChunkMaterialPlugin::<TacticalGrassInstancedMaterial>::default(),
+            ChunkMaterialPlugin::<super::TacticalShrubBarkInstancedMaterial>::default(),
+            ChunkMaterialPlugin::<super::TacticalShrubLeafInstancedMaterial>::default(),
         ))
         .init_resource::<InstancedGrassInteractionState>()
         .add_systems(
             Update,
-            (
-                enable_camera_cull_compute,
-                present_instanced_grass,
-                update_instanced_grass_interaction,
-            ),
+            (present_instanced_grass, update_instanced_grass_interaction),
         );
     }
 }
@@ -189,29 +174,6 @@ pub(in crate::presentation) fn prepare_scene_tufts(
     batches
 }
 
-/// Every gameplay/viewer camera drives eidolon's per-instance compute cull.
-#[expect(
-    clippy::type_complexity,
-    reason = "the Bevy camera filter selects uncoupled gameplay cameras and excludes the offscreen cloud pass"
-)]
-fn enable_camera_cull_compute(
-    mut commands: Commands,
-    cameras: Query<
-        Entity,
-        (
-            With<Camera3d>,
-            Without<CullComputeCamera>,
-            // The grass never renders on the offscreen cloud layer, and the
-            // compute cull must follow the gameplay camera.
-            Without<crate::presentation::TacticalCloudOffscreenCamera>,
-        ),
-    >,
-) {
-    for camera in &cameras {
-        commands.entity(camera).insert(CullComputeCamera);
-    }
-}
-
 /// Smoothing state for the grass interaction uniforms.
 #[derive(Resource, Default)]
 pub(in crate::presentation) struct InstancedGrassInteractionState {
@@ -285,7 +247,7 @@ fn tufts_per_cell_side(lod: GrassMeshLod) -> i32 {
     }
 }
 
-/// Eidolon fade bands per tier: `xy` fade-in, `zw` fade-out, mirroring the
+/// Legacy fade bands per tier: `xy` fade-in, `zw` fade-out, mirroring the
 /// legacy `grass_lod_visibility` crossfade margins. The near tier's epsilon
 /// fade-in keeps the dither-level math well-defined at zero distance.
 ///
@@ -310,21 +272,19 @@ fn tier_visibility_range(lod: GrassMeshLod, range_scale: f32) -> Vec4 {
     }) * scale
 }
 
-fn configured_tier_visibility_range(
+fn configured_tier_band(
     lod: GrassMeshLod,
     grass: &crate::presentation::config::GrassConfig,
-) -> Vec4 {
+) -> FadeBand {
     let tier = match lod {
         GrassMeshLod::Near => &grass.lod.near,
         GrassMeshLod::NearEdge => &grass.lod.near_edge,
         GrassMeshLod::Far => &grass.lod.far,
         GrassMeshLod::Vista => &grass.lod.vista,
     };
-    Vec4::new(
-        tier.fade_in_m[0],
-        tier.fade_in_m[1],
-        tier.fade_out_m[0],
-        tier.fade_out_m[1],
+    FadeBand::new(
+        tier.fade_in_m[0]..tier.fade_in_m[1],
+        tier.fade_out_m[0]..tier.fade_out_m[1],
     )
 }
 
@@ -338,24 +298,16 @@ const TIERS: [GrassMeshLod; 4] = [
 /// Maximum blade reach above a tuft root: authored ribbon height times the
 /// largest height/species scaling the mesh generator produces.
 const TUFT_HEIGHT_MARGIN_METRES: f32 = 1.5;
+/// Roots sit on sampled terrain; this covers sinking into a steeper slope.
+const TUFT_DEPTH_MARGIN_METRES: f32 = 0.3;
 
-/// Tight bounds over a batch's actual instances. The initial implementation
-/// used one whole-terrain slab per batch; a fitted box keeps Bevy's
-/// batch-level frustum test and the compute cull's chunk test conservative
-/// without extending the volume past the sward's real extent.
-pub(super) fn fitted_batch_aabb(instances: &[InstanceData], footprint: f32) -> Aabb {
-    let mut minimum = Vec3::splat(f32::INFINITY);
-    let mut maximum = Vec3::splat(f32::NEG_INFINITY);
-    for instance in instances {
-        minimum = minimum.min(instance.position);
-        maximum = maximum.max(instance.position);
-    }
-    let margin = Vec3::new(footprint, TUFT_HEIGHT_MARGIN_METRES, footprint);
-    let minimum = minimum - margin * Vec3::new(1.0, 0.2, 1.0);
-    let maximum = maximum + margin;
-    Aabb {
-        center: ((minimum + maximum) * 0.5).into(),
-        half_extents: ((maximum - minimum) * 0.5).into(),
+/// The geometric reach of ground scatter around its root: `footprint`
+/// metres sideways, plus the blade height margins.
+pub(super) fn ground_scatter_reach(footprint: f32) -> InstanceReach {
+    InstanceReach {
+        horizontal: footprint,
+        above: TUFT_HEIGHT_MARGIN_METRES,
+        below: TUFT_DEPTH_MARGIN_METRES,
     }
 }
 
@@ -387,7 +339,7 @@ pub(in crate::presentation) struct GrassWorld<'a, 'w, 's> {
 
 /// Instance batches keyed by LOD tier, then by species within the tier.
 pub(in crate::presentation) type TierSpeciesBatches =
-    [[Vec<InstanceData>; GrassSpecies::ALL.len()]; TIERS.len()];
+    [[Vec<ChunkInstance>; GrassSpecies::ALL.len()]; TIERS.len()];
 
 /// The playable scene's authoritative terrain, cover mask, and community profile.
 struct ScenePlacement<'a> {
@@ -454,7 +406,7 @@ pub(in crate::presentation) struct TuftPigment {
 /// Walks the jittered placement cells and fills per-species instance vectors
 /// with tuft placements.
 pub(in crate::presentation) fn scatter_cell_tufts(
-    species_batches: &mut [Vec<InstanceData>; GrassSpecies::ALL.len()],
+    species_batches: &mut [Vec<ChunkInstance>; GrassSpecies::ALL.len()],
     placement: &mut impl TuftPlacement,
     base_seed: Seed,
     lod: GrassMeshLod,
@@ -500,13 +452,10 @@ pub(in crate::presentation) fn scatter_cell_tufts(
                     };
                     let community = placement.community(centre);
                     let species = grass_species(community, variation.species);
-                    let batch = &mut species_batches[species.index()];
-                    batch.push(InstanceData {
+                    species_batches[species.index()].push(ChunkInstance {
                         position: Vec3::new(centre.x, height, centre.y),
                         scale: 1.0,
                         rotation: variation.rotation,
-                        index: batch.len() as u32,
-                        batch_id: 0,
                         seed: u32::from(coverage) | (variation.shader_seed << 8),
                     });
                     emitted += 1;
@@ -586,29 +535,6 @@ mod tests {
             tier_visibility_range(GrassMeshLod::Near, 0.0),
             tier_visibility_range(GrassMeshLod::Near, 0.35)
         );
-    }
-
-    #[test]
-    fn fitted_batch_aabb_bounds_all_instances_with_blade_headroom() {
-        let instances = vec![
-            InstanceData {
-                position: Vec3::new(-4.0, 1.0, 6.0),
-                scale: 1.0,
-                ..Default::default()
-            },
-            InstanceData {
-                position: Vec3::new(9.0, 3.0, -2.0),
-                scale: 1.0,
-                ..Default::default()
-            },
-        ];
-        let aabb = fitted_batch_aabb(&instances, 0.5);
-        let minimum = aabb.center - aabb.half_extents;
-        let maximum = aabb.center + aabb.half_extents;
-        assert!(minimum.x <= -4.5 && maximum.x >= 9.5);
-        assert!(minimum.z <= -2.5 && maximum.z >= 6.5);
-        assert!(maximum.y >= 3.0 + TUFT_HEIGHT_MARGIN_METRES);
-        assert!(minimum.y <= 1.0);
     }
 
     #[test]

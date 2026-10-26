@@ -48,10 +48,6 @@ todo-or-die = { version = "0.1.2", features = ["crate"] }
 tracing-tracy = { version = "0.11", optional = true }
 tracing-subscriber = { version = "0.3", optional = true }
 tracy-client-sys = { version = "=0.28.0", optional = true }
-# Drives every grass renderer on both native and wasm: the fork's WebGPU
-# indirect-draw fallback loops draw_indexed_indirect in place of
-# multi-draw-indirect, so the browser bundle uses the same instanced path.
-bevy_eidolon.workspace = true
 
 [target."cfg(not(target_family = \"wasm\"))".dependencies]
 bevy = { workspace = true, default-features = true, features = ["file_watcher", "jpeg"] }

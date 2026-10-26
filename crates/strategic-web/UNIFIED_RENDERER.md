@@ -376,11 +376,13 @@ Unselected residents and completed portrait snapshots stay resident; activating
 a view restores its character's shadow casting before shadow preparation.
 Authored shadow exclusions are preserved.
 
-Grass keeps persistent tuft buffers and runs GPU culling immediately before
-each camera's main pass. Animated bounds cover wind, blade width and player
-interaction. Each view clears and fills its own visible-instance result in GPU
-command order, so snapshots and the live camera can safely reuse scratch buffers.
-Grass retains its existing policy of omitting shadow and depth prepasses.
+Grass, shrubs, loose stones and vista tree cards draw chunk-instanced. Each
+batch is split into ground cells, and each cell is one entity whose bounds cover
+its instances. Bevy's CPU frustum and range culling picks the visible cells for
+every camera, and each visible cell is one instanced draw over an instance
+buffer uploaded once. Instances fade per instance in the shader, so crossfading
+distance bands hand over exactly however the cells fall. Chunks draw in the main
+pass and the depth prepass, never in shadow passes.
 CPU scatter preparation caches habitat-cell positions and random fields for
 the duration of the pass. Each tuft still evaluates its exact nearest site and
 local environmental weights, preserving species boundaries and seeded output.

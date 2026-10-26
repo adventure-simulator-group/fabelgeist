@@ -23,16 +23,11 @@ impl Plugin for TacticalMaterialsPlugin {
         // Split from the tuple above so the material-plugin group stays within
         // Bevy's 15-element `Plugins` tuple arity limit.
         .add_plugins((
-            // Loose stone renders through bevy_eidolon: one batch per patch
-            // mesh and LOD instead of two or three entities per square metre.
-            bevy_eidolon::prelude::InstancedMaterialPlugin::<TacticalPebbleMaterial>::default(),
-            bevy_eidolon::prelude::GpuCullComputePlugin::<TacticalPebbleMaterial>::default(),
-            bevy_eidolon::prelude::InstancedMaterialPlugin::<TacticalPebbleBillboardMaterial>::default(),
-            bevy_eidolon::prelude::GpuCullComputePlugin::<TacticalPebbleBillboardMaterial>::default(),
-            bevy_eidolon::prelude::InstancedMaterialPlugin::<
-                crate::presentation::vista::tree_cards::TacticalVistaTreeInstancedMaterial,
-            >::default(),
-            bevy_eidolon::prelude::GpuCullComputePlugin::<
+            // Loose stone draws chunk-instanced: one entity per patch mesh, LOD
+            // and ground cell instead of two or three per square metre.
+            chunk_instancing::ChunkMaterialPlugin::<TacticalPebbleMaterial>::default(),
+            chunk_instancing::ChunkMaterialPlugin::<TacticalPebbleBillboardMaterial>::default(),
+            chunk_instancing::ChunkMaterialPlugin::<
                 crate::presentation::vista::tree_cards::TacticalVistaTreeInstancedMaterial,
             >::default(),
             MaterialPlugin::<CityGroundMaterial>::default(),

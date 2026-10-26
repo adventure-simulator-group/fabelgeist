@@ -1,40 +1,43 @@
-//! GPU-instanced woody understory on `bevy_eidolon`.
+//! Chunk-instanced woody understory.
 //!
-//! Nine batch entities (three species x branches/cambered leaves/alpha
-//! cards) replace roughly three ECS entities per shrub. Placement reuses the
+//! Three species, each in several representations, are drawn as instanced
+//! chunks instead of roughly three ECS entities per shrub. Placement reuses the
 //! exact legacy walk (`understory::placements`), so thickets land where the
 //! per-entity renderer put them; only the terrain-normal tilt is dropped -
 //! instances carry yaw and uniform scale, and shrubs grow plumb like real
-//! ones. The instanced path renders in the main opaque pass only, so shrubs
-//! stop casting shadows; at their band distances the cast shadows were
-//! already faint.
+//! ones. Instanced chunks never cast shadows; at their band distances the
+//! cast shadows were already faint.
 
 use fabelgeist_determinism::Seed;
 use fabelgeist_determinism::StreamId;
-use std::sync::Arc;
 
 use adventuresim_tactical_core::prelude::{SceneGround, SceneTerrain};
 use bevy::{
-    color::LinearRgba,
     prelude::*,
     render::render_resource::{
         AsBindGroup, RenderPipelineDescriptor, ShaderType, SpecializedMeshPipelineError,
     },
     shader::ShaderRef,
 };
-use bevy_eidolon::prelude::*;
+
+use crate::presentation::chunk_instancing::{
+    ChunkInstance, ChunkInstancedMaterial, ChunkSize, FadeBand, InstanceBatch,
+    enable_alpha_to_coverage,
+};
 
 use super::{
     WoodyUnderstoryPresentationCache,
-    instanced_grass::fitted_batch_aabb,
+    instanced_grass::ground_scatter_reach,
     understory::{self, ShrubPlacement, UnderstoryHabitat, UnderstorySpecies},
 };
 
 const SHRUB_BARK_SHADER: &str = "shaders/tactical_shrub_bark_instanced.wgsl";
 const SHRUB_LEAF_SHADER: &str = "shaders/tactical_shrub_leaf_instanced.wgsl";
 
-/// Widest shrub footprint in metres, for batch AABB headroom.
+/// Widest shrub footprint in metres, for chunk bounds headroom.
 const SHRUB_FOOTPRINT_METRES: f32 = 4.5;
+/// Shrubs fade out within ~100 m, so mid-sized cells cull tightly enough.
+const SHRUB_CHUNK_SIZE: ChunkSize = ChunkSize(32.0);
 
 /// Simple lit bark for instanced shrub wood; the legacy path used a plain
 /// `StandardMaterial`, so a colour + roughness uniform loses nothing.
@@ -45,22 +48,8 @@ pub(in crate::presentation) struct TacticalShrubBarkInstancedMaterial {
     pub color: Vec4,
 }
 
-impl InstancedMaterial for TacticalShrubBarkInstancedMaterial {
-    fn prepass_shader() -> ShaderRef {
-        SHRUB_BARK_SHADER.into()
-    }
-
-    /// The prepass runs this material's own vertex function and repeats its
-    /// discards, so its depth matches the main pass exactly.
-    fn prepass_fragment() -> bool {
-        true
-    }
-
-    fn vertex_shader() -> ShaderRef {
-        SHRUB_BARK_SHADER.into()
-    }
-
-    fn fragment_shader() -> ShaderRef {
+impl ChunkInstancedMaterial for TacticalShrubBarkInstancedMaterial {
+    fn shader() -> ShaderRef {
         SHRUB_BARK_SHADER.into()
     }
 }
@@ -116,22 +105,8 @@ impl From<&TacticalShrubLeafInstancedMaterial> for TacticalShrubLeafInstancedUni
     }
 }
 
-impl InstancedMaterial for TacticalShrubLeafInstancedMaterial {
-    fn prepass_shader() -> ShaderRef {
-        SHRUB_LEAF_SHADER.into()
-    }
-
-    /// The prepass runs this material's own vertex function and repeats its
-    /// discards, so its depth matches the main pass exactly.
-    fn prepass_fragment() -> bool {
-        true
-    }
-
-    fn vertex_shader() -> ShaderRef {
-        SHRUB_LEAF_SHADER.into()
-    }
-
-    fn fragment_shader() -> ShaderRef {
+impl ChunkInstancedMaterial for TacticalShrubLeafInstancedMaterial {
+    fn shader() -> ShaderRef {
         SHRUB_LEAF_SHADER.into()
     }
 
@@ -142,18 +117,18 @@ impl InstancedMaterial for TacticalShrubLeafInstancedMaterial {
     ) -> Result<(), SpecializedMeshPipelineError> {
         // Leaf cards are shaded double-sided and cut out via A2C.
         descriptor.primitive.cull_mode = None;
-        crate::presentation::enable_instanced_alpha_to_coverage(descriptor);
+        enable_alpha_to_coverage(descriptor);
         Ok(())
     }
 }
 
 /// Fade bands per representation; adjacent cambered/card bands share their
 /// endpoints so the complementary crossfade partition hands off exactly.
-fn representation_band(representation: ShrubRepresentation) -> Vec4 {
+fn representation_band(representation: ShrubRepresentation) -> FadeBand {
     match representation {
-        ShrubRepresentation::Branches => Vec4::new(0.0, 0.001, 44.0, 52.0),
-        ShrubRepresentation::CamberedLeaves => Vec4::new(0.0, 0.001, 26.0, 34.0),
-        ShrubRepresentation::LeafCards => Vec4::new(26.0, 34.0, 84.0, 96.0),
+        ShrubRepresentation::Branches => FadeBand::until(44.0..52.0),
+        ShrubRepresentation::CamberedLeaves => FadeBand::until(26.0..34.0),
+        ShrubRepresentation::LeafCards => FadeBand::new(26.0..34.0, 84.0..96.0),
     }
 }
 
@@ -187,7 +162,7 @@ pub(super) fn spawn(
     chance: f32,
     habitat: UnderstoryHabitat,
 ) {
-    let mut per_species: [Vec<InstanceData>; 3] = Default::default();
+    let mut per_species: [Vec<ChunkInstance>; 3] = Default::default();
     for ShrubPlacement {
         species,
         world_x,
@@ -214,7 +189,7 @@ pub(super) fn spawn(
         UnderstorySpecies::Blackthorn,
         UnderstorySpecies::CommonHawthorn,
     ] {
-        let instances = Arc::new(std::mem::take(&mut per_species[species_index(species)]));
+        let instances = std::mem::take(&mut per_species[species_index(species)]);
         if instances.is_empty() {
             continue;
         }
@@ -243,45 +218,41 @@ pub(super) fn spawn(
         let Some(leaf) = leaf_sources.get(leaf_handle) else {
             continue;
         };
-        let aabb = fitted_batch_aabb(&instances, SHRUB_FOOTPRINT_METRES);
         let bark = bark_materials.add(TacticalShrubBarkInstancedMaterial { color: bark_color });
         for representation in REPRESENTATIONS {
-            let (mesh, name) = match representation {
+            let (mesh, label) = match representation {
                 ShrubRepresentation::Branches => (branches.clone(), "wood"),
                 ShrubRepresentation::CamberedLeaves => (cambered.clone(), "cambered leaves"),
                 ShrubRepresentation::LeafCards => (cards.clone(), "leaf cards"),
             };
-            let mut entity = commands.spawn((
-                Name::new(format!(
-                    "Instanced {species:?} shrub {name} ({})",
-                    instances.len()
-                )),
-                super::GroundScatterLayer::Understory,
-                GpuCullCompute,
-                // Whole-scene batches: culling belongs to the GPU compute
-                // pass, and CPU frustum culling would free the retained
-                // instance buffers (see the grass batches).
-                bevy::camera::visibility::NoFrustumCulling,
-                Mesh3d(mesh),
-                aabb,
-                InstanceMaterialData {
-                    instances: instances.clone(),
-                    color: LinearRgba::WHITE,
-                    visibility_range: representation_band(representation),
-                },
-                Transform::default(),
-                Visibility::Inherited,
-            ));
+            let components = |chunk: &[ChunkInstance]| {
+                (
+                    Name::new(format!(
+                        "Instanced {species:?} shrub {label} ({})",
+                        chunk.len()
+                    )),
+                    super::GroundScatterLayer::Understory,
+                )
+            };
+            let band = representation_band(representation);
+            let reach = ground_scatter_reach(SHRUB_FOOTPRINT_METRES);
             match representation {
-                ShrubRepresentation::Branches => {
-                    entity.insert(InstancedMeshMaterial(bark.clone()));
+                ShrubRepresentation::Branches => InstanceBatch {
+                    mesh,
+                    material: bark.clone(),
+                    instances: instances.clone(),
+                    band,
+                    reach,
+                    chunk_size: SHRUB_CHUNK_SIZE,
                 }
+                .spawn(commands, components),
+                // Both the cambered near leaves and the distant cards shade
+                // fast now; the cambered path's former full PBR was pure
+                // per-fragment cost. y=0.72 scales the flat ambient.
                 ShrubRepresentation::CamberedLeaves | ShrubRepresentation::LeafCards => {
-                    // Both the cambered near leaves and the distant cards shade
-                    // fast now; the cambered path's former full PBR was pure
-                    // per-fragment cost. y=0.72 scales the flat ambient.
-                    entity.insert(InstancedMeshMaterial(leaf_materials.add(
-                        TacticalShrubLeafInstancedMaterial {
+                    InstanceBatch {
+                        mesh,
+                        material: leaf_materials.add(TacticalShrubLeafInstancedMaterial {
                             opacity: leaf.opacity.clone(),
                             front_albedo: leaf.front_albedo.clone(),
                             back_albedo: leaf.back_albedo.clone(),
@@ -292,8 +263,13 @@ pub(super) fn spawn(
                             surface_parameters: leaf.surface_parameters,
                             physical_parameters: leaf.physical_parameters,
                             shading: Vec4::new(1.0, 0.72, 0.0, 0.0),
-                        },
-                    )));
+                        }),
+                        instances: instances.clone(),
+                        band,
+                        reach,
+                        chunk_size: SHRUB_CHUNK_SIZE,
+                    }
+                    .spawn(commands, components)
                 }
             }
         }
@@ -308,7 +284,7 @@ fn species_index(species: UnderstorySpecies) -> usize {
     }
 }
 
-fn shrub_instance(hash: Seed, position: Vec3) -> InstanceData {
+fn shrub_instance(hash: Seed, position: Vec3) -> ChunkInstance {
     let yaw = StreamId::new("visual.understory.yaw")
         .rng(hash, &[])
         .inclusive_unit_f32()
@@ -318,7 +294,7 @@ fn shrub_instance(hash: Seed, position: Vec3) -> InstanceData {
             .rng(hash, &[])
             .inclusive_unit_f32()
             * 0.58;
-    InstanceData {
+    ChunkInstance {
         position,
         scale,
         rotation: yaw,
@@ -326,6 +302,5 @@ fn shrub_instance(hash: Seed, position: Vec3) -> InstanceData {
             .seed(hash, &[])
             .to_u64()
             & 0xffff_ffff) as u32,
-        ..Default::default()
     }
 }
