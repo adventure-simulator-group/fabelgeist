@@ -1,32 +1,33 @@
 //! Deterministic binary glTF export for an identity-shaped MHR character.
 
+use anyhow::{Context, Result, bail};
+use buffer::{BufferBuilder, f32_bytes, u16_bytes, u32_bytes};
+use fabelgeist_mhr::math::{Transform, quat_from_matrix, quat_normalize};
 use fabelgeist_rig::{RigJointLookupError, RigJointMembership, RigJointName, RigJointOrdinal};
 #[cfg(test)]
 use glb::GLB_MAGIC;
+pub use rigged::{RiggedMesh, RiggedMorphTarget, RiggedShell};
+use serde_json::{Value, json};
 #[cfg(test)]
 use std::fs;
 use std::path::Path;
-
-use anyhow::{Context, Result, bail};
-use fabelgeist_mhr::math::{Transform, quat_from_matrix, quat_normalize};
-use serde_json::{Value, json};
-
-mod assembly;
-mod buffer;
-use buffer::{BufferBuilder, f32_bytes, u16_bytes, u32_bytes};
-mod compact;
-mod glb;
-mod morphs;
-mod shell;
-mod skeleton;
-pub mod skinning;
-mod textures;
 pub use textures::{
     GlbOutput, ShellTextures, SurfaceAlpha, SurfaceSampling, SurfaceSides, SurfaceTextures,
 };
-mod sockets;
-mod validation;
 use validation::validate;
+
+mod assembly;
+mod buffer;
+mod compact;
+pub mod glb;
+mod morphs;
+mod rigged;
+mod shell;
+mod skeleton;
+pub mod skinning;
+mod sockets;
+mod textures;
+mod validation;
 
 pub const EQUIPMENT_SOCKET_NODE_PREFIX: &str = "equipment_socket_";
 pub const MHR_ANATOMICAL_UV_DOMAIN: &str = "mhr_body_v1";
@@ -51,9 +52,6 @@ const WEAPON_SOCKET_CALIBRATION: Transform = Transform {
     ],
     scale: 1.0,
 };
-
-mod rigged;
-pub use rigged::{RiggedMesh, RiggedMorphTarget, RiggedShell};
 
 pub struct RiggedSocket<'a> {
     pub attachment_point_id: &'a str,
@@ -841,7 +839,7 @@ pub fn export_rigged_glb(
 
     texture_images.finish(output, &mut document)?;
 
-    glb::write(output.path(), &document, buffer.bytes)
+    glb::write(output.path(), &document, buffer.bytes).map_err(Into::into)
 }
 
 #[cfg(test)]
