@@ -17,17 +17,19 @@ pub struct WgpuContext {
     pub surface: Option<Arc<wgpu::Surface<'static>>>,
     pub blitter: Option<Arc<Blitter>>,
     pub blit_lock: Arc<async_lock::Mutex<()>>,
-    /// How shader, pipeline and whole-texture format-view creation observe
-    /// native validation errors.
+    /// How shader, pipeline, texture and texture-view creation observe native
+    /// validation errors.
     ///
     /// Contexts that create a native device select blocking scopes. Contexts
     /// wrapping an existing device and browser targets select uncaptured errors
     /// to avoid synchronously waiting on another application's active device or
     /// the browser event loop.
     ///
-    /// Texture constructors and cube subresource views have separate validation
-    /// paths and do not yet consistently honor this policy. Observing a scope
-    /// does not establish the device's global health or roll back prior work.
+    /// Texture constructors, whole-texture format views and cube-face views
+    /// with a context share scope completion and structured failures. Readback
+    /// completion and submission backpressure have independent waits.
+    /// Observing a scope does not establish the device's global health or roll
+    /// back prior work.
     pub validation_observation: ValidationObservation,
 }
 

@@ -1,24 +1,25 @@
-//! Failures selecting a format view of an existing whole texture.
+//! Failures selecting a whole-texture or cube-face format view.
 
-use super::TextureFormat;
+use super::{CubeFace, TextureFormat};
 use crate::globals::ValidationScopeError;
 use derive_more::{Display, Error};
 
-/// The concrete result of selecting a whole-texture format view.
+/// The concrete result of selecting a texture format view.
 ///
 /// A generic caller admits the error with `?` or a standard error conversion;
 /// the public producer itself retains this bespoke error type.
 pub type TextureViewResult<T> = std::result::Result<T, TextureViewError>;
 
-/// The whole-texture format-view operation being observed.
+/// The format-view operation being observed.
 #[derive(Clone, Copy, Debug)]
 pub enum TextureViewOperation {
     Texture2d,
     Texture3d,
     TextureCube,
+    TextureCubeFace(CubeFace),
 }
 
-/// Missing texture resources and native whole-texture format-view failures.
+/// Missing texture resources and native format-view failures.
 ///
 /// Observation failures retain the original request, even when storage binding
 /// requires its linear counterpart at the WebGPU descriptor boundary.
