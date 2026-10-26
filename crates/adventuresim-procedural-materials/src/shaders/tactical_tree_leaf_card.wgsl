@@ -192,6 +192,23 @@ fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> Fragment
     return out;
 }
 #else
+#ifdef CAMERA_DEPTH_PREPASS
+// The camera's depth prepass writes only the opaque core of each leaf. There
+// the main pass outputs alpha 1.0, which AlphaToCoverage maps to every MSAA
+// sample, so the two passes cannot disagree; soft edges and LOD crossfades
+// skip the prepass and shade exactly as without one.
+@fragment
+fn fragment(in: VertexOutput) {
+#ifdef VISIBILITY_RANGE_DITHER
+    if in.visibility_range_dither != 0 {
+        discard;
+    }
+#endif
+    if textureSample(leaf_opacity, leaf_opacity_sampler, in.uv).r < 1.0 {
+        discard;
+    }
+}
+#else
 @fragment
 fn fragment(in: VertexOutput) {
 #ifdef VISIBILITY_RANGE_DITHER
@@ -204,6 +221,7 @@ fn fragment(in: VertexOutput) {
         discard;
     }
 }
+#endif
 #endif
 #else
 @fragment

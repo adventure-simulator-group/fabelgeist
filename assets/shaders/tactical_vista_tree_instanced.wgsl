@@ -14,10 +14,18 @@
 
 diagnostic(off, derivative_uniformity);
 
+#ifdef PREPASS_PIPELINE
+#import bevy_pbr::mesh_view_bindings::view
+#import bevy_pbr::view_transformations::position_world_to_clip
+#import bevy_render::globals::Globals
+// The prepass view layout binds the globals uniform at slot 1.
+@group(0) @binding(1) var<uniform> globals: Globals;
+#else
 #import bevy_pbr::{
     mesh_view_bindings::{globals, view},
     view_transformations::position_world_to_clip,
 }
+#endif
 
 #import bevy_eidolon::render::utils
 #import bevy_eidolon::render::bindings::instance_uniforms
@@ -110,6 +118,50 @@ fn vertex(vertex: Vertex) -> VistaCardVertexOutput {
     return out;
 }
 
+#ifdef PREPASS_PIPELINE
+// The camera's depth prepass repeats every main-pass discard, then keeps only
+// fully opaque atlas texels, where AlphaToCoverage covers every MSAA sample.
+@fragment
+fn fragment(in: VistaCardVertexOutput) {
+#ifdef VISIBILITY_RANGE_DITHER
+    // Crisp handoff at the midpoint, as the per-entity path did: a translucent
+    // crossfade reads as a pale duplicate crown.
+    if in.visibility_range_dither <= -8 || in.visibility_range_dither > 8 {
+        discard;
+    }
+#endif
+    // Per-instance near cutoff. The per-entity renderer faded this over a 12%
+    // band; keep that so a stand does not pop in as one hard edge.
+    let camera_distance = distance(view.world_position.xz, in.world_position.xz);
+    if camera_distance < in.near_cutoff {
+        discard;
+    }
+    let near_fade = smoothstep(in.near_cutoff, in.near_cutoff * 1.12, camera_distance);
+    let pixel_hash = fract(
+        52.9829189 * fract(dot(floor(in.clip_position.xy), vec2<f32>(0.06711056, 0.00583715))),
+    );
+    if pixel_hash > near_fade {
+        discard;
+    }
+
+    let direction = normalize(view.world_position.xz - in.world_position.xz + vec2<f32>(0.0001, 0.0));
+    let angle = atan2(direction.y, direction.x);
+    // Bake-card right axes produce view normals one quarter turn behind their
+    // authored angle; select by that convention.
+    let wrapped = fract(angle / 6.2831853 + 1.0 - 0.25);
+    let view_index = u32(round(wrapped * 8.0)) % 8u;
+    let column = view_index % 3u;
+    let row = view_index / 3u;
+    let uv = vec2<f32>(
+        (f32(column) + in.uv.x) / 3.0,
+        (f32(row) + in.uv.y) / 3.0,
+    );
+
+    if textureSample(baked_color, baked_color_sampler, uv).a < 1.0 {
+        discard;
+    }
+}
+#else
 @fragment
 fn fragment(in: VistaCardVertexOutput) -> @location(0) vec4<f32> {
 #ifdef VISIBILITY_RANGE_DITHER
@@ -160,3 +212,4 @@ fn fragment(in: VistaCardVertexOutput) -> @location(0) vec4<f32> {
     let direct_irradiance = normal_light * tree.lighting.w * (1.0 - tree.ambient.w);
     return vec4<f32>(baked.rgb * (ambient_irradiance + vec3<f32>(direct_irradiance)), baked.a);
 }
+#endif

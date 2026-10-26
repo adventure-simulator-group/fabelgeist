@@ -19,7 +19,7 @@ pub(in crate::presentation) use urban::{UrbanGroundCoveragePlugin, urban_playabl
 
 use cliff_surface::enable_cliff_surface;
 pub(in crate::presentation) use cliff_surface::{
-    TacticalTerrainExtension, TacticalTerrainMaterial,
+    TacticalTerrainExtension, TacticalTerrainMaterial, load_terrain_prepass_shader,
 };
 
 const DETAIL_PATCH_RADIUS_METRES: f32 = 12.0;

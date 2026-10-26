@@ -13,10 +13,17 @@
 //   uv_b  = blade root offset in tuft-local xz
 //   color = species pigment, alpha = per-blade threshold/variation hash
 
+#ifdef PREPASS_PIPELINE
+#import bevy_pbr::mesh_view_bindings::view
+#import bevy_render::globals::Globals
+// The prepass view layout binds the globals uniform at slot 1.
+@group(0) @binding(1) var<uniform> globals: Globals;
+#else
 #import bevy_pbr::{
     mesh_view_bindings::{globals, lights, view},
     shadows,
 }
+#endif
 
 #import bevy_eidolon::render::utils
 #import bevy_eidolon::render::bindings::instance_uniforms
@@ -231,11 +238,7 @@ fn vertex(vertex: Vertex) -> GrassVertexOutput {
     return out;
 }
 
-@fragment
-fn fragment(
-    in: GrassVertexOutput,
-    @builtin(front_facing) is_front: bool,
-) -> @location(0) vec4<f32> {
+fn discard_lod_partition(in: GrassVertexOutput) {
 #ifdef VISIBILITY_RANGE_DITHER
     // Complementary per-pixel partition between crossfading tiers. The old
     // AlphaToCoverage fade thinned the sward in a bald ring at every tier
@@ -263,6 +266,23 @@ fn fragment(
         }
     }
 #endif
+}
+
+#ifdef PREPASS_PIPELINE
+// The camera's depth prepass keeps exactly the pixels the main pass keeps:
+// blades are solid geometry whose only discard is this per-pixel LOD
+// partition, and the main pass writes alpha 1.0 there.
+@fragment
+fn fragment(in: GrassVertexOutput) {
+    discard_lod_partition(in);
+}
+#else
+@fragment
+fn fragment(
+    in: GrassVertexOutput,
+    @builtin(front_facing) is_front: bool,
+) -> @location(0) vec4<f32> {
+    discard_lod_partition(in);
     let lod_coverage = 1.0;
     let height_fraction = clamp(in.uv.y, 0.0, 1.0);
     let root_self_shadow = mix(grass.params.x, 1.0, pow(height_fraction, 0.72));
@@ -313,3 +333,4 @@ fn fragment(
     }
     return vec4<f32>(lit * view.exposure, lod_coverage);
 }
+#endif

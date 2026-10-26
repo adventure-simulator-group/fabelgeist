@@ -64,16 +64,22 @@ pub(crate) struct TacticalPebbleBillboardMaterial {
 }
 
 impl InstancedMaterial for TacticalPebbleBillboardMaterial {
+    fn prepass_shader() -> ShaderRef {
+        PEBBLE_BILLBOARD_SHADER.into()
+    }
+
+    /// The prepass runs this material's own vertex function and repeats its
+    /// discards, so its depth matches the main pass exactly.
+    fn prepass_fragment() -> bool {
+        true
+    }
+
     fn vertex_shader() -> ShaderRef {
         PEBBLE_BILLBOARD_SHADER.into()
     }
 
     fn fragment_shader() -> ShaderRef {
         PEBBLE_BILLBOARD_SHADER.into()
-    }
-
-    fn disable_prepass(&self) -> bool {
-        true
     }
 
     fn specialize(
@@ -107,16 +113,22 @@ impl TacticalPebbleMaterial {
 }
 
 impl InstancedMaterial for TacticalPebbleMaterial {
+    fn prepass_shader() -> ShaderRef {
+        PEBBLE_SHADER.into()
+    }
+
+    /// The prepass runs this material's own vertex function and repeats its
+    /// discards, so its depth matches the main pass exactly.
+    fn prepass_fragment() -> bool {
+        true
+    }
+
     fn vertex_shader() -> ShaderRef {
         PEBBLE_SHADER.into()
     }
 
     fn fragment_shader() -> ShaderRef {
         PEBBLE_SHADER.into()
-    }
-
-    fn disable_prepass(&self) -> bool {
-        true
     }
 }
 

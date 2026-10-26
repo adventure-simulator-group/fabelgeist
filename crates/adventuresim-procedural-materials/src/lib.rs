@@ -151,14 +151,48 @@ impl Material for TacticalTreeLeafCardMaterial {
         _pipeline: &bevy::pbr::MaterialPipeline,
         descriptor: &mut RenderPipelineDescriptor,
         _layout: &bevy::mesh::MeshVertexBufferLayoutRef,
-        _key: bevy::pbr::MaterialPipelineKey<Self>,
+        key: bevy::pbr::MaterialPipelineKey<Self>,
     ) -> Result<(), SpecializedMeshPipelineError> {
         descriptor.primitive.cull_mode = None;
-        if let Some(fragment) = descriptor.fragment.as_mut() {
+        if is_camera_depth_prepass(&descriptor.vertex.shader_defs, key.mesh_key) {
+            add_camera_depth_prepass_fragment(descriptor);
+        } else if let Some(fragment) = descriptor.fragment.as_mut() {
             enable_leaf_transmission_shader_defs(&mut fragment.shader_defs);
         }
         Ok(())
     }
+}
+
+/// Shadow maps reuse the prepass pipeline single-sampled; only the camera's
+/// depth prepass renders at the view's MSAA sample count.
+pub fn is_camera_depth_prepass(
+    vertex_shader_defs: &[bevy::shader::ShaderDefVal],
+    mesh_key: bevy::pbr::MeshPipelineKey,
+) -> bool {
+    mesh_key.msaa_samples() > 1
+        && vertex_shader_defs.contains(&bevy::shader::ShaderDefVal::from("PREPASS_PIPELINE"))
+}
+
+/// Bevy omits the prepass fragment stage for AlphaToCoverage under MSAA, so
+/// a cutout would write depth for its whole card. Run the material's own
+/// prepass fragment with `CAMERA_DEPTH_PREPASS`, which must discard every
+/// pixel the main pass does not cover on all samples.
+pub fn add_camera_depth_prepass_fragment(descriptor: &mut RenderPipelineDescriptor) {
+    let mut shader_defs = descriptor.vertex.shader_defs.clone();
+    let camera_prepass = bevy::shader::ShaderDefVal::from("CAMERA_DEPTH_PREPASS");
+    if !shader_defs.contains(&camera_prepass) {
+        shader_defs.push(camera_prepass);
+    }
+    let fragment =
+        descriptor
+            .fragment
+            .get_or_insert_with(|| bevy::render::render_resource::FragmentState {
+                shader: descriptor.vertex.shader.clone(),
+                shader_defs: Vec::new(),
+                entry_point: Some("fragment".into()),
+                targets: Vec::new(),
+            });
+    fragment.shader_defs = shader_defs;
 }
 
 pub fn enable_leaf_transmission_shader_defs(shader_defs: &mut Vec<bevy::shader::ShaderDefVal>) {

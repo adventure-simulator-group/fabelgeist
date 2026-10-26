@@ -54,16 +54,22 @@ pub(in crate::presentation) struct TacticalVistaTreeInstancedMaterial {
 }
 
 impl InstancedMaterial for TacticalVistaTreeInstancedMaterial {
+    fn prepass_shader() -> ShaderRef {
+        VISTA_TREE_SHADER.into()
+    }
+
+    /// The prepass runs this material's own vertex function and repeats its
+    /// discards, so its depth matches the main pass exactly.
+    fn prepass_fragment() -> bool {
+        true
+    }
+
     fn vertex_shader() -> ShaderRef {
         VISTA_TREE_SHADER.into()
     }
 
     fn fragment_shader() -> ShaderRef {
         VISTA_TREE_SHADER.into()
-    }
-
-    fn disable_prepass(&self) -> bool {
-        true
     }
 
     fn specialize(
@@ -73,9 +79,7 @@ impl InstancedMaterial for TacticalVistaTreeInstancedMaterial {
     ) -> Result<(), SpecializedMeshPipelineError> {
         // Cards are two-sided and cut out of the atlas through coverage.
         descriptor.primitive.cull_mode = None;
-        if descriptor.multisample.count > 1 {
-            descriptor.multisample.alpha_to_coverage_enabled = true;
-        }
+        crate::presentation::enable_instanced_alpha_to_coverage(descriptor);
         Ok(())
     }
 }

@@ -46,16 +46,22 @@ pub(in crate::presentation) struct TacticalShrubBarkInstancedMaterial {
 }
 
 impl InstancedMaterial for TacticalShrubBarkInstancedMaterial {
+    fn prepass_shader() -> ShaderRef {
+        SHRUB_BARK_SHADER.into()
+    }
+
+    /// The prepass runs this material's own vertex function and repeats its
+    /// discards, so its depth matches the main pass exactly.
+    fn prepass_fragment() -> bool {
+        true
+    }
+
     fn vertex_shader() -> ShaderRef {
         SHRUB_BARK_SHADER.into()
     }
 
     fn fragment_shader() -> ShaderRef {
         SHRUB_BARK_SHADER.into()
-    }
-
-    fn disable_prepass(&self) -> bool {
-        true
     }
 }
 
@@ -111,16 +117,22 @@ impl From<&TacticalShrubLeafInstancedMaterial> for TacticalShrubLeafInstancedUni
 }
 
 impl InstancedMaterial for TacticalShrubLeafInstancedMaterial {
+    fn prepass_shader() -> ShaderRef {
+        SHRUB_LEAF_SHADER.into()
+    }
+
+    /// The prepass runs this material's own vertex function and repeats its
+    /// discards, so its depth matches the main pass exactly.
+    fn prepass_fragment() -> bool {
+        true
+    }
+
     fn vertex_shader() -> ShaderRef {
         SHRUB_LEAF_SHADER.into()
     }
 
     fn fragment_shader() -> ShaderRef {
         SHRUB_LEAF_SHADER.into()
-    }
-
-    fn disable_prepass(&self) -> bool {
-        true
     }
 
     fn specialize(
@@ -130,9 +142,7 @@ impl InstancedMaterial for TacticalShrubLeafInstancedMaterial {
     ) -> Result<(), SpecializedMeshPipelineError> {
         // Leaf cards are shaded double-sided and cut out via A2C.
         descriptor.primitive.cull_mode = None;
-        if descriptor.multisample.count > 1 {
-            descriptor.multisample.alpha_to_coverage_enabled = true;
-        }
+        crate::presentation::enable_instanced_alpha_to_coverage(descriptor);
         Ok(())
     }
 }

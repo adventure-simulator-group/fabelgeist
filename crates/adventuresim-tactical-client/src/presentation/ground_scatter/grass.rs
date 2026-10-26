@@ -1254,9 +1254,9 @@ mod tests {
         assert!(!cheap_vertex.contains("camera_side"));
         assert!(!cheap_vertex.contains("rotate_between"));
 
-        let fragment = shader
-            .split("fn fragment")
-            .nth(1)
+        // The main-pass fragment follows the depth-prepass one.
+        let (_, fragment) = shader
+            .rsplit_once("fn fragment")
             .expect("foliage fragment");
         let cheap_fragment_start = fragment
             .find("if foliage.quality.z > 0.5 {")

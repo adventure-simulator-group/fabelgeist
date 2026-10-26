@@ -395,3 +395,18 @@ mod tests {
         }
     }
 }
+
+/// Instanced cutouts resolve fractional alpha to MSAA sample coverage. Only
+/// the main pass has a color target; WebGPU rejects AlphaToCoverage on the
+/// depth-only prepass, whose shaders discard instead.
+pub(in crate::presentation) fn enable_instanced_alpha_to_coverage(
+    descriptor: &mut bevy::render::render_resource::RenderPipelineDescriptor,
+) {
+    let has_color_target = descriptor
+        .fragment
+        .as_ref()
+        .is_some_and(|fragment| !fragment.targets.is_empty());
+    if has_color_target && descriptor.multisample.count > 1 {
+        descriptor.multisample.alpha_to_coverage_enabled = true;
+    }
+}

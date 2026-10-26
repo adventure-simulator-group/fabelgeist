@@ -52,6 +52,16 @@ impl From<&TacticalGrassInstancedMaterial> for TacticalGrassInstancedUniform {
 }
 
 impl InstancedMaterial for TacticalGrassInstancedMaterial {
+    fn prepass_shader() -> ShaderRef {
+        GRASS_INSTANCED_SHADER.into()
+    }
+
+    /// The prepass runs this material's own vertex function and repeats its
+    /// discards, so its depth matches the main pass exactly.
+    fn prepass_fragment() -> bool {
+        true
+    }
+
     fn cull_shader() -> ShaderRef {
         GRASS_CULL_SHADER.into()
     }
@@ -64,13 +74,6 @@ impl InstancedMaterial for TacticalGrassInstancedMaterial {
         GRASS_INSTANCED_SHADER.into()
     }
 
-    /// Legacy grass renders without a prepass; keep the instanced sward
-    /// identical so the depth interplay with the terrain detail patch and
-    /// transparent weather stays unchanged.
-    fn disable_prepass(&self) -> bool {
-        true
-    }
-
     fn specialize(
         descriptor: &mut RenderPipelineDescriptor,
         _layout: &bevy::mesh::MeshVertexBufferLayoutRef,
@@ -80,9 +83,7 @@ impl InstancedMaterial for TacticalGrassInstancedMaterial {
         // to hardware coverage samples under MSAA exactly like the legacy
         // AlphaToCoverage foliage material.
         descriptor.primitive.cull_mode = None;
-        if descriptor.multisample.count > 1 {
-            descriptor.multisample.alpha_to_coverage_enabled = true;
-        }
+        crate::presentation::enable_instanced_alpha_to_coverage(descriptor);
         Ok(())
     }
 }

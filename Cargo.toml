@@ -193,7 +193,10 @@ adventuresim-strategic-sim = { path = "crates/adventuresim-strategic-sim" }
 # draw_indexed_indirect with a per-batch vertex offset where the native backend
 # issues multi_draw_indexed_indirect - the whole browser sward depends on it
 # (upstream PR NicoZweifel/bevy_eidolon#19). Consumed from our fork until merged.
-bevy_eidolon = { git = "https://github.com/barsoosayque/bevy_eidolon", branch = "fablegeist-0.19" }
+bevy_eidolon = { path = "../bevy_eidolon-prepass" }
+# Local fix: Bevy's depth prepass ignores visibility-range dithering, so a
+# crossfading mesh writes its full depth and holes the other level of detail.
+bevy_pbr = { path = "../bevy_pbr-prepass" }
 
 [profile.win-dev]
 inherits = "dev"

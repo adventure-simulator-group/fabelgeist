@@ -10,10 +10,15 @@
 // under uniformity analysis unless the diagnostic is disabled here.
 diagnostic(off, derivative_uniformity);
 
+#ifdef PREPASS_PIPELINE
+#import bevy_pbr::mesh_view_bindings::view
+#import bevy_pbr::view_transformations::position_world_to_clip
+#else
 #import bevy_pbr::{
     mesh_view_bindings::view,
     view_transformations::position_world_to_clip,
 }
+#endif
 
 #import bevy_eidolon::render::utils
 #import bevy_eidolon::render::bindings::instance_uniforms
@@ -83,6 +88,41 @@ fn interleaved_gradient_noise(pixel: vec2<f32>) -> f32 {
     return fract(52.9829189 * fract(dot(pixel, vec2<f32>(0.06711056, 0.00583715))));
 }
 
+#ifdef PREPASS_PIPELINE
+// The camera's depth prepass repeats every main-pass discard; the main pass
+// writes alpha 1.0 wherever it keeps a pixel.
+@fragment
+fn fragment(in: BillboardVertexOutput) {
+#ifdef VISIBILITY_RANGE_DITHER
+    if in.visibility_range_dither != 0 {
+        let magnitude = clamp(f32(abs(in.visibility_range_dither)) / 16.0, 0.0, 1.0);
+        let pixel_hash = interleaved_gradient_noise(floor(in.clip_position.xy));
+        if in.visibility_range_dither > 0 {
+            if pixel_hash < magnitude {
+                discard;
+            }
+        } else if pixel_hash >= 1.0 - magnitude {
+            discard;
+        }
+    }
+#endif
+    let shape = in.uv * 2.0 - vec2<f32>(1.0);
+    let radius_squared = dot(shape, shape);
+    let edge_width = max(fwidth(radius_squared), 0.001);
+    let silhouette = 1.0 - smoothstep(1.0 - edge_width, 1.0 + edge_width, radius_squared);
+
+    // UV derivatives give the quad's rasterized diameter, so each physical size
+    // fades independently instead of sharing a world-distance cutoff.
+    let uv_per_pixel = max(length(dpdx(in.uv)), length(dpdy(in.uv)));
+    let diameter_pixels = 1.0 / max(uv_per_pixel, 0.00001);
+    let screen_coverage = smoothstep(0.75, 1.5, diameter_pixels);
+    let coverage = silhouette * screen_coverage;
+    if interleaved_gradient_noise(floor(in.clip_position.xy)) > coverage {
+        discard;
+    }
+
+}
+#else
 @fragment
 fn fragment(in: BillboardVertexOutput) -> @location(0) vec4<f32> {
 #ifdef VISIBILITY_RANGE_DITHER
@@ -127,3 +167,4 @@ fn fragment(in: BillboardVertexOutput) -> @location(0) vec4<f32> {
     let irradiance = pebble.ambient.rgb * pebble.ambient.w + vec3<f32>(direct);
     return vec4<f32>(pebble.color.rgb * irradiance, 1.0);
 }
+#endif
