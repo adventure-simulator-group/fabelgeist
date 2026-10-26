@@ -15,17 +15,16 @@ still precedes native texture admission, so a cached view can be returned even
 if a caller clears the public native texture field.
 
 A different-format request without a native texture returns `Uninitialized`
-with `Texture is not initialized`. These two errors have no source. The three
-native rejection variants own a real `wgpu::Error` and expose it through
-`std::error::Error::source`. They retain the existing diagnostic prefixes and
-original requested format. Their Debug representation and cause chain are
-structured.
+with `Texture is not initialized`. These two errors have no source.
+`Observation` owns the operation, original requested format and the shared
+`ValidationScopeError`. Both error enums derive their display and error
+implementations from these payloads.
 
-`Progress` retains the operation, original requested format and a
-`ValidationProgressError`. That cause owns the actual `wgpu::PollError` and any
-native validation error captured by the same scope. Its source prefers the
-captured native error when present, otherwise the polling error; both remain
-available as fields.
+The scope error distinguishes a native rejection, failed polling, and failed
+polling with a captured native rejection. The combined state owns both the
+`wgpu::PollError` and `wgpu::Error`. Polling failures expose the polling error
+as their primary source, with any captured rejection available in the combined
+variant and its diagnostic. Native-only failures expose the native error.
 
 ```text
 use fabelgeist_gpu::{globals::WgpuContext, prelude::*};
@@ -53,10 +52,10 @@ pipeline and compute fast-path creation. Ownership and presentation are
 independent of this observation choice.
 
 Enabled observation attempts the native wait and then always pops its scope,
-including after a polling failure. A captured rejection returns its native
-error; a failed wait returns `Progress` and retains any captured rejection.
-Neither path returns the newly created view after failed observation. This does
-not roll back earlier work or establish the device's global health.
+including after a polling failure. Its result selects `Native`, `Progress` or
+`ProgressWithNative` from the actual polling and capture outcomes. No failure
+returns the newly created view. This does not roll back earlier work or
+establish the device's global health.
 
 The three ComputePass texture-binding paths preserve these errors through
 standard conversion. Their reflection and descriptor policies are unchanged.

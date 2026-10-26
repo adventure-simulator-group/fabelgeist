@@ -41,9 +41,13 @@ impl Texture2d {
 
         #[cfg(not(target_arch = "wasm32"))]
         if let Some(error_scope) = error_scope {
-            error_scope.finish().map_err(|cause| {
-                TextureViewError::from_observation(format, TextureViewOperation::Texture2d, cause)
-            })?;
+            error_scope
+                .finish()
+                .map_err(|cause| TextureViewError::Observation {
+                    requested: format,
+                    operation: TextureViewOperation::Texture2d,
+                    cause,
+                })?;
         }
 
         Ok(Arc::new(view))

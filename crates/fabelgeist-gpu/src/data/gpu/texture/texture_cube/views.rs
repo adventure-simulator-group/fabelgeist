@@ -42,9 +42,13 @@ impl TextureCube {
 
         #[cfg(not(target_arch = "wasm32"))]
         if let Some(error_scope) = error_scope {
-            error_scope.finish().map_err(|cause| {
-                TextureViewError::from_observation(format, TextureViewOperation::TextureCube, cause)
-            })?;
+            error_scope
+                .finish()
+                .map_err(|cause| TextureViewError::Observation {
+                    requested: format,
+                    operation: TextureViewOperation::TextureCube,
+                    cause,
+                })?;
         }
 
         Ok(Arc::new(view))

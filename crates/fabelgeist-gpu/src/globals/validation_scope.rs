@@ -5,16 +5,8 @@ use super::WgpuContext;
 use derive_more::{Display, Error};
 #[cfg(not(target_arch = "wasm32"))]
 use std::sync::Arc;
-use std::{error::Error, fmt};
 
 pub type ValidationScopeResult<T> = Result<T, ValidationScopeError>;
-
-/// A failed wait and any native validation error captured by the same scope.
-#[derive(Debug)]
-pub struct ValidationProgressError {
-    pub poll: wgpu::PollError,
-    pub native: Option<wgpu::Error>,
-}
 
 /// The actual device and its same-thread native validation guard.
 #[cfg(not(target_arch = "wasm32"))]
@@ -29,31 +21,15 @@ pub struct ValidationScope {
 pub enum ValidationScopeError {
     #[display("{_0}")]
     Native(#[error(source)] wgpu::Error),
-    #[display("{_0}")]
-    Progress(#[error(source)] ValidationProgressError),
-}
-
-impl fmt::Display for ValidationProgressError {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(
-            formatter,
-            "Native validation progress failed: {}",
-            self.poll
-        )?;
-        if let Some(native) = &self.native {
-            write!(formatter, "; captured validation error: {native}")?;
-        }
-        Ok(())
-    }
-}
-
-impl Error for ValidationProgressError {
-    fn source(&self) -> Option<&(dyn Error + 'static)> {
-        match &self.native {
-            Some(native) => Some(native),
-            None => Some(&self.poll),
-        }
-    }
+    #[display("Native validation progress failed: {_0}")]
+    Progress(#[error(source)] wgpu::PollError),
+    /// Polling failed, and the same scope also captured a native rejection.
+    #[display("Native validation progress failed: {poll}; captured validation error: {native}")]
+    ProgressWithNative {
+        #[error(source)]
+        poll: wgpu::PollError,
+        native: wgpu::Error,
+    },
 }
 
 #[cfg(not(target_arch = "wasm32"))]
@@ -80,20 +56,10 @@ impl ValidationScope {
         match (progress, native) {
             (Ok(_), None) => Ok(()),
             (Ok(_), Some(native)) => Err(ValidationScopeError::Native(native)),
-            (Err(poll), native) => Err(ValidationScopeError::Progress(ValidationProgressError {
-                poll,
-                native,
-            })),
-        }
-    }
-}
-
-impl ValidationScopeError {
-    /// Admit the actual cause at an existing generic error boundary.
-    pub fn into_anyhow(self) -> anyhow::Error {
-        match self {
-            Self::Native(cause) => anyhow::Error::new(cause),
-            Self::Progress(cause) => anyhow::Error::new(cause),
+            (Err(poll), None) => Err(ValidationScopeError::Progress(poll)),
+            (Err(poll), Some(native)) => {
+                Err(ValidationScopeError::ProgressWithNative { poll, native })
+            }
         }
     }
 }
