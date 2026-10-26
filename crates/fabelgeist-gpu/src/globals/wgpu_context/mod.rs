@@ -15,22 +15,17 @@ pub struct WgpuContext {
     pub surface: Option<Arc<wgpu::Surface<'static>>>,
     pub blitter: Option<Arc<Blitter>>,
     pub blit_lock: Arc<async_lock::Mutex<()>>,
-    /// Whether shader and pipeline creation may drain the queue to read back a
-    /// validation error scope.
+    /// Whether shader, pipeline and whole-texture format-view creation may wait
+    /// for the device to read back a native validation error scope.
     ///
-    /// On a device this context owns, draining is instant and the error scope
-    /// turns a bad shader into a `Result` instead of a panic -- worth having.
-    /// On a *borrowed* device it is a trap: an application's render loop is
-    /// submitting continuously, so waiting for the queue to empty blocks until
-    /// the driver's watchdog gives up and removes the device. Borrowed devices
-    /// therefore skip it and let wgpu's uncaptured-error handler report,
-    /// which costs nothing: the naga validator has already run over the
-    /// source by that point and catches essentially everything.
+    /// Owned native contexts enable this observation. Borrowed contexts and
+    /// browser targets disable it to avoid synchronously waiting on another
+    /// application's active device or the browser event loop. Native errors
+    /// then follow the provider's uncaptured-error policy.
     ///
-    /// Only the shader and pipeline paths honour this so far. Texture
-    /// creation drains the queue the same way and would hang a borrowed
-    /// device identically -- nothing reaches it on a borrowed context today,
-    /// but that is the place to look if one ever does.
+    /// Texture constructors and cube subresource views have separate validation
+    /// paths and do not yet consistently honor this policy. Observing a scope
+    /// does not establish the device's global health or roll back prior work.
     pub blocking_validation: bool,
 }
 
