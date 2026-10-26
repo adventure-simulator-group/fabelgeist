@@ -8,7 +8,7 @@ use crate::{
     globals::WgpuContext,
 };
 use std::sync::Arc;
-use wgpu::TextureView;
+use wgpu::{TextureUsages, TextureView, TextureViewDescriptor};
 
 impl Texture3d {
     pub fn view_with_format(
@@ -27,14 +27,14 @@ impl Texture3d {
         let mut requested_format = format;
 
         // The default view inherits storage usage, which excludes sRGB formats.
-        if self.usage.contains(wgpu::TextureUsages::STORAGE_BINDING) && format.is_srgb() {
+        if self.usage.contains(TextureUsages::STORAGE_BINDING) && format.is_srgb() {
             requested_format = format.linear_counterpart();
         }
 
         #[cfg(not(target_arch = "wasm32"))]
         let error_scope = ValidationScope::new(_context);
 
-        let view = texture.create_view(&wgpu::TextureViewDescriptor {
+        let view = texture.create_view(&TextureViewDescriptor {
             format: Some(requested_format.into()),
             ..Default::default()
         });

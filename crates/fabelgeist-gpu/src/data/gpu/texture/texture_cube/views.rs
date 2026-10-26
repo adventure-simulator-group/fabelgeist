@@ -8,7 +8,7 @@ use crate::{
     globals::WgpuContext,
 };
 use std::sync::Arc;
-use wgpu::TextureView;
+use wgpu::{TextureUsages, TextureView, TextureViewDescriptor, TextureViewDimension};
 
 impl TextureCube {
     pub fn view_with_format(
@@ -25,16 +25,16 @@ impl TextureCube {
             .ok_or(TextureViewError::Uninitialized)?;
 
         let mut requested_format = format;
-        if self.usage.contains(wgpu::TextureUsages::STORAGE_BINDING) && format.is_srgb() {
+        if self.usage.contains(TextureUsages::STORAGE_BINDING) && format.is_srgb() {
             requested_format = format.linear_counterpart();
         }
 
         #[cfg(not(target_arch = "wasm32"))]
         let error_scope = ValidationScope::new(_ctx);
 
-        let view = texture.create_view(&wgpu::TextureViewDescriptor {
+        let view = texture.create_view(&TextureViewDescriptor {
             label: Some("TextureCube View"),
-            dimension: Some(wgpu::TextureViewDimension::Cube),
+            dimension: Some(TextureViewDimension::Cube),
             array_layer_count: Some(6),
             format: Some(requested_format.into()),
             ..Default::default()

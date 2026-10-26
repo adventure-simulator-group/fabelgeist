@@ -313,7 +313,7 @@ mod tests {
                 borrowed.validation_observation,
                 ValidationObservation::Uncaptured
             ),
-            "a borrowed device may have someone else submitting to it; draining              its queue would block until the driver gives up"
+            "a borrowed device may have someone else submitting to it; draining its queue would block until the driver gives up"
         );
         assert!(borrowed.surface.is_none());
         Ok(())
