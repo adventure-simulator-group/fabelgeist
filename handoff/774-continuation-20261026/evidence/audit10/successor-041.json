@@ -1,0 +1,39 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-041",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1588,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/interior_lighting/tests.rs",
+      "sha256": "298c37aca368112afc85dbd9b6422f007ab80a458c40e7aa3c19e965bb8c4dbf",
+      "ranges": [
+        [
+          1,
+          331
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete331line existing interiorlightingfixture source, explicitplanbuilder and fixtures for roomdirection/ownership, transforms, residentbuffers, exposure and native materialediting. No handwritten trait/manualcodec.",
+      "disposition": "No derivability candidate. Existing fixtures read only and not executed; no behavioral test acceptance inferred.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1589,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/mod.rs",
+      "sha256": "388ce709c22690649f7f24cc0ba3f537e11a40e32b9a449c00695ee3e2ba96b3",
+      "ranges": [
+        [
+          1,
+          407
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete407line presentationfacade in two consecutive windows. Recordtraits already derive. Manual TacticalPresentationPlugin Default parses exact embedded YAML and expects authoredvalidity. Manual Plugin build/finish installs systems/assets/cleanup. Manual TacticalGraphicsSettings Default takes config from custom plugin default. No handwritten codec.",
+      "disposition": "Keep custom defaults: config source is embedded authored YAML rather than field Default; forwarding settings default preserves that policy. Keep imperativePlugin registration/cleanup. Existing directivefixture source read only; no new derive candidate.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

@@ -1,0 +1,56 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-193",
+  "at": "2026-10-25T21:27:01.583309+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2057,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/equipment.rs",
+      "sha256": "ca4439b826717b1d61d7efd26d33a4538f66c8fc5527e32d8e7d9768b71e7074",
+      "personally_read_ranges": [
+        [
+          1,
+          163
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full equipment construction: item identity, ownership, physical definition, wielded slot and armor placement records derive from the same build and catalog selections.",
+        "Armor per-item metadata partly uses the combatant aggregate for the placement's first protected part. Actual multi-layer policy/producer must be established before treating that association as a defect; no ordinary bad construction witness or new finding."
+      ]
+    },
+    {
+      "scope_index": 2058,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/logging.rs",
+      "sha256": "9b544bf84edcca32609b26242d2794c3800a45618c40cef1aa5f4d6965225b88",
+      "personally_read_ranges": [
+        [
+          1,
+          427
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full diagnostic logging: event identity, target/attacker transforms, decision records, condition snapshots and deltas remain paired per entity and event.",
+        "New-wound logging tracks append position and clamps after shrink; actual wound mutation lifecycle is required before inferring missed replacement wounds. No ordinary failure witness or new finding."
+      ]
+    },
+    {
+      "scope_index": 2060,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs",
+      "sha256": "a61ef59cb4da06988229325123ef72662197b3c568ea9822b2d27ee6cb1d7616",
+      "personally_read_ranges": [
+        [
+          1,
+          167
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full resolution logging: result variant selects outcome/contact/armor fields together, with defensive implement from the actual target and event slot; same-event state snapshots remain correlated.",
+        "Armor layer chain is recomputed from current target inventory; no demonstrated intervening mutation or wrong snapshot. Serialized anatomy labels are presentation output rather than state admission."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

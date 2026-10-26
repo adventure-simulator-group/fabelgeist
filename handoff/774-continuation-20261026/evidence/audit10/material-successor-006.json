@@ -1,0 +1,140 @@
+{
+  "lens": "derivability",
+  "registry": "../shared-material-successor/source-extensions-185.json",
+  "registry_sha256": "b21e9b158607315c3a4d033425273c3375d4df4e8ddee0587533e1042c1d4439",
+  "receipts": [
+    {
+      "material_index": 26,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/guards.rs",
+        "sha256": "aa9d8fff8668ea79607a4037aced426da5be5f58d5ee3929008ee00c92994267",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            1,
+            225
+          ]
+        ],
+        "registration_evidence": "redundant-authority/prospective-source-registration-014.json",
+        "reason": "Necessary actual receiving guard body for resolved.grip_width from original2115; test first-versus-last Grip-role selection dependency. Parent frozen local body not substituted for Adler PR variant."
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/guards.rs",
+      "source_sha256": "aa9d8fff8668ea79607a4037aced426da5be5f58d5ee3929008ee00c92994267",
+      "read_ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "inventory_and_semantics": "Full225line guard native geometry owner read. Shape section classification, arm generation, material/terminal selection, sweep construction and assembly are semantic geometry operations; no handwritten trait/codec. Grip-width receiver138 inspected without accepting upstream first/last selection identity or numerical behavior.",
+      "disposition": "No new derivability candidate; retain semantic operations and existing derives",
+      "evidence_basis": "Fresh personal exact registered body/material-role comparison; no other-lens verdict transfer",
+      "limits": "Only registered scope; no extra callee/SDK/tests/runtime/global clearance"
+    },
+    {
+      "material_index": 27,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/world_import.rs",
+        "sha256": "cc83d5f3e3c415a12dc0ced11a5e9271a2b115d3ed5ac9703d1a8b8ae9728d22",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            1,
+            45
+          ],
+          [
+            411,
+            440
+          ],
+          [
+            523,
+            721
+          ],
+          [
+            736,
+            834
+          ],
+          [
+            985,
+            1104
+          ]
+        ],
+        "registration_evidence": "redundant-authority/prospective-source-registration-015.json",
+        "reason": "Exact score/tier candidate from existing2162economy profile reaches import admission/finalization; register precise new PR source before semantic body read. No P16/local/main substitution.",
+        "range_extension_evidence": [
+          {
+            "prior_ranges": [
+              [
+                1,
+                45
+              ],
+              [
+                427,
+                440
+              ],
+              [
+                523,
+                721
+              ],
+              [
+                801,
+                834
+              ]
+            ],
+            "new_ranges": [
+              [
+                411,
+                426
+              ],
+              [
+                772,
+                800
+              ],
+              [
+                985,
+                1104
+              ],
+              [
+                736,
+                771
+              ]
+            ],
+            "registration": "admission-contracts/prospective-source-registration-001.json",
+            "id": "CONT03-REG-001"
+          }
+        ]
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/strategic/world_import.rs",
+      "source_sha256": "cc83d5f3e3c415a12dc0ced11a5e9271a2b115d3ed5ac9703d1a8b8ae9728d22",
+      "read_ranges": [
+        [
+          1,
+          45
+        ],
+        [
+          411,
+          440
+        ],
+        [
+          523,
+          721
+        ],
+        [
+          736,
+          834
+        ],
+        [
+          985,
+          1104
+        ]
+      ],
+      "inventory_and_semantics": "Full registered import/finalization/helper ranges personally read: enum/SATS structural traits derive; active-owner/session checks, typed field reconstruction, contextual validation, exact inferred economy/industry comparison and DB publication are semantic admission/lifecycle. No handwritten structural serde codec or derive replacement. No transactional/import/cache/schema correctness clearance.",
+      "disposition": "No new derivability candidate; retain semantic operations and existing derives",
+      "evidence_basis": "Fresh personal exact registered body/material-role comparison; no other-lens verdict transfer",
+      "limits": "Only registered scope; no extra callee/SDK/tests/runtime/global clearance"
+    }
+  ],
+  "checks": "not run",
+  "source_edits": false,
+  "clear": false
+}

@@ -1,0 +1,71 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-219",
+  "at": "2026-10-25T21:48:07.871893+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2225,
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/aabb.rs",
+      "sha256": "0074a09a772019820c52e9b1e4cb603c12473a575d992332cf89844c4d1fff36",
+      "personally_read_ranges": [
+        [
+          1,
+          299
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all299lines BVH aabb.rs. Empty min+inf/max-inf is deliberate union identity, degenerate normalize mapsmiddle; triangle and slab intersections consume different Ray fields. Private inverse_direction derived once from public direction permits mutation mismatch; exact inherited RIG-ADMISSION03-F055, no newfinding and no actual badcaller or unitdirectionrequirement. Legitimate zeroaxis infinity intentional; finite precision/parallel boundary behavior not generically disproven by arbitrary raw input."
+      ]
+    },
+    {
+      "scope_index": 2228,
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/cloth/mod.rs",
+      "sha256": "2318544fe5a77b517ae01b26f7d4b65b288c0be78c63aa9a90034bd2a7385c05",
+      "personally_read_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all93lines cloth/mod.rs. Cloth::new copies eight equivalent mesh vectors into ShellMesh then delegates Shell::new; exact inherited RIG-INITIAL06-F003 owner migration. Retains public fabric and shell material, explicit apply_fabric synchronizes all material values while step methods update thickness only. Actual edit callers and shell update contract needed before treating dirty fabric edits as ordinary stale-material defect; no such caller established here. Noexecution."
+      ]
+    },
+    {
+      "scope_index": 2229,
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/fabric.rs",
+      "sha256": "37cf4430a9923bb91663a7eb0eadee8674fd3489e172a5f8d164a929d6ba1313",
+      "personally_read_ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all156lines fabric.rs. Presets retain typed ParticleArealDensity and finite native compliance/thickness/friction/damping; From<Fabric> copies six exact material fields. Density is consumed earlier by garment mass construction rather than ShellMaterial, so omission from conversion alone is not mismatch. Arbitrary mutable Fabric setter inputs lack local checks but actual ShellMaterial admission/ordinary producer obligations remain qualified; no newfinding."
+      ]
+    },
+    {
+      "scope_index": 2230,
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/lib.rs",
+      "sha256": "73854d3247aafeacaca9882c0d9666e5b83e482dd9924374ff0dec2b6a77cef9",
+      "personally_read_ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all34lines cloth/lib.rs. Export/module surface identifies garment panel/placement/seam vs shared Shell physics roles; no independent retained aggregate construction beyond exports. Related ownership and raw native admissions remain in existing findings."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "4 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "dedup": [
+    "RIG-ADMISSION03-F055",
+    "RIG-INITIAL06-F003"
+  ]
+}

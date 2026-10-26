@@ -1,0 +1,39 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-111",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 694,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armory.rs",
+      "sha256": "aa66e0b18f919eb3351635241249df969eeed4c36c36aa302888c320222a54df",
+      "ranges": [
+        [
+          1,
+          485
+        ]
+      ],
+      "assessment": "Full body read in three bounded windows. Closed Region/ArmoryView/Frame roles and Finish record, but Exhibit placements/fitted are parallel public vectors; item and shown index assume nonempty correspondence from wearable/retained-placement producers not yet traced. Refitting creates one result per placement, scoped thread chunks preserve input order; this proves one local producer association, not all mutation paths. Raw selected/exhibit indices, semantic bounds tuples, body_material handle/Boolean pair and display state Booleans remain qualified Q008/Q009 questions. Actual saved camera take is guarded by same match; body expect requires prior setup contract beyond local proof. No ordinary panic witness or current-main failure established; presentation strings are stored error displays without branching.",
+      "source_basis": "Root personally read exact frozen body after SHA256 match.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 695,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armory_scene.rs",
+      "sha256": "ece71ad33e583d6908d9ad2db842ffa724b97e8d498a19258602836608b093a3",
+      "ranges": [
+        [
+          1,
+          288
+        ]
+      ],
+      "assessment": "Full body read in two windows, existing visibility test read only. ArmoryMesh carries raw exhibit and placement indices; source spawns them by enumerating Exhibit fitted vectors and indexes corresponding placements. Native Bevy handles/transforms/material ports are actual adapters, but source-to-scene index lifetime depends on regeneration/despawn ordering outside this file. Typed Finish/Construction and catalog placement propagate, while trim geometry/UV/material tuples and bounds/angle tuples remain qualified Q008/Q009. Off-tab early return avoids querying nonexistent exhibit for hidden stale piece in existing fixture. Optional body-material Boolean records applied ghost rendering state. No ordinary lifetime/index failure or current-main/runtime/physical clearance.",
+      "source_basis": "Root personally read exact frozen body after SHA256 match.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

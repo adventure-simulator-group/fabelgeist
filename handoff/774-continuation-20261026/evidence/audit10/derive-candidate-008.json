@@ -1,0 +1,21 @@
+{
+  "id": "OWN10-QUALIFIED-CANDIDATE-008",
+  "scope_index": 1828,
+  "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/measurement.rs",
+  "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "source_hash": "Pinned by successor-117.json receipt1828 and catalog.json",
+  "ranges": [[247,261]],
+  "implementation": "Three nongeneric single-field wrappers DiagnosticArea(f64), DiagnosticCount(u64), GeographicGrade(f64) manually implement core::fmt::Display by self.0.fmt(f). No units/suffix/validation/classification or altered Formatter is involved.",
+  "equivalent_repair": "Add existing derive_more::Display to each of the three wrapper derive lists and remove only those three manual Display impls. Keep all constructor validation, typed wire declarations, bound-role operations and native diagnostic classification unchanged.",
+  "available_dependency": "Frozen owning crate manifest1749 a514b1eccfff839c875aaa5148d8299f119beb39ce645dc828e653399b6ef320 enables derive_more2.1.1 display explicitly.",
+  "exact_macro_proof": "Fresh exact macro body material157198-232 binds &self.0 to _0; material151 generate_body398-438 plus prospectively registered439-498 select the single-field no-format branch and invoke core::fmt::Display::fmt(_0, __derive_more_f). Bounds499-552 introduce only generic-dependent constraints; these wrappers have no generics. This preserves width/precision/sign/alignment and the identical fmt result rather than writing a preformatted string.",
+  "macro_hash": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+  "macro_extension_registration": "derive-candidate-008-macro-registration.json",
+  "status": "EXACT_EXISTING_DERIVE_MAINTAINABILITY_CANDIDATE_PENDING_GLOBAL_SAVED_REMEDY_DEDUP",
+  "dedup": "No same three-wrapper candidate in bounded local successor candidate001-007 comparison. Shared/historical remedy dedup remains required before calling this a new unique finding; current code is correct.",
+  "acceptance": "Existing formatting/error and diagnostic consumers must retain identical output and API. No new test, case, helper, assertion or macro probe is authorized; existing acceptance only, after exhaustive lens ledger completion before repair.",
+  "new_unique_findings_claimed": 0,
+  "source_edits": false,
+  "checks": "not run",
+  "material_credit": "Bounded macro evidence only; shared material151/157 queue remains pending, new439-498 range awaits parent additive reconciliation."
+}

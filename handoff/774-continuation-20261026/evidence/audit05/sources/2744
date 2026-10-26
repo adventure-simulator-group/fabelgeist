@@ -1,0 +1,76 @@
+//! Stable item IDs consumed by gameplay systems outside the item catalogue.
+
+pub const CURRENCY_IDS: [&str; 6] = [
+    "rhenish_gulden",
+    "lubeck_mark",
+    "hamburg_mark",
+    "saxon_thaler",
+    "brandenburg_groschen",
+    "danish_mark",
+];
+
+pub const MEDICATION_IDS: [&str; 14] = [
+    "oral_rehydration_draught",
+    "weak_willow_decoction",
+    "cooling_willow_draught",
+    "strong_willow_decoction",
+    "weak_comfrey_poultice",
+    "comfrey_poultice",
+    "fine_comfrey_poultice",
+    "weak_poppy_tincture",
+    "poppy_tincture",
+    "strong_poppy_tincture",
+    "weak_sage_infusion",
+    "sage_infusion",
+    "fine_sage_infusion",
+    "honey_wound_dressing",
+];
+
+/// Authored carry kit identities shared by loadout and runtime equipment admission.
+pub const BELT_ID: &str = "belt";
+pub const BLADE_SHEATH_ID: &str = "scabbard";
+pub const HAFT_LOOP_ID: &str = "weapon_loop";
+pub const WORN_PLACEMENT_ID: &str = "worn";
+pub const RIGHT_HIP_PLACEMENT_ID: &str = "right";
+pub const LEFT_HIP_PLACEMENT_ID: &str = "left";
+pub const BLADE_ATTACHMENT_POINT_ID: &str = "blade";
+pub const WEAPON_CARRY_HIP_PLACEMENTS: [&str; 2] = [RIGHT_HIP_PLACEMENT_ID, LEFT_HIP_PLACEMENT_ID];
+
+pub const STANDARD_TRAVEL_RATION_ID: &str = "travel_ration";
+pub const STANDARD_WATERSKIN_ID: &str = "waterskin";
+pub const ARROW_ID: &str = "arrow";
+pub const SOFT_SOAP_ID: &str = "soft_soap";
+pub const FIELD_TENT_ID: &str = "field_tent";
+pub const CAPTURED_DISPATCH_ITEM_ID: &str = "captured_black_knight_dispatch";
+pub const ORDER_OATH_TOKEN_ITEM_ID: &str = "order_courier_oath_token";
+pub const BLESSED_SWORD_KNOT_ITEM_ID: &str = "blessed_sword_knot";
+pub const SURGERY_KIT_ID: &str = "surgery_kit";
+pub const TAVERN_DRINK_ITEM_ID: &str = "table_wine";
+
+pub const REQUIRED_GAMEPLAY_ITEM_IDS: [&str; 19] = [
+    "arrow",
+    "bandage",
+    "captured_black_knight_dispatch",
+    "blessed_sword_knot",
+    "cooked_meal",
+    "cooking_pan",
+    "cooking_pot",
+    "field_tent",
+    "order_courier_oath_token",
+    "portable_oven",
+    "small_beer",
+    "table_wine",
+    "aqua_vitae",
+    "soft_soap",
+    "splint",
+    "surgery_kit",
+    "torch",
+    "travel_ration",
+    "waterskin",
+];
+
+#[cfg(runtime_catalog)]
+#[path = "item_references/gameplay.rs"]
+mod gameplay;
+#[cfg(runtime_catalog)]
+pub use gameplay::{MissingGameplayItemReferences, validate_gameplay_references};

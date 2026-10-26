@@ -1,0 +1,243 @@
+{
+  "id": "ADLER-CONT08-MATERIAL016-023-001",
+  "lens": "behavior-preservation",
+  "assignment_limit": "At most M16-23; no next batch begun.",
+  "registry": "shared-material-successor/source-extensions-196.json",
+  "source_pins": "material-receipts/source-pins-early-004.json",
+  "correspondence": "material-receipts/early-016-023-correspondence-001.json",
+  "reuse_authority": "predecessor/coverage.jsonl exact personally written own08 records and byte hashes/ranges; no other-lens verdict transfer.",
+  "reused_receipts": {
+    "17": {
+      "original": 772,
+      "head_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "before_sha256": "dbbf72b9eb379f574020e5723dcd0e1ee525633ac6648d411ad1d4eb8fe75d6a",
+      "diff_sha256": "1fae4ffee46592aa4eb30cd383deec5d17582ef04e2f98b9456e307167edd913"
+    },
+    "18": {
+      "original": 779,
+      "head_ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "before_sha256": "75ce230e74337902c99ca08a8b87a9b4f0416323fe5251821d13486047031f0f",
+      "diff_sha256": "f0b169a63eda99d33ec7c0745af9a40a3f9682c724f7f71db9c5e2198ceaf0b3"
+    },
+    "19": {
+      "original": 769,
+      "head_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "before_sha256": "670e757786fbbe9d88dc32720daa8ab213326233c4a6750df8bd0acb113489a0",
+      "diff_sha256": "b112f90c1e5321e97639491a0aa37c282ab5cc4c9d6f60be0a5de6381a6ea638"
+    },
+    "20": {
+      "original": 777,
+      "head_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "before_sha256": "94523800edefb10ca1a28ebdf93b14b034f2b22b0900e406857bbfc8a5dbf99b",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "21": {
+      "originals": [
+        470,
+        478
+      ],
+      "prior_head_ranges": [
+        [
+          65,
+          169
+        ],
+        [
+          175,
+          290
+        ]
+      ],
+      "fresh_registered_ranges": [
+        [
+          40,
+          64
+        ],
+        [
+          170,
+          174
+        ]
+      ]
+    },
+    "22": {
+      "originals": [
+        471,
+        479
+      ],
+      "prior_head_ranges": [
+        [
+          1,
+          145
+        ],
+        [
+          250,
+          277
+        ],
+        [
+          901,
+          939
+        ]
+      ],
+      "fresh_registered_ranges": [
+        [
+          278,
+          281
+        ],
+        [
+          890,
+          900
+        ]
+      ]
+    }
+  },
+  "support": {
+    "original": 1996,
+    "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate_city_support/composition.rs",
+    "sha256": "b74d49e84b2fe053e0b981b3ab55a309e07d56e7de1b2beb4f816ff563932620",
+    "read_ranges": [
+      [
+        1,
+        105
+      ]
+    ],
+    "scope_authority": "Original scope072 exact owner1-105; full actual caller read for M16, no original1996/delta completion."
+  },
+  "receipts": [
+    {
+      "material": 16,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate_city_support/projection.rs",
+      "sha256": "b76680bbe81ab56774ea8d7881c3ce266977abb71f95fd956c1c58007c0e46e5",
+      "registered_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "analysis": "Fresh full66 actual check read; base3a50/head6533 identical. It serializes exact support projection to JSON, decodes, reconstructs against actual geographic source plus playable/distant placements, rejects reconstruction errors and requires exact terrain equality before writing accepted projection bytes. Actual registered original1996 Composition::compile full105 read as uncounted support (tiny58-62 truncation repaired): projection::check? precedes final accepted:true and later native unowned-source queries/IO; failures cannot reach that success record. Optional rejected-evidence serialization/write errors may replace the original reconstruction error via ?, but still return Err; no unconditional original-cause identity claim. This is native serial geometry acceptance, explicitly not browser/production installation."
+    },
+    {
+      "material": 17,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "2f337baa2edb2356e1f086aacf549696c63bfac639d03c5f0a9b564d675bb397",
+      "registered_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "analysis": "Reused personally written own08 original772 full1-60 and complete old/new delta at exact same registered hash; cbbb Git bytes independently proved identical to frozen6533. Same field meaning with typed rig tables/packed skin/optional parent, same ordered globals-to-transform conversion, optional independent shell fallback retained. Equal table lengths are not product identity or semantic rig association proof. No redundant full-body reread or second original completion."
+    },
+    {
+      "material": 18,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+      "registered_ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "analysis": "Reused own08 original779 full1-164 and actual delta at this exact hash; cbbb and frozen6533 identity independently proved. Same LOD/nonempty/normals/row/face/normalized-weight/body->shell->morph->socket order modulo explicit new bound/padding admission. Malformed zero-weight padding is intentionally rejected now; parent None/earlier ordinal preserves valid old hierarchy. Same-count fallback and broader identity/nonfinite gaps remain qualified. No rig family or current-main clearance from reused validator evidence."
+    },
+    {
+      "material": 19,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/compact.rs",
+      "sha256": "4aa7045f30b54218cf1897ee3f74e1d8831a35debb7905ad3365a796e20f7ca9",
+      "registered_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "analysis": "Reused own08 original769 full1-104 and actual delta, identical cbbb/frozen6533 bytes. Same ascending BTreeSet remap applies to faces/positions/normals/explicit UVs/skin/morphs/plate edges and packed rows preserve rig bound/order. Retained source.surface is still forwarded while explicit UVs are remapped: the old source-only-surface UV population qualification remains the existing SEGO-INITIAL09-SUPPORT-144-SURFACE-UV family, not a new unique08 issue or repair. Preserve ordinary-producer/remedy/current-family qualifications, no fixes made."
+    },
+    {
+      "material": 20,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "94523800edefb10ca1a28ebdf93b14b034f2b22b0900e406857bbfc8a5dbf99b",
+      "registered_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "analysis": "Reused own08 original777 full1-170 with empty actual delta, same exact cbbb/frozen/base bytes. Standalone embeds buffers; Shared uses sibling content-hash files, deterministic BTreeMap ordering and existing-file exact byte check. Partial publication on error remains original API behavior. Normal-only preserves authored PBR; color factor/normal/occlusion/cutout and shell pointer-pair cache override order retained. No image-validation or all typed-error cause guarantee inferred."
+    },
+    {
+      "material": 21,
+      "source_id": "native-dependency:bevy_replicon-0.41.1/src/shared/replication/registry/rule_fns.rs",
+      "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+      "registered_ranges": [
+        [
+          40,
+          145
+        ],
+        [
+          162,
+          225
+        ]
+      ],
+      "analysis": "Exact native hash matches prior own08 originals470/478. Reused personally read65-169 plus175-290, freshly read missing40-64 and170-174. Union covers registered40-145 and162-225, without whole348-line module credit. Native typed/untyped function dispatch/default serialize/deserialize/in-place/consume remain exact source. Generic default uses postcard and maps entities after successful decoding; failed consume can leave ignore_mapping changed per prior actual body, so no universal rollback claim. Leading40 begins in a prior method tail and no unregistered guard/prefix is credited. Actual changed payload compatibility remains separate."
+    },
+    {
+      "material": 22,
+      "source_id": "native-dependency:bevy_replicon-0.41.1/src/shared/replication/rules.rs",
+      "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "registered_ranges": [
+        [
+          1,
+          58
+        ],
+        [
+          262,
+          281
+        ],
+        [
+          890,
+          920
+        ]
+      ],
+      "analysis": "Exact native hash matches prior own08 originals471/479. Prior1-145/250-277 and901-939 cover selected1-58/262-277/901-920; freshly read278-281 and890-900 fills exact registered gaps. Actual App resource registration adds required Replicated then delegates replicate_with; default/conversion rule policy remains the same pinned native implementation. Selected281 is just next method declaration, not its body. Existing serialization/quantization policy and payload compatibility remain separate application owner obligations, no wholeSDK read."
+    },
+    {
+      "material": 23,
+      "source_id": "native-dependency:postcard-1.1.3/src/de/deserializer.rs",
+      "sha256": "20f5ff69404628e4d765f58ceb91b6ac8879ce998aef6dfe49a2fdb2c5f20ac2",
+      "registered_ranges": [
+        [
+          208,
+          236
+        ]
+      ],
+      "analysis": "Fresh exact postcard1.1.3 deserialize source208-236. is_human_readable=false; deserialize_any always Err(WontImplement), bool accepts only native0/1 and rejects other byte with DeserializeBadBool. This is an actual binary receiving contract, not proof arbitrary serde layouts roundtrip. Any internally tagged/dynamically buffered visitor that requires deserialize_any cannot succeed at this operation, but actual serde_derive dispatch is separately queued M24 and is not credited/read here. Existing landform codec/port qualifiers remain; no newly accepted defect/alias or whole postcard module conclusion."
+    }
+  ],
+  "findings": [],
+  "global_clearance": false,
+  "new_unique_count": "Not asserted; exact prior UV/product/codec and native failure qualifications retained.",
+  "next_earlier_material": 24,
+  "original_frontier_unchanged": {
+    "completed": 1799,
+    "next": 1792,
+    "first_unfinished": 1462
+  },
+  "execution": "No product/Git changes, project checks/tests, new test cases/assertions/helpers, publication or external messages."
+}

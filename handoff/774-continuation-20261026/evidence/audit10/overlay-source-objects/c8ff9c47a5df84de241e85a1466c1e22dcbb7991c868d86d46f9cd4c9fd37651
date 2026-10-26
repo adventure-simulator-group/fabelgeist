@@ -1,0 +1,505 @@
+//! Server-side observer-authorized Physiology chart presentation.
+//!
+//! Inputs are already quantized projection rows. This module deliberately has
+//! no infection row, private meter, phenotype, diagnosis or recommendation
+//! type available to serialize.
+
+mod administrations;
+
+use crate::spacetimedb::{BackendPhysiologyAdministration, BackendPhysiologyChart};
+use adventuresim_core::{
+    disease::{DiseaseId, definition, elemental_association},
+    physiology::{BodyRegion, DoseMilliunits, Humour},
+};
+use adventuresim_world_schema::calendar::StrategicMinute;
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, serde::Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub(crate) enum CorpseActionKind {
+    Open,
+    Exhume,
+    Bury,
+    Burn,
+    Examine,
+}
+
+impl CorpseActionKind {
+    pub(crate) const fn tag(self) -> &'static str {
+        match self {
+            Self::Open => "open",
+            Self::Exhume => "exhume",
+            Self::Bury => "bury",
+            Self::Burn => "burn",
+            Self::Examine => "examine",
+        }
+    }
+}
+
+#[derive(Clone, Debug, Default)]
+pub struct MedicalPresentation {
+    pub unavailable: bool,
+    pub regional_humours: Option<[HumourVitals; 7]>,
+    pub concealed_other: [f32; 7],
+    pub readings: Vec<ChartReadingPresentation>,
+    pub gaps: Vec<ChartGapPresentation>,
+    pub administrations: Vec<AdministrationPresentation>,
+    pub active_administrations: Vec<AdministrationPresentation>,
+}
+
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct HumourVitals {
+    pub sanguine: f32,
+    pub phlegmatic: f32,
+    pub choleric: f32,
+    pub melancholic: f32,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct ChartReadingPresentation {
+    pub minute: StrategicMinute,
+    pub physiology_band: u8,
+    pub observation_minutes: u64,
+    pub humour_deviations_bps: [[i16; 4]; 7],
+    pub possible_diseases: Vec<DiseaseLikelihoodPresentation>,
+    pub known_interventions: Vec<String>,
+    pub confidence_bps: u16,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct DiseaseLikelihoodPresentation {
+    pub disease_id: String,
+    pub label: String,
+    pub likelihood_bps: u16,
+    /// Observer-safe, disease-definition-derived examples for the differential
+    /// tooltip. These never inspect the patient's private infection state.
+    pub typical_effects: Vec<String>,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct ChartGapPresentation {
+    pub from: StrategicMinute,
+    pub to: StrategicMinute,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct AdministrationPresentation {
+    pub id: u64,
+    pub preparation_id: String,
+    pub display_name: String,
+    pub profile_version: u16,
+    pub route: adventuresim_core::physiology::InterventionRoute,
+    pub dose: DoseMilliunits,
+    pub region: Option<adventuresim_core::physiology::BodyRegion>,
+    pub administered_at: StrategicMinute,
+    pub stopped_at: Option<StrategicMinute>,
+}
+
+impl AdministrationPresentation {
+    fn from_backend(row: &BackendPhysiologyAdministration) -> Self {
+        Self {
+            id: row.id,
+            preparation_id: row.preparation_id.clone(),
+            display_name: adventuresim_core::item_catalog::definition(&row.preparation_id)
+                .map_or_else(
+                    || {
+                        let mut readable = row.preparation_id.replace('_', " ");
+                        if let Some(first) = readable.get_mut(0..1) {
+                            first.make_ascii_uppercase();
+                        }
+                        readable
+                    },
+                    |definition| definition.display_name.clone(),
+                ),
+            profile_version: row.profile_version,
+            route: crate::spacetimedb::core_intervention_route(row.route),
+            dose: DoseMilliunits::try_new(row.dose_milliunits)
+                .expect("backend administration dose must satisfy the physiology invariant"),
+            region: row.region.map(crate::spacetimedb::core_body_region),
+            administered_at: StrategicMinute::new(row.administered_at.minutes),
+            stopped_at: row
+                .stopped_at
+                .as_ref()
+                .map(|minute| StrategicMinute::new(minute.minutes)),
+        }
+    }
+}
+
+pub fn sanitize(
+    rows: &[BackendPhysiologyChart],
+    administrations: &[BackendPhysiologyAdministration],
+    current_minute: StrategicMinute,
+) -> MedicalPresentation {
+    let mut readings = rows
+        .iter()
+        .filter(|row| row.gap_from.is_none() && row.gap_to.is_none())
+        .filter_map(|row| {
+            let sanguine: [i16; 7] = row.sanguine_bps.clone().try_into().ok()?;
+            let phlegmatic: [i16; 7] = row.phlegmatic_bps.clone().try_into().ok()?;
+            let choleric: [i16; 7] = row.choleric_bps.clone().try_into().ok()?;
+            let melancholic: [i16; 7] = row.melancholic_bps.clone().try_into().ok()?;
+            Some(ChartReadingPresentation {
+                minute: StrategicMinute::new(row.observed_at.minutes),
+                physiology_band: row.physiology_band,
+                observation_minutes: row.observation_minutes,
+                humour_deviations_bps: std::array::from_fn(|region| {
+                    [
+                        sanguine[region],
+                        phlegmatic[region],
+                        choleric[region],
+                        melancholic[region],
+                    ]
+                }),
+                possible_diseases: row
+                    .possible_diseases
+                    .iter()
+                    .map(|candidate| DiseaseLikelihoodPresentation {
+                        disease_id: candidate.disease_id.clone(),
+                        label: candidate.label.clone(),
+                        likelihood_bps: candidate
+                            .likelihood_bps
+                            .min(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE),
+                        typical_effects: typical_disease_effects(&candidate.disease_id),
+                    })
+                    .collect(),
+                known_interventions: row.known_interventions.clone(),
+                confidence_bps: row.confidence_bps,
+            })
+        })
+        .collect::<Vec<_>>();
+    readings.sort_by_key(|reading| reading.minute);
+    let mut gaps = rows
+        .iter()
+        .filter_map(|row| {
+            Some(ChartGapPresentation {
+                from: crate::spacetimedb::calendar_minute(row.gap_from.as_ref()?),
+                to: crate::spacetimedb::calendar_minute(row.gap_to.as_ref()?),
+            })
+        })
+        .collect::<Vec<_>>();
+    gaps.sort_by_key(|gap| (gap.from, gap.to));
+    gaps.dedup();
+
+    let latest = readings.last();
+    let regional_humours = latest.map(|reading| {
+        reading.humour_deviations_bps.map(|values| HumourVitals {
+            sanguine: values[0] as f32
+                / f32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE),
+            phlegmatic: values[1] as f32
+                / f32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE),
+            choleric: values[2] as f32
+                / f32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE),
+            melancholic: values[3] as f32
+                / f32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE),
+        })
+    });
+    let concealed_other = if regional_humours.is_some() {
+        [0.0; 7]
+    } else {
+        let aggregate = latest.map_or(0.0, |reading| {
+            reading.humour_deviations_bps[0]
+                .iter()
+                .map(|value| {
+                    value.unsigned_abs() as f32
+                        / f32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE)
+                })
+                .sum::<f32>()
+                .clamp(0.0, 1.0)
+        });
+        [aggregate; 7]
+    };
+    let administrations = administrations
+        .iter()
+        .map(AdministrationPresentation::from_backend)
+        .collect::<Vec<_>>();
+    let active_administrations = administrations::active(&administrations, current_minute);
+    MedicalPresentation {
+        regional_humours,
+        concealed_other,
+        readings,
+        gaps,
+        administrations,
+        active_administrations,
+        unavailable: false,
+    }
+}
+
+fn typical_disease_effects(public_disease_key: &str) -> Vec<String> {
+    let Ok(disease_id) = public_disease_key.parse::<DiseaseId>() else {
+        return Vec::new();
+    };
+    let elemental = elemental_association(disease_id).map(|association| {
+        format!(
+            "Paracelsian association: {} {} / {}",
+            association.element.as_str(),
+            association.kind.as_str(),
+            association.projected_humour.public_name()
+        )
+    });
+    let mut focal_effects = [[0.0_f32; 4]; 7];
+    let mut whole_body_effects = [0.0_f32; 4];
+    for symptom in definition(disease_id).symptoms {
+        let regions = symptom.observation_regions();
+        // Broad visible findings should read as a systemic signature rather
+        // than seven arbitrary limb entries. The observer still sees only the
+        // public disease definition, never the patient's infection state.
+        if regions.len() >= 4 {
+            whole_body_effects[symptom.humour().index()] += symptom.humour_deviation();
+        } else {
+            for region in regions {
+                focal_effects[region.index()][symptom.humour().index()] +=
+                    symptom.humour_deviation();
+            }
+        }
+    }
+
+    let mut ranked = BodyRegion::ALL
+        .into_iter()
+        .flat_map(|region| {
+            Humour::ALL.into_iter().filter_map(move |humour| {
+                let weight = focal_effects[region.index()][humour.index()];
+                (weight > 0.0).then_some((weight, Some(region), humour))
+            })
+        })
+        .collect::<Vec<_>>();
+    ranked.extend(Humour::ALL.into_iter().filter_map(|humour| {
+        let weight = whole_body_effects[humour.index()];
+        (weight > 0.0).then_some((weight, None, humour))
+    }));
+    ranked.sort_by(|a, b| {
+        b.0.total_cmp(&a.0)
+            .then_with(|| a.1.is_none().cmp(&b.1.is_none()))
+            .then_with(|| {
+                a.1.map_or(usize::MAX, BodyRegion::index)
+                    .cmp(&b.1.map_or(usize::MAX, BodyRegion::index))
+            })
+            .then_with(|| a.2.index().cmp(&b.2.index()))
+    });
+    let mut result = elemental.into_iter().collect::<Vec<_>>();
+    result.extend(ranked.into_iter().take(5).map(|(_, region, humour)| {
+        let region = match region {
+            Some(BodyRegion::LeftArm) => "left arm",
+            Some(BodyRegion::RightArm) => "right arm",
+            Some(BodyRegion::LeftLeg) => "left leg",
+            Some(BodyRegion::RightLeg) => "right leg",
+            Some(BodyRegion::Chest) => "chest",
+            Some(BodyRegion::Abdomen) => "stomach",
+            Some(BodyRegion::Head) => "head",
+            None => "whole body",
+        };
+        let humour = match humour {
+            Humour::Sanguine => "blood",
+            Humour::Phlegmatic => "phlegm",
+            Humour::Choleric => "yellow bile",
+            Humour::Melancholic => "black bile",
+        };
+        format!("▲ {region} {humour}")
+    }));
+    result
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn corpse_action_tags_are_closed_fixed_vectors() {
+        assert_eq!(
+            [
+                CorpseActionKind::Open,
+                CorpseActionKind::Exhume,
+                CorpseActionKind::Bury,
+                CorpseActionKind::Burn,
+                CorpseActionKind::Examine,
+            ]
+            .map(CorpseActionKind::tag),
+            ["open", "exhume", "bury", "burn", "examine"]
+        );
+        assert_eq!(
+            serde_json::from_str::<CorpseActionKind>("\"burn\"").unwrap(),
+            CorpseActionKind::Burn
+        );
+        assert!(serde_json::from_str::<CorpseActionKind>("\"inspect\"").is_err());
+    }
+
+    #[test]
+    fn chart_contains_only_quantized_observations_and_explicit_gaps() {
+        let rows = vec![
+            BackendPhysiologyChart {
+                id: "reading".into(),
+                observer_id: 1,
+                patient_id: 2,
+                observed_at: adventuresim_stdb_client::StrategicMinute { minutes: 100 },
+                physiology_band: 3,
+                observation_minutes: 100,
+                sanguine_bps: vec![-1_200; 7],
+                phlegmatic_bps: vec![2_300; 7],
+                choleric_bps: vec![3_400; 7],
+                melancholic_bps: vec![4_500; 7],
+                possible_diseases: vec![crate::spacetimedb::BackendPhysiologyDifferential {
+                    disease_id: "influenza".into(),
+                    label: "Catarrhal fever".into(),
+                    likelihood_bps: 7_500,
+                }],
+                known_interventions: vec!["cooling_willow_draught v1 (Oral)".into()],
+                confidence_bps: 7_000,
+                gap_from: None,
+                gap_to: None,
+            },
+            BackendPhysiologyChart {
+                id: "gap".into(),
+                observer_id: 1,
+                patient_id: 2,
+                observed_at: adventuresim_stdb_client::StrategicMinute { minutes: 200 },
+                physiology_band: 3,
+                observation_minutes: 0,
+                sanguine_bps: Vec::new(),
+                phlegmatic_bps: Vec::new(),
+                choleric_bps: Vec::new(),
+                melancholic_bps: Vec::new(),
+                possible_diseases: Vec::new(),
+                known_interventions: Vec::new(),
+                confidence_bps: 0,
+                gap_from: Some(adventuresim_stdb_client::StrategicMinute { minutes: 150 }),
+                gap_to: Some(adventuresim_stdb_client::StrategicMinute { minutes: 200 }),
+            },
+        ];
+        let presentation = sanitize(&rows, &[], StrategicMinute::new(200));
+        assert_eq!(presentation.readings.len(), 1);
+        assert_eq!(presentation.gaps.len(), 1);
+        let regions = presentation.regional_humours.expect("regional readings");
+        assert_eq!(regions[4].sanguine, -0.12);
+        assert_eq!(regions[0].phlegmatic, 0.23);
+        assert_eq!(
+            presentation.readings[0].possible_diseases[0].label,
+            "Catarrhal fever"
+        );
+        assert_eq!(
+            presentation.readings[0].possible_diseases[0].typical_effects[0],
+            "▲ chest phlegm"
+        );
+        let encoded = format!("{presentation:?}");
+        for forbidden in ["infection_id", "phenotype", "private_meter", "diagnosis"] {
+            assert!(!encoded.contains(forbidden));
+        }
+    }
+
+    #[test]
+    fn administration_history_retains_boundaries_and_excludes_stopped_or_expired_courses() {
+        let administrations = vec![
+            BackendPhysiologyAdministration {
+                id: 1,
+                patient_id: 2,
+                preparation_id: "first_course".into(),
+                profile_version: 1,
+                route: adventuresim_stdb_client::InterventionRoute::Oral,
+                dose_milliunits: DoseMilliunits::try_new(750).unwrap().get(),
+                region: None,
+                administered_at: adventuresim_stdb_client::StrategicMinute { minutes: 100 },
+                stopped_at: Some(adventuresim_stdb_client::StrategicMinute { minutes: 200 }),
+            },
+            BackendPhysiologyAdministration {
+                id: 2,
+                patient_id: 2,
+                preparation_id: "oral_rehydration_draught".into(),
+                profile_version: 1,
+                route: adventuresim_stdb_client::InterventionRoute::Oral,
+                dose_milliunits: DoseMilliunits::STANDARD.get(),
+                region: None,
+                administered_at: adventuresim_stdb_client::StrategicMinute { minutes: 300 },
+                stopped_at: None,
+            },
+            BackendPhysiologyAdministration {
+                id: 3,
+                patient_id: 2,
+                preparation_id: "cooling_willow_draught".into(),
+                profile_version: 1,
+                route: adventuresim_stdb_client::InterventionRoute::Oral,
+                dose_milliunits: DoseMilliunits::STANDARD.get(),
+                region: None,
+                administered_at: adventuresim_stdb_client::StrategicMinute { minutes: 100 },
+                stopped_at: None,
+            },
+        ];
+        let presentation = sanitize(&[], &administrations, StrategicMinute::new(500));
+        assert_eq!(presentation.administrations.len(), 3);
+        assert_eq!(
+            presentation.administrations[0].administered_at,
+            StrategicMinute::new(100)
+        );
+        assert_eq!(
+            presentation.administrations[0].stopped_at,
+            Some(StrategicMinute::new(200))
+        );
+        assert_eq!(presentation.active_administrations.len(), 1);
+        assert_eq!(
+            presentation.active_administrations[0].preparation_id,
+            "oral_rehydration_draught"
+        );
+        assert_eq!(
+            presentation.active_administrations[0].display_name,
+            "Oral rehydration draught"
+        );
+
+        let expired = sanitize(&[], &administrations, StrategicMinute::new(1_000));
+        assert!(expired.active_administrations.is_empty());
+        assert_eq!(expired.administrations.len(), 3);
+    }
+
+    #[test]
+    fn public_disease_effects_preserve_focal_signatures_and_collapse_broad_findings() {
+        let influenza = typical_disease_effects("influenza");
+        assert_eq!(influenza[0], "▲ chest phlegm");
+        assert!(influenza.contains(&"▲ head phlegm".to_owned()));
+        assert!(influenza.contains(&"▲ whole body yellow bile".to_owned()));
+        assert!(influenza.contains(&"▲ whole body black bile".to_owned()));
+        assert!(!influenza.iter().any(|effect| effect.contains("arm")));
+
+        let smallpox = typical_disease_effects("smallpox");
+        assert!(smallpox.contains(&"▲ whole body blood".to_owned()));
+        assert!(smallpox.contains(&"▲ whole body yellow bile".to_owned()));
+        assert!(smallpox.contains(&"▲ whole body black bile".to_owned()));
+        assert!(smallpox.iter().all(|effect| effect.contains("whole body")));
+
+        for disease_key in [
+            "influenza",
+            "dysentery",
+            "typhus",
+            "tetanus",
+            "erysipelas",
+            "smallpox",
+            "plague",
+            "consumption",
+        ] {
+            let effects = typical_disease_effects(disease_key);
+            assert!(!effects.is_empty(), "{disease_key}");
+            assert!(effects.len() <= 5, "{disease_key}: {effects:?}");
+        }
+        for invalid in ["unknown", "ShroudFever", "shroud-fever", ""] {
+            assert!(typical_disease_effects(invalid).is_empty());
+        }
+    }
+
+    #[test]
+    fn fantastic_disease_tooltips_disclose_elemental_correspondence() {
+        for (key, expected) in [
+            ("mahrdruck", "Paracelsian association: air sylph / Sanguine"),
+            (
+                "shroud_fever",
+                "Paracelsian association: water nymph / Phlegmatic",
+            ),
+            (
+                "bilwisschuss",
+                "Paracelsian association: fire salamander / Choleric",
+            ),
+            (
+                "kobeldunst",
+                "Paracelsian association: earth pygmy / Melancholic",
+            ),
+        ] {
+            assert_eq!(
+                typical_disease_effects(key).first().map(String::as_str),
+                Some(expected),
+            );
+        }
+    }
+}

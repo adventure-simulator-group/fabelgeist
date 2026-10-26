@@ -1,0 +1,72 @@
+diff --git a/crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/batching.rs b/crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/batching.rs
+index 7a7339d3b..1a90f0034 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/batching.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/batching.rs
+@@ -6,11 +6,15 @@ use bevy::asset::RenderAssetUsages;
+ pub(super) fn append_litter_batch(
+     meshes: &bevy::prelude::Assets<Mesh>,
+     source: &Handle<Mesh>,
+-    mut transform: Transform,
+-    cell_size: f32,
++    placement: LitterPlacement,
+     batches: &mut BTreeMap<(i32, i32), LitterBatch>,
+-    kind: BatchKind,
+-) {
++) -> Result<(), bevy::mesh::MeshMergeError> {
++    let mut transform = Transform {
++        translation: placement.root.metres(),
++        rotation: placement.rotation,
++        scale: placement.scale,
++    };
++    let cell_size = LITTER_BATCH_CELL_METRES;
+     let cell = (
+         (transform.translation.x / cell_size).floor() as i32,
+         (transform.translation.z / cell_size).floor() as i32,
+@@ -18,23 +22,22 @@ pub(super) fn append_litter_batch(
+     transform.translation.x -= cell.0 as f32 * cell_size;
+     transform.translation.z -= cell.1 as f32 * cell_size;
+     let Some(source) = meshes.get(source) else {
+-        return;
++        return Ok(());
+     };
+     let mut transformed = source.clone().transformed_by(transform);
+     transformed.asset_usage = RenderAssetUsages::RENDER_WORLD;
+     let batch = batches.entry(cell).or_default();
+-    let slot = match kind {
++    let slot = match placement.kind {
+         BatchKind::Leaves => &mut batch.leaves,
+         BatchKind::Twigs => &mut batch.twigs,
+         BatchKind::Plants => &mut batch.plants,
+     };
+     if let Some(batch) = slot {
+-        batch
+-            .merge(&transformed)
+-            .expect("litter variants share one vertex contract");
++        batch.merge(&transformed)?;
+     } else {
+         *slot = Some(transformed);
+     }
++    Ok(())
+ }
+ 
+ pub(super) fn spawn_batches(
+@@ -105,11 +108,15 @@ mod tests {
+                 append_litter_batch(
+                     &meshes,
+                     &source,
+-                    Transform::IDENTITY,
+-                    LITTER_BATCH_CELL_METRES,
++                    LitterPlacement {
++                        root: Position::ORIGIN,
++                        rotation: bevy::prelude::Quat::IDENTITY,
++                        scale: Vec3::ONE,
++                        kind: BatchKind::Leaves,
++                    },
+                     &mut batches,
+-                    BatchKind::Leaves,
+-                );
++                )
++                .unwrap();
+                 let batch = batches[&(0, 0)].leaves.as_ref().unwrap();
+                 assert_eq!(batch.asset_usage, RenderAssetUsages::RENDER_WORLD);
+                 assert_eq!(

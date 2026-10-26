@@ -1,0 +1,71 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-366",
+  "at": "2026-10-25T23:45:19.757930+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 113,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog.rs",
+      "sha256": "12a6191433c61dae833826429a9ebacc2c043cce0fe593831e65f6ec10a132f6",
+      "personally_read_ranges": [
+        [
+          1,
+          544
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full requested frozen item catalogue body1-544 personally read across retained partial1-210 and current211-544. OnceLock projection load sorts IDs before binary search, source map separately sorts source IDs, authored-document source order sorts line/column. Duplicate/shape ingress guarantees belong to build validation, not binary search itself; existing tests assert authored uniqueness and geometry but were not run.",
+        "Weapon getters select exact ItemKind payload, missing IDs returnNone; reference validator returns actual missing IDs. Equipment tests describe explicit many-to-many attachment/protection topology, authored occupancy channels, sheath/mount distinction and positive finite tactical dimensions. Test assertions are not exhaustive runtime/schema admission. No finding or clearance of external catalogue producer."
+      ]
+    },
+    {
+      "scope_index": 115,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_projection.rs",
+      "sha256": "771a265b992561a0094e1b16784b8ca544e4192546e3f06396d35b4bde8b3e30",
+      "personally_read_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full requested projection body1-122 read. Decode collects documents, projects generated melee recipes, derives precision/reach/inertia/mass and equipmentY length before sorting item IDs. Missing melee recipe and derivation/geometry errors preserve owning errors; non-melee bypass is intentional branch. Runtime catalogue receiver113 retains only successful projection.",
+        "Surface coverage computes region-count-weighted average within each placement and unweighted mean across nonempty placements, writesArmor or optionalClothing protection. This is aggregate scalar coverage, distinct from explicit body-region/geometry protection; whether overlapping or alternate placements should contribute equally requires actual authored topology and consumer policy, not a raw-array synthetic finding. No assumption that sorting rejects duplicates or serde validates all raw numeric fields."
+      ]
+    },
+    {
+      "scope_index": 116,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "personally_read_ranges": [
+        [
+          1,
+          623
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full requested schema1-623 read. Public serializable records separate item identity/kind/capabilities, equipment physical geometry, explicit occupancy and parent graph, protection body parts and surface spans. Geometry leaves are typed but anchor offsets, tangent/UV, weights, coverage, channel capacity and skill shares remain independently mutable/native boundaries; deny_unknown_fields constrains shape rather than cross-field/range validity.",
+        "Outermost channel takes maximum explicit order across occupancy and parents; singleton classification excludesAccessory/Mount/Containment. Stable location IDs are explicit exhaustive mapping; seven-part combat ABI remains separate from fine topology. Quality/capability comments do not automatically enforce1-5 or numeric ranges; build/ingress validators and receiving traces remain required. Existing roundtrip test source read only."
+      ]
+    },
+    {
+      "scope_index": 118,
+      "source_id": "physical-p16:crates/adventuresim-core/src/lib.rs",
+      "sha256": "fd09a838f8cfdd2da3d48800fe56d9bbfad7e9ad5556ba696be7908b4a000c2a",
+      "personally_read_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered core module/prelude body1-138 read. Public exports make catalogue/rights/herbalism/equipment constructors reachable but do not themselves create alternate validated ingress. Test-only validation modules are cfg(test), while quest_catalog_validation is unconditional private; declarations do not establish those validators are invoked for every deserialization. No semantic credit for module bodies merely declared here."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "4 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "scope_authority": "original-scope-072.json; requested changed bodies remain full, corelib owner union full. Frozen P16 source role retained separately from later PR/main."
+}

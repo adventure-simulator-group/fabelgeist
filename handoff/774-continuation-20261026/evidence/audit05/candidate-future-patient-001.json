@@ -1,0 +1,35 @@
+{
+  "id": "ADLER-RESUMED05-CANDIDATE-FUTURE-PATIENT-001",
+  "status": "pending actual generated/private-terminal producer witness and root disposition; not acceptedfinding",
+  "at": "2026-10-26T00:04:32.735701+00:00",
+  "sources": [
+    {
+      "scope_index": 230,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/outbreak.rs",
+      "sha256": "463018a13e8d3061fb161e6f5d814acd00f8cb489e3aa43f3cb08def9ea35f27",
+      "ranges": [
+        [
+          1277,
+          1347
+        ],
+        [
+          1691,
+          1762
+        ]
+      ]
+    },
+    {
+      "scope_index": 232,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/outbreak/patient_chronology.rs",
+      "sha256": "13d2838fd47720c3645d3c0cba3875699b4ad7984159ddeded1b2a23a32f15ee",
+      "ranges": [
+        [
+          6,
+          36
+        ]
+      ]
+    }
+  ],
+  "static_case": "Disease-kind exposure already symptomatic at now, actual private_terminal Some(now+10), course_end>now+10: resolver keepsSomefuture; materializer corpseNone butpatient_activefalse, writeshealth_activefalse andmembershipleft_atfuture. refresh_patient_context_after_time_write filtershealth_active beforecheckingrecovery/death, so skipsfalsecheckpoint.",
+  "qualification": "Typedfunctionsourcecase only. No demonstration existinggeneratedDisease-kind patient privatephenotypeactuallyproducesfutureterminal, no runtime/ordinarygameplayfailure. Historicalsuppressionreconstructionstillreadsactualepisodecourse, notlatestflag, limitingimpact. Existingauthorityfixturedeath_kindNone doesnotcovercase. No proposedrepair/all13initialunfinished."
+}

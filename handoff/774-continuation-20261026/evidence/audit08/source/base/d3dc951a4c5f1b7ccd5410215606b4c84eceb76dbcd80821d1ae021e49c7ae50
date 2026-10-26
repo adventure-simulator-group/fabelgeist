@@ -1,0 +1,41 @@
+[package]
+name = "adventuresim-tactical-core"
+description = "Fabelgeist: Tactical layer core library"
+version.workspace = true
+edition.workspace = true
+repository.workspace = true
+license.workspace = true
+
+[features]
+default = []
+meshgen = ["bevy/bevy_mesh"]
+avian_debug = ["avian3d/debug-plugin"]
+
+[dependencies]
+adventuresim-core.workspace = true
+adventuresim-world-schema.workspace = true
+adventuresim-building-generator.workspace = true
+fabelgeist-determinism.workspace = true
+bevy = { workspace = true, features = ["bevy_color"] }
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+thiserror.workspace = true
+bevy_enhanced_input.workspace = true
+avian3d.workspace = true
+bevy_ahoy.workspace = true
+strum = { version = "0.28", features = ["derive"] }
+bytemuck.workspace = true
+libm.workspace = true
+microlp.workspace = true
+noiz.workspace = true
+rayon.workspace = true
+smallvec = "1.15.2"
+
+[lints]
+workspace = true
+
+[dev-dependencies]
+ciborium.workspace = true
+bevy_math.workspace = true
+postcard.workspace = true

@@ -1,0 +1,28 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-251",
+  "at": "2026-10-25T22:14:54.665646+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2378,
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/party/location_personal.rs",
+      "sha256": "ba5a8c93dc9d1b62072610c5b016d87ce2db0c85f953822d5730ad4e9651f1f9",
+      "personally_read_ranges": [
+        [
+          1,
+          382
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "LocationLookup distinguishes found/notfound/unavailable, parses closed LocationKind then constructs one LocationView from settlement metadata or case pin; IDs remain same requested route identity. Case-site lookup itself not owner-scoped, so caller occupancy/knowledge checks remain required and are not granted by resolve_location.",
+        "Personal view requires active authenticated character at exact resolved location and requested character==active; no other party member private inventory shown. All preview inputs join same selected character IDs; settlement case-site preview obtains actual origin settlement before constructing rates, and NamedOutdoor eligibility requires raiding_allowed.",
+        "Privacy intentionally omits authoritative personality; medical view is explicit self/self. Attribute/skill/limb/capability/schedule/clock and inventory/food/definition query failures may become missing/default/epoch0 in presentation/preview; inherited required-observation/cause families retained, not blanket universal defect or accepted availability policy.",
+        "Foraging return path built from canonical location/personal ID with preserved building; exact preserve_building URL-fragment behavior belongs owning LocationView implementation, so F005 ordinary caller qualification remains. Full fixture source read, not executed."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

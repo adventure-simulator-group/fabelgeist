@@ -1,0 +1,110 @@
+{
+  "at": "2026-10-26T00:54:28.885244+00:00",
+  "head": "8d6bc9672da4e63d5545ead34589fd950d29e988",
+  "prior_head": "9a23392e275c78f850c10d1a9948c191029615c5",
+  "tree_equal_c3b56": true,
+  "scope": "Independent Comment successor: actual final delta, source comments and contributor-facing PR body. Forty-seven exact path pins are identity/provenance only, not fresh whole-body semantic review. Prior reports and pins remain immutable.",
+  "all_path_pins": "successor-004/pins.json",
+  "personally_read_current_ranges": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/identity.rs",
+      "ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "sha256": "3bc0741a7480ca6ed70bf12689c7fa73bb1ce7ee8a442e6aaf337e7406e4454d"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs",
+      "ranges": [
+        [
+          80,
+          140
+        ],
+        [
+          700,
+          755
+        ]
+      ],
+      "sha256": "1ae49d6169934c4ab9dd1eaa6fe251a5e97a0070254f3230f0770c4f9a73a3e2"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/gardens/README.md",
+      "ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "sha256": "383e21957e747bb1597560dc05fe0141f1795717ed8fb5711fc0c17e37c56219"
+    },
+    {
+      "path": "crates/strategic-web/ART_DEMO.md",
+      "ranges": [
+        [
+          113,
+          172
+        ]
+      ],
+      "sha256": "bc8f2db31caff857a40bd17e7d1be0024de043b0028dc08d970aeb966726c4af"
+    }
+  ],
+  "personally_read_diffs": [
+    "9a23392..8d6bc967 non-generated textual delta",
+    "main...8d6bc967 identity, arrangement, selection, skeleton, geometry, wood_mesh, tree mod, presentation, impostor, cloud bake, weather fixture, garment and equipment fixture delta"
+  ],
+  "body": {
+    "sha256": "52127fcd6ebad51bc7827bd0ed8f942296d72930bd77df052652eb1f9f1c6b49",
+    "lines": 53,
+    "read": "full",
+    "snapshot": "target\\recovery-20261025\\ci-recovery\\comment-review\\successor-004\\pr986-body.md"
+  },
+  "findings": [
+    {
+      "id": "CI-COMMENT-002",
+      "priority": 2,
+      "file": "target\\recovery-20261025\\ci-recovery\\pr986-body.md",
+      "line": 17,
+      "issue": "Calling beech width scale 0.98 existing obscures a material behavior change in the PR: main has 1.0, new head 0.98.",
+      "suggestion": "Narrow beech near cards by 2% (width scale 1.0 to 0.98) to meet the source-occupancy budget; retain hazel geometry revision 3 and tree-bake revision 18, and refresh their measured snapshots and dependent assets."
+    }
+  ],
+  "CI-COMMENT-001": "remains closed; actual garden README warning requires all exporters succeed despite unconditional artifact upload",
+  "reviewed_contracts": [
+    "Native nine-word loop retains eight zero-extended f32 geometry words and one full u64 identity word in the same order with identical xor/multiply operation. Comment accurately distinguishes representations.",
+    "TreeShootId source seed is adapted before native geometry; terminal foliage assignment and leaf consumers match module/API comments.",
+    "PR states leaf realization changes and does not promise float geometry portability or full-image equality.",
+    "PR distinguishes successful regeneration/source identity checking from pending ordinary Linux/focused Windows and final-output acceptance.",
+    "47 changed paths include refreshed scene/city/furniture/cloud data, fixtures and docs; no new platform-specific expectations are claimed.",
+    "Only two strict skeleton baseline reductions adopted; impostor ceiling remains 774."
+  ],
+  "support_reports": [
+    {
+      "path": "full-export-output-review.json",
+      "qualification": "Read structural bookkeeping report only; source-tagged exporter result evidence is separate from domain/output acceptance."
+    },
+    {
+      "path": "baseline-hosted-source.json",
+      "qualification": "Auxiliary exporter workflow differs only in workflow input; no Rust source changes."
+    }
+  ],
+  "audit_checkpoint": {
+    "latest_packet": 435,
+    "successor_original_roles": 877,
+    "exact_mapped_originals": 2851,
+    "unresolved_originals": [
+      525,
+      682
+    ],
+    "historical_reported_total": 2858,
+    "historical_seven_mapping_gap_unproved": true,
+    "partial525_last_saved_line": 3710
+  },
+  "limits": [
+    "No source/Git/check/test mutations.",
+    "No exhaustive generated JSON or image review and no new runtime or hosted acceptance established.",
+    "No global774 or frozen05 audit clearance; original receipts and later-material pending scope unchanged."
+  ]
+}

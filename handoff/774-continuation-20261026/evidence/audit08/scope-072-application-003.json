@@ -1,0 +1,27 @@
+{
+  "scope_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+  "roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/setup.rs",
+      "sha256": "ca7571cd25d303d7ef2ca543a07674e3ba3ba58b4a9abb8bb3f234f03507f9cb",
+      "base_sha256": "40e32eda0c1a37960ccfcf531024e68ee766ecbdede981a157dcb300cf70ac32",
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/view.rs",
+      "sha256": "1ec7bad7a491c5c78bfefb2ee24f87039f35d5fc22fcca5aec8ab879f69a79d8",
+      "base_sha256": "382b6722f124d3573c6855efac08e51e4a5c3c477f024ae865ea080b9f2ce18b",
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player.rs",
+      "sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "base_sha256": "992a1360b91614a143629876cbdefcae530e628e49d1eb430f7c8a5dd1868958",
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage."
+    }
+  ],
+  "qualification": "Player supporting slice remains partial despite full requested scope. setup/view full source+diff authorized; no cross-role/hash transfer."
+}

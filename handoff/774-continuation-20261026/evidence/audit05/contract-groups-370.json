@@ -1,0 +1,55 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-370",
+  "at": "2026-10-25T23:47:21.439419+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 139,
+      "source_id": "physical-p16:crates/adventuresim-core/src/settlement_property.rs",
+      "sha256": "da9742eb9634c5f1b14cca267784dd6d55e2b08ff0434a6d1c265eaed145bdbf",
+      "personally_read_ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered home/property body1-226 read. PropertyId constructor validates settlement component/nonzero building and length-frames identity; derivedtransparentDeserialize bypass remains already-recorded ROOT-ADM-F004, with exactP16 support existing. Catalogue parse only bounds4MiB/shape, while validate independently checks settlement/population/seed, canonical distinct IDs, finite positivegeometry, capacity and one early marketreserve per tier.",
+        "Allocation calls validate, rejects duplicate/empty/zero familyfacts, sums knownpopulation before narrowing, then input-order first-fit wholefamilies and bounded remaining abstract residents. It rejects impossible/failing first-fit and duplicate derivedhousehold IDs. A fragmented first-fit failure is possible for arbitrarycapacity/family arrangements even when alternativepacking might exist; no claim this API promises globalfeasiblepacking or actual generatedfamily failure without actualproducer/receiverpolicy. Count sums useu64 but arbitraryunbounded directlyconstructedVec bounds remain external. No declared testmodule body credit."
+      ]
+    },
+    {
+      "scope_index": 140,
+      "source_id": "physical-p16:crates/adventuresim-core/src/simulation_security.rs",
+      "sha256": "3c199480635cb250ba4fe3c60e13afcad2b958c8b11b3e97588c57fd85500272",
+      "personally_read_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered capability body1-61 read. Compiledtoken must64ASCIIhex; None/invalidcompiled returnsfalse beforecomparison. Comparison folds lengthdifference then loops fixedexpected64 and bounds presentget, thus no prefixacceptance; constant_timeish deliberately does not claim compiler-level timingproof. Actual compiledNone normalbuild and highentropy tokenproducer/reducer one-run scope are caller/build contracts, not established by helper alone. Existing tests read, notexecuted; no secretvalues read or exposed."
+      ]
+    },
+    {
+      "scope_index": 142,
+      "source_id": "physical-p16:crates/adventuresim-core/src/smithing.rs",
+      "sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "personally_read_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered smithing body1-78 read. derive_properties and derive_material_masses precede successfulquote; materialforge_stock mapping mustexist. Each requirement divides in f64, ceilroundsup, rejectsnonfinite/>u32MAX then checked-adds stocks, so multiplematerials mappedtosamestock cannot silentlywrap. Materialsfloatmap sums separately and time computesbase+ceil(mass*120)+components*12 beforematerial bounds; extreme validatedrecipe mass/componentbounds require actual weaponproducer trace before overflowclassification. Existing sharedstockoverflow anddefaultrecipe testsource read, noexecution. No new finding."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "scope_authority": "original-scope-072.json full union for139/140/142; imported finding metadata used only for dedup, no imported coverage."
+}

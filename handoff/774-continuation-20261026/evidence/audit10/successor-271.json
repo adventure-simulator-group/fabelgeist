@@ -1,0 +1,121 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-271",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 2436,
+      "source_id": "report-p17:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "sha256": "10ec37a1c4a64e581565d0eb9c297d396a34c1c9134a8d210de29cecb77e88ee",
+      "ranges": [
+        [
+          1,
+          147
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh frozen90a4 whole orientation147. Four handwritten Deserialize implementations call checked native constructors after f32/Vec2/Quat/Vec3 decoding; Serialize is already transparent derived with generic bound suppression and phantom skip. Actual constructor finite/unit/frame semantics read.",
+      "disposition": "Retain necessary tiny checked deserializers. No existing corresponding TryFrom shown in this body; introducing conversion APIs/serde intermediate solely to remove four one-line checked adapters is not warranted. Raw/transparent Deserialize would bypass admission. No numeric/runtime clearance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2437,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+      "sha256": "36a72e8b7ec69bfee0e9bf67a633ca079e4b157230b4628f885c9a19a4160e2b",
+      "ranges": [
+        [
+          1,
+          492
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh frozen90a4 whole bouncy492. Spring/BouncyBones structural Default already derived; sole handwritten Default is BouncyBonesTelemetry initializing maximum_deflection_radians to Ok(Radians::ZERO), not field Default. Actual telemetry first-error retention, spring stepping/native pose chain and existing cases read.",
+      "disposition": "No derivability candidate. Result has no equivalent builtin Default; retain deliberate admitted-success initialization rather than introduce wrapper/API for this tiny impl. Native animation mapping is semantic; no spring/numeric/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2438,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "sha256": "eb2b6cb3cb56cc6209f7a15a8b3dd72bf75cee67562c2b59cf0300223cac0c4d",
+      "ranges": [
+        [
+          1,
+          947
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh frozen90a4 whole capture947. Component/Resource derives already present; no handwritten traits/codecs. Actual plan selection/state initialization, owned completion via mem::take, frame driver/admission calls, semantic capture/global/sample projection, screenshot receiving progression, visual fingerprint and jitter-frame/native-parent transforms plus existing cases read.",
+      "disposition": "No derivability candidate. Explicit mappings select native state, validate observations and transfer ownership rather than mechanical trait boilerplate. No omitted sibling implementation, capture/artifact/runtime/animation acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2439,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+      "sha256": "6ea36de3b468aa2874ddb8b81039b2a85c7f77cc6beca0d15c2f957985cb4106",
+      "ranges": [
+        [
+          1,
+          195
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh frozen90a4 whole admission195. No handwritten trait/codecs. Actual terrain/geometry/locomotion/IK admission transitions preserve concrete causes, distance admission, terminal rejection message and artifact/exit receiving owner read.",
+      "disposition": "No derivability candidate. Message is an inherent owned String artifact API with newline, not a handwritten Display; adding trait/Error APIs merely to replace it changes scope. Retain semantic rejection and concrete cause adapters; no runtime clearance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2440,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+      "sha256": "442ea977df5466ad973589f48a61e9166674c05f541f174dd0e54bb7e319b47e",
+      "ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh frozen90a4 whole global-bones59. No handwritten traits/codecs. Actual native owner-filtered transform capture, target/name wire projection, array decomposition and deterministic ordering read.",
+      "disposition": "No derivability candidate; semantic native projection remains explicit. No receiving DTO or artifact correctness acceptance inferred.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2441,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+      "sha256": "a4cd3203c13ad00470f001d622f3c1097fcb28954a8c1e93766a53ddfa472441",
+      "ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh frozen90a4 whole repeated-evaluation263. Mismatch Debug already derived; no handwritten traits/codecs. Actual scenario/contact/event comparisons, exact key set, tolerant quaternion/vector/IK checked observations and existing cases read.",
+      "disposition": "No derivability candidate; semantic approximate comparison/diagnostic classification cannot become structural Eq or serde. No numeric/runtime acceptance and no test execution.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

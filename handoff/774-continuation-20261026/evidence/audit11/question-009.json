@@ -1,0 +1,23 @@
+{
+  "id": "ADLER-CONT11-Q009",
+  "classification": "Qualified instanced-timber component size/material role and transform admission; no accepted/global-unique finding or current-main regression.",
+  "scope_index": 547,
+  "source_id": "pr-working:crates/adventuresim-building-generator/src/detail/kit.rs",
+  "sha256": "da20f3ab034ae60df35d55ff3f9a26f4e2c220b163d33026b807b07e2d60b913",
+  "ranges": [
+    [
+      5,
+      38
+    ],
+    [
+      95,
+      115
+    ]
+  ],
+  "observation": "Public Serialize+Deserialize TimberComponent carries size_metres:Vec3 and interior:bool; TimberInstance carries native Mat4/UV and facade:bool. BuildingKit::new derives these from accepted solid/render placement, but public/wire component path invokes meshes directly without reusing existing checked CuboidDimensions or a typed timber material-side role. Size and material purpose survive beyond the immediate numerical kernel. Actual canonical checked dimensions already personally read in original539/541 signatures, avoiding invented parallel owner.",
+  "qualification": "Full native GPU/serialization boundary requirements, earlier accepted owner-family findings and P16/P17/current-main repair state require reconciliation. No accepted finite/negative component runtime incident or global uniqueness claim. Mat4 may be intentional rendering ABI; do not assume every field needs a new wrapper.",
+  "next": "Reconcile frozen producer/component mesh/serialization consumer scope with existing checked dimension/material/frame owners and global remedies before repairing.",
+  "new_unique_finding": false,
+  "repair": "not started",
+  "validation": "not run"
+}

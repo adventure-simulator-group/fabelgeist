@@ -1,0 +1,12 @@
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 0.64s
+[1m[92m     Running[0m unittests src/animation_viewer_main.rs (target/debug/deps/animation_viewer-fcf7da7e6e41a320)
+
+running 5 tests
+test animation_viewer::capture::frame_clock::tests::capture_ticks_remain_unique_across_consecutive_scenario_boundaries ... ok
+test animation_viewer::capture::repeated_evaluation::tests::repeated_evaluation_diagnostics_detect_hidden_ik_state_mutation ... ok
+test animation_viewer::capture::repeated_evaluation::tests::repeated_evaluation_rejects_missing_or_extra_tracked_bones ... ok
+test animation_viewer::capture::tests::completed_capture_owns_the_finished_ecs_state ... ok
+test animation_viewer::capture::tests::flat_grid_scenarios_are_opt_in_complete_cycles_with_explicit_ik_ownership ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 698 filtered out; finished in 0.01s
+

@@ -1,0 +1,21 @@
+{
+  "id": "ADLER-CONT11-PARTIAL-410-001",
+  "scope_index": 410,
+  "source_id": "physical-p16:crates/adventuresim-tactical-server/src/main.rs",
+  "sha256": "0fd91dac25a4b0b05eb65c51f7aa7bc5740bd0de5adff082320dd247d83b2444",
+  "personally_read_ranges": [
+    [
+      1,
+      190
+    ]
+  ],
+  "next_line": 191,
+  "whole_role_credit": false,
+  "notes": [
+    "CLI/nativeframework boundaries distinguish mission/claim/scene/url/module/timeout/reconnect/party count/debug mode roles; actual StartupInputs returns checked scene+combat snapshots before app construction.",
+    "This older physicalP16 main still uses raw CLI timeout/grace f32 and explicit no_timeout; no current-main regression or new unique finding inferred before typed canonical counterpart/receiving contracts are compared.",
+    "Tactical simulation resources/plugins stay in transient Bevy; STDB module imports/configuration alone do not establish which fields persist. Imported module bodies not newly reviewed."
+  ],
+  "repair": "not started",
+  "validation": "not run"
+}

@@ -1,0 +1,414 @@
+{
+  "objective": "Resume780/826and774;pause at each independently mergeablePR",
+  "workspace": "main worktree",
+  "branch": "codex/checked-glb-framing-review",
+  "base": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+  "active_slice": {
+    "kind": "checked-glb-framing",
+    "base": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+    "source_branch": "codex/checked-glb-framing-review",
+    "source_head": "2ef288d1085c249fa056156182ea626a060bb8d1",
+    "pr": "https://github.com/adventure-simulator-group/fabelgeist/pull/987",
+    "pr_state": "ready for review; open, unmerged, mergeable",
+    "candidate": "glb-main-4530/candidate-002.json",
+    "source_reviews": {
+      "Code_all13": "glb-main-4530/code-review/CURRENT.json",
+      "Rule": "glb-main-4530/rule-review/review-002.json",
+      "Comment": "glb-main-4530/comment-review/body-review-002-final.json"
+    },
+    "ordinary_quality_run": 40339807509,
+    "windows_evidence": "glb-main-4530/windows-evidence-002.json",
+    "linux_status": "Exact final head full hosted Linux and Windows workflow completed success",
+    "remaining": [
+      "User merge review; no merge authorized."
+    ],
+    "source_parent_run": 40274774510,
+    "source_parent_conclusion": "success",
+    "baseline": "glb-main-4530/baseline-reductions-001.json",
+    "linux_evidence": "glb-main-4530/linux-evidence-002.json"
+  },
+  "preservation": {
+    "source_export": "6018filesexactmerged774;kept unchanged",
+    "preexisting_untracked": [
+      "crates/fabelgeist-compute/src/reduce/compiled.rs",
+      "crates/fabelgeist-compute/src/reduce/scratchpad.rs"
+    ],
+    "recovery_refs": {
+      "774": "origin/codex/774-audit-handoff-20261025",
+      "780": "origin/codex/780-recovery-handoff-20261025",
+      "826": "origin/codex/826-recovery-handoff-20261025"
+    }
+  },
+  "remaining_work": [
+    "826typedview+validationprogressindependentcandidate",
+    "780generated/native/core/physical/material/exportadmission/callers/locks",
+    "774remaininginitialdiscovery,P16/P17andconnectedrepairs,finalglobalacceptance"
+  ],
+  "user_merge_checkpoint": "Do notmerge;pausegoalonceindividualPRreviewedandhostedaccepted",
+  "saved_slices": {
+    "glb": {
+      "problem": "UV-R2-CURRENT: unchecked GLB chunk and total framing",
+      "claims": {
+        "root": [
+          "GLB framing,typed errors,prepared packet,sole caller error conversion",
+          "Reached optional profiling serialization",
+          "Owning Creator export documentation"
+        ]
+      },
+      "source": [
+        {
+          "path": "crates/adventuresim-character-creator/README.md",
+          "sha256": "95e3abd4304b0585e8c5c4d5ec1d4585493c7ef5c15b4fe013c6523aa2357bdb",
+          "git_blob_sha256": "95e3abd4304b0585e8c5c4d5ec1d4585493c7ef5c15b4fe013c6523aa2357bdb"
+        },
+        {
+          "path": "crates/adventuresim-character-creator/src/export.rs",
+          "sha256": "9afc4164c6c6204bfcd69ae9f48ff3d68a5b3d6b9a4adf26b38dc00598c748fb",
+          "git_blob_sha256": "fe5c1027be20d6ab87b6bd34c3227d38b5eddaf7e33382917ff75e1459a37d69"
+        },
+        {
+          "path": "crates/adventuresim-character-creator/src/export/glb.rs",
+          "sha256": "54be7e4aa7f3cdef3e59c0ffd22ce5594034e9be9b15deb6c141586002d58c29",
+          "git_blob_sha256": "54be7e4aa7f3cdef3e59c0ffd22ce5594034e9be9b15deb6c141586002d58c29"
+        },
+        {
+          "path": "crates/adventuresim-character-creator/src/export/glb/error.rs",
+          "sha256": "9cb508b5ed56eba213175501febe3b3b7171eae47da89b186047abd5de1ec912",
+          "git_blob_sha256": "a9f6695f0d792b48a94a12333c437769a0b6f6f262484c402327018a0e491ecc"
+        },
+        {
+          "path": "crates/adventuresim-character-creator/src/export/glb/layout.rs",
+          "sha256": "c7598f12fd08c312d0422f86b062f038090e0a9527106a79b369a4e971cc469f",
+          "git_blob_sha256": "c7598f12fd08c312d0422f86b062f038090e0a9527106a79b369a4e971cc469f"
+        },
+        {
+          "path": "crates/adventuresim-character-creator/src/profiling.rs",
+          "sha256": "e4bc8f373cddb24d0b8772fa66a004d59e8a69a5113d82b34f288e268bdfaf95",
+          "git_blob_sha256": "e4bc8f373cddb24d0b8772fa66a004d59e8a69a5113d82b34f288e268bdfaf95"
+        }
+      ],
+      "scope_complete_source_candidate": true,
+      "preinventory": "intake-780/glb-framing-preinventory.json",
+      "reviews": {
+        "code": "clear:glb-review-code/code-review-successor.json",
+        "scoped13": "clear:glb-review-code/scoped-all13-successor.json",
+        "rule": "clear:glb-review-rule/successor-review.json",
+        "comment": "clear:glb-review-comment/review.json"
+      },
+      "validation": "pending hosted only; no local project checks or new tests",
+      "source_reasoning": {
+        "chunk_padding": "checked_next_multiple_of4 rejects host overflow; delta0..3; u32::try_from retains original conversion cause",
+        "container": "28+actualJSON+JSONpad+actualBIN+BINpad via checked_add, then u32 admission; maximum aligned totalu32MAX-3",
+        "capacity": "single try_reserve_exact on admitted total; fixed header28 plus exact original payloads/pads equals reservation; later appends do not require growth",
+        "successful_output": "same JSON serializer/order, littleendian magic/version/tags, JSONspaces/BINzeros, emptyBINretained",
+        "publication": "completepacket precedes GLBmkdir/write; earlierPNGpublication and laterpartialIO explicitly unchanged",
+        "profiling": "existingTimingfields andenabledpredicate unchanged; failed optionaldiagnostic encoding suppressed without changing measure generic return"
+      },
+      "known_runtime_limits": [
+        "Existing export fixtures do not exercise huge-frame/allocator failure cases",
+        "No geometry/UV/material/wholecreator runtime claim"
+      ],
+      "local_commit": "25fe2b284",
+      "publication": "not pushed; independent prerequisite main CI fixture repair will be reviewed first"
+    },
+    "texture-view": {
+      "branch": "codex/texture-view-error-contract",
+      "commit": "2e8b0cb0728bbcde65bb91c6e04c5488aac6fa23",
+      "manifest": "texture-view-SNAPSHOT.json",
+      "source_review_status": "all13and3independentreviews clearwithinscope",
+      "validation": "hostedpending;notpublished",
+      "known_pending": "officialbaseline reductions after movingoversizedmethods; mergecurrentmainafterfirstcheckpoint; broaderF2/constructors/native/coreunchangedpending"
+    },
+    "fixture986_origin": {
+      "problem": "Exact current main hostedCI fails existing garment fixture rig metadata before its assertions",
+      "evidence": "main-ci-earliest-failure.json",
+      "discovery": "in progress:fixture-ci-preinventory",
+      "expected_scope": [
+        "crates/adventuresim-character-creator/src/garment/settled/tests.rs:wearer"
+      ],
+      "design": "One canonical ROOT name and identityjointstate matching existing onejoint packedskin; all production/geometry/weights/testcases/oracles unchanged",
+      "implementation": "complete exacttwofieldfixturemetadataadaptation",
+      "publication": "PR986draft",
+      "commit": "af5d569c1a608e9de0367f1eec99a79ef2180949",
+      "reviews": {
+        "code": "clear:fixture-ci-review-code/code-review.json",
+        "scoped13": "clear:fixture-ci-review-code/scoped-all13.json",
+        "rule": "clear:fixture-ci-review-rule/review.json",
+        "comment": "clear:fixture-ci-review-comment/review.json"
+      },
+      "pr": "https://github.com/adventure-simulator-group/fabelgeist/pull/986",
+      "hosted": {
+        "run": 40233264407,
+        "source": "af5d569c1a608e9de0367f1eec99a79ef2180949",
+        "status": "completed",
+        "url": "https://github.com/adventure-simulator-group/fabelgeist/actions/runs/40233264407",
+        "conclusion": "failure",
+        "failed_step": 32,
+        "failed_case": "equipment fit/rebuild fixture",
+        "evidence": "fixture-ci-hosted-result.json",
+        "creator_group": "passed"
+      },
+      "preservation": "fixture-ci-preservation.json"
+    }
+  },
+  "parallel_work": {
+    "audit05": "audit_continuation: original-role frontier, see audit05/STATE.json",
+    "audit01": "recovery_780: later material62-174, audit01-delta/STATE.json",
+    "audit02": "complete later queue: audit02-delta/closure-001.json",
+    "audit11": "root: frozen original-role type-granularity frontier",
+    "audit10": "recovery_826 active from original1483, audit10/STATE.json"
+  },
+  "workspace_branch": "codex/checked-glb-framing-review",
+  "workspace_current_slice": {
+    "kind": "826independenttypedwholeviewerrors+canonicalobservation",
+    "source": "texture-view-SNAPSHOT.json",
+    "implementation_plan": "texture-view-preinventory/root-implementation-plan.json",
+    "status": "reviewed16filelocalcommit;notpublished",
+    "publication": "notpushed;PR986isfirstmergecheckpoint",
+    "commit": "2e8b0cb0728bbcde65bb91c6e04c5488aac6fa23"
+  },
+  "audit_successors": {
+    "03": "audit03-delta/CURRENT.json; material100-173boundedqueuecompleteWITHfindings",
+    "05": "audit05/STATE.json; original2853/2853+overlays246/246+merged38/38 exactsourcereconciledWITHfindings; later179pending",
+    "09": "audit09-delta/STATE.json; material160-177 source-compared WITH findings and qualified questions",
+    "06": "audit06-delta/STATE.json; material100-177 source-compared WITH findings; closure001 applies100-174, contract012 adds175-177",
+    "07": "audit07-delta/CURRENT.json; material100-173 compared with qualified candidates; recovery reconciliation continuing",
+    "04": "audit04-delta/closure-001.json; later104-174 complete WITH qualifications; no clearance",
+    "10": "audit10/STATE.json;2261/2853 latest agent checkpoint, preserve actual state for exact frontier",
+    "11": "audit11/STATE.json;511/2853originalroles next511;Q006qualified",
+    "02": "audit02-delta/closure-001.json; later62-174 complete WITH findings and qualifications; no clearance"
+  },
+  "earlier_ci_branch": {
+    "ref": "codex/ci-terrain-fixture",
+    "head": "0dcca06bdab7f5aea543dd0ce49829156f75de36",
+    "files": 32,
+    "contains_same_fixture_metadata_repair": true,
+    "status": "preserved unchanged; noopenPRfound; olderchatinterrupted",
+    "hosted_run": 40059858369,
+    "conclusion": "failure",
+    "earliest_failure": "terrainpresentationmanagedhazelenvelope vertexcount97085vs97073 onLinux; alsoshrubgeometrysnapshots differ",
+    "limits": "Includes wider fixture/asset/productiontreechanges; not silentlyabsorbedinto986 or typedview slice. Futurevalidationmustdistinguish these preexistingfailures."
+  },
+  "shared_material_registry": "shared-material-successor/source-extensions-196.json",
+  "merge_decision": "PR986 ready for user review; goal pausing by explicit instruction, no merge performed.",
+  "current_root_work": "User resumed; GLB framing candidate6431 on merged main4530, six source files unchanged from preserved reviewed slice. Independent rebase review/hosted acceptance next.",
+  "ci_recovery": {
+    "user_decision": "Finish broader CI recovery first",
+    "preserved_head": "0dcca06bdab7f5aea543dd0ce49829156f75de36",
+    "current_contract": "Native source trigonometric/power rounding made exact prepared-source fingerprints differ across Linux and Windows; pinned software functions and revision-matched outputs published.",
+    "preinventory": "ci-recovery/shoot-identity-preinventory.json",
+    "implementation": "canonical stable shoot identity implemented; independent design source-reviewed; existing fixture adapters/docs corrected",
+    "review": "Scoped source/output reviews clear; final ordinary hosted acceptance remains pending.",
+    "hosted": {
+      "run": 40246244270,
+      "mode": "Full connected existing fixture exporters and existing leaf checks; not ordinary acceptance",
+      "status": "completed: full connected exporter succeeded",
+      "prior_completed_export": 40242912915,
+      "prior_result": "ci-recovery/export-result-001.json"
+    },
+    "source_head": "f7305d139126e3f0a07a5df8869152b772947007",
+    "full_quality": {
+      "run": 40266453178,
+      "head": "f7305d139126e3f0a07a5df8869152b772947007",
+      "status": "completed",
+      "last_observed": "Both final Linux and Windows jobs completed successfully on exact f730 head, required guards/uploads passed.",
+      "acceptance": "No waiver; user requested broader CI recovery first.",
+      "conclusion": "success",
+      "evidence": "ci-recovery/final-quality-f730-001.json"
+    },
+    "source_reviews": {
+      "Code_all13": "ci-recovery/batch-review-code/8d6bc9672/; exact current47path source/output successor clear within scope",
+      "Rule": "ci-recovery/rule-review/review-004.json current8d6 no actionable boundedfinaldelta",
+      "Comment": "ci-recovery/comment-review/successor-005.json closes explicit2%beechwording"
+    },
+    "asset_dependency_question": "Dependency graph and completed hosted refresh reviewed; see asset-dependencies and full-export-output-review",
+    "current_generated_outputs": "c94 exporter all11 verified; two changed and committed atf730, nine identical. Independent Code/all13, Rule and Comment output successors clear, ordinary matching acceptance pending.",
+    "publication_plan": "Completed candidate folded into existing draft986 via merge; source treeexactlyc3b56, no forcepush/deepstack/mainmerge",
+    "hosted_export": {
+      "run": 40246244270,
+      "source": "4440155643b52a17c07cb97cd873a34412880c84",
+      "status": "completed",
+      "conclusion": "success",
+      "outputs": "full-export-output-review.json"
+    },
+    "baseline": "strict710/265 applied; hash shape source-equivalent keeps774; semantic gatepassed at currenthead",
+    "previous_full_quality": {
+      "run": 40251011535,
+      "head": "8d6bc9672da4e63d5545ead34589fd950d29e988",
+      "Linux": "success",
+      "Windows": "failure at ordinary prepared-tree source matching"
+    },
+    "math_export": {
+      "run": 40262692854,
+      "source": "c94b96d9a47453538985bbfb1ce2bd2b4874e627",
+      "conclusion": "success",
+      "evidence": "ci-recovery/math-export-output-review-002.json"
+    },
+    "current_review_successors": {
+      "Code_all13": "ci-recovery/oak-float-repair/code-review/CURRENT ->003",
+      "Rule": "ci-recovery/oak-float-repair/rule-review/output-successor-001.json",
+      "Comment": "ci-recovery/oak-float-repair/comment-review/review-004-body.json"
+    },
+    "final_Windows": {
+      "run": 40266453178,
+      "job": 121389819851,
+      "head": "f7305d139126e3f0a07a5df8869152b772947007",
+      "conclusion": "success",
+      "existing_cases": 10,
+      "evidence": "ci-recovery/final-windows-f730-001.json"
+    },
+    "last_main_preflight": {
+      "head": "f7305d139126e3f0a07a5df8869152b772947007",
+      "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "main_is_ancestor": true,
+      "tracked_clean": true,
+      "preserved_untracked": [
+        "crates/fabelgeist-compute/src/reduce/compiled.rs",
+        "crates/fabelgeist-compute/src/reduce/scratchpad.rs",
+        "fabelgeist-audit-774-handoff-20261025/"
+      ],
+      "PR986": "draft,MERGEABLE,CLEAN",
+      "PR_rollup": "empty; authoritative exact-head manual workflow is separately linked, no PR-rollup-success claim.",
+      "observed_before": "2026-10-26T05:03:06Z"
+    },
+    "published_review": "ci-recovery/published-review-checkpoint-001.json"
+  },
+  "audit_material_registry": "shared-material-successor/source-extensions-181.json",
+  "audit_material_count": 195,
+  "own11_checkpoint": {
+    "state": "audit11/STATE.json",
+    "original_accounted": 601,
+    "next_original": 601,
+    "active_partial": null,
+    "next_line": null
+  },
+  "frozen_scope_authority": {
+    "path": "audit05/original-scope-072.json",
+    "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "proof": "audit05/original-scope-072-proof.json",
+    "note": "2853 metadata identities aligned, not source coverage; requested changes full bodies, reached/foreign registered ranges+neededreceivers"
+  },
+  "overlay_registration_authority": {
+    "path": "audit05/raw-overlay-registration-000.jsonl",
+    "proof": "audit05/raw-overlay-authority-proof-001.json",
+    "sha256": "c26e2def8f8520c870f359ef66919ce730fcddb65beb051365fce42371a7bc68",
+    "count": 246,
+    "credit": "registrationonly, independent per-lens reconciliation"
+  },
+  "own11_current": {
+    "original_accounted": 601,
+    "next_original": 601,
+    "latest_packet": "audit11/successor-081.json",
+    "active_partial": null,
+    "new_unique_findings": 0,
+    "qualified_questions": 11,
+    "material_registry_total": 195,
+    "own_successor_material_read": [
+      181,
+      182,
+      183,
+      184,
+      185,
+      186,
+      187,
+      188,
+      189,
+      190,
+      191
+    ]
+  },
+  "own05_current": {
+    "state": "audit05/STATE.json",
+    "final_successor": "audit05/FINAL-HANDOFF-SUCCESSOR-006.json",
+    "original_accounted": 2853,
+    "overlay_accounted": 246,
+    "merged_accounted": 38,
+    "later_material_accounted": 192,
+    "finding_count": 10,
+    "limits": "Own05 only; qualified findings and no whole-audit or other-lens clearance.",
+    "current_comparisons": "audit05/remedy-reconciliation/current-comparison-complete-001.json",
+    "pending_material_indices": [
+      192,
+      193,
+      194
+    ]
+  },
+  "last_progress_classification": "PR986 source/output/review/hosted acceptance complete, published ready; broader audit and GLB/texture-error acceptance unfinished. Stop until user review/merge/resume.",
+  "shared_material_current": "shared-material-successor/source-extensions-195.json",
+  "merge_review_checkpoint": "MERGE-REVIEW-CHECKPOINT-986.json",
+  "pause_frontiers": {
+    "own05": "Original2853/2853,overlays246,merged38,material192; source/current10 findings qualified/unrepaired, global remedy grouping pending; M192-194 queued. FINAL-HANDOFF-SUCCESSOR-006.json.",
+    "own08": "STOPPED-MERGE-REVIEW.json:1779/2853 complete,next1781 state.rs lines1-360 read; resume361-2069 and actual delta. Earliest1462 and1474/1484,Q005 qualifiers retained;M188-194 queued.",
+    "own10": "Original2853,overlays246,merged38,material192 complete with qualified candidates. Candidate001 current comparison deduplicates inherited F004 optional remedy; M192-194 common reconciliation queued, own local prospective evidence saved.",
+    "own02_04": "Additive closures through192 with all qualifications; commonM192-194 queued separately.",
+    "own11": "601/2853 originals, next601, no activepartial;11qualified questions,newunique0. Own boundedM181-191 read;M0-180 and192-194 pending. Inherited7findings+9aliases retained."
+  },
+  "next_after_user_merge": [
+    "Refresh main and reconcile independently saved checked-GLB framing branch codex/checked-glb-framing (25fe2b284) without deep stack; hosted acceptance still needed.",
+    "Reconcile saved texture-view error contract branch codex/texture-view-error-contract (2e8b0cb0728bbcde65bb91c6e04c5488aac6fa23); hosted acceptance and broader GPU audit remain.",
+    "Resume exact audit frontiers and current remedy grouping; no whole-audit clearance or unique finding inflation."
+  ],
+  "merge_review_checkpoint_986_user_confirmed_merged": {
+    "merge": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+    "source_head": "f7305d139126e3f0a07a5df8869152b772947007"
+  },
+  "active_candidate": "glb-main-4530/candidate-001.json",
+  "active_pull_request": {
+    "number": 987,
+    "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/987",
+    "head": "6431c2faf1b50608344d1031d0f9413830c271fa",
+    "base": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+    "run_id": 40274774510,
+    "status": "Draft; Code/all13 and fullhosted validationpending; Rule/Comment sourceclear; correctedwordingpublished.",
+    "source_reviews": "IndependentCode+scopedall13,Rule,Commentsourceclear at6431 vs4530. Publishedbodywordingcorrected; fullhostedpending."
+  },
+  "own11_progress": {
+    "authority": "audit11/STATE.json",
+    "accounted": 778,
+    "total": 2853,
+    "next": 778,
+    "packet": "audit11/successor-156.json",
+    "connected_receipt": "audit11/connected-786-001.json and connected-923-001.json; not ordered-counted",
+    "new_unique_findings": 0,
+    "question_extension": "audit11/question-008-gorget-projection-001.json"
+  },
+  "new_shared_material": "M195 current4530 httplockblock6079-6088 prospectivelyregistered; all13independentqueuespending; no sourcechange/PR987gate.",
+  "audit05_current_checkpoint": "FINAL-HANDOFF-SUCCESSOR-008, all10current4530qualified; groupingproposal002aliasesF001\u2192F26,F006\u2192F47,F005sharedremedyproposal.",
+  "gpu_next_preflight": "gpu-main-4530/preflight/integration-plan-001.json; no apply/newbranch/stack; recheckafter987merge.",
+  "audit08_progress": {
+    "authority": "audit08/STATE.json",
+    "original_accounted": 1799,
+    "next_original": 1792,
+    "earliest_unfinished": 1462,
+    "earlier_materials": [
+      0,
+      31
+    ],
+    "next_earlier_material": 32,
+    "separate_materials": [
+      178,
+      195
+    ]
+  },
+  "audit05_grouping": "grouping/proposal-002.json andremaining-seven-proposal-001.json; twoexactaliases andF005sharedownerproposal, remainingsevenqualified/distinct, no canonicalmasterledger mutation.",
+  "previous_merge_checkpoint": {
+    "pr": 986,
+    "source_head": "f7305d139126e3f0a07a5df8869152b772947007",
+    "merged_main": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+    "hosted_run": 40266453178,
+    "conclusion": "success",
+    "authority": "MERGE-REVIEW-CHECKPOINT-986.json",
+    "user_resume": "User confirmed merged and requested continuation."
+  },
+  "current_audit_successors": {
+    "own11": "audit11/successor-156.json;778/2853,next778;connected786/923 separate,no active partial",
+    "own06": "audit06-delta/closure-002.json; through material195",
+    "own09": "audit09-delta/closure-001.json; through material195",
+    "own08": "audit08/material-receipts/earlier-024-031-001.json;earlier0-31,next32;original1799,next1792,earliest1462",
+    "own12_13_authority": "audit12-13-frontier/frontier-map-001.json; no completed broad baseline adopted; own12 starting bounded roles; own13 startup agent capacity failure, no new credit",
+    "own12": "audit12/STATE.json; original0\u20139 scoped contracts assessed, next10; other queues pending",
+    "own13": "audit13/STATE.json; seven assessed of0-9,0/5/9 partial,firstunfinished0,firstunread10; no broad adopted baseline"
+  },
+  "handoff_request": "User requested branch handoff to segovb; stop implementation and preserve portable exact checkpoints.",
+  "current_authority": "HANDOFF-CURRENT.json supersedes historical current/status aliases"
+}

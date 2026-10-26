@@ -1,0 +1,42 @@
+{
+  "candidates": [
+    {
+      "id": "ADLER-CONT07-LATER-C001",
+      "classification": "Source-backed public-API derived-area authority mismatch; no executed ordinary UI failure",
+      "source_receipt": "packets/authority-001.json#102",
+      "paths_functions": [
+        "fabelgeist-hair/src/surface.rs Surface::new, Surface::area; public positions/triangles",
+        "fabelgeist-hair/src/gpu/scalp.rs GpuGroomer::upload_scalp, GpuScalp::area, GpuScalp::read"
+      ],
+      "counterexample": "Surface::new on triangle[(0,0,0),(1,0,0),(0,1,0)] caches area0.5; scale public positions by2. upload_scalp recomputes tri_cdf ending2.0 and uploads changed geometry, but copies area0.5 from stale Surface cache. GpuScalp.area returns0.5 whereas read()->Surface::new yields2.0. Exact finite representable values; static source proof only.",
+      "authority_and_correction": "Controlled coherent Surface snapshot/updates must rebuild CDF/BVH when geometry changes; upload must use a source-consistent area rather than mixing recomputed current CDF and stale cached scalar. Compose existing780 Surface/scalp/device/count family, not only replace one local number.",
+      "dedup_status": "Qualified supporting candidate; not counted unique until parent reconciles existing780 Surface/native scalp ownership findings and original baseline remedies."
+    },
+    {
+      "id": "ADLER-CONT07-LATER-C002",
+      "classification": "Qualified representation strengthening; current ordinary producer coherent",
+      "source_receipt": "packets/authority-003.json#134",
+      "paths_functions": [
+        "TreeAssetResidencyDiagnostics fields/Serialize and add_resident_assets",
+        "tree/presentation.rs459-460 actual texture-byte updates"
+      ],
+      "counterexample": "A representable crate-local diagnostic record with byLOD[10,0,0,0] and total0 serializes inconsistent byte counts; add_resident_assets preserves independent discrepancy. Current actual producer updates both using the same texture_bytes and is coherent.",
+      "authority_and_correction": "If exact same fourLOD population as source confirms, keep one authoritative perLOD collection and derive total at getter/report boundary. Preserve current report meaning and distinguish resident versus retained versus cumulative work; no arbitrary collapse of other metrics.",
+      "dedup_status": "No new unique count; pending cross-audit aggregation/metric authority dedup."
+    }
+  ],
+  "questions": [
+    {
+      "id": "ADLER-CONT07-LATER-Q003",
+      "classification": "Unresolved policy equivalence; not defect",
+      "sources": [
+        165,
+        173
+      ],
+      "question": "Are textured Handled/Replacement perceptual_roughness scalar multipliers the same authored finish parameter as canonical flat/unlit workplace_surface roughness?",
+      "evidence": "165 uses0.58/0.94 independently;173 reference has same0.58/0.94;166 and other165 roles use canonical projection. Current values agree. RGB tints and flat reference RGB are intentionally different texture treatments.",
+      "resolution_criteria": "Read exact owning texture/material mapping or obtain established finish policy. Reuse canonical scalar only if meaning matches; otherwise express distinct owner. Preserve current maps/tints/normals. Equality of literals alone is insufficient to force consolidation."
+    }
+  ],
+  "new_unique_count": "not asserted"
+}

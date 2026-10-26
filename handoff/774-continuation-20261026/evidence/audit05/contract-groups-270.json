@@ -1,0 +1,28 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-270",
+  "at": "2026-10-25T22:28:17.186470+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2413,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/travel.rs",
+      "sha256": "6aabf6b42ea20cd7b12e0ce9e5b3cba26c21b29cee6652b53f307ed65bf1063e",
+      "personally_read_ranges": [
+        [
+          1,
+          1579
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozen1-1579 personally read in four bounded chunks. Map selection joins same destination ID to destination/settlement rows, connected IDs derive selected destination collection. Geometry2392 receives selected destination's terrain_route rather than arbitrary external route, narrowing prior raw-template association question for this ordinary map caller; independent producer correctness and ID namespace remain qualified. Provision forecasts remain separate inputs requiring upstream selected-destination association.",
+        "Travel planner forwards one destination's departure/elapsed/segments/camp forecasts/terrain spans together; persisted camp path forwards journey and route separately. Return movement total468-499 uses outbound plus actual return_route.minutes when present, but format_persisted_itinerary696-796 uses outbound*2 for a case-site journey. Potential mismatch for asymmetric return routes remains a scoped source question until canonical actual journey/return-route duration construction is compared; no ordinary accepted asymmetric witness or new finding asserted.",
+        "Actual/forecast camp intervals sort by elapsed start and merge overlapping/touching same-movement intervals, preserving flags; fatigues combine final value and max. Nested or unequal interval policy remains upstream canonical construction requirement. Water surface omission in preview spans613-654 matches prior2370 question; no new crossing-policy finding. Raw nonfinite/shape and journey-route party/frontier association remain qualified.",
+        "Camp controls expose revision-bound encounter/road challenge choices; contact/treatment forms pair character, context reference and same membership/contact revision. Malformed road presentation renders unavailable. Advisory choice availability does not replace reducer checks. Full tests1238-1579 read, not run, including encoded destination query fragment preservation and merged camp fixture; no project execution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,320 @@
+{
+  "id": "ADLER-CONT01-LATER-011",
+  "lens": "producer-propagation",
+  "registry_sha256": "01e11726b2c32ab6f86d513d62a5aa88980e29a8b2ccaf8716319bf0e7629459",
+  "receipts": [
+    {
+      "extension_index": 151,
+      "source_id": "pinned-registry:derive_more-impl-2.1.1/src/fmt/display.rs",
+      "sha256": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "source_ranges": [
+        [
+          1,
+          82
+        ],
+        [
+          233,
+          327
+        ],
+        [
+          398,
+          438
+        ],
+        [
+          499,
+          552
+        ]
+      ],
+      "actual_eof": 585,
+      "trace": {
+        "producer": "Native derive_more Display expansion matches actual struct/enum fields and authored attrs, retaining generic bounds.",
+        "retained_and_operations": "Type/variant identity stays typed until fmt::Formatter; formatted labels/expressions are final text projection, no application reparse inserted.",
+        "actual_receiver": "Actual native fmt trait caller receives generated write_str/write/transparent delegation.",
+        "boundary_and_disposition": "No new primitive producer in this macro. Equivalent handwritten replacement still needs actual local semantics/available dependency; no blanket type/admission clearance from derive capability."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 152,
+      "source_id": "scope-amendment:pinned-registry:derive_more-impl-2.1.1/src/fmt/display.rs#tuple-struct-bindings",
+      "sha256": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "source_ranges": [
+        [
+          198,
+          232
+        ]
+      ],
+      "actual_eof": 585,
+      "trace": {
+        "producer": "Display struct expansion binds current named/tuple fields by shared reference.",
+        "retained_and_operations": "Field aliases preserve original field type and borrowed storage; no primitive value escaping into application state.",
+        "actual_receiver": "Native formatter body from151 consumes bindings.",
+        "boundary_and_disposition": "Actual native formatting boundary supports equivalent tuple projection only; not validation or new constructor."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 153,
+      "source_id": "pinned-registry:derive_more-impl-2.1.1/src/as/mod.rs",
+      "sha256": "767fe0f2cb67c57028ca69d138757c5fdd894ad6fa54fcb11ef8f4a7d4b4ef82",
+      "source_ranges": [
+        [
+          17,
+          68
+        ],
+        [
+          147,
+          306
+        ]
+      ],
+      "actual_eof": 306,
+      "trace": {
+        "producer": "Native AsRef/AsMut macro produces actual direct field reference, forwarded trait call or native specialization.",
+        "retained_and_operations": "Returned reference carries field type and borrow, not a scalar copy/encoding. AsMut intentionally exposes mutable native borrow where requested.",
+        "actual_receiver": "Actual native AsRef/AsMut trait interface is destination; application invariant design must choose allowed capability before deriving.",
+        "boundary_and_disposition": "No new01 repeated admission or conversion loop in native macro. Do not infer safe mutable invariant projection without actual local owner, or add a duplicate borrowed wrapper by default."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 154,
+      "source_id": "pinned-registry:derive_more-impl-2.1.1/src/as/ref.rs",
+      "sha256": "06f9f3379037f8002874119b864ca62c65d8dd785c821a1fdfd74b59d988f133",
+      "source_ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "actual_eof": 15,
+      "trace": {
+        "producer": "AsRef entry passes exact no-mut method context to153.",
+        "retained_and_operations": "Shared-reference output stays borrowed actual field type.",
+        "actual_receiver": "Native trait generation, not application middleware.",
+        "boundary_and_disposition": "No source quantity/identity flattening; does not clear AsMut or unrelated local trait semantics."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 155,
+      "source_id": "pinned-registry:derive_more-2.1.1/src/as.rs",
+      "sha256": "c51f277897f4a2a62c0824f00d6775814282673efd16d0c8df8f87d406f7e984",
+      "source_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "actual_eof": 78,
+      "trace": {
+        "producer": "Native Conv/ExtractRef helper selects same-reference identity or existing fieldAsRef forwarding.",
+        "retained_and_operations": "PhantomData carries compile-time type only; owned domain payload is never constructed/copied into second representation.",
+        "actual_receiver": "Actual borrowed trait return receives original storage reference.",
+        "boundary_and_disposition": "Native specialization is real type glue, no new application primitive producer or unchecked leaf admission."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 156,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/hilt.rs",
+      "sha256": "8afb3bf2ceb343de66192b0c257b876deade739f32668e38e70244c3b6036f0b",
+      "source_ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "actual_eof": 414,
+      "trace": {
+        "producer": "GuardParameters carries existing Metres/Ratio/Degrees leaves plus closed section/mirror/terminal roles and optional profile payload.",
+        "retained_and_operations": "Actual shared26guards body26-137 personally read: arm extracts leaves at trig/point/radius sweep arithmetic; same selected parameters reach Solid/terminal construction. Side scalar also selects per-side authored controls; no primitive\u2192Metres reconstruction within bounded receiver.",
+        "actual_receiver": "Concrete procedural geometry math and construction receive native scalar/point arrays; active policy/profile selection happens before final native solid output.",
+        "boundary_and_disposition": "Typed numeric leaf propagation is present to actual kernel extraction, while existing F490/F491 mirror/profile applicable-payload and broader structured cause/side-role producer family remain open. Preserve raw signed offsets, missing-side fallback/history and exact geometry arithmetic; do not require positive allMetres or infer every inactive control invalid."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 157,
+      "source_id": "scope-amendment:pr-working:crates/adventuresim-weapon-model/src/recipe/choices.rs#guard-owner-enums",
+      "sha256": "32853562a79ddc5ae393bc38780b86583500e079c5ca22109b07f1a479e030c0",
+      "source_ranges": [
+        [
+          193,
+          199
+        ],
+        [
+          226,
+          282
+        ]
+      ],
+      "actual_eof": 367,
+      "trace": {
+        "producer": "Canonical GuardMirrorMode/side terminal enums define actual closed authored policy selection.",
+        "retained_and_operations": "Shared/Profile/None and primitive kinds remain typed through guard dispatcher; common/side fallback is actual policy, not label parsing.",
+        "actual_receiver": "Actual shared26guard chooses side/common terminal and requires profile for selectedProfile; primitive geometry receives selected kind.",
+        "boundary_and_disposition": "Existing F490/F491 shape/producer migration must retain selection payload across recipe/editor/model, not flatten tobool/string or delete inactive history. No new unique from enum definition or same-storage roles."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 158,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+      "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "source_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "actual_eof": 50,
+      "trace": {
+        "producer": "Disease demonstration producer builds checked DoseMilliunits, typed StrategicMinute and InterventionRoute, with canonical ruleset/key version.",
+        "retained_and_operations": "Dose.get is extracted only at actual PhysiologyAdministration native row insert; time remains typed in row. Authored preparation/profile version is historical fixture provenance, not future current configuration.",
+        "actual_receiver": "Actual SpacetimeDB field requires native dose scalar; private_variation/storage consume same current preparation key.",
+        "boundary_and_disposition": "No premature dose integer retained between application operations. Open preparation identity/version and raw day arithmetic remain existing fixture/domain family obligations; do not force retrospective version rewrite or invent nonzero-time policy."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 159,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/authority_tests.rs",
+      "sha256": "9b8f6ef268561b6c24817749d89472e8024db82c7f13e4d837db84e0dba66e80",
+      "source_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "actual_eof": 96,
+      "trace": {
+        "producer": "Guarded authority reducer creates canonical DiseaseId fixture keys, typed time/version and deliberately malformed raw key input.",
+        "retained_and_operations": "Canonical stable_id extraction occurs at native stored disease_id field; actual episode/exposure_source consumers re-admit stored vocabulary at DB boundary, not an unnecessary internal loop.",
+        "actual_receiver": "Actual episode parser rejects malformed key and error propagates from reducer for caller-observed rollback; query ordering checks actual source IDs.",
+        "boundary_and_disposition": "Storage roundtrip is legitimate boundary and intentional malformed test setup is not a production producer bug. Preserve no-new-tests constraint; source does not establish hosted rollback execution."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 160,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/commands/mod.rs",
+      "sha256": "a379a6828b061f0ef889b7a495f591282ac97f568e21d8355a14d33a3f7b3cc9",
+      "source_ranges": [
+        [
+          42,
+          62
+        ],
+        [
+          398,
+          426
+        ],
+        [
+          1897,
+          1915
+        ]
+      ],
+      "actual_eof": 3134,
+      "trace": {
+        "producer": "Native Commands::spawn allocates typed Entity and queues actual Bundle insertion; despawn queues typed entity command.",
+        "retained_and_operations": "Entity type survives nativeWorld queue; returned ID does not imply structural mutation already applied.",
+        "actual_receiver": "Actual ApplyDeferred/World mutation is concrete framework boundary. Native docs state later entity commands may fail if despawned.",
+        "boundary_and_disposition": "No new primitive identity escape. Existing BrowserCommand batch/source lifecycle must treat deferred intent separately from current query; native capability alone does not prove actual application batch bug or clear owner state."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 161,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population/authority_tests.rs",
+      "sha256": "3d35f13b4f3e263e8f175c10c010bf9361228812c3ab76d55199b371c33dc0b5",
+      "source_ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "actual_eof": 113,
+      "trace": {
+        "producer": "Existing authority fixture creates literal ResidentDraft or obtains canonical organization/chapter/settlement IDs then calls real insert_resident_draft.",
+        "retained_and_operations": "Sex/Presentation remain enums; real generated family drafts/group IDs flow into native household/residence binding calls; twice binding is deliberate oracle.",
+        "actual_receiver": "Actual insertion/binding/native rows are concrete fixture ingestion/storage ports. Literal age/profession/location inputs are authored fixture boundaries, not added production coercions.",
+        "boundary_and_disposition": "Preserve existing resident/organization/household identity producer migration and dev/gateway guards; do not infer fixedfixture literal strings justify primitive APIs throughout application or manufacture ordinary malformed resident."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 162,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/focused.rs",
+      "sha256": "98c72492107d3f8b6409717857e0a590ae552afe300e7e53eed0f789f9d8671b",
+      "source_ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "actual_eof": 63,
+      "trace": {
+        "producer": "Focused city consumes canonical RegionalCityInput/typed placement program/position/orientation and assigns canonical PresentationOwner.",
+        "retained_and_operations": "Typed placement leaves extract only to actual nativeQuat/Vec3/Transform and compiled-origin correction; pending GPU product retains appearance role with source placement ID and source frame.",
+        "actual_receiver": "Actual native GPU queue/cache/mesh receives final compiled transform product. Full queue published only after all primary/distant placement appends succeed.",
+        "boundary_and_disposition": "No premature identity or geometry re-admission loop in adapter. Original source/frame/cache revision/buffer layout family remains broader; cache allocations before failure do not equal partial authoritative queue publication."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 163,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/strategic.rs",
+      "sha256": "c6448721576dbf02f9333d85245249b9eb8cfe4dfc3bd675d50f919d9e4af3cb",
+      "source_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "actual_eof": 24,
+      "trace": {
+        "producer": "Strategic skyline chooses actual typed distant placements not already represented by occupied typed building IDs.",
+        "retained_and_operations": "Exact placement payloads and establishment data flow into PendingCityBuildings, not reconstructed from display keys; StreamCityTraffic is explicit native resource marker.",
+        "actual_receiver": "Actual nativeCommands insertion enqueues pending presentation resources;160establishes deferred timing.",
+        "boundary_and_disposition": "No new primitive producer gap or game-state persistence. Existing identity uniqueness/pending-source admission remains original family, no instantaneous publication or renderer success inferred."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 164,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event/authority_tests.rs",
+      "sha256": "9c08b2624216387d88ba3f3bfe7d15c525726b4fbc53746c1d31ac467f7b9888",
+      "source_ranges": [
+        [
+          1,
+          172
+        ]
+      ],
+      "actual_eof": 172,
+      "trace": {
+        "producer": "Guarded authority fixture sends typed ExistingOffenseKind/WorldEventConsequence/StrategicMinute into real offense/replay/settlement functions.",
+        "retained_and_operations": "Stable raw event/case source keys are explicit fixture/storage boundaries; conflict payload mutation is intentional acceptance input. Real receipt/reputation queries consume outputs.",
+        "actual_receiver": "Actual preflight/commit/settle/query paths enforce immutable replay semantics and preserve mutable legal settlement; source field comparison is fixture oracle.",
+        "boundary_and_disposition": "No hidden modifier or new primitive factory route introduced. Existing case/source/severity/code owner propagation remains larger family; do not count deliberate conflicting fixture as normal producer failure or assert execution."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    }
+  ],
+  "global_clearance": false,
+  "new_unique_count": "not asserted; existing-remedy dedup required",
+  "extra": {
+    "source_basis": "Exact personally consumed151-164 source facts; fresh01role/retained-value/native boundary reasoning, no reuse of otherlensverdicts."
+  }
+}

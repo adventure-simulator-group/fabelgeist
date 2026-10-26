@@ -1,0 +1,25 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-326",
+  "at": "2026-10-25T23:12:20.847350+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2705,
+      "source_id": "physical-p16:crates/strategic-web/src/routes/settlements/rest.rs",
+      "sha256": "c28f905d16256a1947973448f3c88a630b140b67d3fe9cbcc77554cf9082d04d",
+      "personally_read_ranges": [
+        [
+          1,
+          840
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-840 exact physical-p16 read. Rest duration parsing separates whole minutes, checked HH:MM arithmetic plus optional wake-time equality, saturating days then final settlement/travel bounds. Rest handler resolves session/service, snapshots independent queries before/after reducer, follows case-site redirect, and constructs named RestSummaryObservation. Query failures become absent/empty and summaries default missing time to zero; currency u32 sum, reputation subtraction and request-based full-board estimate require actual bounded inventory/reducer snapshot policy before new mismatch claim. Merchant buys uses parsed entries and paired unzip, only redirects local after success. Render summary is observation, not authoritative atomic transaction proof. Tests personally read, not run."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

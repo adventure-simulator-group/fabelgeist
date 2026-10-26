@@ -1,0 +1,83 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-142",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1903,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/ground/urban.rs",
+      "sha256": "f126fe289f242ec3ba4166575dca79fcbc5be9c21e74c7f0fe63988d97907aff",
+      "ranges": [
+        [
+          1,
+          378
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh full378line requested urban ground source read1-205/206-378. SpatialBuckets/UrbanGroundLookup/UrbanGroundSurfaces selected Default/Debug/Clone/serde/Reflect traits derive. Manual PartialEq for UrbanGroundSurfaces compares authoritative streets/yards/building bounds and deliberately excludes lazy OnceLock<UrbanGroundLookup>; ordinary derive changes cache population/bounds. Owning manifest has no selective-equality derive. Runtime functions compute spatial buckets, semantic surface priority and geometric overlap; constructor admits native building bounds then prepares derived cache. Existing cases inspect bucket ownership and transport/lazy reconstruction.",
+      "disposition": "Retain semantic cache-independent PartialEq; same necessary exception as settlement1819, no proposed extra equality/cache API. No other derivability candidate. Existing tests read only; no admission/cache/concurrency/render/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1904,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/property_support.rs",
+      "sha256": "4eb5b88b6059d622bb8663f784c3cd8eab5289a4928d2c51ab38031acc6a354a",
+      "ranges": [
+        [
+          1,
+          181
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh full181line requested property terrain support adapter. TerrainGeometry selected basic/serde/Reflect/Default variant already derive. No handwritten traits/codecs. SceneTerrain methods explicitly distinguish sampled from owned accepted topology, project source/support and physical queries, emit exact presentation/collision triangles and retrieve canonical property foundations with actual owner IDs.",
+      "disposition": "No derivability candidate. Geometry-role selection, native buffer generation and owner lookup are semantic functions rather than representation boilerplate; no new serde/native-index API or runtime/geometry acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1905,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/queries.rs",
+      "sha256": "feacac20255eb9787f14ee21a2b7955e72d5be7b618755698965657402efc08c",
+      "ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh full170line requested terrain query source. Selected range basic/error traits already derive; no handwritten traits/codecs. SceneElevationRange admits nonempty ordered finite native reduction. Terrain queries preserve missing support as explicit error/Option, select sampled or owned source, use exact native triangular diagonal and admit final SurfaceHit with checked elevation/normal.",
+      "disposition": "No derivability candidate. Nonempty/finite reduction, semantic source selection, interpolation and concrete missing-support error construction are explicit computation. No query/numeric/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1906,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/queries/tests.rs",
+      "sha256": "34cb597c3f3bb88bb27643278afb28cdf549f1e490a075404cd3448648f7b2f2",
+      "ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh full57line requested terrain query existing-tests source. No handwritten traits/custom codecs. Existing cases construct admitted terrain/typed queries and inspect nonunit scale, exact diagonal height source and finite normals at boundary/centre.",
+      "disposition": "No derivability candidate. Semantic fixtures/assertions read only; no test/probe execution or query/geometry acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

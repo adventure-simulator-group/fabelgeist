@@ -1,0 +1,30 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-338",
+  "at": "2026-10-25T23:21:46.597322+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2788,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/tactical.rs",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "personally_read_ranges": [
+        [
+          1,
+          1515
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full physical-p16 tactical.rs 1-1515 personally read. Request captures party roster, geographic case-site coordinates, environment minutes, enemy roster/scales and surprise atomically after leader/authority/manual-site/new-bound-mission checks; active/pending hostile-group exclusion uses authoritative mission join.",
+        "Gateway authorizes 32-byte claim hash only for pending request; claimant digest constant-work comparison precedes deletion of request/claim and insertion under caller identity. Private insert validates party roster, unique identity/mission and enrolls enemy IDs; reducer rollback contract from frozen SDK matters for downstream enrollment errors, not a project runtime test.",
+        "Participant view joins per-character attrs/skills/limbs/stats/conditions and item definitions, occupancy/placement, damage-adjusted stats and weapon appearance. Missing component row omits participant; actual lifecycle completeness and projection consumer admission remain separate required traces.",
+        "Enrollment allows idempotent same-server/stale-server reclamation, blocks stealing active assignment, binds nontemporary nonenemy to captured roster and current party/mission. Temporary enrollment bypass is trusted registered-server boundary; no fabricated trust escalation claimed.",
+        "Receipt caps counts, finite bounded damage/blood/ammunition/contact stress, rejects duplicate character and inventory contact IDs, checks roster/current party/foreign active assignment and live equipped custody/role before consequences. Duplicate per-limb injury correlation, roster omission and equipment changes during session require actual producer/policy trace; public raw DTO alone is not an accepted defect witness.",
+        "Completion resolves strategic authority by opaque success/failure, applies consequences, morale and participant teardown then server deletion in transaction. Standalone retirement validates exact structured mission case tag; caller bootstrap authority remains separate. Source-text tests read without execution. No transient tactical positions/HP/enemy ticks persisted by this inspected file and no global boundary clearance."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

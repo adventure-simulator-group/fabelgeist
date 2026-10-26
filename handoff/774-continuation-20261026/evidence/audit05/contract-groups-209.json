@@ -1,0 +1,41 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-209",
+  "at": "2026-10-25T21:41:07.295131+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2180,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/bracer.rs",
+      "sha256": "b97ad57cfea2e265e2b9cb6f861344e248047f68def1a29063ef6a0e2916a032",
+      "personally_read_ranges": [
+        [
+          1,
+          486
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full bracer device lifecycle: validated design\u2192private shared layout/sample/index/count buffers, fixed axial rings and design-derived columns; base/morph displacement share same sparse anatomical samples/topology; status and normal failures reject before GeneratedArmor return.",
+        "Base and morph arrays read with same vertex count, deltas from exact paired base/target and packed rig skin count retained. Public record_morph receives raw body buffers; normal caller source/topology association pending. read_async separately zips recorded morph slots with caller names without exact-length check: native API mismatches silently drop/ignore names/targets; actual caller association needed before ordinary omitted-morph finding. No execution."
+      ]
+    },
+    {
+      "scope_index": 2181,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "sha256": "512f6fc4ad56ec5cfcbc18c361c88c6983b4647620502f4ed53971bbda10d1c3",
+      "personally_read_ranges": [
+        [
+          1,
+          332
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full breastplate lifecycle: validated design and nonempty equal torso-face/eligible lists, fitted/remeshed/extruded shell, correspondence and optional articulation retained privately; morph displacement from same source body face correspondence and shell topology, normal status gate before output.",
+        "Read base/targets/skin at retained shell count with exact target-base deltas, saved rig joint count; components/grids/faces derive same shell. Separate names slice zip shares2180qualified cardinality/source question; actual producer pending, no new accepted failure or generic arbitrary GPU buffer admission."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

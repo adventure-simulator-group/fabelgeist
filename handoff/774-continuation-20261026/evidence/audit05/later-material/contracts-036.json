@@ -1,0 +1,486 @@
+{
+  "registry_snapshot": "registry-181.json",
+  "registry_sha256": "65c29f91e57e2186573857b2db192d4e48840f19d048b6eeb0ff23e35750092f",
+  "members": [
+    {
+      "material_index": 168,
+      "registration": {
+        "source_id": "pinned-registry:thiserror-2.0.20/src/lib.rs",
+        "sha256": "817cfdb6c24d60de78f399d4db84f2910c543dec9a9d75d191215b4308e19823",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-037/thiserror-2.0.20/src/lib.rs",
+        "ranges": [
+          [
+            60,
+            97
+          ]
+        ],
+        "package_checksum": "ec86235f5fcc2a73650310756d2ac5b138a5780bbbdfae3eeccec992c435ba4f",
+        "reason": "Explicit range amendment of prior037/shared115: arbitrary format args and named .field expressions for QuestCoverageFailure metric.as_str(); exact source bytes already pinned. Only60\u201397 new material, no whole module credit.",
+        "index": 168,
+        "line_count": 291,
+        "range_supplement_of": 115,
+        "registration_evidence": "derivability/fresh-dependency-registration-1199.json",
+        "qualification": "Append-only distinct bounded range60\u201397, preserving prior115 range38\u201359 and completed snapshot evidence. Same native source identity is not another whole-file audit. New pending own-lens delta only.",
+        "lenses": {
+          "producer-propagation": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+          "existing-type-owners": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+          "admission-contracts": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+          "invariant-operations": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+          "aggregate-states": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+          "type-ownership": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+          "redundant-authority": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+          "behavior-preservation": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+          "enum-shapes": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+          "derivability": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+          "type-granularity": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+          "magic-strings": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+          "magic-numbers": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained."
+        }
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          60,
+          97
+        ]
+      ],
+      "disposition": "Read registered60-97 docs. Thiserror allows arbitrary formatting expressions and explicit field shorthand, preserving authored error context. Examples do not establish panic-free formatter or runtime policy; no execution."
+    },
+    {
+      "material_index": 169,
+      "registration": {
+        "source_id": "native-dependency:bevy_time-0.19.1/src/fixed.rs",
+        "sha256": "c3e4e4bee5d4cdde83d23e3016d7c8532b2ca00f98fbea93f34c23d316bfb963",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/native-bevy-time-fixed-c3e4e4bee5d4cdde83d23e3016d7c8532b2ca00f98fbea93f34c23d316bfb963",
+        "line_count": 367,
+        "index": 169,
+        "ranges": [
+          [
+            70,
+            108
+          ],
+          [
+            116,
+            180
+          ]
+        ],
+        "package_checksum": "f6896d83d7ed32a2f89da127b7aeddf01eb702e603897cf5ddac231480a1870e",
+        "reason": "Actual old Time::from_hz(f64(sample_hz)) versus new capture_fixed_clock Duration::try_from_secs_f64 reciprocal needs native constructor/order proof. Register only reached constructors/setters before body read.",
+        "registration_evidence": "behavior-preservation/source-registration-009.json",
+        "qualification": "New bounded reached native constructors/setters only, not whole dependency source or original-role credit; completed lens baselines retained. Metadata registration gives no semantic coverage.",
+        "lenses": {
+          "producer-propagation": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+          "existing-type-owners": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+          "admission-contracts": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+          "invariant-operations": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+          "aggregate-states": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+          "type-ownership": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+          "redundant-authority": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+          "behavior-preservation": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+          "enum-shapes": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+          "derivability": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+          "type-granularity": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+          "magic-strings": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+          "magic-numbers": "Bounded material reconciliation pending; completed baseline source evidence preserved."
+        }
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          70,
+          108
+        ],
+        [
+          116,
+          180
+        ]
+      ],
+      "disposition": "Read registered70-108,116-180. Fixed time has nonzero Duration and finite sign-positive seconds/hz guards; Duration quantization can reject subnanosecond positive seconds, hz inverse overflow/tiny durations through same checked setters. Positive raw scalar alone is not representable timestep proof; actual project inputs required before gap."
+    },
+    {
+      "material_index": 170,
+      "registration": {
+        "index": 170,
+        "source_id": "registry:thiserror-impl-2.0.20/src/attr.rs",
+        "sha256": "d3c7fa9e8269973f140e5382f753664ac32bee44c09875f678100b890aea4d06",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/dependency-1394-thiserror-attr.rs",
+        "line_count": 358,
+        "ranges": [
+          [
+            69,
+            122
+          ]
+        ],
+        "reason": "Exact selective boxing From derive equivalence and thiserror helper compatibility; bounded source-only support, no macro execution.",
+        "registration_evidence": "derivability/fresh-dependency-registration-1394.json",
+        "qualification": "Exact frozen lock/package member verified in registration; bounded reached macro semantics only, no whole dependency or original role credit.",
+        "lenses": {
+          "producer-propagation": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "existing-type-owners": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "admission-contracts": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "invariant-operations": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "aggregate-states": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "type-ownership": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "redundant-authority": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "behavior-preservation": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "enum-shapes": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "derivability": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "type-granularity": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "magic-strings": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "magic-numbers": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration."
+        },
+        "range_supplement_of": 113,
+        "package_checksum": "bc04cd3e1236dd4a98afca4569f2deb3f120e5422a4023be2cb683f8486292af"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          69,
+          122
+        ]
+      ],
+      "disposition": "Read registered69-122. Thiserror attr parsing recognizes only path-only source/backtrace/from, rejects duplicates and deliberately ignores list/value from for other derives. Error/source annotation presence is explicit; no inferred automatic lower error source or full parser behavior."
+    },
+    {
+      "material_index": 171,
+      "registration": {
+        "index": 171,
+        "source_id": "registry:thiserror-impl-2.0.20/src/ast.rs",
+        "sha256": "c717fffeb2923b2840d58fd02923a1926a48fa8336039f57a9e94f9275ae7ec6",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/dependency-1394-thiserror-ast.rs",
+        "line_count": 185,
+        "ranges": [
+          [
+            85,
+            128
+          ]
+        ],
+        "reason": "Exact selective boxing From derive equivalence and thiserror helper compatibility; bounded source-only support, no macro execution.",
+        "registration_evidence": "derivability/fresh-dependency-registration-1394.json",
+        "qualification": "Exact frozen lock/package member verified in registration; bounded reached macro semantics only, no whole dependency or original role credit.",
+        "lenses": {
+          "producer-propagation": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "existing-type-owners": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "admission-contracts": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "invariant-operations": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "aggregate-states": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "type-ownership": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "redundant-authority": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "behavior-preservation": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "enum-shapes": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "derivability": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "type-granularity": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "magic-strings": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "magic-numbers": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration."
+        },
+        "package_checksum": "bc04cd3e1236dd4a98afca4569f2deb3f120e5422a4023be2cb683f8486292af"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          85,
+          128
+        ]
+      ],
+      "disposition": "Read registered85-128. Enum AST inherits container display/transparent/fmt only when variant has none, then expands shorthand in actual variant fields. Branch-specific override semantics matter for string preservation; uninspected validation/conversion helpers remain separate."
+    },
+    {
+      "material_index": 172,
+      "registration": {
+        "index": 172,
+        "source_id": "installed-rust-src:nightly-2026-07-13/alloc/src/boxed/convert.rs",
+        "sha256": "1534b6cd36659f2753a6633dd4bd25d7f9bbccb0ff1d83e3adc5fb52569fb45e",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/dependency-1394-alloc-boxed-convert.rs",
+        "line_count": 748,
+        "ranges": [
+          [
+            19,
+            36
+          ]
+        ],
+        "reason": "Exact selective boxing From derive equivalence and thiserror helper compatibility; bounded source-only support, no macro execution.",
+        "registration_evidence": "derivability/fresh-dependency-registration-1394.json",
+        "qualification": "Installed standard-library source corroboration only; no frozen project compiler/version execution or third-party repair scope. From<T> for Box<T>33\u201335 delegates exactly Box::new.",
+        "lenses": {
+          "producer-propagation": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "existing-type-owners": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "admission-contracts": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "invariant-operations": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "aggregate-states": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "type-ownership": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "redundant-authority": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "behavior-preservation": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "enum-shapes": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "derivability": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "type-granularity": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "magic-strings": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration.",
+          "magic-numbers": "New bounded material reconciliation pending; completed source baselines retained, no semantic credit from registration."
+        }
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          19,
+          36
+        ]
+      ],
+      "disposition": "Read registered19-36. Standard From<T> for Box<T> allocates Box::new(t), retaining exact type/value. Generic allocation boundary does not validate values or imply From<Box<T>> error erasure; remaining748-line standard file not credited."
+    },
+    {
+      "material_index": 173,
+      "registration": {
+        "index": 173,
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/workplace/surfaces.rs",
+        "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/workplace/surfaces.rs",
+        "sha256": "7c0ffb3f7478e0ac8fcb9893cb5c9b741562a98e7c92cb24d54c09fac7bc1b30",
+        "line_count": 48,
+        "ranges": [
+          [
+            1,
+            48
+          ]
+        ],
+        "object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\shared-material-successor\\7c0ffb3f7478e0ac8fcb9893cb5c9b741562a98e7c92cb24d54c09fac7bc1b30",
+        "reason": "Actual canonical BuildingLodMaterial::workplace_surface owner directly reached by already-registered material165furniture and166workplace; complete bounded optional-surface payload owner needed to judge closed material selection and its receiver projections. Not in original2853 or shared0-172 or priorown09extensions.",
+        "registration_timing": "Root lookup consumed the small owner body before checking catalog membership. This receipt records that actual timing without backdating prospective registration. It registers the exact bounded source for subsequent analysis/reconciliation in every affected lens; no prior coverage inferred.",
+        "lenses": {
+          "producer-propagation": "pending successor comparison; no imported verdict",
+          "existing-type-owners": "pending successor comparison; no imported verdict",
+          "admission-contracts": "pending successor comparison; no imported verdict",
+          "invariant-operations": "pending successor comparison; no imported verdict",
+          "aggregate-states": "pending successor comparison; no imported verdict",
+          "type-ownership": "pending successor comparison; no imported verdict",
+          "redundant-authority": "pending successor comparison; no imported verdict",
+          "behavior-preservation": "pending successor comparison; no imported verdict",
+          "enum-shapes": "pending successor comparison; no imported verdict",
+          "derivability": "pending successor comparison; no imported verdict",
+          "type-granularity": "pending successor comparison; no imported verdict",
+          "magic-strings": "pending successor comparison; no imported verdict",
+          "magic-numbers": "pending successor comparison; no imported verdict"
+        }
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "disposition": "Read full48 personally at frozen registered SHA7c0f..., preserving late registration timing. Canonical workplace surfaces provide explicit RGB/roughness for all14 M166 roles, furniture treatments and timber endgrain; only lead/bronze metallic0.85, others0. No unwrap gap for actual M165/M166 selected roles; no Root09 verdict transferred. M165 textured handled/replacement are material variants, not exact canonical unlit equality."
+    },
+    {
+      "material_index": 174,
+      "registration": {
+        "source_id": "pr-working:crates/strategic-web/static/art-demo/viewer.mjs",
+        "sha256": "18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            265,
+            290
+          ]
+        ],
+        "object": "target\\recovery-20261025\\shared-material-successor\\source-objects\\18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+        "registration_evidence": "registration-002.json",
+        "reason": "Own06 material119 art-demo catalog has native Rust enum consumer and JavaScript reader; inspect bounded immediate fetch/map to distinguish duplicated identity policy from legitimate JSON boundary. Prospective registration before body read.",
+        "lenses": {
+          "producer-propagation": "New material174 pending own-lens comparison; no inherited coverage",
+          "existing-type-owners": "New material174 pending own-lens comparison; no inherited coverage",
+          "admission-contracts": "New material174 pending own-lens comparison; no inherited coverage",
+          "invariant-operations": "New material174 pending own-lens comparison; no inherited coverage",
+          "aggregate-states": "New material174 pending own-lens comparison; no inherited coverage",
+          "type-ownership": "New material174 pending own-lens comparison; no inherited coverage",
+          "redundant-authority": "New material174 pending own-lens comparison; no inherited coverage",
+          "behavior-preservation": "New material174 pending own-lens comparison; no inherited coverage",
+          "enum-shapes": "New material174 pending own-lens comparison; no inherited coverage",
+          "derivability": "New material174 pending own-lens comparison; no inherited coverage",
+          "type-granularity": "New material174 pending own-lens comparison; no inherited coverage",
+          "magic-strings": "New material174 pending own-lens comparison; no inherited coverage",
+          "magic-numbers": "New material174 pending own-lens comparison; no inherited coverage"
+        },
+        "status": "Additive174; original2853 and material0-173 indices preserved"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          265,
+          290
+        ]
+      ],
+      "disposition": "Read registered265-290. Startup fetches catalog, selects hash entry or first, initializes injected/default WASM runtime then sends selected.id and polls readiness. Full catalog119 is nonempty and every entry has ID, including city/oak; no required asset filename in this consumer. JSON shape validation/actual WASM envelope remains separate; no imported Root06 conclusion."
+    },
+    {
+      "material_index": 175,
+      "registration": {
+        "source_id": "scope-amendment:pr-working:crates/strategic-web/static/art-demo/viewer.mjs#send",
+        "sha256": "18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            32,
+            38
+          ]
+        ],
+        "object": "target\\recovery-20261025\\shared-material-successor\\source-objects\\18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+        "registration_evidence": "registration-003.json",
+        "reason": "Immediate receiving helper reached by M174 catalog start/selected.id flow. Exact same-level declaration navigation supplied before semantic body read; closes actual helper boundary rather than assuming native port from function name.",
+        "lenses": {
+          "producer-propagation": "New additive material175 pending own-lens source comparison; no prior coverage",
+          "existing-type-owners": "New additive material175 pending own-lens source comparison; no prior coverage",
+          "admission-contracts": "New additive material175 pending own-lens source comparison; no prior coverage",
+          "invariant-operations": "New additive material175 pending own-lens source comparison; no prior coverage",
+          "aggregate-states": "New additive material175 pending own-lens source comparison; no prior coverage",
+          "type-ownership": "New additive material175 pending own-lens source comparison; no prior coverage",
+          "redundant-authority": "New additive material175 pending own-lens source comparison; no prior coverage",
+          "behavior-preservation": "New additive material175 pending own-lens source comparison; no prior coverage",
+          "enum-shapes": "New additive material175 pending own-lens source comparison; no prior coverage",
+          "derivability": "New additive material175 pending own-lens source comparison; no prior coverage",
+          "type-granularity": "New additive material175 pending own-lens source comparison; no prior coverage",
+          "magic-strings": "New additive material175 pending own-lens source comparison; no prior coverage",
+          "magic-numbers": "New additive material175 pending own-lens source comparison; no prior coverage"
+        },
+        "status": "Prospectively registered before body read; original2853 and material0-174 identities unchanged"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          32,
+          38
+        ]
+      ],
+      "disposition": "Read registered32-38. send suppresses before runtime, serializes payload and forwards command with failures surfaced. category uses scenery ID or ordinary kind. This bounded edge explains119 heterogeneous catalogue shape; no whole viewer/runtime or Rust parser coverage."
+    },
+    {
+      "material_index": 176,
+      "registration": {
+        "source_id": "scope-amendment:pr-working:crates/strategic-web/static/art-demo/viewer.mjs#select",
+        "sha256": "18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            93,
+            161
+          ]
+        ],
+        "object": "target\\recovery-20261025\\shared-material-successor\\source-objects\\18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+        "registration_evidence": "registration-003.json",
+        "reason": "Immediate receiving helper reached by M174 catalog start/selected.id flow. Exact same-level declaration navigation supplied before semantic body read; closes actual helper boundary rather than assuming native port from function name.",
+        "lenses": {
+          "producer-propagation": "New additive material176 pending own-lens source comparison; no prior coverage",
+          "existing-type-owners": "New additive material176 pending own-lens source comparison; no prior coverage",
+          "admission-contracts": "New additive material176 pending own-lens source comparison; no prior coverage",
+          "invariant-operations": "New additive material176 pending own-lens source comparison; no prior coverage",
+          "aggregate-states": "New additive material176 pending own-lens source comparison; no prior coverage",
+          "type-ownership": "New additive material176 pending own-lens source comparison; no prior coverage",
+          "redundant-authority": "New additive material176 pending own-lens source comparison; no prior coverage",
+          "behavior-preservation": "New additive material176 pending own-lens source comparison; no prior coverage",
+          "enum-shapes": "New additive material176 pending own-lens source comparison; no prior coverage",
+          "derivability": "New additive material176 pending own-lens source comparison; no prior coverage",
+          "type-granularity": "New additive material176 pending own-lens source comparison; no prior coverage",
+          "magic-strings": "New additive material176 pending own-lens source comparison; no prior coverage",
+          "magic-numbers": "New additive material176 pending own-lens source comparison; no prior coverage"
+        },
+        "status": "Prospectively registered before body read; original2853 and material0-174 identities unchanged"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          93,
+          161
+        ]
+      ],
+      "disposition": "Read registered93-161. Selection stores exact exhibit object, updates category/label/reference/history and sends show with ID. Tab choice uses remembered ID/category fallback guarded presence. Startup fallback119 is nonempty; omitted asset field not accessed in this branch. Cancellation/readiness external helpers outside range not newly credited."
+    },
+    {
+      "material_index": 177,
+      "registration": {
+        "source_id": "scope-amendment:pr-working:crates/strategic-web/static/art-demo/viewer.mjs#runtime-origin-header",
+        "sha256": "18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            1,
+            31
+          ]
+        ],
+        "object": "target\\recovery-20261025\\shared-material-successor\\source-objects\\18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+        "registration_evidence": "registration-004.json",
+        "reason": "M174 module receives result of loadRuntime and M175 forwards JSON to runtime.command. Inspect immediate module/runtime declaration header before identifying that call as a native/WASM port; helper name alone is insufficient. Prospectively registered before semantic header read.",
+        "lenses": {
+          "producer-propagation": "New additive material177 pending independent comparison; no prior coverage",
+          "existing-type-owners": "New additive material177 pending independent comparison; no prior coverage",
+          "admission-contracts": "New additive material177 pending independent comparison; no prior coverage",
+          "invariant-operations": "New additive material177 pending independent comparison; no prior coverage",
+          "aggregate-states": "New additive material177 pending independent comparison; no prior coverage",
+          "type-ownership": "New additive material177 pending independent comparison; no prior coverage",
+          "redundant-authority": "New additive material177 pending independent comparison; no prior coverage",
+          "behavior-preservation": "New additive material177 pending independent comparison; no prior coverage",
+          "enum-shapes": "New additive material177 pending independent comparison; no prior coverage",
+          "derivability": "New additive material177 pending independent comparison; no prior coverage",
+          "type-granularity": "New additive material177 pending independent comparison; no prior coverage",
+          "magic-strings": "New additive material177 pending independent comparison; no prior coverage",
+          "magic-numbers": "New additive material177 pending independent comparison; no prior coverage"
+        },
+        "status": "Prospective bounded origin/context registration; original2853/material0-176 immutable"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "disposition": "Read registered1-31. Default mount imports tactical WASM module while injected loader is separate; persistent boot failure clears timer and exposes error. Exact runtime origin established without browsing or importing other implementation authority. No evidence from unregistered viewer body."
+    },
+    {
+      "material_index": 178,
+      "registration": {
+        "index": 178,
+        "source_id": "scope-amendment:pinned-registry:derive_more-impl-2.1.1/src/fmt/display.rs#single-field-display-body",
+        "sha256": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-401/derive_more-impl-2.1.1/src/fmt/display.rs",
+        "local_object": "source-objects/d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+        "ranges": [
+          [
+            439,
+            498
+          ]
+        ],
+        "line_count": 585,
+        "actual_EOF": 585,
+        "package_checksum": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+        "reason": "Fresh original1828 manual Display delegation candidate needs the remainder of generate_body after registered material151 ends438, to establish exact single-field no-attribute forwarding rather than assume macro behavior. Register before reading the missing body.",
+        "range_amendment_of": 151,
+        "related_existing_range_entry": 152,
+        "registration_evidence": "../audit10/derive-candidate-008-macro-registration.json",
+        "git_source": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-401/derive_more-impl-2.1.1/src/fmt/display.rs",
+        "qualification": "Bounded exact native macro expansion and formatting bounds only. No macro execution, SDK/library audit, cross-lens verdict or material-queue completion credit. Agent-specific prospective registration preceded its own read; coordinator shared registration occurs now, not backdated. Existing shared151/152 ranges unchanged.",
+        "lenses": {
+          "producer-propagation": "New bounded source material pending independent reconciliation; no inherited/other-lens/source-read clearance transferred.",
+          "existing-type-owners": "New bounded source material pending independent reconciliation; no inherited/other-lens/source-read clearance transferred.",
+          "admission-contracts": "New bounded source material pending independent reconciliation; no inherited/other-lens/source-read clearance transferred.",
+          "invariant-operations": "New bounded source material pending independent reconciliation; no inherited/other-lens/source-read clearance transferred.",
+          "aggregate-states": "New bounded source material pending independent reconciliation; no inherited/other-lens/source-read clearance transferred.",
+          "type-ownership": "New bounded source material pending independent reconciliation; no inherited/other-lens/source-read clearance transferred.",
+          "redundant-authority": "New bounded source material pending independent reconciliation; no inherited/other-lens/source-read clearance transferred.",
+          "behavior-preservation": "New bounded source material pending independent reconciliation; no inherited/other-lens/source-read clearance transferred.",
+          "enum-shapes": "New bounded source material pending independent reconciliation; no inherited/other-lens/source-read clearance transferred.",
+          "derivability": "New bounded source material pending independent reconciliation; no inherited/other-lens/source-read clearance transferred.",
+          "type-granularity": "New bounded source material pending independent reconciliation; no inherited/other-lens/source-read clearance transferred.",
+          "magic-strings": "New bounded source material pending independent reconciliation; no inherited/other-lens/source-read clearance transferred.",
+          "magic-numbers": "New bounded source material pending independent reconciliation; no inherited/other-lens/source-read clearance transferred."
+        }
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          439,
+          498
+        ]
+      ],
+      "disposition": "Read registered439-498 personally as added exact body range. Single-field Display delegates field native formatter unless shared wrapper requests format_args; multiple-field implicit body errors. Shared wrapping retains expression/body. Complements151/152 without claiming uninspected whole macro or backdated registration."
+    }
+  ],
+  "first_unfinished_material_index": 179,
+  "new_findings": []
+}

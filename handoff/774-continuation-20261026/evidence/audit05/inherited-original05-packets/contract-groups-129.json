@@ -1,0 +1,93 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-129",
+  "at": "2026-10-23T03:25:08.546300+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "sha256": "c557181c6e91e2beb9c7f20a44324af9d5f4e95ee886d4ae1198e7c78d7f6682",
+      "scope052_index": 282,
+      "actual_EOF": 1653,
+      "scoped_ranges_compared": [
+        [
+          1,
+          1653
+        ]
+      ],
+      "actual05_comparison": "Fresh full missing1–836/901–1017/1033–1265/1342–1653 plus explicit current-role join093 exact837–900/1018–1032/1266–1341. All requested production bodies accounted; no tests in source. Prior exact role remains immutable. No reducer rollback or caller authority inferred from comments/helper names.",
+      "source_body_proof": "Fresh actual source bodies plus personally consumed093 exact role narrative, semantic comparison not fingerprint verdict."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "chat-and-request-payload",
+      "ranges": [
+        [
+          1,
+          269
+        ]
+      ],
+      "comparison": "Chat requires gateway/living sender, exact player-vs-NPC branch and trims1..500chars; resident/location binding delegated actual helpers, not any raw subject accepted. Requests store open JSON alongside whitelist action_kind, no accepted typed action at write. Approval reparses ApprovedPartyAction and compares kind before executing with current leader, records resolved receipt then deletes request. Retry uses immutable approved_by receipt; no current leader recheck on already executed replay, intentional idempotence. Planned approval selects only two travel variants and actual same supplied route. Transactional comment is not independent native rollback proof. Direct public request/dismiss living checks do not themselves establish sender ownership; no new exploit claim or blanket helper authority."
+    },
+    {
+      "id": "living-membership-and-leadership",
+      "ranges": [
+        [
+          271,
+          535
+        ]
+      ],
+      "comparison": "Vote binds living voter/candidate to same party, unresolved encounter check, stable party:voter key. Normalizer discards ballots whose voter/candidate outside current living set, delegates election, updates derived is_solo. Empty-living branch withdraws active accepted/ready contract, clears current case/camp/journey/encounter/actions/votes/roles/requests and closes offer; tactical authority/pooled assets deliberately untouched. Solo factory builds Party/membership/vote from same character then points character to party and normalizes. Existing deterministic solo ID branch is not arbitrary row coherence guarantee; no native transaction proof. Core election algorithm remains its exact own source obligation."
+    },
+    {
+      "id": "isolated-fixture-cleanup",
+      "ranges": [
+        [
+          537,
+          754
+        ]
+      ],
+      "comparison": "Temporary-party deletion refuses any other member, removes dependent votes/stakes/inventory-condition/custody/state/journey/route/actions/join/roles then party; fallible subtree deletion is actual dependency, no whole-call atomicity derived. Seeded attachment explicitly bypasses recruitment for development fixtures, rejects source non-solo membership, then aligns character party/location/case, membership/vote/is_solo and normalizes. Same-party existing membership only label update. Do not impose player recruitment gate on deliberate fixture route or claim arbitrary stale raw party rows impossible."
+    },
+    {
+      "id": "roles-and-check-targets",
+      "ranges": [
+        [
+          756,
+          1111
+        ]
+      ],
+      "comparison": "Create/update live role validates qty1..8, finite weapon halfsteps via contains/fraction, six rating<=5, currentleader/party binding. Saved template nonblank+shared predicate, owner-only rename/delete. Live role delete cascades requests and clears both member role/ref. Create may insert live role before fallible saved-name check: source order explicit, DB rollback not proven here. Party check targets individually finite whole0..5; no sum<=5 requirement (distinct targets). filled slots count is current actual role-ID membership; general quantity0 deliberately unlimited. role_requirements zeroes four party-aggregate checks intentionally, not missing individual primitive propagation. Existing093 proves advisory cached bool stale after edit, same CameraF029 not new unique."
+    },
+    {
+      "id": "offer-liveness-package",
+      "ranges": [
+        [
+          1113,
+          1263
+        ]
+      ],
+      "comparison": "Binding struct compares exact offer leader/party/current settlement/NPC home/presence location/current-presence, all conjunction before open acceptance. Missing current rows fail closed. Temporary NPC company requires offer; ordinary player company None is intentional. Clock expiry >=, closed binding persistsClosed but expiredOpen deliberately remains renewable; retaining Open while expired is documented lifecycle, actual gate rejects until renewed. No duplicated expiry status defect inferred."
+    },
+    {
+      "id": "join-request-and-merge",
+      "ranges": [
+        [
+          1266,
+          1653
+        ]
+      ],
+      "comparison": "Existing093 request gates current leader/source/target location/simulation/activecontract/role capacity and saves one observation; general join sum-purpose creates unlimited0 role then same request path. Acceptance rechecks current open offer, unresolved encounters, target leader, current role capacity, source leadership, same simulation scope, activecontract absence, synchronized same settlement/case and no wilderness anchor. It does NOT use cached meets_requirements as hard admission (manual party decision intentional). Durable subtrees rehome; fungibles add; stakes and reserve separately preserved absolute ledgers. All source members checked for dead before migration, membership and Character party/location/case then updated from same collected IDs, votes normalized; source roles/requests/party cleared and target offer closed only if no open roles. Role.party_id/request.party_id and duplicate source membership are trusted normal-row bindings established request/create, not rawtable seal. Actual lower asset arithmetic/custody/election and native reducer transaction remain own scoped obligations; no guaranteed global atomicity or corrupt-row path claim."
+    }
+  ],
+  "new_unique_findings": [],
+  "independent_cross_lens_supports": [
+    "CAMERA-INITIAL07-F029"
+  ],
+  "remaining_dependency_obligations": [
+    "Core exact ApprovedPartyAction execution, election and asset/custody helpers remain separate queued roles. Raw storage is broader than normal reducer-established binding; no arbitrary table row accepted guarantee."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

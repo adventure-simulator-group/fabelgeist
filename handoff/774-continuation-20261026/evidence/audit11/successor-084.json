@@ -1,0 +1,92 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-084",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 608,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_allocation.rs",
+      "sha256": "0af46aaa9d2e8406c02e95802701cab06cb2c9e496138d7589c422b4d53d48c5",
+      "ranges": [
+        [
+          140,
+          249
+        ]
+      ],
+      "assessment": "Exact union140-180 plus registered181-249 read after hash, not prefix1-139. GrowthCandidate gives named lexicographic rank fields/cell/RoomIndex; requirements/counts/seeds indexed by typedRoomIndex still need actual consistent-length/producer proof outside excerpt. collect_rooms serializes typedroom into rawid inside domainRoom(Q011). Raw rank scores have named fields but numeric weights/fillscale policy lack namedowner; no assumption all integers intrinsically primitive. Seed key extraction is explicit. No ordinary panic or new accepted unique finding.",
+      "source_basis": "Root personally read exact frozen ranges after SHA256 match.",
+      "disposition": "Scoped role accounted with native/producer/context limitations; no global or family clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 609,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_connections.rs",
+      "sha256": "56032b952a0d288a2ff259db55661d2e252fb865ca77d3df1a2bf8e0a4e4300c",
+      "ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "assessment": "Full68 read. RoomConnection names two typedRoomIndices and canonical order; SharedBoundary names connection/candidate indices but two closed priority states remain bool fields, actual predicates fromroomkinds/preferences. Native wallordinal collection crosses API; wall serializedroom IDs readmitted(Q011). requirement uses checkedget and retains typedstorey/room error. Sorting tuple is immediately ordered priority key with clear predicates/connection. No missingroom runtime claim.",
+      "source_basis": "Root personally read exact frozen ranges after SHA256 match.",
+      "disposition": "Scoped role accounted with native/producer/context limitations; no global or family clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 610,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/round_towers.rs",
+      "sha256": "960deb25a489575e080a8dd78b759d18ccaccd9ffe4dc235d4a35cb236f770b3",
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "assessment": "Full98 read. Roundtower host/wall/support/junction share typed identities and checkednative geometry adapters; radius checkedleaf extracted then raw arithmetic carried alongside wallthickness/height. Dynamic towerordinal also used as raw identity namespace; ownernarrowing/fullcatalog constraints not established. Native metric policy offsets/penetration threshold source-owned but unnamed; no blanket catalog exemption. Crown owner association selected by actualtowerindex, no physicalbond guarantee. Q007/Q009 remain qualified.",
+      "source_basis": "Root personally read exact frozen ranges after SHA256 match.",
+      "disposition": "Scoped role accounted with native/producer/context limitations; no global or family clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 611,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+      "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+      "ranges": [
+        [
+          1,
+          154
+        ]
+      ],
+      "assessment": "Full154 read. SmallChurchKind and ServiceBuildingSize correctly model closed roles; Dimensions limits catalog selectors but stores meaningfulcell counts/eaves as rawu16/f32 and SmallChurchPlan publiclyserializes rawbay count/depth/eave fields alongside checkedbounds(Q009). Ordinal belfry role index==1/2 coupled to presencechancel; no bespoke roofindex yet. metres conversion explicit cellscale; fixedcatalog permits countaddition, actualpitch validation outside excerpt. No wholeprogram/physics guarantee.",
+      "source_basis": "Root personally read exact frozen ranges after SHA256 match.",
+      "disposition": "Scoped role accounted with native/producer/context limitations; no global or family clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 612,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/appearance_tests.rs",
+      "sha256": "0d36153306b8a78441d45e8227f2a2f54fa002346ed7328e16119d32af7a3697",
+      "ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "assessment": "Full208 existingfixture source read. TypedArchitectural checkedleaf adapters remain at authorednative position/dimension construction; raw mesh/math probes and IDs are fixtureboundaries. Existing tests compare pointedcrown opening/collision, panel spring/crown, nave/chancel material/roof associations with semantic fixture tolerances. boolpointed only localfixture selector but production Q009 closedstate remains separate. These tests notmodified/executed; no universalphysical or runtimeacceptance claim.",
+      "source_basis": "Root personally read exact frozen ranges after SHA256 match.",
+      "disposition": "Scoped role accounted with native/producer/context limitations; no global or family clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

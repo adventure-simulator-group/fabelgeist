@@ -1,0 +1,81 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-081",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1726,
+    1727,
+    1728,
+    1729,
+    1730
+  ],
+  "source_pin": "source-pins-and-scope-100.json",
+  "source_reads": {
+    "1726": {
+      "head": [
+        [
+          1,
+          677
+        ]
+      ],
+      "head_sha256": "183f14a949adfa0541e353577a85617dcdcc02a3b3a2aa373b727ba2fb3bb158",
+      "base_byte_identical": true,
+      "actual_diff_lines": 0
+    },
+    "1727": {
+      "head": [
+        [
+          1,
+          69
+        ]
+      ],
+      "head_sha256": "15ee883d0bbf24bf353ef314307e2672e44d8d8142673b5d08da55f9f889548b",
+      "base_byte_identical": true,
+      "actual_diff_lines": 0
+    },
+    "1728": {
+      "head": [
+        [
+          1,
+          76
+        ]
+      ],
+      "head_sha256": "418b8b501a48ca00cf36acd6e0db1a33f980ec90d01b5ce30e1dac82d062ef77",
+      "base_byte_identical": true,
+      "actual_diff_lines": 0
+    },
+    "1729": {
+      "head": [
+        [
+          1,
+          133
+        ]
+      ],
+      "head_sha256": "913f58c174de72b8ad0b70160392437f294828f5fc3de6aeb7856771c5c1e1d9",
+      "base_byte_identical": true,
+      "actual_diff_lines": 0
+    },
+    "1730": {
+      "head": [
+        [
+          1,
+          323
+        ]
+      ],
+      "head_sha256": "a3ffee68cadb7373c2eab3a1b6df13f042b47bc33cf0177aba1fe4b7883928ad",
+      "base_byte_identical": true,
+      "actual_diff_lines": 0
+    }
+  },
+  "analysis": [
+    "1726 full677 registered table body consumed across checkpoint: shop19 and workplace63 constants retain warmup ordering, camera indices, exact labels/slug/FOV/minimum pixels, vista and settled-readback/LOD flags. Base bytes are identical. Their actual CityExterior receiver and camera producers were personally reconciled in 071/073/074 and parent view_specs defaults/selection in080; table constants introduce no new arithmetic, invalid branch, fallback or retained state.",
+    "1727 full69 city8 table preserves camera0 warmup then cameras0..6, FOV68/58/72/60/60/58/62/50 and100pixel minima; all vista flags unchanged. 1728 full76 compound8 preserves warmup followed seven paired settled views0..6, FOV58 and100 minima. Actual earlier city/fixed-city camera and readback recipients unchanged.",
+    "1729 full133 environment15 retains suppression/detail policies and every numeric constant, including Horizon15/50 and VistaPeak/Valley65/1000. These unchanged selections reach the changed landscape absence behavior, so they retain CONT08-Q005 policy qualification rather than prove no-vista equivalence.",
+    "1730 full323 facade32 preserves warmup then camera0..30, exact Detail/Facade/Shell overrides, settled pairs, FOV58 except two tile courses68,100 minima. No accidental table deletion/reordering/defaults. Full registered table source only; no unrelated building geometry credit."
+  ],
+  "findings": [],
+  "qualified_obligations": [
+    "CONT08-Q005 is retained for no-vista landscape behavior, intended policy and alias; these unchanged tables do not resolve it.",
+    "Earliest1462 and1474/1484 remain qualified."
+  ],
+  "global_clearance": false
+}

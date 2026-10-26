@@ -1,0 +1,52 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-054",
+  "at": "2026-10-22T21:41:06.805641+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "scope034_index": 1412,
+      "actual_EOF": 1021,
+      "scoped_ranges_compared": [
+        [
+          1,
+          1021
+        ]
+      ],
+      "actual05_comparison": "Private CaptureSequence correlates plan/index/view, admission, one in-flight screenshot, simulation tick and same-frame samples. new69-131 initializes all state with nonempty plan and settle>=1; complete147-163 moves all arrays from the same sequence. drive190-465 stages per-scenario reset and actual playback/body/ground state, then admits checked fixture position and readiness before applied=true; early native writes are not whole-operation rollback. capture_frame527-797 requires Open/applied/not-inflight, subject/playback/semantic readiness, first-view-only sample/global-bone capture from same frame, actual support gates before push, then one screenshot callback accumulates fingerprints and advances view, then frame, then completed output. No native callback execution/guaranteed successful file write inferred. visual_fingerprint799-821 requires native 4-byte image layout, length checks precede sample reads. jitter_frames823-898 intentionally EXCLUDES FullRagdoll, derives segments from actual transitions, strips pelvis translation intentionally, creates parent-relative bones and preserves scenario/frame/time. All-ragdoll yields empty jitter intentionally, so F016 must distinguish inapplicable evidence from invalid/missing applicable series. Parent-relative arithmetic itself does not establish finite pose. Original fixtures916-1021 read only; no execution. Direct plan/callback and VIEWS cardinality helper contracts remain pending exact own-source comparisons.",
+      "source_body_proof": "Actual whole frozen body personally read for05 before compaction; all original fixtures source-only, no tests executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "sha256": "927e13d910b8e3b7dc6a9cc58ef2e936172b4ec9188948ffd5d1a524d4b89185",
+      "scope034_index": 1440,
+      "actual_EOF": 792,
+      "scoped_ranges_compared": [
+        [
+          1,
+          792
+        ]
+      ],
+      "actual05_comparison": "build_completed_report6-593 takes all fields from one CompletedCapture, computes scenario metrics, jitter projection and separate finite-transform/scenario-complete/artifact-written checks. Per-kind continuity, ground penetration exemptions (Dive/GetUp upright sole policy inapplicable), guard/support/landing/liveness/contact cadence preserve actual observer meanings and absence cases. Bouncy validity529-537 compares finite deflection/max and inactive rest; it does not exercise accepted extreme spring frequency F013 or prove private spring finite. validation_passed595-630 conjuncts independent finite/completeness/artifact gates, jitter completeness+zero unacceptable events and view-distinctness. Thus F016 standalone false completeness does not establish a normal capture false acceptance. quality_score632-685 computes independent five-category score with weights16/8/4/2/1 (max31), catastrophic/liveness cases dominate31; quality_percent requires scenario+artifact completeness but is deliberately not equivalent to full acceptance. Hard-stop Option absence and no-stop scenarios intentional, not automatically missing evidence. Original700-792 fixtures read only: constructed empty jitter does not pass when scenario completeness false. Exact scenario metrics, finite-transform method and completeness/artifact helper bodies are not credited by call names.",
+      "source_body_proof": "Actual whole frozen body personally read for05 before compaction; all original fixtures source-only, no tests executed."
+    }
+  ],
+  "comparison_groups": {
+    "capture-product": "Plan/frame/view lifecycle private product, first-view sample association, callback ordering and retained provenance compared to actual report consumer. Native scheduling and file success remain explicit boundary obligations.",
+    "jitter-scope": "All-ragdoll intentionally has no jitter series; missing applicable input versus nonapplicability must be represented distinctly. Finite/scenario/artifact checks are independent acceptance conjuncts."
+  },
+  "new_unique_findings": [],
+  "finding_support": [
+    "F015 current production capture projection retains actual time/frame fields, so positional derivative label mismatch is in the jitter consumer; no observed capture claim.",
+    "F016 narrowed by deliberate FullRagdoll filtering; no blanket reject empty or normal whole-verdict false-pass claim.",
+    "F013 report telemetry/limit comparison is not a constructor or stable spring operation proof."
+  ],
+  "remaining_dependency_obligations": [
+    "capture admission can_drive_frame, VIEWS actual nonempty declaration, FrameSample::has_finite_bone_transforms, capture_scenarios_complete and capture_artifacts_written actual bodies pending own queue cells."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

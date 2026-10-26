@@ -1,0 +1,100 @@
+diff --git a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/triangle_census.rs b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/triangle_census.rs
+index 00839ed4c..f214b6612 100644
+--- a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/triangle_census.rs
++++ b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/triangle_census.rs
+@@ -188,22 +188,22 @@ fn configure_wireframe_camera(
+     state: &mut TerrainWireframeCaptureState,
+     capture: &SceneCaptureState,
+     camera: &mut (
+         Entity,
+         Mut<Transform>,
+         Mut<GlobalTransform>,
+         Mut<Projection>,
+     ),
+ ) -> bool {
+     if !state.configured {
+-        let transform = Transform::from_translation(capture.ground_eye_position)
+-            .looking_at(capture.ground_eye_target, Vec3::Y);
++        let transform = Transform::from_translation(capture.ground_eye_position.metres())
++            .looking_at(capture.ground_eye_target.metres(), Vec3::Y);
+         commands.entity(camera.0).insert(RenderLayers::layer(31));
+         *camera.1 = transform;
+         *camera.2 = GlobalTransform::from(transform);
+         if let Projection::Perspective(projection) = &mut *camera.3 {
+             projection.fov = 80.0_f32.to_radians();
+         }
+         state.configured = true;
+         return true;
+     }
+     if state.settled_frames < capture.settle_frames.max(30) {
+@@ -271,21 +271,21 @@ fn terrain_wireframe_report(
+             tier.visible_meshes += 1;
+             tier.visible_triangles += triangles;
+         }
+     }
+     TerrainWireframeReport {
+         pipeline: "tactical_terrain_wireframe_v1",
+         fixture: capture.fixture.clone(),
+         screenshot: "terrain-wireframe.png",
+         resolution: capture_resolution::physical_pixels(&capture.profile).to_array(),
+         camera_translation: camera.1.translation.to_array(),
+-        camera_target: capture.ground_eye_target.to_array(),
++        camera_target: capture.ground_eye_target.metres().to_array(),
+         vertical_fov_degrees: 80.0,
+         count_semantics: "Triangles in terrain mesh entities whose Bevy ViewVisibility is true. Chunk-level vista culling is reflected; partial triangle clipping within a visible mesh is not.",
+         total_visible_triangles: tiers.values().map(|tier| tier.visible_triangles).sum(),
+         tiers,
+     }
+ }
+ 
+ #[derive(Resource, Default)]
+ pub(super) struct TriangleCensusState {
+     configured: bool,
+@@ -352,22 +352,22 @@ pub(super) fn capture_triangle_census(
+             &GroundScatterLayer,
+             &InstanceMaterialData,
+             &GlobalTransform,
+             &GrassTriangleCount,
+         ),
+         Without<TacticalGameplayCamera>,
+     >,
+     mut exit: MessageWriter<AppExit>,
+ ) {
+     if !state.configured {
+-        let transform = Transform::from_translation(capture.ground_eye_position)
+-            .looking_at(capture.ground_eye_target, Vec3::Y);
++        let transform = Transform::from_translation(capture.ground_eye_position.metres())
++            .looking_at(capture.ground_eye_target.metres(), Vec3::Y);
+         *camera.0 = transform;
+         *camera.1 = GlobalTransform::from(transform);
+         if let Projection::Perspective(projection) = &mut *camera.2 {
+             projection.fov = 80.0_f32.to_radians();
+         }
+         state.configured = true;
+         return;
+     }
+     if state.elapsed_frames < capture.settle_frames.max(30) {
+         state.elapsed_frames += 1;
+@@ -385,21 +385,21 @@ pub(super) fn capture_triangle_census(
+         .map(|tier| tier.view_visible_triangles)
+         .sum();
+     let total_gpu_distance_eligible_grass_triangles = grass
+         .values()
+         .map(|tier| tier.gpu_distance_eligible_triangles)
+         .sum();
+     let report = TriangleCensusReport {
+         pipeline: "tactical_triangle_census_v1",
+         fixture: capture.fixture.clone(),
+         camera_translation: camera_position.to_array(),
+-        camera_target: capture.ground_eye_target.to_array(),
++        camera_target: capture.ground_eye_target.metres().to_array(),
+         vertical_fov_degrees: 80.0,
+         mesh_count_semantics: "Triangles in terrain and building mesh entities whose Bevy ViewVisibility is true. Partial clipping within a visible mesh is not counted.",
+         grass_count_semantics: "Tufts whose world-space camera distance passes Eidolon's configured per-instance range. Eidolon frustum-culls only each scene-wide species/LOD batch, so this is the submitted population whenever that batch intersects the frustum; it intentionally includes off-screen tufts within the distance ring.",
+         terrain,
+         buildings,
+         grass,
+         total_view_visible_mesh_triangles,
+         total_gpu_distance_eligible_grass_triangles,
+     };
+     fs::write(

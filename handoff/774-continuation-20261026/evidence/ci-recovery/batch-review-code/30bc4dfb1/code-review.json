@@ -1,0 +1,78 @@
+{
+  "kind": "INDEPENDENT_CODE_NO_GROWTH_SUCCESSOR",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "head": "30bc4dfb1117e5b924bfb68a43d58d0038d12774",
+  "fingerprint": "339a1e53f7c04b3f2ed6c8c0765e1126bb2587a9736d551fdcad7d09986fe3a7",
+  "path_count": 46,
+  "delta_paths": [
+    "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs",
+    "rust-quality-baseline.toml"
+  ],
+  "verdict": "No actionable source finding in the two-path delta. Hash result preservation source-proved; two strict measured baseline reductions independentlysource-matched. Generated outputs and finalnormalLinux/Windows/mergeacceptance remain incomplete.",
+  "findings": [],
+  "closed_findings_carried": [
+    "SHOOT-CODE-1 at exactunchanged raster.rs absoluteownerpath; ownprior ea5/444reports retained, not reopened by this hash-onlydelta."
+  ],
+  "source_parent_report": "../444015564/code-review.json",
+  "carry_method": "IndependentlyGit-hashed every46candidatepath against prior444 snapshot;44 byteidentical paths carryonlyown Code/13 analysis WITH everypriorfinding/qualification. Current2paths freshdiff+connectedbodyreview; no otherreviewerverdicts read.",
+  "source_evidence": [
+    "snapshot.json",
+    "delta.diff",
+    "support-source-pins.json",
+    "baseline-source-account.json"
+  ],
+  "exact_source_ranges": {
+    "impostor_head": [
+      [
+        683,
+        760
+      ]
+    ],
+    "impostor_actual_hash": [
+      [
+        708,
+        746
+      ]
+    ],
+    "impostor_hash_caller": [
+      [
+        207,
+        237
+      ]
+    ],
+    "impostor_assets_unchanged_receiver": [
+      [
+        95,
+        143
+      ]
+    ],
+    "seed_unchanged_getters": [
+      [
+        58,
+        82
+      ]
+    ],
+    "TreeShootId_unchanged_owner": "whole20linefile actualprinted body",
+    "baseline_changed_hunks": "file727->710; procedural_oak_skeleton_with_gnarling284->265 only; fullactual2pathdiff personallyread"
+  },
+  "assessment": [
+    "Oldleafpath processes8f32fields in petiolexyz,centerxyz,length,width order asu64::from(to_bits), thenfullu64TreeShootIdseedword; eachwordXOR followedbywrappingmultiply0x100000001b3. Newfixed9wordarray hasexactsame8widenedbitwords thenfullidentity andsameXOR/multiplyperword. Branchwordloop/initial0xcbf29ce484222325/finalreturn unchanged.",
+    "Arrayeagerprojection evaluatesonly immutablef32::to_bits,u64::from andpureTreeShootId.seed->Seed::from_u64->Seed::to_u64 getters. No RNG/effect/fallibleoperation betweenfoldsteps, so changedprojectiontiming cannotchangeobservablevalue. Zero/signedzero/subnormal/infinity/NaNpayloadbits remain identical; fullMAX/zero/highbitinteger identities remainu64, no lossyfloatnarrowing. This is sourcealgebra proof, no generatedhashprobe or test.",
+    "Actualproducer/canonicaltypedidentity family staysunchanged; only nativefingerprintwordextractionmovesintothearray. Exactreturn consumed byimpostorbakeprovenance andpreparedasset.matches_art_demo equality againstsamebakeversion18, actual4playable+2vistacases source read. No hashformat/revision/artifact regeneration requirement introduced by thisequivalentfold delta alone.",
+    "Nativegeometryf32bits remainfingerprintinputs. Stableidentitybeforegeometry does notestablishcrossplatformnativegeometry/hash equality; finalfocusedWindows mustconsume sameassets and existingcases. No currentWindowsfailure inferred.",
+    "Downloaded hostedbaseline revision isauxe1637ef..., actualGitdiff444->aux onlyworkflow. Skeletonsourcebytes equalcurrent30bc andhostedaux; selectedartifactmeasurements file710/function265 matchnewstricterceilings. Existingimpostorceiling774 remainsunchanged, hosted444measurement775 wasfailurelead. The refactor removesoneproductionline bysource diff, but no local scanneror finalhostedbaselinepass claimed.",
+    "No sourcefixture/newassertion/helper added, no geometry/RNG/deterministicIDproducer/bakeformat/expectedartifactbytes/budget population changes in thisdelta. Baselineonly2tightenings; unrelatedpresentation/litterreductions not adopted."
+  ],
+  "scope_qualification": [
+    "Broader46pathgeneratedasset/blobprovenance qualifications retained throughownreviewchain. Currentdelta leavesallgeneratedbytes unchanged; expandedexport40246244270 at444 remainspending source-resultreview aslastreported.",
+    "FullnormalLinux andfocusedWindows mustvalidate finalcommittedsource/artifacts; existingexport/baselinejobs arenotacceptancewaivers.",
+    "All13review is connectedCI family scoped, not global774/780/826clearance; frozen08state is1504originals WITH inheritedfindings, firstunfinished1462/Q003,1474/1479/1495partial.",
+    "Trackedsource reviewed atGit30bc; independentuntrackedcompute/handoffpaths areoutside scope andunread/unmodified."
+  ],
+  "execution": "No tests/builds/lints/projectchecks/domainprobes/sourceedits/Gitmutations/publication.",
+  "required_before_merge": [
+    "Source-matched fullassetgraph output review and resultingexactdelta independentreview.",
+    "FinalnormalLinux plusfocusedWindows existingcase acceptance atfinalhead, includingno-growthgate.",
+    "RequiredindependentRule/Comment review remainsroot-owned; no globalauditclearance."
+  ]
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry.rs",
+    "remaining_native_transcendental_calls": [],
+    "qualification": "Mesh-facing geometry and impostor body retain native math by design; only five source owners are changed."
+  },
+  {
+    "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/arrangement.rs",
+    "remaining_native_transcendental_calls": [],
+    "qualification": "Mesh-facing geometry and impostor body retain native math by design; only five source owners are changed."
+  },
+  {
+    "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+    "remaining_native_transcendental_calls": [],
+    "qualification": "Mesh-facing geometry and impostor body retain native math by design; only five source owners are changed."
+  },
+  {
+    "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs",
+    "remaining_native_transcendental_calls": [],
+    "qualification": "Mesh-facing geometry and impostor body retain native math by design; only five source owners are changed."
+  },
+  {
+    "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_plan.rs",
+    "remaining_native_transcendental_calls": [],
+    "qualification": "Mesh-facing geometry and impostor body retain native math by design; only five source owners are changed."
+  },
+  {
+    "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_profile.rs",
+    "remaining_native_transcendental_calls": [],
+    "qualification": "Mesh-facing geometry and impostor body retain native math by design; only five source owners are changed."
+  },
+  {
+    "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs",
+    "remaining_native_transcendental_calls": [
+      [
+        585,
+        "                    right: Vec3::new(angle.cos(), 0.0, angle.sin()),"
+      ]
+    ],
+    "qualification": "Mesh-facing geometry and impostor body retain native math by design; only five source owners are changed."
+  }
+]

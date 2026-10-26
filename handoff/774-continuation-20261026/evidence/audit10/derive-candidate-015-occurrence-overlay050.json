@@ -1,0 +1,22 @@
+{
+  "id": "OWN10-CANDIDATE015-OVERLAY050-OCCURRENCE",
+  "overlay_index": 50,
+  "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "path": "crates/adventuresim-core/src/unit_interval.rs",
+  "ranges": [
+    [
+      12,
+      16
+    ],
+    [
+      50,
+      58
+    ]
+  ],
+  "classification": "Qualified existing mechanical error-derive remedy occurrence; no current behavior defect alleged",
+  "inventory": "FractionError two non-generic unit variants, static exact messages and empty Error. Actual Core Cargo13-29 includes thiserror.workspace=true.",
+  "connected_repair": "Existing thiserror::Error derive with exact labels unit fraction must be finite / unit fraction must lie in [0, 1], preserving source(None), all existing comparison/serde API and checked TryFrom. No new dependency needed.",
+  "limits": "Global saved-remedy dedup/exhaustive ledger pending. Do not conflate raw From<UnitInterval> for f32 with admission or bypass checked TryFrom. No new tests/cases; no checks run.",
+  "new_unique_finding": false,
+  "clear": false
+}

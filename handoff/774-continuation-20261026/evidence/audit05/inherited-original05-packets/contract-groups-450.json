@@ -1,0 +1,101 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-450",
+  "at": "2026-10-23T13:57:13.366467+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/personality.rs",
+      "sha256": "3251416fba119a8dbdfb3ce1f48abfd7bda014d55dd3ec2b3e38e4dd7e3e9b15",
+      "scope072_index": 962,
+      "actual_EOF": 202,
+      "scoped_ranges_compared": [
+        [
+          1,
+          202
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact source, aggregate correspondence and local source-specific nonapplicability compared; original fixtures source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/audit.rs",
+      "sha256": "d5c30cf48e89ffd626d8a3df81a151478fb15f25b92fe5bdaa4b1ca8bdb2674c",
+      "scope072_index": 970,
+      "actual_EOF": 78,
+      "scoped_ranges_compared": [
+        [
+          1,
+          78
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact source, aggregate correspondence and local source-specific nonapplicability compared; original fixtures source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/mod.rs",
+      "sha256": "d413a6b7b05742aa234bab8a83285df33f25133338fe51fb9eebe1327680ac64",
+      "scope072_index": 971,
+      "actual_EOF": 35,
+      "scoped_ranges_compared": [
+        [
+          1,
+          35
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact source, aggregate correspondence and local source-specific nonapplicability compared; original fixtures source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/sampling.rs",
+      "sha256": "3c679c4e5177ee4462d6286d81cdd3e3cfaa9b6e2d91e844d3d45b8e2f666a44",
+      "scope072_index": 974,
+      "actual_EOF": 213,
+      "scoped_ranges_compared": [
+        [
+          1,
+          213
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact source, aggregate correspondence and local source-specific nonapplicability compared; original fixtures source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/rights/validity.rs",
+      "sha256": "72edd06818cd5299b7c2abae17080541165ea0eebb52a05d557437b1ac41d159",
+      "scope072_index": 986,
+      "actual_EOF": 32,
+      "scoped_ranges_compared": [
+        [
+          1,
+          32
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact source, aggregate correspondence and local source-specific nonapplicability compared; original fixtures source-only."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Personality vocabulary product intentionally independent axes",
+      "comparison": "962 complete202 defines15 closed leafenums plus Sex in public Personality. neutral selects13Neutralaxes and explicit defaultinclination/presentation/sex; non_neutral_count counts ONLY13axes <=13, intentionally excludes demographicchoices. No implied sex/presentation/inclination correlation or equalstrongness imposed. Conviction strength exact0/2.5/5. Serde denyunknown checksstructure, notscoreprojection/persistencepolicy. Virtue reexport alone notchildbodycredit; original186-202fixtures read."
+    },
+    {
+      "id": "Sampling preserves candidate index and diagnostic correspondence",
+      "comparison": "974 full213: indices initialized0..len after limitcheck; canonicalize sorts exactcandidateIDs and rejects duplicates BEFOREimpossible/zero filtering, including duplicateexcluded. choose emits trace in canonicalorder, acceptedbool denoteseligibility notselected binding; acceptedindices and weights built sameorder, weightedindexfallible result maps samevector. Emptyaccepted returnsNoCandidates diagnostics; weighted_order emptyreturnsOkempty, no implicitfallback. BothnewRNGderive domain-framedmodule/relation preserve deterministicstream. Own018 actualnative095 proof closes kernelindexmembership/weightoverflow, no fixedoneworddrawclaim."
+    },
+    {
+      "id": "Context canonicalization and raw helper preconditions",
+      "comparison": "canonical_context clones then sortswitnessresidentID andrejectsduplicates, retainsallotherfieldscorrespondence. PurehelperdoesnotauthenticatecandidateDBrows or resolve demographic/allowedcircumstances. canonicalize pubsuper accepts arbitrary indexslice syntactically, but actual localchoose/orderconstructexactvalidindices; no public externalbadindex or normalpanicclaim. Weighted combinedu32product lower model972 stillqueued; returned overflow is deliberate no partialaccepted manifest. Original133-213fixtures read/notrun."
+    },
+    {
+      "id": "Audit harness collection contracts and N/A export module",
+      "comparison": "970 audit iterates0..seeds andcounts onlysuccessfulgenerate family; eachcounter<=seeds<=u64MAX, no countoverflow despite nativewideinput. DeliberatelyskipsErr in diagnosticdistribution, notgameplayacceptedmanifest fallback. Three fixedwitnessIDs1/2/3 unique, description/location/version/circumstance arraysrow-owned. test_witnesses purefactorynotcanonicalworldproof. 971 onlyinclude/mod/reexport glue, no ownrecordmutation; shared moduleprivacy relevant but importedchildbodies remainindependentqueuedcells. No audit/harness executed."
+    },
+    {
+      "id": "Validity window representation versus operation",
+      "comparison": "986 try_new rejects through<from, acceptsNoneopen andequalinclusiveinstant; containschecksbothbounds, no arithmetic/saturation. Fields arepublic, so rawreversedwindowpossible andmatchesnom inute, notsealedproof. Membership isexplicitinclusiveendpolicy; no requirepositiveinterval or caponStrategicMinute. Actual grant admission/mutation and question binding belong985 separatequeue, not helpernamecredit."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Quest model/solver/assembly/validation full aggregate acceptance still pending; rights parent985 remainspending. Independent personality score projections not inferred from vocabulary."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

@@ -1,0 +1,168 @@
+{
+  "lens": "06",
+  "reviewer": "recovery_826",
+  "registry": "../shared-material-successor/source-extensions-196.json",
+  "receipts": [
+    {
+      "source_id": "native-support:http-1.5.0/src/uri/mod.rs",
+      "sha256": "adf4235a0d72b03ca71582f4acab50fff8a146f2b92517a227806d372300186b",
+      "revision": "Cargo.lock pinned http1.5.0",
+      "ranges": [
+        [
+          293,
+          341
+        ],
+        [
+          709,
+          716
+        ],
+        [
+          718,
+          725
+        ],
+        [
+          890,
+          897
+        ]
+      ],
+      "registration_evidence": "registration-013.json",
+      "material_index": 188,
+      "source_basis": "Fresh recovery_826 personal registered exact bounded source read and independent lens analysis; no root-personal or other-lens verdict credit.",
+      "analysis": "Uri/InvalidUri/Scheme/Authority/PathAndQuery are canonical native HTTP parsing owners. TryFrom<&str> -> FromStr -> byte copy -> from_shared reaches length and empty checks; absolute leading-slash input delegates to PathAndQuery, other multi-byte forms go to uninspected parse_full. Native Uri ownership does not establish browser fragment-decoding policy; native acceptance must not substitute for a different semantic port. Authority internals and all URI forms remain outside this bounded read.",
+      "disposition": "No additional accepted unique finding; retained historical and bounded-source qualifications."
+    },
+    {
+      "source_id": "native-support:http-1.5.0/src/uri/path.rs",
+      "sha256": "d69c30a915c83bb99f956da92d9a3cc16b754da43d1e940bd750676e9a7a5c7f",
+      "revision": "Cargo.lock pinned http1.5.0",
+      "ranges": [
+        [
+          21,
+          39
+        ],
+        [
+          467,
+          538
+        ]
+      ],
+      "registration_evidence": "registration-013.json",
+      "material_index": 189,
+      "source_basis": "Fresh recovery_826 personal registered exact bounded source read and independent lens analysis; no root-personal or other-lens verdict credit.",
+      "analysis": "PathAndQuery owns retained ByteStr plus query offset; Scanned is temporary native parser metadata, not a duplicate app URL owner. Fragment is removed before retention; high-byte observation chooses checked UTF8 versus native unchecked ASCII path. This legitimate native adapter does not prove browser percent-decoding validity or application URL ownership. Unsafe safety depends on registered map/length contracts read separately; no whole SDK/caller guarantee.",
+      "disposition": "No additional accepted unique finding; retained historical and bounded-source qualifications."
+    },
+    {
+      "source_id": "native-support:http-1.5.0/src/uri/path.rs#scan-classification",
+      "sha256": "d69c30a915c83bb99f956da92d9a3cc16b754da43d1e940bd750676e9a7a5c7f",
+      "revision": "Cargo.lock pinned http1.5.0",
+      "ranges": [
+        [
+          412,
+          465
+        ]
+      ],
+      "registration_evidence": "registration-014.json",
+      "material_index": 190,
+      "source_basis": "Fresh recovery_826 personal registered exact bounded source read and independent lens analysis; no root-personal or other-lens verdict credit.",
+      "analysis": "Native byte classification tables and class constants belong to the HTTP scanner, not application semantic type owners. Percent byte is accepted in ASCII range; fragment/query delimiters route separately and high bytes request UTF8 checking. Do not consolidate this classifier with browser decodeURIComponent or infer identical admission contracts.",
+      "disposition": "No additional accepted unique finding; retained historical and bounded-source qualifications."
+    },
+    {
+      "source_id": "native-support:http-1.5.0/src/uri/mod.rs#maximum-length",
+      "sha256": "adf4235a0d72b03ca71582f4acab50fff8a146f2b92517a227806d372300186b",
+      "revision": "Cargo.lock pinned http1.5.0",
+      "ranges": [
+        [
+          145,
+          145
+        ]
+      ],
+      "registration_evidence": "registration-015.json",
+      "material_index": 191,
+      "source_basis": "Fresh recovery_826 personal registered exact bounded source read and independent lens analysis; no root-personal or other-lens verdict credit.",
+      "analysis": "Native MAX_LEN65534 bounds URI/scanner input below u16::MAX. This is a native offset capacity invariant, not a competing app length owner or proof of all parsed forms/callers.",
+      "disposition": "No additional accepted unique finding; retained historical and bounded-source qualifications."
+    },
+    {
+      "source_id": "canonical-support:990430b:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs",
+      "sha256": "4f2a0ea9d96dba2f493cb7bd317313f553b00f0e29ff1eb0c223c7eed02058f4",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "registration_evidence": "registration-016.json",
+      "material_index": 192,
+      "source_basis": "Fresh recovery_826 personal registered exact bounded source read and independent lens analysis; no root-personal or other-lens verdict credit.",
+      "analysis": "LayerSelection retains canonical CatalogPlacement from adventuresim-core; admit and From construct that retained selection. EquipmentPlacement is exposed by reference, while paired lexical strings are transient Hash/Eq/Ord adapters from same catalogue records. Local cache wrapper has a distinct selection/ordering role; no duplicate catalogue authority is demonstrated. Broader producer propagation not cleared; source explicitly pinned990, not4530.",
+      "disposition": "No additional accepted unique finding; retained historical and bounded-source qualifications."
+    },
+    {
+      "source_id": "canonical-support:990430b:crates/adventuresim-tactical-client/Cargo.toml",
+      "sha256": "8aa55633cd7ff303e586406b52582fd208269232ae9217364c309fa085b074d1",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "ranges": [
+        [
+          20,
+          20
+        ],
+        [
+          23,
+          23
+        ],
+        [
+          95,
+          95
+        ]
+      ],
+      "registration_evidence": "registration-016.json",
+      "structured_selection": "Containing Cargo section for each selected derive_more/thiserror declaration; normal derive_more is dependencies, line95 thiserror is build-dependencies.",
+      "material_index": 193,
+      "source_basis": "Fresh recovery_826 personal registered exact bounded source read and independent lens analysis; no root-personal or other-lens verdict credit.",
+      "analysis": "Selected native Cargo declarations establish normal derive_more/from availability and separate normal/build thiserror roles. A crate dependency is not a competing semantic owner; no body expansion/build proof or full manifest coverage.",
+      "disposition": "No additional accepted unique finding; retained historical and bounded-source qualifications."
+    },
+    {
+      "source_id": "canonical-support:990430b:Cargo.lock",
+      "sha256": "d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "ranges": [
+        [
+          4318,
+          4352
+        ]
+      ],
+      "registration_evidence": "registration-016.json",
+      "structured_selection": "Only package blocks whose name is derive_more or derive_more-impl. This includes derive_more0.99.20, derive_more2.1.1 and derive_more-impl2.1.1, with blank separators, but no following package body.",
+      "material_index": 194,
+      "source_basis": "Fresh recovery_826 personal registered exact bounded source read and independent lens analysis; no root-personal or other-lens verdict credit.",
+      "analysis": "Lock blocks distinguish derive_more0.99.20 from2.1.1 and its2.1.1 implementation provider by exact native Cargo identity. No shared application concept is independently defined by these metadata blocks; do not collapse package versions merely by name.",
+      "disposition": "No additional accepted unique finding; retained historical and bounded-source qualifications."
+    },
+    {
+      "source_id": "canonical-support:4530:Cargo.lock#http-package",
+      "revision": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+      "sha256": "197d8605659fa581961b37f9c18f2a46b04db822a666d3abefe5653b4204401a",
+      "ranges": [
+        [
+          6079,
+          6088
+        ]
+      ],
+      "registration_evidence": "registration-017.json",
+      "scope_limits": "Exact http package block only; no full lock/SDK/dependency/runtime/otherlens coverage.",
+      "material_index": 195,
+      "source_basis": "Fresh recovery_826 personal registered exact bounded source read and independent lens analysis; no root-personal or other-lens verdict credit.",
+      "analysis": "Exact4530 lock block identifies native http1.5.0/checksum918d3568bebf352712bc2ef3d46a8bcf1a75b373be6539de198e9105cbbf9ce0/dependencies bytes+itoa, connecting bounded native URI source provenance only. No full lock, app caller or other-lens ownership credit.",
+      "disposition": "No additional accepted unique finding; retained historical and bounded-source qualifications."
+    }
+  ],
+  "first_unfinished_material": null,
+  "status": "COMPLETE_WITH_EXISTING_FINDINGS_AND_QUALIFICATIONS",
+  "new_unique_findings": 0,
+  "clear": false,
+  "checks": "not run",
+  "source_edits": false
+}

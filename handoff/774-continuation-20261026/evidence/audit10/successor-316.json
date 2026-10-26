@@ -1,0 +1,121 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-316",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 2666,
+      "source_id": "pr-working:crates/fabelgeist-numpy-storage/src/npy.rs",
+      "sha256": "68819769cfa8ef5618a5db759768165d38063bff4ba263f40c6e4d36fbdb547b",
+      "ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh frozen6533 NPY production186. Structural Dtype traits derived; native dtype spelling/byte-width classifier and exact LE payload/header/shape decoder plus tensor/read conversions. No handwritten structural traits/codecs with existing derive-equivalent representation.",
+      "disposition": "Retain semantic NumPy protocol parser and typed native conversions; generic serde would not reproduce header/payload/endian/shape admission. No omitted fixtures187+/parser memory/numeric/protocol/runtime correctness acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2667,
+      "source_id": "pr-working:crates/fabelgeist-numpy-storage/src/zip.rs",
+      "sha256": "7e9b70f0870cf014d25bd11d783636ca6cb413bc69b6dfa00c12eee0241695de",
+      "ranges": [
+        [
+          1,
+          232
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh frozen6533 ZIP232. Native mapped/owned ArchiveData AsRef/Deref expose matching borrowed bytes; complete owning manifest personally read with no derive dependency. Actual ZIP/ZIP64 central/local header parsing, span/member selection and borrowed stored versus owned deflated decoder read.",
+      "disposition": "Keep small native AsRef/Deref adapters without added dependency; semantic archive protocol remains explicit. No bounds/safety/decompression/foreign SDK/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2668,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/outer_layer/surface.rs",
+      "sha256": "b5fe1c6379d3472d00a1a574d652c8393269192f2273a1575b7a569c6bc1fc26",
+      "ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh frozen6533 outer layer surface production169. Structural clipped sample Copy/Clone derived. Actual native BVH overlap/correction, typed mass-weighted projection and clipping interpolation with retained barycentric weights read; no handwritten traits/codecs.",
+      "disposition": "No derivability candidate. Semantic geometry/mass response remains explicit; no numerical/indexing/runtime acceptance or fixture tails170+ coverage.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2669,
+      "source_id": "pr-working:crates/strategic-web/src/routes/inventory_forms.rs",
+      "sha256": "cd34587835aa6f2448bb0cff2e893950703e9da622db14c7da7ad65ee0b39718",
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh frozen6533 inventory forms qualified50. Structural record traits/form Deserialize derived. Actual native compact comma-list parsing, equal-cardinality/ID/quantity/positive admission and purpose-specific errors read.",
+      "disposition": "Retain semantic compact native form parser; ordinary serde record derive does not encode two zipped lists or identical failures. No other forms/cases/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2670,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/Cargo.toml",
+      "sha256": "3c5bed9bdba2fe4d9a73522f70749beccc5240021b04af3755167af288735655",
+      "ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh p16 world schema Cargo31. Exact serde/JSON/build and optional spacetimedb-lib feature/dependency, existing strum derive declarations read.",
+      "disposition": "Dependency namespace/availability role only, no executable traits/codecs or derivability candidate. No general schema/SDK/package acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2671,
+      "source_id": "physical-p16:Cargo.toml",
+      "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+      "ranges": [
+        [
+          178,
+          182
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh p16 workspace pinned SpacetimeDB/lib/SATS dependency lines178\u00e2\u20ac\u201c182; exact2.6.1 and serde/default-feature selections.",
+      "disposition": "Version/namespace role only; no local trait/codec candidate, no rest manifest/SDK implementation or runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

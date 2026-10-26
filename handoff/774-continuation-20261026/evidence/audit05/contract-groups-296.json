@@ -1,0 +1,39 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-296",
+  "at": "2026-10-25T22:45:50.880901+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2570,
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/container_attributes.rs",
+      "sha256": "a672e1d7725e7a2417f0542e59726962d0cf1489fe4bea11ffa798ec5b09b778",
+      "personally_read_ranges": [
+        [
+          1,
+          693
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full693-line frozen reflection container attributes parser/codegen. Auto FromReflect and TypePath default true unless explicit opt-out; standalone derives force respective own derivation despite shared opt-out attribute. Conflicting boolean settings reject different values; normal trait type-data identifiers are deduplicated; custom/special implementations declared separately. opaque/ignore ownership remains separate from no_field_bounds or no_auto_register, which do not guard value mutation. Custom attribute metadata, where clauses and hash/equality/debug/clone delegates do not validate correlated project state. No concrete project misuse or macro expansion established."
+      ]
+    },
+    {
+      "scope_index": 2571,
+      "source_id": "dependency-bevy_reflect0.19.1:src/reflect.rs",
+      "sha256": "8b9875e0690eaae0626088bc3a143a38f23918c2a216ff7c3d699dd7311f9601",
+      "personally_read_ranges": [
+        [
+          1,
+          652
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full652-line frozen bevy_reflect PartialReflect/Reflect API. apply unwraps try_apply, whose documented contract permits partial mutation on failure; dynamic conversion delegates structural kinds while opaque clone may fail/panic. Represented type info/path equality is explicitly distinct from concrete Any type identity used for downcast/take/set. Mutable reflection and Any references expose underlying concrete object (remote inner type where applicable); no semantic constructor invocation. Clone errors/type checking constrain operation shape but not project aggregate relationships. No project ordinary failed apply or invalid reconstructed value witness; no execution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

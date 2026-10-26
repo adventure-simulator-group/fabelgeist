@@ -1,0 +1,117 @@
+{
+  "at": "2026-10-26T03:56:36.365162+00:00",
+  "scope": "Comment/output-evidence successor at mathc94; no product/Git changes or project checks.",
+  "reviewed_source": "c94b96d9a47453538985bbfb1ce2bd2b4874e627",
+  "pins": [
+    {
+      "source": "c94b96d9a47453538985bbfb1ce2bd2b4874e627:crates/adventuresim-tactical-client/src/art_demo/scenery.rs",
+      "sha256": "95a004dde106af96c0cf9b12ff034f21fdca47458dcc594df12b52abac2c7857",
+      "personally_read_ranges": [
+        [
+          263,
+          280
+        ],
+        [
+          311,
+          334
+        ]
+      ]
+    },
+    {
+      "source": "c94b96d9a47453538985bbfb1ce2bd2b4874e627:.github/workflows/rust-quality.yml",
+      "sha256": "ba5976e7c7fbb51718979108ea26fb4002870613323755e1d407199c3fc40dde",
+      "personally_read_ranges": [
+        [
+          425,
+          433
+        ],
+        [
+          450,
+          485
+        ]
+      ]
+    },
+    {
+      "source": "c94b96d9a47453538985bbfb1ce2bd2b4874e627:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry.rs",
+      "sha256": "b730b2dc02270ffc2b2990aceb80eb7ae0dc0a268b0c9c99974b05d87a5f0db9",
+      "personally_read_ranges": [
+        [
+          1,
+          5
+        ]
+      ]
+    },
+    {
+      "source": "c94b96d9a47453538985bbfb1ce2bd2b4874e627:crates/strategic-web/ART_DEMO.md",
+      "sha256": "ba93cbcaa705efcd50d8deb01f035678aca84b192c61edad3d7d49b459820b4c",
+      "personally_read_ranges": [
+        [
+          171,
+          175
+        ]
+      ]
+    },
+    {
+      "path": "target\\recovery-20261025\\ci-recovery\\math-export-output-review-001.json",
+      "sha256": "968f44780464070b2e313a8ae61967aa01b69d0e2745de9a4edd4df0b0cdadcd",
+      "review": "Actual complete metadata/prose/revision text read"
+    },
+    {
+      "path": "target\\recovery-20261025\\ci-recovery\\math-export-output-review-002.json",
+      "sha256": "8803e1c2f450438406958ebc4578a6f932da9615dcc24423c772909900ec0109",
+      "review": "Actual complete metadata/prose/revision text read"
+    },
+    {
+      "path": "target\\recovery-20261025\\ci-recovery\\pr986-body.md",
+      "sha256": "8986a9e08d4b8239e2557e4fefb1699d325531d86180244ec3f895b2ab1456d1",
+      "review": "Actual complete metadata/prose/revision text read"
+    },
+    {
+      "path": "target\\recovery-20261025\\ci-recovery\\hosted-c94b96d9a\\target\\procedural-fixtures\\revision.txt",
+      "sha256": "0583bcdc414ed812c36df5b9e623025c81ca168f494b1dafd7cee81de1a1ac93",
+      "review": "Actual complete metadata/prose/revision text read"
+    }
+  ],
+  "prior_comment_closures": "review-002-closure.json remains valid for actual fingerprint wording, source4/19 scope. Publication/runtime remain separate.",
+  "source_assertion_trace": {
+    "exporter": "Existing ignored scenery313-334 prepares bytes, writes shared oak asset and asserts only decode bake_count==6. No matches_art_demo assertion there.",
+    "ordinary_oracle": "Existing nonignored scenery264-280 decodes committed asset, asserts6 then separately asset.matches_art_demo(root,environment).",
+    "workflow": "rust-quality.yml458-462 runs only ignored exporter exact and guards1pass. It does not substitute ordinary matching oracle. Always artifact upload470-485 means upload alone does not imply exporter success.",
+    "report002": "Qualification explicitly states decode count only, ordinary Linux/Windows matching and independent output review required. This corrects001 wording and preserves old report with superseding erratum."
+  },
+  "own_bounded_artifact_bookkeeping": {
+    "artifact_identity_parent_reported": 12626297265,
+    "run_parent_reported": 40262692854,
+    "revision_file_personally_verified": "c94b96d9a47453538985bbfb1ce2bd2b4874e627",
+    "outputs_sha_size_and_prior_git_hash_verified": 11,
+    "changed_paths": [
+      "content/tactical/garden-hazel-envelope.json",
+      "assets/art-demo/oak.tree-impostors"
+    ],
+    "unchanged_paths": 9,
+    "hazel_difference": "Only hull_metres field, first paired point changed from[-1.523714303970337,0.39076268672943115] to[-1.5237140655517578,0.39076271653175354]; other17paired points unchanged. Revision4 and other fields unchanged.",
+    "tree_size": "Compressed bytes1151640->1151671 (+31); compressed digest differs. No native postcard decode or pixel/geometry comparison executed by reviewer.",
+    "artifact_log_summaries_personally_read": [
+      "impostor1passed",
+      "envelope1passed",
+      "cloudidentitybefore1passed",
+      "understory7passed",
+      "leaves5passed"
+    ],
+    "api_success_evidence": "Attributed to parent/report002; reviewer did not independently poll current GitHub run API. Raw artifact revision/log/output identity corroborated, not complete hosted status proof."
+  },
+  "required_body_followup": {
+    "status": "Known publication update pending; do not publish current stale regeneration wording as final evidence.",
+    "locations": "pr986-body.md29-45",
+    "needed": "Replace pending regeneration with actualc94 hosted export provenance after final ordinary run; distinguish two changed/nine identical outputs, exporter six-decode assertion, and independently established final matching/no-growth/platform results. Earlier source Linux pass/Windows failure remain historical.",
+    "source_findings_reopened": false,
+    "new_source_comment_findings": []
+  },
+  "verdict": "No new actionable error in report002 source-assertion qualification. Existing local wording closures retained; draft body final evidence update remains pending.",
+  "limits": [
+    "Hash/revision and bounded log bookkeeping is not generated-domain output acceptance.",
+    "Final ordinary Linux/Windows, no-growth and independent output review still pending per request.",
+    "No claim all13 frozen lenses or global audit cleared; no current review coverage transferred to own05.",
+    "No commands/tests/generators executed from artifact content."
+  ]
+}

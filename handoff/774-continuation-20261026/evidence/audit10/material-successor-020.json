@@ -1,0 +1,184 @@
+{
+  "lens": "derivability",
+  "registry": "../shared-material-successor/source-extensions-187.json",
+  "registry_sha256": "afd8158f9381deffcb264daf382e4db681880cd51b120b9a3fcc9b8bfc2ea3b9",
+  "receipts": [
+    {
+      "material_index": 74,
+      "registration": {
+        "source_id": "pr-working:vendor/bevy_ahoy/src/kcc.rs",
+        "sha256": "270d6b20992ae497744d528d70421ca20075b2f22be9c0dff36f2c41978e72ba",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            145,
+            195
+          ]
+        ],
+        "registration_evidence": "operations/contract-groups-583.json#fresh_dependencies",
+        "reason": "Actual strategic fetch/navigation/condition receiver or native KCC Stopwatch contract; dependency proof in operations/contract-groups-583.json#fresh_dependencies",
+        "qualification": "Only listed material ranges extend shared scope. Original2853 denominator and adopted completed baselines unchanged; no other-lens coverage transfer."
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:vendor/bevy_ahoy/src/kcc.rs",
+      "source_sha256": "270d6b20992ae497744d528d70421ca20075b2f22be9c0dff36f2c41978e72ba",
+      "read_ranges": [
+        [
+          145,
+          195
+        ]
+      ],
+      "inventory_and_semantics": "QueryData already derives native ECS projections; run_kcc performs controller mutation, elapsed ticking and collision/grounding state. Partial function145-195 only; no handwritten structural trait/codec.",
+      "disposition": "No derivability candidate; retain semantic/native behavior",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no native target/runtime/global acceptance"
+    },
+    {
+      "material_index": 75,
+      "registration": {
+        "source_id": "pinned-registry:bevy_time-0.19.1/src/stopwatch.rs",
+        "sha256": "0f89469949a788d5c34a3e2608a6feb5af224c57692f0a421f1846fcfc51e87f",
+        "revision": "pinned native dependency checksum/bytes in operations/contract-groups-583.json#fresh_dependencies",
+        "ranges": [
+          [
+            115,
+            165
+          ]
+        ],
+        "registration_evidence": "operations/contract-groups-583.json#fresh_dependencies",
+        "reason": "Actual strategic fetch/navigation/condition receiver or native KCC Stopwatch contract; dependency proof in operations/contract-groups-583.json#fresh_dependencies",
+        "qualification": "Only listed material ranges extend shared scope. Original2853 denominator and adopted completed baselines unchanged; no other-lens coverage transfer."
+      },
+      "source_origin": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/0f89469949a788d5c34a3e2608a6feb5af224c57692f0a421f1846fcfc51e87f",
+      "source_sha256": "0f89469949a788d5c34a3e2608a6feb5af224c57692f0a421f1846fcfc51e87f",
+      "read_ranges": [
+        [
+          115,
+          165
+        ]
+      ],
+      "inventory_and_semantics": "Native Stopwatch set_elapsed/tick/pause are semantic mutations. tick uses paused gate and Duration saturating_add, not replaceable with ordinary arithmetic derive. Registered docs/tail only; no native whole-type or runtime verdict.",
+      "disposition": "No derivability candidate; retain semantic/native behavior",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no native target/runtime/global acceptance"
+    },
+    {
+      "material_index": 76,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-plant-generator/src/viewer/capture.rs",
+        "sha256": "de950524563388fee6bf5f849cc9cf10683a7eb8befcacdb3ebb8a0d562b3521",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            1,
+            56
+          ]
+        ],
+        "registration_evidence": "enum-shapes/registration-504A.json",
+        "reason": "Actual chained capture::capture receiver after rebuild receives Options and Editor whose selected Recipe and PlantLod now carry generated plant geometry. It owns output screenshot/sidecar publication of the same edited-versus-preset recipe, family and view contract. This is actual connected consumer of changed shared recipe/types, not module declaration or directory adjacency. Register full source prospectively to identify exact material ranges on first read; unrelated helper bodies will not automatically become all-lens scope.",
+        "qualification": "Only listed material ranges extend shared scope. Original2853 denominator and adopted completed baselines unchanged; no other-lens coverage transfer."
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-plant-generator/src/viewer/capture.rs",
+      "source_sha256": "de950524563388fee6bf5f849cc9cf10683a7eb8befcacdb3ebb8a0d562b3521",
+      "read_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "inventory_and_semantics": "Capture builds serde_json value through semantic recipe/camera/mesh metadata projection and native screenshot observer. Named wire derive would still need explicit mapping; no handwritten Serialize impl to replace. File write/observer exit remain semantic native operations.",
+      "disposition": "No derivability candidate; retain semantic/native behavior",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no native target/runtime/global acceptance"
+    },
+    {
+      "material_index": 77,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/sigil.rs",
+        "sha256": "938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            1,
+            61
+          ]
+        ],
+        "registration_evidence": "enum-shapes/registration-506A-material.json",
+        "reason": "Canonical Sigil owner is actual payload of changed OrderedSigilClue, private solution, public projection and submitted ordering; its ALL, label and finite membership are called by generator, clue text, solver and validation. This is concrete owner/callee support, beyond1059 module export. Register full owner prospectively; identify material ranges before shared import.",
+        "qualification": "Only listed material ranges extend shared scope. Original2853 denominator and adopted completed baselines unchanged; no other-lens coverage transfer."
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-puzzles/src/choices/sigil.rs",
+      "source_sha256": "938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+      "read_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "inventory_and_semantics": "Sigil already derives structural+serde. ParseSigilError manual static Display/empty Error is qualified existing family015 occurrence, owning Puzzles lacks appropriate macro dependency. FromStr maps serde parser into bespoke unit error; retain tiny adapter absent exact same-error derive proof. Stable_id/label const API remains independent visible/submission vocabulary.",
+      "disposition": "Qualified existing static-error derive remedy occurrence with dependency/API proof pending",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no native target/runtime/global acceptance"
+    },
+    {
+      "material_index": 78,
+      "registration": {
+        "source_id": "pinned-registry:bevy_render-0.19.1/src/view/window/screenshot.rs",
+        "sha256": "f49e4ca4f0929fc51a5c55fc002294c6009ae7a4c1c07dc6ef6c8ff737df0c5b",
+        "revision": "native Bevy0.19.1 exact cached crate checksum matching P17Cargo.lock in operations/contract-groups-589.json#fresh_dependencies",
+        "ranges": [
+          [
+            125,
+            240
+          ]
+        ],
+        "registration_evidence": "operations/contract-groups-589.json#fresh_dependencies",
+        "reason": "Actual same capture save_to_disk callback writes/error observation contract reached by P17report acceptance.",
+        "qualification": "Only exact material ranges; fixtures/unread SDK remainder excluded. No original2853 count increment or other-lens transfer."
+      },
+      "source_origin": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/f49e4ca4f0929fc51a5c55fc002294c6009ae7a4c1c07dc6ef6c8ff737df0c5b",
+      "source_sha256": "f49e4ca4f0929fc51a5c55fc002294c6009ae7a4c1c07dc6ef6c8ff737df0c5b",
+      "read_ranges": [
+        [
+          125,
+          240
+        ]
+      ],
+      "inventory_and_semantics": "Native screenshot resources already derive Deref/Default. save_to_disk performs target-specific encode/save/download/error logging; ECS extract/trigger bodies retain native lifecycle. No mechanical application codec; source125-240 ends mid-loop, no whole-system/runtime acceptance.",
+      "disposition": "No derivability candidate; retain semantic/native behavior",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no native target/runtime/global acceptance"
+    },
+    {
+      "material_index": 79,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/witness_path.rs",
+        "sha256": "363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            1,
+            53
+          ]
+        ],
+        "registration_evidence": "enum-shapes/registration-507A-material.json",
+        "reason": "Canonical WitnessPath actual payload of submitted safe path, typed WitnessClaim, private solution and public offered paths; generator calls ALL, text calls label and generic authority checks typed submitted choice. Concrete owner/callee contract beyond choices module export; register before first body.",
+        "qualification": "Only exact material ranges; fixtures/unread SDK remainder excluded. No original2853 count increment or other-lens transfer."
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-puzzles/src/choices/witness_path.rs",
+      "source_sha256": "363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+      "read_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "inventory_and_semantics": "WitnessPath already derives structural+serde. ParseWitnessPathError static Display/empty Error is qualified family015 occurrence with dependency gap. FromStr preserves bespoke error while decoding canonical key; label adds path suffix whereas stable_id does not. Do not substitute label/serde indiscriminately.",
+      "disposition": "Qualified existing static-error derive remedy occurrence with dependency/API proof pending",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no native target/runtime/global acceptance"
+    }
+  ],
+  "checks": "not run",
+  "source_edits": false,
+  "clear": false
+}

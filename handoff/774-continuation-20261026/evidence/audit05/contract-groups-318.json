@@ -1,0 +1,95 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-318",
+  "at": "2026-10-25T23:05:40.452064+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2656,
+      "source_id": "pr-working:crates/fabelgeist-numpy-storage/src/npz.rs",
+      "sha256": "fd06a1fe88a6b55620cbeb9015e09f4f308114e77b5c5b051df26737dc458049",
+      "personally_read_ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-186: Npz wraps one ZipArchive, exact/member-with-optional-npy-suffix lookup consistently feeds contains/size/array; decode copies member then npy::parse owns shape/type validation. Ambiguous duplicate names resolve archive first match; actual producer evidence pending. Stored/in-memory/member-missing tests read, not executed; archive/array parser contracts follow2666/67."
+      ]
+    },
+    {
+      "scope_index": 2657,
+      "source_id": "pr-working:crates/fabelgeist-garment-fit/src/pose.rs",
+      "sha256": "2f61441a1ff287026cb6bbe667bb91ae6c60ae760a14632b433dc17cfaaafe36",
+      "personally_read_ranges": [
+        [
+          1,
+          272
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-272 compared2631: Move applies rigidXYZ around supplied pivot; Axis converts only translation cm<->m and leaves angle degrees. Pivots captured from mesh ranges and bounds, pose composes panel move then whole move from supplied base. Clamps range endpoints to base length but arbitrary reversed Pivots ranges can still panic; normal Pivots::of validated mesh order preserves ranges. Pose panels short/empty intentionally identity; no ordinary malformed pivot witness or global-move rest mismatch."
+      ]
+    },
+    {
+      "scope_index": 2659,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/selfcollision.rs",
+      "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+      "personally_read_ranges": [
+        [
+          1,
+          283
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-283: constructor enforces adjacency cardinality only, capacity-sized buffers plus flattened starts/neighbours; radius sets spacing2r. Public radius can diverge from private spacing if mutated directly, setter updates both and invalidates built; actual call mutation needed before finding. built set before fallible recording so failed batch could retain stale true, caller discard/rebuild policy pending. Native count/capacity checked at record, hook always rebuilds after integration; no guarantee from raw radius/adjacency inputs."
+      ]
+    },
+    {
+      "scope_index": 2660,
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/gpu/shaders.rs",
+      "sha256": "2022b9f9947af21ed0ada98816b862f6569d1237a5c6d0557c46441a78022e32",
+      "personally_read_ranges": [
+        [
+          1,
+          490
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-490 WGSL strings personally read: ordered-float bounds atomics, Morton normalized codes, duplicate-code index tie break, hierarchy child lanes, leaf-to-ancestor atomic refit and gather preserve packed node schema. Traversal uses fixed configurable stack and explicitly drops over-deep branches, defaults64; actual generated tree depth bound/stack caller needed for lost candidate finding. Zero-count arithmetic requires host dispatch guard; parent host role not established here. Native string configuration names are shader-boundary inputs, not proof of valid injected identifiers."
+      ]
+    },
+    {
+      "scope_index": 2661,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/surface_contact/solve/tests.rs",
+      "sha256": "42ccfda42f41dfade0c7694b313e1ea574e2d1468e850bc03c2d664da867e4aa",
+      "personally_read_ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-45 test compares36 contact cases pairwise18VertexTriangle/18EdgeEdge against encoded exact corrected and velocity words. Inverse mass/thickness frombits, with_velocity controls optional slice; equality evidence is represented in test only, no run. Fixture2664 body still separate and pending."
+      ]
+    },
+    {
+      "scope_index": 2662,
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/constraint/tests.rs",
+      "sha256": "76a57f6a56d156060a5b815f6b341a9e0d49ad8d84f749fc8d53493131598ab2",
+      "personally_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-111 tests pair fixed incidence admission diagnostics with GPU native fixture: deliberatelyu32MAXparticle address admitted as role (not membership), original reorder, lambda/empty allocations, disabled/empty dispatch counters and rejected attachment state retention. Empty raw-attachment policy explicitly retained by test. Fixture2665 pending; no GPU execution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "6 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

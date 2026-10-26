@@ -1,0 +1,37 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-131",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 737,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_garment_skirt.rs",
+      "sha256": "963e22ca61e7f29b6424e65db9f7d987fca66e0e9543944b1584d9873ec8e285",
+      "ranges": [
+        [
+          1,
+          461
+        ]
+      ],
+      "assessment": "Full461 actual source read in three bounded windows after hash match. Typed UprightSpan anchors/reach retained until actual kernel adapter; frame/region pairs, two-leg DevicePart collection and position/count tuples remain Q008/Q009. Actual record_skirt_layers always iterates Left then Right and pushes exactly two successful parts or returns error, giving concrete leg(0)/leg(1) correspondence on flexible path; empty native buffer/count is deliberate no-layer shader binding on rigid path. Actual region-support callers here use1 or2 closed entries, narrowing734 local shift concern for these paths only. Flexible predicate projects to native uniform; model/native physical/artistic/runtime guarantees unproven.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 738,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_garment_skirt/stations.rs",
+      "sha256": "34d0763456537f3f3ddbd56e6f961de819d7a1b6eb90b6ae6ceb4d7f8a59392b",
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "assessment": "Full130 actual source read after hash match. Native WGSL EnvelopePoint named presence/position record distinguishes unsupported skin; cursor/candidate flags are real shader encoding. Host737 supplies explicit left/right counts and source arrays. Envelope union count and packed-index arithmetic still require native size invariants; no ordinary overflow witness or type-shape fix inferred. No separate lens, physical/runtime/current-main clearance or accepted unique finding.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

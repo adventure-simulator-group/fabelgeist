@@ -1,0 +1,103 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-236",
+  "at": "2026-10-25T22:02:02.680043+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2320,
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/math.rs",
+      "sha256": "20b8033a4cd2771f494d9a73e0820bd9c27c5cdce23c097687360719bfc46b0a",
+      "personally_read_ranges": [
+        [
+          1,
+          357
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all357lines MHRmath.rs includingtestsource. HostQuat[xyzw]/Mat4rowmajor/Transform[t,q,s] directconversionmatchesSkin/model/Skeletonsourceuse; declareduniformscale/no-shear/normalizedrotationpreconditions intentional numericalhelper assumptions. CharacterTransformLinkingressfailsestablishing thoseassumptions exactRIG-ADMISSION03-F027-SUPPLEMENT-001. Privateaxishelperraworder[usize;3]publicfrom_euler reliescaller0..2; actualrotation_orderclosedproducerprovidesvalidaxes. Noexecution."
+      ]
+    },
+    {
+      "scope_index": 2321,
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/model.rs",
+      "sha256": "08275eee95012fbf2c20c185a7416b977f74c4181ad4362e704fafb847ae2c55",
+      "personally_read_ranges": [
+        [
+          1,
+          626
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all626lines model.rs in ranges1..330/331..626. Nativefile/URI/bytesentryallgatelod4..6, same Character/Definition/optionalCorrectivescombine; tensorcountsandtopologyderivedonce. Publiccharacter/parameter_transformvsprivatecachedtensors exactF077, faceindexmembershipF080. Forwardadmitsexactidentity45cols+batchor1, posecolumncount, expression72cols+samebatch, samecomputedjointparameterspassedcorrectives onlywhenpresent/enabled. ThisclosesPoseCorrectivesnormalcallerchannels/posedcount undercoherentinitialCharacter; rawpublicmutationretained.",
+        "vertex_normalsactuallycomputesareaweightednormalsfromdeformedverts; README2315line154nostalenormalsstatementcontradictsbody. Documentarydifference retainedaslocalnotes only, no source/wikiupdate. No inference numericaloverflowfinitechecks beyondexplicitgates, noexecution."
+      ]
+    },
+    {
+      "scope_index": 2322,
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/model_def.rs",
+      "sha256": "aba9d2376e3b4633b05e1d51ec5f2baa54f29bcb5b57e511b1694612585c657a",
+      "personally_read_ranges": [
+        [
+          1,
+          348
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all348lines model_def.rs. Parserintroducesnamesordered, typedContributionrow/columnpairsdensifiedafterfinalcount, sets/limitsreferactualintroducedcolumns; appendblendcolumns expandsmatrixandnames/setscoherently. Limitreversed/NaNbrackets gap exactRIG-ADMISSION03-F078. ReferencedchannelcopiespriorContributiontermsbutnotoffsets byexistingimplementation; declaredgrammar/actualmodelauthorityneededbeforeclaimaboutconstantreference semantics. No newfinding."
+      ]
+    },
+    {
+      "scope_index": 2323,
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/model_def/layout.rs",
+      "sha256": "add108e99167c2fa9f7550558f56bdd7f28bf7e5d5b6537fc516b9481a2ef247",
+      "personally_read_ranges": [
+        [
+          1,
+          303
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all303lines model_def/layout.rs. PrivateParameterMatrixretainsjoints/columns/values, typedrowcontainsjoint+closed7channel, typedcolumnfromownTable.push; firstduplicateName lookupintentional. append_columnsassumesnonshrinkingcount, actualappendcaller2322new=old+count establishesuntilnativeusizeoverflow; publicrow/columnprovenancefromdifferenttablesnotchecked. No ordinarymisuse beforeinheritedaggregateF077, noexecution."
+      ]
+    },
+    {
+      "scope_index": 2324,
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/model_def/tests.rs",
+      "sha256": "8a4c3ccff3704053320170d56ccd92e1e3d449f9744b8993f0cebe87b7aef0a1",
+      "personally_read_ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all143lines model_def/tests.rs as sourceonly. Coherenttwojointfixtureparents-beforechild; intendedduplicateassignmentsaccumulate, priorjointreferencecopiesweights, bareconstantoffset, namedset/limits andappendblendzerosoracles personallycomparedactualparser. No passingexecution nor unsupportedconstantreferencepolicyinvented."
+      ]
+    },
+    {
+      "scope_index": 2325,
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/skel_state.rs",
+      "sha256": "ec915bd52ab4e9fae98af225984322c62de94699e071cd90df48e8c7af0249b0",
+      "personally_read_ranges": [
+        [
+          1,
+          302
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all302lines skel_state.rs includingtestsource. Tensoralgebraexplicit8state/4quat/3pointshapesandaxisorder matchhostmath2320; prefixlevelsbuildpairedsource/targetfromsamechainsanduniquesourcesoneperjointperlevel. Parentcycle/outofbounds alreadyF076; actualSkeletonbuilderappendearlierparentunderacyclicsource. PublicPrefixLevelrawparallelvecshasno universalconsumeradmissionclaim; MHRconstructorusesitsownfunctionresult andsame lengths. No newfinding."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "6 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "dedup": [
+    "RIG-ADMISSION03-F076",
+    "RIG-ADMISSION03-F077",
+    "RIG-ADMISSION03-F078",
+    "RIG-ADMISSION03-F080",
+    "RIG-ADMISSION03-F027-SUPPLEMENT-001"
+  ]
+}

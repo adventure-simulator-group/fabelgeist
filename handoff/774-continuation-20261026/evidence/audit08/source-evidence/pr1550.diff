@@ -1,0 +1,139 @@
+diff --git a/crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs b/crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs
+index 2a1f38e54..fb87281b6 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs
+@@ -1,8 +1,4 @@
+-mod community;
+-mod streams;
+-use adventuresim_tactical_core::prelude::{
+-    EnvironmentalSample, GroundCover, SceneEnvironment, SceneGround, SceneTerrain, TacticalSurface,
+-};
++use adventuresim_tactical_core::prelude::{EnvironmentalSample, SceneEnvironment, TacticalSurface};
+ use bevy::{
+     asset::RenderAssetUsages,
+     camera::visibility::VisibilityRange,
+@@ -10,8 +6,8 @@ use bevy::{
+     light::NotShadowCaster,
+     mesh::{Indices, PrimitiveTopology, VertexAttributeValues},
+     prelude::{
+-        Color, Commands, Component, Handle, Image, Mesh, Mesh3d, MeshMaterial3d, Name, Quat,
+-        Transform, Vec2, Vec3, Vec4,
++        Color, Commands, Component, Handle, Image, Mesh, Mesh3d, MeshMaterial3d, Name, Vec2, Vec3,
++        Vec4,
+     },
+ };
+ #[cfg(test)]
+@@ -28,6 +24,12 @@ use crate::presentation::{
+ 
+ use super::{GroundScatterLayer, TacticalFoliageMaterial, foliage_material};
+ 
++pub(super) use placement::cell_allows_grass;
++
++mod community;
++mod placement;
++mod streams;
++
+ // A 32 x 32 grid preserves the established macro-patch footprint and overlap
+ // while reducing the close interactive sward to the density that still reads
+ // as individual grass at its short 10 m range. Density lives inside the shared
+@@ -61,66 +63,6 @@ pub(in crate::presentation) const FAR_LOD_GAP_FILL_FRACTION: f32 = 0.75;
+ /// same terminal representation contract.
+ pub(in crate::presentation) const TERMINAL_SWARD_FADE_START_METRES: f32 = 42.0;
+ pub(in crate::presentation) const TERMINAL_SWARD_FADE_END_METRES: f32 = 50.0;
+-fn ground_allows_grass_patch_with_spacing(
+-    ground: &SceneGround,
+-    centre: Vec2,
+-    patch_spacing: f32,
+-) -> bool {
+-    let half_extent = patch_spacing * 0.58;
+-    [-1.0, 0.0, 1.0].into_iter().any(|z| {
+-        [-1.0, 0.0, 1.0].into_iter().any(|x| {
+-            ground
+-                .ground_at(centre + Vec2::new(x, z) * half_extent)
+-                .is_some_and(|sample| sample.cover == GroundCover::TallGrass)
+-        })
+-    })
+-}
+-
+-fn grass_patch_transform(terrain: &SceneTerrain, world_x: f32, world_z: f32) -> Option<Transform> {
+-    let sample = Vec2::new(world_x, world_z);
+-    let height = terrain.height_at(sample)?;
+-    let normal = terrain.normal_at(sample)?;
+-    if normal.y < 0.72 {
+-        return None;
+-    }
+-    Some(
+-        Transform::from_xyz(world_x, height, world_z)
+-            .with_rotation(Quat::from_rotation_arc(Vec3::Y, normal)),
+-    )
+-}
+-
+-fn grass_patch_placement_with_spacing(
+-    terrain: &SceneTerrain,
+-    ground: &SceneGround,
+-    render_centre: Vec2,
+-    patch_spacing: f32,
+-) -> Option<Transform> {
+-    if !ground_allows_grass_patch_with_spacing(ground, render_centre, patch_spacing) {
+-        return None;
+-    }
+-    grass_patch_transform(terrain, render_centre.x, render_centre.y)
+-}
+-
+-/// Applies the canonical render-centre cover and slope gates for one placement
+-/// cell in the instanced renderer.
+-pub(super) fn cell_allows_grass(
+-    terrain: &SceneTerrain,
+-    ground: &SceneGround,
+-    cell_hash: fabelgeist_determinism::Seed,
+-    x: i32,
+-    z: i32,
+-    cell_spacing: f32,
+-    jitter_fraction: f32,
+-) -> bool {
+-    let jitter_x = streams::JITTER_X.rng(cell_hash, &[]).inclusive_unit_f32() - 0.5;
+-    let jitter_z = streams::JITTER_Z.rng(cell_hash, &[]).inclusive_unit_f32() - 0.5;
+-    let render_centre = Vec2::new(
+-        (x as f32 + jitter_x * jitter_fraction) * cell_spacing,
+-        (z as f32 + jitter_z * jitter_fraction) * cell_spacing,
+-    );
+-    grass_patch_placement_with_spacing(terrain, ground, render_centre, cell_spacing).is_some()
+-}
+-
+ #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+ pub(in crate::presentation) enum GrassMeshLod {
+     Near,
+@@ -382,6 +324,7 @@ struct GrassBlade {
+     species: GrassSpecies,
+ }
+ 
++/// Tuft-local metre geometry retained only until native mesh-quad emission.
+ #[derive(Clone, Copy)]
+ struct GrassInflorescence {
+     root: Vec3,
+@@ -831,7 +774,7 @@ fn append_crossed_spikelet(
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+-    use adventuresim_tactical_core::prelude::GroundSurface;
++    use adventuresim_tactical_core::{prelude::GroundSurface, scene_coordinates::ScenePlanPoint};
+     use bevy::{
+         pbr::Material,
+         prelude::{AlphaMode, default},
+@@ -880,7 +823,7 @@ mod tests {
+ 
+     #[test]
+     fn coherent_sward_selector_honors_habitat_profiles_deterministically() {
+-        let point = Vec2::new(17.0, -9.0);
++        let point = ScenePlanPoint::from_metres(Vec2::new(17.0, -9.0)).unwrap();
+         let mesic = GrassCommunityProfile {
+             weights: [1.0, 0.0, 0.0],
+         };
+@@ -943,6 +886,7 @@ mod tests {
+             Vec2::new(24.01, -17.0),
+             Vec2::new(71.5, 54.25),
+         ] {
++            let point = ScenePlanPoint::from_metres(point).unwrap();
+             let near = grass_community_at(point, seed, profile);
+             let far = grass_community_at(point, seed, profile);
+             let vista = grass_community_at(point, seed, profile);

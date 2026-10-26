@@ -1,0 +1,65 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-355",
+  "at": "2026-10-25T23:34:18.369846+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 68,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "sha256": "170846de4c534120087f3f12c2fd365b8f2103c97d270ff28d71bee179d6e147",
+      "personally_read_ranges": [
+        [
+          1,
+          391
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full391line P16 scheduling source read. Initial per-ID sorted delay/jitter schedule validates both spans before each actor mutation. Engagement observation binds actor/target/distance, and schedule commit publishes timing optional trio/recovery/adaptation plus recorded same trace only after checked readiness/interval/jitter calculations.",
+        "Existing pending attack returns target from current assignment in scheduling path, while collector prefers stored engagement target if found; multiopponent/reassignment stability remains a real receiving obligation. Scheduled currentness compares start/contact pair, not independently stored target/measure/recovery.",
+        "Concrete surprise receiver repeats existing same-lens NATIVE-INITIAL05-F065: take_side_turns schedules+resolves but never clears start/contact/measure, unlike joint_melee normal receiver. Parent resolve_battle surprise path then first round can collect same current occurrence. Conditional on opener schedule/continuation without cancellation; no executed seed, unconditional second hit or whole P16 bug repair claim. Exact P16 support and differing PR original evidence kept distinct.",
+        "Whole record/body read without execution. Existing attack-ID collision ROOT-INITIAL04-F027 also retained. No added finding or acceptance."
+      ]
+    },
+    {
+      "scope_index": 69,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/model.rs",
+      "sha256": "b1b76643680707125e6bd040b60703127a2ed09cc460e226b2c4f08c90724ffe",
+      "personally_read_ranges": [
+        [
+          1,
+          364
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full364line P16 model source read. CombatBody fixed seven-region order maps through one body_part_index; damage delegates clamped limb update. Public skill/equipment/weapon/armor scalar aggregate fields admit invalid cross-field states unless owning producer validates.",
+        "for_melee/for_ranged clone same equipment and replace active weapon and matching holding side together; optional IDs/projectile/shield flags and independently mutable weapon copies remain separate correlation responsibilities. PlayerEquipment delegates active weapon traits with explicit unarmed/default projection and one armor record per body region.",
+        "Armor surface selection uses coverage_geometry contains(sample), not scalar coverage, while power uses scalar coverage; actual admitted catalog projection must keep both meanings aligned. physical_skill_condition deliberately1 because fatigue/burden accounted in total incapacitation. No source execution or blanket arbitrary snapshot clearance."
+      ]
+    },
+    {
+      "scope_index": 70,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/power.rs",
+      "sha256": "7469ca1e1a2a0c7bfa49292adac667ebbf5323f3dfd5f0e39e368e18f118d2a7",
+      "personally_read_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full168line P16 combat power source read. Same combatant/equipment snapshot drives weapon-mode skill/output, armor, health, ranged/ammunition availability and total-incapacitation readiness. Log components map NaN/nonpositive to0, positive Inf to f32MAX before f64 logarithmic weighting; final result clamps/rounds to u64.",
+        "This is explicitly a conservative decision aid, not outcome oracle. It uses scalar armor coverage/one per-region protection and ignores geometry-specific gaps; actual policy calibration and equality with tactical likelihood are not established. Finite leaves can overflow intermediate f32 weapon/armor sums then saturate positive component, so no numeric input-admission proof from finite output.",
+        "Safety-margin helper is separately checked in parent battle source; no metadata-only power/oracle finding or runtime tests."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "existing_finding_support": [
+    "ROOT-INITIAL04-F027",
+    "NATIVE-INITIAL05-F065"
+  ],
+  "deduplication": "1002 frozen finding metadata searched for take_side_turns or surprise plus schedule/duplicate/twice; one exact original05 finding matched."
+}

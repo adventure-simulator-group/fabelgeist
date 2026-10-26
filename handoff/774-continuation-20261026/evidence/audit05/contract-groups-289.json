@@ -1,0 +1,81 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-289",
+  "at": "2026-10-25T22:41:36.165795+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2514,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/doors.rs",
+      "sha256": "8630bc42b038441854accd960c9a849477567598d424f8c4e01a259414666f0e",
+      "personally_read_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full P16 door observer 61 lines. Add SceneDoor derives cached cuboid dimensions and seeded building timber material, outline target same entity. Non-city-gate openings receive LOD0 plus capability identity pair; gates intentionally bypass this building closure layer. Observer runs on Add, so post-add descriptor mutation would leave old geometry unless owner forbids it; no ordinary descriptor rewrite witness. No source execution."
+      ]
+    },
+    {
+      "scope_index": 2515,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/interior_lighting/shutters.rs",
+      "sha256": "7407591681d7c7627ec87f5d627b59ca7972544e2096d7f7ea0104ebb8204ad4",
+      "personally_read_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full P16 aperture lighting 115 lines including fixture. Open aperture is joined by building and opening identity, missing aperture becomes closed, first match wins. Changed openness rebuilds samples from base plus per-shutter indexed contribution and preserves positive w. Openness derives from normalized transformed X tangent versus descriptor tangent. Multiple glass/shutter leaves for one opening can supply duplicate IDs and first-match semantics; whether glass leaf is operable/light-relevant requires generation/field ownership trace, not an accepted defect. Raw NaN and contribution-index validity require constructor invariants; actual finite canonical source not universally proved. Fixture read, not run."
+      ]
+    },
+    {
+      "scope_index": 2516,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/recipe_mesh.rs",
+      "sha256": "31c7b18fa239684452edb0b7b11e6727f19a146a3588f239231c59c0501daa52",
+      "personally_read_ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full P16 geometry conversion 87 lines. Position/normal/UV arrays all derive from same LodMesh vertex sequence and indices copied; local-origin subtraction only positions. Material selects tangent generation for listed normal-mapped surfaces. metric_cuboid uses generated cuboid positions/normals to project metric UVs. Malformed mesh indices, zero/invalid dimensions and degenerate UV input can reach expect, but actual validated recipe/source contract is separate; no ordinary malformed producer established."
+      ]
+    },
+    {
+      "scope_index": 2517,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/windows.rs",
+      "sha256": "2d77a52e25f3ddce4d5ddba62a3d79b48c9479e298e4e1e89e3abbe4b25e157e",
+      "personally_read_ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full P16 window observer 77 lines. Compiled leaf batches select first primary material matching leaf and fail structuredly if absent; remaining non-primary materials spawn children with identity transforms and same building/opening visibility pair. Multiple primary batches would be filtered out after first, but actual compiler batching cardinality must be traced before defect. Child mesh material is selected from its own batch. Add-only descriptor lifecycle qualification retained."
+      ]
+    },
+    {
+      "scope_index": 2518,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/strategic_scene/instances.rs",
+      "sha256": "66149a921888d0c9cf3f530e5c3d909dc4950a182bbaefc83c15ff8f7adf792b",
+      "personally_read_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full P16 strategic physical instancing 95 lines. Generated building transform/datum and compiled door/window poses supply paired IDs, dimensions, centres and directions; each leaf transform is derived from its pose. Prepared plan/collision and SceneBuilding inserted together after child descriptors to avoid regeneration. Building/leaf entities parent root, establishment found by building ID. Deferred spawn then fallible leaf compile can theoretically leave partial queued entities on error; actual validity/upstream caller error semantics needed. Props pair scene with pose/orientation from same furniture entry."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "5 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,86 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-228",
+  "at": "2026-10-25T21:54:55.911490+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2274,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "sha256": "e88c8b37e80959ef7b47ce22d914becb64f57221b2adf497036ebd98881eef95",
+      "personally_read_ranges": [
+        [
+          1,
+          303
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all303lines gpu/bind_group.rs. Reflectedgroupindexlookup isfallible, namedstoragebuffers/samplers require matchingvariant/resource, textures checkknownformat+dimension+view. Uniforms intentionallyzero-initializedbutmissing/unsupported/Unsigned omittedsilentlyandpayloadwidthignored: exact RIG-ADMISSION03-F058-SUPPLEMENT-001, no newfinding. Groupordervsreturnedvectorindex depends canonicalreflectionproducer/consumer; noactualsparsegroupmisbindestablished."
+      ]
+    },
+    {
+      "scope_index": 2275,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "personally_read_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all53lines buffer/extent.rs. Privatebespokebyteoffset/lengthseparateconcepts; checked_after usesu64checkedaddition, conversionsretain nativebytecounts and START0. These donotclaimdevicecapability/alignment or backingbufferprovenance. No newfinding."
+      ]
+    },
+    {
+      "scope_index": 2276,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+      "personally_read_ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all178lines buffer/mod.rs. from_upload derivesexactlength thenallocatescopydestination andwritesmatchingbytes; readderiveslogicaltypedextent before mapping. Publicnativebuffer/size/usageindependentmutation anduncheckedwrite route exact RIG-ADMISSION03-F065. Actualwrite_atcheckslogicalendonly; noordinarymutatedbufferproducerproved. Nativepollerrorsdiscardandmappingformatcause exact RIG-OWNER-F009. Scratchzero semantics still delegates BufferDefinition.allocate_native/backend, nofalseclaimthiswrapperclears."
+      ]
+    },
+    {
+      "scope_index": 2277,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "3e25d7e25d9d85032c723926167bf505637c2e31d7f05503b9e4d5f08bd12600",
+      "personally_read_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all89lines buffer/readback.rs including existingtestsource. PrivateReadback.new checkedu64\u2192usize, rejectsZST/partialelementbytecounts, allocatestypedcapacitybeforemappedview; copy_fromrequiresminimumbytes, copiesexactlogicalprefix thenunsafe set_len afterinitialization underAnyBitPattern. Sourcebytealignmentirrelevant tocopyintotypedallocation; trailingpaddingexcluded. Noexecutionornewfinding."
+      ]
+    },
+    {
+      "scope_index": 2278,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "fc1fbee2e072e88d28d41f4f7422b7d7eae85e5307406406722b378fdf4bbbc9",
+      "personally_read_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all58lines buffer/upload.rs. PrivateborrowedbytesfromNoUninitcast preserveexactrepresentationandlength; occupancyderivedfromsamebytes, emptywordexplicitlysuppliesstaticzero4bytebinding. Nativewrite_to projectssameoffset/bytepayloadonce. No size/admissioncertificate beyondsourcebytes, physicaltargetbounds remain2276/F065. No newfinding."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "5 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "dedup": [
+    "RIG-ADMISSION03-F058-SUPPLEMENT-001",
+    "RIG-ADMISSION03-F065",
+    "RIG-OWNER-F009"
+  ]
+}

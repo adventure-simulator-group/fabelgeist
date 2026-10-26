@@ -1,0 +1,158 @@
+//! Admitted posture timelines and root-facing handoff for downed contacts.
+
+use super::*;
+
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+pub struct PostureTransitionState {
+    pub(super) kind: PostureTransitionKind,
+    pub(super) start_tick: AnimationSampleTick,
+    pub(super) duration_ticks: AnimationSampleSpan,
+    #[serde(deserialize_with = "crate::animation::pose_coordinates::deserialize_progress")]
+    pub(super) phase: UnitInterval,
+    pub(super) dive_was_airborne: bool,
+    pub(super) dive_landing_tick: Option<AnimationSampleTick>,
+}
+
+struct DiveRecovery {
+    direction: DiveDirection,
+    progress: UnitInterval,
+}
+
+impl PostureTransitionState {
+    pub(super) fn new(
+        kind: PostureTransitionKind,
+        start_tick: AnimationSampleTick,
+        duration_ticks: AnimationSampleSpan,
+    ) -> Self {
+        Self {
+            kind,
+            start_tick,
+            duration_ticks: duration_ticks.max(AnimationSampleSpan::ONE),
+            phase: UnitInterval::ZERO,
+            dive_was_airborne: false,
+            dive_landing_tick: None,
+        }
+    }
+
+    pub(super) fn normalized(mut self) -> Self {
+        self.duration_ticks = self.duration_ticks.max(AnimationSampleSpan::ONE);
+        self
+    }
+
+    pub fn kind(self) -> PostureTransitionKind {
+        self.kind
+    }
+
+    pub fn phase(self) -> UnitInterval {
+        self.phase
+    }
+
+    /// Returns the dive recovery progress after terrain contact.
+    /// The first half of a dive is guard-to-airborne and remains fixed at its
+    /// airborne endpoint until impact; only the second half transfers the
+    /// directional pose into its canonical downed contact pose.
+    fn dive_recovery(self) -> AnimationValueResult<Option<DiveRecovery>> {
+        let PostureTransitionKind::DiveToDowned {
+            direction,
+            trajectory,
+        } = self.kind
+        else {
+            return Ok(None);
+        };
+        // The authored body first settles out of its tilted dive pose, then
+        // expresses the planar yaw of the downed contact. Starting root yaw at
+        // contact gets ahead of that anatomical turn and visibly twists the
+        // whole character before the supine pose catches up. Reserve the first
+        // part of recovery for settling, then transfer root yaw with zero
+        // endpoint velocity. The endpoint remains the complete canonical turn.
+        let root_handoff_start_fraction = crate::combat_config::runtime_animation_config()
+            .state_transitions
+            .dive_root_handoff_start_fraction;
+        let root_handoff_end_fraction = match trajectory {
+            // The shorter slide devotes a larger normalized share to the same
+            // fixed presentation settling time, so its handoff finishes with
+            // the transition. The longer airborne recovery can finish just
+            // before the terminal pose without outrunning the authored turn.
+            DiveTrajectory::GroundedSlide => 1.0,
+            DiveTrajectory::Airborne => 0.92,
+        };
+        let recovery = ((self.phase.fraction() - 0.5) * 2.0).clamp(0.0, 1.0);
+        let handoff = ((recovery - root_handoff_start_fraction)
+            / (root_handoff_end_fraction - root_handoff_start_fraction))
+            .clamp(0.0, 1.0);
+        Ok(Some(DiveRecovery {
+            direction,
+            progress: UnitInterval::from_fraction(smoothstep(handoff))?,
+        }))
+    }
+}
+
+/// Incremental root-yaw handoff for the directional downed contact pose.
+/// Applying this after each posture-transition advance keeps the character's
+/// world-space head-to-feet direction fixed from contact through the final
+/// downed pose.
+pub fn dive_landing_facing_delta(
+    previous: Option<PostureTransitionState>,
+    current: Option<PostureTransitionState>,
+) -> AnimationValueResult<Quat> {
+    let Some(previous) = previous else {
+        return Ok(Quat::IDENTITY);
+    };
+    let Some(DiveRecovery {
+        direction,
+        progress: previous_progress,
+    }) = previous.dive_recovery()?
+    else {
+        return Ok(Quat::IDENTITY);
+    };
+    let current_progress = match current {
+        Some(current) => current
+            .dive_recovery()?
+            .filter(|recovery| recovery.direction == direction)
+            .map_or(UnitInterval::ONE, |recovery| recovery.progress),
+        None => UnitInterval::ONE,
+    };
+    let total_yaw = match direction {
+        DiveDirection::Forward => 0.0,
+        // The authored backward-dive-to-supine blend contains the body's
+        // half-turn. Transfer the inverse half-turn to the gameplay root over
+        // the same contact-recovery interval so visible facing stays fixed
+        // while the root reaches the canonical supine orientation. This must
+        // not be omitted or applied as a single completion-tick correction.
+        DiveDirection::Backward => std::f32::consts::PI,
+        DiveDirection::Left => std::f32::consts::FRAC_PI_2,
+        DiveDirection::Right => -std::f32::consts::FRAC_PI_2,
+    };
+    Ok(Quat::from_rotation_y(
+        total_yaw * (current_progress.fraction() - previous_progress.fraction()).clamp(0.0, 1.0),
+    ))
+}
+
+/// Returns the incremental root counter-yaw for a supine get-up.
+///
+/// Supine contact poses use the head-facing orientation required by the
+/// continuous prone/supine roll coordinate. Interpolating that convention
+/// into canonical upright poses therefore contains an implicit positive-pi
+/// turn during the midpoint-to-upright half of the transition. Applying the
+/// equivalent negative root turn only during that same half cancels the turn
+/// in world space while leaving the root in the correct upright orientation at
+/// the endpoint. No other posture transition receives this correction.
+pub fn supine_get_up_counter_yaw_delta(
+    previous: Option<PostureTransitionState>,
+    current: Option<PostureTransitionState>,
+) -> Quat {
+    let Some(previous) =
+        previous.filter(|transition| transition.kind() == PostureTransitionKind::SupineToUpright)
+    else {
+        return Quat::IDENTITY;
+    };
+    let previous_progress = ((previous.phase().fraction() - 0.5) * 2.0).clamp(0.0, 1.0);
+    let current_progress = current
+        .filter(|transition| transition.kind() == PostureTransitionKind::SupineToUpright)
+        .map_or(1.0, |transition| {
+            ((transition.phase().fraction() - 0.5) * 2.0).clamp(0.0, 1.0)
+        });
+    Quat::from_rotation_y(
+        -std::f32::consts::PI * (current_progress - previous_progress).clamp(0.0, 1.0),
+    )
+}

@@ -1,0 +1,277 @@
+[
+  {
+    "path": "assets/art-demo/city-furniture.json",
+    "top_keys": [
+      "instances",
+      "groups"
+    ],
+    "change_counts": {
+      "float": 14381,
+      "int": 7259,
+      "list_length": 1,
+      "str": 1689
+    },
+    "bounded_examples": [
+      {
+        "path": "/groups/205/footprint/orientation",
+        "base": -0.14637768268585205,
+        "head": -0.14637769758701324
+      },
+      {
+        "path": "/groups/206/footprint/orientation",
+        "base": -0.14637768268585205,
+        "head": -0.14637769758701324
+      },
+      {
+        "path": "/groups/207/footprint/orientation",
+        "base": -0.14637768268585205,
+        "head": -0.14637769758701324
+      },
+      {
+        "path": "/groups/207/footprint/centre_metres/0",
+        "base": 63.64900207519531,
+        "head": 63.64900588989258
+      },
+      {
+        "path": "/groups/208/footprint/orientation",
+        "base": -0.14637768268585205,
+        "head": -0.14637769758701324
+      },
+      {
+        "path": "/groups/209/footprint/orientation",
+        "base": -0.14637768268585205,
+        "head": -0.14637769758701324
+      },
+      {
+        "path": "/groups/210/footprint/orientation",
+        "base": -0.14637768268585205,
+        "head": -0.14637769758701324
+      },
+      {
+        "path": "/groups/210/footprint/centre_metres/0",
+        "base": 45.170692443847656,
+        "head": 45.17069625854492
+      },
+      {
+        "path": "/groups/520/footprint/orientation",
+        "base": -0.14637786149978638,
+        "head": -0.14637787640094757
+      },
+      {
+        "path": "/groups/521/footprint/orientation",
+        "base": -0.14637786149978638,
+        "head": -0.14637787640094757
+      },
+      {
+        "path": "/groups/526/footprint/orientation",
+        "base": -0.14637786149978638,
+        "head": -0.14637787640094757
+      },
+      {
+        "path": "/groups/527/footprint/orientation",
+        "base": -0.14637786149978638,
+        "head": -0.14637787640094757
+      }
+    ]
+  },
+  {
+    "path": "assets/art-demo/city-layout.json",
+    "top_keys": [
+      "resident_population",
+      "schema_version",
+      "generation_version",
+      "grounding",
+      "establishments",
+      "buildings",
+      "streets",
+      "yards",
+      "parishes",
+      "compounds",
+      "gardens"
+    ],
+    "change_counts": {
+      "float": 15599,
+      "int": 48,
+      "list_length": 4
+    },
+    "bounded_examples": [
+      {
+        "path": "/buildings/82/orientation",
+        "base": -0.14637768268585205,
+        "head": -0.14637769758701324
+      },
+      {
+        "path": "/buildings/83/orientation",
+        "base": -0.14637768268585205,
+        "head": -0.14637769758701324
+      },
+      {
+        "path": "/buildings/84/orientation",
+        "base": -0.14637768268585205,
+        "head": -0.14637769758701324
+      },
+      {
+        "path": "/buildings/266/orientation",
+        "base": -0.14637786149978638,
+        "head": -0.14637787640094757
+      },
+      {
+        "path": "/buildings/268/orientation",
+        "base": -0.14637786149978638,
+        "head": -0.14637787640094757
+      },
+      {
+        "path": "/buildings/271/orientation",
+        "base": -0.14637786149978638,
+        "head": -0.14637787640094757
+      },
+      {
+        "path": "/buildings/274/orientation",
+        "base": -0.14637786149978638,
+        "head": -0.14637787640094757
+      },
+      {
+        "path": "/buildings/276/orientation",
+        "base": -0.14637786149978638,
+        "head": -0.14637787640094757
+      },
+      {
+        "path": "/buildings/277/orientation",
+        "base": -0.14637786149978638,
+        "head": -0.14637787640094757
+      },
+      {
+        "path": "/buildings/301/orientation",
+        "base": -0.14626778662204742,
+        "head": -0.14626777172088623
+      },
+      {
+        "path": "/buildings/322/orientation",
+        "base": -0.11448400467634201,
+        "head": -0.11448401212692261
+      },
+      {
+        "path": "/buildings/384/orientation",
+        "base": -0.1973956823348999,
+        "head": -0.1973956674337387
+      }
+    ]
+  },
+  {
+    "path": "assets/tactical-scenes/flower-woodland-edge.json",
+    "top_keys": [
+      "schema_version",
+      "generation_version",
+      "seed",
+      "scene_key",
+      "source",
+      "latitude_microdegrees",
+      "longitude_microdegrees",
+      "absolute_minute",
+      "lunar_phase_minute",
+      "absolute_elevation_metres",
+      "playable",
+      "landform",
+      "streets",
+      "yards",
+      "parishes",
+      "compounds",
+      "gardens",
+      "buildings",
+      "distant_buildings",
+      "establishments",
+      "grounding",
+      "properties",
+      "vista",
+      "weather"
+    ],
+    "change_counts": {
+      "int": 1
+    },
+    "bounded_examples": [
+      {
+        "path": "/seed/word",
+        "base": 47104,
+        "head": 47105
+      }
+    ]
+  },
+  {
+    "path": "content/tactical/garden-hazel-envelope.json",
+    "top_keys": [
+      "geometry_revision",
+      "seed",
+      "hull_metres",
+      "min_height_metres",
+      "max_height_metres",
+      "vertex_count"
+    ],
+    "change_counts": {
+      "list_length": 1,
+      "float": 36,
+      "int": 2
+    },
+    "bounded_examples": [
+      {
+        "path": "/hull_metres/length",
+        "base": 17,
+        "head": 18
+      },
+      {
+        "path": "/hull_metres/0/0",
+        "base": -1.458152174949646,
+        "head": -1.5567619800567627
+      },
+      {
+        "path": "/hull_metres/0/1",
+        "base": -0.7457479238510132,
+        "head": 0.4000988006591797
+      },
+      {
+        "path": "/hull_metres/1/0",
+        "base": -1.3438066244125366,
+        "head": -1.5055309534072876
+      },
+      {
+        "path": "/hull_metres/1/1",
+        "base": -0.9110548496246338,
+        "head": -0.7324293851852417
+      },
+      {
+        "path": "/hull_metres/2/0",
+        "base": -0.41382333636283875,
+        "head": -1.3926202058792114
+      },
+      {
+        "path": "/hull_metres/2/1",
+        "base": -1.5872598886489868,
+        "head": -0.8665481805801392
+      },
+      {
+        "path": "/hull_metres/3/0",
+        "base": 0.9538241624832153,
+        "head": -0.5732451677322388
+      },
+      {
+        "path": "/hull_metres/3/1",
+        "base": -1.5809452533721924,
+        "head": -1.8238568305969238
+      },
+      {
+        "path": "/hull_metres/4/0",
+        "base": 1.065253496170044,
+        "head": -0.5424890518188477
+      },
+      {
+        "path": "/hull_metres/4/1",
+        "base": -1.4761706590652466,
+        "head": -1.8498204946517944
+      },
+      {
+        "path": "/hull_metres/5/0",
+        "base": 1.1764148473739624,
+        "head": -0.3908020555973053
+      }
+    ]
+  }
+]

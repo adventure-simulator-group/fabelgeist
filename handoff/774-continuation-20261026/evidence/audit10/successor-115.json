@@ -1,0 +1,83 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-115",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1817,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs",
+      "sha256": "35462629537232e291556fb180d6092e157ed718cf492f6a448d1c1c142cf0cb",
+      "ranges": [
+        [
+          1,
+          242
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh exact registered242line GroundTriangle/geometry role, Scope072 RIG-OWNER-SUPPORT-BOUNDARY-KERNELS-0631-242. GroundTriangle derives Clone/Debug. No handwritten trait or codec. new validates finite points/determinant roundoff, canonicalizes winding/order and admits typed positions. compare is an explicit geometric total-order function over x/z/y; remaining functions perform affine lifting, representation-aware containment, clipping/subtraction and area/height splitting.",
+      "disposition": "No derivability candidate. A derived trait would not replace checked canonical construction or geometric comparison semantics; no new Ord/serialization surface should be introduced merely to replace a function. Numeric/invariant correctness remains separate.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1818,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/replacement.rs",
+      "sha256": "b75aba1e567b755f62e7882e2ad69001c5ad5fc8923d0b9a8430a4ffcebf0f32",
+      "ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh exact registered152line unchanged bounded-property replacement role, Scope072 RIG-OWNER-SUPPORT-BOUNDARY-KERNELS-0631-152. BoundedPropertyTerrain already derives Clone/Debug/PartialEq/Serialize. No manual traits/codecs. compile constructs foundation/source clipping state through admitted geometry and contextual failures; elevations/colliders and source_clipping_outlines compute native geometry and bind the declared apron to its owner.",
+      "disposition": "No derivability candidate within registered body. Existing selected representation traits derive; semantic clipping, source selection, collider topology and ownership-specific welding must remain explicit. No implicit source coverage for child tests.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1819,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement.rs",
+      "sha256": "73463b02d4801103755fe0b5ed7fe7251892415ba3b7352dcce9b9634b454e8f",
+      "ranges": [
+        [
+          1,
+          420
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh exact registered420line settlement owner body read1-220/221-420; Scope072 RIG-OWNER-SUPPORT-MESH-APRON-0641-420. Existing serde/basic/Reflect/error derives cover chosen contracts. SettlementWire TryFrom initializes an empty lazy prepared cache then validates source geometry plus encoded query. Manual PartialEq intentionally compares foundations, natural geometry, contact tolerance and query while excluding Arc<OnceLock<PreparedSupportTriangles>> population. Actual frozen crate manifest1749 has derive_more2.1.1 only as_ref/debug/display/from/into plus thiserror/serde/strum; no selective equality derive is available in that owning crate. Standard PartialEq derive would compare the omitted cache and impose different bounds/semantics.",
+      "disposition": "Retain selective manual PartialEq and checked SettlementWire adapter. Equality deliberately ignores nonauthoritative cache; direct derive is not equivalent. Runtime constructor/ownership validation, collider/presentation/query computation and overlap cause selection are semantic rather than mechanical trait delegation. No new derivability finding or query/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1820,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/query.rs",
+      "sha256": "df8bdf7862fa0f4e105fc553679c0bc6c4555bf21001b8d1ae52c3f9f166fba7",
+      "ranges": [
+        [
+          1,
+          322
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh exact registered322line query index role read1-180/181-322; Scope072 RIG-OWNER-SUPPORT-MESH-APRON-064 and producer RIG-PPS-0171-322. SupportTriangleRef, QueryChildren, QueryNode and SupportQueryIndex already derive selected basic/ordering/serde/Reflect traits. No handwritten traits/codecs in this body. Explicit index validation resolves canonical references, cycles/coverage and bounds; compilation partitions triangle bounds; candidates use prepared cache, owner/contact rules and iterative traversal. Separate transport module declared but not credited by this role.",
+      "disposition": "No derivability candidate in registered body. Reference classification, topology validation, partitioning and ownership-sensitive candidate selection are semantic operations. Existing mechanical derives already cover selected representation traits; child transport/prepared/tests remain their own scoped roles.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

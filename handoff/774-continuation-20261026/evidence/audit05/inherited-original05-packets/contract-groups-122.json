@@ -1,0 +1,164 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-122",
+  "at": "2026-10-23T02:59:11.410927+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/furniture.rs",
+      "sha256": "f3ec5409fb24d23dcf6c786fe44145ef7a58ece8c335ab6eefaa665eb6b48a7b",
+      "scope051_index": 2054,
+      "actual_EOF": 60,
+      "scoped_ranges_compared": [
+        [
+          1,
+          60
+        ]
+      ],
+      "actual05_comparison": "Fresh full60. Furniture instance key→collider computed as tuple expression beforeinsert, so failure queues no partialtuple for that instance; no acceptedcolliderfromReplicatedmarker alone. Layoutspawn publishes distant scenery/group records plusindividual instance transform fromsameposition/orientation, eachOnAdd collider mayfall independently later. GroupOnAdd updatesVista bystableID replace/sort; VistaFurnitureOnAdd replacesdistantvector, intentionalderivedpresentationauthority with no collider/replication. Added-onlysync doesnotpromisehot mutation coherence orremovehandling; no actualnormalpostaddeditshown. Existing native dump restore rebuildsactualcollider viaregisteredobserver, rawSceneFurniture key/factory validity remainslowercallee. No wholelayoutatomicityfromvoidspawn.",
+      "source_body_proof": "Fresh full scoped actual source; originalfixtures source-only, notexecuted."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/openings.rs",
+      "sha256": "e2b631050589329c5b243b414c9ad77d1d394827829ee277f288072d2c460314",
+      "scope051_index": 2066,
+      "actual_EOF": 99,
+      "scoped_ranges_compared": [
+        [
+          1,
+          99
+        ]
+      ],
+      "actual05_comparison": "Fresh full99. onSceneBuildingAdded regeneratesplan fromcurrentSceneBuilding.program andcollision fromthatplan beforeopenings; then doors/windows createdbefore compile_tactical_building_collider expression inserted. ParentF025 GeneratedBuildingRecipe rawcache/program mismatch nowhasactualrecipientthatregeneratesfromprogram, notproofcachedcollisionmatches. Normalrecipefactory coherent bypreviousexactproof, no runtimebaddescriptorclaimed. spawn_generated_buildings convertsonebuildingtransformbeforeCommands butpublishesearlierbuildingsbeforelatertransformResult; no wholeVecpreflight. Door/windows shareexactplan/collision/buildingtransform/datum reference, preservingoneframe. OptionalSceneEstablishment matchedbuildingID distinctfromgeometryauthority; no firstmatchingrawduplicate recordguarantee. Nativeobserver/deferrederrorsemantics separate, no guaranteedpartialinstalledscene/runtimeassertion.",
+      "source_body_proof": "Fresh full scoped actual source; originalfixtures source-only, notexecuted."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/scene_obstacles.rs",
+      "sha256": "8d76b7aadada8bae53e9f27cbbb6eca7e0beffb9b25519a98b10edc521476042",
+      "scope051_index": 2072,
+      "actual_EOF": 89,
+      "scoped_ranges_compared": [
+        [
+          1,
+          89
+        ]
+      ],
+      "actual05_comparison": "Fresh full89. PrivateAdmittedObstacle sumdraws Tree fixedcylinderheightoffset orRock recipecolliderradius once, samechoice computescentre/shape/yaw. Serializedgridordinal→scene metre preservesmultiply-then-subtract order, finiteScenePlanPoint andrequiredheightchecked, fullPosition checkedafterheightoffset. YawSeed high24bits divides2^24−1 thenTAU, finiteinclusiveangle intentional0/TAU equivalent. collect<Result<Vec>> admitsENTIREobstaclebatch beforeanyCommands, so actualnewGeometry/Supportfailurecannotpublishprefix. Primitiveobstaclespacing mayrawnonfinitebutpointgate rejectsbeforeSelf; no unsupportedterrainwindow fallback. Recipecollisionradius/treeconstants nativevalidation policies exactlowerroles, notinferredfromnames.",
+      "source_body_proof": "Fresh full scoped actual source; originalfixtures source-only, notexecuted."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/terrain_collision.rs",
+      "sha256": "faee49ad384b0820c1a89f3956a9a356ba1df53ce2f8bcc29047e8c99c2c3ce5",
+      "scope051_index": 2077,
+      "actual_EOF": 75,
+      "scoped_ranges_compared": [
+        [
+          1,
+          75
+        ]
+      ],
+      "actual05_comparison": "Fresh full75. Prepared SceneTerrainPatch takesprecedenceoverrecipe, elsebuildlandformpatch orplainterrain; eachcolliderVecResult completesbeforeobserverinsertsreplication/removespreparedpatch/spawnschildren. spawn_scene installsground/environment/optionalrecipe/preparedpatch BEFORE insertingSceneTerrain totriggerobserver, ensuringactualsameentitydependenciesavailable. Laterremovespreparedcacheaftercollision materialization, immutableproductnormalroute. Independentnativecolliderbodies derivedsamecolliderlist/identitytransform; parentTransformdatummustmatchnormalidentity, no arbitraryrawpatch/terrain/sourcebindingvaliditytoken. Rawdumpdecodecanprovidecorrelatedterrain/recipe/preparedproducts, exactcanonicalhelpersseparate; SceneGround03rawdecodegap notautomaticnew05finding here. NoTerrainPatchcompletecalleecreditfromfunctionname.",
+      "source_body_proof": "Fresh full scoped actual source; originalfixtures source-only, notexecuted."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/windows.rs",
+      "sha256": "1558b154ebeb2ec83990f857600744dc6086859d467f5cfbaa974c04e6f3859d",
+      "scope051_index": 2078,
+      "actual_EOF": 294,
+      "scoped_ranges_compared": [
+        [
+          1,
+          294
+        ]
+      ],
+      "actual05_comparison": "Fresh full294 includingoriginalinside/outside androtatedbarredwindow fixtures sourceonly. WindowController privateclosedhinge/rotation/targetangle/currentangle/openflag producedfromsingleSceneWindowPose withsameleafdimensions/IDs/tangent/outward. Closedreferencepose andcurrentkinematicTransform intentionallydifferentstates, notduplicatedliveauthority. Grabqueriesactualactor+window andinsidegeometricpredicate beforeonlyopenbooltoggle. Animate derivesrotation/translationfromoneangle+closedreference+hinge/halfwidth, noindependenthingemotorstate. spawn_building_windows admitsdatum+compileVecbeforeloopbutdatum.window conversion occursperleaf immediatelybeforeeachspawn: invalidlaterposecanreturnErr afterearliercommands, no guaranteeofwholebatchatomicity. No actualbadnormalgeneratedwindow orinstalledpartialscene/runclaimed. Privatecontroller notSerde/Reflect, rawSceneWindow editing canbroadenpaircoherence butnoactualnormalpostfactorymutation shown. Typedshape/datumadmission lowerhelpersdistinct actualroles.",
+      "source_body_proof": "Fresh full scoped actual source; originalfixtures source-only, notexecuted."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/doors.rs",
+      "sha256": "676d9b173c594a21fd92761c7737e160d1c19c5c17a5efd8cadd784c51cb6c33",
+      "scope051_index": 2046,
+      "actual_EOF": 672,
+      "scoped_ranges_compared": [
+        [
+          1,
+          672
+        ]
+      ],
+      "actual05_comparison": "Fresh full672 includingallinlineoriginalphysics/passage fixtures readnotrun. DoorController privatejoint+closeddoorwayframe+halfwidth+openangle; one SceneDoorPose derivesSceneDoor, dynamicbody, nativejointanchors/limits andcontroller beforeterminalOk. Checked doorwaycentre computedbeforefirstCommands foroneleaf; allposes convertedcollect beforedoorloop, butspawn_door hasownfalliblecentre computationperleaf, so allposeadmissionnotentireleafbatchpreflight. No actualnormalpartialspawnclaimed. Insidegrab updatesbothcanonicalDoorPassageExemptions andnativecollisionfilter, motor target intentionallydeferredtosinglefixedsystem. updatepassages makesretain/revoke fromactualsigneddepth/lateralbounds andcurrentexemption, synchronizesbothfilter+set thenORretainedactors toonehingemotor. Proximityalonecannotgrant; existingfixtureexplicitlyremovesnativefilterentrythenretainrepairs. Noexemptionnotmanuallyaddedtofilter isvalidpendinggrantsroute; rawnativefilterstate notsameauthority. SceneDoorgeometry andcontrollerframe initiallycoherentfactory; nomandatoryrawreflectionjoinpromise beyondprivatecontroller. Sharedgeometry maybecomposed toavoidcopylaterownershiplens, nonew05defectmerelyduplication. Weakclosing/strongopeningtorque,layers avoidframecollision, signedopenangles produceorderednativejointlimits. Diagnosticsobservehingedriftwithoutclampinggameplay. Nativephysicsproperties/Jointsandactualspatial can_grab helperbodyremainseparatesources.",
+      "source_body_proof": "Fresh full scoped actual source; originalfixtures source-only, notexecuted."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/doors/gate_tests.rs",
+      "sha256": "b2f9e246b2d68e862f6c8fea96ceccacb559e6fa33edf26af6224836fdc57d4c",
+      "scope051_index": 2047,
+      "actual_EOF": 100,
+      "scoped_ranges_compared": [
+        [
+          1,
+          100
+        ]
+      ],
+      "actual05_comparison": "Fresh full100 existingpropertygatefixture only, noexecution/newcases. Usesactualcompound-reviewinputgenerate boundaries, GateDatum→sameleafdoor, nativeboundaryobserver, actualhingecollider checksclosedrayhit/openraymiss andpassagegrant→motortarget. Sourcefixtureexplicitlytiesdoor IDs/hinge/collision/passagemovementforactualcase, notgeneralrawdescriptor-cellproof. NativeBoundaryphysicalbinding F027 decodecounter remainsseparate; no generatedpropertygatecurrentbadcaseinferred.",
+      "source_body_proof": "Fresh full scoped actual source; originalfixtures source-only, notexecuted."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/doors.rs",
+      "sha256": "676d9b173c594a21fd92761c7737e160d1c19c5c17a5efd8cadd784c51cb6c33",
+      "scope051_index": 2529,
+      "actual_EOF": 672,
+      "scoped_ranges_compared": [
+        [
+          1,
+          672
+        ]
+      ],
+      "actual05_comparison": "CompleteactualP16/PRdiffemptythenpersonalcurrentP16aggregateconstruction/mutation/recipientcomparison. Fresh full672 includingallinlineoriginalphysics/passage fixtures readnotrun. DoorController privatejoint+closeddoorwayframe+halfwidth+openangle; one SceneDoorPose derivesSceneDoor, dynamicbody, nativejointanchors/limits andcontroller beforeterminalOk. Checked doorwaycentre computedbeforefirstCommands foroneleaf; allposes convertedcollect beforedoorloop, butspawn_door hasownfalliblecentre computationperleaf, so allposeadmissionnotentireleafbatchpreflight. No actualnormalpartialspawnclaimed. Insidegrab updatesbothcanonicalDoorPassageExemptions andnativecollisionfilter, motor target intentionallydeferredtosinglefixedsystem. updatepassages makesretain/revoke fromactualsigneddepth/lateralbounds andcurrentexemption, synchronizesbothfilter+set thenORretainedactors toonehingemotor. Proximityalonecannotgrant; existingfixtureexplicitlyremovesnativefilterentrythenretainrepairs. Noexemptionnotmanuallyaddedtofilter isvalidpendinggrantsroute; rawnativefilterstate notsameauthority. SceneDoorgeometry andcontrollerframe initiallycoherentfactory; nomandatoryrawreflectionjoinpromise beyondprivatecontroller. Sharedgeometry maybecomposed toavoidcopylaterownershiplens, nonew05defectmerelyduplication. Weakclosing/strongopeningtorque,layers avoidframecollision, signedopenangles produceorderednativejointlimits. Diagnosticsobservehingedriftwithoutclampinggameplay. Nativephysicsproperties/Jointsandactualspatial can_grab helperbodyremainseparatesources. P16source-specificSceneDoor/Window/datum/typedgeometrydependenciesnotclearedbyPRname; exactsamebodyobserved andsameoperationmeaningapplies, no foreignwholepackagewaiver.",
+      "source_body_proof": "Complete actual counterpart diff againstfresh fullPRbodyandexplicitsemanticcomparison."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/windows.rs",
+      "sha256": "1558b154ebeb2ec83990f857600744dc6086859d467f5cfbaa974c04e6f3859d",
+      "scope051_index": 2530,
+      "actual_EOF": 294,
+      "scoped_ranges_compared": [
+        [
+          1,
+          294
+        ]
+      ],
+      "actual05_comparison": "CompleteactualP16/PRdiffemptythenpersonalcurrentP16aggregateconstruction/mutation/recipientcomparison. Fresh full294 includingoriginalinside/outside androtatedbarredwindow fixtures sourceonly. WindowController privateclosedhinge/rotation/targetangle/currentangle/openflag producedfromsingleSceneWindowPose withsameleafdimensions/IDs/tangent/outward. Closedreferencepose andcurrentkinematicTransform intentionallydifferentstates, notduplicatedliveauthority. Grabqueriesactualactor+window andinsidegeometricpredicate beforeonlyopenbooltoggle. Animate derivesrotation/translationfromoneangle+closedreference+hinge/halfwidth, noindependenthingemotorstate. spawn_building_windows admitsdatum+compileVecbeforeloopbutdatum.window conversion occursperleaf immediatelybeforeeachspawn: invalidlaterposecanreturnErr afterearliercommands, no guaranteeofwholebatchatomicity. No actualbadnormalgeneratedwindow orinstalledpartialscene/runclaimed. Privatecontroller notSerde/Reflect, rawSceneWindow editing canbroadenpaircoherence butnoactualnormalpostfactorymutation shown. Typedshape/datumadmission lowerhelpersdistinct actualroles. P16source-specificSceneDoor/Window/datum/typedgeometrydependenciesnotclearedbyPRname; exactsamebodyobserved andsameoperationmeaningapplies, no foreignwholepackagewaiver.",
+      "source_body_proof": "Complete actual counterpart diff againstfresh fullPRbodyandexplicitsemanticcomparison."
+    }
+  ],
+  "comparison_groups": {
+    "batch-admission-boundaries": "ObstaclewholeVec admittedbeforecommands; doorposeconversionwholeVec butleafspawncanfall; windowsperleafconvert/publish, openingcontrollercallerkeepslimits.",
+    "one-door-passage-authority": "Grant/revokecanonicalset synchronizesnativecollisionfilter andmotorcomputedfromactualretainedactors; proximitynotgrant.",
+    "reference-versus-current-pose": "Closedhinge/referenceframe andactualphysics/kinematicpose distinctobserverroles, normalfactoryfromsameadmittedpose.",
+    "derived-scene-presentation": "FurnitureVista/collider andterrainpatch materialization lifecycle actualAddedroute, no arbitraryhoteditguarantee."
+  },
+  "new_unique_findings": [],
+  "support_findings": [
+    "NATIVE-INITIAL05-F025",
+    "NATIVE-INITIAL05-F027"
+  ],
+  "scope051_existing_role_reconciliation": {
+    "registrations": [
+      "NATIVE-INITIAL05-REG030",
+      "NATIVE-INITIAL05-REG031",
+      "NATIVE-INITIAL05-REG032"
+    ],
+    "prior_actual_proof": "contract-groups-120.json",
+    "qualified_ranges": [
+      "procedural61–66",
+      "playback26–48",
+      "ragdoll61–80"
+    ],
+    "mandatory_qualification": "Root176: blankragdoll60excluded; playbackhasnoDefault; prioractualcontractcomparisonsalreadyexact. Globalmembershipmetadataonly, no broadsemanticcarry."
+  },
+  "remaining_dependency_obligations": [
+    "Exact nativephysicsdeferredpublication/observererrorhandling notinvestigatedbythispacket; noactualnormalpartialsceneorrollbackdefect asserted. Newlyglobalmesh2816/2817 stillunread05."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

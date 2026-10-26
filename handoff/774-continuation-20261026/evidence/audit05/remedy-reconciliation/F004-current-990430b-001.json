@@ -1,0 +1,78 @@
+{
+  "at": "2026-10-26T04:39:33.123702+00:00",
+  "finding_id": "ADLER-RESUMED05-F004",
+  "phase": "Read-only global remedy/current-canonical reconciliation",
+  "finding_authority": {
+    "path": "target\\recovery-20261025\\audit05\\findings.jsonl",
+    "record_id": "ADLER-RESUMED05-F004",
+    "frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "source_sha256": "b0eda40872d0165cc3a1524083dc60e23ec7a9ee0e88d7bd88fa26e7f3a4ed6f",
+    "ranges": [
+      [
+        83,
+        101
+      ],
+      [
+        422,
+        432
+      ],
+      [
+        463,
+        494
+      ],
+      [
+        595,
+        603
+      ]
+    ]
+  },
+  "current_canonical": {
+    "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "source_id": "pr-working:crates/fabelgeist-fs/src/lib.rs",
+    "sha256": "b0eda40872d0165cc3a1524083dc60e23ec7a9ee0e88d7bd88fa26e7f3a4ed6f",
+    "entire_blob_exact_equal_to_frozen": true,
+    "personally_read_ranges": [
+      [
+        83,
+        101
+      ],
+      [
+        422,
+        432
+      ],
+      [
+        463,
+        494
+      ],
+      [
+        595,
+        603
+      ]
+    ]
+  },
+  "disposition": "CURRENT_UNREPAIRED_QUALIFIED",
+  "source_relationship": "Native absolute POSIX /some/project becomes file:///some/project; persist strips file:/// into relative some/project; restore interprets PathBuf at process working directory and can return None or wrong existing relative directory. Same producer/persist/restore owner remains byte-identical.",
+  "dedup": {
+    "inventory": "target\\recovery-20261025\\audit05\\inherited\\adler-finding-records.json",
+    "inventory_sha256": "473fc7ce6d08f96419a86d239410cf94fa1ba9b8cf8c93ef45ba2d7b44d6942d",
+    "records": 1002,
+    "navigation": "F004-inventory-navigation-001.json",
+    "candidate_ids": [
+      "RIG-OWNER-F009"
+    ],
+    "assessment": "RIG-OWNER-F009 includes filesystem lower error-cause/cache ownership at other ranges, not absolute path identity across saved-root serialization. Full candidate metadata read; may share source editing scope but not same failing state contract.",
+    "global_uniqueness": "Not established by limited inventory search; final connected remedy grouping remains pending."
+  },
+  "retained_existing_remedy_identity": "Persisting and restoring a project root must retain the same native directory identity, including whether its path is absolute.",
+  "qualifications": [
+    "No filesystem read/write/picker invocation or observed project/user data loss.",
+    "Windows drive-letter path is not alleged affected; no legal/security confinement conclusion.",
+    "No materially reached unregistered source body, no current CI/frozen inventory credit or repair design here."
+  ],
+  "project_checks": false,
+  "source_or_git_mutations": false,
+  "new_issue": false,
+  "new_unique_count": 0,
+  "accepted_own_findings_unchanged": 10,
+  "global_clearance": false
+}

@@ -1,0 +1,14 @@
+{
+ "id":"OWN10-DERIVE-CANDIDATE-014",
+ "classification":"Qualified checked-deserialization boilerplate suggestion; current admission correct; global remedy dedup pending",
+ "revision":"6533e444fa37552927070cc8d8190907fd3b413e",
+ "scope_index":2370,
+ "path":"crates/strategic-web/src/routes/mod.rs",
+ "ranges":[[59,89],[91,125]],
+ "inventory":"SocialDuration and SocialActionId handwritten Deserialize bodies each deserialize exactly one native u64/String then invoke existing TryFrom conversion and serde::de::Error::custom. Both non-generic. Existing serde Deserialize derive is already imported/used in the owner.",
+ "connected_repair":"Optionally derive Deserialize with serde(try_from = u64) on SocialDuration and serde(try_from = String) on SocialActionId; retain existing TryFrom bodies exactly and remove only the two mechanical Deserialize implementations. Never transparent derive or new raw From, which bypass admission.",
+ "equivalence":"The selected native Deserialize type, owned String output, checked TryFrom result, static error labels and custom-error conversion remain unchanged. No Serialize API, new dependency, coercion, clone or generic-bound addition is required.",
+ "acceptance":"After exhaustive own10 ledger and global remedy dedup, confirm existing request-boundary fixtures and features preserve accepted/rejected data and error contract. No new tests/cases requested; no checks run.",
+ "new_unique_finding":false,
+ "clear":false
+}

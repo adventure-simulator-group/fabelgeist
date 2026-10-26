@@ -1,0 +1,83 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-244",
+  "at": "2026-10-25T22:09:44.504760+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2364,
+      "source_id": "pr-working:crates/strategic-web/src/routes/map_city.rs",
+      "sha256": "0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+      "personally_read_ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "City capture accepts canonical digest+StrategicPlaceId, restricts Settlement variant, matches active TerrainPack digest, verifies authenticated character exists, and acquires bounded permit before profile capture/blocking generation. Coordinate admission pairs settlement longitude/latitude.",
+        "Blocking closure holds permit through generation, constructs RegionalCityInput from same source/place/origin/scene, propagates both join and generation errors to logged unavailable, and publishes private no-store. Profile/scene_minute policy delegated exact scene_preparation owner; no observer-time reconstruction guarantee inferred."
+      ]
+    },
+    {
+      "scope_index": 2365,
+      "source_id": "pr-working:crates/strategic-web/src/routes/map_environment.rs",
+      "sha256": "92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+      "personally_read_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Environment route admits one WGS microdegree origin and closed scale, verifies requested source equals same active terrain pack, nonblocking permit bounds generation backlog. Same RegionalTerrainRequest reaches terrain capture and connection capture, then RegionalEnvironment::new checks aggregate. HTTP no-store intentionally lacks sampling revision; renderer residency distinct."
+      ]
+    },
+    {
+      "scope_index": 2366,
+      "source_id": "pr-working:crates/strategic-web/src/routes/map_environment/connection_window.rs",
+      "sha256": "968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+      "personally_read_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Connection capture derives physical half-extent from same scale/side/origin, constructs admitted bounds, maps each immutable road line to local offsets and simplifies/clips using same spacing. Each output piece retains kind and admitted E7 points, flushes when continuity breaks or segment outside; discards coincident endpoints.",
+        "WindowOutput admits each line through canonical RegionalConnection::new before publishing; aggregate line and point caps check cumulative contributions, intermediate piece count also bounded. Mutation before a capacity error remains local discarded output, not shared partial result. Bounds clamp at world edge; global wrap/polar support requires canonical projection policy, no actual wrong road asserted."
+      ]
+    },
+    {
+      "scope_index": 2367,
+      "source_id": "pr-working:crates/strategic-web/src/routes/map_environment/connection_window/simplification.rs",
+      "sha256": "7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+      "personally_read_ranges": [
+        [
+          1,
+          52
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Iterative simplification retains endpoints and recursively partitions only at interior furthest points above squared physical tolerance; separate keep vector matches input length and output preserves input order. Degenerate zero-length chord uses parameter0. Caller provides finite admitted road offsets and positive scale tolerance; no arbitrary raw-float validity claimed. Pure display approximation intentionally leaves source routing/digest unchanged."
+      ]
+    },
+    {
+      "scope_index": 2368,
+      "source_id": "pr-working:crates/strategic-web/src/routes/map_environment/roads.rs",
+      "sha256": "b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+      "personally_read_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Road source serializes lazy admission behind mutex, caches immutable Arc only after complete RoadPack::load success with exact active terrain, verifies cached source digest on subsequent calls, and preserves empty slot after failed admission for explicit retry. Poisoned ownership is structured separate error. No file I/O executed."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "5 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

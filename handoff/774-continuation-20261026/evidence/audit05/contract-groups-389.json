@@ -1,0 +1,40 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-389",
+  "at": "2026-10-26T00:11:36.859060+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 247,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/residence/authority_tests.rs",
+      "sha256": "3543fcdab7a7fd0bc516183ebfa20ccafe25fe34952235d37bd7a84762d99eeb",
+      "personally_read_ranges": [
+        [
+          1,
+          242
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all242 lines of executable acceptance fixture; source only, not run. Setup validates generated catalogue, registers twice and checks bounded named+aggregate census, creates explicitly authorized fixture actors/household. Contract checks tenancy/title/occupancy/membership separation, reserve unoccupied owned home, and rejects backdated/future capacity overflow without replacing future pointer; these are fixture assertions, not observed acceptance."
+      ]
+    },
+    {
+      "scope_index": 248,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/residence/occupancy.rs",
+      "sha256": "181a2ef44cc12c8b3d6393ed41ebe9a8e616923413382af26ffe28b090789d41",
+      "personally_read_ranges": [
+        [
+          1,
+          282
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all282 lines. Occupancy ledger folds by effective minute then insertion ordinal; removal scoped to matching property+holding; admit checks capacity before any ledger writes, then records prior removal/current admission and refreshes latest full-ledger pointer. Inherit-parent-home resolves exact effective parental property and active holding; absence/capacity errors occur before writes in this source, so ignored optional newborn housing error does not itself establish partial occupancy mutation. Actual require_property_room_at receiving contract remains separate249.",
+        "admission_end finds later move or scoped removal; residents_at deduplicates candidate characters then folds effective history. refresh_current deliberately includes future moves per existing tests, distinct from at(frontier). No executed tests or blanket transaction/security clearance."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

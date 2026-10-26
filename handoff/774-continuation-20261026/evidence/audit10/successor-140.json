@@ -1,0 +1,45 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-140",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1897,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene.rs",
+      "sha256": "2661ce950659807c47c0de4fdc769ba1ba79825c47ba2985fcec32d7e4f38390",
+      "ranges": [
+        [
+          1,
+          553
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh full553line requested scene/terrain owner read1-215/216-430/431-553. Selected basic/Bevy/serde traits derive, SceneTerrain decode routes through admission::TerrainWire. No handwritten trait/custom codec in this body. Generator and terrain constructors bind source seed, dimensions and complete admitted height samples; refinement/rewrite select sampled geometry, validate replacement before publication, collider/mesh projection preserves native row-major source. Existing cases inspect transition collar, refined LOD, mesh storage and collider source agreement.",
+      "disposition": "No derivability candidate in requested body. Source generation/admission, geometry-specific mutation and native mesh/collision conversion are semantic operations, not mechanical traits. Tests read only; no numeric/render/collider/runtime acceptance or child credit.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1898,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/admission.rs",
+      "sha256": "c77986f9f9ff85cd6b4359792d8c28838b437942db2e61c92dc4104856e849cb",
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh exact registered98line terrain admission role, Scope072 ROOT-OWNER-TERRAIN-GRID-021/CLOSURE086 and ROOT-PPS-GROUND-SAMPLE-CONTRACTS-0231-98. TerrainAdmissionError already derives thiserror/basic traits; TerrainWire derives Deserialize. Manual wire TryFrom assembles source fields then validates dimensions/index capacity, finite positive scale/extents, stride and finite samples. Manual SceneTerrain Default constructs admitted finite2x2 metre square, not empty field defaults.",
+      "disposition": "Retain semantic checked TryFrom and nonempty finite framework Default. Direct From/Deserialize or field Default derives bypass/violate the source geometry contract and change failures/values. No derivability candidate or admission/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

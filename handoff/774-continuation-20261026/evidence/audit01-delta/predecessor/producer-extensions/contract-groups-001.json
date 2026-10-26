@@ -1,0 +1,462 @@
+{
+  "id": "producer-extensions-001",
+  "at": "2026-10-24T01:05:16.473448+00:00",
+  "lens": "producer-propagation",
+  "rows": [
+    {
+      "extension_index": 0,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials/palette.rs",
+      "sha256": "0ce1ea507bc49a06edff5175cc0638a0cc8e5cf7c3e33258fc41b01e5d97faa1",
+      "effective_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-001.json",
+      "producer_trace_and_disposition": "BuildingPalette consumes canonical BuildingLodMaterial/WallMaterialClass/RoofMaterial and returns actual Bevy Handle<StandardMaterial>. FurnitureWood enum projects to a native asset-array index at the final material lookup. Infill, tile and timber depend on different selected handles; one infill handle is not evidence of complete palette identity.",
+      "connected_repair_or_remaining_requirement": "Retain the canonical material role and complete appearance association through building mesh/cache construction, converting to native asset handles only at the real rendering adapter. Reuse the existing material enums; no duplicate label owner or conversion-syntax-only issue. Shared palette/cache authority remains under its existing finding and actual constructor proof.",
+      "acceptance": "Preserve the stated native boundary, units, frame, authority, replay bytes and supported-state policies; complete connected source obligations and inherited repairs before family/lens acceptance. Existing tests only; no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "fresh_read_ranges": [
+        [
+          1,
+          69
+        ]
+      ]
+    },
+    {
+      "extension_index": 1,
+      "source_id": "merged774:crates/adventuresim-weapon-model-browser/src/lib.rs",
+      "sha256": "c29071eeb95db76a0909330a53328dd39f1f2d2f1dddfcecff7c448fcffe344b",
+      "effective_ranges": [
+        [
+          1,
+          250
+        ]
+      ],
+      "registration_evidence": "local774:PC90/M84, actual received source read recorded in file_reviews",
+      "producer_trace_and_disposition": "Own same-source complete browser250 proof and M84 trace retained: Request::Compose accepts raw head/haft selections, internal compose/RadiusBinding errors become String before RequestError, whereas weapon_model_request is the actual JSON/JS text endpoint.",
+      "connected_repair_or_remaining_requirement": "Apply M84 one connected authoring selection/error repair through Request::execute and unchanged compose/control receivers; preserve actual recipe/dimension owners, exact JS output and structured causes until the terminal adapter. This evidence does not complete other authoring families.",
+      "acceptance": "Preserve the stated native boundary, units, frame, authority, replay bytes and supported-state policies; complete connected source obligations and inherited repairs before family/lens acceptance. Existing tests only; no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "reused_own_same_lens_evidence": {
+        "reference": "ledger.json#/lenses/producer-propagation/file_reviews/crates~1adventuresim-weapon-model-browser~1src~1lib.rs",
+        "prior_file_review": {
+          "read_ranges": [
+            [
+              1,
+              250
+            ]
+          ],
+          "source_lines": 250,
+          "source_sha256": "c29071eeb95db76a0909330a53328dd39f1f2d2f1dddfcecff7c448fcffe344b",
+          "body_read_complete": true,
+          "graph_status": "PC90 actual source bodies; connected graphs/every other lens remain incomplete."
+        },
+        "qualification": "Exact own source/ranges and original producer dispositions reused; not another lens or graph-clearance inference."
+      }
+    },
+    {
+      "extension_index": 2,
+      "source_id": "native-dependency:bevy_render-0.19.1/src/storage.rs",
+      "sha256": "dcce6f3140c253231a106b1343c0dfa5e78e3175a78e9e78863e65ee3764b35a",
+      "effective_ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-002.json",
+      "producer_trace_and_disposition": "Pinned native ShaderBuffer stores bytes/BufferDescriptor; GpuShaderBuffer::prepare_asset derives actual allocation size from CPU bytes when present, otherwise descriptor. It may reuse the exact native Buffer if size/usage/label permit, or replace and optionally copy on resize. Therefore stable AssetId is not necessarily stable native allocation identity. Actual encase and RenderDevice/Queue calls are numeric/byte boundary.",
+      "connected_repair_or_remaining_requirement": "Admit application layout/instance identity before this concrete Bevy storage adapter. Cache/bind-group validity must follow actual native allocation changes, not merely stable asset ID, with the existing scene-buffer authority owner. Preserve CPU-data precedence, COPY_DST reuse, usage and copy policy. Do not insert bespoke application units into vendor storage bytes or assert a normal stale binding without the actual application consumer.",
+      "acceptance": "Preserve the stated native boundary, units, frame, authority, replay bytes and supported-state policies; complete connected source obligations and inherited repairs before family/lens acceptance. Existing tests only; no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "fresh_read_ranges": [
+        [
+          1,
+          231
+        ]
+      ]
+    },
+    {
+      "extension_index": 3,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/streaming.rs",
+      "sha256": "b8091bd1fe336c7162f6fcc4729bdd1e16cadf288fafe8ad4092029e2ea1fcc4",
+      "effective_ranges": [
+        [
+          7,
+          97
+        ],
+        [
+          169,
+          174
+        ],
+        [
+          246,
+          272
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-003.json",
+      "producer_trace_and_disposition": "PendingCityBuildings retains total/queue progress, raw Vec2 focus and first formatted failure. Spawn callback returns Result<bool> meaning completed versus retry; failures leave the queue and finished() means no pending placements. Prioritization strips typed placement centre into raw focus-distance math. The actual frame budget uses std/web_time Duration, a legitimate wall-clock boundary.",
+      "connected_repair_or_remaining_requirement": "Retain a named spawn outcome and scene-frame focus/position through application calls; preserve one visit per queue entry, retry ordering, 64ms budget and first failure policy. Follow failure() actual UI recipients before deciding whether stored String is an early error erasure or terminal presentation. Do not equate exhausted queue with every building installed, or change progress/release behavior without its actual receiving contract.",
+      "acceptance": "Preserve the stated native boundary, units, frame, authority, replay bytes and supported-state policies; complete connected source obligations and inherited repairs before family/lens acceptance. Existing tests only; no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "fresh_read_ranges": [
+        [
+          7,
+          97
+        ],
+        [
+          169,
+          174
+        ],
+        [
+          246,
+          272
+        ]
+      ]
+    },
+    {
+      "extension_index": 4,
+      "source_id": "native-dependency:bevy_render-0.19.1/src/render_resource/uniform_buffer.rs",
+      "sha256": "09c699b99ca5712b61dc38ce3703155701999ab75801a5f38172475c23b73d1c",
+      "effective_ranges": [
+        [
+          1,
+          149
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-004.json",
+      "producer_trace_and_disposition": "Pinned UniformBuffer<T> retains the typed ShaderType value and encase scratch, then write_buffer writes exactly that value to a native allocation or queue. Generic From/get/get_mut do not erase T. Label/usage changed flags determine reallocation, while ordinary set updates content on next write. Registered149 ends within IntoBinding; that partial body does not establish its complete behavior.",
+      "connected_repair_or_remaining_requirement": "Keep application CameraCullData/layout/device association until this real uniform-write port, and track native allocation identity where caching relies on it. Preserve std140 encoding, label/usage changes and write order. No domain wrapper inside generic vendor scratch or claim of full405-line/native binding coverage.",
+      "acceptance": "Preserve the stated native boundary, units, frame, authority, replay bytes and supported-state policies; complete connected source obligations and inherited repairs before family/lens acceptance. Existing tests only; no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "fresh_read_ranges": [
+        [
+          1,
+          149
+        ]
+      ]
+    },
+    {
+      "extension_index": 5,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/streams.rs",
+      "sha256": "eb233a67ab87212ae64dd30075b41f4708529607aea29596bbea32c4a0acc93d",
+      "effective_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-005.json",
+      "producer_trace_and_disposition": "Every litter entropy purpose is already canonical StreamId with a fixed replay spelling, including TWIG_SIDES and separate mesh variant streams. Raw strings here are the actual deterministic namespace admission, not internal untyped random state.",
+      "connected_repair_or_remaining_requirement": "Reuse the same constants through generation and fixture comparison, retaining Seed and exact ordered entropy components until the real PRNG/hash port. Preserve all stream bytes and distinguish production side choice from separate mesh-variant/test roles; no new purpose enum or literal renaming during migration.",
+      "acceptance": "Preserve the stated native boundary, units, frame, authority, replay bytes and supported-state policies; complete connected source obligations and inherited repairs before family/lens acceptance. Existing tests only; no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "fresh_read_ranges": [
+        [
+          1,
+          53
+        ]
+      ]
+    },
+    {
+      "extension_index": 6,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone/streams.rs",
+      "sha256": "80fc6b2fc6f287ef9c214f4492651b73006484371550db1c0ee58649f492d7ee",
+      "effective_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-006.json",
+      "producer_trace_and_disposition": "Loose-stone streams already retain canonical StreamId for clustering, facets, dimensions, native variant tests and yaw. VARIANT is test-only, distinct from production PEBBLE/PRESENCE and shared deterministic source identity.",
+      "connected_repair_or_remaining_requirement": "Carry existing Seed/StreamId through actual geometry/cache producers; preserve all stream names and signed component encoding at the native random port. Do not infer production uses the test VARIANT or treat unrelated seeded reconstructions as equal without matching inputs.",
+      "acceptance": "Preserve the stated native boundary, units, frame, authority, replay bytes and supported-state policies; complete connected source obligations and inherited repairs before family/lens acceptance. Existing tests only; no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "fresh_read_ranges": [
+        [
+          1,
+          18
+        ]
+      ]
+    },
+    {
+      "extension_index": 7,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/understory/streams.rs",
+      "sha256": "af5f77b3bca6fcfb8ec098008e0b1cb339a495cf5bf3b423ad9c24c325caf916",
+      "effective_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-007.json",
+      "producer_trace_and_disposition": "Understory streams explicitly distinguish community, community structure, specimen, jitter, presence and species; test-community/species names are separately gated. Existing semantic owner fits and no raw-stream internal API is present in this leaf.",
+      "connected_repair_or_remaining_requirement": "Retain these exact stream identities through generator/cache/species selection; preserve Seed/component order and existing authored spelling visual.understory.species. Do not rename a stream for visual consistency or use a native word as an admitted specimen identity.",
+      "acceptance": "Preserve the stated native boundary, units, frame, authority, replay bytes and supported-state policies; complete connected source obligations and inherited repairs before family/lens acceptance. Existing tests only; no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "fresh_read_ranges": [
+        [
+          1,
+          17
+        ]
+      ]
+    },
+    {
+      "extension_index": 8,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/building_program.rs",
+      "sha256": "2ecfe5491e448871f85d33e15bc04c197311aae741054b4587143531548063a2",
+      "effective_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "registration_evidence": "enum-shapes/additional-source-044A.json",
+      "producer_trace_and_disposition": "BuildingProgram is explicitly a raw authoring recipe allowed to describe unsupported combinations; generate is the real construction/admission boundary. Seed, archetype, usage and structural subprograms are typed, while physical dimensions/angles remain primitive through application recipes. Optional church/heating/roof-demonstrator payloads have actual distinct applicability.",
+      "connected_repair_or_remaining_requirement": "Preserve a permissive raw authoring input and a clean admitted generation product, carrying canonical geometry and correlated programme choices after acceptance. Do not make every draft combination constructible or infer all optional fields mutually exclusive. Share M72 structural contracts and the existing enum-shape/ownership findings instead of a second BuildingProgram owner.",
+      "acceptance": "Preserve the stated native boundary, units, frame, authority, replay bytes and supported-state policies; complete connected source obligations and inherited repairs before family/lens acceptance. Existing tests only; no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "fresh_read_ranges": [
+        [
+          1,
+          66
+        ]
+      ]
+    },
+    {
+      "extension_index": 9,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/settlement.rs",
+      "sha256": "5a26d13567d00297e0bec89a8425945e633f346b1593eba9d4733ece32476ffc",
+      "effective_ranges": [
+        [
+          1,
+          257
+        ]
+      ],
+      "registration_evidence": "enum-shapes/additional-source-044B.json",
+      "producer_trace_and_disposition": "settlement/validated_settlement use typed usage/archetype/Seed and deterministic64-attempt stream search, but mutate raw roof degrees/storey metres and return the raw BuildingProgram after successful generation. Internal room relabeling preserves structural family/circulation. Normal failed recipes return the first structural error; tests confirm replay and unchanged footprint, not every authored combination accepted.",
+      "connected_repair_or_remaining_requirement": "Retain canonical physical quantities and an accepted recipe/result across downstream consumers, leaving raw draft input at authoring. Preserve exact retry order/stream, first error, roof variation policy and circulation check; reuse actual BuildingUse/ServiceBuildingSize and no silent substitution of arbitrary architecture. Existing source fixtures only, no execution.",
+      "acceptance": "Preserve the stated native boundary, units, frame, authority, replay bytes and supported-state policies; complete connected source obligations and inherited repairs before family/lens acceptance. Existing tests only; no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "fresh_read_ranges": [
+        [
+          1,
+          257
+        ]
+      ]
+    },
+    {
+      "extension_index": 10,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/settlement/size.rs",
+      "sha256": "23584a638ed300e6bfb8e5bb95e2a330d24b705b9589838c22632f99d81a884e",
+      "effective_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "registration_evidence": "enum-shapes/additional-source-044B.json",
+      "producer_trace_and_disposition": "ServiceBuildingSize is a physical programme band, deliberately distinct from demographic catchment capacity. for_capacity already accepts typed BuildingUse/ServiceCapacity, extracts values only for the actual band equation, and returns typed Small/Medium/Large. extra_bays returns rawu16 into internal structure construction; its exact cell/bay receiver remains a producer question. Parish size follows a separate authored scale.",
+      "connected_repair_or_remaining_requirement": "Keep typed capacity and band through all callers; numerical classification extraction is justified. Trace extra_bays into footprint construction and retain the correct bay/cell quantity rather than choosing a type from equal storage width. Preserve monotonic thresholds, unsupported-use None, parish scale distinction and exact existing fixtures.",
+      "acceptance": "Preserve the stated native boundary, units, frame, authority, replay bytes and supported-state policies; complete connected source obligations and inherited repairs before family/lens acceptance. Existing tests only; no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "fresh_read_ranges": [
+        [
+          1,
+          110
+        ]
+      ]
+    },
+    {
+      "extension_index": 11,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/streams.rs",
+      "sha256": "0d8665bffe65c04fdc695d187ef0a3b91071e714eecf1e46e526af46d2738df7",
+      "effective_ranges": [
+        [
+          1,
+          149
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-008.json",
+      "producer_trace_and_disposition": "Tree skeleton purposes are already canonical StreamId leaves covering species, branch, root, crown, joint and tip roles, with one explicit test stream. Names own deterministic replay, not arbitrary display text or object identifiers.",
+      "connected_repair_or_remaining_requirement": "Reuse each exact entropy purpose through the actual skeleton/model/cache producer. Preserve stream spelling, component order and native integer encoding; do not collapse physical branch identity with random sample index or alter replay while making types explicit.",
+      "acceptance": "Preserve the stated native boundary, units, frame, authority, replay bytes and supported-state policies; complete connected source obligations and inherited repairs before family/lens acceptance. Existing tests only; no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "fresh_read_ranges": [
+        [
+          1,
+          149
+        ]
+      ]
+    },
+    {
+      "extension_index": 12,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/status.rs",
+      "sha256": "4ed19181ab78cf91d879f183d56d313397141bcefd0c3139ebd1263c1c3163ff",
+      "effective_ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-009.json",
+      "producer_trace_and_disposition": "Own exact204-line regional-map status source evidence is retained, with its existing map/clock/source/UI contracts. This is an extension of source material, not an automatic producer graph closure or transfer of another lens verdict.",
+      "connected_repair_or_remaining_requirement": "Carry previously admitted map/clock/source products through status logic to actual text/widget ports; retain prior local findings and unresolved receiving questions. Reuse exact same-lens source proof rather than re-inventorying the completed baseline; no new unique defect inferred from the filename.",
+      "acceptance": "Preserve the stated native boundary, units, frame, authority, replay bytes and supported-state policies; complete connected source obligations and inherited repairs before family/lens acceptance. Existing tests only; no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "reused_own_same_lens_evidence": {
+        "reference": "ledger.json#/lenses/producer-propagation/file_reviews/crates~1adventuresim-tactical-client~1src~1presentation~1regional_map~1status.rs",
+        "prior_file_review": {
+          "read_ranges": [
+            [
+              1,
+              204
+            ]
+          ],
+          "source_lines": 204,
+          "source_sha256": "4ed19181ab78cf91d879f183d56d313397141bcefd0c3139ebd1263c1c3163ff",
+          "body_read_complete": true,
+          "graph_status": "Actual body/listed ranges read. RegionalCity/ownedterrain admission positive; F33nativeformat edge, M65cause/status and M66decodedmesh aggregate plans recorded. Full remaining product/city GPU/nativepipeline/otherlens inventories incomplete."
+        },
+        "qualification": "Exact own source/ranges and original producer dispositions reused; not another lens or graph-clearance inference."
+      }
+    },
+    {
+      "extension_index": 13,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/atmosphere.rs",
+      "sha256": "b9dcce7121c3161293d2fbd9c9f02f0df7aa341d51c9a0a1b94a7315f8bfdd4c",
+      "effective_ranges": [
+        [
+          1,
+          332
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-010.json",
+      "producer_trace_and_disposition": "Own exact332-line atmospheric source evidence retained. Existing weather/location/clock producers and actual shader/material parameter adapters remain the same connected contracts; raw numerical shader fields alone do not establish a native boundary for preceding application calls.",
+      "connected_repair_or_remaining_requirement": "Retain existing weather, coordinate and time owners through presentation to actual native uniform/math operations, sharing M90 and the original atmospheric source traces. Preserve clock authority, authored weather behavior and shader layout. Do not infer complete upstream migration from a ShaderType derive or body coverage alone.",
+      "acceptance": "Preserve the stated native boundary, units, frame, authority, replay bytes and supported-state policies; complete connected source obligations and inherited repairs before family/lens acceptance. Existing tests only; no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "reused_own_same_lens_evidence": {
+        "reference": "ledger.json#/lenses/producer-propagation/file_reviews/crates~1adventuresim-tactical-client~1src~1presentation~1atmosphere.rs",
+        "prior_file_review": {
+          "read_ranges": [
+            [
+              1,
+              656
+            ]
+          ],
+          "source_lines": 656,
+          "source_sha256": "b9dcce7121c3161293d2fbd9c9f02f0df7aa341d51c9a0a1b94a7315f8bfdd4c",
+          "body_read_complete": true,
+          "graph_status": "Actual body/listed ranges read. Native graphics settings and whole cloud/sky cache/recipient bodies mapped; celestial/weather quantities and wider graph/otherlens inventories remain incomplete."
+        },
+        "qualification": "Exact own source/ranges and original producer dispositions reused; not another lens or graph-clearance inference."
+      }
+    },
+    {
+      "extension_index": 14,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_sky_viewer_main.rs",
+      "sha256": "4675cb9d134b9dbe5b05c9d82bed6b323983a88d2a63de941125b0be29e097d0",
+      "effective_ranges": [
+        [
+          1,
+          114
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-011.json",
+      "producer_trace_and_disposition": "SkyView is a closed CLI enum with stable report id(), while Clap uses separate command vocabulary. Args retains PathBuf but settle_frames remains rawu32 through tactical_sky_viewer::run. Actual test source confirms --view sun selects Sun and output path; no capture or parser execution here. Registry normalization corrected prospective_material_ranges1-114, not a new scope expansion.",
+      "connected_repair_or_remaining_requirement": "Carry a render-frame settling budget through viewer state/capture until actual frame counting, preserving24 default and legitimate0 policy if actual consumer accepts it. Retain SkyView into actual setup/report mapping and encode only at manifest/filename boundary; do not conflate stable Sun report ID with lowercase Clap input.",
+      "acceptance": "Preserve the stated native boundary, units, frame, authority, replay bytes and supported-state policies; complete connected source obligations and inherited repairs before family/lens acceptance. Existing tests only; no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "fresh_read_ranges": [
+        [
+          1,
+          114
+        ]
+      ]
+    },
+    {
+      "extension_index": 15,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+      "sha256": "9db0cfc4b4c3053884d835faaca49a404c9942f7f0599b3069b89729fd8d7ae3",
+      "effective_ranges": [
+        [
+          200,
+          209
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-012.json",
+      "producer_trace_and_disposition": "BoundarySupportProjection retains mesh plus duplicate gate_elevation, exact additional definition for adopted RIG-INITIAL06-F026. The mesh binding already owns the canonical gate datum, normal project copies the same value; no current disagreement claimed. Leading error-tail200-204 is context, not a new error body.",
+      "connected_repair_or_remaining_requirement": "Remove redundant retained datum and derive projection getter from the canonical bound mesh, preserving signed scene metres/zero and workflow distinction. Share the adopted ownership repair with GeneratedBoundary, without claiming it also fixes descriptor-cell physical correlation.",
+      "acceptance": "Preserve the stated native boundary, units, frame, authority, replay bytes and supported-state policies; complete connected source obligations and inherited repairs before family/lens acceptance. Existing tests only; no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "fresh_read_ranges": [
+        [
+          200,
+          209
+        ]
+      ]
+    },
+    {
+      "extension_index": 16,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate_city_support/projection.rs",
+      "sha256": "b76680bbe81ab56774ea8d7881c3ce266977abb71f95fd956c1c58007c0e46e5",
+      "effective_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-013.json",
+      "producer_trace_and_disposition": "The example check is an actual CLI validation/output adapter: JSON encodes/decodes projection, reconstructs against source and placements, compares exact terrain, optionally writes evidence and returns terminal JSON timing/byte counts. Box<dyn Error> preserves actual structured error via into at this endpoint; formatted issue strings are final diagnostic JSON, not application identity logic.",
+      "connected_repair_or_remaining_requirement": "Keep canonical admitted grounding/placement/source products through reconstruction; preserve original rejection and failing CLI exit even when optional evidence is written. Native Instant.as_secs_f64, encoded.len and final Error boxing are justified at this actual report boundary. Do not add a global error enum or raw compatibility reconstruction path solely to remove conversion syntax.",
+      "acceptance": "Preserve the stated native boundary, units, frame, authority, replay bytes and supported-state policies; complete connected source obligations and inherited repairs before family/lens acceptance. Existing tests only; no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "fresh_read_ranges": [
+        [
+          1,
+          66
+        ]
+      ]
+    }
+  ],
+  "limits": "First17 current extension roles accounted only. Original2853/246 and312delta denominators preserved. No full uniform IntoBinding149+ or source error prefix definition claimed. Completed Adler03/06 remain adopted WITH_FINDINGS. No plan, implementation, tests, checks, CI or publication."
+}

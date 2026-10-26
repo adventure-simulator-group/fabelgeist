@@ -1,0 +1,71 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-066",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1644,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/ground/tests.rs",
+      "sha256": "092e4f6411cb3672bfc3912437384989831eddd10bc3a27fa86b234f5df82d0a",
+      "ranges": [
+        [
+          1,
+          300
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete300line existing ground/scenery fixtures read in two bounded windows, including two ignored externally supplied acceptance manifests; no handwritten traits/codecs.",
+      "disposition": "No derivability candidate. Fixture loading/JSON navigation and selected support comparisons are explicit acceptance logic, not record codecs. No fixture execution or support correctness inferred.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1645,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/natural.rs",
+      "sha256": "724bf4201d7a9163847a097d79c1b60de6d72e529328bb507431b22e0e05661e",
+      "ranges": [
+        [
+          1,
+          163
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "SampledVistaMesher has inherent chunk/vertex methods; free sampled mesh preparation and source validation. No handwritten trait/custom serialization. Geometry adapters emit native position/normal/color arrays after typed coordinate/support/color failures.",
+      "disposition": "No derivability candidate. Checked numerical and native mesh representations/selection/failure policy remain semantic.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1646,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/owned.rs",
+      "sha256": "fc443e290759faede36ab8cc231e4f16928949d389ad8e0e3b03b097815cdd55",
+      "ranges": [
+        [
+          1,
+          149
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Owned ground uses inherent/free surface partition, clipping, native position/UV/index/normal generation and fallible pigment selection. No handwritten trait/codec.",
+      "disposition": "No derivability candidate. Existing checked narrowing/expect and native geometry behavior require their own invariant/rule dispositions; not erased or certified by lens10.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1647,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/owned/clip.rs",
+      "sha256": "4e14903e00a1840de0492898616f4971787fe47e206cf9aa86be0677cfceba62",
+      "ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "ClippedTriangles manually implements Iterator::next/size_hint and empty ExactSizeIterator marker over Interior Option<triangle> or Boundary IntoIter<triangle>. PreparedTriangle computes projected bounds/clipping; existing two fixtures read. No custom codec.",
+      "disposition": "Keep small manual iterator implementation: variants have different internal representations, Option::take versus IntoIter::next; no project existing derive demonstrated to preserve consuming state and exact size semantics. ExactSizeIterator is intentional trait contract, not redundant boilerplate. Clipping math/represented-coordinate plane reconstruction is semantic, not derivable.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

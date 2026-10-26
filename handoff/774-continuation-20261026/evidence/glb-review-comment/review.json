@@ -1,0 +1,151 @@
+{
+  "kind": "INDEPENDENT_COMMENT_REVIEW",
+  "at": "2026-10-25T20:49:57.107271+00:00",
+  "reviewer": "/root/glb_comment_review",
+  "source_author": "/root",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "branch": "codex/checked-glb-framing",
+  "skill": "target/recovery-20261025/handoff/780/skills/comment-review/SKILL.md",
+  "verdict": "CLEAR_WITHIN_REVIEWED_SOURCE_SCOPE",
+  "findings": [],
+  "source_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/README.md",
+      "sha256": "95e3abd4304b0585e8c5c4d5ec1d4585493c7ef5c15b4fe013c6523aa2357bdb",
+      "scope": "added framing paragraph"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "fe5c1027be20d6ab87b6bd34c3227d38b5eddaf7e33382917ff75e1459a37d69",
+      "scope": "top declarations, sole writer invocation, existing output parse fixture at964-980"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb.rs",
+      "sha256": "54be7e4aa7f3cdef3e59c0ffd22ce5594034e9be9b15deb6c141586002d58c29",
+      "scope": "whole file"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb/error.rs",
+      "sha256": "a9f6695f0d792b48a94a12333c437769a0b6f6f262484c402327018a0e491ecc",
+      "scope": "whole file"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb/layout.rs",
+      "sha256": "c7598f12fd08c312d0422f86b062f038090e0a9527106a79b369a4e971cc469f",
+      "scope": "whole file"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/profiling.rs",
+      "sha256": "e4bc8f373cddb24d0b8772fa66a004d59e8a69a5113d82b34f288e268bdfaf95",
+      "scope": "whole file"
+    }
+  ],
+  "supporting_source": [
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "a1209864646b06dca2b190b469fab5b2ecec8109d7c7fc95c95b7105e5c911b2",
+      "ranges_read": [
+        [
+          129,
+          177
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures/tests.rs",
+      "sha256": "43e385b5074a6c8884aabe7f27f70c016f9b16b16e19a0020d58cd01090de0b8",
+      "ranges_read": [
+        [
+          141,
+          205
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "fe34032d99c2145bb74dcd9f8228ea479fee4f2e61d3b1b3f41c8b8409e380d1",
+      "ranges_read": [
+        [
+          87,
+          127
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export.rs",
+      "sha256": "cc994bdebe62b8e0da1531c60e9e9cbfd2f3357d798678b930f18fb56f84fa16",
+      "ranges_read": [
+        [
+          67,
+          110
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "sha256": "1d811e5d3fdcb27db0dac00b6e6a07580a3619c6cf63a7fefbf8efbdae179536",
+      "ranges_read": [
+        [
+          88,
+          115
+        ],
+        [
+          156,
+          183
+        ]
+      ]
+    }
+  ],
+  "checked_claims": [
+    {
+      "claim": "Complete frame before GLB writer directory/file operations",
+      "source": "PreparedGlb::new serializes, checks layout, reserves and fills packet before write performs create_dir_all and fs::write. No other public writer/unchecked path exists in this module.",
+      "disposition": "accurate"
+    },
+    {
+      "claim": "Earlier export stages may already publish shared images",
+      "source": "export_rigged_glb calls TextureImages::finish before glb::write; finish creates directories and writes shared texture siblings. The existing shared-images fixture retains actual file/content/corruption oracles.",
+      "disposition": "accurate and useful limit"
+    },
+    {
+      "claim": "Unsigned32 padded chunk/container lengths",
+      "source": "Both chunk lengths use checked_next_multiple_of(4), then u32::try_from; complete28+payload+padding total uses checked_add then u32::try_from. Existing valid payloads retain little-endian header, JSON space padding and BIN zero padding.",
+      "disposition": "accurate; format facts checked against official spec4.4.2/4.4.3"
+    },
+    {
+      "claim": "Concrete serialization/layout/final reservation/filesystem causes",
+      "source": "GlbError derives source-preserving Serialize/Layout/Reserve/CreateDirectory/Write variants, typed integer cause retained in Width. Sole caller converts into anyhow via Into::into; public export::glb exposes needed error vocabulary. Only final-frame reservation is described, without promising earlier JSON/BIN allocations are fallible.",
+      "disposition": "accurate"
+    },
+    {
+      "claim": "Filesystem writes are not transactional",
+      "source": "fs::write can create/truncate before an IO failure; no rename/transaction claim appears.",
+      "disposition": "accurate"
+    },
+    {
+      "claim": "Profiling remains optional timing diagnostics",
+      "source": "measure returns operation result unchanged; record only emits PROFILE when enabled and diagnostic serialization succeeds. Existing module-level comment remains accurate.",
+      "disposition": "accurate"
+    }
+  ],
+  "external_sources": [
+    {
+      "url": "https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#glb-file-format-specification",
+      "authority": "Khronos glTF2.0 specification4.4.2-4.4.3",
+      "verified_facts": "Little-endian12-byte header; unsigned32 container and chunk lengths;4-byte chunk alignment; JSON spaces and BIN zero padding."
+    }
+  ],
+  "limits": [
+    "Read-only source/comment review; no local project builds/checks/tests, runtime exports or hosted checks performed.",
+    "Existing fixture source inspected, not executed.",
+    "No huge-buffer or allocator-failure runtime acceptance.",
+    "Review covers this six-file GLB framing slice; no broader material/geometry/GPU or whole-audit clearance.",
+    "No other reviewer verdicts were read; no product source or PR mutations performed."
+  ],
+  "repo_rules_read": [
+    "AGENTS.md",
+    "crates/AGENTS.md",
+    "crates/adventuresim-character-creator/AGENTS.md",
+    "crates/fabelgeist-armor/AGENTS.md scope introduction (byte framing does not change body-equipment shape or fitting)"
+  ]
+}

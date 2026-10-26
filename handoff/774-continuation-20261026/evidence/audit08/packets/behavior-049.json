@@ -1,0 +1,32 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-049",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1599
+  ],
+  "source_pin": "source-pins-and-scope-077.json",
+  "source_reads": {
+    "1599": {
+      "head": [
+        [
+          1,
+          1370
+        ]
+      ],
+      "actual_diff": "empty"
+    }
+  },
+  "analysis": [
+    "Entire1370-line wood source is byte-identical to base and personally read, including existing fixture-only comparison kernels and every fixture oracle. Actual1598/M127/M128 native producers retain endpoint/radius/depth/group/tip records. Actual tube consumer groups consecutive records through is_limb_tip, preserves quality-dependent sides/spacing, transported frames, per-axis UV-distance accumulation, bit-copied cylindrical seam and source-derived root height color payload.",
+    "Near/full/crown/mid/bake recipients use same filters: upright depth0 mid trunk, depth>0 crown, selected group/depth, low-sided bake axes; source degeneracy omission and native mesh attributes/RENDER_WORLD usage unchanged. Full detail retains rounded terminal rings, other qualities one tapered cap; source bit and arithmetic order unchanged.",
+    "Root flare comparison field, bark relief and clipping functions remain cfg(test) only, with the same explicit-sweep production path. Their native comparisons were read as existing fixture source, not run or treated as a production fallback.",
+    "All existing metric/seam UV, exact LOD counts, finite/indexed normals/bounds, root height, deterministic morphology and bark/root comparison oracles remain unchanged. Reading expected values does not establish platform-specific acceptance. Current CI source/artifact updates were not substituted."
+  ],
+  "findings": [],
+  "qualifications": [
+    "Native renderer/shader/allocator behavior and impostor bake/raster/source hash recipients remain separately queued.",
+    "Raw arbitrary curve inputs are not universally guaranteed valid; unchanged private authored-kernel premises retained.",
+    "All existing findings/policy qualifications preserved. No checks/tests/builds or source/Git mutation; no global clearance."
+  ],
+  "global_clearance": false
+}

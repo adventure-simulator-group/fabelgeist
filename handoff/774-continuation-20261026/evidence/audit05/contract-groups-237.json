@@ -1,0 +1,47 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-237",
+  "at": "2026-10-25T22:03:15.414557+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2328,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact.rs",
+      "sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+      "personally_read_ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all261lines physics/contact.rs. Privatecolliderlist/buffer/capacity sharecount; update_colliders requires exactheldcountbeforeupload+listreplace. Actualrecord no-opsdisabled/emptyandbindssameparticlepositions/previous/count, meshsurface+particleradiuscombinedonce. Rawcollidergeometry/unitnormalquat gap exactRIG-ADMISSION03-F081; nativecountcapacitytruncation exactF073-SUPPLEMENT-001. push_out deliberatelycopiescurrent\u2192previousbeforemeshresponse, passes0validno-op, publicsearchradiuspolicy notinferred. Noexecution."
+      ]
+    },
+    {
+      "scope_index": 2329,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/wgsl.rs",
+      "sha256": "a1f915887fcad485606bdc80aae9a12f5224233a774693b02d40df0f1d1ebb95",
+      "personally_read_ranges": [
+        [
+          1,
+          413
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all413lines exactrecoveredpresent physics/wgsl.rs (archivepath SNAPSHOTS). Analyticentrypreservespinnedparticlew=0andreadspositions/previoussameindex, colliderloopcountfrom2328; Sphere/Capsulemedialaxis fallbackexplicitfiniteY. Boxinsidebranchchoosesmaxnegativeextentaxisanduses sign(localaxis); forlocalaxisexactzero, potentialzeronormal requirescanonicalhostColliderdefinition/packing+WGSLsignauthority comparison beforeacceptedfinding, noordinaryasset/runtimeclaim.",
+        "Meshentryresetsprivatequeryfound/distanceeachinvocation, samebvhtriangleIDindexes3corners; nearesthitsetsbestpoint+normaltogether, degeneratefacenormalfallbackYexplicit. Sweptqueryusesprevious/currentminmaxandmarginmax(thickness,searchradius), responsecomparesnearestfacehalfspace. ExistingrawgeometryF081andindexinputadmissionqualified, noexecution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "dedup": [
+    "RIG-ADMISSION03-F081",
+    "RIG-ADMISSION03-F073-SUPPLEMENT-001"
+  ],
+  "open_source_questions": [
+    "Boxinside sign(localaxis) potential zero normal onvalidmedialplane; canonicalColliderpacking andWGSLoperationauthority pending, notacceptedfinding."
+  ]
+}

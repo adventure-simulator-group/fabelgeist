@@ -1,0 +1,101 @@
+{
+  "schema": 1,
+  "reviewer": "recovery_780",
+  "head_at_review": "91e7d86403ea969b573366506106de5e7e17d3ea",
+  "kind": "Bounded exact-byte diagnostic-removal successor; source-only",
+  "previous_code": "code-review-001.json",
+  "previous_scoped13": "scoped-all13-001.json",
+  "previous_identity": "final-source-identity-001.json",
+  "arithmetic_proposal": "../source-proposal-002.json",
+  "arithmetic_fingerprint": "2ef430614578db6fd59bed6d33afe70e9b482f44e862f194fb106c94da79cbe3",
+  "all_11_arithmetic_hashes_reverified": true,
+  "restored_source": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "ba5976e7c7fbb51718979108ea26fb4002870613323755e1d407199c3fc40dde",
+      "raw_bytes_equal_8d6": true,
+      "prior_sha256": "ba5976e7c7fbb51718979108ea26fb4002870613323755e1d407199c3fc40dde",
+      "bytes": 32152
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor_assets.rs",
+      "sha256": "792c336a1d9612c83b4ae0f385c94a35175009ae202f71d4e3231d10179f899a",
+      "raw_bytes_equal_8d6": true,
+      "prior_sha256": "792c336a1d9612c83b4ae0f385c94a35175009ae202f71d4e3231d10179f899a",
+      "bytes": 15117
+    }
+  ],
+  "combined_13_path_fingerprint": "e79d07e74c89516fa2bd5a7153a614d1ff3f0886748f4fc82e768b31bf8b3416",
+  "combined_paths": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "197d8605659fa581961b37f9c18f2a46b04db822a666d3abefe5653b4204401a"
+    },
+    {
+      "path": "content/tactical/garden-hazel-envelope.json",
+      "sha256": "ceecbcf47a22344bb3da7a677b1230a9c3389e2ff7bc4f990a08fdc13356a34f"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/Cargo.toml",
+      "sha256": "736240a91cfc44359688a19535bd9984824264c4c2d9f5637ef5e477c17924a1"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry.rs",
+      "sha256": "b730b2dc02270ffc2b2990aceb80eb7ae0dc0a268b0c9c99974b05d87a5f0db9"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/arrangement.rs",
+      "sha256": "08200ee848bdbb6c0fa054926133bdf10cef64231fecb5506da098ce0210e73b"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+      "sha256": "661e960ce52adbbd70eff6d9b7f9e4704273a9b2de2b0ad64b9dcea9de9ecf38"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs",
+      "sha256": "b436cbf44b376a8eff01bc3e1ff7592cb839a353fa7ab1cb986943417dcb0ec4"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_plan.rs",
+      "sha256": "edb14de1c8633e1c97b7e6d5b4cb4b150d04e908a68db882eb1bd92ff1ae9012"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_profile.rs",
+      "sha256": "d95e1f977abe46b3b6d27f3f9b12f3fe78aa33c8e2406e4b6ad89ebc3b542c23"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs",
+      "sha256": "89d34cfa5179d198fb44055235ef1638c1626b9fa979bdc722f0e06ba62a632a"
+    },
+    {
+      "path": "crates/strategic-web/ART_DEMO.md",
+      "sha256": "ba93cbcaa705efcd50d8deb01f035678aca84b192c61edad3d7d49b459820b4c"
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "ba5976e7c7fbb51718979108ea26fb4002870613323755e1d407199c3fc40dde"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor_assets.rs",
+      "sha256": "792c336a1d9612c83b4ae0f385c94a35175009ae202f71d4e3231d10179f899a"
+    }
+  ],
+  "findings": [],
+  "disposition": "No actionable finding in the restoration. Both restored files exactly match personally previously reviewed 8d6 source bytes; all eleven arithmetic proposal002 paths remain unchanged.",
+  "execution": "Read-only Git object extraction, byte comparison and evidence writes only; no source/Git changes or project checks.",
+  "restoration_analysis": [
+    "Workflow removes optional manual diagnose_prepared_tree input/diagnostic step and restores the prior prepared-tree Windows invocation without temporary --nocapture. Existing ordinary Linux/Windows cases, population guards and acceptance gates are exactly those reviewed at 8d6.",
+    "impostor_assets.rs removes temporary cfg(test) diagnostic prints; exact 8d6 production resolution, equality predicate and existing fixture/oracle bodies are restored.",
+    "No arithmetic or dependency change since proposal002; prior five-owner body, package/feature, fixture and exact full-u64 fingerprint analysis carries at identical hashes."
+  ],
+  "qualification": [
+    "The arithmetic intentionally changes native source transcendental realizations, so old generated payloads are not evidence for the new source. Revision 4 and bake version 19 require a complete connected hosted refresh before final asset review.",
+    "Current envelope payload and committed prepared assets are stale pending export. This is an explicit unfinished acceptance obligation, not a hidden source-review approval.",
+    "Ordinary Linux and focused Windows existing-case acceptance must run on the final regenerated source/assets head. Source library/feature review does not establish runtime portability.",
+    "Native vector arithmetic, mesh tessellation, software rasterization and shader arithmetic remain separate boundaries. No universal floating-point determinism or full libm package correctness is claimed.",
+    "Existing broad #774 type, admission, aggregate-state and numeric-policy debts remain qualified. This scoped repair does not clear the frozen audit, #780 physical/material graph or #826 mutable metadata/device association.",
+    "Existing fixtures/cases/assertions are unchanged. geometry/skeleton/impostor test sections are raw-byte equal; root_profile test text is equal only after newline normalization. See proof002, which corrects proof001 wording.",
+    "Hosted source-body/no-growth thresholds and normal checks are pending; no local execution was performed."
+  ],
+  "acceptance": "Generated envelope and prepared outputs, hosted no-growth, and final ordinary Linux/Windows acceptance remain unresolved. This source restoration is not hosted or whole-audit clearance."
+}

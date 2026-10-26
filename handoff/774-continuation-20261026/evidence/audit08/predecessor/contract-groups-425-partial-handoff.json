@@ -1,0 +1,171 @@
+{
+  "id": "CONT08-CONTRACT-425-PARTIAL-HANDOFF",
+  "at": "2026-10-25T18:56:27.733480+00:00",
+  "lens": "08 behavior-preservation",
+  "instruction": "User-requested handoff; discovery stops. No additional complete original-role credit.",
+  "latest_complete_contract": "CONT08-CONTRACT-424",
+  "rows": [
+    {
+      "scope_index": 1441,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+      "after_sha256": "256fd3e5455eea95b629cf6ee1f856cb2149bb522d91b81d8bd9820c801161e6",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+      "line_count": 1409,
+      "head_object": "recovered-sources/objects/256fd3e5455eea95b629cf6ee1f856cb2149bb522d91b81d8bd9820c801161e6",
+      "saved_diff": "source-evidence/pr-1441.diff",
+      "saved_diff_sha256": "6d7297c2e0709f928a7ad09393682f3b8b07b772e3001a6da32e41b0db517ced",
+      "saved_base_object": "source-evidence/pr-1441-base-66d93ce5dd6c0e60109815c376d117c87f71030fcf350f1bc4ce4f97c4f9d9fa",
+      "before_sha256": "66d93ce5dd6c0e60109815c376d117c87f71030fcf350f1bc4ce4f97c4f9d9fa",
+      "head_read": [
+        [
+          1,
+          1409
+        ]
+      ],
+      "actual_diff_read": [
+        [
+          1,
+          2116
+        ]
+      ],
+      "method": "All current head bodies; all actual diff old/context/hunk lines with original diff line IDs. All added bodies consumed in current head.",
+      "status": "PARTIAL contract comparison: source/diff consumed, actual numerical supplier comparisons pending. Do not reread the whole scenario file.",
+      "facts": [
+        "Authored scenario collection order, complete steady-cycle postwrap sample, movement/tap/stop/chatter/attack/start-transition constants and existing source fixture oracles personally compared.",
+        "Extracted raised_guard/right_support/attacks families match old ordered list; exact scalar producer and typed error edge comparisons still pending.",
+        "Zero/signed custom helper inputs have not been classified as new defects; supplied built-in calls use positive steady speeds. Native float\u2192usize frame-count expression remains; no execution."
+      ]
+    },
+    {
+      "scope_index": 1442,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/admission.rs",
+      "after_sha256": "7d0001581edb1446088662238b20c1f4e4d2f8f30f69d47aac54402e9af2dc80",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/admission.rs",
+      "line_count": 43,
+      "head_object": "recovered-sources/objects/7d0001581edb1446088662238b20c1f4e4d2f8f30f69d47aac54402e9af2dc80",
+      "saved_diff": "source-evidence/pr-1442.diff",
+      "saved_diff_sha256": "54f02ba549097549e8331ad28f0b1ff500cbec62fc2ac400c8ef3a921a07f6a3",
+      "head_read": [
+        [
+          1,
+          43
+        ]
+      ],
+      "actual_diff_read": {
+        "shape": "new-file all-added body read in full"
+      },
+      "status": "PARTIAL: authored constants wrappers read; actual canonical tactical_sprint_speed producer comparison pending1888."
+    },
+    {
+      "scope_index": 1443,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/plan_families.rs",
+      "after_sha256": "8e07b8a223fec8cbfa46b35aedc1732f3ff056c3000abf8db68f322517119d66",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/plan_families.rs",
+      "line_count": 190,
+      "head_object": "recovered-sources/objects/8e07b8a223fec8cbfa46b35aedc1732f3ff056c3000abf8db68f322517119d66",
+      "saved_diff": "source-evidence/pr-1443.diff",
+      "saved_diff_sha256": "f2daaa78d2673310e67595f54efaac426159e9fe78954febc6af535ae726dc39",
+      "head_read": [
+        [
+          1,
+          190
+        ]
+      ],
+      "actual_diff_read": {
+        "shape": "new-file all-added body read in full"
+      },
+      "status": "PARTIAL: ordered raised/right-support/attack arrays read, actual old list in1441 diff consumed; lower numerical supplier dependencies pending."
+    },
+    {
+      "scope_index": 1444,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/quickstep.rs",
+      "after_sha256": "33077519d29facefe510e67394af05f51874b1324ce3b4a8de4f27b657852e9c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/quickstep.rs",
+      "line_count": 183,
+      "head_object": "recovered-sources/objects/33077519d29facefe510e67394af05f51874b1324ce3b4a8de4f27b657852e9c",
+      "saved_diff": "source-evidence/pr-1444.diff",
+      "saved_diff_sha256": "1ee98a230ac44b337e93ba08ff6232601dfbd6c0d8adeae729998ede3cdd29d4",
+      "head_read": [
+        [
+          1,
+          183
+        ]
+      ],
+      "actual_diff_read": {
+        "shape": "new-file all-added body read in full"
+      },
+      "old_counterpart": "1441 actual diff987\u20131123 and moved source-fixtures1745\u20131758 personally consumed",
+      "status": "PARTIAL: default quickstep force/displacement/velocity loops and moved fixture oracles read; actual current PR1886/1889 numerical supplier comparisons pending. No trajectory computed or tests run."
+    },
+    {
+      "scope_index": 1785,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/guard_geometry.rs",
+      "after_sha256": "c0b137fbc417c7f671619a3cc9cc4b76cd30973682db603b40b27a6729ef5f2f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/state/guard_geometry.rs",
+      "line_count": 123,
+      "head_object": "recovered-sources/objects/c0b137fbc417c7f671619a3cc9cc4b76cd30973682db603b40b27a6729ef5f2f",
+      "head_read": [
+        [
+          1,
+          115
+        ]
+      ],
+      "actual_diff_read": [],
+      "old_counterpart": "1781 base2950\u20132982 and2990\u20133037; old guard_step_length ignored speed, and open/closed/travel scalar formulas read.",
+      "status": "PARTIAL: kernels1\u201386 compared with old scalar guard geometry; test starts88 and was consumed only through115, remainder and full actual diff pending."
+    },
+    {
+      "scope_index": 1781,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "after_sha256": "48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "line_count": 2069,
+      "head_object": "recovered-sources/objects/48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+      "saved_diff": "source-evidence/pr-1781.diff",
+      "saved_diff_sha256": "6136eeebb65b4766970a23818ea976915a3c362d205f84ad93396dccd6476762",
+      "saved_base_object": "source-evidence/pr-1781-base-47c04943f11bc1d221e680cfdf8a44b05c9face66c7aa14279e6d7eee807aa7b",
+      "before_sha256": "47c04943f11bc1d221e680cfdf8a44b05c9face66c7aa14279e6d7eee807aa7b",
+      "base_read_additional": [
+        [
+          2490,
+          2505
+        ],
+        [
+          2950,
+          2982
+        ],
+        [
+          2990,
+          3037
+        ]
+      ],
+      "status": "PARTIAL old producer facts only; no full current1781 body/diff credit."
+    },
+    {
+      "scope_index": 1789,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+      "after_sha256": "bb92ce4b2c2252c6c68cc37955cba5f4d2c90ccdab05a4456a632a7f4adadc4e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+      "line_count": 432,
+      "head_object": "recovered-sources/objects/bb92ce4b2c2252c6c68cc37955cba5f4d2c90ccdab05a4456a632a7f4adadc4e",
+      "saved_diff": "source-evidence/pr-1789.diff",
+      "saved_diff_sha256": "561a0feefe257d6e27ff4bbd935cee40ff3cd37779099fd7b530fe2bb680dfc9",
+      "saved_base_object": "source-evidence/pr-1789-base-2b9e0250057ef1d5001b4451bae195193d8e5270d766e0a3f569cb843f34bf6f",
+      "before_sha256": "2b9e0250057ef1d5001b4451bae195193d8e5270d766e0a3f569cb843f34bf6f",
+      "head_read": [
+        [
+          20,
+          115
+        ]
+      ],
+      "base_read": [
+        [
+          1,
+          40
+        ]
+      ],
+      "status": "PARTIAL only: body-facing tracking_residual/native rate/half-turn config projection compared for1433; whole432 body/full actual diff pending."
+    }
+  ],
+  "next_exact_action": "Resume comparison at original1441 using saved whole head/diff; connect current PR1886 physics.rs quickstep_push_duration180+/quickstep_motion_target232+, PR1888 movement_speed.rs tactical_sprint_speed99+, PR1889 quickstep.rs action_contact_ticks73+ against actual old producers and exact own prior variant proof. Do not assume P16 equals PR. Then finish1441\u201344 disposition and next1446setup/1447view, with1445/1448 already complete. No new discovery authorized during handoff."
+}

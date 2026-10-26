@@ -1,0 +1,70 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-101",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "physical-impact-energy-applied-injury-and-typed-authority-stages",
+      "sources": [
+        {
+          "scope_index": 381,
+          "ranges": [
+            [
+              1,
+              1165
+            ]
+          ]
+        },
+        {
+          "scope_index": 382,
+          "ranges": [
+            [
+              1,
+              672
+            ]
+          ]
+        },
+        {
+          "scope_index": 383,
+          "ranges": [
+            [
+              1,
+              62
+            ]
+          ]
+        },
+        {
+          "scope_index": 384,
+          "ranges": [
+            [
+              1,
+              54
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M01",
+        "local774:M59",
+        "local774:M89",
+        "SEGO-INITIAL09-F032",
+        "SEGO-INITIAL09-F033",
+        "SEGO-INITIAL09-F034",
+        "SEGO-INITIAL09-F035",
+        "SEGO-INITIAL09-F139"
+      ],
+      "disposition": "Preserve meaningful precision, physical/injury dimensions, clock/refinement and authority stages; existing exact shape/migration support, no new11 finding.",
+      "trace": "Impact381125\u2013147 returns recipient, delta-v, contactpoint and normal; common Vec3 storage cannot erase displacement/velocity/point/direction roles. hit_velocity_change349\u2013386 consumes contact_force as energyJoules with explicit mass-normalized sqrt(2E/m) and calibrated gain, not Newton force or impulse; exactM01/M89 physical-role support. AppliedTacticalInjury180\u2013185 cut/blunt/maxsingleblunt and AccumulatedPartyConsequence188\u2013192 applied fractions/blood/ammunition remain distinct from energy and totalincapacity M59/M89. AccumulatedEquipmentContact195\u2013200 attacker/defender Boolean role is exactF035; same item may participate in both over session. Melee alignment optional triple230\u2013232/253\u2013255 is exactF139. ReportedPrecision38225 deliberately accepts every finite report32\u201343 and tests negative/99 at384\u2013388; it is a trusted animation-boundary report, not a bounded probability or automatically the same owner as generated ContactPrecision. ValidatedMeleeAttack38246\u201355 differs AuthorizedMeleeAttack82\u201386: latter attaches actual consumed attackkey/power. ValidatedRangedShot121\u2013128 differs AuthorizedRangedShot146 and validated Hit/Missimpact110\u2013118. These wrappers prevent actual validation-versus-consumption substitution even where fields nearly identical. CombatInstant3838 uses native elapsed coordinate while CombatDuration11 is representable authority duration refined from checked AnimationElapsed39\u201341; Add only permits duration-to-instant and saturates deadline56\u201361. Ranged authority384 removes windup and establishes cooldown only on successful authorization36\u201352.",
+      "qualifications": [
+        "All1165+672+62+54 registered source lines personally consumed before handoff stop; tests read only, no execution, compiler or project checks. No new source discovery after interruption.",
+        "ExistingF032 owns recipient/impulse shape, F033 correlated windup+active state, F034 target-dependent impact facts, F035 contact role, F139 alignment observation. Current constructors/writers coherent; wildcard target/bodypart constraints independent. No ordinary panic or incorrect current recipient proved.",
+        "ReportedPrecision negative finite and99 are explicitly accepted policy, so never replace it with UnitInterval or a stricter positive precision owner without changing contract. Generated contact precision has distinct provenance.",
+        "Native Duration has different representability and authority-clock role from floating AnimationElapsed; do not remove refinement merely because both measure seconds. Zero is valid. Inclusive ready/expires/cooldown boundaries remain.",
+        "Core/tactical injury health can exceed1 for scaled enemies, while party applied receipt fractions have bounded ownership. Contact stress carried as energy at this source is not a universal license to call every contact_stress in native corpse/durable fallback Joules.",
+        "Recorded P16 tests include raw fixture forms while production signatures carry checked types; no assertion that source fixtures compile/passed. Newly inspected tests show legitimate firedmiss,0weaponextension and retained intercept history, not permission to add compatibility APIs."
+      ],
+      "acceptance": "Retain physical energy/mass/delta-v versus injury/health roles and canonical structured causes through whole receivers; keep distinct validated/authorized and clock/duration stages with exact accepted precision domain. Existing shape repairs share whole functions and preserve current normal behavior; no source implementation performed."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

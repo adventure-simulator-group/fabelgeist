@@ -1,0 +1,63 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-088-PARTIAL",
+  "lens": "08 behavior-preservation",
+  "completed_original": [],
+  "partial_original": [
+    1781
+  ],
+  "source_pin": "source-pins-and-scope-103.json",
+  "source_reads": {
+    "1781": {
+      "head": [
+        [
+          1,
+          2069
+        ]
+      ],
+      "prior_head_read": "0871-360",
+      "new_head_reads": [
+        [
+          361,
+          720
+        ],
+        [
+          721,
+          1080
+        ],
+        [
+          1081,
+          1440
+        ],
+        [
+          1441,
+          1780
+        ],
+        [
+          1781,
+          2069
+        ]
+      ],
+      "head_sha256": "48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+      "base_sha256": "47c04943f11bc1d221e680cfdf8a44b05c9face66c7aa14279e6d7eee807aa7b",
+      "actual_diff_accounted": [
+        [
+          1,
+          600
+        ]
+      ],
+      "diff_sha256": "33004d88fdb7d4b45302aaf161ea5c09e41442ecacae557babb35d7ab5b0f956",
+      "method": "All current2069 body consumed. Actualdiff source-coordinate map source-evidence/pr1781-removals-105.json verifies all added/context payloads match personally consumed completehead; every old removed line/hunk throughdiff600 personally displayed/read. Remaining removedold601-2109 is explicitly unread, no wholeold/currentcomparisonclaim."
+    }
+  },
+  "analysis": [
+    "Full current state now read: actualattack_continuation1632-1646 returns one coherent record iffActionKind::Attack withAttackSequence::Continuation, making1759Somebranch actualstate-owned ratherthan independentfallback. Constructionof queuedrecord andinitialcontinuation nowretains finiteAttackPoseCoordinate/IncomingAttackTangent; normalized decode preserves finite negative-tangent max0 via1756 helper andexplicitcurve coordinateclamp. Nonfiniteformerlyfallback coordinate/tangent/phase decode nowrejects in owning checkedleaf; this strongeradmission is explicit, notunchangedmalformedinputclaim. Need remainingactualolddiff tofinishcomparison.",
+    "AttackCurve current702-889 keeps exactrawquinticbasis andknot/segment evaluation order; completedcoordinate nowcheckedfinite beforepublication. Publicrawcurve/configfields remain existingAPI with normalization atordinaryactionadmission, notproof arbitrarycustom mutatedcurves alwaysvalid. Actionpreparationprogress andtimelines useUnitInterval with explicitdecodeclamp, actualfallbackdefaults/guard/quickstep selection sourceconsumed.",
+    "Current advance_action1981-2027 makeslocalcopy, transfersqueuedpayload locally, samplescheckedtimeline thenpublishesself.action once. begin_attack_timed computesincomingtangent andcoordinate before assigningqueued/currentaction; laternativehelper/sourcepolicy stillrequires remainingold+deltachildcomparison. Posturetransition useslocalcopy forfalliblephase arithmetic, existingterminationwrites remainseparate. No globaltransactionassertion.",
+    "CurrentSkeletonState fields/default/deserialize1143-1263 carrytypedcounters/gait/landing/guard/downedmodes; rawvelocitysanitize fallback remains in serde/builder, whilecontrollerprojection finiteadmission is movedchild andstillqueued. No reflectiononcorestate retained. JumpAnticipation retains namedstate; olddeclaration44 removal nowactuallyread andmatches1770variants/serde shape.",
+    "Diff1-600 oldmovedRaisedLocomotionIntent,DownedFacingState,PostureTransitionState,ActionTimeline fullremovedbodies personallyread. Oldu64tick arithmetic saturated/subtracted/max1, rawphasefiniteclamp and olddive/recoveryyaw order are nowavailable for exactchild comparisons. No childbody coverage inferred fromremovedoldsource. Earliest1462/1474/1484/Q005 andallinheritedfindings retained."
+  ],
+  "findings": [],
+  "global_clearance": false,
+  "project_execution": "none",
+  "current_GLBy_source_review_transfer": false
+}

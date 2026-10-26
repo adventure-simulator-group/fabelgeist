@@ -1,0 +1,43 @@
+{
+  "id": "OWN10-CANDIDATE015-OVERLAY061-062-OCCURRENCES",
+  "classification": "Qualified existing error-derive remedy occurrences; current behavior not defective",
+  "occurrences": [
+    {
+      "overlay_index": 61,
+      "path": "crates/adventuresim-core/src/elapsed.rs",
+      "type": "ElapsedError",
+      "ranges": [
+        [
+          14,
+          22
+        ],
+        [
+          119,
+          131
+        ]
+      ],
+      "messages": "Six static exact current labels; no payload/cause."
+    },
+    {
+      "overlay_index": 62,
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "type": "SpeedError",
+      "ranges": [
+        [
+          20,
+          26
+        ],
+        [
+          129,
+          139
+        ]
+      ],
+      "messages": "Four static exact current labels; no payload/cause."
+    }
+  ],
+  "existing_dependency": "Actual frozen Core Cargo13-29 has thiserror.workspace=true (own overlay49).",
+  "connected_repair": "Existing thiserror::Error derive with exact current labels and source(None), preserving all existing traits and checked/native conversion routes. No new dependencies, cases or assertions.",
+  "limits": "Exhaustive ledger/global saved-remedy dedup pending. Tiny native projections/admission helpers not granted automatic derive cleanup. No checks or runtime acceptance.",
+  "new_unique_finding": false,
+  "clear": false
+}

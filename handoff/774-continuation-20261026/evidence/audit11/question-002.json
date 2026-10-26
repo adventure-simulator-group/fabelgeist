@@ -1,0 +1,45 @@
+{
+  "id": "ADLER-CONT11-Q002",
+  "classification": "qualified earlier-stage payload-shape simplification, not observed runtime defect",
+  "source_roles": {
+    "388": [
+      [
+        405,
+        411
+      ]
+    ],
+    "397": [
+      [
+        71,
+        78
+      ]
+    ],
+    "398": [
+      [
+        151,
+        218
+      ],
+      [
+        249,
+        290
+      ]
+    ],
+    "382": [
+      [
+        109,
+        128
+      ],
+      [
+        565,
+        625
+      ]
+    ]
+  },
+  "actual_trace": "CompleteMiss producer supplies targetNone, BodyPartChest and ReportedPrecision0; internal event and RangedIntentFacts require bodypart even forMiss. Actual validator selects canonical ValidatedRangedImpact::Miss without bodypart, and later resolver consumes ammunition then exits before hit defense/damage. ReportedPrecision is carried in shot but read for damage only on Hit in scoped receiver.",
+  "useful_distinction": "Earlier Miss versus Hit payload can eliminate fabricated Chest/precision values and prevent hit-only facts being treated as required forMiss; retain existing canonical Entity/BodyPart/ReportedPrecision leaves. Existing validatedImpact Hit also contains validated target pose, so it is not automatically the right request-stage type. Compare coherent input-stage envelope rather than duplicate validated owner or add legacy path.",
+  "qualification": "Actual current reviewed producer/validator/consumer coherent; no wrong damage, ammo, or acceptance demonstrated. No exact terms matched preserved1002metadata or inherited11questions/aliases; this is not proof of global uniqueness. Full shared remedy/currentvariant reconciliation pending.",
+  "acceptance": "Preserve miss consuming one projectile without defense, dry-fire cooldown semantics, actual Hit admission/custody/LOS and finite precision policy. No required target onMiss or new tests.",
+  "new_unique_count": false,
+  "repair": "not started",
+  "validation": "not run"
+}

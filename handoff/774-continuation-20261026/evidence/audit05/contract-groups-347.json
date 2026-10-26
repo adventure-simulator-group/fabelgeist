@@ -1,0 +1,29 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-347",
+  "at": "2026-10-25T23:29:34.647212+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 49,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autopsy.rs",
+      "sha256": "590a02732db6f33532c882ce0d6a6686de3f4bad9e3368242999cc3c30f9fd35",
+      "personally_read_ranges": [
+        [
+          1,
+          648
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full648line P16 autopsy source registered by expanded producer scope personally read. PostCombatBody filters log by defender ID, retains injury facets from same entry, orders by sequence and truncates first32, carries corresponding outcome health/blood while intentionally discarding attacker/weapon identities.",
+        "Lethality requires incapacitation plus vital region zero or high blood loss. Death-required incident reruns ordinary battle with bounded deterministic derived seeds and accepts only matching enemy-ID lethal result; duplicate combatant identity and actual health/body/terminal-cause coherence depend on battle admission/producer, not this helper.",
+        "Corpse location gives exhumed/buried precedence then discovery age; decomposition uses death age plus saturating handling contribution. Public booleans/context/float DTOs are not chronological custody seals. Raw SystemicPathologySnapshot u16 basis points can exceed10000 absent owning admission; no accepted persisted witness.",
+        "Medical/lore findings use quality thresholds, strongest wound and worst health projections, with distinct physical morphology/systemic interpretation and no culprit identity input. First32 injury truncation may omit later strongest/lethal wound; actual producer sequence/count and existing finding dedup are separate needed checks, not promoted from this local slice.",
+        "All existing tests read without execution. The durable strategic corpse summary is distinct from tactical tick storage; no whole persistence-boundary or gameplay legibility clearance."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

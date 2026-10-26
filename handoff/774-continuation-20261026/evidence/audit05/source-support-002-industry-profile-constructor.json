@@ -1,0 +1,40 @@
+{
+  "id": "ADLER-RESUMED05-F002",
+  "lens": "audit-aggregate-states",
+  "classification": "Public industry-profile constructor and validation disagree on a representable scale/evidence aggregate",
+  "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+  "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+  "source_ranges": [
+    [
+      2081,
+      2086
+    ],
+    [
+      2099,
+      2109
+    ],
+    [
+      2145,
+      2168
+    ],
+    [
+      2175,
+      2189
+    ],
+    [
+      2233,
+      2242
+    ],
+    [
+      2472,
+      2481
+    ]
+  ],
+  "relationship": "A successfully constructed private-backed industry profile should obey the same scale restrictions enforced by its own validation and decoder.",
+  "source_counterexample": "InferredIndustryProfile::new(vec![IndustryEvidence::Derived(DerivedIndustry::PeatCutting(PeatCuttingIndustry{scale:ProductionScale::Regional}))]) returnsSome: nonempty,len1,no duplicate. Calling validate on that exact returned value rejects at2186..2187 because regional peat cutting is outside the model. Serializing then manually Serde decoding also rejects through validate at2241.",
+  "actual_path": "Source-only supported public constructor\u2192returned private-backed aggregate\u2192public validation/manual decoder mismatch. All individual enum payloads are representable; this is an API/admission contract inconsistency, not an observed world-import failure. Actual canonical infer_industries caps peat scale toLocal at2479, so that ordinary inference producer is not alleged bad.",
+  "dedup": "Inherited1002 metadata searched for exact InferredIndustryProfile, regional peat cutting and regionalpeat; no exact record found. ROOT-ADM-F007 routes cover travel_geometry,bounded_named_products,route_terrain and do not mention industry.",
+  "proof_ref": "contract-groups-206.json",
+  "repair": "not_started_initial_discovery_gate",
+  "validation": "not_run"
+}

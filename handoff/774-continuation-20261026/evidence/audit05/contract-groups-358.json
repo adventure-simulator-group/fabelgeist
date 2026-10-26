@@ -1,0 +1,44 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-358",
+  "at": "2026-10-25T23:36:06.382833+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 80,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/config.rs",
+      "sha256": "cc2a62a000314375ca41307ed50b057e71d670192954b4aee7774a69fe2e976a",
+      "personally_read_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full122line P16 parameter source read. Whole validate checks fatigue/contact nested values, positive armed transfer/stagger, positive physical lengths/force/gravity/traction, nonzero durations, bounded scalar fractions, jitter<=1second, ordered precision/reaction/initiative intervals.",
+        "Public fields and derived Serde deny unknown fields but do not automatically invoke whole validate; individual AnimationElapsed may admit zero and SignedLength negative. Build47 validates authored representation before generated constructor emission; no inference that every runtime deserialized parameter is admitted.",
+        "PositiveSpeed leaves carry their own finite/positive invariant; validation does not prove ordered contact/recovery cadence, upper substep count bound or derived f32 arithmetic. Include generated constants source is not generated body credit."
+      ]
+    },
+    {
+      "scope_index": 81,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/contact_geometry.rs",
+      "sha256": "49172abd688b3e643d98f8214b92848a339da49622b13331988449baffcb93f5",
+      "personally_read_ranges": [
+        [
+          1,
+          489
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full489line P16 contact geometry including fixtures read. Validity rejects negative geometric leaves/nonpositive reach and outside actual reach, then computes unarmed, pommel, haft or intended striking surface; same facts carry scheduled/actual/ideal measures and material through result.",
+        "Whole valid geometry does not enforce grip<=total/reach or head<=grip at ingress; branch clamps head and lever for output. Constructors/private invalid result bind classification/cause/energy coherently, while public MeleeContactAtTime intended/raw serde can construct independently contradictory fields. Actual resolver/fixture callers and other accepted direct consumers remain separate admission obligations.",
+        "Rotational energy ratio squared and measure-accuracy tolerance derive from local-axis geometry; output typed arithmetic can return overflow even finite source lengths. Very tiny positive reach can underflow tolerance to0 and ideal deviation0 yields0/0 accuracy; actual catalog/caller scale and existing numerical finding dedup required before promotion.",
+        "Preferred distal measure computes head-band midpoint and typed result; sum overflow not hidden. Native geometric policy and existing finite-scale tests read, not run; no all-shapes/physical correctness claim."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

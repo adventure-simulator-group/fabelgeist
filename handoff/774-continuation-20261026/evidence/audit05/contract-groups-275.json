@@ -1,0 +1,42 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-275",
+  "at": "2026-10-25T22:30:57.596700+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2422,
+      "source_id": "pr-working:crates/strategic-web/static/strategic-condition.js",
+      "sha256": "a79949b29f56a6d20af7f42d71ccda2dd39d9220aaf08f965499e9343067d42f",
+      "personally_read_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozen1-69: one refresh generation captures wheel elements, deduplicates requested character IDs, builds ID->condition map, rejects prior refresh result before rendering each wheel's matchingID. Components pain/blood/fear/fatigue/hunger/thirst/thermal stay paired, accumulate only to360 degrees, title retains canonical total/status/morale. Missing condition explicitlyunavailable. No local gameplay penalty. Component finiteness and canonical total relationship remain endpoint contract; no arbitrary malformed payload clearance.",
+        "Unavailable renderer does not clear prior data-condition-status attribute, only style/title/accessibility. Actual selectors/consumer semantics not yet traced, so stale attribute is qualified presentation question. No JS execution."
+      ]
+    },
+    {
+      "scope_index": 2423,
+      "source_id": "pr-working:crates/strategic-web/static/strategic-generation-cache.js",
+      "sha256": "5ce851ecb4b60148f94dac775fbe3b697124460e9fc73e35f3bd4641118f2162",
+      "personally_read_ranges": [
+        [
+          1,
+          193
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozen1-193: generated asset cache key hashes format+revision+job; records pair revision/compressed bytes/checksum/size/decodedSize. get verifies type, byte size, product bounds, decoded size and checksum then bounded streaming decompression exact length, deleting bad records. Hash checking here is cache transport integrity, not source semantic audit credit.",
+        "Transaction deadline abort distinguishes completed busy-main-thread InvalidStateError and read TimeoutError from permanent storage failure. Deferred writes consume received buffer subject to byte/product/count/concurrency bounds; close awaits deferred drain then bounded prune/DB close, rejects new puts. Queue ownership/remove race policy belongs imported write queue, not newly cleared here.",
+        "Inventory optimization can miss another document's later write explicitly documented as harmless regeneration; LRU prune tracks compressedsize and caps total. Cache stores disposable generated assets only. API raw job/revision validation and exact receipt provenance remain callers' contract. No storage/browser execution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

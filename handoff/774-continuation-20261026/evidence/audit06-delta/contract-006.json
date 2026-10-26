@@ -1,0 +1,57 @@
+{
+  "id": "ADLER-CONT06-LATER-006",
+  "lens": "type-ownership",
+  "receipts": [
+    {
+      "material_index": 141,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer_main.rs",
+      "sha256": "c47317c7b2aa4afb18ac097c828f3b3bdd0c38bb2e52312dccbdc8b66bf80f69",
+      "ranges": [
+        [
+          25,
+          205
+        ]
+      ],
+      "source_basis": "Fresh root complete personal bounded source read with exact hash; own06 comparison, no cross-lens verdict credit.",
+      "owners_and_users": "CLI CaptureProfile is defined in viewer executable and converted to static strings for tactical_scene_viewer::run; fresh original1699 run762-789/selected_capture_views1118-1150 confirms string receiver and independent profile match. Receiver admits azimuth via tactical-core animation SignedAngleDegrees.",
+      "disposition": "Existing capture-profile semantic/string propagation obligation remains; no whole receiver typing claimed. Cross-layer common numeric owner movement is already recorded by NATIVE-OWNER81-F002; do not add duplicate degree wrapper or import cycle. Need reconcile actual shared owner and all profile consumers before repair; no new unique finding asserted.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 142,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+      "sha256": "3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+      "ranges": [
+        [
+          44,
+          186
+        ]
+      ],
+      "source_basis": "Fresh root complete personal bounded source read with exact hash; own06 comparison, no cross-lens verdict credit.",
+      "owners_and_users": "ReviewFixture/ReviewRequirements are local capture authoring and expected-output owners; SceneBuildingId comes from tactical-core, GeneratedBuilding/ShopSign/SignSite are existing production geometry/sign owners. It audits actual plans and stores expected sign together with resolved site.",
+      "disposition": "Fixture specification and expected rendered observations are distinct roles, not competing building authority. Reuse canonical IDs/signs and production plan operations; independent copies support review expectation. Admission/assertion/publish-order questions remain, not cleared by type ownership.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 143,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/heating.rs",
+      "sha256": "132d482c3a2ff8afb67a63fe50cbb2d71d33bafe1e0e82649e14c65ac60a93f2",
+      "ranges": [
+        [
+          9,
+          156
+        ]
+      ],
+      "source_basis": "Fresh root complete personal bounded source read with exact hash; own06 comparison, no cross-lens verdict credit.",
+      "owners_and_users": "HeatingTarget is local review-camera selector, not an alternative heating programme. It queries BuildingPlan/DomesticHeatingPlan and existing HeatingPartKind/PassageKind/StoreyIndex, returning fabelgeist geometry Position/Displacement/SpatialBounds in Architectural frame.",
+      "disposition": "Canonical heating and geometry owners are reused, selector adds only capture intent. Floor(u16) is serialized selector adapter, converted to existing StoreyIndex at lookup. Explicit point/displacement/frame distinctions preserved; raw intermediate Vec3 is numerical kernel boundary, no new competing geometry owner shown.",
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "new_unique_findings": 0,
+  "supporting_read": "Original1699 run762-792 and selected_capture_views1118-1150 freshly read; source-index navigation only for unregistered building_review1-43, body not read. Adopted NATIVE-OWNER81-F002 retained original qualification. No original-role credit.",
+  "clear": false
+}

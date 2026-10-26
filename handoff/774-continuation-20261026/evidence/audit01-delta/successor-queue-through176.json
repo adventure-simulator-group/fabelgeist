@@ -1,0 +1,2206 @@
+{
+  "lens": "producer-propagation",
+  "registry": "target\\recovery-20261025\\shared-material-successor\\source-extensions-177.json",
+  "registry_sha256": "6a1e8a6ab30283cd83e3b46dc16873eeef30af6a61d449c17b93dbea849a7c33",
+  "entries": [
+    {
+      "index": 62,
+      "source_id": "pr-working:crates/fabelgeist-math/src/vector/vec3.rs",
+      "sha256": "83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "source_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "actual_eof": 263,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+      "reason": "Immediate actual Vec3 floating min/max receiver needed to establish BVH parallel-axis arithmetic. Scope extension only, no broad math expansion or original2853-count increment.",
+      "qualification": null,
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 63,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "source_ranges": [
+        [
+          1,
+          209
+        ]
+      ],
+      "actual_eof": 209,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+      "reason": "Immediate native allocation/interface owner personally read; no original scope credit and coordinator registry reconciliation requested if absent.",
+      "qualification": "Exact new material source/ranges; no original2853count increment or other-lens transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 64,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "source_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "actual_eof": 138,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+      "reason": "Immediate native allocation/interface owner personally read; no original scope credit and coordinator registry reconciliation requested if absent.",
+      "qualification": "Exact new material source/ranges; no original2853count increment or other-lens transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 65,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/collider.rs",
+      "sha256": "a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "source_ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "actual_eof": 171,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+      "reason": "Immediate query sentinel and actualMeshCollider owner personallyread; no originalrolecredit. Coordinator registry reconciliation ifabsent.",
+      "qualification": "Exact new material source/ranges; no original2853count increment or other-lens transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 66,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_material.rs",
+      "sha256": "27f68197aed8fbddabadd7cf19e14bee176fbd01746a4dce9e3706a55c86e10a",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "source_ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "actual_eof": 15,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\27f68197aed8fbddabadd7cf19e14bee176fbd01746a4dce9e3706a55c86e10a",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/27f68197aed8fbddabadd7cf19e14bee176fbd01746a4dce9e3706a55c86e10a",
+      "reason": "Actual finite EquipmentMaterial owner939 -> ArmorSurface material retained by PlayerEquipment920 -> scoped original865 autoresolve/melee_iteration.rs715 calls is_metal to classify contact material. Tactical client1474:724/725 same helper receiver is later source trace, navigation only now.",
+      "qualification": "Exact committed PR6533 affected material ranges; broader own09 viewed support does not enlarge shared all-lens scope. No receiver/other-lens coverage.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 67,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_classification.rs",
+      "sha256": "a65529b45c53a783feaa8905b9fba38d95d28e97b01fe8198d4ffeee0a57c58d",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "source_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "actual_eof": 125,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\a65529b45c53a783feaa8905b9fba38d95d28e97b01fe8198d4ffeee0a57c58d",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\a65529b45c53a783feaa8905b9fba38d95d28e97b01fe8198d4ffeee0a57c58d",
+      "reason": "Authored ItemKind939 -> actual native original1136 item.rs183..234 projection -> Item.kind CatalogItemKind87 retained -> native capability299..363 weapon/shield/mode-specific selection. Defines candidate existing owner for retained classification. Native receivers not freshly read yet, navigation only, no transferred coverage.",
+      "qualification": "Exact committed PR6533 affected material ranges; broader own09 viewed support does not enlarge shared all-lens scope. No receiver/other-lens coverage.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 68,
+      "source_id": "pr-working:crates/adventuresim-core/src/errantry.rs",
+      "sha256": "c745b617fe6b91b054b4f968565f295d03f9839eb329c4957d86306d65969858",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "source_ranges": [
+        [
+          62,
+          98
+        ]
+      ],
+      "actual_eof": 827,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\c745b617fe6b91b054b4f968565f295d03f9839eb329c4957d86306d65969858",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/c745b617fe6b91b054b4f968565f295d03f9839eb329c4957d86306d65969858",
+      "reason": "Shared bestiary ThreatProfile combat.ranged from scoped881/classification F150 -> tactical_insight_for76..98 -> whole TacticalInsight{kind,threatID,finding,preparation} -> original1207 native strategic/challenges.rs391 receiver, later source trace. Same P16 path104 is separate source variant.",
+      "qualification": "Exact committed PR6533 affected material ranges; broader own09 viewed support does not enlarge shared all-lens scope. No receiver/other-lens coverage.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 69,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/bevy_error.rs",
+      "sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "revision": "exactregisterednative source; originalscope pin retained",
+      "source_ranges": [
+        [
+          7,
+          25
+        ],
+        [
+          228,
+          285
+        ],
+        [
+          381,
+          421
+        ]
+      ],
+      "actual_eof": 567,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "reason": "Need actual BevyError severity/default conversion to distinguish typed Err from recovery; caller411/main410 routes new projection errors here.",
+      "qualification": "Exact new material source/ranges; no original2853count increment or other-lens transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 70,
+      "source_id": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-client/src/character_settlement_reputation_type.rs",
+      "sha256": "fb0c3f00ff6ec75a99d6053871e23ef12e31108af4342f236de077e4d8f2e881",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "source_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "actual_eof": 65,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\fb0c3f00ff6ec75a99d6053871e23ef12e31108af4342f236de077e4d8f2e881",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/fb0c3f00ff6ec75a99d6053871e23ef12e31108af4342f236de077e4d8f2e881",
+      "reason": "Exact generated backend reputation i32 field widths and codec; no source change or originalscope credit.",
+      "qualification": "Generated native transport signed widths; no generated bindings edits, original2853 denominator unchanged.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 71,
+      "source_id": "pr-working:crates/strategic-web/static/background-fetch.js",
+      "sha256": "00cfcd2e251b7d8b3020a2493c94a0907b7cf2afbeccc841331a2f81aabf2c86",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "source_ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "actual_eof": 83,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\00cfcd2e251b7d8b3020a2493c94a0907b7cf2afbeccc841331a2f81aabf2c86",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/00cfcd2e251b7d8b3020a2493c94a0907b7cf2afbeccc841331a2f81aabf2c86",
+      "reason": "Actual strategic fetch/navigation/condition receiver or native KCC Stopwatch contract; dependency proof in operations/contract-groups-578.json#fresh_dependencies",
+      "qualification": "Only listed material ranges extend shared scope. Original2853 denominator and adopted completed baselines unchanged; no other-lens coverage transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 72,
+      "source_id": "pr-working:crates/strategic-web/static/strategic-navigation.js",
+      "sha256": "1419143934b4dacd73085c81a770534d63fbad34612ff6cc25bb886c430e6bff",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "source_ranges": [
+        [
+          1,
+          209
+        ]
+      ],
+      "actual_eof": 209,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\1419143934b4dacd73085c81a770534d63fbad34612ff6cc25bb886c430e6bff",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/1419143934b4dacd73085c81a770534d63fbad34612ff6cc25bb886c430e6bff",
+      "reason": "Actual strategic fetch/navigation/condition receiver or native KCC Stopwatch contract; dependency proof in operations/contract-groups-578.json#fresh_dependencies",
+      "qualification": "Only listed material ranges extend shared scope. Original2853 denominator and adopted completed baselines unchanged; no other-lens coverage transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 73,
+      "source_id": "pr-working:crates/strategic-web/src/routes/characters.rs",
+      "sha256": "10dd792473dbbed42eb10675903a838cb0858f13323b7029982c0c7e08a0e0b0",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "source_ranges": [
+        [
+          1,
+          15
+        ],
+        [
+          52,
+          87
+        ]
+      ],
+      "actual_eof": 452,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\10dd792473dbbed42eb10675903a838cb0858f13323b7029982c0c7e08a0e0b0",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/10dd792473dbbed42eb10675903a838cb0858f13323b7029982c0c7e08a0e0b0",
+      "reason": "Actual strategic fetch/navigation/condition receiver or native KCC Stopwatch contract; dependency proof in operations/contract-groups-581.json#fresh_dependencies",
+      "qualification": "Only listed material ranges extend shared scope. Original2853 denominator and adopted completed baselines unchanged; no other-lens coverage transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 74,
+      "source_id": "pr-working:vendor/bevy_ahoy/src/kcc.rs",
+      "sha256": "270d6b20992ae497744d528d70421ca20075b2f22be9c0dff36f2c41978e72ba",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "source_ranges": [
+        [
+          145,
+          195
+        ]
+      ],
+      "actual_eof": 1645,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\270d6b20992ae497744d528d70421ca20075b2f22be9c0dff36f2c41978e72ba",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/270d6b20992ae497744d528d70421ca20075b2f22be9c0dff36f2c41978e72ba",
+      "reason": "Actual strategic fetch/navigation/condition receiver or native KCC Stopwatch contract; dependency proof in operations/contract-groups-583.json#fresh_dependencies",
+      "qualification": "Only listed material ranges extend shared scope. Original2853 denominator and adopted completed baselines unchanged; no other-lens coverage transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 75,
+      "source_id": "pinned-registry:bevy_time-0.19.1/src/stopwatch.rs",
+      "sha256": "0f89469949a788d5c34a3e2608a6feb5af224c57692f0a421f1846fcfc51e87f",
+      "revision": "pinned native dependency checksum/bytes in operations/contract-groups-583.json#fresh_dependencies",
+      "source_ranges": [
+        [
+          115,
+          165
+        ]
+      ],
+      "actual_eof": 210,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\0f89469949a788d5c34a3e2608a6feb5af224c57692f0a421f1846fcfc51e87f",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/0f89469949a788d5c34a3e2608a6feb5af224c57692f0a421f1846fcfc51e87f",
+      "reason": "Actual strategic fetch/navigation/condition receiver or native KCC Stopwatch contract; dependency proof in operations/contract-groups-583.json#fresh_dependencies",
+      "qualification": "Only listed material ranges extend shared scope. Original2853 denominator and adopted completed baselines unchanged; no other-lens coverage transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 76,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/viewer/capture.rs",
+      "sha256": "de950524563388fee6bf5f849cc9cf10683a7eb8befcacdb3ebb8a0d562b3521",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "source_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "actual_eof": 56,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\de950524563388fee6bf5f849cc9cf10683a7eb8befcacdb3ebb8a0d562b3521",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/de950524563388fee6bf5f849cc9cf10683a7eb8befcacdb3ebb8a0d562b3521",
+      "reason": "Actual chained capture::capture receiver after rebuild receives Options and Editor whose selected Recipe and PlantLod now carry generated plant geometry. It owns output screenshot/sidecar publication of the same edited-versus-preset recipe, family and view contract. This is actual connected consumer of changed shared recipe/types, not module declaration or directory adjacency. Register full source prospectively to identify exact material ranges on first read; unrelated helper bodies will not automatically become all-lens scope.",
+      "qualification": "Only listed material ranges extend shared scope. Original2853 denominator and adopted completed baselines unchanged; no other-lens coverage transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 77,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/sigil.rs",
+      "sha256": "938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "source_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "actual_eof": 83,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+      "reason": "Canonical Sigil owner is actual payload of changed OrderedSigilClue, private solution, public projection and submitted ordering; its ALL, label and finite membership are called by generator, clue text, solver and validation. This is concrete owner/callee support, beyond1059 module export. Register full owner prospectively; identify material ranges before shared import.",
+      "qualification": "Only listed material ranges extend shared scope. Original2853 denominator and adopted completed baselines unchanged; no other-lens coverage transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 78,
+      "source_id": "pinned-registry:bevy_render-0.19.1/src/view/window/screenshot.rs",
+      "sha256": "f49e4ca4f0929fc51a5c55fc002294c6009ae7a4c1c07dc6ef6c8ff737df0c5b",
+      "revision": "native Bevy0.19.1 exact cached crate checksum matching P17Cargo.lock in operations/contract-groups-589.json#fresh_dependencies",
+      "source_ranges": [
+        [
+          125,
+          240
+        ]
+      ],
+      "actual_eof": 702,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\f49e4ca4f0929fc51a5c55fc002294c6009ae7a4c1c07dc6ef6c8ff737df0c5b",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/f49e4ca4f0929fc51a5c55fc002294c6009ae7a4c1c07dc6ef6c8ff737df0c5b",
+      "reason": "Actual same capture save_to_disk callback writes/error observation contract reached by P17report acceptance.",
+      "qualification": "Only exact material ranges; fixtures/unread SDK remainder excluded. No original2853 count increment or other-lens transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 79,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/witness_path.rs",
+      "sha256": "363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "source_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "actual_eof": 75,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+      "reason": "Canonical WitnessPath actual payload of submitted safe path, typed WitnessClaim, private solution and public offered paths; generator calls ALL, text calls label and generic authority checks typed submitted choice. Concrete owner/callee contract beyond choices module export; register before first body.",
+      "qualification": "Only exact material ranges; fixtures/unread SDK remainder excluded. No original2853 count increment or other-lens transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 80,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/analysis.rs",
+      "sha256": "fb36566c1c5d3a10b22638406e6341f7fcd427c4226b20604e56153dc380caeb",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "source_ranges": [
+        [
+          1,
+          348
+        ]
+      ],
+      "actual_eof": 348,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\fb36566c1c5d3a10b22638406e6341f7fcd427c4226b20604e56153dc380caeb",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/fb36566c1c5d3a10b22638406e6341f7fcd427c4226b20604e56153dc380caeb",
+      "reason": "Changed PuzzleAuthority receiver is consumed by its actual analysis() contract used in replay/generation complexity fixtures; must inspect which typed clue/spec/witness fields supply reported possible_answers and structural_complexity before declaring their propagation coherent. This is concrete semantic receiver/callee of same authority types, not lib module export. Prospective full source registration; narrow actual affected contract ranges after first read.",
+      "qualification": "Only exact material ranges; fixtures/unread SDK remainder excluded. No original2853 count increment or other-lens transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 81,
+      "source_id": "pinned-registry:serde_json-1.0.151/src/value/ser.rs",
+      "sha256": "11f2b7daa1eba826d4086d5497f73729478dd7647bff77deccde5e47b0f126f2",
+      "revision": null,
+      "source_ranges": [
+        [
+          148,
+          158
+        ]
+      ],
+      "actual_eof": 1063,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\11f2b7daa1eba826d4086d5497f73729478dd7647bff77deccde5e47b0f126f2",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/592/serde_json-1.0.151/src/value/ser.rs",
+      "reason": "Actual reached operation support; selected export receiver/native serialization, vector clamp or gate center producer/caller. Exact reason and proof retained in origin packet.",
+      "qualification": "Exact material ranges only. No whole SDK/library coverage, no original2853 increment, no automatic other-lens evidence transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 82,
+      "source_id": "pinned-registry:serde_json-1.0.151/src/value/from.rs",
+      "sha256": "ae4b5f93b27e578fa40e3a8d25d0df2032fe40b680cddb15963e47cbd56db613",
+      "revision": null,
+      "source_ranges": [
+        [
+          27,
+          52
+        ]
+      ],
+      "actual_eof": 284,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\ae4b5f93b27e578fa40e3a8d25d0df2032fe40b680cddb15963e47cbd56db613",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/592/serde_json-1.0.151/src/value/from.rs",
+      "reason": "Actual reached operation support; selected export receiver/native serialization, vector clamp or gate center producer/caller. Exact reason and proof retained in origin packet.",
+      "qualification": "Exact material ranges only. No whole SDK/library coverage, no original2853 increment, no automatic other-lens evidence transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 83,
+      "source_id": "pinned-registry:glam-0.32.1/src/f32/vec3.rs",
+      "sha256": "28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+      "revision": null,
+      "source_ranges": [
+        [
+          1021,
+          1032
+        ]
+      ],
+      "actual_eof": 2238,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/596/glam-0.32.1/src/f32/vec3.rs",
+      "reason": "Actual reached operation support; selected export receiver/native serialization, vector clamp or gate center producer/caller. Exact reason and proof retained in origin packet.",
+      "qualification": "Exact material ranges only. No whole SDK/library coverage, no original2853 increment, no automatic other-lens evidence transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 84,
+      "source_id": "pinned-registry:glam-0.33.6/src/f32/vec3.rs",
+      "sha256": "3e72eeb9eddf937d45c43637677046bb2a00027a317770ad8ba72619fc6605fe",
+      "revision": null,
+      "source_ranges": [
+        [
+          1043,
+          1054
+        ]
+      ],
+      "actual_eof": 2241,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\3e72eeb9eddf937d45c43637677046bb2a00027a317770ad8ba72619fc6605fe",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/596/glam-0.33.6/src/f32/vec3.rs",
+      "reason": "Actual reached operation support; selected export receiver/native serialization, vector clamp or gate center producer/caller. Exact reason and proof retained in origin packet.",
+      "qualification": "Exact material ranges only. No whole SDK/library coverage, no original2853 increment, no automatic other-lens evidence transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 85,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout/compiled/property.rs",
+      "sha256": "ae34cb221f0a7fec0c9c65d49e88822262a16c26c965566e735cc95b510741de",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          55
+        ],
+        [
+          110,
+          203
+        ]
+      ],
+      "actual_eof": 203,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\ae34cb221f0a7fec0c9c65d49e88822262a16c26c965566e735cc95b510741de",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/606/crates/adventuresim-tactical-core/src/city_layout/compiled/property.rs",
+      "reason": "Actual reached operation support; selected export receiver/native serialization, vector clamp or gate center producer/caller. Exact reason and proof retained in origin packet.",
+      "qualification": "Exact material ranges only. No whole SDK/library coverage, no original2853 increment, no automatic other-lens evidence transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 86,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout.rs",
+      "sha256": "d5aacb8a24fecfd5dadee9361c1b6c3d32bd19171bfc0bc984cd8b2efb183c8f",
+      "revision": null,
+      "source_ranges": [
+        [
+          235,
+          315
+        ]
+      ],
+      "actual_eof": 338,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\d5aacb8a24fecfd5dadee9361c1b6c3d32bd19171bfc0bc984cd8b2efb183c8f",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/606/crates/adventuresim-tactical-core/src/city_layout.rs",
+      "reason": "Actual reached operation support; selected export receiver/native serialization, vector clamp or gate center producer/caller. Exact reason and proof retained in origin packet.",
+      "qualification": "Exact material ranges only. No whole SDK/library coverage, no original2853 increment, no automatic other-lens evidence transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 87,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout/compiled/property/handedness_tests.rs",
+      "sha256": "f41fca98399a19869386e27461d20b58338b534bf26227fd0c2e4e3f5ca1e528",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "actual_eof": 77,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\f41fca98399a19869386e27461d20b58338b534bf26227fd0c2e4e3f5ca1e528",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/606/crates/adventuresim-tactical-core/src/city_layout/compiled/property/handedness_tests.rs",
+      "reason": "Actual reached operation support; selected export receiver/native serialization, vector clamp or gate center producer/caller. Exact reason and proof retained in origin packet.",
+      "qualification": "Exact material ranges only. No whole SDK/library coverage, no original2853 increment, no automatic other-lens evidence transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 88,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast.rs",
+      "sha256": "55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          151
+        ],
+        [
+          272,
+          284
+        ]
+      ],
+      "actual_eof": 284,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "reason": "Q003 actual camera ShapeCast normal producer through Avian487:559 to pinned Parry dispatcher/cast result and cuboid support-map branch. Additional exact native contracts, no blanket SDK role.",
+      "qualification": "Exact material ranges only. No whole SDK/library coverage, no original2853 increment, no automatic other-lens evidence transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 89,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/default_query_dispatcher.rs",
+      "sha256": "dd9873e219688b93f28314df13a405c0c78fb44444344b46e18ba2eb75fbe53d",
+      "revision": null,
+      "source_ranges": [
+        [
+          437,
+          543
+        ]
+      ],
+      "actual_eof": 835,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\dd9873e219688b93f28314df13a405c0c78fb44444344b46e18ba2eb75fbe53d",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/native-parry-dd9873e219688b93f28314df13a405c0c78fb44444344b46e18ba2eb75fbe53d",
+      "reason": "Q003 actual camera ShapeCast normal producer through Avian487:559 to pinned Parry dispatcher/cast result and cuboid support-map branch. Additional exact native contracts, no blanket SDK role.",
+      "qualification": "Exact material ranges only. No whole SDK/library coverage, no original2853 increment, no automatic other-lens evidence transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 90,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast_support_map_support_map.rs",
+      "sha256": "d874526a7a624206fd8ae6e3302db0f51f2d643c53014b8f5d496daa7d1e125c",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "actual_eof": 67,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\d874526a7a624206fd8ae6e3302db0f51f2d643c53014b8f5d496daa7d1e125c",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/native-parry-d874526a7a624206fd8ae6e3302db0f51f2d643c53014b8f5d496daa7d1e125c",
+      "reason": "Q003 actual camera ShapeCast normal producer through Avian487:559 to pinned Parry dispatcher/cast result and cuboid support-map branch. Additional exact native contracts, no blanket SDK role.",
+      "qualification": "Exact material ranges only. No whole SDK/library coverage, no original2853 increment, no automatic other-lens evidence transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 91,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast_halfspace_support_map.rs",
+      "sha256": "42943e2a44151982c9c509c9c633cde8b794e4da98ac70a1fd1d99c657aef851",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "actual_eof": 78,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\42943e2a44151982c9c509c9c633cde8b794e4da98ac70a1fd1d99c657aef851",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/native-parry-42943e2a44151982c9c509c9c633cde8b794e4da98ac70a1fd1d99c657aef851",
+      "reason": "Q003 actual camera ShapeCast normal producer through Avian487:559 to pinned Parry dispatcher/cast result and cuboid support-map branch. Additional exact native contracts, no blanket SDK role.",
+      "qualification": "Exact material ranges only. No whole SDK/library coverage, no original2853 increment, no automatic other-lens evidence transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 92,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/gjk/gjk.rs",
+      "sha256": "893b9246ae77eb21d8a3f10afaeeb05e36bfdb774ce6e98579f614ac32e57a68",
+      "revision": null,
+      "source_ranges": [
+        [
+          634,
+          822
+        ]
+      ],
+      "actual_eof": 822,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\893b9246ae77eb21d8a3f10afaeeb05e36bfdb774ce6e98579f614ac32e57a68",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/native-parry-893b9246ae77eb21d8a3f10afaeeb05e36bfdb774ce6e98579f614ac32e57a68",
+      "reason": "Actual REG002 support-map shape cast calls GJK directional_distance and nearzero-impact contact; exact normal output producer bodies required for Q003.",
+      "qualification": "Exact material ranges only. No whole SDK/library coverage, no original2853 increment, no automatic other-lens evidence transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 93,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/contact/contact_support_map_support_map.rs",
+      "sha256": "fcb9e37067085e862b6a23bfbe73a4bc39ff56ceefc90031f9c0b10766430562",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "actual_eof": 73,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\fcb9e37067085e862b6a23bfbe73a4bc39ff56ceefc90031f9c0b10766430562",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/native-parry-fcb9e37067085e862b6a23bfbe73a4bc39ff56ceefc90031f9c0b10766430562",
+      "reason": "Actual REG002 support-map shape cast calls GJK directional_distance and nearzero-impact contact; exact normal output producer bodies required for Q003.",
+      "qualification": "Exact material ranges only. No whole SDK/library coverage, no original2853 increment, no automatic other-lens evidence transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 94,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/clothing/regions.rs",
+      "sha256": "3819e9e4805a3004655e303c8a9e84b2d28892ea2d2b193ea9d094a31afc8f5a",
+      "revision": null,
+      "source_ranges": [
+        [
+          104,
+          133
+        ]
+      ],
+      "actual_eof": 162,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\3819e9e4805a3004655e303c8a9e84b2d28892ea2d2b193ea9d094a31afc8f5a",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/592/crates/adventuresim-character-creator/src/clothing/regions.rs",
+      "reason": "007 corrects priorcrossvariantdedup in006: actualreachedrig/P16context differsfromoriginalPRvariant, even ifbodybytesidentical. Originpersonallycomparedcontext inoperationpacket; no needlessbodyreread.",
+      "qualification": "Distinct variant/context remains material despite equal bodybytes. Only listedranges; no original2853 increment or automaticotherlenscoverage.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 95,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/boundaries.rs",
+      "sha256": "41530ea3d8197242c6c5cc79ac9a35b31b9df76287a57aae530247553f3e2f2b",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "actual_eof": 46,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\41530ea3d8197242c6c5cc79ac9a35b31b9df76287a57aae530247553f3e2f2b",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/606/crates/adventuresim-tactical-server/src/boundaries.rs",
+      "reason": "007 corrects priorcrossvariantdedup in006: actualreachedrig/P16context differsfromoriginalPRvariant, even ifbodybytesidentical. Originpersonallycomparedcontext inoperationpacket; no needlessbodyreread.",
+      "qualification": "Distinct variant/context remains material despite equal bodybytes. Only listedranges; no original2853 increment or automaticotherlenscoverage.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 96,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/investigation/claims.rs",
+      "sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "source_ranges": [
+        [
+          643,
+          655
+        ]
+      ],
+      "actual_eof": 1771,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-material-19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+      "reason": "Actual224development rumor receiving boundary referenced1646/1658; establish frozen Result owner and native gating/material journal publication.",
+      "qualification": "Distinct variant/context remains material despite equal bodybytes. Only listedranges; no original2853 increment or automaticotherlenscoverage.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 97,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/investigation/model.rs",
+      "sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "source_ranges": [
+        [
+          1287,
+          1335
+        ]
+      ],
+      "actual_eof": 1399,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-material-ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "reason": "Actual224development rumor receiving boundary referenced1646/1658; establish frozen Result owner and native gating/material journal publication.",
+      "qualification": "Distinct variant/context remains material despite equal bodybytes. Only listedranges; no original2853 increment or automaticotherlenscoverage.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 98,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "ff370d4ead428bf2bc7c6de55dcf2d22d7b358ab64054cac8e1ec34f71bda894",
+      "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "source_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "actual_eof": 111,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\ff370d4ead428bf2bc7c6de55dcf2d22d7b358ab64054cac8e1ec34f71bda894",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/659/crates/adventuresim-character-creator/src/export/shell.rs",
+      "reason": "Immediate actual CompactShell.rigged surface/texcoords consumer, needed to decide remapped UV cohort. Firstparty helper only; no blanket export expansion. Exact frozen Git recovery before body read, not current worktree.",
+      "qualification": "Actualreachedrig-qualityreceiverexactcontext/ranges; equalPRbytesnotcoverageorvariantremoval. No wholeexportexpansion.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 99,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "cc0dcb8aa0f608af65aa968955667894a687e4f44ef547919b421d7c3e1d2616",
+      "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "source_ranges": [
+        [
+          633,
+          670
+        ],
+        [
+          810,
+          840
+        ]
+      ],
+      "actual_eof": 1819,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\cc0dcb8aa0f608af65aa968955667894a687e4f44ef547919b421d7c3e1d2616",
+      "verified_source_origin": "git:origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/659/crates/adventuresim-character-creator/src/export.rs",
+      "reason": "Exact actual export validates originalshells then usesCompactShell remapping and passes material/UV writer. Selected firstparty critical ranges only, not whole export or adjacent skin/socket bodies.",
+      "qualification": "Actualreachedrig-qualityreceiverexactcontext/ranges; equalPRbytesnotcoverageorvariantremoval. No wholeexportexpansion.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 100,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/contracts.rs",
+      "sha256": "082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "source_ranges": [
+        [
+          1,
+          291
+        ],
+        [
+          338,
+          384
+        ]
+      ],
+      "actual_eof": 384,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33",
+      "reason": "Actual PR1213:151\u2013160/191\u2013200 passes named ContractInteractionStage to record_dialogue_contract_issuer_interaction then accept_contract/report_contract; PR1227:52\u201357 consumes exact Report interaction. F002 retained Contract state and F234 admitted approved action need these exact live issuers/consumers, not module adjacency.",
+      "qualification": "Own09fullbodyfirstread narrowed shared actualmaterial to1\u2013291/338\u2013384; tracking294\u2013336 remains own09supportonly andnotsharedbody obligation. NativePR/P16variants distinct; no otherlenscredit.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 101,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade/streams.rs",
+      "sha256": "f0317997a922b05065564f3a5b4963d424f0efd3a2c4ed70dbb72a1de6c9569e",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "source_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "actual_eof": 18,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\f0317997a922b05065564f3a5b4963d424f0efd3a2c4ed70dbb72a1de6c9569e",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\f0317997a922b05065564f3a5b4963d424f0efd3a2c4ed70dbb72a1de6c9569e",
+      "reason": "Actual PR1225:1371\u20131374 conditionally supplies named loot seed and maximum gold to inventory_trade_streams::gold. Concrete current hostile-battle loot policy and include_random_gold result must be traced to real optional gold receiver. Distinct from P16 commit helper bytes.",
+      "qualification": "Own09fullbodyfirstread narrowed shared actualmaterial to1\u2013291/338\u2013384; tracking294\u2013336 remains own09supportonly andnotsharedbody obligation. NativePR/P16variants distinct; no otherlenscredit.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 102,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/scalp.rs",
+      "sha256": "64a5cc8196a567a3b4d071c355bc491a23956d815c57d4805277bf15b1135304",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "source_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "actual_eof": 412,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\64a5cc8196a567a3b4d071c355bc491a23956d815c57d4805277bf15b1135304",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\64a5cc8196a567a3b4d071c355bc491a23956d815c57d4805277bf15b1135304",
+      "reason": "Actual GpuScalp public upload boundary needed to qualify edge_closest first-corner cull; exact body read, no native-execution or other-lens coverage.",
+      "qualification": "Only selected1\u2013129 is shared material; source metadata describes EOF412. Root registered identity/range without importing another lens verdict.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 103,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast.rs",
+      "sha256": "55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "revision": "pinned native parry3d-0.27.0 lock checksum",
+      "source_ranges": [
+        [
+          157,
+          175
+        ],
+        [
+          212,
+          220
+        ]
+      ],
+      "actual_eof": 284,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "reason": "Actual velocity-frame question in registered cast receiver; additional API documentation and positional example determine expected input contract.",
+      "qualification": "Keep earlier index88 range dispositions. Only these previously excluded ranges are new obligations; no baseline replay.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 104,
+      "source_id": "pinned-registry:bevy_render_macros-0.19.1/src/extract_component.rs",
+      "sha256": "2deb41c36880e96baffe3899ba832ae528a5cd97eb5bd611272651e032223932",
+      "revision": "Exact frozen P16 lock/native revision; provenance in registration005",
+      "source_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "actual_eof": 76,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\2deb41c36880e96baffe3899ba832ae528a5cd97eb5bd611272651e032223932",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\2deb41c36880e96baffe3899ba832ae528a5cd97eb5bd611272651e032223932",
+      "reason": "ActualavailableExtractComponent derive macro body/docs necessary to compare nativeEidolon MaterialBindGroupData manualimpl exactgenericbounds andSyncComponenttarget, not an unrelatedSDK expansion.",
+      "qualification": "Actual derive/manual impl generic bounds comparison; exact selected ranges only. No automatic other-lens credit or completed baseline replay.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 105,
+      "source_id": "pinned-registry:bevy_render_macros-0.19.1/src/lib.rs",
+      "sha256": "9f94ce2c2e61634a28dedcca4a440c9ba5332efa3bede22b30d3b0a563d89884",
+      "revision": "Exact frozen P16 lock/native revision; provenance in registration005",
+      "source_ranges": [
+        [
+          27,
+          62
+        ]
+      ],
+      "actual_eof": 111,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\9f94ce2c2e61634a28dedcca4a440c9ba5332efa3bede22b30d3b0a563d89884",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\9f94ce2c2e61634a28dedcca4a440c9ba5332efa3bede22b30d3b0a563d89884",
+      "reason": "ActualavailableExtractComponent derive macro body/docs necessary to compare nativeEidolon MaterialBindGroupData manualimpl exactgenericbounds andSyncComponenttarget, not an unrelatedSDK expansion.",
+      "qualification": "Actual derive/manual impl generic bounds comparison; exact selected ranges only. No automatic other-lens credit or completed baseline replay.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 106,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/material.rs",
+      "sha256": "67733383aa74089a84e76448e23b6911132a2a298ab684e44655f8e85fa0765c",
+      "revision": "Exact frozen P16 lock/native revision; provenance in registration005",
+      "source_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "actual_eof": 203,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\67733383aa74089a84e76448e23b6911132a2a298ab684e44655f8e85fa0765c",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\67733383aa74089a84e76448e23b6911132a2a298ab684e44655f8e85fa0765c",
+      "reason": "ActualInstancedMaterial supertraits Clone andAsBindGroup decide derive-bound comparison.",
+      "qualification": "Actual derive/manual impl generic bounds comparison; exact selected ranges only. No automatic other-lens credit or completed baseline replay.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 107,
+      "source_id": "pinned-registry:bevy_render-0.19.1/src/render_resource/bind_group.rs",
+      "sha256": "c0efbc7a55dffa8e71f5a7ff158b5123b2b031f44db99275a61ad6c008dda14f",
+      "revision": "Exact frozen P16 lock/native revision; provenance in registration005",
+      "source_ranges": [
+        [
+          500,
+          504
+        ]
+      ],
+      "actual_eof": 740,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\c0efbc7a55dffa8e71f5a7ff158b5123b2b031f44db99275a61ad6c008dda14f",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\c0efbc7a55dffa8e71f5a7ff158b5123b2b031f44db99275a61ad6c008dda14f",
+      "reason": "ImmediateAsBindGroup::Data bound isSend+Sync, not Eq/Hash; no wholemodule bodycredit.",
+      "qualification": "Actual derive/manual impl generic bounds comparison; exact selected ranges only. No automatic other-lens credit or completed baseline replay.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 108,
+      "source_id": "pinned-registry:serde_derive-1.0.229/src/ser.rs",
+      "sha256": "18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+      "revision": "FrozenP16 exact native package; registration006 contains lock checksum proof",
+      "source_ranges": [
+        [
+          191,
+          212
+        ]
+      ],
+      "actual_eof": 1369,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+      "reason": "Exact immediate serialization wire/transparent derive dependency for LeafDimensions equivalence; only stated ranges read.",
+      "qualification": "Exact derive versus manual wire semantics; bounded ranges only; no automatic other-lens credit or baseline replay.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 109,
+      "source_id": "pinned-registry:glam-0.32.1/src/features/impl_serde.rs",
+      "sha256": "da9b8a13b57b257793481f554e6888a8fb0c82a7669e52d7e2d2af74701f0061",
+      "revision": "FrozenP16 exact native package; registration006 contains lock checksum proof",
+      "source_ranges": [
+        [
+          73,
+          86
+        ],
+        [
+          730,
+          748
+        ],
+        [
+          1044,
+          1062
+        ]
+      ],
+      "actual_eof": 1638,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\da9b8a13b57b257793481f554e6888a8fb0c82a7669e52d7e2d2af74701f0061",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\da9b8a13b57b257793481f554e6888a8fb0c82a7669e52d7e2d2af74701f0061",
+      "reason": "Exact immediate serialization wire/transparent derive dependency for LeafDimensions equivalence; only stated ranges read.",
+      "qualification": "Exact derive versus manual wire semantics; bounded ranges only; no automatic other-lens credit or baseline replay.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 110,
+      "source_id": "pinned-registry:bevy_math-0.19.1/Cargo.toml",
+      "sha256": "55eaac570fdbe4828cebd617d6feb73ce13af0fb030f5c4cba99417c967a2a2f",
+      "revision": "FrozenP16 exact native package; registration006 contains lock checksum proof",
+      "source_ranges": [
+        [
+          118,
+          121
+        ]
+      ],
+      "actual_eof": 208,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\55eaac570fdbe4828cebd617d6feb73ce13af0fb030f5c4cba99417c967a2a2f",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\55eaac570fdbe4828cebd617d6feb73ce13af0fb030f5c4cba99417c967a2a2f",
+      "reason": "Exact immediate serialization wire/transparent derive dependency for LeafDimensions equivalence; only stated ranges read.",
+      "qualification": "Exact derive versus manual wire semantics; bounded ranges only; no automatic other-lens credit or baseline replay.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 111,
+      "source_id": "pinned-registry:bevy_math-0.19.1/src/lib.rs",
+      "sha256": "d743684d4c464873715e1fa8ef5fe0b6fa537fabb1172894056c3a7bff504a26",
+      "revision": "FrozenP16 exact native package; registration006 contains lock checksum proof",
+      "source_ranges": [
+        [
+          103,
+          103
+        ]
+      ],
+      "actual_eof": 103,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\d743684d4c464873715e1fa8ef5fe0b6fa537fabb1172894056c3a7bff504a26",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\d743684d4c464873715e1fa8ef5fe0b6fa537fabb1172894056c3a7bff504a26",
+      "reason": "Exact immediate serialization wire/transparent derive dependency for LeafDimensions equivalence; only stated ranges read.",
+      "qualification": "Exact derive versus manual wire semantics; bounded ranges only; no automatic other-lens credit or baseline replay.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 112,
+      "source_id": "pinned-registry:thiserror-impl-2.0.20/src/expand.rs",
+      "sha256": "76285acc08ccb8a0a93a3cbd58c3e12cbcde61720ad676be181fff7b1f278df3",
+      "revision": "FrozenP16 lock and manifest/source proof in017",
+      "source_ranges": [
+        [
+          22,
+          72
+        ],
+        [
+          126,
+          165
+        ],
+        [
+          201,
+          220
+        ]
+      ],
+      "actual_eof": 600,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\76285acc08ccb8a0a93a3cbd58c3e12cbcde61720ad676be181fff7b1f278df3",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\76285acc08ccb8a0a93a3cbd58c3e12cbcde61720ad676be181fff7b1f278df3",
+      "reason": "Exact unit-error derive source for UnknownThreatId no-source Error and fixed literal Display equivalence; only stated ranges consumed.",
+      "qualification": "Only direct Error/Display derive equivalence context, no whole SDK or baseline replay.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 113,
+      "source_id": "pinned-registry:thiserror-impl-2.0.20/src/attr.rs",
+      "sha256": "d3c7fa9e8269973f140e5382f753664ac32bee44c09875f678100b890aea4d06",
+      "revision": "FrozenP16 lock and manifest/source proof in017",
+      "source_ranges": [
+        [
+          302,
+          340
+        ]
+      ],
+      "actual_eof": 358,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\d3c7fa9e8269973f140e5382f753664ac32bee44c09875f678100b890aea4d06",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\d3c7fa9e8269973f140e5382f753664ac32bee44c09875f678100b890aea4d06",
+      "reason": "Exact unit-error derive source for UnknownThreatId no-source Error and fixed literal Display equivalence; only stated ranges consumed.",
+      "qualification": "Only direct Error/Display derive equivalence context, no whole SDK or baseline replay.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 114,
+      "source_id": "pinned-registry:thiserror-impl-2.0.20/src/expand.rs",
+      "sha256": "76285acc08ccb8a0a93a3cbd58c3e12cbcde61720ad676be181fff7b1f278df3",
+      "revision": null,
+      "source_ranges": [
+        [
+          222,
+          277
+        ],
+        [
+          279,
+          280
+        ],
+        [
+          379,
+          444
+        ],
+        [
+          486,
+          505
+        ]
+      ],
+      "actual_eof": 600,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\76285acc08ccb8a0a93a3cbd58c3e12cbcde61720ad676be181fff7b1f278df3",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\76285acc08ccb8a0a93a3cbd58c3e12cbcde61720ad676be181fff7b1f278df3",
+      "reason": "Range amendment to registered112 same exact expand.rs SHA: enum fixed-message/no-source Error equivalence for ElapsedError; no whole macro coverage.",
+      "qualification": "Bounded material trace only. Prior original roles and completed baseline findings remain adopted; no replay, whole-lens clearance, or cross-lens verdict transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 115,
+      "source_id": "pinned-registry:thiserror-2.0.20/src/lib.rs",
+      "sha256": "817cfdb6c24d60de78f399d4db84f2910c543dec9a9d75d191215b4308e19823",
+      "revision": null,
+      "source_ranges": [
+        [
+          38,
+          59
+        ]
+      ],
+      "actual_eof": 291,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\817cfdb6c24d60de78f399d4db84f2910c543dec9a9d75d191215b4308e19823",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\817cfdb6c24d60de78f399d4db84f2910c543dec9a9d75d191215b4308e19823",
+      "reason": "Pinned primary documentation for generated Error/Display API preservation and tuple {0} interpolation equivalence; selected docs only, no whole package audit.",
+      "qualification": "Bounded material trace only. Prior original roles and completed baseline findings remain adopted; no replay, whole-lens clearance, or cross-lens verdict transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 116,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/examples/armor_fixture/manifold.rs",
+      "sha256": "6c193531b08ef45d0da983a54e0e3c54cab095b24fe2c9629bd66d4d62b7426d",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "actual_eof": 96,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\6c193531b08ef45d0da983a54e0e3c54cab095b24fe2c9629bd66d4d62b7426d",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\6c193531b08ef45d0da983a54e0e3c54cab095b24fe2c9629bd66d4d62b7426d",
+      "reason": null,
+      "qualification": "Bounded material trace only. Prior original roles and completed baseline findings remain adopted; no replay, whole-lens clearance, or cross-lens verdict transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 117,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/examples/armor_fixture/shared_contact.rs",
+      "sha256": "85a6daa3d64dbf8fe3a713ede9e5f093908c3599f9af7baaa0f56d3f4ca57a7b",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "actual_eof": 141,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\85a6daa3d64dbf8fe3a713ede9e5f093908c3599f9af7baaa0f56d3f4ca57a7b",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\85a6daa3d64dbf8fe3a713ede9e5f093908c3599f9af7baaa0f56d3f4ca57a7b",
+      "reason": null,
+      "qualification": "Bounded material trace only. Prior original roles and completed baseline findings remain adopted; no replay, whole-lens clearance, or cross-lens verdict transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 118,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/Cargo.toml",
+      "sha256": "6f2c4bfbf6d202fdadfc88465dfacd0ffd8461259578bde3f185ad0b47ab844b",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "actual_eof": 23,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\6f2c4bfbf6d202fdadfc88465dfacd0ffd8461259578bde3f185ad0b47ab844b",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\6f2c4bfbf6d202fdadfc88465dfacd0ffd8461259578bde3f185ad0b47ab844b",
+      "reason": "Exact direct dependency availability needed167 DialoguePolicyParseError derive comparison. Fullmanifest has serde/serde_json,worldschema,sha2 dev/build, no thiserror; retain small error implementation instead of newdependency just for cleanup.",
+      "qualification": "Exact owning dependency manifest, not arbitrary neighboring project. Original2853/baseline evidence untouched.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 119,
+      "source_id": "pr-working:assets/art-demo/catalog.json",
+      "sha256": "765076511ef7f6d1e7ea00204088128519329399059e93ad89a53e5587192c37",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          154
+        ]
+      ],
+      "actual_eof": 154,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\765076511ef7f6d1e7ea00204088128519329399059e93ad89a53e5587192c37",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\765076511ef7f6d1e7ea00204088128519329399059e93ad89a53e5587192c37",
+      "reason": null,
+      "qualification": "Bounded new material. Adler completed admission/type-ownership baseline stays adopted; reconcile only this delta; no baseline replay or cross-lens verdict transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 120,
+      "source_id": "pinned-registry:glam-0.32.1/src/features/impl_serde.rs",
+      "sha256": "da9b8a13b57b257793481f554e6888a8fb0c82a7669e52d7e2d2af74701f0061",
+      "revision": null,
+      "source_ranges": [
+        [
+          87,
+          140
+        ]
+      ],
+      "actual_eof": 1638,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\da9b8a13b57b257793481f554e6888a8fb0c82a7669e52d7e2d2af74701f0061",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\da9b8a13b57b257793481f554e6888a8fb0c82a7669e52d7e2d2af74701f0061",
+      "reason": "Compare exact old native Vec3 Deserialize visitor with new canonical CuboidDimensions Vec3 tuple-struct visitor; serialization alreadyexactlyregistered109:73\u201386. Frozen PR bevy_math0.19.1\u2192glam0.32.1 actual lock checksum verified againstexisting native109 evidence; no wholeSDK scope.",
+      "qualification": "Prospective registration before newlyselectedbodyread; no auditcredit from registration itself, no neworiginal2853 role and no automatic other-lens coverage.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 121,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/Cargo.toml",
+      "sha256": "a514b1eccfff839c875aaa5148d8299f119beb39ce645dc828e653399b6ef320",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "actual_eof": 44,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\a514b1eccfff839c875aaa5148d8299f119beb39ce645dc828e653399b6ef320",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\a514b1eccfff839c875aaa5148d8299f119beb39ce645dc828e653399b6ef320",
+      "reason": "Exact member-verified available derive_more::From semantics/dependency for sole-field TacticalAttributes. No new dependency or unchecked construction intended.",
+      "qualification": "No original role count or automatic cross-lens verdict. Preserve completed Adler baselines.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 122,
+      "source_id": "registry:derive_more-impl-2.1.1/src/from.rs",
+      "sha256": "dbcea1f655618518d366313124b59d50181928e1f0a092ff8796d5accec81fd6",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          322
+        ]
+      ],
+      "actual_eof": 403,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\dbcea1f655618518d366313124b59d50181928e1f0a092ff8796d5accec81fd6",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\dbcea1f655618518d366313124b59d50181928e1f0a092ff8796d5accec81fd6",
+      "reason": "Exact member-verified available derive_more::From semantics/dependency for sole-field TacticalAttributes. No new dependency or unchecked construction intended.",
+      "qualification": "No original role count or automatic cross-lens verdict. Preserve completed Adler baselines.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 123,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/draw.rs",
+      "sha256": "faca55a34e4a003497e4f3aa87dfcef3a25e20ffa7e6c7108785a2df225e7337",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "actual_eof": 134,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\faca55a34e4a003497e4f3aa87dfcef3a25e20ffa7e6c7108785a2df225e7337",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\faca55a34e4a003497e4f3aa87dfcef3a25e20ffa7e6c7108785a2df225e7337",
+      "reason": null,
+      "qualification": "Direct native receiving adapter. No baseline replay or other-lens source credit.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 124,
+      "source_id": "pinned-registry:serde_derive-1.0.229/src/internals/check.rs",
+      "sha256": "86ea817316638ec33f70ecdf9634a31c934fd3df84533e3e315816dc130f0bff",
+      "revision": null,
+      "source_ranges": [
+        [
+          369,
+          395
+        ]
+      ],
+      "actual_eof": 477,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\86ea817316638ec33f70ecdf9634a31c934fd3df84533e3e315816dc130f0bff",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\86ea817316638ec33f70ecdf9634a31c934fd3df84533e3e315816dc130f0bff",
+      "reason": "Exact attribute compatibility for existing transparent Serialize and checked TryFrom String Deserialize wrapper; no library-wide credit.",
+      "qualification": "Bounded added material or explicit range amendment only; completed Adler admission/type-ownership baselines retained, no full reread requirement or coverage transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 125,
+      "source_id": "pinned-registry:serde_derive-1.0.229/src/ser.rs",
+      "sha256": "18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+      "revision": null,
+      "source_ranges": [
+        [
+          514,
+          538
+        ]
+      ],
+      "actual_eof": 1369,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+      "reason": "Exact externally tagged unit-enum native serializer operation versus existing DirectionError serialize_str; range amendment only, no new source identity.",
+      "qualification": "Bounded added material or explicit range amendment only; completed Adler admission/type-ownership baselines retained, no full reread requirement or coverage transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 126,
+      "source_id": "pinned-registry:serde_derive-1.0.229/src/de.rs",
+      "sha256": "a04fdb321ce47b479b42b2dd0ca1cfd57db88e06451d7dc95303c582fedc135c",
+      "revision": null,
+      "source_ranges": [
+        [
+          300,
+          320
+        ],
+        [
+          435,
+          444
+        ]
+      ],
+      "actual_eof": 976,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\a04fdb321ce47b479b42b2dd0ca1cfd57db88e06451d7dc95303c582fedc135c",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\a04fdb321ce47b479b42b2dd0ca1cfd57db88e06451d7dc95303c582fedc135c",
+      "reason": "Exact derive try_from expansion for existing SocialDuration/SocialActionId checked native input conversion.",
+      "qualification": "Bounded added material or explicit range amendment only; completed Adler admission/type-ownership baselines retained, no full reread requirement or coverage transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 127,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs",
+      "sha256": "6e61b607878f8e70160e9a63cb75f65b52faf8332fdfa148f7262c6321e7e76f",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "actual_eof": 88,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\6e61b607878f8e70160e9a63cb75f65b52faf8332fdfa148f7262c6321e7e76f",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\6e61b607878f8e70160e9a63cb75f65b52faf8332fdfa148f7262c6321e7e76f",
+      "reason": null,
+      "qualification": "Bounded added material or explicit range amendment only; completed Adler admission/type-ownership baselines retained, no full reread requirement or coverage transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 128,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_plan.rs",
+      "sha256": "8ed183b6e87bf3e20eee0d8d2bfd5ec5f08c3cfcc5a3352bd4005ce62643922b",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "actual_eof": 177,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\8ed183b6e87bf3e20eee0d8d2bfd5ec5f08c3cfcc5a3352bd4005ce62643922b",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\8ed183b6e87bf3e20eee0d8d2bfd5ec5f08c3cfcc5a3352bd4005ce62643922b",
+      "reason": null,
+      "qualification": "Bounded added material or explicit range amendment only; completed Adler admission/type-ownership baselines retained, no full reread requirement or coverage transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 129,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_profile.rs",
+      "sha256": "55e0e9789ade5938b62b9c929b4a8e6ccb49920e42ad85b38648c19fe315022b",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "actual_eof": 117,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\55e0e9789ade5938b62b9c929b4a8e6ccb49920e42ad85b38648c19fe315022b",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\55e0e9789ade5938b62b9c929b4a8e6ccb49920e42ad85b38648c19fe315022b",
+      "reason": null,
+      "qualification": "Bounded added material or explicit range amendment only; completed Adler admission/type-ownership baselines retained, no full reread requirement or coverage transfer.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 130,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_classification.rs",
+      "sha256": "a65529b45c53a783feaa8905b9fba38d95d28e97b01fe8198d4ffeee0a57c58d",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "source_ranges": [
+        [
+          8,
+          22
+        ]
+      ],
+      "actual_eof": 125,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\a65529b45c53a783feaa8905b9fba38d95d28e97b01fe8198d4ffeee0a57c58d",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\a65529b45c53a783feaa8905b9fba38d95d28e97b01fe8198d4ffeee0a57c58d",
+      "reason": "Exact CatalogItemKind derived Default=Simple dependency for native CatalogItemView manual Default comparison. Only enum8\u201322 material credit; further printed classifier/fixture context uncredited.",
+      "qualification": "Minimal enum8\u201322 prerequisite, not whole125 file or cross-lens verdict. Adler completed baselines retained.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 131,
+      "source_id": "pinned-registry:bevy_ecs_macros-0.19.1/src/lib.rs",
+      "sha256": "ee0b935d492a294197b26f2db38ff3eea4dcad569d17dadfb913cb15618673fc",
+      "revision": null,
+      "source_ranges": [
+        [
+          16,
+          20
+        ],
+        [
+          214,
+          239
+        ]
+      ],
+      "actual_eof": 912,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\ee0b935d492a294197b26f2db38ff3eea4dcad569d17dadfb913cb15618673fc",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\ee0b935d492a294197b26f2db38ff3eea4dcad569d17dadfb913cb15618673fc",
+      "reason": "Exact available native MapEntities derive and annotated Entity/Vec behavior for hit-record forwarding. Only selected ranges material, no whole library.",
+      "qualification": "Minimal actual contract/receiver material only. No fresh2853+246 baseline replay, SDK source repair or imported cross-lens verdict.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 132,
+      "source_id": "pinned-registry:bevy_ecs_macro_logic-0.19.1/src/map_entities.rs",
+      "sha256": "be35a0c5898b7d60c5fbbada7977a1a9edba77895ddad9950fe541baa0f12059",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "actual_eof": 153,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\be35a0c5898b7d60c5fbbada7977a1a9edba77895ddad9950fe541baa0f12059",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\be35a0c5898b7d60c5fbbada7977a1a9edba77895ddad9950fe541baa0f12059",
+      "reason": "Exact available native MapEntities derive and annotated Entity/Vec behavior for hit-record forwarding. Only selected ranges material, no whole library.",
+      "qualification": "Minimal actual contract/receiver material only. No fresh2853+246 baseline replay, SDK source repair or imported cross-lens verdict.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 133,
+      "source_id": "pinned-registry:bevy_ecs-0.19.1/src/entity/map_entities.rs",
+      "sha256": "2a3f91a6dfa09402301d1fab24afda22aff2fbca098c2a6f0ba69bfd37a2e4dc",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          54,
+          66
+        ],
+        [
+          172,
+          178
+        ]
+      ],
+      "actual_eof": 433,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\2a3f91a6dfa09402301d1fab24afda22aff2fbca098c2a6f0ba69bfd37a2e4dc",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\2a3f91a6dfa09402301d1fab24afda22aff2fbca098c2a6f0ba69bfd37a2e4dc",
+      "reason": "Exact available native MapEntities derive and annotated Entity/Vec behavior for hit-record forwarding. Only selected ranges material, no whole library.",
+      "qualification": "Minimal actual contract/receiver material only. No fresh2853+246 baseline replay, SDK source repair or imported cross-lens verdict.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 134,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation/diagnostics.rs",
+      "sha256": "7b710acb4e5d608182be6f5eac8e432a9109877fb987d15e61f8685bd30695e8",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "actual_eof": 84,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\7b710acb4e5d608182be6f5eac8e432a9109877fb987d15e61f8685bd30695e8",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\7b710acb4e5d608182be6f5eac8e432a9109877fb987d15e61f8685bd30695e8",
+      "reason": "Actual semantic retained owner TreeAssetResidencyDiagnostics embedded in CachedTreePresentation1607:110 and TreePresentationCache residency; generate_tree_assets_resident1607:598/639-654 writes generated_lod_mask and counts, residency1608:145/156-194 merges counts. Read owner fields/addition contract to reconcile residency flags and preserve diagnostic observations; not namespace adjacency.",
+      "qualification": "Minimal actual contract/receiver material only. No fresh2853+246 baseline replay, SDK source repair or imported cross-lens verdict.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 135,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/focus.rs",
+      "sha256": "0e170d10cea11d48678f3c192e21fb6f2273e9cd1edcdc93fecb2d908e8386d0",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "actual_eof": 40,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\0e170d10cea11d48678f3c192e21fb6f2273e9cd1edcdc93fecb2d908e8386d0",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\0e170d10cea11d48678f3c192e21fb6f2273e9cd1edcdc93fecb2d908e8386d0",
+      "reason": "Actual requested_city() semantic gate consumed city1617:135 and installation1618:65; defines focus/category admission used by installed city lifecycle, not namespace export.",
+      "qualification": "Minimal actual contract/receiver material only. No fresh2853+246 baseline replay, SDK source repair or imported cross-lens verdict.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 136,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/connections.rs",
+      "sha256": "96d604645187dd0d74c64974f909dbb8cc14a6ee8c5d8a6d56e71b29597d3970",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "actual_eof": 217,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\96d604645187dd0d74c64974f909dbb8cc14a6ee8c5d8a6d56e71b29597d3970",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\96d604645187dd0d74c64974f909dbb8cc14a6ee8c5d8a6d56e71b29597d3970",
+      "reason": "Actual scheduled connections::present receiver1621:54 and retained MapState.presented_connections1621:33; inspect its construction/retirement together to determine which absence/history combinations are meaningful.",
+      "qualification": "Minimal actual contract/receiver material only. No fresh2853+246 baseline replay, SDK source repair or imported cross-lens verdict.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 137,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/routes.rs",
+      "sha256": "afe345727adbff233fdc700aa56b6a3b15104e18a24218e64bf33529335c4f8d",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "actual_eof": 177,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\afe345727adbff233fdc700aa56b6a3b15104e18a24218e64bf33529335c4f8d",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\afe345727adbff233fdc700aa56b6a3b15104e18a24218e64bf33529335c4f8d",
+      "reason": "Actual scheduled routes::present receiver1621:55 and retained MapState.presented_route1621:37; inspect request/route/mesh state construction and lifecycle so aggregate MapState review does not assume unavailable route means stale/inapplicable.",
+      "qualification": "Minimal actual contract/receiver material only. No fresh2853+246 baseline replay, SDK source repair or imported cross-lens verdict.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 138,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/path_geometry.rs",
+      "sha256": "08afd9a444a46f1add41fd92ff00d046203e0991c24041ae11bf4033c714fb76",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          241
+        ]
+      ],
+      "actual_eof": 241,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\08afd9a444a46f1add41fd92ff00d046203e0991c24041ae11bf4033c714fb76",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\08afd9a444a46f1add41fd92ff00d046203e0991c24041ae11bf4033c714fb76",
+      "reason": "Actual helper called routes.rs129\u2013144 and connections.rs168\u2013179; defines GeographicLine payload choice, PathGeometryError mapped to CapacityExceeded and Option<Mesh> mapped to Uncovered/Drawn. Needed actual alternative semantics through builder to classify loss/coverage shape; registration follows actual body trace, not module export.",
+      "qualification": "Minimal actual contract/receiver material only. No fresh2853+246 baseline replay, SDK source repair or imported cross-lens verdict.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 139,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/path_geometry/city.rs",
+      "sha256": "b7ecb82d2b5d2e208f81ac48422b040c186340cf8ff33d407ea5cbd8ec71e4d5",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "actual_eof": 78,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\b7ecb82d2b5d2e208f81ac48422b040c186340cf8ff33d407ea5cbd8ec71e4d5",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\b7ecb82d2b5d2e208f81ac48422b040c186340cf8ff33d407ea5cbd8ec71e4d5",
+      "reason": "Actual PathMeshBuilder::add_city called path_geometry.rs86\u201387 when admittedCitySurface exists; receives GeographicLine Route|Connection and returns same single capacity error/retainedmesh; needed complete branch semantics for route and connection coverage.",
+      "qualification": "Minimal actual contract/receiver material only. No fresh2853+246 baseline replay, SDK source repair or imported cross-lens verdict.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 140,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/landform_product.rs",
+      "sha256": "5f34b8da039a49d218521a208782d301f7095b7e0092698b5309f3d3b0a369c4",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "actual_eof": 17,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\5f34b8da039a49d218521a208782d301f7095b7e0092698b5309f3d3b0a369c4",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\5f34b8da039a49d218521a208782d301f7095b7e0092698b5309f3d3b0a369c4",
+      "reason": "Actual existing PreparedTerrainLandform owner reexported terrain1626:18 and earlier complete preparation pipeline; compare with spawn_base_and_fault1634:151\u2013159/173\u2013179 independent optional recipe+patch to verify whether prepared product retains complete relation or contract is erased before renderer. This is owner definition for concrete candidate, not exported sibling adjacency.",
+      "qualification": "Minimal actual contract/receiver material only. No fresh2853+246 baseline replay, SDK source repair or imported cross-lens verdict.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 141,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer_main.rs",
+      "sha256": "c47317c7b2aa4afb18ac097c828f3b3bdd0c38bb2e52312dccbdc8b66bf80f69",
+      "revision": null,
+      "source_ranges": [
+        [
+          25,
+          205
+        ]
+      ],
+      "actual_eof": 254,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\c47317c7b2aa4afb18ac097c828f3b3bdd0c38bb2e52312dccbdc8b66bf80f69",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\c47317c7b2aa4afb18ac097c828f3b3bdd0c38bb2e52312dccbdc8b66bf80f69",
+      "reason": "Actual CLI producer invokes tactical_scene_viewer1699::run762 with the paired source options, three optional benchmark frame counts and exclusive terrain/census flags; needed to verify the asserted source exclusivity791\u2013808 and priority/headless selection864\u2013965 before qualifying workflow shape. Actual API caller and admission contract, not module namespace adjacency.",
+      "qualification": "Actual connected producer/callee contract only, narrowed affected ranges. No cross-lens coverage or full baseline replay.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 142,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+      "sha256": "3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+      "revision": null,
+      "source_ranges": [
+        [
+          44,
+          186
+        ]
+      ],
+      "actual_eof": 186,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+      "reason": "Actual1699 setup invokes configure/cameras to populate SceneCaptureState building cameras;1700 camera ReviewTarget uses shared GeneratedBuilding/ReviewRequirements/signs owner,1701 readiness receives actualReviewRequirements. Exact connected callee/type/retained-state contract, not directory adjacency. Full own09 support ranges; shared affected ranges will be narrowed from actual definitions.",
+      "qualification": "Actual connected producer/callee contract only, narrowed affected ranges. No cross-lens coverage or full baseline replay.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 143,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/heating.rs",
+      "sha256": "132d482c3a2ff8afb67a63fe50cbb2d71d33bafe1e0e82649e14c65ac60a93f2",
+      "revision": null,
+      "source_ranges": [
+        [
+          9,
+          156
+        ]
+      ],
+      "actual_eof": 156,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\132d482c3a2ff8afb67a63fe50cbb2d71d33bafe1e0e82649e14c65ac60a93f2",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\132d482c3a2ff8afb67a63fe50cbb2d71d33bafe1e0e82649e14c65ac60a93f2",
+      "reason": "Actual1700 ReviewTarget::Heating target.frame/offset/anchor concrete coordinate and optional payload owner used by ReviewView camera. Exact connected callee/type/retained-state contract, not directory adjacency. Full own09 support ranges; shared affected ranges will be narrowed from actual definitions.",
+      "qualification": "Actual connected producer/callee contract only, narrowed affected ranges. No cross-lens coverage or full baseline replay.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 144,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/openings.rs",
+      "sha256": "14199ccf21d392bf19b46f9cfe2acb7675b248c2034bb65d04f9ace610aacc03",
+      "revision": null,
+      "source_ranges": [
+        [
+          6,
+          217
+        ]
+      ],
+      "actual_eof": 217,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\14199ccf21d392bf19b46f9cfe2acb7675b248c2034bb65d04f9ace610aacc03",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\14199ccf21d392bf19b46f9cfe2acb7675b248c2034bb65d04f9ace610aacc03",
+      "reason": "Actual1700 ReviewView.openings OpeningPose + OpeningTarget frame;1701 plugin directly installs select_pose;1702 spawn_openings concrete scene opening producer. Exact connected callee/type/retained-state contract, not directory adjacency. Full own09 support ranges; shared affected ranges will be narrowed from actual definitions.",
+      "qualification": "Actual connected producer/callee contract only, narrowed affected ranges. No cross-lens coverage or full baseline replay.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 145,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/gardens.rs",
+      "sha256": "5936937971ea96478c9d052b5421c59c54e8866c41c7ed76fee9f3023f04371d",
+      "revision": null,
+      "source_ranges": [
+        [
+          6,
+          115
+        ]
+      ],
+      "actual_eof": 115,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\5936937971ea96478c9d052b5421c59c54e8866c41c7ed76fee9f3023f04371d",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\5936937971ea96478c9d052b5421c59c54e8866c41c7ed76fee9f3023f04371d",
+      "reason": "Actual1701 Observation retains GardenObservation and check gpu at134/275; need concrete readiness result and material evidence producer. Exact connected callee/type/retained-state contract, not directory adjacency. Full own09 support ranges; shared affected ranges will be narrowed from actual definitions.",
+      "qualification": "Actual connected producer/callee contract only, narrowed affected ranges. No cross-lens coverage or full baseline replay.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 146,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/lod.rs",
+      "sha256": "4fd2d2aefa94b99bee1c8d2784f8399ed4f70bec9c3dfe9431d737192ef4a0e1",
+      "revision": null,
+      "source_ranges": [
+        [
+          9,
+          98
+        ]
+      ],
+      "actual_eof": 98,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\4fd2d2aefa94b99bee1c8d2784f8399ed4f70bec9c3dfe9431d737192ef4a0e1",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\4fd2d2aefa94b99bee1c8d2784f8399ed4f70bec9c3dfe9431d737192ef4a0e1",
+      "reason": "Actual1701 plugin installs select after BuildingClosureVisibility; source1700 cameras and1701 three-renderedlevel observation depend on this concrete selector. Exact connected callee/type/retained-state contract, not directory adjacency. Full own09 support ranges; shared affected ranges will be narrowed from actual definitions.",
+      "qualification": "Actual connected producer/callee contract only, narrowed affected ranges. No cross-lens coverage or full baseline replay.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 147,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/gpu_readiness.rs",
+      "sha256": "3fc7f599e45d69c79994c4044060d1cb7552f2d501830a6661d033a4fff9441e",
+      "revision": null,
+      "source_ranges": [
+        [
+          14,
+          50
+        ]
+      ],
+      "actual_eof": 50,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\3fc7f599e45d69c79994c4044060d1cb7552f2d501830a6661d033a4fff9441e",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\3fc7f599e45d69c79994c4044060d1cb7552f2d501830a6661d033a4fff9441e",
+      "reason": "Actual1701 plugin installs GpuReadiness and assets_ready118\u2013130 calls contains mesh+materialtexture handles; concrete native observation adapter determines availability versus current accepted readiness. Exact connected callee/type/retained-state contract, not directory adjacency. Full own09 support ranges; shared affected ranges will be narrowed from actual definitions.",
+      "qualification": "Actual connected producer/callee contract only, narrowed affected ranges. No cross-lens coverage or full baseline replay.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 148,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/furniture/visibility.rs",
+      "sha256": "5a042944716f1246446ff570ea2d6bbf2bfff1a245ecda53087b881153302ef2",
+      "revision": null,
+      "source_ranges": [
+        [
+          9,
+          63
+        ]
+      ],
+      "actual_eof": 211,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\5a042944716f1246446ff570ea2d6bbf2bfff1a245ecda53087b881153302ef2",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\5a042944716f1246446ff570ea2d6bbf2bfff1a245ecda53087b881153302ef2",
+      "reason": "Actual catalog1715:18 inserts InteriorFurnitureExhibition while1715:43\u201350/179\u2013185 and1716:52\u201360 invent Interior{building_id:0}; production1533:38 installs update_interior_visibility and reexports Exhibition12. Need actual receiving contract to qualify physical interior versus review specimen semantic owner, not module adjacency.",
+      "qualification": "Actual specimen-versus-physical owner visibility consumer only; no tests/module adjacency or baseline replay.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 149,
+      "source_id": "native-dependency:spacetimedb-sdk-2.6.1/src/client_cache.rs",
+      "sha256": "1815445657f053bf0d24bdf218219eed822e9626511eade5d3afa0aca3fa7ff1",
+      "revision": null,
+      "source_ranges": [
+        [
+          22,
+          79
+        ],
+        [
+          196,
+          214
+        ],
+        [
+          340,
+          406
+        ],
+        [
+          409,
+          452
+        ]
+      ],
+      "actual_eof": 636,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\1815445657f053bf0d24bdf218219eed822e9626511eade5d3afa0aca3fa7ff1",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\1815445657f053bf0d24bdf218219eed822e9626511eade5d3afa0aca3fa7ff1",
+      "reason": "native local pinned2.6.1 SDK; actual table cache/iter receiver for frozen simulator queries",
+      "qualification": "Registered before source-body read; no source coverage inferred, actual cache/query contract only.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 150,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/backend_hostile_negotiations_table.rs",
+      "sha256": "ef0878fa2f385c6e35e1b4ef8e3702bbb114a81520c8cc3b6c35ddab4319065e",
+      "revision": null,
+      "source_ranges": [
+        [
+          24,
+          57
+        ],
+        [
+          85,
+          90
+        ],
+        [
+          106,
+          120
+        ]
+      ],
+      "actual_eof": 120,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\ef0878fa2f385c6e35e1b4ef8e3702bbb114a81520c8cc3b6c35ddab4319065e",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\ef0878fa2f385c6e35e1b4ef8e3702bbb114a81520c8cc3b6c35ddab4319065e",
+      "reason": "Actual frozen generated native table accessor invoked by1281:2405\u20132410; verify no implicit query/subscription",
+      "qualification": "Registered before source-body read; no source coverage inferred, actual cache/query contract only.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 151,
+      "source_id": "pinned-registry:derive_more-impl-2.1.1/src/fmt/display.rs",
+      "sha256": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          82
+        ],
+        [
+          233,
+          327
+        ],
+        [
+          398,
+          438
+        ],
+        [
+          499,
+          552
+        ]
+      ],
+      "actual_eof": 585,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "reason": "Exact available derive_more Display enum body/generic bound equivalence for nongeneric DrapeStage literal and u32 progress formatting only; bounded macro implementation ranges, no whole-library coverage.",
+      "qualification": "Exact external macro mechanism only; no SDK style repair or macro execution.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 152,
+      "source_id": "scope-amendment:pinned-registry:derive_more-impl-2.1.1/src/fmt/display.rs#tuple-struct-bindings",
+      "sha256": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "revision": null,
+      "source_ranges": [
+        [
+          198,
+          232
+        ]
+      ],
+      "actual_eof": 585,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "reason": "Only additional struct-derive binding body198\u2013232: tuple field0 becomes borrowed _0, then existing explicit Display format body. InventoryItemId exact optional equivalent; not full macro source credit.",
+      "qualification": "Explicit added range198\u2013232 of shared151 verified macro, not another source identity or changed completed scope. Earlier151 ranges remain unchanged.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 153,
+      "source_id": "pinned-registry:derive_more-impl-2.1.1/src/as/mod.rs",
+      "sha256": "767fe0f2cb67c57028ca69d138757c5fdd894ad6fa54fcb11ef8f4a7d4b4ef82",
+      "revision": null,
+      "source_ranges": [
+        [
+          17,
+          68
+        ],
+        [
+          147,
+          306
+        ]
+      ],
+      "actual_eof": 306,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\767fe0f2cb67c57028ca69d138757c5fdd894ad6fa54fcb11ef8f4a7d4b4ef82",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\767fe0f2cb67c57028ca69d138757c5fdd894ad6fa54fcb11ef8f4a7d4b4ef82",
+      "reason": "Bounded exact existing AsRef derive equivalence for LibraryName: explicit str output only, borrowed String view, no extra AsRef<String>/blanket implementation. No external SDK repair or whole-library coverage.",
+      "qualification": null,
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 154,
+      "source_id": "pinned-registry:derive_more-impl-2.1.1/src/as/ref.rs",
+      "sha256": "06f9f3379037f8002874119b864ca62c65d8dd785c821a1fdfd74b59d988f133",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "actual_eof": 15,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\06f9f3379037f8002874119b864ca62c65d8dd785c821a1fdfd74b59d988f133",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\06f9f3379037f8002874119b864ca62c65d8dd785c821a1fdfd74b59d988f133",
+      "reason": "Bounded exact existing AsRef derive equivalence for LibraryName: explicit str output only, borrowed String view, no extra AsRef<String>/blanket implementation. No external SDK repair or whole-library coverage.",
+      "qualification": null,
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 155,
+      "source_id": "pinned-registry:derive_more-2.1.1/src/as.rs",
+      "sha256": "c51f277897f4a2a62c0824f00d6775814282673efd16d0c8df8f87d406f7e984",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "actual_eof": 78,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\c51f277897f4a2a62c0824f00d6775814282673efd16d0c8df8f87d406f7e984",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\c51f277897f4a2a62c0824f00d6775814282673efd16d0c8df8f87d406f7e984",
+      "reason": "Bounded exact existing AsRef derive equivalence for LibraryName: explicit str output only, borrowed String view, no extra AsRef<String>/blanket implementation. No external SDK repair or whole-library coverage.",
+      "qualification": null,
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 156,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/hilt.rs",
+      "sha256": "8afb3bf2ceb343de66192b0c257b876deade739f32668e38e70244c3b6036f0b",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "actual_eof": 414,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\8afb3bf2ceb343de66192b0c257b876deade739f32668e38e70244c3b6036f0b",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\8afb3bf2ceb343de66192b0c257b876deade739f32668e38e70244c3b6036f0b",
+      "reason": "Actual shared26 model/guards.rs arm26\u201364/guard66\u2013137 receives GuardParameters, selects Independent/Symmetric beside left/right dimensions/terminals and optional terminal_profile. Need canonical field owner/default admission to qualify payload applicability. Exact direct type definition/default only; no hilt sibling adjacency.",
+      "qualification": null,
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 157,
+      "source_id": "scope-amendment:pr-working:crates/adventuresim-weapon-model/src/recipe/choices.rs#guard-owner-enums",
+      "sha256": "32853562a79ddc5ae393bc38780b86583500e079c5ca22109b07f1a479e030c0",
+      "revision": null,
+      "source_ranges": [
+        [
+          193,
+          199
+        ],
+        [
+          226,
+          282
+        ]
+      ],
+      "actual_eof": 367,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\32853562a79ddc5ae393bc38780b86583500e079c5ca22109b07f1a479e030c0",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\32853562a79ddc5ae393bc38780b86583500e079c5ca22109b07f1a479e030c0",
+      "reason": "Shared26 actual guard66\u2013137 dispatches Independent/Symmetric plus per-side terminal then Profile requiring TerminalProfile; direct enum owner definitions needed to qualify GuardParameters1\u2013135 payload applicability. Existing shared61 only200\u2013225 does not cover these variants; no firearm/pommel adjacency.",
+      "qualification": "Only missing direct enum-owner ranges; existing shared61 200\u2013225 unchanged. Exclude adjacent283 declaration.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 158,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+      "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "actual_eof": 50,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "reason": "Actual1093 disease module child: runtime fixture producer seed call2622; feature authority-tests child4\u20135 is existing fixture source for timing/version/error contracts. Register exact bounded bodies before semantic consumption; not automatic baseline expansion by metadata.",
+      "qualification": null,
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 159,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/authority_tests.rs",
+      "sha256": "9b8f6ef268561b6c24817749d89472e8024db82c7f13e4d837db84e0dba66e80",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "actual_eof": 96,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\9b8f6ef268561b6c24817749d89472e8024db82c7f13e4d837db84e0dba66e80",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\9b8f6ef268561b6c24817749d89472e8024db82c7f13e4d837db84e0dba66e80",
+      "reason": "Actual1093 disease module child: runtime fixture producer seed call2622; feature authority-tests child4\u20135 is existing fixture source for timing/version/error contracts. Register exact bounded bodies before semantic consumption; not automatic baseline expansion by metadata.",
+      "qualification": null,
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 160,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/commands/mod.rs",
+      "sha256": "a379a6828b061f0ef889b7a495f591282ac97f568e21d8355a14d33a3f7b3cc9",
+      "revision": null,
+      "source_ranges": [
+        [
+          42,
+          62
+        ],
+        [
+          398,
+          426
+        ],
+        [
+          1897,
+          1915
+        ]
+      ],
+      "actual_eof": 3134,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\a379a6828b061f0ef889b7a495f591282ac97f568e21d8355a14d33a3f7b3cc9",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\a379a6828b061f0ef889b7a495f591282ac97f568e21d8355a14d33a3f7b3cc9",
+      "reason": "Actual BrowserCommand batch queue1458 repeated ShowForge/Enter/Exit relies on deferred Commands and captured Query snapshot. Need exact native enqueue/structural application contract to qualify JS2428 real producer. No SDK repair or whole Bevy subsystem scope.",
+      "qualification": "Direct locator invocation incidentally displayed1\u2013110;42\u201362 docs already consumed. Constructor/despawn body ranges registered now before body read; no false prior-prospective or wholefile semantic credit.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 161,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population/authority_tests.rs",
+      "sha256": "3d35f13b4f3e263e8f175c10c010bf9361228812c3ab76d55199b371c33dc0b5",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "actual_eof": 113,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\3d35f13b4f3e263e8f175c10c010bf9361228812c3ab76d55199b371c33dc0b5",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\3d35f13b4f3e263e8f175c10c010bf9361228812c3ab76d55199b371c33dc0b5",
+      "reason": "Actual1188 settlement_population.rs422\u2013423 declares authority-tests child. Existing fixture materially specifies source/identity/binding behavior; absent original2853 and current shared161 metadata, register before semantic body read.",
+      "qualification": null,
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 162,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/focused.rs",
+      "sha256": "98c72492107d3f8b6409717857e0a590ae552afe300e7e53eed0f789f9d8671b",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "actual_eof": 63,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\98c72492107d3f8b6409717857e0a590ae552afe300e7e53eed0f789f9d8671b",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\98c72492107d3f8b6409717857e0a590ae552afe300e7e53eed0f789f9d8671b",
+      "reason": "Direct child modules declared at scoped buildings.rs18/25 and queue APIs reexported12/31; necessary cache/presentation ownership and complete producer/receiver graph. Absent original catalog/shared162. Registered before semantic body consumption, not directory-wide expansion.",
+      "qualification": null,
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 163,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/strategic.rs",
+      "sha256": "c6448721576dbf02f9333d85245249b9eb8cfe4dfc3bd675d50f919d9e4af3cb",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "actual_eof": 24,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\c6448721576dbf02f9333d85245249b9eb8cfe4dfc3bd675d50f919d9e4af3cb",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\c6448721576dbf02f9333d85245249b9eb8cfe4dfc3bd675d50f919d9e4af3cb",
+      "reason": "Direct child modules declared at scoped buildings.rs18/25 and queue APIs reexported12/31; necessary cache/presentation ownership and complete producer/receiver graph. Absent original catalog/shared162. Registered before semantic body consumption, not directory-wide expansion.",
+      "qualification": null,
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 164,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event/authority_tests.rs",
+      "sha256": "9c08b2624216387d88ba3f3bfe7d15c525726b4fbc53746c1d31ac467f7b9888",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          172
+        ]
+      ],
+      "actual_eof": 172,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\9c08b2624216387d88ba3f3bfe7d15c525726b4fbc53746c1d31ac467f7b9888",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\9c08b2624216387d88ba3f3bfe7d15c525726b4fbc53746c1d31ac467f7b9888",
+      "reason": "Directly declared feature-gated world_event authority_tests child absent original2853 and shared164; material acceptance source for actual whole-envelope/replay/consequence adapter. No body read or semanticcredit at registration.",
+      "qualification": null,
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 165,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials/furniture.rs",
+      "sha256": "2335cdb45fb125b437642bd587707adc68aeb3d1b3e177f8ca23b5de97d4deda",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "actual_eof": 44,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\2335cdb45fb125b437642bd587707adc68aeb3d1b3e177f8ca23b5de97d4deda",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\2335cdb45fb125b437642bd587707adc68aeb3d1b3e177f8ca23b5de97d4deda",
+      "reason": "Direct child at materials.rs22/24, native palette/material semantics consumed by city grouping/material binding; actual source/semantic material contract requires receiver. Absent originalcatalog/shared165. Registered before body consumption.",
+      "qualification": null,
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 166,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials/workplace.rs",
+      "sha256": "60040ff58b1a6d59e8eb9a126073b8109d91b7793911d56f72617c2e1f0436c5",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "actual_eof": 50,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\60040ff58b1a6d59e8eb9a126073b8109d91b7793911d56f72617c2e1f0436c5",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\60040ff58b1a6d59e8eb9a126073b8109d91b7793911d56f72617c2e1f0436c5",
+      "reason": "Direct child at materials.rs22/24, native palette/material semantics consumed by city grouping/material binding; actual source/semantic material contract requires receiver. Absent originalcatalog/shared165. Registered before body consumption.",
+      "qualification": null,
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 167,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/Cargo.toml",
+      "sha256": "6c4b6aca99dd4eacdda5f4723be9bd9a87b9cab7cb08b18f54ba170826b1bff5",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "actual_eof": 23,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\6c4b6aca99dd4eacdda5f4723be9bd9a87b9cab7cb08b18f54ba170826b1bff5",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\6c4b6aca99dd4eacdda5f4723be9bd9a87b9cab7cb08b18f54ba170826b1bff5",
+      "reason": "Owning crate dependency support for exact Display wrappers on departure reason enums; manifest has serde and thiserror, no derive_more or other Display derive provider. Keep small Display forwarding as_str rather than introduce dependency/runtime Serde solely for this.",
+      "qualification": null,
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 168,
+      "source_id": "pinned-registry:thiserror-2.0.20/src/lib.rs",
+      "sha256": "817cfdb6c24d60de78f399d4db84f2910c543dec9a9d75d191215b4308e19823",
+      "revision": null,
+      "source_ranges": [
+        [
+          60,
+          97
+        ]
+      ],
+      "actual_eof": 291,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\817cfdb6c24d60de78f399d4db84f2910c543dec9a9d75d191215b4308e19823",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\817cfdb6c24d60de78f399d4db84f2910c543dec9a9d75d191215b4308e19823",
+      "reason": "Explicit range amendment of prior037/shared115: arbitrary format args and named .field expressions for QuestCoverageFailure metric.as_str(); exact source bytes already pinned. Only60\u201397 new material, no whole module credit.",
+      "qualification": "Append-only distinct bounded range60\u201397, preserving prior115 range38\u201359 and completed snapshot evidence. Same native source identity is not another whole-file audit. New pending own-lens delta only.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 169,
+      "source_id": "native-dependency:bevy_time-0.19.1/src/fixed.rs",
+      "sha256": "c3e4e4bee5d4cdde83d23e3016d7c8532b2ca00f98fbea93f34c23d316bfb963",
+      "revision": null,
+      "source_ranges": [
+        [
+          70,
+          108
+        ],
+        [
+          116,
+          180
+        ]
+      ],
+      "actual_eof": 367,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\c3e4e4bee5d4cdde83d23e3016d7c8532b2ca00f98fbea93f34c23d316bfb963",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\c3e4e4bee5d4cdde83d23e3016d7c8532b2ca00f98fbea93f34c23d316bfb963",
+      "reason": "Actual old Time::from_hz(f64(sample_hz)) versus new capture_fixed_clock Duration::try_from_secs_f64 reciprocal needs native constructor/order proof. Register only reached constructors/setters before body read.",
+      "qualification": "New bounded reached native constructors/setters only, not whole dependency source or original-role credit; completed lens baselines retained. Metadata registration gives no semantic coverage.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 170,
+      "source_id": "registry:thiserror-impl-2.0.20/src/attr.rs",
+      "sha256": "d3c7fa9e8269973f140e5382f753664ac32bee44c09875f678100b890aea4d06",
+      "revision": null,
+      "source_ranges": [
+        [
+          69,
+          122
+        ]
+      ],
+      "actual_eof": 358,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\d3c7fa9e8269973f140e5382f753664ac32bee44c09875f678100b890aea4d06",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\d3c7fa9e8269973f140e5382f753664ac32bee44c09875f678100b890aea4d06",
+      "reason": "Exact selective boxing From derive equivalence and thiserror helper compatibility; bounded source-only support, no macro execution.",
+      "qualification": "Exact frozen lock/package member verified in registration; bounded reached macro semantics only, no whole dependency or original role credit.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 171,
+      "source_id": "registry:thiserror-impl-2.0.20/src/ast.rs",
+      "sha256": "c717fffeb2923b2840d58fd02923a1926a48fa8336039f57a9e94f9275ae7ec6",
+      "revision": null,
+      "source_ranges": [
+        [
+          85,
+          128
+        ]
+      ],
+      "actual_eof": 185,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\c717fffeb2923b2840d58fd02923a1926a48fa8336039f57a9e94f9275ae7ec6",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\c717fffeb2923b2840d58fd02923a1926a48fa8336039f57a9e94f9275ae7ec6",
+      "reason": "Exact selective boxing From derive equivalence and thiserror helper compatibility; bounded source-only support, no macro execution.",
+      "qualification": "Exact frozen lock/package member verified in registration; bounded reached macro semantics only, no whole dependency or original role credit.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 172,
+      "source_id": "installed-rust-src:nightly-2026-07-13/alloc/src/boxed/convert.rs",
+      "sha256": "1534b6cd36659f2753a6633dd4bd25d7f9bbccb0ff1d83e3adc5fb52569fb45e",
+      "revision": null,
+      "source_ranges": [
+        [
+          19,
+          36
+        ]
+      ],
+      "actual_eof": 748,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\1534b6cd36659f2753a6633dd4bd25d7f9bbccb0ff1d83e3adc5fb52569fb45e",
+      "verified_source_origin": "target\\recovery-20261025\\audit03-delta\\source-objects\\1534b6cd36659f2753a6633dd4bd25d7f9bbccb0ff1d83e3adc5fb52569fb45e",
+      "reason": "Exact selective boxing From derive equivalence and thiserror helper compatibility; bounded source-only support, no macro execution.",
+      "qualification": "Installed standard-library source corroboration only; no frozen project compiler/version execution or third-party repair scope. From<T> for Box<T>33\u201335 delegates exactly Box::new.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 173,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/workplace/surfaces.rs",
+      "sha256": "7c0ffb3f7478e0ac8fcb9893cb5c9b741562a98e7c92cb24d54c09fac7bc1b30",
+      "revision": null,
+      "source_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "actual_eof": 48,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\7c0ffb3f7478e0ac8fcb9893cb5c9b741562a98e7c92cb24d54c09fac7bc1b30",
+      "verified_source_origin": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\shared-material-successor\\7c0ffb3f7478e0ac8fcb9893cb5c9b741562a98e7c92cb24d54c09fac7bc1b30",
+      "reason": "Actual canonical BuildingLodMaterial::workplace_surface owner directly reached by already-registered material165furniture and166workplace; complete bounded optional-surface payload owner needed to judge closed material selection and its receiver projections. Not in original2853 or shared0-172 or priorown09extensions.",
+      "qualification": "Root lookup consumed the small owner body before checking catalog membership. This receipt records that actual timing without backdating prospective registration. It registers the exact bounded source for subsequent analysis/reconciliation in every affected lens; no prior coverage inferred.",
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 174,
+      "source_id": "pr-working:crates/strategic-web/static/art-demo/viewer.mjs",
+      "sha256": "18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "source_ranges": [
+        [
+          265,
+          290
+        ]
+      ],
+      "actual_eof": 327,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+      "verified_source_origin": "target\\recovery-20261025\\shared-material-successor\\source-objects\\18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+      "reason": "Own06 material119 art-demo catalog has native Rust enum consumer and JavaScript reader; inspect bounded immediate fetch/map to distinguish duplicated identity policy from legitimate JSON boundary. Prospective registration before body read.",
+      "qualification": null,
+      "semantic_status": "not_started_for01"
+    },
+    {
+      "index": 175,
+      "source_id": "scope-amendment:pr-working:crates/strategic-web/static/art-demo/viewer.mjs#send",
+      "sha256": "18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+      "source_ranges": [
+        [
+          32,
+          38
+        ]
+      ],
+      "actual_eof": 327,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+      "verified_source_origin": "target\\recovery-20261025\\shared-material-successor\\source-extensions-177.json",
+      "reason": "Immediate receiving helper reached by M174 catalog start/selected.id flow. Exact same-level declaration navigation supplied before semantic body read; closes actual helper boundary rather than assuming native port from function name.",
+      "qualification": null,
+      "semantic_status": "prospectively_registered_pending_own_lens_analysis"
+    },
+    {
+      "index": 176,
+      "source_id": "scope-amendment:pr-working:crates/strategic-web/static/art-demo/viewer.mjs#select",
+      "sha256": "18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+      "source_ranges": [
+        [
+          93,
+          161
+        ]
+      ],
+      "actual_eof": 327,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+      "verified_source_origin": "target\\recovery-20261025\\shared-material-successor\\source-extensions-177.json",
+      "reason": "Immediate receiving helper reached by M174 catalog start/selected.id flow. Exact same-level declaration navigation supplied before semantic body read; closes actual helper boundary rather than assuming native port from function name.",
+      "qualification": null,
+      "semantic_status": "prospectively_registered_pending_own_lens_analysis"
+    }
+  ],
+  "unresolved_source_objects": [],
+  "baseline_preserved": "Actual own01 producer-extensions checkpoint62roles plus expanded27/46 WITH findings; adopted original baseline/312delta/246overlays/38merged retained, no restart.",
+  "no_cross_lens_verdict_credit": true
+}

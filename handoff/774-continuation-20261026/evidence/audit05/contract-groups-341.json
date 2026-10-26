@@ -1,0 +1,28 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-341",
+  "at": "2026-10-25T23:25:33.003600+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1,
+      "source_id": "native-anyhow1.0.104:error.rs",
+      "sha256": "2a78ee4e5f8d6b4476c761f77473362b9ed12f5402e4701001e7d04d628ba030",
+      "personally_read_ranges": [
+        [
+          1,
+          1060
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozen anyhow error.rs1060 personally read. Constructors build ErrorImpl payload/backtrace/vtable in one allocation, specialize every vtable operation to concrete payload or transparent wrapper, then erase pointer. Context wrapper retains original Error and context together; context downcast can select either corresponding type and recursive chain.",
+        "Owned downcast uses matching TypeId-directed lookup then ManuallyDrop for outer owner and target-specific drop-rest, whereas reference/mutable downcast only exposes selected matching payload. repr(C) layout and first-vtable placement are explicit assumptions; supporting Own/Ref/Mut and wrapper layout implementations are separate dependency contracts.",
+        "into_boxed_dyn_error preserves allocation/backtrace but changes downcast identity to ErrorImpl; reallocation preserves original payload downcast and discards backtrace. This is intentionally documented distinction, no silent project conversion claim. root_cause traverses actual source chain; arbitrary user StdError cyclic/malicious chains not proved excluded.",
+        "Generic backtrace provider and context fallback preserve provenance; actual project contextual error creation/rendering and public sanitization remain receiving obligations. No runtime memory-safety proof, underlying pointer/formatter/backtrace module clearance or examples executed."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

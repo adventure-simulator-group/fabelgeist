@@ -1,0 +1,48 @@
+//! Playback timing and locomotion presentation thresholds authored in YAML.
+
+use super::TacticalCombatConfigError;
+use crate::animation::{
+    AnimationFrequency, AnimationSampleSpan, AuthoredCadenceCap, CoalescedEventBudget,
+    NonnegativeLength, PhaseCorrectionRate, PhaseErrorLimit, ResponseRate, UnitInterval,
+};
+use adventuresim_building_generator::spatial_geometry::SignedLength;
+use adventuresim_core::linear_speed::NonnegativeSpeed;
+use serde::{Deserialize, Serialize};
+
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct AnimationPlaybackConfig {
+    /// Authored clip frames per second; no representable reciprocal is required.
+    pub frames_per_second: AnimationFrequency,
+    pub player_visual_y_offset_metres: SignedLength,
+    pub velocity_response_per_second: ResponseRate,
+    pub phase_correction_rate_per_second: PhaseCorrectionRate,
+    pub phase_drift_deadband: PhaseErrorLimit,
+    pub phase_drift_measurement_blend: UnitInterval,
+    pub phase_snap_error: PhaseErrorLimit,
+    pub maximum_source_gap_ticks: AnimationSampleSpan,
+    /// Coupled cadence ceiling, smooth-transition width and calibrated stride floor.
+    pub authored_step_cadence: AuthoredCadenceCap,
+    pub maximum_authored_stance_slip_metres: NonnegativeLength,
+    pub maximum_coalesced_events: CoalescedEventBudget,
+    pub initial_locomotion_speed_metres_per_second: NonnegativeSpeed,
+    pub locomotion_deactivation_speed_metres_per_second: NonnegativeSpeed,
+    pub locomotion_activation_speed_metres_per_second: NonnegativeSpeed,
+}
+
+impl AnimationPlaybackConfig {
+    pub(super) fn validate(&self) -> Result<(), TacticalCombatConfigError> {
+        let playback = self;
+        if playback.maximum_source_gap_ticks == AnimationSampleSpan::ZERO
+            || playback.locomotion_deactivation_speed_metres_per_second
+                > playback.initial_locomotion_speed_metres_per_second
+            || playback.initial_locomotion_speed_metres_per_second
+                > playback.locomotion_activation_speed_metres_per_second
+        {
+            return Err(TacticalCombatConfigError::Validation(
+                "invalid animation playback tuning",
+            ));
+        }
+        Ok(())
+    }
+}

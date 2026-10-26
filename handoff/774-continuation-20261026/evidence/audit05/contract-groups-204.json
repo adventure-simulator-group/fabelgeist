@@ -1,0 +1,74 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-204",
+  "at": "2026-10-25T21:35:09.235544+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2157,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/bestiary.rs",
+      "sha256": "0a8870d89db5190ae5b70aaffd93d7511b144e4861f37ffd649c62f464a3d2b7",
+      "personally_read_ranges": [
+        [
+          1,
+          330
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full bestiary category/index/id/correlation matrix, raw13-family hours, direct mutation/validity, direct-gated nonrecursive effective and aggregate sums; fixtures intentionally allow effective mastery beyond direct ceiling.",
+        "Preserve inherited ROOT-INITIAL04-F016: generic maximum/raw direct mutable record permits finite-scalar overflow at f32MAX; ordinary5000 bounds yield finite sums. No new gameplay overflow claim or stricter arbitrary cap."
+      ]
+    },
+    {
+      "scope_index": 2159,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/coordinates.rs",
+      "sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+      "personally_read_ranges": [
+        [
+          1,
+          512
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full private checked geographic axis/pair types at E7/microdegrees, custom Deserialize calls bounds admission, explicit native degree tuple order, rounding and integer truncation adapters; abstract unbounded coordinate kept distinct.",
+        "Public pair constructors preserve both admitted axes; no mutation bypass. Existing fixtures read only. Bounds raw f64 predicate only represents supplied numeric kernel bounds, not a WGS84 rectangle admission itself."
+      ]
+    },
+    {
+      "scope_index": 2160,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+      "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+      "personally_read_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full checked inclusive rectangle: private E7 corners, rejects reversed latitude/longitude, preserves degenerate rectangles and excludes antimeridian by documented contract; intersection is inclusive.",
+        "No unsupported positive-area policy or longitude wrapping requirement added; native degrees are checked/rounded into canonical E7 first."
+      ]
+    },
+    {
+      "scope_index": 2161,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/coordinates/terrain_projection.rs",
+      "sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+      "personally_read_ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full native terrain frame: checked origin projected once, coherent offset/east-scale affine relation, continuous off-coverage degree samples explicitly native; local longitude scale floor avoids pole divisor zero.",
+        "Public native arithmetic records intentionally do not claim admitted geographic coverage. Actual same-origin/order source association traced previously in capture; no new finding."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "4 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "dedup_refs": [
+    "ROOT-INITIAL04-F016"
+  ]
+}

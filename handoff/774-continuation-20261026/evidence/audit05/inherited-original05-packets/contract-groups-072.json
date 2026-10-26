@@ -1,0 +1,218 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-072",
+  "at": "2026-10-23T00:49:55.570387+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene.rs",
+      "sha256": "2661ce950659807c47c0de4fdc769ba1ba79825c47ba2985fcec32d7e4f38390",
+      "scope041_index": 1897,
+      "actual_EOF": 553,
+      "scoped_ranges_compared": [
+        [
+          1,
+          553
+        ]
+      ],
+      "actual05_comparison": "Fresh complete 553 including existing tests 401–553, source only. Private heightmap/width/scale/coarse_stride plus Sampled/Owned geometry retain the surface source. Constructors validate exact dimensions, finite heights/extents, index capacity and stride before publishing. new counts cells then checked +1 vertices; from_heightmap counts vertices, rejects incompatible depth. refined rejects Owned, checks subdivisions/counts, evaluates complete replacement and validates before return. rewrite_heights builds a local replacement and commits only after every point/height succeeds. constrain_max_grade delegates a mutable helper still pending; no atomicity verdict from Result. Mesh/query share row-major indexing and triangle diagonals; collider_height_matrix transposes to actual native column-major flattening while retaining required dimensions, with rectangular fixture observed but not run. Mesh primitive count follows admitted u32 capacity; computed triangle means can overflow for finite extremes, but no native finite-output promise claimed. Owned path consistently delegates support/query/mesh/collider to the owned topology rather than stale sampled heights. Sampled 2x2 scale1e10 is admitted, so native spatial-cell limits are still not established by finite extent checks.",
+      "source_body_proof": "Fresh complete current frozen source body personally read; existing fixtures/docs source-only, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/admission.rs",
+      "sha256": "c77986f9f9ff85cd6b4359792d8c28838b437942db2e61c92dc4104856e849cb",
+      "scope041_index": 1898,
+      "actual_EOF": 98,
+      "scoped_ranges_compared": [
+        [
+          1,
+          98
+        ]
+      ],
+      "actual05_comparison": "Fresh complete 98. TerrainWire is raw only until TryFrom constructs candidate then validate. Width/depth >=2, exact heightmap divisibility, checked vertex count and six indices per cell <=u32MAX establish array and native index relationships. Finite positive scale plus completed finite extents, stride>0 dividing both cell counts, and all finite heights are admitted together. Default is a complete valid 2x2 flat sample with stride1. Validation does not restrict all physical dimensions to i32 cell capacity or promise finite tangent arithmetic; query uses Option for failed completed geometry. Opaque reflection copies canonical Self, not raw field reconstruction, consistent earlier exact native reflection proof; no new reflection implementation credit.",
+      "source_body_proof": "Fresh complete current frozen source body personally read; existing fixtures/docs source-only, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/queries.rs",
+      "sha256": "feacac20255eb9787f14ee21a2b7955e72d5be7b618755698965657402efc08c",
+      "scope041_index": 1905,
+      "actual_EOF": 170,
+      "scoped_ranges_compared": [
+        [
+          1,
+          170
+        ]
+      ],
+      "actual05_comparison": "Fresh complete 170. SceneElevationRange has private ordered typed finite endpoints, equality valid; iterator reduction rejects empty/nonfinite samples before constructor. Required query errors retain the same requested point; no missing-support zero fallback. Sampled height and normal are computed from the SAME triangle and fraction, with final edge mapped into adjacent valid cell. Positive admitted dimensions and stride bound indexing/divisors; get retains defensive absence. Cross-product and interpolation can overflow from finite inputs, then SurfaceHit::from_geometry is the explicit final admission boundary: no blanket infallible support promise. Owned queries choose the owned physical surface, not sampled cache. Exact lower SurfaceHit/native Dir3 policy and owned topology remain separate original source obligations.",
+      "source_body_proof": "Fresh complete current frozen source body personally read; existing fixtures/docs source-only, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/property_support.rs",
+      "sha256": "4eb5b88b6059d622bb8663f784c3cd8eab5289a4928d2c51ab38031acc6a354a",
+      "scope041_index": 1904,
+      "actual_EOF": 181,
+      "scoped_ranges_compared": [
+        [
+          1,
+          181
+        ]
+      ],
+      "actual05_comparison": "Fresh complete 181. TerrainGeometry distinguishes Sampled versus accepted Owned topology. with_property_surface consumes candidate then returns coherent enum transition; all physical support, required elevation, colliders, property lookup and presentation triangles select that SAME owner afterward. Refinement and sample rewrite reject Owned in parent. Original grid extents remain metadata for UV coordinates, not a second support source. Matching property lookup by actual ID; absent property returns None. Owned mesh builder appends each triangle’s three position/UV vertices and matching indices together; arbitrary triangle count must fit u32, a lower owner/port capacity prerequisite not proved by accepted typename. Natural versus cut-face winding and collar exclusion are explicit separate roles. No assertion that owned surface must equal sampled heights or arbitrary projection preserve bytes.",
+      "source_body_proof": "Fresh complete current frozen source body personally read; existing fixtures/docs source-only, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/ground/tests.rs",
+      "sha256": "3af5fab04d729f25434e3c731429726b08d94fb12f637ad51c3be301bb25a4dc",
+      "scope041_index": 1902,
+      "actual_EOF": 28,
+      "scoped_ranges_compared": [
+        [
+          1,
+          28
+        ]
+      ],
+      "actual05_comparison": "Fresh full 28 existing fixture source only. Constructs 3x3 spacing2 with central leaf litter, queries centred point and footprint intersection, checks outside None and width1 rejection. This observes natural discrete cell semantics, not every raw Serde/Reflect route or all overflow/cell-capacity cases. No production record or mutation is introduced here; no tests executed.",
+      "source_body_proof": "Fresh complete current frozen source body personally read; existing fixtures/docs source-only, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/queries/tests.rs",
+      "sha256": "34cb597c3f3bb88bb27643278afb28cdf549f1e490a075404cd3448648f7b2f2",
+      "scope041_index": 1906,
+      "actual_EOF": 57,
+      "scoped_ranges_compared": [
+        [
+          1,
+          57
+        ]
+      ],
+      "actual05_comparison": "Fresh full 57 existing fixture source only. Nonunit scale, triangular rather than bilinear interpolation, final-boundary normals and support absence are concrete expected relationships. Mesh diagonal and query diagonal share actual corner assignment. No test run or all finite extreme-input assurance; no production aggregate to change in fixtures.",
+      "source_body_proof": "Fresh complete current frozen source body personally read; existing fixtures/docs source-only, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/ground/urban.rs",
+      "sha256": "f126fe289f242ec3ba4166575dca79fcbc5be9c21e74c7f0fe63988d97907aff",
+      "scope041_index": 1903,
+      "actual_EOF": 378,
+      "scoped_ranges_compared": [
+        [
+          1,
+          378
+        ]
+      ],
+      "actual05_comparison": "Fresh complete 378 including 229–243 helper and282+ existing fixtures, source only. UrbanGroundLookup owns copied streets/yards/buildings and bucket indices derived from those SAME arrays in one constructor, so indices retain membership. UrbanGroundSurfaces private arrays plus OnceLock initialized from same data; decode skips cache and lazy reconstruction uses current arrays. Ordinary reflected mutable arrays can leave initialized ignored cache stale (existing Root03F011 support), no current normal stale caller. Equality intentionally compares authoritative arrays, not derived acceleration. Street priority before buildings then yards is explicit policy; suppresses_grass intentionally excludes building check, so differing observer purposes are not automatically duplicate authority. Buckets use finite native cell ranges and can have huge work on huge valid bounds; raw street/yard definitions and actual native capacity remain lower conditions. overlap disk radius is raw f32, no general nonnegative-radius promise from helper. Nonempty fixed corner arrays and modulo4 edge walk preserve cardinality; segment zero-length returns endpoint distance intentionally.",
+      "source_body_proof": "Fresh complete current frozen source body personally read; existing fixtures/docs source-only, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_ground.rs",
+      "sha256": "326752c9f0ad95c8f898c8ad0d106eae2395e3a89ec135922c6fd7da8d860622",
+      "scope041_index": 1913,
+      "actual_EOF": 88,
+      "scoped_ranges_compared": [
+        [
+          1,
+          88
+        ]
+      ],
+      "actual05_comparison": "Fresh complete 88. build_scene_ground maps the provided environmental array preserving order, then for each tree indexes samples using terrain width/depth before final SceneGround::from_samples. Thus matching environment.len==terrain sample count must be established BEFORE entry; a short slice plus nearby tree can panic before final validation. Actual normal SceneInput caller gate is pending; no normal bad write/runtime or new unique finding asserted yet. Normal ground surface mutation couples cover/density9200/height6, preserving leaf bounds, then complete ground+urban built before Ok. Geometry error leaves unpublished local ground; no outer cache transaction inferred. Probability uses canopy-vs-dense radii difference, actual constants/direct caller remain existing source obligations.",
+      "source_body_proof": "Fresh complete current frozen source body personally read; existing fixtures/docs source-only, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+      "scope041_index": 1907,
+      "actual_EOF": 122,
+      "scoped_ranges_compared": [
+        [
+          1,
+          122
+        ]
+      ],
+      "actual05_comparison": "Fresh actual complete EOF122, despite inherited owner rows claiming155; no nonexistent123–155 credit. Private finite Vec2 scene point and displacement distinguish position/translation/frame. Manual Serde checks every component; translated computes completed sum then readmits before return, preserving failure rather than saturated coordinate. offset_from_origin copies same finite payload; zero/negative positions are valid. From<Position<Scene>> trusts canonical input and inherits earlier lower generic Position visibility qualification, not fresh arbitrary raw validation. No magnitude, common origin ownership or native i32 cell-capacity guarantee. PlanVertex value getter stable for immutable current payload (same leaf contract supporting F001). Existing inline tests and compile/module declarations are source-only.",
+      "source_body_proof": "Fresh complete current frozen source body personally read; existing fixtures/docs source-only, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/polygon.rs",
+      "sha256": "e2ab1721fe7a2424bb3b878a6e98d58d12b6f1edc5ef39a0ae15a8bd3f322956",
+      "scope041_index": 1908,
+      "actual_EOF": 191,
+      "scoped_ranges_compared": [
+        [
+          1,
+          191
+        ]
+      ],
+      "actual05_comparison": "Fresh complete 191 including original tests. Raw ArchitecturalPlanProjection fields retain centre/origin/orientation, both public construction and from_placement; point rechecks orientation and completed result. ScenePlanPolygon private vertex vector: arbitrary ordered input delegates exact PlanPolygon; architectural and translated paths only admit a rigid projection of prior topology, retaining rounded order rather than re-hulling. Private rigid admission requires >=3, positive f64 represented area and no duplicate projected vertices, so collapsed/zero area rejects. Mathematical convexity versus f32 tiny local bends deliberately distinct; no arbitrary concave source bypass or exact same area requirement. Translation builds complete vector before replacing output, original remains intact on failure. No decoder or mutable vertex access.",
+      "source_body_proof": "Fresh complete current frozen source body personally read; existing fixtures/docs source-only, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+      "sha256": "f961ea0bc8da4a4bb23bba732b32f43172c9ab2aaa83bd4ff8319efb4faaf077",
+      "scope041_index": 1911,
+      "actual_EOF": 38,
+      "scoped_ranges_compared": [
+        [
+          1,
+          38
+        ]
+      ],
+      "actual05_comparison": "Fresh full38. SceneVelocity is three independent checked finite SignedSpeed components with zero/default valid and no other promised correlation. Raw Vec3 admission constructs all components before return; getters only project to native axes. Component finiteness does not promise finite norm, positive motion, fixed speed or any actor membership. Independent public components are therefore intentional here; no aggregate wrapper required merely because three fields exist.",
+      "source_body_proof": "Fresh complete current frozen source body personally read; existing fixtures/docs source-only, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+      "sha256": "aab7cbd205fd372d7542412ed9898345ccc87e83c548b9988a46424d4b88c2af",
+      "scope041_index": 1909,
+      "actual_EOF": 270,
+      "scoped_ranges_compared": [
+        [
+          1,
+          270
+        ]
+      ],
+      "actual05_comparison": "Fresh complete270 including compile-fail documentation as source only. Distinct Scene/Gate/Ground/Plot/Collision frame roles; datum offsets preserve signed absolute elevations. CollisionCentreDatum private origin/centre + checked orientation; point/displacement/inverse compute then readmit, retaining errors. Door conversion constructs complete private SceneDoorPose from SAME leaf IDs/dimensions/hinge/centre/yaw/tangent/outward and original quaternion product; no setter/decoder exposes divergent paired rotation. Gate conversion changes elevation only. ArchitecturalGateDatum public plan/floor is raw compatible input, rechecks orientation; completed overflow returns error. Input DoorSpec geometric correlation is inherited from actual source factory, not revalidated by frame conversion; no arbitrary public DoorSpec accepted-seal claim. Lower generic Position visibility qualification persists, but no current malformed input asserted.",
+      "source_body_proof": "Fresh complete current frozen source body personally read; existing fixtures/docs source-only, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/window.rs",
+      "sha256": "9e148e80284c8a960dc0fe0495783563bae67ec6bbf07abbdf6f82ff8edf5601",
+      "scope041_index": 1912,
+      "actual_EOF": 136,
+      "scoped_ranges_compared": [
+        [
+          1,
+          136
+        ]
+      ],
+      "actual05_comparison": "Fresh complete136 including existing tests62+, source only. SceneWindowPose has private paired WindowSpec<Scene> and original RigidRotation, only exact datum factory constructs both. It copies SAME leaf/opening/source/size/bars/open angle and transforms both centres and directions with SAME native parent rotation; closed yaw readmitted separately without replacing retained native quaternion multiplication order. Any failed component aborts local construction, typed WindowError carries original source/opening. Getters return copies, so caller changes do not mutate pose correlation. Existing fixture observes hinge and rotation equivalence across orientation values, no run. Lower raw WindowSpec geometry promises remain actual source owner obligation.",
+      "source_body_proof": "Fresh complete current frozen source body personally read; existing fixtures/docs source-only, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/spatial_tests.rs",
+      "sha256": "1a9a519142dab5d29d3a258936cf8538a7305f0faa3d303a28915f7d3b849588",
+      "scope041_index": 1910,
+      "actual_EOF": 173,
+      "scoped_ranges_compared": [
+        [
+          1,
+          173
+        ]
+      ],
+      "actual05_comparison": "Fresh complete173 existing test source only. Actual fixtures compare BuildingOrientation wire bits and opaque reflection, rejection of noncanonical angles, architecture/floor/collision datum arithmetic and paired hinge/rotation IDs. Gate fixture preserves XZ, both hinge sides and dimensions, signed datum; completed MAX+MAX returns Err. These are recorded acceptance expectations, not executed evidence or generalized proof that all independent leaf values satisfy door geometry relationships.",
+      "source_body_proof": "Fresh complete current frozen source body personally read; existing fixtures/docs source-only, no execution."
+    }
+  ],
+  "comparison_groups": {
+    "grid-and-physical-source": "Complete grid admission, same triangle query/mesh/collider source and owned-vs-sampled state transition compared; error/None retained for completed invalid math.",
+    "cache-and-sample-membership": "Lookup copied arrays and bucket indices constructed together; raw reflection/cache bypass remains qualified existing graph. Environmental sample length must precede indexing, actual normal caller pending.",
+    "paired-pose-authority": "Private door/window leaf+native rotation products constructed together by checked frame conversions; public geometry inputs do not imply complete accepted geometric correlations.",
+    "intentional-products": "Velocity finite components promise finite leaves only, not finite norm; distinct datums/projection-rounding semantics preserved."
+  },
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Exact normal build_scene_ground environment/sample shape caller before indexing, and canopy/dense constants.",
+    "Grade mutation helper, owned support admission/index capacity and SurfaceHit completed normal admission remain exact existing source roles; no lower typename credit."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

@@ -1,0 +1,100 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-003",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1446,
+    1447
+  ],
+  "scope_proof": "scope-072-application-003.json; both original changed variants full requested scope.",
+  "source_accounts": [
+    {
+      "index": 1446,
+      "side": "head",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/setup.rs",
+      "sha256": "ca7571cd25d303d7ef2ca543a07674e3ba3ba58b4a9abb8bb3f234f03507f9cb",
+      "object": "target\\recovery-20261025\\audit08\\source\\head\\ca7571cd25d303d7ef2ca543a07674e3ba3ba58b4a9abb8bb3f234f03507f9cb",
+      "lines": 94,
+      "read_status": "Full head body read"
+    },
+    {
+      "index": 1446,
+      "side": "base",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/setup.rs",
+      "sha256": "40e32eda0c1a37960ccfcf531024e68ee766ecbdede981a157dcb300cf70ac32",
+      "object": "target\\recovery-20261025\\audit08\\source\\base\\40e32eda0c1a37960ccfcf531024e68ee766ecbdede981a157dcb300cf70ac32",
+      "lines": 85,
+      "read_status": "Old changed lines/context read in actual diff; unchanged regions compared through full head"
+    },
+    {
+      "index": 1446,
+      "side": "actual_diff",
+      "sha256": "2a3fd38ce6f4abc107e04810734552f68480ac1e7af294153178605e45eb45bc",
+      "object": "target\\recovery-20261025\\audit08\\source\\pr-1446.diff",
+      "read_range": [
+        1,
+        43
+      ]
+    },
+    {
+      "index": 1447,
+      "side": "head",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/view.rs",
+      "sha256": "1ec7bad7a491c5c78bfefb2ee24f87039f35d5fc22fcca5aec8ab879f69a79d8",
+      "object": "target\\recovery-20261025\\audit08\\source\\head\\1ec7bad7a491c5c78bfefb2ee24f87039f35d5fc22fcca5aec8ab879f69a79d8",
+      "lines": 74,
+      "read_status": "Full head body read"
+    },
+    {
+      "index": 1447,
+      "side": "base",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/view.rs",
+      "sha256": "382b6722f124d3573c6855efac08e51e4a5c3c477f024ae865ea080b9f2ce18b",
+      "object": "target\\recovery-20261025\\audit08\\source\\base\\382b6722f124d3573c6855efac08e51e4a5c3c477f024ae865ea080b9f2ce18b",
+      "lines": 67,
+      "read_status": "Old changed lines/context read in actual diff; unchanged regions compared through full head"
+    },
+    {
+      "index": 1447,
+      "side": "actual_diff",
+      "sha256": "784f532535845a7f5ddf7ef7ff343dc0a49824a8c7081b6a7ce79687391e4135",
+      "object": "target\\recovery-20261025\\audit08\\source\\pr-1447.diff",
+      "read_range": [
+        1,
+        41
+      ]
+    }
+  ],
+  "facts": [
+    "1446 setup preserves terrain generation, root offset, naming, components, armor/proportions/light/UI and file output values/order. Missing-height old0 default becomes required typed observation; height+offset is admitted before any scene/subject spawn. Rejection returnsOk from setup but retains Rejected CaptureSequence, handled by own completed1413 terminal failure protocol Open\u2192Rejected\u2192Terminated/exit1. This explicit strengthening is not evidence an ordinary generated terrain fails or rejection becomes silent readiness.",
+    "1447 gameplay helper1460:155-160 multiplies identity quaternion*Z*same default boom distance and admits Scene displacement. Prior exact own1460 proof records unchanged native boom arithmetic. On failure new code logs/returns before camera modification; ordinary identity/default failure not established. Side/front camera offsets, armor review override, orbit/look_at, label visibility/format widths/order unchanged; label()/speed/phase getters project authoritative values at text formatting boundary.",
+    "Prior own1413 exactbe3851.. full1-168 terminal protocol and1460 exact4d7aab.. full185 body/diff facts reused only at same source hashes; fresh critical1413:27-65 and1460:155-160 corroborate new call edges. 1460 UI/diagnostic dependency coverage remains partial; no global camera/terrain/rig or runtime/render clearance."
+  ],
+  "support": [
+    {
+      "index": 1413,
+      "sha256": "be3851ecaa6b17fc8df5be03a931a840d86dde66294c07bb268dfe7aaa9cae4b",
+      "fresh_ranges": [
+        [
+          27,
+          65
+        ]
+      ],
+      "prior": "predecessor/coverage.jsonl exact own completed1413 proof"
+    },
+    {
+      "index": 1460,
+      "sha256": "4d7aab7742753836f2384c8cd1095148537193d23ba45c3f5bac3762dabc6fa9",
+      "fresh_ranges": [
+        [
+          155,
+          185
+        ]
+      ],
+      "prior": "predecessor/coverage.jsonl exact own fullbody facts; role remains partial"
+    }
+  ],
+  "new_unique_findings": [],
+  "preserved": "All existing findings/questions/policy and overlay/merged/material obligations remain. No tests/checks/repairs/Git mutation.",
+  "next_original": 1449,
+  "global_clearance": false
+}

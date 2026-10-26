@@ -1,0 +1,137 @@
+diff --git a/crates/adventuresim-tactical-client/src/debug.rs b/crates/adventuresim-tactical-client/src/debug.rs
+index 78e391230..f2b8bef60 100644
+--- a/crates/adventuresim-tactical-client/src/debug.rs
++++ b/crates/adventuresim-tactical-client/src/debug.rs
+@@ -14,7 +14,7 @@ use bevy::{
+ use bevy_enhanced_input::prelude::{ActionMock, Actions};
+ 
+ use crate::{
+-    animation::TerrainIkEnabled,
++    animation::TerrainIkMode,
+     camera::{CameraAimState, CameraDebugEnabled, CameraRigDebugState},
+     player::{ClientPlayer, HitPerformed, LimbHitbox},
+ };
+@@ -102,7 +102,7 @@ struct DebugRay {
+ fn toggle_debug_visuals(
+     keyboard: Res<ButtonInput<KeyCode>>,
+     mut config: ResMut<DebugVisualsConfig>,
+-    mut terrain_ik: ResMut<TerrainIkEnabled>,
++    mut terrain_ik: ResMut<TerrainIkMode>,
+     mut game_speed: ResMut<DebugGameSpeed>,
+     mut virtual_time: ResMut<Time<Virtual>>,
+     q_colliders: Query<(Entity, Option<&LimbHitbox>), (With<Collider>, Without<ClientPlayer>)>,
+@@ -152,8 +152,8 @@ fn toggle_debug_visuals(
+     }
+ 
+     if keyboard.just_pressed(KeyCode::F8) {
+-        terrain_ik.0 = !terrain_ik.0;
+-        info!(enabled = terrain_ik.0, "Terrain leg IK toggled");
++        terrain_ik.toggle();
++        info!(enabled = terrain_ik.is_enabled(), "Terrain leg IK toggled");
+     }
+ 
+     if keyboard.just_pressed(KeyCode::F10) {
+@@ -282,38 +282,53 @@ fn draw_camera_rig(
+     aim: Res<CameraAimState>,
+     mut gizmos: Gizmos,
+ ) {
+-    if !enabled.0 || !rig.active {
++    if !enabled.0 {
+         return;
+     }
+-    gizmos.line(rig.subject, rig.focus, tailwind::LIME_400);
+-    gizmos.line(rig.focus, rig.collision_origin, tailwind::SKY_300);
++    let Some(rig) = rig.0 else {
++        return;
++    };
++    gizmos.line(rig.subject.metres(), rig.focus.metres(), tailwind::LIME_400);
+     gizmos.line(
+-        rig.collision_origin,
+-        rig.desired_endpoint,
++        rig.focus.metres(),
++        rig.collision_origin.metres(),
++        tailwind::SKY_300,
++    );
++    gizmos.line(
++        rig.collision_origin.metres(),
++        rig.desired_endpoint.metres(),
+         tailwind::AMBER_300,
+     );
+-    gizmos.line(rig.collision_origin, rig.final_endpoint, tailwind::CYAN_300);
+-    if rig.collision_entity.is_some() {
++    gizmos.line(
++        rig.collision_origin.metres(),
++        rig.final_endpoint.metres(),
++        tailwind::CYAN_300,
++    );
++    if let Some(collision) = rig.collision {
+         gizmos.line(
+-            rig.final_endpoint,
+-            rig.final_endpoint + rig.collision_normal * 0.6,
++            rig.final_endpoint.metres(),
++            rig.final_endpoint.metres() + collision.normal.vector() * 0.6,
+             tailwind::RED_400,
+         );
+     }
+-    if rig.soft_occluder.is_some() {
++    if let Some(occluder) = rig.soft_occluder {
+         gizmos.line(
+-            rig.soft_occluder_point - Vec3::Y * 0.25,
+-            rig.soft_occluder_point + Vec3::Y * 0.25,
++            occluder.point.metres() - Vec3::Y * 0.25,
++            occluder.point.metres() + Vec3::Y * 0.25,
+             tailwind::ORANGE_400,
+         );
+     }
+-    gizmos.cube(rig.collision_volume, tailwind::CYAN_200);
+-    if aim.active {
+-        gizmos.line(aim.camera_origin, aim.camera_target, tailwind::PURPLE_300);
++    gizmos.cube(rig.collision_volume.native_transform(), tailwind::CYAN_200);
++    if let Some(aim) = aim.0 {
++        gizmos.line(
++            aim.camera_origin.metres(),
++            aim.camera_target.metres(),
++            tailwind::PURPLE_300,
++        );
+         gizmos.line(
+-            aim.muzzle_origin,
+-            aim.actual_target,
+-            if aim.blocked {
++            aim.muzzle_origin.metres(),
++            aim.actual_target.metres(),
++            if aim.blocked() {
+                 tailwind::RED_500
+             } else {
+                 tailwind::GREEN_400
+@@ -332,7 +347,7 @@ mod tests {
+         app.init_resource::<ButtonInput<KeyCode>>()
+             .init_resource::<DebugVisualsConfig>()
+             .init_resource::<DebugGameSpeed>()
+-            .init_resource::<TerrainIkEnabled>()
++            .init_resource::<TerrainIkMode>()
+             .init_resource::<Time<Virtual>>()
+             .add_systems(Update, toggle_debug_visuals);
+ 
+@@ -340,7 +355,10 @@ mod tests {
+             .resource_mut::<ButtonInput<KeyCode>>()
+             .press(KeyCode::F8);
+         app.update();
+-        assert!(!app.world().resource::<TerrainIkEnabled>().0);
++        assert_eq!(
++            *app.world().resource::<TerrainIkMode>(),
++            TerrainIkMode::Disabled
++        );
+ 
+         {
+             let mut keyboard = app.world_mut().resource_mut::<ButtonInput<KeyCode>>();
+@@ -350,6 +368,9 @@ mod tests {
+             keyboard.press(KeyCode::F8);
+         }
+         app.update();
+-        assert!(app.world().resource::<TerrainIkEnabled>().0);
++        assert_eq!(
++            *app.world().resource::<TerrainIkMode>(),
++            TerrainIkMode::Enabled
++        );
+     }
+ }

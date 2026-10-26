@@ -1,0 +1,173 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-034",
+  "at": "2026-10-22T20:53:34.202008+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs",
+      "sha256": "7e4b80c439d05e7d13d360b80fcda7a4a10e6e8380d0889198f514dce0df962b",
+      "scope026_index": 1368,
+      "actual_EOF": 526,
+      "scoped_ranges_compared": [
+        [
+          1,
+          526
+        ]
+      ],
+      "actual05_comparison": "Ordinary leg arrays have fixed left/right upper/lower/foot roles with side and weight; three fixed [Option;2] columns use same enumerate index, then named memory fields map index0 toleft/index1 toright. Missing terrain/bone/snapshot leaves None, not fabricated0. One observed frame and candidate copied local state govern both legs; sample tick dedup holds elapsed, Pending/Tracking pelvis avoids synthetic zero baseline. Actual pelvis shift mutates root before leg solves/publication, so diagnostics publication failure is not full pose rollback. owns excludes downed/posture transition/quickstep and limits ordinary/raised movement ownership. locomotion_support_weights is a diagnostics projection, distinct authored FootIkInfluence. Full source including original ownership/support fixtures read, no execution. F008 direct state phase support consumer now actual; reviewed normal wrapped phase producers in033 remain safe.",
+      "source_body_proof": "Fresh complete actual source read for current05 relationships; previous03 contract013 raw staging distinctions personally compared, no prior verdict clearance."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/frame.rs",
+      "sha256": "30e14becdee166e5f15201b0deae415b38c6d088df46d22ff2a918a77eff9fda",
+      "scope026_index": 1366,
+      "actual_EOF": 54,
+      "scoped_ranges_compared": [
+        [
+          1,
+          54
+        ]
+      ],
+      "actual05_comparison": "Private finite scene origin+rotation are admitted together from one GlobalTransform; rig absence/read failure returns None, never fabricated world identity. Finite nonunit/zero Quaternion intentionally retained, so inverse/coordinate operation must admit its own result and cannot assume an isometry. Actual callers bind frame to same rig observation, type itself does not carry entity membership/generation.",
+      "source_body_proof": "Fresh complete actual source read for current05 relationships; previous03 contract013 raw staging distinctions personally compared, no prior verdict clearance."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/evaluation_clock.rs",
+      "sha256": "494c46a4fd56879e1b9901c824fedc3ae9d2e5a44d40535a7b7ef5acb93425be",
+      "scope026_index": 1364,
+      "actual_EOF": 23,
+      "scoped_ranges_compared": [
+        [
+          1,
+          23
+        ]
+      ],
+      "actual05_comparison": "Memory optional evaluation_tick deduplicates same fixed step and returns None for duplicate, Some(delta) while updating tick otherwise; variable mode only positive elapsed. None tick is no observation, not tick0 sentinel, and duplicate fixed delta is not a fabricated observation. Writes occur on staged memory in main callers; final staging/publication identity still exact main facade obligation.",
+      "source_body_proof": "Fresh complete actual source read for current05 relationships; previous03 contract013 raw staging distinctions personally compared, no prior verdict clearance."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion/terrain_leg.rs",
+      "sha256": "51077dd4848c32f8c559637ff794ba44f8b071f92ed20fd7103ab1773aac8b9d",
+      "scope026_index": 1369,
+      "actual_EOF": 121,
+      "scoped_ranges_compared": [
+        [
+          1,
+          121
+        ]
+      ],
+      "actual05_comparison": "OrdinaryLeg role triplet, side and weight are internal raw product. Normal caller constructs two exact fixed anatomical triplets, not arbitrary BoneRole permutation. solve snapshots actual selected chain, measures corresponding positive lengths, derives knee pole and final solve from same chain then slope alignment with actual side sole axis. Identity target short-circuit preserves authored pose. Native solver lower math/source roles remain separate unread05 cells; no universal arbitrary chain topology promise inferred from constructor name.",
+      "source_body_proof": "Fresh complete actual source read for current05 relationships; previous03 contract013 raw staging distinctions personally compared, no prior verdict clearance."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/state/publication.rs",
+      "sha256": "b6746424e6fc5ccd0bdf97a25b61b2643ab2b19661ffd5e8f0fccc936b822d4e",
+      "scope026_index": 1381,
+      "actual_EOF": 107,
+      "scoped_ranges_compared": [
+        [
+          1,
+          107
+        ]
+      ],
+      "actual05_comparison": "publish validates selected world/local target Options and settle points before one retained LegIkState assignment/insert. retain_solve_request projects both desired/actual targets in same supplied frame and updates selected foot target/weight/release facts together, preserving prior weight at zeroelapsed. Raw FootSolveRequest/LegIkMemory and pubsuper tuple allow internal bypass already qualified03; finite selected point publication is not whole-state chronology/orientation/membership validation. Solver ownership and rendered observation intentionally distinct.",
+      "source_body_proof": "Fresh complete actual source read for current05 relationships; previous03 contract013 raw staging distinctions personally compared, no prior verdict clearance."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/target_speed.rs",
+      "sha256": "6fd2a1c9a3a33667760a393c13375e52b1d5405bc665617b8ec84f44a9430663",
+      "scope026_index": 1382,
+      "actual_EOF": 58,
+      "scoped_ranges_compared": [
+        [
+          1,
+          58
+        ]
+      ],
+      "actual05_comparison": "FootTargetSpeeds::configured captures one IK tuning snapshot, multiplies each distinct signed per-sample displacement by same positive frequency and checks every speed before returning whole product. First release/restart/raised settle intentionally choose different budgets from same record; flags select policies, not an implied single monotone order across four physical speeds. Error returns before complete product; raw internal release/run fields still not accepted config seal.",
+      "source_body_proof": "Fresh complete actual source read for current05 relationships; previous03 contract013 raw staging distinctions personally compared, no prior verdict clearance."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terminal.rs",
+      "sha256": "87307931b63413a77180b12610949cf5a3545ff101c8fa2ff2589c50b720b378",
+      "scope026_index": 1383,
+      "actual_EOF": 59,
+      "scoped_ranges_compared": [
+        [
+          1,
+          59
+        ]
+      ],
+      "actual05_comparison": "Inactive, Seeded{shift}, Prepared{base_translation,shift,target_shift} encode distinct ownership stages. seed cannot overwrite Prepared; prepare captures existing visible seed and leaves base/target absent until observed. zero correction is valid inactive state. Optional target/base are partially prepared geometry, not proof all Some or exact equality; existing callers/kernel assignments in main facade remain pending current05.",
+      "source_body_proof": "Fresh complete actual source read for current05 relationships; previous03 contract013 raw staging distinctions personally compared, no prior verdict clearance."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/plant.rs",
+      "sha256": "4f30c6b7a81f9d8ba4f6d7b9d9fc02c40e102eff64ed14861234da7885647336",
+      "scope026_index": 1374,
+      "actual_EOF": 44,
+      "scoped_ranges_compared": [
+        [
+          1,
+          44
+        ]
+      ],
+      "actual05_comparison": "Absent versus Acquiring(Vec3) versus Acquired(Vec3) removes present/acquired boolean mismatch. retain(None,true) stillAbsent; observe_contact cannot fabricate acquired without target. replace_target intentionally preserves acquired history while moving solve goal; truthful current support confidence is independent LegIkMemory field and support_was_acquired checksboth. Raw payload vectors remain staged until selected-target publication; no native finite invariant promised by enum itself.",
+      "source_body_proof": "Fresh complete actual source read for current05 relationships; previous03 contract013 raw staging distinctions personally compared, no prior verdict clearance."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/track.rs",
+      "sha256": "5bfe737eeec5812b9bc25a52964dd42009e8a4721826beaed8d155d567408e48",
+      "scope026_index": 1390,
+      "actual_EOF": 31,
+      "scoped_ranges_compared": [
+        [
+          1,
+          31
+        ]
+      ],
+      "actual05_comparison": "Closed binary corridor side projects only +/-1 and anatomical left/right mapping, not a magnitude/nullable scalar. Native x<0 elsepositive handleszero including-0 intentionally; no multiple independent fields or meaningful collection invariant. Native nonfinite input classification is not finite-coordinate admission.",
+      "source_body_proof": "Fresh complete actual source read for current05 relationships; previous03 contract013 raw staging distinctions personally compared, no prior verdict clearance."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/state.rs",
+      "sha256": "bc1f1722e87fddf61d7200058af9bb729170ce3431ff1b2b344da00847d5f80b",
+      "scope026_index": 1380,
+      "actual_EOF": 479,
+      "scoped_ranges_compared": [
+        [
+          1,
+          479
+        ]
+      ],
+      "actual05_comparison": "LegIkMemory holds staged target/frame/sequence/history, per-foot plants, planned start/phase, current and transition weights, release/goals and terminal/settle state. DefaultNone means no observed frame/plant; it does not invent identity. seed_quickstep admits paired world then local targets before Converging+sameframe assignment. observe_owner_frame checks measured speed before history/retirement, zeroelapsed holds, discontinuity clears caches/targets/weights/settle before frame commit. advance_terrain_pelvis checks signed output before retainedshift; terminal Prepared caches fixedtarget and absolute baseline separately from incremental ordinary correction. finish_terrain_release clears ordinary targets/history/weights/release, diagnostics derives world projections without claiming accepted solver token. Direct raw scope mutation bypass and no universal rollback guarantee retained; actual main facade coordination and lower clear helpers remain pending exact05 cells.",
+      "source_body_proof": "Fresh complete actual source read for current05 relationships; previous03 contract013 raw staging distinctions personally compared, no prior verdict clearance."
+    }
+  ],
+  "groups": {
+    "two-leg-column-membership": {
+      "establishment": "locomotion184–211 exact fixed two-leg roles and three matching arrays, enumerate index mapping, 303–315 memory publication",
+      "operations": "Each missing tuple/terrain/valid target stays None; one shared pelvis shift applies before both solve attempts; no generic parallelVec assumption.",
+      "limits": "Bone-role lookup/snapshot-chain/native solve and publication are actual independent ports; source calls alone not complete lower graph proof."
+    },
+    "staged-versus-published-memory": {
+      "invariant": "Accepted selected targets finite, frame/foot-side and observed/history ownership distinctions maintained. This is not a private globally valid whole-memory record.",
+      "sources": "State37–175/217–295/298–365/392–474, publication15–105, terminal22–57, plant13–42, actual locomotion system.",
+      "counterexample_or_intentional": "Internal raw fields can represent inconsistent targets or temporal metadata; already existing03 raw/admission qualification. No universal allSome rule: missing targets, Pending/Seeded, no terrain, zero elapsed and selected diagnostic ownership are intentional. No new normal invalid caller proved.",
+      "connected_repair_acceptance": "If making a checked retained-state owner, preserve stage-specific payloads/empty behavior and actual same-rig/frame source; constrain actual exposed operation at meaningful boundary. Do not erase observer truth into solver ownership or retain invalid native result. Main facade/observation/solver/terrain roles explicitly remain current05 unread."
+    },
+    "periodic-support-current-recipient": {
+      "proof": "locomotion87–119 raw state.gait_phase forwarded into gait_support_weights; active action diagnostic routing distinct ordinary pose apply owns121.",
+      "qualification": "Supports F008 public assignment path, not normal projected phase2 claim; exact normal wrapped producers already033. Current fixtures use wrapped builder and normal phase. No execution."
+    }
+  },
+  "new_unique_findings": [],
+  "finding_support": [
+    "NATIVE-INITIAL05-F008 direct IK diagnostics raw-state receiver",
+    "Native03 raw LegIkMemory/selected publication qualifiers preserved"
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

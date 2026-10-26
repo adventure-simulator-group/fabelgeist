@@ -1,0 +1,247 @@
+{
+  "registry_snapshot": "registry-181.json",
+  "registry_sha256": "65c29f91e57e2186573857b2db192d4e48840f19d048b6eeb0ff23e35750092f",
+  "members": [
+    {
+      "material_index": 153,
+      "registration": {
+        "source_id": "pinned-registry:derive_more-impl-2.1.1/src/as/mod.rs",
+        "sha256": "767fe0f2cb67c57028ca69d138757c5fdd894ad6fa54fcb11ef8f4a7d4b4ef82",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-423/derive_more-impl-2.1.1/src/as/mod.rs",
+        "ranges": [
+          [
+            17,
+            68
+          ],
+          [
+            147,
+            306
+          ]
+        ],
+        "actual_EOF": 306,
+        "package_checksum": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+        "reason": "Bounded exact existing AsRef derive equivalence for LibraryName: explicit str output only, borrowed String view, no extra AsRef<String>/blanket implementation. No external SDK repair or whole-library coverage.",
+        "registration_evidence": "derivability/fresh-dependency-registration-423.json",
+        "line_count": 306,
+        "provenance_verification": "Coordinator compared exact object against cached archive member and package checksum; worker frozen lock680 match evidence retained. No macro execution or source-semantic credit.",
+        "index": 153,
+        "lenses": {
+          "producer-propagation": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "existing-type-owners": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "admission-contracts": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "invariant-operations": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "aggregate-states": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "type-ownership": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "redundant-authority": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "behavior-preservation": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "enum-shapes": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "derivability": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "type-granularity": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "magic-strings": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "magic-numbers": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained."
+        }
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          17,
+          68
+        ],
+        [
+          147,
+          306
+        ]
+      ],
+      "disposition": "Read registered17-68,147-306 in two chunks. AsRef/AsMut derive accepts structs, limits container attrs to sole field and distinguishes direct same-type borrow from forwarded generic/conversion and autoref specialization. Borrow preserves actual field lifetime/type; omitted69-146 field-selection route not inferred. AsMut could expose validated storage if owner elects it; actual wrapper policy separate."
+    },
+    {
+      "material_index": 154,
+      "registration": {
+        "source_id": "pinned-registry:derive_more-impl-2.1.1/src/as/ref.rs",
+        "sha256": "06f9f3379037f8002874119b864ca62c65d8dd785c821a1fdfd74b59d988f133",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-423/derive_more-impl-2.1.1/src/as/ref.rs",
+        "ranges": [
+          [
+            1,
+            15
+          ]
+        ],
+        "actual_EOF": 15,
+        "package_checksum": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+        "reason": "Bounded exact existing AsRef derive equivalence for LibraryName: explicit str output only, borrowed String view, no extra AsRef<String>/blanket implementation. No external SDK repair or whole-library coverage.",
+        "registration_evidence": "derivability/fresh-dependency-registration-423.json",
+        "line_count": 15,
+        "provenance_verification": "Coordinator compared exact object against cached archive member and package checksum; worker frozen lock680 match evidence retained. No macro execution or source-semantic credit.",
+        "index": 154,
+        "lenses": {
+          "producer-propagation": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "existing-type-owners": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "admission-contracts": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "invariant-operations": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "aggregate-states": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "type-ownership": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "redundant-authority": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "behavior-preservation": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "enum-shapes": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "derivability": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "type-granularity": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "magic-strings": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "magic-numbers": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained."
+        }
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "disposition": "Read full15. AsRef expansion selects as_ref method and immutable context before shared generator; no mutable route inferred."
+    },
+    {
+      "material_index": 155,
+      "registration": {
+        "source_id": "pinned-registry:derive_more-2.1.1/src/as.rs",
+        "sha256": "c51f277897f4a2a62c0824f00d6775814282673efd16d0c8df8f87d406f7e984",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-423/derive_more-2.1.1/src/as.rs",
+        "ranges": [
+          [
+            1,
+            53
+          ]
+        ],
+        "actual_EOF": 78,
+        "package_checksum": "d751e9e49156b02b44f9c1815bcb94b984cdcc4396ecc32521c739452808b134",
+        "reason": "Bounded exact existing AsRef derive equivalence for LibraryName: explicit str output only, borrowed String view, no extra AsRef<String>/blanket implementation. No external SDK repair or whole-library coverage.",
+        "registration_evidence": "derivability/fresh-dependency-registration-423.json",
+        "line_count": 78,
+        "provenance_verification": "Coordinator compared exact object against cached archive member and package checksum; worker frozen lock680 match evidence retained. No macro execution or source-semantic credit.",
+        "index": 155,
+        "lenses": {
+          "producer-propagation": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "existing-type-owners": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "admission-contracts": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "invariant-operations": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "aggregate-states": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "type-ownership": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "redundant-authority": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "behavior-preservation": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "enum-shapes": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "derivability": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "type-granularity": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "magic-strings": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "magic-numbers": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained."
+        }
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "disposition": "Read registered1-53. Autoref specialization returns identical borrowed T directly when types match, otherwise delegates actual field AsRef. No allocation/clone/validation introduced, mutable implementation after53 uncredited."
+    },
+    {
+      "material_index": 156,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/hilt.rs",
+        "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_blob": "95044a623f95b7636fecae276612e70f37491050",
+        "sha256": "8afb3bf2ceb343de66192b0c257b876deade739f32668e38e70244c3b6036f0b",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/8afb3bf2ceb343de66192b0c257b876deade739f32668e38e70244c3b6036f0b",
+        "reason": "Actual shared26 model/guards.rs arm26\u201364/guard66\u2013137 receives GuardParameters, selects Independent/Symmetric beside left/right dimensions/terminals and optional terminal_profile. Need canonical field owner/default admission to qualify payload applicability. Exact direct type definition/default only; no hilt sibling adjacency.",
+        "contract": "contracts-718.json",
+        "ranges": [
+          [
+            1,
+            135
+          ]
+        ],
+        "line_count": 414,
+        "registration_evidence": "enum-shapes/source-registration-718.json",
+        "provenance_verification": "Coordinator exact git/object SHA comparison; only direct required owner ranges, no semantic credit.",
+        "index": 156,
+        "lenses": {
+          "producer-propagation": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "existing-type-owners": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "admission-contracts": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "invariant-operations": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "aggregate-states": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "type-ownership": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "redundant-authority": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "behavior-preservation": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "enum-shapes": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "derivability": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "type-granularity": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "magic-strings": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "magic-numbers": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained."
+        }
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "disposition": "Read registered1-135 GuardParameters only. Required dimensions and many independent optional guard section/mirror/side/terminal controls use bespoke units/enum types and present-only deserializer. This raw product can still require cross-field validation; no silent equivalence of omitted, explicit null, shared, none and profile inferred. Remaining hilt fields/body uncredited."
+    },
+    {
+      "material_index": 157,
+      "registration": {
+        "source_id": "scope-amendment:pr-working:crates/adventuresim-weapon-model/src/recipe/choices.rs#guard-owner-enums",
+        "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "sha256": "32853562a79ddc5ae393bc38780b86583500e079c5ca22109b07f1a479e030c0",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/32853562a79ddc5ae393bc38780b86583500e079c5ca22109b07f1a479e030c0",
+        "reason": "Shared26 actual guard66\u2013137 dispatches Independent/Symmetric plus per-side terminal then Profile requiring TerminalProfile; direct enum owner definitions needed to qualify GuardParameters1\u2013135 payload applicability. Existing shared61 only200\u2013225 does not cover these variants; no firearm/pommel adjacency.",
+        "contract": "contracts-718.json",
+        "ranges": [
+          [
+            193,
+            199
+          ],
+          [
+            226,
+            282
+          ]
+        ],
+        "line_count": 367,
+        "registration_evidence": "enum-shapes/source-registration-718B.json",
+        "provenance_verification": "Coordinator exact git/object SHA comparison; only direct required owner ranges, no semantic credit.",
+        "range_amendment_of": 61,
+        "qualification": "Only missing direct enum-owner ranges; existing shared61 200\u2013225 unchanged. Exclude adjacent283 declaration.",
+        "index": 157,
+        "lenses": {
+          "producer-propagation": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "existing-type-owners": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "admission-contracts": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "invariant-operations": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "aggregate-states": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "type-ownership": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "redundant-authority": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "behavior-preservation": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "enum-shapes": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "derivability": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "type-granularity": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "magic-strings": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained.",
+          "magic-numbers": "Only newly registered bounded material pending; completed source snapshots and adopted evidence retained."
+        }
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          193,
+          199
+        ],
+        [
+          226,
+          282
+        ]
+      ],
+      "disposition": "Read registered193-199,226-282 as partial amendment complementing M61. Mirror modes symmetric/opposed and terminal variants include explicit ball/disk/pyramidal/scroll/fishtail/vase; side enums also Shared/Profile/None. Range begins/ends inside definitions, so no whole guard enum count from snippet alone. Preserve shared-side precedence as separate consumer policy."
+    }
+  ],
+  "first_unfinished_material_index": 158,
+  "new_findings": []
+}

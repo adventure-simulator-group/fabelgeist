@@ -1,0 +1,13 @@
+diff --git a/crates/adventuresim-tactical-client/src/main.rs b/crates/adventuresim-tactical-client/src/main.rs
+index 003c1bbf0..979f01054 100644
+--- a/crates/adventuresim-tactical-client/src/main.rs
++++ b/crates/adventuresim-tactical-client/src/main.rs
+@@ -291,7 +291,7 @@ fn run(
+         .unwrap_or_else(|error| panic!("invalid tactical client asset root: {error}"));
+     #[cfg(not(target_family = "wasm"))]
+     app.register_asset_source(
+-        "workspace",
++        crate::animation::WORKSPACE_ASSET_SOURCE,
+         AssetSourceBuilder::platform_default(&asset_root.to_string_lossy(), None),
+     );
+     #[cfg(feature = "debug")]

@@ -1,0 +1,69 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-180",
+  "at": "2026-10-25T21:07:29.067600+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1937,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/sites.rs",
+      "sha256": "6d8f288eef2299e042a77faacb58e434d25b22050e52471dd63fdf83231ac799",
+      "personally_read_ranges": [
+        [
+          1,
+          117
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full117 lines read. FurnitureSiteRecipe derives bounds centre/half extents and all local exterior-door/workplace-passage routes from the same plan and collision envelope; routes are collision-centre-relative, not origin-free scene points. place collects all fallible transformed reservations before retaining one site with exact destination placement.",
+        "collect uses each actual generated building plan/collision/placement together. Distant path keys cache by exact occupied programme, generates recipe from same programme on miss and transforms cached local site at each admitted physical placement. Public serialized FurnitureSiteRecipe lacks its own programme field, but owner ProgramFurnitureSite carries pairing; arbitrary cache mutation/decoded mismatch is wider owner/admission concern, not demonstrated ordinary bad site."
+      ]
+    },
+    {
+      "scope_index": 1938,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/sites/local.rs",
+      "sha256": "b2b2005dcb98e5278b4ae6b5b4d420ada6aa8fd169cbc2ac6a285c0a3175d5b2",
+      "personally_read_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full93 lines read. Private LocalReservation retains collision-relative Displacement, dimensional PlanExtents and orientation through native/serde admission, checking all transformed corners finite. place uses the destination building orientation once for relative centre and adds local orientation through normalized finite radians; final FurnitureFootprint checks world corners. Local offset serializes only X/Z while native owner fixes Y0, keeping frame semantics explicit. No duplicated raw-world displacement state."
+      ]
+    },
+    {
+      "scope_index": 1939,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/tests.rs",
+      "sha256": "1fb11e1d21ef6cfe193991f15d9777475ecc82a8f3f02d7a6b6a46385a7cbc12",
+      "personally_read_ranges": [
+        [
+          1,
+          486
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full486-line fixture source read. Identity fixture distinguishes swapped anchor/slot and anchor kind using ordered seed fields; deterministic placement compares complete layouts, group/route and group/group nonoverlap, exact market patch containment and physical recipe support points. Wet gentle grade fixture explicitly rebinds grounding after source changes instead of relying on stale accepted support.",
+        "Inserted street obstruction expects only conflicting groups removed; unrelated accepted placement remains. Steep/water tests expect rejection without terrain movement; ray checks distinguish real furniture members from open stall approach. Larger-market fixture compares group growth and aisle nonobstruction. Source assertions are not executed acceptance, exhaustive hash uniqueness or proof all arbitrary source terrains satisfy unsupported between-sample areas."
+      ]
+    },
+    {
+      "scope_index": 1940,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/tests/city_acceptance.rs",
+      "sha256": "045ee82cfc08cdeceb5808d447a39b6fe37772a8529b6b483c8064b046aac4c7",
+      "personally_read_ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full152-line fixture source read. Massive-city acceptance joins vendor group anchor back to actual market patch, checks route clearance, requires distant frontage density and supports every recipe foot with the same PlacementGround policy. Vendor side-stock variety pairs Outdoor.group_id with accepted group.id before checking key kind. Diagnostic terrain scan reports maximum fine/coarse deltas but has no acceptance threshold and is not a gameplay proof. No test output loaded or execution performed."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "4 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

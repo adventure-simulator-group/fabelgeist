@@ -1,0 +1,108 @@
+{
+  "id": "ADLER-CONT06-LATER-011",
+  "lens": "type-ownership",
+  "receipts": [
+    {
+      "material_index": 168,
+      "source_id": "pinned-registry:thiserror-2.0.20/src/lib.rs",
+      "sha256": "817cfdb6c24d60de78f399d4db84f2910c543dec9a9d75d191215b4308e19823",
+      "ranges": [
+        [
+          60,
+          97
+        ]
+      ],
+      "source_basis": "Fresh root personal complete bounded source read; exact hash verified. M173 recovered from registry owning object after missing convenience-copy path; no credit before actual read. Independent own06 comparison.",
+      "owners_and_users": "thiserror examples define enum payloads and Display expressions on declared error owner; interpolated fields remain source type data.",
+      "disposition": "Native formatting evidence, no first-party semantic owner. Examples do not prove actual first-party payload retention/cause chains and are not new fixture tests to add.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 169,
+      "source_id": "native-dependency:bevy_time-0.19.1/src/fixed.rs",
+      "sha256": "c3e4e4bee5d4cdde83d23e3016d7c8532b2ca00f98fbea93f34c23d316bfb963",
+      "ranges": [
+        [
+          70,
+          108
+        ],
+        [
+          116,
+          180
+        ]
+      ],
+      "source_basis": "Fresh root personal complete bounded source read; exact hash verified. M173 recovered from registry owning object after missing convenience-copy path; no credit before actual read. Independent own06 comparison.",
+      "owners_and_users": "Bevy Time<Fixed> owns native Duration timestep/overstep. from_hz delegates reciprocal to seconds then Duration, with finite/sign checks and nonzero final duration guard.",
+      "disposition": "Native schedule timestep, physical angular speed and animation frequency have different roles despite inverse-seconds dimensions. Do not borrow one role wrapper for another without contract. Positive finite input alone does not prove representable nonzero Duration; native limits remain admission obligation at actual first-party adapter, no new owner defect in dependency body.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 170,
+      "source_id": "registry:thiserror-impl-2.0.20/src/attr.rs",
+      "sha256": "d3c7fa9e8269973f140e5382f753664ac32bee44c09875f678100b890aea4d06",
+      "ranges": [
+        [
+          69,
+          122
+        ]
+      ],
+      "source_basis": "Fresh root personal complete bounded source read; exact hash verified. M173 recovered from registry owning object after missing convenience-copy path; no credit before actual read. Independent own06 comparison.",
+      "owners_and_users": "thiserror attr parser separately retains display/source/backtrace/from/transparent/fmt metadata. Bare from belongs to thiserror; from(list/name-value) is left for other macros.",
+      "disposition": "Attribute namespaces may share spelling while owning distinct syntax contracts; external derive implementation correctly separates metadata. No duplicate first-party error owner or independent retained failure authority introduced.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 171,
+      "source_id": "registry:thiserror-impl-2.0.20/src/ast.rs",
+      "sha256": "c717fffeb2923b2840d58fd02923a1926a48fa8336039f57a9e94f9275ae7ec6",
+      "ranges": [
+        [
+          85,
+          128
+        ]
+      ],
+      "source_basis": "Fresh root personal complete bounded source read; exact hash verified. M173 recovered from registry owning object after missing convenience-copy path; no credit before actual read. Independent own06 comparison.",
+      "owners_and_users": "thiserror Enum AST keeps declared variants/fields and inherits container formatting only when variant has no formatting override; Variant uses same attr parser.",
+      "disposition": "Native syntax representation of declared error variants, not a semantic alternative error type. Actual original cause retention depends on first-party declaration; no whole macro/source-chain clearance from bounded AST excerpts.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 172,
+      "source_id": "installed-rust-src:nightly-2026-07-13/alloc/src/boxed/convert.rs",
+      "sha256": "1534b6cd36659f2753a6633dd4bd25d7f9bbccb0ff1d83e3adc5fb52569fb45e",
+      "ranges": [
+        [
+          19,
+          36
+        ]
+      ],
+      "source_basis": "Fresh root personal complete bounded source read; exact hash verified. M173 recovered from registry owning object after missing convenience-copy path; no credit before actual read. Independent own06 comparison.",
+      "owners_and_users": "Installed Rust alloc Box<T>::from moves unchanged T into Box::new. Box storage owns allocation while T remains semantic payload.",
+      "disposition": "Heap indirection preserves type/variant/payload owner, so allocation move is not primitive erasure or duplicate authority. Installed nightly source is corroboration only, not proof of exact historical toolchain/lock validation.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 173,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/workplace/surfaces.rs",
+      "sha256": "7c0ffb3f7478e0ac8fcb9893cb5c9b741562a98e7c92cb24d54c09fac7bc1b30",
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "source_basis": "Fresh root personal complete bounded source read; exact hash verified. M173 recovered from registry owning object after missing convenience-copy path; no credit before actual read. Independent own06 comparison.",
+      "owners_and_users": "Building-generator owns WorkplaceSurface reference triple and BuildingLodMaterial::workplace_surface; material variants including FurnitureWood use that canonical policy. Renderer166 consumes all14 explicit workplace roles,165 consumes two flat furniture roles.",
+      "disposition": "Shared policy owner is below render/diagnostic consumers; native surface triple is reference projection, not new competing material identity. Fourteen selected workplace roles and two selected furniture roles return Some in exact body. Unsupported generic material returns None intentionally. Textured-vs-flat policy Q003 remains separate; numeric admission/panic debt not cleared.",
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "new_unique_findings": 0,
+  "clear": false
+}

@@ -1,0 +1,262 @@
+{
+  "kind": "NARROW_TWO_SOURCE_OVERLAY_RECEIPT_NOT_GLOBAL_CLEARANCE",
+  "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+  "parent": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+  "tree": "f8c67de65206ca90efe21e54c6c9e2e9bafa9cc3",
+  "root_head": "ead46619dec5ef45993f63202cb289bd3986b018",
+  "overlay_path": "/tmp/pr780-incoming-826-19a6b6268",
+  "manifest_sha256": "7b5746ee72cdee192d8b40bd5312526e66b5f28066a773abe92442be942dc423",
+  "composition_sha256": "06f24adbbb8699e2d7a2205abf45bb5f975c063c204db417a950bd3f0b8a1e4e",
+  "original_composition_sha256": "5a1670cc3065b74bd0b9ec62863d0edaee690e52f2dff9c59c60746aa4119e9c",
+  "composition_count": 136,
+  "changed_composition_paths": [
+    "crates/fabelgeist-armor/src/gpu/staging.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs"
+  ],
+  "other134_composition_hashes_unchanged": true,
+  "git_changed_paths": [
+    "crates/fabelgeist-armor/src/gpu/staging.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs"
+  ],
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "original_ccb_sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "overlay_sha256": "d840e177522b7d59f70ae3373c25707b3cc0d1ac06c93939da1ca6cb126b261f",
+      "commit_matches_frozen": true,
+      "root_current_sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "root_already_equals_overlay": false,
+      "read_extent": "whole overlay and original frozen source, complete diff; exact inverse",
+      "inverse_edits": [
+        "Explicit trait Result back to original alias spelling",
+        "Exact formatter expansion of Ok(Self { scalar, components })"
+      ],
+      "inverse_sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "inverse_exact": true,
+      "lines_before": 97,
+      "lines_after": 94
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/staging.rs",
+      "original_ccb_sha256": "bdb2892c409cda525e88bc1a6466dd588a17aa09b1fe038fc2ddba1d561cc501",
+      "overlay_sha256": "5630af2ffd526d8dcc22aff829309aa31fb634de49ec9b795e03021a468bdcaf",
+      "commit_matches_frozen": true,
+      "root_current_sha256": "f634bc97a77a46930958b1bfe6a856a63b67522288b318907498c5bd5390db01",
+      "root_already_equals_overlay": false,
+      "read_extent": "whole overlay and original frozen source, complete diff; exact inverse",
+      "inverse_edits": [
+        "Remove precisely one added alias and its blank separator",
+        "Restore original prefix signature/formatter wrapping",
+        "Restore status explicit StagingError result"
+      ],
+      "inverse_sha256": "bdb2892c409cda525e88bc1a6466dd588a17aa09b1fe038fc2ddba1d561cc501",
+      "inverse_exact": true,
+      "lines_before": 146,
+      "lines_after": 144
+    }
+  ],
+  "notes": [
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/handoff-result-style-19a6b6268/notes/receiving-result-style-post-all13.json",
+      "sha256": "7ea09ace633f1f8dcc281553da9e8bec2068859037e6909878254c1076975eb2",
+      "copied_to": "/tmp/pr780-incoming-826-19a6b6268/notes/receiving-result-style-post-all13.json",
+      "read_extent": "receipt metadata/source accounts; not inherited source coverage"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/handoff-result-style-19a6b6268/notes/receiving-result-style-post-all13.md",
+      "sha256": "5b689dc32eac581b7357fa105388ea2ef02e0a476482eaaf94e144c9355b5ea8",
+      "copied_to": "/tmp/pr780-incoming-826-19a6b6268/notes/receiving-result-style-post-all13.md",
+      "read_extent": "whole Markdown source"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/handoff-result-style-19a6b6268/notes/receiving-result-style-post-code-review.json",
+      "sha256": "3ec8ee0cd330d9b165f334b12047c5556cfcbe0abb60e8872c0fd37e0b1c91f8",
+      "copied_to": "/tmp/pr780-incoming-826-19a6b6268/notes/receiving-result-style-post-code-review.json",
+      "read_extent": "receipt metadata/source accounts; not inherited source coverage"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/handoff-result-style-19a6b6268/notes/receiving-result-style-post-code-review.md",
+      "sha256": "a69abb5ebf56cba85c3892fca2dffe804006b6cdbdf88a971d0f063ba05eec8d",
+      "copied_to": "/tmp/pr780-incoming-826-19a6b6268/notes/receiving-result-style-post-code-review.md",
+      "read_extent": "whole Markdown source"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/handoff-result-style-19a6b6268/notes/receiving-result-style-post-comment-review.json",
+      "sha256": "a209e04556ea903f7e6d987c0486b141160cadb82c7864530b664126177eb62c",
+      "copied_to": "/tmp/pr780-incoming-826-19a6b6268/notes/receiving-result-style-post-comment-review.json",
+      "read_extent": "receipt metadata/source accounts; not inherited source coverage"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/handoff-result-style-19a6b6268/notes/receiving-result-style-post-comment-review.md",
+      "sha256": "236d4374ef09322f7cca417bb157306b19ad87a9da346920c145664ff28f7cb9",
+      "copied_to": "/tmp/pr780-incoming-826-19a6b6268/notes/receiving-result-style-post-comment-review.md",
+      "read_extent": "whole Markdown source"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/handoff-result-style-19a6b6268/notes/receiving-result-style-post-rule-review.json",
+      "sha256": "edca8ab173a9f415eb5083f2bac8adf33273c8be8b8c4247ba66d063b069e972",
+      "copied_to": "/tmp/pr780-incoming-826-19a6b6268/notes/receiving-result-style-post-rule-review.json",
+      "read_extent": "receipt metadata/source accounts; not inherited source coverage"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/handoff-result-style-19a6b6268/notes/receiving-result-style-post-rule-review.md",
+      "sha256": "389aa65a082b91662ed175363ee8e9cd7cc2b2a3bb5462bd3aa16862a2304a67",
+      "copied_to": "/tmp/pr780-incoming-826-19a6b6268/notes/receiving-result-style-post-rule-review.md",
+      "read_extent": "whole Markdown source"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/handoff-result-style-19a6b6268/notes/receiving-result-style-pre-all13.json",
+      "sha256": "fdcf4137d4e162b39819069d6a59cd4ee9768e7434f860e034cf7f904d2a16e5",
+      "copied_to": "/tmp/pr780-incoming-826-19a6b6268/notes/receiving-result-style-pre-all13.json",
+      "read_extent": "receipt metadata/source accounts; not inherited source coverage"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/handoff-result-style-19a6b6268/notes/receiving-result-style-pre-all13.md",
+      "sha256": "a13dcd109a20cf80bf37a11e76e5fd1945c5eea1949962af575cfefd6880c110",
+      "copied_to": "/tmp/pr780-incoming-826-19a6b6268/notes/receiving-result-style-pre-all13.md",
+      "read_extent": "whole Markdown source"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/handoff-result-style-19a6b6268/notes/receiving-result-style-pre-code-review.json",
+      "sha256": "25a55541803bcdc8f433056056700e6596ccb32e32fc76f6824a44178bb68ba8",
+      "copied_to": "/tmp/pr780-incoming-826-19a6b6268/notes/receiving-result-style-pre-code-review.json",
+      "read_extent": "receipt metadata/source accounts; not inherited source coverage"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/handoff-result-style-19a6b6268/notes/receiving-result-style-pre-code-review.md",
+      "sha256": "7367dd2d76a83ce3d3e0c5ea31a3e97956a93cf4b3582242ab02b6a153d89ea2",
+      "copied_to": "/tmp/pr780-incoming-826-19a6b6268/notes/receiving-result-style-pre-code-review.md",
+      "read_extent": "whole Markdown source"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/handoff-result-style-19a6b6268/notes/receiving-result-style-pre-comment-review.json",
+      "sha256": "17b338f8bb49466f4e9f6396e5590b0125d21bb0d8c9881ae23b71f7d802d4dd",
+      "copied_to": "/tmp/pr780-incoming-826-19a6b6268/notes/receiving-result-style-pre-comment-review.json",
+      "read_extent": "receipt metadata/source accounts; not inherited source coverage"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/handoff-result-style-19a6b6268/notes/receiving-result-style-pre-comment-review.md",
+      "sha256": "054490b7e601a3ae6e33ecd12bba7b3bc5ac043943c8b3254a7d956ac3301771",
+      "copied_to": "/tmp/pr780-incoming-826-19a6b6268/notes/receiving-result-style-pre-comment-review.md",
+      "read_extent": "whole Markdown source"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/handoff-result-style-19a6b6268/notes/receiving-result-style-pre-rule-review.json",
+      "sha256": "113121879065c676fff9dcf02da75a3cbad9a57cdccd89478d803e3c2a920bb3",
+      "copied_to": "/tmp/pr780-incoming-826-19a6b6268/notes/receiving-result-style-pre-rule-review.json",
+      "read_extent": "receipt metadata/source accounts; not inherited source coverage"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/handoff-result-style-19a6b6268/notes/receiving-result-style-pre-rule-review.md",
+      "sha256": "c02dad1e8ee291f950237058394074a733db3261b81945436623bdc3a63a8a59",
+      "copied_to": "/tmp/pr780-incoming-826-19a6b6268/notes/receiving-result-style-pre-rule-review.md",
+      "read_extent": "whole Markdown source"
+    }
+  ],
+  "lenses": [
+    {
+      "order": 1,
+      "lens": "producer-propagation",
+      "source_contract": "Texture numeric source -> TextureValue -> generated expressions, and staged Buffer -> grouped Readback -> borrowed fallible prefix/status consumers remain unchanged by result spelling.",
+      "disposition": "Only exact two-source delta clear; canonical grouped Readback and retained caller propagation remain required and are not re-reviewed here.",
+      "acceptance": "Keep exact inverse preservation and direct canonical integration; no source changes or new tests in this receipt."
+    },
+    {
+      "order": 2,
+      "lens": "existing-type-owners",
+      "source_contract": "TextureValueError, BufferReadError, StagingError and GenerateError retain actual owners; aliases introduce no equivalent wrapper.",
+      "disposition": "Reuse established errors; no duplicate context/count/value owner or new dependency.",
+      "acceptance": "Keep exact inverse preservation and direct canonical integration; no source changes or new tests in this receipt."
+    },
+    {
+      "order": 3,
+      "lens": "admission-contracts",
+      "source_contract": "Private scalar/lane admission and rejected ResourceBaseType payload exact; session identity, range, zero-size, checked product and allocation admission exact.",
+      "disposition": "Exact inverse preserves all guard order and admission policy; no new constructor/deserializer/bypass.",
+      "acceptance": "Keep exact inverse preservation and direct canonical integration; no source changes or new tests in this receipt."
+    },
+    {
+      "order": 4,
+      "lens": "invariant-operations",
+      "source_contract": "No arithmetic/body token changes; prefix checked multiplication and exact copy/status first-element proof remain.",
+      "disposition": "No new wait, allocation policy, native operation, panic or source replacement.",
+      "acceptance": "Keep exact inverse preservation and direct canonical integration; no source changes or new tests in this receipt."
+    },
+    {
+      "order": 5,
+      "lens": "aggregate-states",
+      "source_contract": "Private texture scalar/components and session/index/results relationships unchanged; StagingResult is a type alias, not new retained state.",
+      "disposition": "No duplicate source of truth or weakened member proof.",
+      "acceptance": "Keep exact inverse preservation and direct canonical integration; no source changes or new tests in this receipt."
+    },
+    {
+      "order": 6,
+      "lens": "type-ownership",
+      "source_contract": "TryFrom explicitly names Result<Self,Self::Error>; TextureValueResult remains for ordinary callers. StagingResult covers only StagingError decode family; facade GenerateError stays explicit.",
+      "disposition": "Confirmed trait part of original NATIVE-R4 resolved. Staging alias accepted focused cleanup completed; mixed-error module exception prevents claiming it was independently mandatory.",
+      "acceptance": "Keep exact inverse preservation and direct canonical integration; no source changes or new tests in this receipt."
+    },
+    {
+      "order": 7,
+      "lens": "redundant-authority",
+      "source_contract": "Result aliases expand to same existing error; associated TryFrom::Error remains sole trait error choice.",
+      "disposition": "No independently mutable metadata/alternate implementation; original ccb packet stays frozen.",
+      "acceptance": "Keep exact inverse preservation and direct canonical integration; no source changes or new tests in this receipt."
+    },
+    {
+      "order": 8,
+      "lens": "behavior-preservation",
+      "source_contract": "Independent explicit inverse reconstructs every original source byte, including two formatter reflows.",
+      "disposition": "No runtime semantics claimed from aliases; protected native bodies/docs/errors/fixtures unchanged as source, no execution.",
+      "acceptance": "Keep exact inverse preservation and direct canonical integration; no source changes or new tests in this receipt."
+    },
+    {
+      "order": 9,
+      "lens": "enum-shapes",
+      "source_contract": "TextureComponents/ResourceBaseType matching and StagingError payload variants untouched.",
+      "disposition": "No new semantic boolean, enum, status interpretation, compatibility role or fallback.",
+      "acceptance": "Keep exact inverse preservation and direct canonical integration; no source changes or new tests in this receipt."
+    },
+    {
+      "order": 10,
+      "lens": "derivability",
+      "source_contract": "All derives/manual Display/Error and trait bounds unchanged. GPU still has no direct thiserror assumption; alias adds no trait requirement.",
+      "disposition": "No additional derive/dependency opportunity claimed in this narrow receipt.",
+      "acceptance": "Keep exact inverse preservation and direct canonical integration; no source changes or new tests in this receipt."
+    },
+    {
+      "order": 11,
+      "lens": "type-granularity",
+      "source_contract": "Small owning result aliases preserve distinct decode vs facade operation families; alias is before structs.",
+      "disposition": "No widened facade error, new helper layer, adapter or file-growth responsibility.",
+      "acceptance": "Keep exact inverse preservation and direct canonical integration; no source changes or new tests in this receipt."
+    },
+    {
+      "order": 12,
+      "lens": "magic-strings",
+      "source_contract": "WGSL suffix/type/padding source and diagnostic/readback labels byte-identical after inverse.",
+      "disposition": "No branching on prose or changed native grammar/source token.",
+      "acceptance": "Keep exact inverse preservation and direct canonical integration; no source changes or new tests in this receipt."
+    },
+    {
+      "order": 13,
+      "lens": "magic-numbers",
+      "source_contract": "Lane counts2/3/4, zero padding, host usize count/sizeof and fixed status index unchanged.",
+      "disposition": "No new primitive owner/extent/launch policy inferred from spelling cleanup.",
+      "acceptance": "Keep exact inverse preservation and direct canonical integration; no source changes or new tests in this receipt."
+    }
+  ],
+  "r4_disposition": {
+    "confirmed_trait_violation": "resolved in exact incoming overlay only",
+    "staging_alias": "accepted focused cleanup completed; original mandatory-language calibration required by differing-errors exception",
+    "root_integration": "not applied by this reviewer; current Root hash recorded, full receiver inventory remains prerequisite"
+  },
+  "findings": [],
+  "limits": [
+    "Only two full sources reviewed freshly for this receipt; exact original sources/diffs and receipt notes inspected. No additional source coverage inherited from notes.",
+    "134 composition hashes proven unchanged by metadata comparison; not a fresh audit of those134 files.",
+    "Original ccb composition/source unchanged; new packet frozen as a separate /tmp overlay, no target or production writes.",
+    "No project checks, builds, tests, scanners, probes, generators, push, CI, external publication, or new test/case/helper/assertion.",
+    "Root canonical Readback API/callers/export/lock graph integration remains incomplete pending full receiver inventory. This is not ownership blocking, a type-check/runtime verdict, or same-pushed-SHA/global clearance."
+  ]
+}

@@ -1,0 +1,58 @@
+diff --git a/crates/adventuresim-tactical-core/src/animation/phase_response.rs b/crates/adventuresim-tactical-core/src/animation/phase_response.rs
+new file mode 100644
+index 000000000..a04d411d2
+--- /dev/null
++++ b/crates/adventuresim-tactical-core/src/animation/phase_response.rs
+@@ -0,0 +1,52 @@
++//! Nonnegative policy for normalized phase error, without coordinate wrapping.
++
++use super::{
++    AnimationQuantity, AnimationValueError, AnimationValueResult, measurement::checked_nonnegative,
++};
++use serde::{Deserialize, Serialize};
++
++/// Maximum correction in normalized phase units per second, including zero.
++#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize, derive_more::Into)]
++#[serde(try_from = "f32", into = "f32")]
++pub struct PhaseCorrectionRate(f32);
++
++/// Absolute normalized error bound. Values above one remain valid policy.
++#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize, derive_more::Into)]
++#[serde(try_from = "f32", into = "f32")]
++pub struct PhaseErrorLimit(f32);
++
++impl PhaseCorrectionRate {
++    pub fn from_phase_units_per_second(value: f32) -> AnimationValueResult<Self> {
++        checked_nonnegative(value, AnimationQuantity::PhaseCorrectionRate).map(Self)
++    }
++
++    /// Native coefficient in the complete bounded phase-correction kernel.
++    pub fn phase_units_per_second(self) -> f32 {
++        self.0
++    }
++}
++
++impl PhaseErrorLimit {
++    pub fn from_phase_units(value: f32) -> AnimationValueResult<Self> {
++        checked_nonnegative(value, AnimationQuantity::PhaseErrorLimit).map(Self)
++    }
++
++    /// Native magnitude for phase subtraction and absolute-error comparison.
++    pub fn phase_units(self) -> f32 {
++        self.0
++    }
++}
++
++impl TryFrom<f32> for PhaseCorrectionRate {
++    type Error = AnimationValueError;
++    fn try_from(value: f32) -> AnimationValueResult<Self> {
++        Self::from_phase_units_per_second(value)
++    }
++}
++
++impl TryFrom<f32> for PhaseErrorLimit {
++    type Error = AnimationValueError;
++    fn try_from(value: f32) -> AnimationValueResult<Self> {
++        Self::from_phase_units(value)
++    }
++}

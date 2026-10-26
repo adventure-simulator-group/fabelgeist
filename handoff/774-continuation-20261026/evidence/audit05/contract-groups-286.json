@@ -1,0 +1,41 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-286",
+  "at": "2026-10-25T22:38:10.251359+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2498,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/collision.rs",
+      "sha256": "59ae010bf4fbedc4f9daf16fc207e3f5ca674ff20a2c5d5b6b9699d291478f97",
+      "personally_read_ranges": [
+        [
+          1,
+          448
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full physical-p16 collision1-448 in two chunks. CollisionCuboid native constructor checks all position/dimensions/threeangles before constructing and wraps same sourceID/cause; bounds derive same YXZ orientation/halfextents and checked output. Public fields remain individually typed, no aggregate proof that BuildingCollision.bounds encloses every subsequently mutated cuboid.",
+        "Static compile selects authoritative semantic wall hosts (excludingreplaced), gable/heating/timber/workplace/floor/bell/stair IDs, uses BTreeSet dedup, and delegates cylinder/bell/arch representation. Missingselectedsolid IDs silentlyfilter_map away; actual acceptedplan reference-integrity owner remains qualification, no observed missingcollision from canonical generator claimed.",
+        "Arch strip conservative boxes preserve source ID and aperture subtraction; ground-contact bounds uses exactcross-sections atY0 and does not assert everypoint bearing. Full fixturetests285-448 source read, notexecuted; physicalp16 distinct fromcurrentmain."
+      ]
+    },
+    {
+      "scope_index": 2499,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/collision/cuboid.rs",
+      "sha256": "2d9a1cfbd92acc218b8fb3abaf6f579fde6217c2f3776ece0539c340602baec9",
+      "personally_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full physical-p16 cuboid1-111: eight sign-coded corners computed with same centre/dimensions/validatedrotation, native overflow rejected byPosition constructor, twelveedgepairs eachflip onebit. Collision error retains sourceID. Tests75-111 inspect topologydegree3/eightcorners sourceonly, notrun. No new aggregatefinding."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

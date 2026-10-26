@@ -1,0 +1,44 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-253",
+  "at": "2026-10-25T22:15:36.802983+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2380,
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/rest.rs",
+      "sha256": "c28f905d16256a1947973448f3c88a630b140b67d3fe9cbcc77554cf9082d04d",
+      "personally_read_ranges": [
+        [
+          1,
+          840
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Rest form separates units/duration/optional requested minute/shelter. Hours parses checked HH:MM arithmetic and rejects optional requested_minutes disagreement; days saturate then stage-specific settlement>=day or travel>=minute/maxyear gate rejects overflowed values. Explicit field shelter only bivouac/tent and settlement service maps canonical enum.",
+        "Rest route parses service, authenticated actor, requested settlement service availability and admitted duration before native reducer; actual character location/holding admission is delegated reducer (requested route ID not part reducer args). Before/after observations share character identity but are independent reads, not transactional effect receipt.",
+        "Summary derives elapsed from same before/after clocks, inventory currency difference, paired limb/skill deltas and reputation differences; absent/error rows may fabricate zero or empty/no delta, canonical required observation issue remains. Full-board breakdown uses requested duration rather than observed elapsed and may exceed observed total; canonical charge/terminal clipping policy must be traced before accepted spending finding.",
+        "query_single discards cause into Option; shared observation/cause family retained. Herbalist purchase keeps buys as paired tuples then unzip, requires explicit player scope and nonempty list, only successful reducer selects validated localreturn. Forge parser requires all nonempty byte tokens parse and nonempty recipe; byte recipe actual design admission delegated. Full fixtures read only."
+      ]
+    },
+    {
+      "scope_index": 2381,
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/rest_preview.rs",
+      "sha256": "f545d695b666086cb43166e8c7d28a2290272758191042c37530967a71184a21",
+      "personally_read_ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Soap preview collects separate filth/personal/pool/amount/catalog/personality inputs then associates by character, stack rowID and partyID; only living members consume personal/shared supply, personal use allocated before shared residual, reported components total by same arithmetic.",
+        "Supply availability derives soap uses from canonical whole fraction and cleansing capacity, alcohol category from potable/nonzero-serving/nonzero-ABV/non-focused definitions. Personal alcohol owner and temperance association explicit; shared alcohol usable if any non-temperate living member.",
+        "Raw remaining_fraction_micros\u2192checked constructor expect assumes projection admission; missing amount defaults0 and query failures defaultempty, so preview is not a proof authoritative inventory is absent. Aggregate admission of malformed amount/projection and duplicate member records remains actual producer/caller contract; no observed malformed row or new accepted finding."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

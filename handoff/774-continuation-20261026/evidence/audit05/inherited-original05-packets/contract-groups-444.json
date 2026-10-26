@@ -1,0 +1,53 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-444",
+  "at": "2026-10-23T13:53:18.986706+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/life_simulation.rs",
+      "sha256": "de8b909f4a6436e5f21c9828322d80f19905b15764e7f0b54fca2b1f0079457a",
+      "scope072_index": 951,
+      "actual_EOF": 552,
+      "scoped_ranges_compared": [
+        [
+          1,
+          552
+        ]
+      ],
+      "actual05_comparison": "Fresh complete552 source including all original fixtures; phase eligibility, analytical duration and shared curriculum budgets compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Bounded phase lifecycle and duration",
+      "comparison": "Ageu16 produces childhood6..min12, student12..min16, professional16..age. Guards ensure nonnegative subtraction; at most3 increments fitu8; yearspan<=65529 times canonical minutes/year fitsu64. No age-proportional loop. Daily native schedules each remain below1440; debug assertion is backed by the actual locally fixed construction rather than arbitrary public DailySchedule. Fixed emphasis draw index31 yields45..75, so combat75-emphasis/2 remains nonnegative."
+    },
+    {
+      "id": "Identity and earned literacy are separate projections",
+      "comparison": "Native oral record copied exactly even age<=6, intentionally identity/acquisition rather than credited study. Written literacy only age>12, min(age,16)-12 bounds0..4 and hours<=1000 before ordinary aptitude-aware training; no adult age extension adds literacy automatically. Religion training uses same phase elapsed and fixed prayer30. Generic attribute/profile values remain external canonical inputs."
+    },
+    {
+      "id": "One curriculum budget rather than one award per credential",
+      "comparison": "Childhood and student fixed curricula normalized. Organization student contribution multiplies normalized entries4, alongside study1, then whole normalization shares5 daily hours. Professional clones activity entries and merges matching credential target by max existing weight versus1, otherwise appends; final normalization shares8h/day across all entries. Distinct target identity includes leaf/classification, raw rank requirements need accepted organization correspondence. No local claim that arbitrary supplied requirements belong to supplied organization/rank."
+    },
+    {
+      "id": "Raw curriculum numerical admission remains broader than canonical catalogue",
+      "comparison": "normalized320-334 applies max0 then f32sum and division. Two individually finiteMAX raw activity weights can sumInf and become zero fractions, losing the positive work budget. PositiveInf weight can yieldNaN. This is a qualified public LifeSimulationInput/OrganizationDefinition boundary observation; actual current catalogue weight bounds/whole admission must be compared at960/961 before ordinary-path conclusion. Do not impose sum1 on authored relative weights or forbid empty/no-target curriculum."
+    },
+    {
+      "id": "Activity and lower training preserve declared boundaries",
+      "comparison": "Private run_curriculum rejects ineligible phase/activity or nonpositive work; actual internal work finite and bounded by age/time constants, not arbitrary work_hours injection. apply_written aggregates exact returned language awards through canonical language training. Domain-separated Seed derive on life-simulation.draw with childhood label isolates deterministic emphasis; no RNG execution. Lower aptitude and training algorithms remain their own exact source proofs."
+    },
+    {
+      "id": "All fixtures source-only",
+      "comparison": "Original370-552 actual replay/emphasis, bounded phase count, eligibility, chunk stability, shared credential budget and literacy fixtures read. No tests executed or added. Output public fields/default are projection data, not an independently sealed whole-history authority."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Current accepted organization catalogue weight and requirement binding, exact attribute/profile/training lower policies; raw API curriculum overflow observation does not prove normal factory failure."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

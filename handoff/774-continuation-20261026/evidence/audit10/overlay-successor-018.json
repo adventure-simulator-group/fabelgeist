@@ -1,0 +1,179 @@
+{
+  "id": "OWN10-OVERLAY-SUCCESSOR-018",
+  "lens": "derivability",
+  "registration_authority": "../audit05/raw-overlay-registration-000.jsonl",
+  "registration_sha256": "c26e2def8f8520c870f359ef66919ce730fcddb65beb051365fce42371a7bc68",
+  "receipts": [
+    {
+      "overlay_index": 89,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-090",
+        "at": "2026-10-22T14:31:27.423691+00:00",
+        "source_id": "pr-working:crates/fabelgeist-compute/src/sort/mod.rs",
+        "sha256": "2cf6b4446ab00dce84c8b3169d9685d3b2e304b869f4c25d0e4322c7bedf9634",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            1,
+            219
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 78,
+            "registration_id": "RIG-ADMISSION03-REGISTER-078",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REGISTER-078",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/fabelgeist-compute/src/sort/mod.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-compute\\src\\sort\\mod.rs",
+              "sha256": "2cf6b4446ab00dce84c8b3169d9685d3b2e304b869f4c25d0e4322c7bedf9634",
+              "actual_EOF": 327,
+              "material_ranges": [
+                [
+                  1,
+                  219
+                ]
+              ],
+              "reason": "Direct SortScratch/Sort declarations/native layout/constructor/ensure and histogram/scatter code actually used by assigned record220\u2013305; need capacity-buffer coherence and count native schema before current admission closure.",
+              "exclusions": "No publicrun310+ conveniencepath/tests326+ or unrelated sortfeature/SDK/laterlens.",
+              "status": "registered_before_bounded_actual_admission_analysis",
+              "at": "2026-10-22T10:53:30.645408+00:00"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                1,
+                219
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-compute\\src\\sort\\mod.rs",
+            "actual_EOF": 327,
+            "bytes": 11495
+          }
+        ],
+        "scope_limits": "Exact qualified current03 direct-definition/native-format roles only; preserve original scope. No metadata semantic credit or ownership transfer.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      },
+      "source_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-compute/src/sort/mod.rs",
+      "exact_git_source": "6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-compute/src/sort/mod.rs",
+      "source_sha256": "2cf6b4446ab00dce84c8b3169d9685d3b2e304b869f4c25d0e4322c7bedf9634",
+      "read_ranges": [
+        [
+          1,
+          219
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "SortScratch/RadixSort already derive Clone/Debug; semantic native buffer allocation/grow/swap and shader histogram/scatter sources use exact per-pass uniform/storage layouts. No handwritten traits/codecs in1-219.",
+      "disposition": "Keep semantic scratch/kernels/cache construction, no derive candidate. No public buffer/capacity/device coherence or GPU arithmetic/index/dispatch/runtime acceptance; record220+ and convenience/tests excluded from this overlay role."
+    },
+    {
+      "overlay_index": 90,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-091",
+        "at": "2026-10-22T14:31:27.423691+00:00",
+        "source_id": "pr-working:crates/fabelgeist-compute/src/prefix_sum.rs",
+        "sha256": "d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            1,
+            18
+          ],
+          [
+            24,
+            43
+          ],
+          [
+            65,
+            306
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 79,
+            "registration_id": "RIG-ADMISSION03-REGISTER-079",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REGISTER-079",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/fabelgeist-compute/src/prefix_sum.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-compute\\src\\prefix_sum.rs",
+              "sha256": "d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+              "actual_EOF": 408,
+              "material_ranges": [
+                [
+                  1,
+                  18
+                ],
+                [
+                  24,
+                  43
+                ],
+                [
+                  65,
+                  306
+                ]
+              ],
+              "reason": "Actual direct PrefixSumScratch construction/ensure and PrefixSum.record called by current scoped RadixSort.native histogram; Count original801 narrow definition retained, need checked extent/admission and source native kernels actually consumed.",
+              "exclusions": "Convenience run307\u2013320 and originaltests321+ excluded, no unrelated scan primitive or foreign graph.",
+              "status": "registered_before_bounded_actual_admission_analysis",
+              "at": "2026-10-22T10:54:06.542952+00:00"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                1,
+                18
+              ],
+              [
+                24,
+                43
+              ],
+              [
+                65,
+                306
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-compute\\src\\prefix_sum.rs",
+            "actual_EOF": 408,
+            "bytes": 13294
+          }
+        ],
+        "scope_limits": "Exact qualified current03 direct-definition/native-format roles only; preserve original scope. No metadata semantic credit or ownership transfer.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      },
+      "source_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-compute/src/prefix_sum.rs",
+      "exact_git_source": "6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-compute/src/prefix_sum.rs",
+      "source_sha256": "d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+      "read_ranges": [
+        [
+          1,
+          18
+        ],
+        [
+          24,
+          43
+        ],
+        [
+          65,
+          306
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "ScanError already derives thiserror with typed capacities/lengths/concrete GPU cause. Scratch and PrefixSum derive Clone/Debug; native recursive shader source, allocation/grow and record/record_level check input/capacity and dispatch hierarchy.",
+      "disposition": "No handwritten traits/codecs in exact ranges. Keep semantic native layout/binding/error/recursive recording path. No capacity/device/public buffer coherence, GPU sums/kernel correctness or excluded Count/convenience/tests acceptance."
+    }
+  ],
+  "checks": "not run",
+  "source_edits": false,
+  "clear": false
+}

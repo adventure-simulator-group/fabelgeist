@@ -1,0 +1,101 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-199",
+  "at": "2026-10-25T21:31:11.520094+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2115,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/placement.rs",
+      "sha256": "243d594fbb5904b60ec01daa6e25decb1ace121320b548926f0400a909222fc3",
+      "personally_read_ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full placement: immutable input cloned, facing applied, sequential graph assigns canonical resolved IDs in clone, checked offsets and frame registration paired with resolved component; actual contact/socket/grip checks before aggregate return.",
+        "Confirms inherited ROOT-ADM-F002/CAMERA-INITIAL07-F037/RIG-ADMISSION03-F047 source identity mismatch at original-design consumers. No change to optional-ID support or private guarded unwrap classification."
+      ]
+    },
+    {
+      "scope_index": 2116,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/placement/anchors.rs",
+      "sha256": "d7d808f132cf5cb9b8b7ed612cab252cbafc14dd0b690bf3ec1774c60f1bd7d6",
+      "personally_read_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full attachment/anchor registration: actual source and target frames, rotated component-local anchor and receiving-owner overlap direction jointly derive offset; shape-specific blade/shield/grip frames registered from same resolved component.",
+        "Caller2115writesSome(id) before attached unwrap. This unwrap is locally guarded; not the original-design holder gap. Frame maps are private within temporary resolved construction."
+      ]
+    },
+    {
+      "scope_index": 2117,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/placement/fitting.rs",
+      "sha256": "1c4e18d75b0af80b31df9117e68879dad923acac69e5a4a34365b533be070413",
+      "personally_read_ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full mounted/seating: mount variants constrain shaft dependency, socketed spear mount, insertion and source radius; fit modifies same cloned component then records shaft_contact; seat radius from actual attached parent profile/shape.",
+        "Lathed pommel profile cardinality/order is recipe validation precondition; arbitrary native empty profile is not an ordinary failure witness."
+      ]
+    },
+    {
+      "scope_index": 2118,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/shapes.rs",
+      "sha256": "1bdea66bbc76b2483d53a48a954b78b725ae186d4121befd5781664c8a71e0d0",
+      "personally_read_ranges": [
+        [
+          1,
+          393
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full exhaustive typed shape dispatch: same ResolvedComponent ID/label/material/default and detail flow to sources; socket inner radii created with matching profile cardinality and positive bore checks; fixed grip/collar/sleeve profiles and authored tube paths.",
+        "Actual shapes use validated recipe construction, closing generic disconnected-profile concern for the shown socket callers. Detailed source-policy validity remains validators' authority; no blanket output admission guarantee."
+      ]
+    },
+    {
+      "scope_index": 2119,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/assembly.rs",
+      "sha256": "7ebda01419b989011e98bad30754c5c1fbdbebf10d1b163afcdd7ac1cf08406e",
+      "personally_read_ranges": [
+        [
+          1,
+          211
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full named attachment/member/plate/ornament DTOs and dependency-order planner: enum variants bind mutually exclusive data, cycle detection produces deterministic topological order, reserved frame names shared by placement/grip.",
+        "References and dimensions require actual validator/graph admission; public raw fields are authored recipe DTO, not proof of admitted assembly."
+      ]
+    },
+    {
+      "scope_index": 2120,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_clearance.rs",
+      "sha256": "2713092a69c38b46af629689c142effe251b16d0f6ebc1af5a578becb89bd236",
+      "personally_read_ranges": [
+        [
+          1,
+          223
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full bounded continuous blade clearance: profile/fuller/point borrowed together; paired groove envelopes, interval lower dimensions, same/opposing face checks and terminal point bounds;4096interval/depth18 failures reject rather than silently pass.",
+        "Provides actual nonoverlap/wall admission support for groove topology in2110. No zero/generic arbitrary-envelope or unsampled-field guarantee inferred."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "6 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

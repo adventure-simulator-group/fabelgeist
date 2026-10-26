@@ -1,0 +1,45 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-242",
+  "at": "2026-10-25T22:08:53.881366+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2361,
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+      "sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "personally_read_ranges": [
+        [
+          1,
+          1897
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Dialogue DTOs separate owner authority from serialized participant display. Closed affinity/familiarity/morale/outcome/courtship enums explicitly project stable wire strings; npc_social_revision length-prefixes field names/values and retains exactly its declared inputs, not a promise to cover last_outcome or every display field. Revision u64 browser precision remains inherited ROOT-CAMERA-EXTRA40-ADM03-F008.",
+        "NPC location listings join actor current settlement, navigable economy/category location, exact organization representative fields, presences for actor minute and observer-projected life. Noon on missing/failed clock and alive-on-projection-error are explicit fallback paths; required chronology/cause policy remains qualified, no actual unavailable request or privacy breach alleged.",
+        "Social view separately reads relationship/status/commitment/time; active commitment requires actor identity, some commitment and same target, then expect id is dominated by that filter. Separate reads are not proven one transactional snapshot; no observed inconsistent state claimed.",
+        "Chat retry receipt is scoped actor+action, checks target kind/id/requested duration before reusing outcome, and precedes current presence lookup. First call uses admitted SocialDuration/SocialActionId then requires reducer receipt before publication. Current scope lookup still precedes receipt by explicit path.",
+        "build_view fetches owner-scoped session/participants/events/topics/prompts and observer-scoped witness claims; requires actor participant, sorts participants/events/claims/topics and pairs event fragments/source positions. Malformed JSON/default vectors/source correlation/open-prompt pop deduplicates ROOT-CAMERA-EXTRA40-ADM03-F009 and RIG-PPS-F016. Claim lookup additionally matches sequence/order/text.",
+        "Prompt answer validates exact session-tag structure before reducer call; native reducer retains session/revision/catalog authority. Public start distinguishes coded ContactUnavailable from reducer failure and missing projection. Microsecond nonce uniqueness not established by generation alone; actual reducer conflict behavior remains upstream. Tests personally read, not executed."
+      ]
+    },
+    {
+      "scope_index": 2362,
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue/claims.rs",
+      "sha256": "6ce1fead82db25ebeebc1f64944e44bf410b5ea3b28b9f46480cd04128130197",
+      "personally_read_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Claim view finds exact event sequence+claim order+displayed text from already session/observer-scoped rows, retains opaque challenge token and optional responses/resolution, maps closed outcome explicitly, preserves realized signed affinity delta. Clamp assessment strength does not prove NaN rejection; actual producer admission pending, no current bad row claim.",
+        "Witness request parses canonical ClaimChallengeApproach, forwards stable approach ID with authenticated character/session/token/action/revision to authoritative reducer, then rebuilds owner-scoped view. Tests read only."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

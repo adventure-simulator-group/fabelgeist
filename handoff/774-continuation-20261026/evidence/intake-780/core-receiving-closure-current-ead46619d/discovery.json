@@ -1,0 +1,3522 @@
+{
+  "kind": "Source-only sequential13 Root receiving closure extension; explicit bounded scope, not global clearance",
+  "head": "ead46619dec5ef45993f63202cb289bd3986b018",
+  "fresh_source_accounts": [
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/error.rs",
+      "sha256": "8dfa0b2e6cbfe706b8e070c9b18e1abf4029d45cc1147a58a5e7b2967071e578",
+      "lines": 6,
+      "read_extent": [
+        [
+          1,
+          6
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/tests/mod.rs",
+      "sha256": "d0d3dffc4a91c467d5fdab631a26961745163417f8b7818ae760a3702ea24d8f",
+      "lines": 164,
+      "read_extent": [
+        [
+          1,
+          164
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/test_utils.rs",
+      "sha256": "d6a110a5317449bd4a0330749af0cb0433582763f40280c8294112203193cf6e",
+      "lines": 208,
+      "read_extent": [
+        [
+          1,
+          208
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/marching_cubes/tables.rs",
+      "sha256": "d6bb7c7743a55599345b221d241ce7182c9b0208543a106976e2e407d14b18ac",
+      "lines": 190,
+      "read_extent": [
+        [
+          1,
+          190
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/advancing_front.rs",
+      "sha256": "1fb5d31a84b338cc62518bf00e2430c0735e6f7bcffe8228e7e5642fb9d1d104",
+      "lines": 56,
+      "read_extent": [
+        [
+          1,
+          56
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/broadcast.rs",
+      "sha256": "f895a753d2c6092a1bb5324f72d8d4f1ba7e97acc2d6374f75ab3209a2efb53f",
+      "lines": 77,
+      "read_extent": [
+        [
+          1,
+          77
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reshape.rs",
+      "sha256": "27764028f8ce82ada6312ab5736cd59715db07c359c46ae7d1439e115b573426",
+      "lines": 77,
+      "read_extent": [
+        [
+          1,
+          77
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/transpose.rs",
+      "sha256": "26aa1109600e92a0d6c4e05ca4af8ecb67125dcd9d13f3e5a651e7e91ed51b3d",
+      "lines": 77,
+      "read_extent": [
+        [
+          1,
+          77
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/matmul.rs",
+      "sha256": "c70400025e5a96e635d68b78e9efc891141dbc50e69ff209726f4d9e86a65d2e",
+      "lines": 83,
+      "read_extent": [
+        [
+          1,
+          83
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "47b3faf12d1fdffc6251a9dcd840b28f8ce347bbf9e377e29671b4b171f9ff74",
+      "lines": 394,
+      "read_extent": [
+        [
+          1,
+          394
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/dispatch_tests.rs",
+      "sha256": "ef38f9a0b06cbdbe00c79b3f11e8d1cfd582b68463013564cf16e89cac0b4a1f",
+      "lines": 92,
+      "read_extent": [
+        [
+          1,
+          92
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/lib.rs",
+      "sha256": "2806cfc60ce4e3232b0eb6ecf7158f4a176fb97fa65cf89675f320aa6f263b27",
+      "lines": 102,
+      "read_extent": [
+        [
+          1,
+          102
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/prelude.rs",
+      "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "lines": 16,
+      "read_extent": [
+        [
+          1,
+          16
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/Cargo.toml",
+      "sha256": "486924bad91b9cb881237079144ba6350d8313841760f25c187beae5b4b59ada",
+      "lines": 35,
+      "read_extent": [
+        [
+          1,
+          35
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/perlin_noise.rs",
+      "sha256": "6e86661c9b0bbfec101b4d0ff7ec68167a7c1c35591f6dd4f7abcd0c4102d092",
+      "lines": 129,
+      "read_extent": [
+        [
+          1,
+          129
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/simplex_noise.rs",
+      "sha256": "9b30738361080478eafcde92beb4b5c2c3e62df3062bd73012ee499a70dc5b4e",
+      "lines": 171,
+      "read_extent": [
+        [
+          1,
+          171
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+      "sha256": "64de20033ee6f686c0877938844c0456dc46748bba806d4fcc2139583fb95b42",
+      "lines": 307,
+      "read_extent": [
+        [
+          1,
+          307
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/tests/concurrent_kernels.rs",
+      "sha256": "a88c245c53e9fdd84bbd5f1853961ceeb28e7948dbf0b754dfac755f71168e7d",
+      "lines": 130,
+      "read_extent": [
+        [
+          1,
+          130
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/tests.rs",
+      "sha256": "428dfdd9b144dadea94fd095a7e9ae29ccb4e81654aabda6d6f1749a47cd0d86",
+      "lines": 240,
+      "read_extent": [
+        [
+          1,
+          240
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/host_float/tests.rs",
+      "sha256": "c502ca8e0d2330e3c2fc68c19a5f0663b34ad633a25ccfe230156898740a0baa",
+      "lines": 271,
+      "read_extent": [
+        [
+          1,
+          271
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "sha256": "6374f05b0a75509d506cf5af75fd6716cbfba40a8764bfda36bbbc1df8f7cfbe",
+      "lines": 205,
+      "read_extent": [
+        [
+          1,
+          205
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "lines": 102,
+      "read_extent": [
+        [
+          1,
+          102
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/mod.rs",
+      "sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "lines": 13,
+      "read_extent": [
+        [
+          1,
+          13
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+      "sha256": "ba5bd199bd66da1a3060421b34e228b33f7a8d86f5c4c8611c3a30cf6305c45d",
+      "lines": 17,
+      "read_extent": [
+        [
+          1,
+          17
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "lines": 5,
+      "read_extent": [
+        [
+          1,
+          5
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/lib.rs",
+      "sha256": "5a9039181baf9cc6a6b45e7810f99fd9811427b80e62c9d84f52cde5f3bfa9a6",
+      "lines": 14,
+      "read_extent": [
+        [
+          1,
+          14
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs",
+      "sha256": "9a8bfaa7b7b1d2d3c6c72d27cbd6f294c14356fee69bf72a59d4af38f89490b5",
+      "lines": 117,
+      "read_extent": [
+        [
+          1,
+          117
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "17ca9aa9db7efd1e261b086841babcf22764a6154628aca9405c085029b16baa",
+      "lines": 101,
+      "read_extent": [
+        [
+          1,
+          101
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+      "sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+      "lines": 42,
+      "read_extent": [
+        [
+          1,
+          42
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+      "sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+      "lines": 129,
+      "read_extent": [
+        [
+          1,
+          129
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256": "38199fb00b79762a561f7096004f7eda3542a2f1db94d8e2b223f1e46f421752",
+      "lines": 47,
+      "read_extent": [
+        [
+          1,
+          47
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+      "sha256": "6b7a180a3ee2faa7fc26a79e2ae14ceeac4a54c19f96a308dc57f417c56ea49f",
+      "lines": 34,
+      "read_extent": [
+        [
+          1,
+          34
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/layout.rs",
+      "sha256": "7affba536778dd1ae65da9b834c2400b2eddd4ce6bc6a7dc7aba5048a5fbf878",
+      "lines": 150,
+      "read_extent": [
+        [
+          1,
+          150
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods/cards.rs",
+      "sha256": "77e815b2a949e96a4e90b90acc7f184021d395dcbb1881ee293fa0d94f2c69d6",
+      "lines": 177,
+      "read_extent": [
+        [
+          1,
+          177
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+      "sha256": "8ec4a8182b2b06542654966c75b6120c9acc24852b3d9e05f23b920806bb3425",
+      "lines": 35,
+      "read_extent": [
+        [
+          1,
+          35
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+      "sha256": "432b9250fbd2810918ab7ca663e1596d715b4cd6a7f4491b109b3dfd6cc8fe6e",
+      "lines": 150,
+      "read_extent": [
+        [
+          1,
+          150
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim.rs",
+      "sha256": "413f88a20d71eac80a2028f44826ba8f910df760078175d6eba83321233943bc",
+      "lines": 315,
+      "read_extent": [
+        [
+          1,
+          315
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/layout.rs",
+      "sha256": "ecdfc0cc3c30a0ec0b276f91a9799b7362430cd4ac9a281d208f68fcadc071a0",
+      "lines": 216,
+      "read_extent": [
+        [
+          1,
+          216
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/buffers.rs",
+      "sha256": "e82d568414119b0fd6077ab911224dc9eee4eefb2d6a5cf7ff38c98dea9a78e1",
+      "lines": 91,
+      "read_extent": [
+        [
+          1,
+          91
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/strands/shape.rs",
+      "sha256": "1fb88c54d6c627d55e959484008c0ae49665912f7226fc6aca78e901bafd39b5",
+      "lines": 118,
+      "read_extent": [
+        [
+          1,
+          118
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/parameters.rs",
+      "sha256": "e8ddc101f1ef8295f3ab1943b4cae0257e483fd9fb67e2255bf614c1e51557e2",
+      "lines": 140,
+      "read_extent": [
+        [
+          1,
+          140
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "lines": 120,
+      "read_extent": [
+        [
+          1,
+          120
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/gpu.rs",
+      "sha256": "bbc46f782a1c791445a4879fb0e22a5929bc0407752cf594abf618d87b1c296b",
+      "lines": 528,
+      "read_extent": [
+        [
+          1,
+          528
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "b94c9bc6659a4ca3a7e9ef3bfbe5a52026c70dd86abd4c40f91c5066c9ebde8e",
+      "lines": 149,
+      "read_extent": [
+        [
+          1,
+          149
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/material/tile.rs",
+      "sha256": "a094fe52ceba98b71a00ae2fa974ba24cf769131e3c265373727f353f3885869",
+      "lines": 67,
+      "read_extent": [
+        [
+          1,
+          67
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+      "sha256": "88c1868538af8a6862650cfe70083e9bcaff1785e72160d656629aabb23df23b",
+      "lines": 133,
+      "read_extent": [
+        [
+          1,
+          133
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs",
+      "sha256": "8ad5ee14907efa7548e6ddb0ba1c47be55253701644626a9879045df06a9b438",
+      "lines": 168,
+      "read_extent": [
+        [
+          1,
+          168
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/AGENTS.md",
+      "sha256": "b222ba01455443717c807738e311b12d8ded9a33cd95084b35870943357898a7",
+      "lines": 11,
+      "read_extent": [
+        [
+          1,
+          11
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/grow.rs",
+      "sha256": "b4907574e60ff614aef176c62a138331eb3bc047cb799db0fe6f82d5f92b6c26",
+      "lines": 470,
+      "read_extent": [
+        [
+          1,
+          65
+        ]
+      ],
+      "read_kind": "Fresh listed source ranges; remaining body unread in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim/execution.rs",
+      "sha256": "09689764502410c3fcd3bede867e66b30941a329ebfc280438f822c9b928c3cd",
+      "lines": 362,
+      "read_extent": [
+        [
+          1,
+          150
+        ]
+      ],
+      "read_kind": "Fresh listed source ranges; remaining body unread in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/wgsl/lod.rs",
+      "sha256": "84921c3738f17ead3b584e9957b4da132682a3a9c475c3b99a664b48ec245df7",
+      "lines": 932,
+      "read_extent": [
+        [
+          430,
+          530
+        ]
+      ],
+      "read_kind": "Fresh listed source ranges; remaining body unread in this extension"
+    },
+    {
+      "path": "Cargo.toml",
+      "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+      "lines": 221,
+      "read_extent": [
+        [
+          1,
+          95
+        ]
+      ],
+      "read_kind": "Fresh listed source ranges; remaining body unread in this extension"
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "5c2ceb3c325776e498988e77ac4244d1ad60ea11783ac9366e83c034933a1cde",
+      "lines": 393,
+      "read_extent": [
+        [
+          1,
+          145
+        ]
+      ],
+      "read_kind": "Fresh listed source ranges; remaining body unread in this extension"
+    }
+  ],
+  "earlier_actual_source_receipts_reconciled": [
+    {
+      "path": "crates/fabelgeist-compute/src/boundary.rs",
+      "sha256": "31cd64fb15c7bb2edcbc355da4483470f1f28ae2e7c061790aa97341abf137b8",
+      "lines": 11,
+      "read_extent": [
+        [
+          1,
+          11
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan.rs",
+      "sha256": "f8ec75e11bdf6145f32018251f300ccedd7c73067bc549ebd35ace53e5745d79",
+      "lines": 302,
+      "read_extent": [
+        [
+          1,
+          302
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan/wgsl.rs",
+      "sha256": "803e777cf527e7c130b233a52edf330827c91ab7de8b2d9206bdd7d5bf56f9ec",
+      "lines": 93,
+      "read_extent": [
+        [
+          1,
+          93
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+      "sha256": "e97b56c90018e2382c2715260d0608d334eff6d141bc7dd8bb8fe6f708ed20ce",
+      "lines": 189,
+      "read_extent": [
+        [
+          1,
+          189
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/layout.rs",
+      "sha256": "19f555f68f33ff087db6fb06d6a5f37bb4ca784708e74739098c7c99b2c0de15",
+      "lines": 49,
+      "read_extent": [
+        [
+          1,
+          49
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/execution.rs",
+      "sha256": "fdf743edb8382f0bae0750c6255d89a22855f9be09f50179981ffd8f26964435",
+      "lines": 176,
+      "read_extent": [
+        [
+          1,
+          176
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/min.rs",
+      "sha256": "7ea0c2ce5604bb08c70b246318a2e6f3a0b3dcc0197fbabcc29fa868d60b905f",
+      "lines": 71,
+      "read_extent": [
+        [
+          1,
+          71
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/max.rs",
+      "sha256": "4e16a6ef11f3d5f562eeed220aa6bef85607d229b552901baa020ca24dc1c043",
+      "lines": 71,
+      "read_extent": [
+        [
+          1,
+          71
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/marching_cubes/mod.rs",
+      "sha256": "20e8ff76b8ffe77cd50150082f3acf9cdfb56166be89945786e94c147151d31b",
+      "lines": 236,
+      "read_extent": [
+        [
+          1,
+          236
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/marching_cubes/wgsl.rs",
+      "sha256": "fc4a7d68f8c8a443bbdc7c1fff67a047ccaa21ed56b315e6ce0805e3da89df93",
+      "lines": 174,
+      "read_extent": [
+        [
+          1,
+          174
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/mod.rs",
+      "sha256": "22625a943934af4f763dc3466fc3da94d759ce5e1e77637076a88633cb48238b",
+      "lines": 71,
+      "read_extent": [
+        [
+          1,
+          71
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/execution.rs",
+      "sha256": "e54c3de9b89070020b775d89c1e655d2063fc4005dbc8412e1cc9542ab6d46ca",
+      "lines": 272,
+      "read_extent": [
+        [
+          1,
+          272
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/mod.rs",
+      "sha256": "8a6c40eef3069bc4c265b6136c6159abf092dc1181a23ae8c288666deba03af2",
+      "lines": 27,
+      "read_extent": [
+        [
+          1,
+          27
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/count.rs",
+      "sha256": "39456912fbb2c7b6064b95fccdcfaa4aef7313d4658d3a75e9684447170022e5",
+      "lines": 131,
+      "read_extent": [
+        [
+          1,
+          131
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/index.rs",
+      "sha256": "99968238e06d234d0f27422093cd5dee4c2cb4bbcf179fdddf7d845369e1b8f8",
+      "lines": 145,
+      "read_extent": [
+        [
+          1,
+          145
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/wgsl/vertex.rs",
+      "sha256": "ccb22f4966c34d402b4ab7c82abd08bed44cb370bd65b758a6f8b4a05af9bc47",
+      "lines": 179,
+      "read_extent": [
+        [
+          1,
+          179
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/mod.rs",
+      "sha256": "f9914138b034fab9e37f6cffcd87510f2dcb38da129a23c4ce8c04c4a0768cce",
+      "lines": 236,
+      "read_extent": [
+        [
+          1,
+          236
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/projection.rs",
+      "sha256": "1f916775018fe658abd71af9a1ad2c4fe19b62516f5ce5827b960a8dd237f592",
+      "lines": 54,
+      "read_extent": [
+        [
+          1,
+          54
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/output.rs",
+      "sha256": "f6565ab370ac8f8a5646c9853258d062ad6d2f50ba16c64478e58dd1fa774fc7",
+      "lines": 95,
+      "read_extent": [
+        [
+          1,
+          95
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/wgsl.rs",
+      "sha256": "f4ab8a5471198e041691d776086f0c51f0ed693d8bbf64b81dd985bc30f2bc04",
+      "lines": 71,
+      "read_extent": [
+        [
+          1,
+          71
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field.rs",
+      "sha256": "efa006852cbacb6e861ec4d86cf4aa5c5b375645c3e39274e15e0d814aa508d5",
+      "lines": 287,
+      "read_extent": [
+        [
+          1,
+          287
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "sha256": "d6532f73e5fd6aac8d83d84f4e56ef46191d98982397d0d90a928326bce80eeb",
+      "lines": 170,
+      "read_extent": [
+        [
+          1,
+          170
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/host_float/mod.rs",
+      "sha256": "f584218ee80866588dc56bfddb3464f65635a41e317f6fbaa08a404143b42b39",
+      "lines": 86,
+      "read_extent": [
+        [
+          1,
+          86
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "86e926ab47cd284d07a0e14265aaf7b5ba3ce1b6cc5e2aff66328e05f67aee02",
+      "lines": 113,
+      "read_extent": [
+        [
+          1,
+          113
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "b9123559b221216745a20cd4f2881f91601174ffa8a6da1d51f07dc656c4cbe3",
+      "lines": 81,
+      "read_extent": [
+        [
+          1,
+          81
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "lines": 82,
+      "read_extent": [
+        [
+          1,
+          82
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "lines": 192,
+      "read_extent": [
+        [
+          1,
+          192
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "707cc7a7a86fd855e779b3233b4dd97d3fd2be4496aa550a4388a1dec80d8a58",
+      "lines": 43,
+      "read_extent": [
+        [
+          1,
+          43
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "ba4082d74f3bdcafdb689588768e1ef4b37041e55493745dcc15e5c541fae33c",
+      "lines": 13119,
+      "read_extent": [
+        [
+          4909,
+          4934
+        ],
+        [
+          5017,
+          5048
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "a5552583fdd75934fc3f6f9623ca45fc7de5f4ae2def11544c19d984dc09cdf6",
+      "lines": 1082,
+      "read_extent": [
+        [
+          919,
+          1082
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict",
+      "matches_prior_actual_source_receipt": true
+    }
+  ],
+  "occurrence_frontier": [
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs",
+      "sha256": "8ad5ee14907efa7548e6ddb0ba1c47be55253701644626a9879045df06a9b438",
+      "lines": 168,
+      "read_extent": [
+        [
+          1,
+          168
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+      "sha256": "88c1868538af8a6862650cfe70083e9bcaff1785e72160d656629aabb23df23b",
+      "lines": 133,
+      "read_extent": [
+        [
+          1,
+          133
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "b94c9bc6659a4ca3a7e9ef3bfbe5a52026c70dd86abd4c40f91c5066c9ebde8e",
+      "lines": 149,
+      "read_extent": [
+        [
+          1,
+          149
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/material/tile.rs",
+      "sha256": "a094fe52ceba98b71a00ae2fa974ba24cf769131e3c265373727f353f3885869",
+      "lines": 67,
+      "read_extent": [
+        [
+          1,
+          67
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+      "sha256": "55748934ab8638b33ef380aae35e12c0ab61b888158a5e0b5de459c68495ba7a",
+      "lines": 299,
+      "read_extent": [],
+      "read_kind": "Current Root body superseded by fully read incoming generated51; old Root body not separately claimed clear.",
+      "incoming_sha256": "d8daf7ae1365b035842b1731b92c4df1a903f9f714f0c20f8add90f402d1b9a9"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/boundary.rs",
+      "sha256": "31cd64fb15c7bb2edcbc355da4483470f1f28ae2e7c061790aa97341abf137b8",
+      "lines": 11,
+      "read_extent": [
+        [
+          1,
+          11
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/broadcast.rs",
+      "sha256": "f895a753d2c6092a1bb5324f72d8d4f1ba7e97acc2d6374f75ab3209a2efb53f",
+      "lines": 77,
+      "read_extent": [
+        [
+          1,
+          77
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field.rs",
+      "sha256": "efa006852cbacb6e861ec4d86cf4aa5c5b375645c3e39274e15e0d814aa508d5",
+      "lines": 287,
+      "read_extent": [
+        [
+          1,
+          287
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+      "sha256": "64de20033ee6f686c0877938844c0456dc46748bba806d4fcc2139583fb95b42",
+      "lines": 307,
+      "read_extent": [
+        [
+          1,
+          307
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+      "sha256": "d56ea387e7ea0d2c31ce000287ca0932029581a9e794fa0d54207dad76774c38",
+      "lines": 218,
+      "read_extent": [],
+      "read_kind": "Current Root body superseded by fully read incoming generated51; old Root body not separately claimed clear.",
+      "incoming_sha256": "5a78332aaf68f30b99277c9b4b05e62ba8d9e3d1d596235622bd1011b2dd5a94"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/dual_contouring/mod.rs",
+      "sha256": "22625a943934af4f763dc3466fc3da94d759ce5e1e77637076a88633cb48238b",
+      "lines": 71,
+      "read_extent": [
+        [
+          1,
+          71
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/mod.rs",
+      "sha256": "f9914138b034fab9e37f6cffcd87510f2dcb38da129a23c4ce8c04c4a0768cce",
+      "lines": 236,
+      "read_extent": [
+        [
+          1,
+          236
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/projection.rs",
+      "sha256": "1f916775018fe658abd71af9a1ad2c4fe19b62516f5ce5827b960a8dd237f592",
+      "lines": 54,
+      "read_extent": [
+        [
+          1,
+          54
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/extraction/wgsl.rs",
+      "sha256": "f4ab8a5471198e041691d776086f0c51f0ed693d8bbf64b81dd985bc30f2bc04",
+      "lines": 71,
+      "read_extent": [
+        [
+          1,
+          71
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+      "sha256": "95da5cd7a5e390cb9ea21c4dd61be55d324726a9d1dfef9c9bc769629318bfd9",
+      "lines": 371,
+      "read_extent": [],
+      "read_kind": "Current Root body superseded by fully read incoming generated51; old Root body not separately claimed clear.",
+      "incoming_sha256": "fc7d06ae42f46f8cb79b83eb27b82fe175df972668d5762f4e411d7b6481cb11"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gather/tests/mod.rs",
+      "sha256": "6a9360ebc741c55a8068c062857298ce9ee455bb10ce99202fd8f03cb71ee160",
+      "lines": 48,
+      "read_extent": [],
+      "read_kind": "Current Root body superseded by fully read incoming generated51; old Root body not separately claimed clear.",
+      "incoming_sha256": "dbe8d4a8b46fe877571190636697e5562371b4803d7959ea74802f4701ddf928"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+      "sha256": "bca4af50d86428b57eb0834e28e9879da517e4146b2bd71fa36598f2004f0e97",
+      "lines": 247,
+      "read_extent": [],
+      "read_kind": "Current Root body superseded by fully read incoming generated51; old Root body not separately claimed clear.",
+      "incoming_sha256": "c8aeb37ef3b15273143fa486bf2fe0112b61b680d97960b6a3096583457ca2d0"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "47b3faf12d1fdffc6251a9dcd840b28f8ce347bbf9e377e29671b4b171f9ff74",
+      "lines": 394,
+      "read_extent": [
+        [
+          1,
+          394
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/lib.rs",
+      "sha256": "2806cfc60ce4e3232b0eb6ecf7158f4a176fb97fa65cf89675f320aa6f263b27",
+      "lines": 102,
+      "read_extent": [
+        [
+          1,
+          102
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/bindings.rs",
+      "sha256": "486b2a0fb53a28e3b45cc4b847784c885a1b2f637220e6bdad8083dee0216a72",
+      "lines": 110,
+      "read_extent": [],
+      "read_kind": "Current Root body superseded by fully read incoming generated51; old Root body not separately claimed clear.",
+      "incoming_sha256": "9eb07ca6eda0d217c4c6a598bfc21e8e0eed0617dd501040a1101ca7ae7d0d76"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "sha256": "b9f394de465c58404eb5cf84625eb3510d77a80423ea0519ee12ad1836198f87",
+      "lines": 216,
+      "read_extent": [],
+      "read_kind": "Current Root body superseded by fully read incoming generated51; old Root body not separately claimed clear.",
+      "incoming_sha256": "65ca55becef0b0c833137a2a1fb84babb0c0b0b1557709e1f7b6d6e96340154e"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/program.rs",
+      "sha256": "a7c696dbf294ed783211c1fd401cd59769543cae9733276ef8febc33c563ca0e",
+      "lines": 113,
+      "read_extent": [],
+      "read_kind": "Current Root body superseded by fully read incoming generated51; old Root body not separately claimed clear.",
+      "incoming_sha256": "a31b1d79247334aa2e945b5ca80ca18e7078eee9cf021b4b9984d67e37a1b511"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/signature.rs",
+      "sha256": "d430c50cf3c4c063b75a82a9d9ce18a5dde50d68853c71d31d26d1a3b74c0832",
+      "lines": 116,
+      "read_extent": [],
+      "read_kind": "Current Root body superseded by fully read incoming generated51; old Root body not separately claimed clear.",
+      "incoming_sha256": "b6b44fdecaee32315772c9f8c3891382e8a1c8afe63adc32d1f47f9fd81a259b"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/helper.rs",
+      "sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc",
+      "lines": 42,
+      "read_extent": [],
+      "read_kind": "Current Root body superseded by fully read incoming generated51; old Root body not separately claimed clear.",
+      "incoming_sha256": "9f52c94d50003be0a234ae69eaa07605cf90a82bf1edeea6dd2ce82ebcd4debc"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/tests/mod.rs",
+      "sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9",
+      "lines": 296,
+      "read_extent": [],
+      "read_kind": "Current Root body superseded by fully read incoming generated51; old Root body not separately claimed clear.",
+      "incoming_sha256": "b5a49e81728272b5bb04064a40395b62442969f9e4fcf10dbb0d13e1149d30e9"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/marching_cubes/mod.rs",
+      "sha256": "20e8ff76b8ffe77cd50150082f3acf9cdfb56166be89945786e94c147151d31b",
+      "lines": 236,
+      "read_extent": [
+        [
+          1,
+          236
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/matmul.rs",
+      "sha256": "c70400025e5a96e635d68b78e9efc891141dbc50e69ff209726f4d9e86a65d2e",
+      "lines": 83,
+      "read_extent": [
+        [
+          1,
+          83
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/perlin_noise.rs",
+      "sha256": "6e86661c9b0bbfec101b4d0ff7ec68167a7c1c35591f6dd4f7abcd0c4102d092",
+      "lines": 129,
+      "read_extent": [
+        [
+          1,
+          129
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/execution.rs",
+      "sha256": "fdf743edb8382f0bae0750c6255d89a22855f9be09f50179981ffd8f26964435",
+      "lines": 176,
+      "read_extent": [
+        [
+          1,
+          176
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/layout.rs",
+      "sha256": "19f555f68f33ff087db6fb06d6a5f37bb4ca784708e74739098c7c99b2c0de15",
+      "lines": 49,
+      "read_extent": [
+        [
+          1,
+          49
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/max.rs",
+      "sha256": "4e16a6ef11f3d5f562eeed220aa6bef85607d229b552901baa020ca24dc1c043",
+      "lines": 71,
+      "read_extent": [
+        [
+          1,
+          71
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/min.rs",
+      "sha256": "7ea0c2ce5604bb08c70b246318a2e6f3a0b3dcc0197fbabcc29fa868d60b905f",
+      "lines": 71,
+      "read_extent": [
+        [
+          1,
+          71
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+      "sha256": "e97b56c90018e2382c2715260d0608d334eff6d141bc7dd8bb8fe6f708ed20ce",
+      "lines": 189,
+      "read_extent": [
+        [
+          1,
+          189
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/reshape.rs",
+      "sha256": "27764028f8ce82ada6312ab5736cd59715db07c359c46ae7d1439e115b573426",
+      "lines": 77,
+      "read_extent": [
+        [
+          1,
+          77
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/resource_pipeline.rs",
+      "sha256": "d6532f73e5fd6aac8d83d84f4e56ef46191d98982397d0d90a928326bce80eeb",
+      "lines": 170,
+      "read_extent": [
+        [
+          1,
+          170
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan.rs",
+      "sha256": "f8ec75e11bdf6145f32018251f300ccedd7c73067bc549ebd35ace53e5745d79",
+      "lines": 302,
+      "read_extent": [
+        [
+          1,
+          302
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scan/wgsl.rs",
+      "sha256": "803e777cf527e7c130b233a52edf330827c91ab7de8b2d9206bdd7d5bf56f9ec",
+      "lines": 93,
+      "read_extent": [
+        [
+          1,
+          93
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/scatter.rs",
+      "sha256": "20e9e3f15f7e286e98018ec8bba3d8e4d430e24a13d800d2fd8246f8f0c50932",
+      "lines": 335,
+      "read_extent": [],
+      "read_kind": "Current Root body superseded by fully read incoming generated51; old Root body not separately claimed clear.",
+      "incoming_sha256": "ddc7310cd5ed6f1777cab41bafed49dbac575d7b582cfceb42136452a85656a6"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/simplex_noise.rs",
+      "sha256": "9b30738361080478eafcde92beb4b5c2c3e62df3062bd73012ee499a70dc5b4e",
+      "lines": 171,
+      "read_extent": [
+        [
+          1,
+          171
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil.rs",
+      "sha256": "a5552583fdd75934fc3f6f9623ca45fc7de5f4ae2def11544c19d984dc09cdf6",
+      "lines": 1082,
+      "read_extent": [
+        [
+          919,
+          1082
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stencil/recipe.rs",
+      "sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a",
+      "lines": 11,
+      "read_extent": [],
+      "read_kind": "Current Root body superseded by fully read incoming generated51; old Root body not separately claimed clear.",
+      "incoming_sha256": "a30f08a0e95afb9c0573bd1633f846099d18d5664fecd4107b98ef3927a1015a"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/call.rs",
+      "sha256": "a164da4c7d62a4eb24a6a3b0e1d6f0a15851ed90747e5af07dd9f43b08b941b9",
+      "lines": 43,
+      "read_extent": [],
+      "read_kind": "Current Root body superseded by fully read incoming generated51; old Root body not separately claimed clear.",
+      "incoming_sha256": "bdebde0792dd5c21e33d8acc172f6bc001f5470ed65beccfaab044a33f4999f8"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+      "sha256": "5d8fdfbb20b5107dc061d22f3bae3611904ea4828ec4ee38fd47ce3518e5ba6e",
+      "lines": 331,
+      "read_extent": [],
+      "read_kind": "Current Root body superseded by fully read incoming generated51; old Root body not separately claimed clear.",
+      "incoming_sha256": "50a97cb78ec18e7d46a9e6bc6cc6c4825fe07a60113da7023fa1834fc6cc8a6c"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/stream/tests/mod.rs",
+      "sha256": "16f48fa721c0981cf7799288e7e4e898e1f6e2481b312bce73487c10070da743",
+      "lines": 69,
+      "read_extent": [],
+      "read_kind": "Current Root body superseded by fully read incoming generated51; old Root body not separately claimed clear.",
+      "incoming_sha256": "282793cfda3d949ab6e7c11539331d845f0911b5b89c63b34fc264f940819ce1"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/test_utils.rs",
+      "sha256": "d6a110a5317449bd4a0330749af0cb0433582763f40280c8294112203193cf6e",
+      "lines": 208,
+      "read_extent": [
+        [
+          1,
+          208
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/transpose.rs",
+      "sha256": "26aa1109600e92a0d6c4e05ca4af8ecb67125dcd9d13f3e5a651e7e91ed51b3d",
+      "lines": 77,
+      "read_extent": [
+        [
+          1,
+          77
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256": "38199fb00b79762a561f7096004f7eda3542a2f1db94d8e2b223f1e46f421752",
+      "lines": 47,
+      "read_extent": [
+        [
+          1,
+          47
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "86e926ab47cd284d07a0e14265aaf7b5ba3ce1b6cc5e2aff66328e05f67aee02",
+      "lines": 113,
+      "read_extent": [
+        [
+          1,
+          113
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/stride.rs",
+      "sha256": "9a8bfaa7b7b1d2d3c6c72d27cbd6f294c14356fee69bf72a59d4af38f89490b5",
+      "lines": 117,
+      "read_extent": [
+        [
+          1,
+          117
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/mod.rs",
+      "sha256": "7e21b07871659c611dbd1aa3db5fbcc4323a55adc4183f8aa3d1d4ba4cac84c3",
+      "lines": 216,
+      "read_extent": [],
+      "read_kind": "Current Root body superseded by fully read incoming generated51; old Root body not separately claimed clear.",
+      "incoming_sha256": "c3a5b335a373a7b4cf5fd605e527fe3efe8fa25bf0d1c7ef1d5ae840555f72f4"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "sha256": "5cb92b1488c3e0ea14c98488795775c6fe4c190f5c60af878f5a96a36a867a92",
+      "lines": 253,
+      "read_extent": [],
+      "read_kind": "Current Root body superseded by fully read incoming generated51; old Root body not separately claimed clear.",
+      "incoming_sha256": "1c9dc99c0f186c95668f0b42fffcbc51b94bd822a907476d449f51e38570db01"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/coordinates.rs",
+      "sha256": "505a16459267c2280842514d42eb3aded371b6a2a84584ba6faf9ebb11c4ca2f",
+      "lines": 88,
+      "read_extent": [],
+      "read_kind": "Current Root body superseded by fully read incoming generated51; old Root body not separately claimed clear.",
+      "incoming_sha256": "709f96bf90a39b588f07d8dcee684d59de96937a1499cbd2f06d2c235a323ea5"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6",
+      "lines": 97,
+      "read_extent": [],
+      "read_kind": "Current Root body superseded by fully read incoming generated51; old Root body not separately claimed clear.",
+      "incoming_sha256": "79124150e675e45b70b38b8287f82d80b7eda48202e0d2fa6e24f880bb153de6"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "lines": 82,
+      "read_extent": [
+        [
+          1,
+          82
+        ]
+      ],
+      "read_kind": "Earlier actual source read in same audit, exact current bytes rechecked; receiving contract reassessed, no inherited verdict"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "sha256": "6374f05b0a75509d506cf5af75fd6716cbfba40a8764bfda36bbbc1df8f7cfbe",
+      "lines": 205,
+      "read_extent": [
+        [
+          1,
+          205
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+      "sha256": "d80964b752b34346f83e75fb30110cc692ac0a3a4a3283c4a09185d85175bda4",
+      "lines": 102,
+      "read_extent": [
+        [
+          1,
+          102
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+      "sha256": "6b7a180a3ee2faa7fc26a79e2ae14ceeac4a54c19f96a308dc57f417c56ea49f",
+      "lines": 34,
+      "read_extent": [
+        [
+          1,
+          34
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/lods/cards.rs",
+      "sha256": "77e815b2a949e96a4e90b90acc7f184021d395dcbb1881ee293fa0d94f2c69d6",
+      "lines": 177,
+      "read_extent": [
+        [
+          1,
+          177
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+      "sha256": "432b9250fbd2810918ab7ca663e1596d715b4cd6a7f4491b109b3dfd6cc8fe6e",
+      "lines": 150,
+      "read_extent": [
+        [
+          1,
+          150
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+      "sha256": "8ec4a8182b2b06542654966c75b6120c9acc24852b3d9e05f23b920806bb3425",
+      "lines": 35,
+      "read_extent": [
+        [
+          1,
+          35
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/gpu.rs",
+      "sha256": "bbc46f782a1c791445a4879fb0e22a5929bc0407752cf594abf618d87b1c296b",
+      "lines": 528,
+      "read_extent": [
+        [
+          1,
+          528
+        ]
+      ],
+      "read_kind": "Fresh full source read in this extension"
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/ccd.rs",
+      "sha256": "bd0f3a309967fdd9399aaf5eb558944b9e0c0059b35ae7e143922be675bd0047",
+      "lines": 394,
+      "read_extent": [],
+      "read_kind": "Unread semantic body; classified only by occurrence discovery."
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "bb3a64ed8ec80028324e18ea6eecac8a3a68609eff696b9cf6c58bd556d6fa38",
+      "lines": 12828,
+      "read_extent": [],
+      "read_kind": "Relevant occurrence records discovered; full config/registry body not reviewed. Final hosted reductions/registration remain required."
+    }
+  ],
+  "submit_frontier": [
+    {
+      "path": "crates/adventuresim-character-creator/src/device_bracer.rs",
+      "sha256": "ff37e035a52f79f4970f87fb21acef7702a0e9cf0ab288cf551e1c35d78365c4",
+      "lines": 248,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        113,
+        126
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_coif.rs",
+      "sha256": "462aea2bd0f7f1a5dc8b365a394bacdaa8f01919a15bd385494f52b7044cf32e",
+      "lines": 488,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        365
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_fit.rs",
+      "sha256": "fcf13b47f8b4b88d6aa11e92354548f7d54ae0b08e6d67d2eabff75f17026cb4",
+      "lines": 509,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        173
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_frames.rs",
+      "sha256": "e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+      "lines": 246,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        142
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_garment_kernel.rs",
+      "sha256": "7484d47aa4568e2fc5b3fed2daba4888a9f0d637e6af199bca5e4f85f218d60f",
+      "lines": 287,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        273
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget_bib.rs",
+      "sha256": "efabd4be63cf20343ef960668d702d3525aa9ac0b5b0e591efcc54efa38a1a92",
+      "lines": 328,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        274
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget_collar.rs",
+      "sha256": "a16e662e70c17cde92374f377722bfe4e19440f3673a91b97f86d2e69960b099",
+      "lines": 377,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        193,
+        312,
+        351
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_gorget_projection.rs",
+      "sha256": "9e52d00ac15a857a4516fef35e94758bc61262edf250f23a42f2d249f1713ef3",
+      "lines": 177,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        150
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_torso.rs",
+      "sha256": "78af7acbb8b527b1d3f6ee10c15b101334e9423e7da77ad40283325c2e9579a5",
+      "lines": 342,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        252
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_underlayer.rs",
+      "sha256": "b42e82c29ce8e08f7e378abc16f0f9823aea7c2580456c37cbaa4084ea781591",
+      "lines": 416,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        200,
+        207,
+        223,
+        296,
+        346
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/fitted.rs",
+      "sha256": "90a73376395b601a39a8d4a51fe9004d62176ce2ac236c578bee720bab2007a6",
+      "lines": 588,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        532
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/gpu/field.rs",
+      "sha256": "1f537b363a614847b1ddf760ac719c5ed099171646ce606649e8b7ca79390264",
+      "lines": 545,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        132
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/body_cloth_layers.rs",
+      "sha256": "de7fe94a71246b0953ae4d8c416c71458c04577c04a179e40f19bbbc31539b39",
+      "lines": 149,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        62
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/skirt_construction.rs",
+      "sha256": "a1ec603ea2f3a48d91c136f5db6bedb408fc342a6bcc17c306d0a45ff3fdd872",
+      "lines": 197,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        111
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/skirt_surface.rs",
+      "sha256": "6be4bdd141d88d087e4e53c63b87a81abb09e34f15541005b7320fb0da5d2560",
+      "lines": 289,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        44
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_appearance.rs",
+      "sha256": "35e7af5d4c6eddea9cc7484f03b4c23e7410581fbc975cc7674d3eef4205d678",
+      "lines": 760,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        40
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_treatment.rs",
+      "sha256": "584a09367f17674a14660adb1e8469da6e050cce200ab4f6f83433725d7b2ae2",
+      "lines": 159,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        37,
+        50
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/examples/armor_fixture/tasset_tests.rs",
+      "sha256": "d914bedbc8e9a85e064c5ea5d7638598277248b68a0da29587eb637350461144",
+      "lines": 258,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        144
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime.rs",
+      "sha256": "a41d7583511916f837e5a9402fe4658589c54e4cfe15fa29cb04dd6a585ca000",
+      "lines": 93,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        45,
+        49
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/anime_tests.rs",
+      "sha256": "05f22ce898989bd0fd60a8820b40ebb7c2d7edfa5a3cf81b0bc2c12b59490965",
+      "lines": 169,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        144
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/fit_tests.rs",
+      "sha256": "1e8220ba0622d5c485c9397aec607d945e9aac92e8e7c26b6a5b5de0365f5026",
+      "lines": 531,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        116,
+        241,
+        313,
+        366,
+        483,
+        505
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "sha256": "5a3e370fabbd7ab8eedb1cdf0bbe4454e3cd7430cf9d5eb75f2a1b75de89fe31",
+      "lines": 323,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        117,
+        138
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/breastplate/shape_tests.rs",
+      "sha256": "961d47635ad3f0bea6e01267b36a4d5574ea7204876f1fedccbbdc427ef3a921",
+      "lines": 244,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        34,
+        83,
+        137,
+        213
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/limb_build.rs",
+      "sha256": "3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+      "lines": 46,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        38
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/recipe.rs",
+      "sha256": "47f60d1bea5f969747b095c3b6383a20ecc5761131c85306d60211d3dd904bee",
+      "lines": 188,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        161
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/tests/garment_armor.rs",
+      "sha256": "82c80b000c0ec0926356bd5dfdb2ea3880b2e0294eb7b9cf771a8d4f215fe963",
+      "lines": 250,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        205
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-cloth/src/cloth/tests.rs",
+      "sha256": "65df3d9cb0b9c6a90c346b7c020a2038e282efe257392c201d79de8471ac110e",
+      "lines": 672,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        630
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/host_float/tests.rs",
+      "sha256": "c502ca8e0d2330e3c2fc68c19a5f0663b34ad633a25ccfe230156898740a0baa",
+      "lines": 271,
+      "read_extent": [
+        [
+          1,
+          271
+        ]
+      ],
+      "read_kind": "Actual typed submit fixture body read",
+      "occurrence_lines": [
+        94
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/mesh_query/tests.rs",
+      "sha256": "428dfdd9b144dadea94fd095a7e9ae29ccb4e81654aabda6d6f1749a47cd0d86",
+      "lines": 240,
+      "read_extent": [
+        [
+          1,
+          240
+        ]
+      ],
+      "read_kind": "Actual typed submit fixture body read",
+      "occurrence_lines": [
+        78,
+        116,
+        149,
+        179,
+        228
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/tests/concurrent_kernels.rs",
+      "sha256": "a88c245c53e9fdd84bbd5f1853961ceeb28e7948dbf0b754dfac755f71168e7d",
+      "lines": 130,
+      "read_extent": [
+        [
+          1,
+          130
+        ]
+      ],
+      "read_kind": "Actual typed submit fixture body read",
+      "occurrence_lines": [
+        73,
+        122,
+        126
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/collide.rs",
+      "sha256": "3230677fdc88ef49a756064f21ddd21594afe09f2ffc07e9f94ad380758e3634",
+      "lines": 175,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        172
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/solver.rs",
+      "sha256": "26843fef058260c13a94d5c3b8e197b25b9ae043c1327a02f2422dc6fbcb6d21",
+      "lines": 280,
+      "read_extent": [],
+      "read_kind": "Occurrence frontier only; actual receiver/type/body/failure policy remains unreviewed",
+      "occurrence_lines": [
+        216,
+        232
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "CORE-R1",
+      "priority": 2,
+      "classification": "Connected submission API/fixture migration gap",
+      "sources": {
+        "crates/fabelgeist-compute/tests/concurrent_kernels.rs": [
+          73,
+          122,
+          126
+        ],
+        "crates/fabelgeist-compute/src/mesh_query/tests.rs": [
+          78,
+          116,
+          149,
+          179,
+          228
+        ],
+        "crates/fabelgeist-compute/src/host_float/tests.rs": [
+          94
+        ]
+      },
+      "contract": "KernelBatch::submit returns the native submission Result. Existing result-bearing functions/worker contexts must handle it before readback/publication.",
+      "finding": "Nine existing fixture calls discard the returned Result. This loses the direct submission cause; the hosted workspace/all-target Clippy step denies warnings, including unused Results.",
+      "connected_repair": "Adapt these existing calls with their established ? or worker unwrap convention, preserving every scenario/helper/oracle/assertion byte. Complete the discovered external submission family separately before claiming whole-repository closure.",
+      "dependencies": [
+        "Root all13 pre-edit inventory",
+        "Actual protected native submit provider receipt; no shared-provider body edit"
+      ],
+      "acceptance": [
+        "All nine actual calls consume the Result",
+        "Same fixture population, inputs, output oracles and assertion invocations",
+        "Required hosted checks on final pushed revision, no local execution"
+      ]
+    },
+    {
+      "id": "CORE-R2",
+      "priority": 2,
+      "classification": "Connected canonical count/launch and clean constructor API gaps; independent mathematics excluded",
+      "sources": [
+        "crates/fabelgeist-compute/src/broadcast.rs:18,64",
+        "crates/fabelgeist-compute/src/reshape.rs:18,64",
+        "crates/fabelgeist-compute/src/transpose.rs:18,64",
+        "crates/fabelgeist-compute/src/matmul.rs:18,70"
+      ],
+      "contract": "Native f32-array counts and dispatch shape consume canonical count/stride/launch owners; constructors do not carry ignored source/context parameters.",
+      "finding": "All four immutable cached recipes still divide raw output bytes by four, cast unchecked to u32, and manually divide by64 for launches. Their constructors accept but ignore code and context. Cache identity itself correctly includes immutable source, real device and validation policy.",
+      "connected_repair": "Inventory a final canonical count/shape and constructor API for these actual cache consumers without adapters or guessed stride. Remove unused constructor arguments directly or otherwise choose the clean final unused API disposition. Preserve the current kernel numerical behavior unless separate functional work is authorized.",
+      "outside_functional_scope": "Broadcast/Reshape/Transpose are f32 copies and MatMul copies input_a while ignoring input_b. No actual in-repository callers or fixtures were found after reading named occurrences and export chains. This pre-existing placeholder mathematics does not authorize implementing new algorithms during this migration. It remains explicitly outside sorting/extraction functional scope, while connected owner/API gaps remain required.",
+      "dependencies": [
+        "Incoming canonical ResourcePipeline/native shape/count receipt",
+        "Actual constructor/caller and export closure before repair"
+      ],
+      "acceptance": [
+        "No unchecked byte-to-u32 count or repeated guessed workgroup calculation",
+        "No ignored native definition arguments/temporary forwarding APIs",
+        "No new algorithm, fixture, case, helper or assertion"
+      ]
+    },
+    {
+      "id": "CORE-R3",
+      "priority": 2,
+      "classification": "Connected Mesh cache-consumer launch/producer migration gap; broad geometry family open",
+      "sources": [
+        "crates/fabelgeist-mesh/src/gpu.rs:131,179,243,258"
+      ],
+      "contract": "Displacement dispatches grouped xyz vertices from packed native scalar storage; storage words, mesh vertices, bytes and launch groups are different quantities.",
+      "finding": "Displacement narrows byte length to u32 before dividing by12 and hard-codes64 groups; GpuMesh retains raw vertex_count separately. Canonical native array stride/count and Mesh vertex count owners are not propagated through this producer/consumer family.",
+      "connected_repair": "Trace packed-f32 source record count through the actual native declaration, derive the grouped vertex population with the owning Mesh count policy, and use canonical launch shape. Do not call12 a reflected WGSL array stride: the shader declares array<f32>, with three words per vertex. Finish actual producer/caller admission before changing retained vertex_count.",
+      "dependencies": [
+        "Complete independent GpuMesh geometry/displacement consumer inventory",
+        "Explicit shared native ownership agreement if needed"
+      ],
+      "acceptance": [
+        "No narrowing before record-count division",
+        "One source for admitted vertex population/actual packed prefix",
+        "Ordinary native arithmetic, output layout and all existing geometry scenarios preserved",
+        "Broader GpuMesh geometry frame/topology/finite/source validation not falsely cleared"
+      ]
+    },
+    {
+      "id": "CORE-C1",
+      "priority": 3,
+      "classification": "Confirmed signed-count versus unsigned-address comment mismatch",
+      "sources": [
+        "crates/fabelgeist-hair/src/gpu/lods/cards.rs:68",
+        "crates/fabelgeist-hair/src/gpu/wgsl/lod.rs:447,469,486,522"
+      ],
+      "contract": "CardWork admits u32 lock addresses; signed per-lock strand counts are below i32::MAX because lock stride is at least12 words.",
+      "finding": "The comment says the admitted address extent is below i32::MAX, but admission checks BufferElementCount checked_mul against u32. The threshold clamp is justified by the strand population per lock, not the unsigned address extent.",
+      "connected_repair": "Describe the bounded per-lock strand count and retain the exact threshold clamp/native instructions.",
+      "dependencies": [
+        "Root narrow all13 prose preinventory"
+      ],
+      "acceptance": [
+        "Doc differentiates signed counts from unsigned addresses",
+        "No CardWork/LOCKS numerical or test change"
+      ]
+    },
+    {
+      "id": "CORE-C2",
+      "priority": 3,
+      "classification": "Fixture helper coverage documentation overclaims supported configurations",
+      "sources": [
+        "crates/fabelgeist-compute/src/test_utils.rs:54,63,139"
+      ],
+      "contract": "get_formats supports scalar, Vec2 and Vec4 lane projections; unknown/custom/Vec3 cases receive no texture formats and still get the Buffer configuration.",
+      "finding": "run_compute_test says it iterates all compatible resource types, but the format table omits supported numeric Vec3 texture lanes and other source shapes. Its actual scope is the configurations selected by the fixture table.",
+      "connected_repair": "Narrow the existing runner comment to its actual selected table/configurations; preserve helper behavior and all existing oracles.",
+      "dependencies": [
+        "Root prose-only preinventory"
+      ],
+      "acceptance": [
+        "No universal compatible-resource coverage claim",
+        "No new test/helper/case/assertion or fixture behavior change"
+      ]
+    },
+    {
+      "id": "CORE-N1",
+      "priority": 2,
+      "classification": "Outer noise semantic producer boundary remains required",
+      "sources": [
+        "crates/fabelgeist-compute/src/perlin_noise.rs:9",
+        "crates/fabelgeist-compute/src/simplex_noise.rs:9",
+        "crates/fabelgeist-math/src/units.rs:17,60"
+      ],
+      "contract": "Both producers consume index/texel coordinates, transform to noise-lattice coordinates, iterate octave count, and multiply frequency/amplitude by dimensionless ratios. No RNG seed parameter exists.",
+      "finding": "The public producers carry raw octave, lacunarity/gain and Vec3 scale/offset with no frame/unit docs. Canonical Ratio exactly fits lacunarity and gain without adding bounds. BufferElementCount, InvocationCount, PerMetre and Seed do not describe octave iterations, texel-to-noise transforms or nearest-feature coordinates.",
+      "connected_repair": "Complete the final native numerical handoff contract: reuse Ratio through the actual parameter boundary, give octave iteration count its justified owner, and document the index/texel-to-noise scale/offset frame. If raw vectors are retained at this immediate mathematical/native boundary, record that actual role rather than inventing metre units. Preserve every native hash/permutation/coefficient instruction and accepted value, including zero octaves.",
+      "dependencies": [
+        "Root all13 noise preinventory before semantic edits",
+        "No downstream callers found; public library API and direct Map construction/export chain are actual scope"
+      ],
+      "acceptance": [
+        "Canonical matching owners consumed without arbitrary new clamp/finite policy",
+        "Frame/unit/reason for native coefficients explicit",
+        "Same generated Map parameter names/order/source and output formats",
+        "No new seed policy, random algorithm, fixture or assertion"
+      ]
+    }
+  ],
+  "bounded_scope_map": [
+    {
+      "family": "Reduce fixtures and numeric readback",
+      "status": "source scope closed; execution unperformed",
+      "sources": [
+        "crates/fabelgeist-compute/src/reduce/tests/mod.rs",
+        "crates/fabelgeist-compute/src/reduce/error.rs",
+        "crates/fabelgeist-compute/src/test_utils.rs"
+      ],
+      "contract": "Six existing numerical scenarios: f32 sum128, f32 min/max5, two-field Item custom minimum,10x10 texture minimum and numeric minimum. EmptyReductionResult owns missing projected host component.",
+      "limitations": "No existing zero/one/padded-vec3/reused-scratch/foreign-device/custom-whitespace scenario is authored here. run_compute_test initializes output from expected values; a no-op can preserve an expected output. No claim that passing current fixtures proves all writes/branches. No scenario/helper/oracle repair is authorized by this report."
+    },
+    {
+      "family": "Extraction catalog/front entry",
+      "status": "source catalog and actual named entry/export closure read; no existing extraction fixture found",
+      "sources": [
+        "crates/fabelgeist-compute/src/marching_cubes/tables.rs",
+        "crates/fabelgeist-compute/src/advancing_front.rs",
+        "crates/fabelgeist-compute/src/lib.rs"
+      ],
+      "contract": "EDGE_TABLE256, TRI_TABLE4096 in16-word cases with-1 sentinel and edge ordinals0..11, TRI_COUNT_TABLE256 word counts. The exact count table is uploaded by MC and also supplies host maximum for prefix admission; shared native writers/stride were read in the preceding current-source pass. AdvancingFront directly calls shared DualContouring in shortest-diagonal mode with one vertex budget projected to index slots.",
+      "limitations": "No new fixture is invented. Fixed catalog/source preservation is required; broad SAFT/geometry/finite-performance capability is not inferred. Three catalog arrays are one immutable authored protocol; no mutable competing producer found."
+    },
+    {
+      "family": "Noise/JFA actual outer callers",
+      "status": "named caller/export closure complete for current first-party source; native numerical/type contracts remain open as N1",
+      "sources": [
+        "crates/fabelgeist-compute/src/perlin_noise.rs",
+        "crates/fabelgeist-compute/src/simplex_noise.rs",
+        "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+        "crates/fabelgeist-compute/src/lib.rs",
+        "crates/fabelgeist-compute/src/prelude.rs"
+      ],
+      "contract": "Noise only has public definitions and direct reexports; no in-repository invoke found. JFA only has its two existing center-pixel/voxel tests. JFA reads mask>=0.5, stores feature coordinates in RG32/RGBA32, carries step as the native uniform, alternates temporary textures, and outputs distances in index/texel units. Its seed variables are nearest-feature coordinates/validity, not RNG seeds.",
+      "limitations": "Preserve fixed sentinel and validity values, float/integer conversion/step order, strict tie behavior and existing tolerances. Current tests do not cover arbitrary dimensions/multiple/tied/no features; no new cases are authorized. Texture-native/source/device numerical closure still belongs to its native owner."
+    },
+    {
+      "family": "Canonical count leaves in actual consumer state",
+      "status": "all named direct leaf occurrences classified; whole surrounding physical families remain open",
+      "sources": [
+        "crates/fabelgeist-hair/src/gpu/layout.rs",
+        "crates/fabelgeist-hair/src/strands/shape.rs",
+        "crates/fabelgeist-hair/src/cards/layout.rs",
+        "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+        "crates/fabelgeist-hair/src/gpu/lods/cards.rs",
+        "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+        "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+        "crates/fabelgeist-armor/src/material/tile.rs",
+        "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+        "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+        "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs"
+      ],
+      "contract": "Domain source counts stay separate from native binding floors, float/vec4 storage words, padded mip rows and invocation/workgroup/sort populations. Hair shape admission bounds strand*point; CardWork checks count*lock stride and+1 sentinel. Collision sole make_sim producer clamps points>=2 before subtraction, including empty population. Rod factors validate14 vec4 words/sample. Metal side32..1024 bounds square and checked word expansion. Creator fixed2048 chain checks total bytes/word projection and retains padded rows.",
+      "limitations": "Do not derive logical zero domain population from the floored native allocation extent. Do not infer geometry/normal/skin/source/device/physical/numerical health from cardinality checks. Generic Scratch fit actual device/source proof and surrounding Card/simulation/material/Grid/kernel families remain broader required work."
+    },
+    {
+      "family": "element_size removal and export/alias/macro closure",
+      "status": "current named consumer closure supports removal after actual canonical Reduce receipt and #826 agreement",
+      "sources": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+        "crates/fabelgeist-compute/src/test_utils.rs",
+        "crates/fabelgeist-compute/src/lib.rs",
+        "crates/fabelgeist-compute/src/prelude.rs",
+        "crates/fabelgeist-gpu/src/lib.rs",
+        "crates/fabelgeist-gpu/src/data/mod.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+        "crates/fabelgeist-gpu/src/prelude.rs"
+      ],
+      "contract": "element_size has no current named first-party consumer beyond self-recursive method branches. Its guessing implementation is distinct from component_count/base_type/as_str used by actual consumers. Compute exposes its algorithms through lib and prelude, with GPU glob imports pub(crate) only; GPU publicly reexports its own data/compute/buffer vocabulary. Existing Map/Stencil fixture macros call their admitted final signature helpers. Generic params! inserts via Into<PassParameter> at actual native binding boundary.",
+      "limitations": "Method removal is #826-owned and conditional on actual Root Reduce canonical receipt; do not restore a forwarding or guessing adapter. Whole macro-generated/unavailable external downstream code is not claimed audited. False-positive Stream/Map matches resolve to Hair RNG and serde_json imports, not generated APIs."
+    }
+  ],
+  "all13_extension": [
+    {
+      "sequence": 1,
+      "lens": "producer-propagation",
+      "source_contracts": [
+        {
+          "family": "Reduce fixtures and numeric readback",
+          "status": "source scope closed; execution unperformed",
+          "sources": [
+            "crates/fabelgeist-compute/src/reduce/tests/mod.rs",
+            "crates/fabelgeist-compute/src/reduce/error.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs"
+          ],
+          "contract": "Six existing numerical scenarios: f32 sum128, f32 min/max5, two-field Item custom minimum,10x10 texture minimum and numeric minimum. EmptyReductionResult owns missing projected host component.",
+          "limitations": "No existing zero/one/padded-vec3/reused-scratch/foreign-device/custom-whitespace scenario is authored here. run_compute_test initializes output from expected values; a no-op can preserve an expected output. No claim that passing current fixtures proves all writes/branches. No scenario/helper/oracle repair is authorized by this report."
+        },
+        {
+          "family": "Extraction catalog/front entry",
+          "status": "source catalog and actual named entry/export closure read; no existing extraction fixture found",
+          "sources": [
+            "crates/fabelgeist-compute/src/marching_cubes/tables.rs",
+            "crates/fabelgeist-compute/src/advancing_front.rs",
+            "crates/fabelgeist-compute/src/lib.rs"
+          ],
+          "contract": "EDGE_TABLE256, TRI_TABLE4096 in16-word cases with-1 sentinel and edge ordinals0..11, TRI_COUNT_TABLE256 word counts. The exact count table is uploaded by MC and also supplies host maximum for prefix admission; shared native writers/stride were read in the preceding current-source pass. AdvancingFront directly calls shared DualContouring in shortest-diagonal mode with one vertex budget projected to index slots.",
+          "limitations": "No new fixture is invented. Fixed catalog/source preservation is required; broad SAFT/geometry/finite-performance capability is not inferred. Three catalog arrays are one immutable authored protocol; no mutable competing producer found."
+        },
+        {
+          "family": "Noise/JFA actual outer callers",
+          "status": "named caller/export closure complete for current first-party source; native numerical/type contracts remain open as N1",
+          "sources": [
+            "crates/fabelgeist-compute/src/perlin_noise.rs",
+            "crates/fabelgeist-compute/src/simplex_noise.rs",
+            "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs"
+          ],
+          "contract": "Noise only has public definitions and direct reexports; no in-repository invoke found. JFA only has its two existing center-pixel/voxel tests. JFA reads mask>=0.5, stores feature coordinates in RG32/RGBA32, carries step as the native uniform, alternates temporary textures, and outputs distances in index/texel units. Its seed variables are nearest-feature coordinates/validity, not RNG seeds.",
+          "limitations": "Preserve fixed sentinel and validity values, float/integer conversion/step order, strict tie behavior and existing tolerances. Current tests do not cover arbitrary dimensions/multiple/tied/no features; no new cases are authorized. Texture-native/source/device numerical closure still belongs to its native owner."
+        },
+        {
+          "family": "Canonical count leaves in actual consumer state",
+          "status": "all named direct leaf occurrences classified; whole surrounding physical families remain open",
+          "sources": [
+            "crates/fabelgeist-hair/src/gpu/layout.rs",
+            "crates/fabelgeist-hair/src/strands/shape.rs",
+            "crates/fabelgeist-hair/src/cards/layout.rs",
+            "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+            "crates/fabelgeist-hair/src/gpu/lods/cards.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+            "crates/fabelgeist-armor/src/material/tile.rs",
+            "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs"
+          ],
+          "contract": "Domain source counts stay separate from native binding floors, float/vec4 storage words, padded mip rows and invocation/workgroup/sort populations. Hair shape admission bounds strand*point; CardWork checks count*lock stride and+1 sentinel. Collision sole make_sim producer clamps points>=2 before subtraction, including empty population. Rod factors validate14 vec4 words/sample. Metal side32..1024 bounds square and checked word expansion. Creator fixed2048 chain checks total bytes/word projection and retains padded rows.",
+          "limitations": "Do not derive logical zero domain population from the floored native allocation extent. Do not infer geometry/normal/skin/source/device/physical/numerical health from cardinality checks. Generic Scratch fit actual device/source proof and surrounding Card/simulation/material/Grid/kernel families remain broader required work."
+        },
+        {
+          "family": "element_size removal and export/alias/macro closure",
+          "status": "current named consumer closure supports removal after actual canonical Reduce receipt and #826 agreement",
+          "sources": [
+            "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs",
+            "crates/fabelgeist-gpu/src/lib.rs",
+            "crates/fabelgeist-gpu/src/data/mod.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+            "crates/fabelgeist-gpu/src/prelude.rs"
+          ],
+          "contract": "element_size has no current named first-party consumer beyond self-recursive method branches. Its guessing implementation is distinct from component_count/base_type/as_str used by actual consumers. Compute exposes its algorithms through lib and prelude, with GPU glob imports pub(crate) only; GPU publicly reexports its own data/compute/buffer vocabulary. Existing Map/Stencil fixture macros call their admitted final signature helpers. Generic params! inserts via Into<PassParameter> at actual native binding boundary.",
+          "limitations": "Method removal is #826-owned and conditional on actual Root Reduce canonical receipt; do not restore a forwarding or guessing adapter. Whole macro-generated/unavailable external downstream code is not claimed audited. False-positive Stream/Map matches resolve to Hair RNG and serde_json imports, not generated APIs."
+        }
+      ],
+      "disposition": "Direct signature/ResourcePipeline/BoundaryMode/cache/count uses and actual named constructors/callers are accounted; R1/R2/R3/N1 plus previous six MC/DC/module composition remain connected.",
+      "connected_repairs": [
+        "CORE-R1",
+        "CORE-R2",
+        "CORE-R3",
+        "CORE-C1",
+        "CORE-C2",
+        "CORE-N1"
+      ],
+      "dependencies": [
+        "Complete previous Root receiving findings and exact #826 generated/native receipts",
+        "Root full all13 preinventory before implementation",
+        "Fresh same-final-revision independent Code/Rule/Comment reviews and required hosted checks"
+      ],
+      "acceptance_criteria": "Trace source count/frame once through actual producer and every retained consumer; finish final API callers before integration.",
+      "status": "extension_inventory_complete_for_explicit_read_sources; broader_required_families_incomplete_not_clear"
+    },
+    {
+      "sequence": 2,
+      "lens": "existing-type-owners",
+      "source_contracts": [
+        {
+          "family": "Reduce fixtures and numeric readback",
+          "status": "source scope closed; execution unperformed",
+          "sources": [
+            "crates/fabelgeist-compute/src/reduce/tests/mod.rs",
+            "crates/fabelgeist-compute/src/reduce/error.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs"
+          ],
+          "contract": "Six existing numerical scenarios: f32 sum128, f32 min/max5, two-field Item custom minimum,10x10 texture minimum and numeric minimum. EmptyReductionResult owns missing projected host component.",
+          "limitations": "No existing zero/one/padded-vec3/reused-scratch/foreign-device/custom-whitespace scenario is authored here. run_compute_test initializes output from expected values; a no-op can preserve an expected output. No claim that passing current fixtures proves all writes/branches. No scenario/helper/oracle repair is authorized by this report."
+        },
+        {
+          "family": "Extraction catalog/front entry",
+          "status": "source catalog and actual named entry/export closure read; no existing extraction fixture found",
+          "sources": [
+            "crates/fabelgeist-compute/src/marching_cubes/tables.rs",
+            "crates/fabelgeist-compute/src/advancing_front.rs",
+            "crates/fabelgeist-compute/src/lib.rs"
+          ],
+          "contract": "EDGE_TABLE256, TRI_TABLE4096 in16-word cases with-1 sentinel and edge ordinals0..11, TRI_COUNT_TABLE256 word counts. The exact count table is uploaded by MC and also supplies host maximum for prefix admission; shared native writers/stride were read in the preceding current-source pass. AdvancingFront directly calls shared DualContouring in shortest-diagonal mode with one vertex budget projected to index slots.",
+          "limitations": "No new fixture is invented. Fixed catalog/source preservation is required; broad SAFT/geometry/finite-performance capability is not inferred. Three catalog arrays are one immutable authored protocol; no mutable competing producer found."
+        },
+        {
+          "family": "Noise/JFA actual outer callers",
+          "status": "named caller/export closure complete for current first-party source; native numerical/type contracts remain open as N1",
+          "sources": [
+            "crates/fabelgeist-compute/src/perlin_noise.rs",
+            "crates/fabelgeist-compute/src/simplex_noise.rs",
+            "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs"
+          ],
+          "contract": "Noise only has public definitions and direct reexports; no in-repository invoke found. JFA only has its two existing center-pixel/voxel tests. JFA reads mask>=0.5, stores feature coordinates in RG32/RGBA32, carries step as the native uniform, alternates temporary textures, and outputs distances in index/texel units. Its seed variables are nearest-feature coordinates/validity, not RNG seeds.",
+          "limitations": "Preserve fixed sentinel and validity values, float/integer conversion/step order, strict tie behavior and existing tolerances. Current tests do not cover arbitrary dimensions/multiple/tied/no features; no new cases are authorized. Texture-native/source/device numerical closure still belongs to its native owner."
+        },
+        {
+          "family": "Canonical count leaves in actual consumer state",
+          "status": "all named direct leaf occurrences classified; whole surrounding physical families remain open",
+          "sources": [
+            "crates/fabelgeist-hair/src/gpu/layout.rs",
+            "crates/fabelgeist-hair/src/strands/shape.rs",
+            "crates/fabelgeist-hair/src/cards/layout.rs",
+            "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+            "crates/fabelgeist-hair/src/gpu/lods/cards.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+            "crates/fabelgeist-armor/src/material/tile.rs",
+            "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs"
+          ],
+          "contract": "Domain source counts stay separate from native binding floors, float/vec4 storage words, padded mip rows and invocation/workgroup/sort populations. Hair shape admission bounds strand*point; CardWork checks count*lock stride and+1 sentinel. Collision sole make_sim producer clamps points>=2 before subtraction, including empty population. Rod factors validate14 vec4 words/sample. Metal side32..1024 bounds square and checked word expansion. Creator fixed2048 chain checks total bytes/word projection and retains padded rows.",
+          "limitations": "Do not derive logical zero domain population from the floored native allocation extent. Do not infer geometry/normal/skin/source/device/physical/numerical health from cardinality checks. Generic Scratch fit actual device/source proof and surrounding Card/simulation/material/Grid/kernel families remain broader required work."
+        },
+        {
+          "family": "element_size removal and export/alias/macro closure",
+          "status": "current named consumer closure supports removal after actual canonical Reduce receipt and #826 agreement",
+          "sources": [
+            "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs",
+            "crates/fabelgeist-gpu/src/lib.rs",
+            "crates/fabelgeist-gpu/src/data/mod.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+            "crates/fabelgeist-gpu/src/prelude.rs"
+          ],
+          "contract": "element_size has no current named first-party consumer beyond self-recursive method branches. Its guessing implementation is distinct from component_count/base_type/as_str used by actual consumers. Compute exposes its algorithms through lib and prelude, with GPU glob imports pub(crate) only; GPU publicly reexports its own data/compute/buffer vocabulary. Existing Map/Stencil fixture macros call their admitted final signature helpers. Generic params! inserts via Into<PassParameter> at actual native binding boundary.",
+          "limitations": "Method removal is #826-owned and conditional on actual Root Reduce canonical receipt; do not restore a forwarding or guessing adapter. Whole macro-generated/unavailable external downstream code is not claimed audited. False-positive Stream/Map matches resolve to Hair RNG and serde_json imports, not generated APIs."
+        }
+      ],
+      "disposition": "Ratio fits noise gain/lacunarity; canonical count/stride/WorkgroupShape owners fit byte/launch calculations. Storage words are not vertex/strand/octave/RNG counts.",
+      "connected_repairs": [
+        "CORE-R1",
+        "CORE-R2",
+        "CORE-R3",
+        "CORE-C1",
+        "CORE-C2",
+        "CORE-N1"
+      ],
+      "dependencies": [
+        "Complete previous Root receiving findings and exact #826 generated/native receipts",
+        "Root full all13 preinventory before implementation",
+        "Fresh same-final-revision independent Code/Rule/Comment reviews and required hosted checks"
+      ],
+      "acceptance_criteria": "Reuse exact owners, preserve named semantic roles and true native projections; no borrowed wrong-unit wrappers.",
+      "status": "extension_inventory_complete_for_explicit_read_sources; broader_required_families_incomplete_not_clear"
+    },
+    {
+      "sequence": 3,
+      "lens": "admission-contracts",
+      "source_contracts": [
+        {
+          "family": "Reduce fixtures and numeric readback",
+          "status": "source scope closed; execution unperformed",
+          "sources": [
+            "crates/fabelgeist-compute/src/reduce/tests/mod.rs",
+            "crates/fabelgeist-compute/src/reduce/error.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs"
+          ],
+          "contract": "Six existing numerical scenarios: f32 sum128, f32 min/max5, two-field Item custom minimum,10x10 texture minimum and numeric minimum. EmptyReductionResult owns missing projected host component.",
+          "limitations": "No existing zero/one/padded-vec3/reused-scratch/foreign-device/custom-whitespace scenario is authored here. run_compute_test initializes output from expected values; a no-op can preserve an expected output. No claim that passing current fixtures proves all writes/branches. No scenario/helper/oracle repair is authorized by this report."
+        },
+        {
+          "family": "Extraction catalog/front entry",
+          "status": "source catalog and actual named entry/export closure read; no existing extraction fixture found",
+          "sources": [
+            "crates/fabelgeist-compute/src/marching_cubes/tables.rs",
+            "crates/fabelgeist-compute/src/advancing_front.rs",
+            "crates/fabelgeist-compute/src/lib.rs"
+          ],
+          "contract": "EDGE_TABLE256, TRI_TABLE4096 in16-word cases with-1 sentinel and edge ordinals0..11, TRI_COUNT_TABLE256 word counts. The exact count table is uploaded by MC and also supplies host maximum for prefix admission; shared native writers/stride were read in the preceding current-source pass. AdvancingFront directly calls shared DualContouring in shortest-diagonal mode with one vertex budget projected to index slots.",
+          "limitations": "No new fixture is invented. Fixed catalog/source preservation is required; broad SAFT/geometry/finite-performance capability is not inferred. Three catalog arrays are one immutable authored protocol; no mutable competing producer found."
+        },
+        {
+          "family": "Noise/JFA actual outer callers",
+          "status": "named caller/export closure complete for current first-party source; native numerical/type contracts remain open as N1",
+          "sources": [
+            "crates/fabelgeist-compute/src/perlin_noise.rs",
+            "crates/fabelgeist-compute/src/simplex_noise.rs",
+            "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs"
+          ],
+          "contract": "Noise only has public definitions and direct reexports; no in-repository invoke found. JFA only has its two existing center-pixel/voxel tests. JFA reads mask>=0.5, stores feature coordinates in RG32/RGBA32, carries step as the native uniform, alternates temporary textures, and outputs distances in index/texel units. Its seed variables are nearest-feature coordinates/validity, not RNG seeds.",
+          "limitations": "Preserve fixed sentinel and validity values, float/integer conversion/step order, strict tie behavior and existing tolerances. Current tests do not cover arbitrary dimensions/multiple/tied/no features; no new cases are authorized. Texture-native/source/device numerical closure still belongs to its native owner."
+        },
+        {
+          "family": "Canonical count leaves in actual consumer state",
+          "status": "all named direct leaf occurrences classified; whole surrounding physical families remain open",
+          "sources": [
+            "crates/fabelgeist-hair/src/gpu/layout.rs",
+            "crates/fabelgeist-hair/src/strands/shape.rs",
+            "crates/fabelgeist-hair/src/cards/layout.rs",
+            "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+            "crates/fabelgeist-hair/src/gpu/lods/cards.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+            "crates/fabelgeist-armor/src/material/tile.rs",
+            "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs"
+          ],
+          "contract": "Domain source counts stay separate from native binding floors, float/vec4 storage words, padded mip rows and invocation/workgroup/sort populations. Hair shape admission bounds strand*point; CardWork checks count*lock stride and+1 sentinel. Collision sole make_sim producer clamps points>=2 before subtraction, including empty population. Rod factors validate14 vec4 words/sample. Metal side32..1024 bounds square and checked word expansion. Creator fixed2048 chain checks total bytes/word projection and retains padded rows.",
+          "limitations": "Do not derive logical zero domain population from the floored native allocation extent. Do not infer geometry/normal/skin/source/device/physical/numerical health from cardinality checks. Generic Scratch fit actual device/source proof and surrounding Card/simulation/material/Grid/kernel families remain broader required work."
+        },
+        {
+          "family": "element_size removal and export/alias/macro closure",
+          "status": "current named consumer closure supports removal after actual canonical Reduce receipt and #826 agreement",
+          "sources": [
+            "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs",
+            "crates/fabelgeist-gpu/src/lib.rs",
+            "crates/fabelgeist-gpu/src/data/mod.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+            "crates/fabelgeist-gpu/src/prelude.rs"
+          ],
+          "contract": "element_size has no current named first-party consumer beyond self-recursive method branches. Its guessing implementation is distinct from component_count/base_type/as_str used by actual consumers. Compute exposes its algorithms through lib and prelude, with GPU glob imports pub(crate) only; GPU publicly reexports its own data/compute/buffer vocabulary. Existing Map/Stencil fixture macros call their admitted final signature helpers. Generic params! inserts via Into<PassParameter> at actual native binding boundary.",
+          "limitations": "Method removal is #826-owned and conditional on actual Root Reduce canonical receipt; do not restore a forwarding or guessing adapter. Whole macro-generated/unavailable external downstream code is not claimed audited. False-positive Stream/Map matches resolve to Hair RNG and serde_json imports, not generated APIs."
+        }
+      ],
+      "disposition": "Leaf consumers trace checked StrandShape/StrandLayout/Card/Metal/mip admissions. Empty points candidate is closed by the sole >=2 producer proof. R2/R3 unchecked byte casts remain actual owner gaps.",
+      "connected_repairs": [
+        "CORE-R1",
+        "CORE-R2",
+        "CORE-R3",
+        "CORE-C1",
+        "CORE-C2",
+        "CORE-N1"
+      ],
+      "dependencies": [
+        "Complete previous Root receiving findings and exact #826 generated/native receipts",
+        "Root full all13 preinventory before implementation",
+        "Fresh same-final-revision independent Code/Rule/Comment reviews and required hosted checks"
+      ],
+      "acceptance_criteria": "Every current valid-zero, host/native-width and fallible shape path reaches correct admission without a compatibility path or arbitrary new bound.",
+      "status": "extension_inventory_complete_for_explicit_read_sources; broader_required_families_incomplete_not_clear"
+    },
+    {
+      "sequence": 4,
+      "lens": "invariant-operations",
+      "source_contracts": [
+        {
+          "family": "Reduce fixtures and numeric readback",
+          "status": "source scope closed; execution unperformed",
+          "sources": [
+            "crates/fabelgeist-compute/src/reduce/tests/mod.rs",
+            "crates/fabelgeist-compute/src/reduce/error.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs"
+          ],
+          "contract": "Six existing numerical scenarios: f32 sum128, f32 min/max5, two-field Item custom minimum,10x10 texture minimum and numeric minimum. EmptyReductionResult owns missing projected host component.",
+          "limitations": "No existing zero/one/padded-vec3/reused-scratch/foreign-device/custom-whitespace scenario is authored here. run_compute_test initializes output from expected values; a no-op can preserve an expected output. No claim that passing current fixtures proves all writes/branches. No scenario/helper/oracle repair is authorized by this report."
+        },
+        {
+          "family": "Extraction catalog/front entry",
+          "status": "source catalog and actual named entry/export closure read; no existing extraction fixture found",
+          "sources": [
+            "crates/fabelgeist-compute/src/marching_cubes/tables.rs",
+            "crates/fabelgeist-compute/src/advancing_front.rs",
+            "crates/fabelgeist-compute/src/lib.rs"
+          ],
+          "contract": "EDGE_TABLE256, TRI_TABLE4096 in16-word cases with-1 sentinel and edge ordinals0..11, TRI_COUNT_TABLE256 word counts. The exact count table is uploaded by MC and also supplies host maximum for prefix admission; shared native writers/stride were read in the preceding current-source pass. AdvancingFront directly calls shared DualContouring in shortest-diagonal mode with one vertex budget projected to index slots.",
+          "limitations": "No new fixture is invented. Fixed catalog/source preservation is required; broad SAFT/geometry/finite-performance capability is not inferred. Three catalog arrays are one immutable authored protocol; no mutable competing producer found."
+        },
+        {
+          "family": "Noise/JFA actual outer callers",
+          "status": "named caller/export closure complete for current first-party source; native numerical/type contracts remain open as N1",
+          "sources": [
+            "crates/fabelgeist-compute/src/perlin_noise.rs",
+            "crates/fabelgeist-compute/src/simplex_noise.rs",
+            "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs"
+          ],
+          "contract": "Noise only has public definitions and direct reexports; no in-repository invoke found. JFA only has its two existing center-pixel/voxel tests. JFA reads mask>=0.5, stores feature coordinates in RG32/RGBA32, carries step as the native uniform, alternates temporary textures, and outputs distances in index/texel units. Its seed variables are nearest-feature coordinates/validity, not RNG seeds.",
+          "limitations": "Preserve fixed sentinel and validity values, float/integer conversion/step order, strict tie behavior and existing tolerances. Current tests do not cover arbitrary dimensions/multiple/tied/no features; no new cases are authorized. Texture-native/source/device numerical closure still belongs to its native owner."
+        },
+        {
+          "family": "Canonical count leaves in actual consumer state",
+          "status": "all named direct leaf occurrences classified; whole surrounding physical families remain open",
+          "sources": [
+            "crates/fabelgeist-hair/src/gpu/layout.rs",
+            "crates/fabelgeist-hair/src/strands/shape.rs",
+            "crates/fabelgeist-hair/src/cards/layout.rs",
+            "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+            "crates/fabelgeist-hair/src/gpu/lods/cards.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+            "crates/fabelgeist-armor/src/material/tile.rs",
+            "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs"
+          ],
+          "contract": "Domain source counts stay separate from native binding floors, float/vec4 storage words, padded mip rows and invocation/workgroup/sort populations. Hair shape admission bounds strand*point; CardWork checks count*lock stride and+1 sentinel. Collision sole make_sim producer clamps points>=2 before subtraction, including empty population. Rod factors validate14 vec4 words/sample. Metal side32..1024 bounds square and checked word expansion. Creator fixed2048 chain checks total bytes/word projection and retains padded rows.",
+          "limitations": "Do not derive logical zero domain population from the floored native allocation extent. Do not infer geometry/normal/skin/source/device/physical/numerical health from cardinality checks. Generic Scratch fit actual device/source proof and surrounding Card/simulation/material/Grid/kernel families remain broader required work."
+        },
+        {
+          "family": "element_size removal and export/alias/macro closure",
+          "status": "current named consumer closure supports removal after actual canonical Reduce receipt and #826 agreement",
+          "sources": [
+            "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs",
+            "crates/fabelgeist-gpu/src/lib.rs",
+            "crates/fabelgeist-gpu/src/data/mod.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+            "crates/fabelgeist-gpu/src/prelude.rs"
+          ],
+          "contract": "element_size has no current named first-party consumer beyond self-recursive method branches. Its guessing implementation is distinct from component_count/base_type/as_str used by actual consumers. Compute exposes its algorithms through lib and prelude, with GPU glob imports pub(crate) only; GPU publicly reexports its own data/compute/buffer vocabulary. Existing Map/Stencil fixture macros call their admitted final signature helpers. Generic params! inserts via Into<PassParameter> at actual native binding boundary.",
+          "limitations": "Method removal is #826-owned and conditional on actual Root Reduce canonical receipt; do not restore a forwarding or guessing adapter. Whole macro-generated/unavailable external downstream code is not claimed audited. False-positive Stream/Map matches resolve to Hair RNG and serde_json imports, not generated APIs."
+        }
+      ],
+      "disposition": "Hair count expansion products are bounded by actual admitted shapes/checked_mul; mip/tile fixed bounds retain safe products. R2/R3 casts and unconsumed submit Results remain.",
+      "connected_repairs": [
+        "CORE-R1",
+        "CORE-R2",
+        "CORE-R3",
+        "CORE-C1",
+        "CORE-C2",
+        "CORE-N1"
+      ],
+      "dependencies": [
+        "Complete previous Root receiving findings and exact #826 generated/native receipts",
+        "Root full all13 preinventory before implementation",
+        "Fresh same-final-revision independent Code/Rule/Comment reviews and required hosted checks"
+      ],
+      "acceptance_criteria": "Keep arithmetic/order/value domains; canonical checked quotient/launch projections and no premature publication after failed submission.",
+      "status": "extension_inventory_complete_for_explicit_read_sources; broader_required_families_incomplete_not_clear"
+    },
+    {
+      "sequence": 5,
+      "lens": "aggregate-states",
+      "source_contracts": [
+        {
+          "family": "Reduce fixtures and numeric readback",
+          "status": "source scope closed; execution unperformed",
+          "sources": [
+            "crates/fabelgeist-compute/src/reduce/tests/mod.rs",
+            "crates/fabelgeist-compute/src/reduce/error.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs"
+          ],
+          "contract": "Six existing numerical scenarios: f32 sum128, f32 min/max5, two-field Item custom minimum,10x10 texture minimum and numeric minimum. EmptyReductionResult owns missing projected host component.",
+          "limitations": "No existing zero/one/padded-vec3/reused-scratch/foreign-device/custom-whitespace scenario is authored here. run_compute_test initializes output from expected values; a no-op can preserve an expected output. No claim that passing current fixtures proves all writes/branches. No scenario/helper/oracle repair is authorized by this report."
+        },
+        {
+          "family": "Extraction catalog/front entry",
+          "status": "source catalog and actual named entry/export closure read; no existing extraction fixture found",
+          "sources": [
+            "crates/fabelgeist-compute/src/marching_cubes/tables.rs",
+            "crates/fabelgeist-compute/src/advancing_front.rs",
+            "crates/fabelgeist-compute/src/lib.rs"
+          ],
+          "contract": "EDGE_TABLE256, TRI_TABLE4096 in16-word cases with-1 sentinel and edge ordinals0..11, TRI_COUNT_TABLE256 word counts. The exact count table is uploaded by MC and also supplies host maximum for prefix admission; shared native writers/stride were read in the preceding current-source pass. AdvancingFront directly calls shared DualContouring in shortest-diagonal mode with one vertex budget projected to index slots.",
+          "limitations": "No new fixture is invented. Fixed catalog/source preservation is required; broad SAFT/geometry/finite-performance capability is not inferred. Three catalog arrays are one immutable authored protocol; no mutable competing producer found."
+        },
+        {
+          "family": "Noise/JFA actual outer callers",
+          "status": "named caller/export closure complete for current first-party source; native numerical/type contracts remain open as N1",
+          "sources": [
+            "crates/fabelgeist-compute/src/perlin_noise.rs",
+            "crates/fabelgeist-compute/src/simplex_noise.rs",
+            "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs"
+          ],
+          "contract": "Noise only has public definitions and direct reexports; no in-repository invoke found. JFA only has its two existing center-pixel/voxel tests. JFA reads mask>=0.5, stores feature coordinates in RG32/RGBA32, carries step as the native uniform, alternates temporary textures, and outputs distances in index/texel units. Its seed variables are nearest-feature coordinates/validity, not RNG seeds.",
+          "limitations": "Preserve fixed sentinel and validity values, float/integer conversion/step order, strict tie behavior and existing tolerances. Current tests do not cover arbitrary dimensions/multiple/tied/no features; no new cases are authorized. Texture-native/source/device numerical closure still belongs to its native owner."
+        },
+        {
+          "family": "Canonical count leaves in actual consumer state",
+          "status": "all named direct leaf occurrences classified; whole surrounding physical families remain open",
+          "sources": [
+            "crates/fabelgeist-hair/src/gpu/layout.rs",
+            "crates/fabelgeist-hair/src/strands/shape.rs",
+            "crates/fabelgeist-hair/src/cards/layout.rs",
+            "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+            "crates/fabelgeist-hair/src/gpu/lods/cards.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+            "crates/fabelgeist-armor/src/material/tile.rs",
+            "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs"
+          ],
+          "contract": "Domain source counts stay separate from native binding floors, float/vec4 storage words, padded mip rows and invocation/workgroup/sort populations. Hair shape admission bounds strand*point; CardWork checks count*lock stride and+1 sentinel. Collision sole make_sim producer clamps points>=2 before subtraction, including empty population. Rod factors validate14 vec4 words/sample. Metal side32..1024 bounds square and checked word expansion. Creator fixed2048 chain checks total bytes/word projection and retains padded rows.",
+          "limitations": "Do not derive logical zero domain population from the floored native allocation extent. Do not infer geometry/normal/skin/source/device/physical/numerical health from cardinality checks. Generic Scratch fit actual device/source proof and surrounding Card/simulation/material/Grid/kernel families remain broader required work."
+        },
+        {
+          "family": "element_size removal and export/alias/macro closure",
+          "status": "current named consumer closure supports removal after actual canonical Reduce receipt and #826 agreement",
+          "sources": [
+            "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs",
+            "crates/fabelgeist-gpu/src/lib.rs",
+            "crates/fabelgeist-gpu/src/data/mod.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+            "crates/fabelgeist-gpu/src/prelude.rs"
+          ],
+          "contract": "element_size has no current named first-party consumer beyond self-recursive method branches. Its guessing implementation is distinct from component_count/base_type/as_str used by actual consumers. Compute exposes its algorithms through lib and prelude, with GPU glob imports pub(crate) only; GPU publicly reexports its own data/compute/buffer vocabulary. Existing Map/Stencil fixture macros call their admitted final signature helpers. Generic params! inserts via Into<PassParameter> at actual native binding boundary.",
+          "limitations": "Method removal is #826-owned and conditional on actual Root Reduce canonical receipt; do not restore a forwarding or guessing adapter. Whole macro-generated/unavailable external downstream code is not claimed audited. False-positive Stream/Map matches resolve to Hair RNG and serde_json imports, not generated APIs."
+        }
+      ],
+      "disposition": "Count/native floor separation is explicit; current consumer records group buffers for admitted shape. Existing fixture output seeding limits evidence. Mesh retained vertex_count versus positions remains open.",
+      "connected_repairs": [
+        "CORE-R1",
+        "CORE-R2",
+        "CORE-R3",
+        "CORE-C1",
+        "CORE-C2",
+        "CORE-N1"
+      ],
+      "dependencies": [
+        "Complete previous Root receiving findings and exact #826 generated/native receipts",
+        "Root full all13 preinventory before implementation",
+        "Fresh same-final-revision independent Code/Rule/Comment reviews and required hosted checks"
+      ],
+      "acceptance_criteria": "One source for population/extent/device where actually required; complete surrounding state contracts before whole-family verdict.",
+      "status": "extension_inventory_complete_for_explicit_read_sources; broader_required_families_incomplete_not_clear"
+    },
+    {
+      "sequence": 6,
+      "lens": "enum-shapes",
+      "source_contracts": [
+        {
+          "family": "Reduce fixtures and numeric readback",
+          "status": "source scope closed; execution unperformed",
+          "sources": [
+            "crates/fabelgeist-compute/src/reduce/tests/mod.rs",
+            "crates/fabelgeist-compute/src/reduce/error.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs"
+          ],
+          "contract": "Six existing numerical scenarios: f32 sum128, f32 min/max5, two-field Item custom minimum,10x10 texture minimum and numeric minimum. EmptyReductionResult owns missing projected host component.",
+          "limitations": "No existing zero/one/padded-vec3/reused-scratch/foreign-device/custom-whitespace scenario is authored here. run_compute_test initializes output from expected values; a no-op can preserve an expected output. No claim that passing current fixtures proves all writes/branches. No scenario/helper/oracle repair is authorized by this report."
+        },
+        {
+          "family": "Extraction catalog/front entry",
+          "status": "source catalog and actual named entry/export closure read; no existing extraction fixture found",
+          "sources": [
+            "crates/fabelgeist-compute/src/marching_cubes/tables.rs",
+            "crates/fabelgeist-compute/src/advancing_front.rs",
+            "crates/fabelgeist-compute/src/lib.rs"
+          ],
+          "contract": "EDGE_TABLE256, TRI_TABLE4096 in16-word cases with-1 sentinel and edge ordinals0..11, TRI_COUNT_TABLE256 word counts. The exact count table is uploaded by MC and also supplies host maximum for prefix admission; shared native writers/stride were read in the preceding current-source pass. AdvancingFront directly calls shared DualContouring in shortest-diagonal mode with one vertex budget projected to index slots.",
+          "limitations": "No new fixture is invented. Fixed catalog/source preservation is required; broad SAFT/geometry/finite-performance capability is not inferred. Three catalog arrays are one immutable authored protocol; no mutable competing producer found."
+        },
+        {
+          "family": "Noise/JFA actual outer callers",
+          "status": "named caller/export closure complete for current first-party source; native numerical/type contracts remain open as N1",
+          "sources": [
+            "crates/fabelgeist-compute/src/perlin_noise.rs",
+            "crates/fabelgeist-compute/src/simplex_noise.rs",
+            "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs"
+          ],
+          "contract": "Noise only has public definitions and direct reexports; no in-repository invoke found. JFA only has its two existing center-pixel/voxel tests. JFA reads mask>=0.5, stores feature coordinates in RG32/RGBA32, carries step as the native uniform, alternates temporary textures, and outputs distances in index/texel units. Its seed variables are nearest-feature coordinates/validity, not RNG seeds.",
+          "limitations": "Preserve fixed sentinel and validity values, float/integer conversion/step order, strict tie behavior and existing tolerances. Current tests do not cover arbitrary dimensions/multiple/tied/no features; no new cases are authorized. Texture-native/source/device numerical closure still belongs to its native owner."
+        },
+        {
+          "family": "Canonical count leaves in actual consumer state",
+          "status": "all named direct leaf occurrences classified; whole surrounding physical families remain open",
+          "sources": [
+            "crates/fabelgeist-hair/src/gpu/layout.rs",
+            "crates/fabelgeist-hair/src/strands/shape.rs",
+            "crates/fabelgeist-hair/src/cards/layout.rs",
+            "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+            "crates/fabelgeist-hair/src/gpu/lods/cards.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+            "crates/fabelgeist-armor/src/material/tile.rs",
+            "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs"
+          ],
+          "contract": "Domain source counts stay separate from native binding floors, float/vec4 storage words, padded mip rows and invocation/workgroup/sort populations. Hair shape admission bounds strand*point; CardWork checks count*lock stride and+1 sentinel. Collision sole make_sim producer clamps points>=2 before subtraction, including empty population. Rod factors validate14 vec4 words/sample. Metal side32..1024 bounds square and checked word expansion. Creator fixed2048 chain checks total bytes/word projection and retains padded rows.",
+          "limitations": "Do not derive logical zero domain population from the floored native allocation extent. Do not infer geometry/normal/skin/source/device/physical/numerical health from cardinality checks. Generic Scratch fit actual device/source proof and surrounding Card/simulation/material/Grid/kernel families remain broader required work."
+        },
+        {
+          "family": "element_size removal and export/alias/macro closure",
+          "status": "current named consumer closure supports removal after actual canonical Reduce receipt and #826 agreement",
+          "sources": [
+            "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs",
+            "crates/fabelgeist-gpu/src/lib.rs",
+            "crates/fabelgeist-gpu/src/data/mod.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+            "crates/fabelgeist-gpu/src/prelude.rs"
+          ],
+          "contract": "element_size has no current named first-party consumer beyond self-recursive method branches. Its guessing implementation is distinct from component_count/base_type/as_str used by actual consumers. Compute exposes its algorithms through lib and prelude, with GPU glob imports pub(crate) only; GPU publicly reexports its own data/compute/buffer vocabulary. Existing Map/Stencil fixture macros call their admitted final signature helpers. Generic params! inserts via Into<PassParameter> at actual native binding boundary.",
+          "limitations": "Method removal is #826-owned and conditional on actual Root Reduce canonical receipt; do not restore a forwarding or guessing adapter. Whole macro-generated/unavailable external downstream code is not claimed audited. False-positive Stream/Map matches resolve to Hair RNG and serde_json imports, not generated APIs."
+        }
+      ],
+      "disposition": "JFA ping and ResourceType predicates are local control, while feature-coordinate validity is a native ABI. No RNG Seed owner fits feature seeds. Named source/error roles remain typed.",
+      "connected_repairs": [
+        "CORE-R1",
+        "CORE-R2",
+        "CORE-R3",
+        "CORE-C1",
+        "CORE-C2",
+        "CORE-N1"
+      ],
+      "dependencies": [
+        "Complete previous Root receiving findings and exact #826 generated/native receipts",
+        "Root full all13 preinventory before implementation",
+        "Fresh same-final-revision independent Code/Rule/Comment reviews and required hosted checks"
+      ],
+      "acceptance_criteria": "No carried semantic bool authority or enum payload mismatch; retain actual native validity and independent axes.",
+      "status": "extension_inventory_complete_for_explicit_read_sources; broader_required_families_incomplete_not_clear"
+    },
+    {
+      "sequence": 7,
+      "lens": "redundant-authority",
+      "source_contracts": [
+        {
+          "family": "Reduce fixtures and numeric readback",
+          "status": "source scope closed; execution unperformed",
+          "sources": [
+            "crates/fabelgeist-compute/src/reduce/tests/mod.rs",
+            "crates/fabelgeist-compute/src/reduce/error.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs"
+          ],
+          "contract": "Six existing numerical scenarios: f32 sum128, f32 min/max5, two-field Item custom minimum,10x10 texture minimum and numeric minimum. EmptyReductionResult owns missing projected host component.",
+          "limitations": "No existing zero/one/padded-vec3/reused-scratch/foreign-device/custom-whitespace scenario is authored here. run_compute_test initializes output from expected values; a no-op can preserve an expected output. No claim that passing current fixtures proves all writes/branches. No scenario/helper/oracle repair is authorized by this report."
+        },
+        {
+          "family": "Extraction catalog/front entry",
+          "status": "source catalog and actual named entry/export closure read; no existing extraction fixture found",
+          "sources": [
+            "crates/fabelgeist-compute/src/marching_cubes/tables.rs",
+            "crates/fabelgeist-compute/src/advancing_front.rs",
+            "crates/fabelgeist-compute/src/lib.rs"
+          ],
+          "contract": "EDGE_TABLE256, TRI_TABLE4096 in16-word cases with-1 sentinel and edge ordinals0..11, TRI_COUNT_TABLE256 word counts. The exact count table is uploaded by MC and also supplies host maximum for prefix admission; shared native writers/stride were read in the preceding current-source pass. AdvancingFront directly calls shared DualContouring in shortest-diagonal mode with one vertex budget projected to index slots.",
+          "limitations": "No new fixture is invented. Fixed catalog/source preservation is required; broad SAFT/geometry/finite-performance capability is not inferred. Three catalog arrays are one immutable authored protocol; no mutable competing producer found."
+        },
+        {
+          "family": "Noise/JFA actual outer callers",
+          "status": "named caller/export closure complete for current first-party source; native numerical/type contracts remain open as N1",
+          "sources": [
+            "crates/fabelgeist-compute/src/perlin_noise.rs",
+            "crates/fabelgeist-compute/src/simplex_noise.rs",
+            "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs"
+          ],
+          "contract": "Noise only has public definitions and direct reexports; no in-repository invoke found. JFA only has its two existing center-pixel/voxel tests. JFA reads mask>=0.5, stores feature coordinates in RG32/RGBA32, carries step as the native uniform, alternates temporary textures, and outputs distances in index/texel units. Its seed variables are nearest-feature coordinates/validity, not RNG seeds.",
+          "limitations": "Preserve fixed sentinel and validity values, float/integer conversion/step order, strict tie behavior and existing tolerances. Current tests do not cover arbitrary dimensions/multiple/tied/no features; no new cases are authorized. Texture-native/source/device numerical closure still belongs to its native owner."
+        },
+        {
+          "family": "Canonical count leaves in actual consumer state",
+          "status": "all named direct leaf occurrences classified; whole surrounding physical families remain open",
+          "sources": [
+            "crates/fabelgeist-hair/src/gpu/layout.rs",
+            "crates/fabelgeist-hair/src/strands/shape.rs",
+            "crates/fabelgeist-hair/src/cards/layout.rs",
+            "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+            "crates/fabelgeist-hair/src/gpu/lods/cards.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+            "crates/fabelgeist-armor/src/material/tile.rs",
+            "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs"
+          ],
+          "contract": "Domain source counts stay separate from native binding floors, float/vec4 storage words, padded mip rows and invocation/workgroup/sort populations. Hair shape admission bounds strand*point; CardWork checks count*lock stride and+1 sentinel. Collision sole make_sim producer clamps points>=2 before subtraction, including empty population. Rod factors validate14 vec4 words/sample. Metal side32..1024 bounds square and checked word expansion. Creator fixed2048 chain checks total bytes/word projection and retains padded rows.",
+          "limitations": "Do not derive logical zero domain population from the floored native allocation extent. Do not infer geometry/normal/skin/source/device/physical/numerical health from cardinality checks. Generic Scratch fit actual device/source proof and surrounding Card/simulation/material/Grid/kernel families remain broader required work."
+        },
+        {
+          "family": "element_size removal and export/alias/macro closure",
+          "status": "current named consumer closure supports removal after actual canonical Reduce receipt and #826 agreement",
+          "sources": [
+            "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs",
+            "crates/fabelgeist-gpu/src/lib.rs",
+            "crates/fabelgeist-gpu/src/data/mod.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+            "crates/fabelgeist-gpu/src/prelude.rs"
+          ],
+          "contract": "element_size has no current named first-party consumer beyond self-recursive method branches. Its guessing implementation is distinct from component_count/base_type/as_str used by actual consumers. Compute exposes its algorithms through lib and prelude, with GPU glob imports pub(crate) only; GPU publicly reexports its own data/compute/buffer vocabulary. Existing Map/Stencil fixture macros call their admitted final signature helpers. Generic params! inserts via Into<PassParameter> at actual native binding boundary.",
+          "limitations": "Method removal is #826-owned and conditional on actual Root Reduce canonical receipt; do not restore a forwarding or guessing adapter. Whole macro-generated/unavailable external downstream code is not claimed audited. False-positive Stream/Map matches resolve to Hair RNG and serde_json imports, not generated APIs."
+        }
+      ],
+      "disposition": "Source caches consume actual immutable/native source and device/policy key; no cache fix inferred merely from module API match. Placeholder kernels are immutable authored copies; mathematics is out of active scope.",
+      "connected_repairs": [
+        "CORE-R1",
+        "CORE-R2",
+        "CORE-R3",
+        "CORE-C1",
+        "CORE-C2",
+        "CORE-N1"
+      ],
+      "dependencies": [
+        "Complete previous Root receiving findings and exact #826 generated/native receipts",
+        "Root full all13 preinventory before implementation",
+        "Fresh same-final-revision independent Code/Rule/Comment reviews and required hosted checks"
+      ],
+      "acceptance_criteria": "Connected ignored constructor args and duplicate layout/count computations removed or assigned clean final API; outside functional disposition explicit.",
+      "status": "extension_inventory_complete_for_explicit_read_sources; broader_required_families_incomplete_not_clear"
+    },
+    {
+      "sequence": 8,
+      "lens": "behavior-preservation",
+      "source_contracts": [
+        {
+          "family": "Reduce fixtures and numeric readback",
+          "status": "source scope closed; execution unperformed",
+          "sources": [
+            "crates/fabelgeist-compute/src/reduce/tests/mod.rs",
+            "crates/fabelgeist-compute/src/reduce/error.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs"
+          ],
+          "contract": "Six existing numerical scenarios: f32 sum128, f32 min/max5, two-field Item custom minimum,10x10 texture minimum and numeric minimum. EmptyReductionResult owns missing projected host component.",
+          "limitations": "No existing zero/one/padded-vec3/reused-scratch/foreign-device/custom-whitespace scenario is authored here. run_compute_test initializes output from expected values; a no-op can preserve an expected output. No claim that passing current fixtures proves all writes/branches. No scenario/helper/oracle repair is authorized by this report."
+        },
+        {
+          "family": "Extraction catalog/front entry",
+          "status": "source catalog and actual named entry/export closure read; no existing extraction fixture found",
+          "sources": [
+            "crates/fabelgeist-compute/src/marching_cubes/tables.rs",
+            "crates/fabelgeist-compute/src/advancing_front.rs",
+            "crates/fabelgeist-compute/src/lib.rs"
+          ],
+          "contract": "EDGE_TABLE256, TRI_TABLE4096 in16-word cases with-1 sentinel and edge ordinals0..11, TRI_COUNT_TABLE256 word counts. The exact count table is uploaded by MC and also supplies host maximum for prefix admission; shared native writers/stride were read in the preceding current-source pass. AdvancingFront directly calls shared DualContouring in shortest-diagonal mode with one vertex budget projected to index slots.",
+          "limitations": "No new fixture is invented. Fixed catalog/source preservation is required; broad SAFT/geometry/finite-performance capability is not inferred. Three catalog arrays are one immutable authored protocol; no mutable competing producer found."
+        },
+        {
+          "family": "Noise/JFA actual outer callers",
+          "status": "named caller/export closure complete for current first-party source; native numerical/type contracts remain open as N1",
+          "sources": [
+            "crates/fabelgeist-compute/src/perlin_noise.rs",
+            "crates/fabelgeist-compute/src/simplex_noise.rs",
+            "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs"
+          ],
+          "contract": "Noise only has public definitions and direct reexports; no in-repository invoke found. JFA only has its two existing center-pixel/voxel tests. JFA reads mask>=0.5, stores feature coordinates in RG32/RGBA32, carries step as the native uniform, alternates temporary textures, and outputs distances in index/texel units. Its seed variables are nearest-feature coordinates/validity, not RNG seeds.",
+          "limitations": "Preserve fixed sentinel and validity values, float/integer conversion/step order, strict tie behavior and existing tolerances. Current tests do not cover arbitrary dimensions/multiple/tied/no features; no new cases are authorized. Texture-native/source/device numerical closure still belongs to its native owner."
+        },
+        {
+          "family": "Canonical count leaves in actual consumer state",
+          "status": "all named direct leaf occurrences classified; whole surrounding physical families remain open",
+          "sources": [
+            "crates/fabelgeist-hair/src/gpu/layout.rs",
+            "crates/fabelgeist-hair/src/strands/shape.rs",
+            "crates/fabelgeist-hair/src/cards/layout.rs",
+            "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+            "crates/fabelgeist-hair/src/gpu/lods/cards.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+            "crates/fabelgeist-armor/src/material/tile.rs",
+            "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs"
+          ],
+          "contract": "Domain source counts stay separate from native binding floors, float/vec4 storage words, padded mip rows and invocation/workgroup/sort populations. Hair shape admission bounds strand*point; CardWork checks count*lock stride and+1 sentinel. Collision sole make_sim producer clamps points>=2 before subtraction, including empty population. Rod factors validate14 vec4 words/sample. Metal side32..1024 bounds square and checked word expansion. Creator fixed2048 chain checks total bytes/word projection and retains padded rows.",
+          "limitations": "Do not derive logical zero domain population from the floored native allocation extent. Do not infer geometry/normal/skin/source/device/physical/numerical health from cardinality checks. Generic Scratch fit actual device/source proof and surrounding Card/simulation/material/Grid/kernel families remain broader required work."
+        },
+        {
+          "family": "element_size removal and export/alias/macro closure",
+          "status": "current named consumer closure supports removal after actual canonical Reduce receipt and #826 agreement",
+          "sources": [
+            "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs",
+            "crates/fabelgeist-gpu/src/lib.rs",
+            "crates/fabelgeist-gpu/src/data/mod.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+            "crates/fabelgeist-gpu/src/prelude.rs"
+          ],
+          "contract": "element_size has no current named first-party consumer beyond self-recursive method branches. Its guessing implementation is distinct from component_count/base_type/as_str used by actual consumers. Compute exposes its algorithms through lib and prelude, with GPU glob imports pub(crate) only; GPU publicly reexports its own data/compute/buffer vocabulary. Existing Map/Stencil fixture macros call their admitted final signature helpers. Generic params! inserts via Into<PassParameter> at actual native binding boundary.",
+          "limitations": "Method removal is #826-owned and conditional on actual Root Reduce canonical receipt; do not restore a forwarding or guessing adapter. Whole macro-generated/unavailable external downstream code is not claimed audited. False-positive Stream/Map matches resolve to Hair RNG and serde_json imports, not generated APIs."
+        }
+      ],
+      "disposition": "Read existing Reduce/JFA/Map/Stencil source/helper frontiers and9 ignored submit fixture calls. Preserve all cases/oracles/native strings; hosted execution remains future acceptance.",
+      "connected_repairs": [
+        "CORE-R1",
+        "CORE-R2",
+        "CORE-R3",
+        "CORE-C1",
+        "CORE-C2",
+        "CORE-N1"
+      ],
+      "dependencies": [
+        "Complete previous Root receiving findings and exact #826 generated/native receipts",
+        "Root full all13 preinventory before implementation",
+        "Fresh same-final-revision independent Code/Rule/Comment reviews and required hosted checks"
+      ],
+      "acceptance_criteria": "No new tests/helpers/cases/assertions; exact native/catalog/fixture source preservation except inventoried API/cause/prose repairs.",
+      "status": "extension_inventory_complete_for_explicit_read_sources; broader_required_families_incomplete_not_clear"
+    },
+    {
+      "sequence": 9,
+      "lens": "derivability",
+      "source_contracts": [
+        {
+          "family": "Reduce fixtures and numeric readback",
+          "status": "source scope closed; execution unperformed",
+          "sources": [
+            "crates/fabelgeist-compute/src/reduce/tests/mod.rs",
+            "crates/fabelgeist-compute/src/reduce/error.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs"
+          ],
+          "contract": "Six existing numerical scenarios: f32 sum128, f32 min/max5, two-field Item custom minimum,10x10 texture minimum and numeric minimum. EmptyReductionResult owns missing projected host component.",
+          "limitations": "No existing zero/one/padded-vec3/reused-scratch/foreign-device/custom-whitespace scenario is authored here. run_compute_test initializes output from expected values; a no-op can preserve an expected output. No claim that passing current fixtures proves all writes/branches. No scenario/helper/oracle repair is authorized by this report."
+        },
+        {
+          "family": "Extraction catalog/front entry",
+          "status": "source catalog and actual named entry/export closure read; no existing extraction fixture found",
+          "sources": [
+            "crates/fabelgeist-compute/src/marching_cubes/tables.rs",
+            "crates/fabelgeist-compute/src/advancing_front.rs",
+            "crates/fabelgeist-compute/src/lib.rs"
+          ],
+          "contract": "EDGE_TABLE256, TRI_TABLE4096 in16-word cases with-1 sentinel and edge ordinals0..11, TRI_COUNT_TABLE256 word counts. The exact count table is uploaded by MC and also supplies host maximum for prefix admission; shared native writers/stride were read in the preceding current-source pass. AdvancingFront directly calls shared DualContouring in shortest-diagonal mode with one vertex budget projected to index slots.",
+          "limitations": "No new fixture is invented. Fixed catalog/source preservation is required; broad SAFT/geometry/finite-performance capability is not inferred. Three catalog arrays are one immutable authored protocol; no mutable competing producer found."
+        },
+        {
+          "family": "Noise/JFA actual outer callers",
+          "status": "named caller/export closure complete for current first-party source; native numerical/type contracts remain open as N1",
+          "sources": [
+            "crates/fabelgeist-compute/src/perlin_noise.rs",
+            "crates/fabelgeist-compute/src/simplex_noise.rs",
+            "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs"
+          ],
+          "contract": "Noise only has public definitions and direct reexports; no in-repository invoke found. JFA only has its two existing center-pixel/voxel tests. JFA reads mask>=0.5, stores feature coordinates in RG32/RGBA32, carries step as the native uniform, alternates temporary textures, and outputs distances in index/texel units. Its seed variables are nearest-feature coordinates/validity, not RNG seeds.",
+          "limitations": "Preserve fixed sentinel and validity values, float/integer conversion/step order, strict tie behavior and existing tolerances. Current tests do not cover arbitrary dimensions/multiple/tied/no features; no new cases are authorized. Texture-native/source/device numerical closure still belongs to its native owner."
+        },
+        {
+          "family": "Canonical count leaves in actual consumer state",
+          "status": "all named direct leaf occurrences classified; whole surrounding physical families remain open",
+          "sources": [
+            "crates/fabelgeist-hair/src/gpu/layout.rs",
+            "crates/fabelgeist-hair/src/strands/shape.rs",
+            "crates/fabelgeist-hair/src/cards/layout.rs",
+            "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+            "crates/fabelgeist-hair/src/gpu/lods/cards.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+            "crates/fabelgeist-armor/src/material/tile.rs",
+            "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs"
+          ],
+          "contract": "Domain source counts stay separate from native binding floors, float/vec4 storage words, padded mip rows and invocation/workgroup/sort populations. Hair shape admission bounds strand*point; CardWork checks count*lock stride and+1 sentinel. Collision sole make_sim producer clamps points>=2 before subtraction, including empty population. Rod factors validate14 vec4 words/sample. Metal side32..1024 bounds square and checked word expansion. Creator fixed2048 chain checks total bytes/word projection and retains padded rows.",
+          "limitations": "Do not derive logical zero domain population from the floored native allocation extent. Do not infer geometry/normal/skin/source/device/physical/numerical health from cardinality checks. Generic Scratch fit actual device/source proof and surrounding Card/simulation/material/Grid/kernel families remain broader required work."
+        },
+        {
+          "family": "element_size removal and export/alias/macro closure",
+          "status": "current named consumer closure supports removal after actual canonical Reduce receipt and #826 agreement",
+          "sources": [
+            "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs",
+            "crates/fabelgeist-gpu/src/lib.rs",
+            "crates/fabelgeist-gpu/src/data/mod.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+            "crates/fabelgeist-gpu/src/prelude.rs"
+          ],
+          "contract": "element_size has no current named first-party consumer beyond self-recursive method branches. Its guessing implementation is distinct from component_count/base_type/as_str used by actual consumers. Compute exposes its algorithms through lib and prelude, with GPU glob imports pub(crate) only; GPU publicly reexports its own data/compute/buffer vocabulary. Existing Map/Stencil fixture macros call their admitted final signature helpers. Generic params! inserts via Into<PassParameter> at actual native binding boundary.",
+          "limitations": "Method removal is #826-owned and conditional on actual Root Reduce canonical receipt; do not restore a forwarding or guessing adapter. Whole macro-generated/unavailable external downstream code is not claimed audited. False-positive Stream/Map matches resolve to Hair RNG and serde_json imports, not generated APIs."
+        }
+      ],
+      "disposition": "Previous Reduce Default and GeneratedProgramError Error-only findings remain routed. Native validation/TryFrom/semantic frame conversions are not mechanical derives; unchanged fixture helpers retained.",
+      "connected_repairs": [
+        "CORE-R1",
+        "CORE-R2",
+        "CORE-R3",
+        "CORE-C1",
+        "CORE-C2",
+        "CORE-N1"
+      ],
+      "dependencies": [
+        "Complete previous Root receiving findings and exact #826 generated/native receipts",
+        "Root full all13 preinventory before implementation",
+        "Fresh same-final-revision independent Code/Rule/Comment reviews and required hosted checks"
+      ],
+      "acceptance_criteria": "Keep exact bounds/Display/source semantics; no new dependency or wire schema solely for derivation.",
+      "status": "extension_inventory_complete_for_explicit_read_sources; broader_required_families_incomplete_not_clear"
+    },
+    {
+      "sequence": 10,
+      "lens": "magic-strings",
+      "source_contracts": [
+        {
+          "family": "Reduce fixtures and numeric readback",
+          "status": "source scope closed; execution unperformed",
+          "sources": [
+            "crates/fabelgeist-compute/src/reduce/tests/mod.rs",
+            "crates/fabelgeist-compute/src/reduce/error.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs"
+          ],
+          "contract": "Six existing numerical scenarios: f32 sum128, f32 min/max5, two-field Item custom minimum,10x10 texture minimum and numeric minimum. EmptyReductionResult owns missing projected host component.",
+          "limitations": "No existing zero/one/padded-vec3/reused-scratch/foreign-device/custom-whitespace scenario is authored here. run_compute_test initializes output from expected values; a no-op can preserve an expected output. No claim that passing current fixtures proves all writes/branches. No scenario/helper/oracle repair is authorized by this report."
+        },
+        {
+          "family": "Extraction catalog/front entry",
+          "status": "source catalog and actual named entry/export closure read; no existing extraction fixture found",
+          "sources": [
+            "crates/fabelgeist-compute/src/marching_cubes/tables.rs",
+            "crates/fabelgeist-compute/src/advancing_front.rs",
+            "crates/fabelgeist-compute/src/lib.rs"
+          ],
+          "contract": "EDGE_TABLE256, TRI_TABLE4096 in16-word cases with-1 sentinel and edge ordinals0..11, TRI_COUNT_TABLE256 word counts. The exact count table is uploaded by MC and also supplies host maximum for prefix admission; shared native writers/stride were read in the preceding current-source pass. AdvancingFront directly calls shared DualContouring in shortest-diagonal mode with one vertex budget projected to index slots.",
+          "limitations": "No new fixture is invented. Fixed catalog/source preservation is required; broad SAFT/geometry/finite-performance capability is not inferred. Three catalog arrays are one immutable authored protocol; no mutable competing producer found."
+        },
+        {
+          "family": "Noise/JFA actual outer callers",
+          "status": "named caller/export closure complete for current first-party source; native numerical/type contracts remain open as N1",
+          "sources": [
+            "crates/fabelgeist-compute/src/perlin_noise.rs",
+            "crates/fabelgeist-compute/src/simplex_noise.rs",
+            "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs"
+          ],
+          "contract": "Noise only has public definitions and direct reexports; no in-repository invoke found. JFA only has its two existing center-pixel/voxel tests. JFA reads mask>=0.5, stores feature coordinates in RG32/RGBA32, carries step as the native uniform, alternates temporary textures, and outputs distances in index/texel units. Its seed variables are nearest-feature coordinates/validity, not RNG seeds.",
+          "limitations": "Preserve fixed sentinel and validity values, float/integer conversion/step order, strict tie behavior and existing tolerances. Current tests do not cover arbitrary dimensions/multiple/tied/no features; no new cases are authorized. Texture-native/source/device numerical closure still belongs to its native owner."
+        },
+        {
+          "family": "Canonical count leaves in actual consumer state",
+          "status": "all named direct leaf occurrences classified; whole surrounding physical families remain open",
+          "sources": [
+            "crates/fabelgeist-hair/src/gpu/layout.rs",
+            "crates/fabelgeist-hair/src/strands/shape.rs",
+            "crates/fabelgeist-hair/src/cards/layout.rs",
+            "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+            "crates/fabelgeist-hair/src/gpu/lods/cards.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+            "crates/fabelgeist-armor/src/material/tile.rs",
+            "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs"
+          ],
+          "contract": "Domain source counts stay separate from native binding floors, float/vec4 storage words, padded mip rows and invocation/workgroup/sort populations. Hair shape admission bounds strand*point; CardWork checks count*lock stride and+1 sentinel. Collision sole make_sim producer clamps points>=2 before subtraction, including empty population. Rod factors validate14 vec4 words/sample. Metal side32..1024 bounds square and checked word expansion. Creator fixed2048 chain checks total bytes/word projection and retains padded rows.",
+          "limitations": "Do not derive logical zero domain population from the floored native allocation extent. Do not infer geometry/normal/skin/source/device/physical/numerical health from cardinality checks. Generic Scratch fit actual device/source proof and surrounding Card/simulation/material/Grid/kernel families remain broader required work."
+        },
+        {
+          "family": "element_size removal and export/alias/macro closure",
+          "status": "current named consumer closure supports removal after actual canonical Reduce receipt and #826 agreement",
+          "sources": [
+            "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs",
+            "crates/fabelgeist-gpu/src/lib.rs",
+            "crates/fabelgeist-gpu/src/data/mod.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+            "crates/fabelgeist-gpu/src/prelude.rs"
+          ],
+          "contract": "element_size has no current named first-party consumer beyond self-recursive method branches. Its guessing implementation is distinct from component_count/base_type/as_str used by actual consumers. Compute exposes its algorithms through lib and prelude, with GPU glob imports pub(crate) only; GPU publicly reexports its own data/compute/buffer vocabulary. Existing Map/Stencil fixture macros call their admitted final signature helpers. Generic params! inserts via Into<PassParameter> at actual native binding boundary.",
+          "limitations": "Method removal is #826-owned and conditional on actual Root Reduce canonical receipt; do not restore a forwarding or guessing adapter. Whole macro-generated/unavailable external downstream code is not claimed audited. False-positive Stream/Map matches resolve to Hair RNG and serde_json imports, not generated APIs."
+        }
+      ],
+      "disposition": "WGSL declarations/parameters/case tables and fixture text are native/source boundaries; fixed Root reduction policy strings remain previously inventoried. Public ignored constructor source text is not justified data.",
+      "connected_repairs": [
+        "CORE-R1",
+        "CORE-R2",
+        "CORE-R3",
+        "CORE-C1",
+        "CORE-C2",
+        "CORE-N1"
+      ],
+      "dependencies": [
+        "Complete previous Root receiving findings and exact #826 generated/native receipts",
+        "Root full all13 preinventory before implementation",
+        "Fresh same-final-revision independent Code/Rule/Comment reviews and required hosted checks"
+      ],
+      "acceptance_criteria": "No display-based branching or competing parser; canonical native names/source roles consumed, no ignored compatibility arguments.",
+      "status": "extension_inventory_complete_for_explicit_read_sources; broader_required_families_incomplete_not_clear"
+    },
+    {
+      "sequence": 11,
+      "lens": "magic-numbers",
+      "source_contracts": [
+        {
+          "family": "Reduce fixtures and numeric readback",
+          "status": "source scope closed; execution unperformed",
+          "sources": [
+            "crates/fabelgeist-compute/src/reduce/tests/mod.rs",
+            "crates/fabelgeist-compute/src/reduce/error.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs"
+          ],
+          "contract": "Six existing numerical scenarios: f32 sum128, f32 min/max5, two-field Item custom minimum,10x10 texture minimum and numeric minimum. EmptyReductionResult owns missing projected host component.",
+          "limitations": "No existing zero/one/padded-vec3/reused-scratch/foreign-device/custom-whitespace scenario is authored here. run_compute_test initializes output from expected values; a no-op can preserve an expected output. No claim that passing current fixtures proves all writes/branches. No scenario/helper/oracle repair is authorized by this report."
+        },
+        {
+          "family": "Extraction catalog/front entry",
+          "status": "source catalog and actual named entry/export closure read; no existing extraction fixture found",
+          "sources": [
+            "crates/fabelgeist-compute/src/marching_cubes/tables.rs",
+            "crates/fabelgeist-compute/src/advancing_front.rs",
+            "crates/fabelgeist-compute/src/lib.rs"
+          ],
+          "contract": "EDGE_TABLE256, TRI_TABLE4096 in16-word cases with-1 sentinel and edge ordinals0..11, TRI_COUNT_TABLE256 word counts. The exact count table is uploaded by MC and also supplies host maximum for prefix admission; shared native writers/stride were read in the preceding current-source pass. AdvancingFront directly calls shared DualContouring in shortest-diagonal mode with one vertex budget projected to index slots.",
+          "limitations": "No new fixture is invented. Fixed catalog/source preservation is required; broad SAFT/geometry/finite-performance capability is not inferred. Three catalog arrays are one immutable authored protocol; no mutable competing producer found."
+        },
+        {
+          "family": "Noise/JFA actual outer callers",
+          "status": "named caller/export closure complete for current first-party source; native numerical/type contracts remain open as N1",
+          "sources": [
+            "crates/fabelgeist-compute/src/perlin_noise.rs",
+            "crates/fabelgeist-compute/src/simplex_noise.rs",
+            "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs"
+          ],
+          "contract": "Noise only has public definitions and direct reexports; no in-repository invoke found. JFA only has its two existing center-pixel/voxel tests. JFA reads mask>=0.5, stores feature coordinates in RG32/RGBA32, carries step as the native uniform, alternates temporary textures, and outputs distances in index/texel units. Its seed variables are nearest-feature coordinates/validity, not RNG seeds.",
+          "limitations": "Preserve fixed sentinel and validity values, float/integer conversion/step order, strict tie behavior and existing tolerances. Current tests do not cover arbitrary dimensions/multiple/tied/no features; no new cases are authorized. Texture-native/source/device numerical closure still belongs to its native owner."
+        },
+        {
+          "family": "Canonical count leaves in actual consumer state",
+          "status": "all named direct leaf occurrences classified; whole surrounding physical families remain open",
+          "sources": [
+            "crates/fabelgeist-hair/src/gpu/layout.rs",
+            "crates/fabelgeist-hair/src/strands/shape.rs",
+            "crates/fabelgeist-hair/src/cards/layout.rs",
+            "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+            "crates/fabelgeist-hair/src/gpu/lods/cards.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+            "crates/fabelgeist-armor/src/material/tile.rs",
+            "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs"
+          ],
+          "contract": "Domain source counts stay separate from native binding floors, float/vec4 storage words, padded mip rows and invocation/workgroup/sort populations. Hair shape admission bounds strand*point; CardWork checks count*lock stride and+1 sentinel. Collision sole make_sim producer clamps points>=2 before subtraction, including empty population. Rod factors validate14 vec4 words/sample. Metal side32..1024 bounds square and checked word expansion. Creator fixed2048 chain checks total bytes/word projection and retains padded rows.",
+          "limitations": "Do not derive logical zero domain population from the floored native allocation extent. Do not infer geometry/normal/skin/source/device/physical/numerical health from cardinality checks. Generic Scratch fit actual device/source proof and surrounding Card/simulation/material/Grid/kernel families remain broader required work."
+        },
+        {
+          "family": "element_size removal and export/alias/macro closure",
+          "status": "current named consumer closure supports removal after actual canonical Reduce receipt and #826 agreement",
+          "sources": [
+            "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs",
+            "crates/fabelgeist-gpu/src/lib.rs",
+            "crates/fabelgeist-gpu/src/data/mod.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+            "crates/fabelgeist-gpu/src/prelude.rs"
+          ],
+          "contract": "element_size has no current named first-party consumer beyond self-recursive method branches. Its guessing implementation is distinct from component_count/base_type/as_str used by actual consumers. Compute exposes its algorithms through lib and prelude, with GPU glob imports pub(crate) only; GPU publicly reexports its own data/compute/buffer vocabulary. Existing Map/Stencil fixture macros call their admitted final signature helpers. Generic params! inserts via Into<PassParameter> at actual native binding boundary.",
+          "limitations": "Method removal is #826-owned and conditional on actual Root Reduce canonical receipt; do not restore a forwarding or guessing adapter. Whole macro-generated/unavailable external downstream code is not claimed audited. False-positive Stream/Map matches resolve to Hair RNG and serde_json imports, not generated APIs."
+        }
+      ],
+      "disposition": "Fresh all direct count/stride consumers distinguish padded rows, lanes,words,vertices,strands,launches. Noise frame/octet and raw Mesh/copy launch sites remain required; fixed fixture/native catalog literals retain concrete role.",
+      "connected_repairs": [
+        "CORE-R1",
+        "CORE-R2",
+        "CORE-R3",
+        "CORE-C1",
+        "CORE-C2",
+        "CORE-N1"
+      ],
+      "dependencies": [
+        "Complete previous Root receiving findings and exact #826 generated/native receipts",
+        "Root full all13 preinventory before implementation",
+        "Fresh same-final-revision independent Code/Rule/Comment reviews and required hosted checks"
+      ],
+      "acceptance_criteria": "Ratio/unit/count owner or exact native numerical-boundary frame per value; no accidental modulus/finite/clamp policy changes.",
+      "status": "extension_inventory_complete_for_explicit_read_sources; broader_required_families_incomplete_not_clear"
+    },
+    {
+      "sequence": 12,
+      "lens": "type-ownership",
+      "source_contracts": [
+        {
+          "family": "Reduce fixtures and numeric readback",
+          "status": "source scope closed; execution unperformed",
+          "sources": [
+            "crates/fabelgeist-compute/src/reduce/tests/mod.rs",
+            "crates/fabelgeist-compute/src/reduce/error.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs"
+          ],
+          "contract": "Six existing numerical scenarios: f32 sum128, f32 min/max5, two-field Item custom minimum,10x10 texture minimum and numeric minimum. EmptyReductionResult owns missing projected host component.",
+          "limitations": "No existing zero/one/padded-vec3/reused-scratch/foreign-device/custom-whitespace scenario is authored here. run_compute_test initializes output from expected values; a no-op can preserve an expected output. No claim that passing current fixtures proves all writes/branches. No scenario/helper/oracle repair is authorized by this report."
+        },
+        {
+          "family": "Extraction catalog/front entry",
+          "status": "source catalog and actual named entry/export closure read; no existing extraction fixture found",
+          "sources": [
+            "crates/fabelgeist-compute/src/marching_cubes/tables.rs",
+            "crates/fabelgeist-compute/src/advancing_front.rs",
+            "crates/fabelgeist-compute/src/lib.rs"
+          ],
+          "contract": "EDGE_TABLE256, TRI_TABLE4096 in16-word cases with-1 sentinel and edge ordinals0..11, TRI_COUNT_TABLE256 word counts. The exact count table is uploaded by MC and also supplies host maximum for prefix admission; shared native writers/stride were read in the preceding current-source pass. AdvancingFront directly calls shared DualContouring in shortest-diagonal mode with one vertex budget projected to index slots.",
+          "limitations": "No new fixture is invented. Fixed catalog/source preservation is required; broad SAFT/geometry/finite-performance capability is not inferred. Three catalog arrays are one immutable authored protocol; no mutable competing producer found."
+        },
+        {
+          "family": "Noise/JFA actual outer callers",
+          "status": "named caller/export closure complete for current first-party source; native numerical/type contracts remain open as N1",
+          "sources": [
+            "crates/fabelgeist-compute/src/perlin_noise.rs",
+            "crates/fabelgeist-compute/src/simplex_noise.rs",
+            "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs"
+          ],
+          "contract": "Noise only has public definitions and direct reexports; no in-repository invoke found. JFA only has its two existing center-pixel/voxel tests. JFA reads mask>=0.5, stores feature coordinates in RG32/RGBA32, carries step as the native uniform, alternates temporary textures, and outputs distances in index/texel units. Its seed variables are nearest-feature coordinates/validity, not RNG seeds.",
+          "limitations": "Preserve fixed sentinel and validity values, float/integer conversion/step order, strict tie behavior and existing tolerances. Current tests do not cover arbitrary dimensions/multiple/tied/no features; no new cases are authorized. Texture-native/source/device numerical closure still belongs to its native owner."
+        },
+        {
+          "family": "Canonical count leaves in actual consumer state",
+          "status": "all named direct leaf occurrences classified; whole surrounding physical families remain open",
+          "sources": [
+            "crates/fabelgeist-hair/src/gpu/layout.rs",
+            "crates/fabelgeist-hair/src/strands/shape.rs",
+            "crates/fabelgeist-hair/src/cards/layout.rs",
+            "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+            "crates/fabelgeist-hair/src/gpu/lods/cards.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+            "crates/fabelgeist-armor/src/material/tile.rs",
+            "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs"
+          ],
+          "contract": "Domain source counts stay separate from native binding floors, float/vec4 storage words, padded mip rows and invocation/workgroup/sort populations. Hair shape admission bounds strand*point; CardWork checks count*lock stride and+1 sentinel. Collision sole make_sim producer clamps points>=2 before subtraction, including empty population. Rod factors validate14 vec4 words/sample. Metal side32..1024 bounds square and checked word expansion. Creator fixed2048 chain checks total bytes/word projection and retains padded rows.",
+          "limitations": "Do not derive logical zero domain population from the floored native allocation extent. Do not infer geometry/normal/skin/source/device/physical/numerical health from cardinality checks. Generic Scratch fit actual device/source proof and surrounding Card/simulation/material/Grid/kernel families remain broader required work."
+        },
+        {
+          "family": "element_size removal and export/alias/macro closure",
+          "status": "current named consumer closure supports removal after actual canonical Reduce receipt and #826 agreement",
+          "sources": [
+            "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs",
+            "crates/fabelgeist-gpu/src/lib.rs",
+            "crates/fabelgeist-gpu/src/data/mod.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+            "crates/fabelgeist-gpu/src/prelude.rs"
+          ],
+          "contract": "element_size has no current named first-party consumer beyond self-recursive method branches. Its guessing implementation is distinct from component_count/base_type/as_str used by actual consumers. Compute exposes its algorithms through lib and prelude, with GPU glob imports pub(crate) only; GPU publicly reexports its own data/compute/buffer vocabulary. Existing Map/Stencil fixture macros call their admitted final signature helpers. Generic params! inserts via Into<PassParameter> at actual native binding boundary.",
+          "limitations": "Method removal is #826-owned and conditional on actual Root Reduce canonical receipt; do not restore a forwarding or guessing adapter. Whole macro-generated/unavailable external downstream code is not claimed audited. False-positive Stream/Map matches resolve to Hair RNG and serde_json imports, not generated APIs."
+        }
+      ],
+      "disposition": "Root sole implementer; #826 owns shared native/generated remedies. New leaf call sites fit existing low GPU owner; broad Mesh/physical/cache/submit families are explicitly open outside this source subset.",
+      "connected_repairs": [
+        "CORE-R1",
+        "CORE-R2",
+        "CORE-R3",
+        "CORE-C1",
+        "CORE-C2",
+        "CORE-N1"
+      ],
+      "dependencies": [
+        "Complete previous Root receiving findings and exact #826 generated/native receipts",
+        "Root full all13 preinventory before implementation",
+        "Fresh same-final-revision independent Code/Rule/Comment reviews and required hosted checks"
+      ],
+      "acceptance_criteria": "Coordinate claimed shared function edits and preserve Root exports/capacity/stride; do not implement unrelated algorithms.",
+      "status": "extension_inventory_complete_for_explicit_read_sources; broader_required_families_incomplete_not_clear"
+    },
+    {
+      "sequence": 13,
+      "lens": "type-granularity",
+      "source_contracts": [
+        {
+          "family": "Reduce fixtures and numeric readback",
+          "status": "source scope closed; execution unperformed",
+          "sources": [
+            "crates/fabelgeist-compute/src/reduce/tests/mod.rs",
+            "crates/fabelgeist-compute/src/reduce/error.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs"
+          ],
+          "contract": "Six existing numerical scenarios: f32 sum128, f32 min/max5, two-field Item custom minimum,10x10 texture minimum and numeric minimum. EmptyReductionResult owns missing projected host component.",
+          "limitations": "No existing zero/one/padded-vec3/reused-scratch/foreign-device/custom-whitespace scenario is authored here. run_compute_test initializes output from expected values; a no-op can preserve an expected output. No claim that passing current fixtures proves all writes/branches. No scenario/helper/oracle repair is authorized by this report."
+        },
+        {
+          "family": "Extraction catalog/front entry",
+          "status": "source catalog and actual named entry/export closure read; no existing extraction fixture found",
+          "sources": [
+            "crates/fabelgeist-compute/src/marching_cubes/tables.rs",
+            "crates/fabelgeist-compute/src/advancing_front.rs",
+            "crates/fabelgeist-compute/src/lib.rs"
+          ],
+          "contract": "EDGE_TABLE256, TRI_TABLE4096 in16-word cases with-1 sentinel and edge ordinals0..11, TRI_COUNT_TABLE256 word counts. The exact count table is uploaded by MC and also supplies host maximum for prefix admission; shared native writers/stride were read in the preceding current-source pass. AdvancingFront directly calls shared DualContouring in shortest-diagonal mode with one vertex budget projected to index slots.",
+          "limitations": "No new fixture is invented. Fixed catalog/source preservation is required; broad SAFT/geometry/finite-performance capability is not inferred. Three catalog arrays are one immutable authored protocol; no mutable competing producer found."
+        },
+        {
+          "family": "Noise/JFA actual outer callers",
+          "status": "named caller/export closure complete for current first-party source; native numerical/type contracts remain open as N1",
+          "sources": [
+            "crates/fabelgeist-compute/src/perlin_noise.rs",
+            "crates/fabelgeist-compute/src/simplex_noise.rs",
+            "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs"
+          ],
+          "contract": "Noise only has public definitions and direct reexports; no in-repository invoke found. JFA only has its two existing center-pixel/voxel tests. JFA reads mask>=0.5, stores feature coordinates in RG32/RGBA32, carries step as the native uniform, alternates temporary textures, and outputs distances in index/texel units. Its seed variables are nearest-feature coordinates/validity, not RNG seeds.",
+          "limitations": "Preserve fixed sentinel and validity values, float/integer conversion/step order, strict tie behavior and existing tolerances. Current tests do not cover arbitrary dimensions/multiple/tied/no features; no new cases are authorized. Texture-native/source/device numerical closure still belongs to its native owner."
+        },
+        {
+          "family": "Canonical count leaves in actual consumer state",
+          "status": "all named direct leaf occurrences classified; whole surrounding physical families remain open",
+          "sources": [
+            "crates/fabelgeist-hair/src/gpu/layout.rs",
+            "crates/fabelgeist-hair/src/strands/shape.rs",
+            "crates/fabelgeist-hair/src/cards/layout.rs",
+            "crates/fabelgeist-hair/src/cards/layout/gpu.rs",
+            "crates/fabelgeist-hair/src/gpu/lods/cards.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/rods.rs",
+            "crates/fabelgeist-hair/src/gpu/sim/collision.rs",
+            "crates/fabelgeist-armor/src/material/tile.rs",
+            "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/layout.rs",
+            "crates/adventuresim-character-creator/src/hair/gpu/bake/grid.rs"
+          ],
+          "contract": "Domain source counts stay separate from native binding floors, float/vec4 storage words, padded mip rows and invocation/workgroup/sort populations. Hair shape admission bounds strand*point; CardWork checks count*lock stride and+1 sentinel. Collision sole make_sim producer clamps points>=2 before subtraction, including empty population. Rod factors validate14 vec4 words/sample. Metal side32..1024 bounds square and checked word expansion. Creator fixed2048 chain checks total bytes/word projection and retains padded rows.",
+          "limitations": "Do not derive logical zero domain population from the floored native allocation extent. Do not infer geometry/normal/skin/source/device/physical/numerical health from cardinality checks. Generic Scratch fit actual device/source proof and surrounding Card/simulation/material/Grid/kernel families remain broader required work."
+        },
+        {
+          "family": "element_size removal and export/alias/macro closure",
+          "status": "current named consumer closure supports removal after actual canonical Reduce receipt and #826 agreement",
+          "sources": [
+            "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/resource.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+            "crates/fabelgeist-compute/src/test_utils.rs",
+            "crates/fabelgeist-compute/src/lib.rs",
+            "crates/fabelgeist-compute/src/prelude.rs",
+            "crates/fabelgeist-gpu/src/lib.rs",
+            "crates/fabelgeist-gpu/src/data/mod.rs",
+            "crates/fabelgeist-gpu/src/data/gpu/mod.rs",
+            "crates/fabelgeist-gpu/src/prelude.rs"
+          ],
+          "contract": "element_size has no current named first-party consumer beyond self-recursive method branches. Its guessing implementation is distinct from component_count/base_type/as_str used by actual consumers. Compute exposes its algorithms through lib and prelude, with GPU glob imports pub(crate) only; GPU publicly reexports its own data/compute/buffer vocabulary. Existing Map/Stencil fixture macros call their admitted final signature helpers. Generic params! inserts via Into<PassParameter> at actual native binding boundary.",
+          "limitations": "Method removal is #826-owned and conditional on actual Root Reduce canonical receipt; do not restore a forwarding or guessing adapter. Whole macro-generated/unavailable external downstream code is not claimed audited. False-positive Stream/Map matches resolve to Hair RNG and serde_json imports, not generated APIs."
+        }
+      ],
+      "disposition": "Canonical bound-record count is not complete logical strand/card population, octave iteration count or feature identity; launch quantities stay separate from sort/storage. C1 corrects count/address prose.",
+      "connected_repairs": [
+        "CORE-R1",
+        "CORE-R2",
+        "CORE-R3",
+        "CORE-C1",
+        "CORE-C2",
+        "CORE-N1"
+      ],
+      "dependencies": [
+        "Complete previous Root receiving findings and exact #826 generated/native receipts",
+        "Root full all13 preinventory before implementation",
+        "Fresh same-final-revision independent Code/Rule/Comment reviews and required hosted checks"
+      ],
+      "acceptance_criteria": "Role distinctions prevent real mixups without wrapper proliferation; native vector frames documented at actual boundary.",
+      "status": "extension_inventory_complete_for_explicit_read_sources; broader_required_families_incomplete_not_clear"
+    }
+  ],
+  "prior_findings_status": "Previous receiving G1/G2/G3/G4/C1/D1/D2 remain open/routed, not cleared by this extension. Native-owned remedies are assigned to826; Root owns actual caller repair.",
+  "candidate_disposition": {
+    "collision_empty_points": "NOT_REACHABLE_CURRENT_CALLER: Sole make_sim caller clamps settings.points>=2 before StrandLayout; no defect repair requested. Earlier candidate explicitly corrected.",
+    "placeholder_mathematics": "Outside sorting/extraction functional scope; no new matrix/broadcast/reshape/transpose algorithm requested. Connected API/count/launch/constructor gaps remain required."
+  },
+  "remaining_requirements": [
+    "Complete external ignored-submit actual bodies and their publication/error policies; submit_frontier entries without body receipts remain unread discovery.",
+    "Finish independent broad Mesh geometry/displacement producer, retained vertex count and actual consumers; no Mesh whole-family clearance from cache-owner review.",
+    "Broader Hair physics/Card/Grid/material/scalp native source/device/count/frame/state paths remain open unless independently current reviewed; cardinality source evidence here is bounded.",
+    "Receive native91 exact Rule review for lower provider bodies, but never use that as Root caller clearance.",
+    "Compose exact modules/exports/counts/strides/locks/baseline reductions after all13 preinventory; do not leave element_size fallback after final receiver census.",
+    "Final current-main/PR-head and complete final source/reviews/required hosted checks must agree on one pushed revision; no merge."
+  ],
+  "execution_limit": "No source edits, integration, native/source generator execution, project checks/build/lint/format/scans/tests/probes/newcase/helper/assertion, CI request, push or external post. Reports/hash/source-diff/occurrence discovery only.",
+  "verdict": "INCOMPLETE_WHOLE_RECEIVING_FAMILY; explicit source-scope inventory and actionable connected gaps, no historical/search-based clearance."
+}

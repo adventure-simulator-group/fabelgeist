@@ -1,0 +1,15 @@
+{
+  "at": "2026-10-25T23:03:39.051322+00:00",
+  "head": "ea5b4c28ae4d8aadde3343a4cc9603e46bff6784",
+  "prior_head": "ea6762b9c1cb156edb16f1a3f3ab7a9a42a464e5",
+  "source_pins": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/gardens/README.md",
+      "sha256": "57e5aca3cfa4148dd0d8700fd1dc8f861e8f3dd531d5f6659bcca8c2cc4dc0db"
+    }
+  ],
+  "finding": "CI-COMMENT-001",
+  "status": "closed",
+  "evidence": "Personally read committed two-line warning at74-75. It explicitly covers always-upload-on-export-failure and requires both exporter steps succeed before copying either file. Sole changed path from prior reviewed head; earlier pins/review remain immutable.",
+  "limits": "Comment/documentation finding closure only; no hosted acceptance or broader #774 clearance; no project execution."
+}

@@ -1,0 +1,162 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-422",
+  "at": "2026-10-26T00:37:04.022694+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 420,
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/road_pack.rs",
+      "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "personally_read_ranges": [
+        [
+          1,
+          344
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Reuse own full-body2083 read (packet194) after inspecting saved explicit complete empty diff original-role-diff-420-2083.diff; both exact source pins in comparison002. Personally refreshed current1-80/110-155. Current P16 owner role includes complete344-lineproducer observation, so full reused body applicable. Manifest+boundedpayload admission retains source/geometry/content digests, complete counts/trailing bytes, validated E7 coordinates and derived bounds; current role is road geometry package receiver for terrain, not weapon stream. Existing source-digest F005 propagation qualification retained; classification hash versus geometry digest distinct authority, no new ordinary mismatch witness."
+      ]
+    },
+    {
+      "scope_index": 422,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/codec.rs",
+      "sha256": "1a32ed016049692514041f1111820fc2513464dcd4f23b45a4f65f8b084c9b60",
+      "personally_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Reuse own full2084 body (packet195) after explicit complete empty diff and both pins comparison002; additionally reread current1-111. P16 codec owner feeds actual P16 instance316 and tactical cache328: bounded/versioned parse+validate is public decode contract, while private parse followed by EvaluatedWeapon/Holder construction426 supplies validation through physical evaluation. Recipe bytes/hash reauthentication remains receiver obligation, as actual328 does before warm cache. No compatibility path and no blanket output admission."
+      ]
+    },
+    {
+      "scope_index": 423,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/derive.rs",
+      "sha256": "c21331b47fbf9aff7837343abc27e7f572acb622fd7baaf8a86a3dfb0fc92edd",
+      "personally_read_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Reuse own full2092 body (packet196), complete empty diff and both pins comparison002. P16 derive owner supplies same Construction physical/frames/source product to private evaluated fa\u00e7ade426, whose actual instance316 projects quantized fields and verifies reconstruction. Existing CAM-PROP-F002 raw physical leaf propagation remains; complete construction equality is not automatically a sealed physical-output record."
+      ]
+    },
+    {
+      "scope_index": 424,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/derived_properties.rs",
+      "sha256": "fc35cb85ad750d9eb943b55cde7f20e3dc6cffd2d3ac119bef96732eb32402c5",
+      "personally_read_ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Reuse own full2093 body (packet196), complete empty diff/pins comparison002. Current raw DerivedProperties/MaterialMass records are returned by evaluated426 and consumed by instance316; signed centre-of-mass and validzero policy retained. Public serde aggregate fields remain independently forgeable outside fa\u00e7ade; inherited CAMERA-ADM03-F002/CAM-PROP-F002, no new admission guarantee."
+      ]
+    },
+    {
+      "scope_index": 425,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/design/generated.rs",
+      "sha256": "676cdac09cfd5549f08dcaad5876f3053c52b04c49fb59a70b09df15c766df03",
+      "personally_read_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Reuse own full2094 body (packet196), complete empty diff/pins comparison002. Current generated mesh/anchors/bounds/hash+physical product feeds actual tactical328 cache and330 spawn; decoded valid recipe precedes generator but public GeneratedWeapon buffers still do not seal shape/derived correspondence. Existing output aggregate findings retained; no arbitrary malformed mesh or actual runtime claim."
+      ]
+    },
+    {
+      "scope_index": 426,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/evaluation.rs",
+      "sha256": "bf99629f5204b4bcdab31adcee2f5029e28085143bb3b3e00e2987c1ad2e7b4d",
+      "personally_read_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Reuse own full2096 body (packet196), complete empty diff/pins comparison002; additionally reread currentfull59. Current evaluated fa\u00e7ades privately own immutable design plus computed derived pair; encode serializes retained exact design, decode routes parse to construction-backed evaluation, memo complete design key. Actual P16 instance316 requires reconstructed full equality and tactical328 rechecks recipe/hash, strengthening receiving trace without clearing inherited raw derived/output or holder selection findings."
+      ]
+    },
+    {
+      "scope_index": 427,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/evaluation/memo.rs",
+      "sha256": "88583e6c11bc5fe78178b4843cc1910a8f58f14083ba7bbd62ceebfe50f4ffb6",
+      "personally_read_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Reuse own full2097 body (packet196), complete empty diff/pins comparison002. Current memo successful-evaluation result cloned under full owned design key, construction outside lock, FIFO64; parent426 separately retains same input design. Actual instance316 reads derived immediately and canonical encodes same evaluated design. Recomputing concurrent equal keys not coherence defect; no failed-result cache or hash-only alias inferred."
+      ]
+    },
+    {
+      "scope_index": 428,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/hash.rs",
+      "sha256": "9867c4c6274f7317827e20ac0f0dc279bdce3b0fbc3a9c3093f5dbd125c936cc",
+      "personally_read_ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Reuse own full2098 body (packet196), complete empty diff/pins comparison002. Current schema/generator-domain-separated canonical full design hash is compared by actual tactical328 before cache; instance316 reconstructs whole product. Digest is identity, not aggregate semantic admission, and public wrapper is not a validated construction proof. No new hash collision witness."
+      ]
+    },
+    {
+      "scope_index": 429,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/holders.rs",
+      "sha256": "d99cadde4f1dc9227c791e6b25dab8869a68bc888b93fa6854a2a43460148635",
+      "personally_read_ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Reuse own full2099 body (packet196), complete empty diff/pins comparison002. Current holder construction uses fitted weapon solids and selected geometry for physical/hash/render product; actual P16 instance314 fitting selects recommended chassis then evaluates,316 reconstructs,328holder cache verifies codec/hash before generating. Existing ROOT-ADM-F002 original-ID selection expect versus compiled fallback-ID issue keeps its exact reachability qualification. Raw output findings remain, no whole holder family clearance."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "9 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "same_lens_reuse_proof": "same-byte-own-comparison-002.json",
+  "fresh_current_read_ranges": {
+    "420": [
+      [
+        1,
+        80
+      ],
+      [
+        110,
+        155
+      ]
+    ],
+    "422": [
+      [
+        1,
+        111
+      ]
+    ],
+    "426": [
+      [
+        1,
+        59
+      ]
+    ]
+  }
+}

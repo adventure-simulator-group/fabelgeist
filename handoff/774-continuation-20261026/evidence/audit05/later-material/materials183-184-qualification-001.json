@@ -1,0 +1,54 @@
+{
+  "material_indices": [
+    183,
+    184
+  ],
+  "sources": [
+    {
+      "material_index": 183,
+      "source_id": "frozen-native-support:crates/adventuresim-tactical-client/src/presentation/vista/geographic_ground.rs",
+      "sha256": "36fbbccfd07c690a076b96d31d91f0a27008633fbd0b0b7f2e99566acde4c840",
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "canonical_git_equal": true
+    },
+    {
+      "material_index": 184,
+      "source_id": "frozen-fixture-support:crates/adventuresim-tactical-client/src/presentation/vista/streets/mesh/grounding_tests.rs",
+      "sha256": "2cec1a88bbf897aee0a1b1711e72e13579e58c113472e260ce10fd3cd22d5bc1",
+      "ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "canonical_git_equal": true
+    }
+  ],
+  "receipt": "contracts-040.json",
+  "own05_assessment": {
+    "reflection": "An explicit native upload boundary preserves all vertex attributes and authored normals while changing index winding and tangent handedness under the documented reflected map root. Checked index-capacity and native winding errors remain typed; no fallback mesh or error string flattening in this owner.",
+    "fixture": "Complete source read shows expected physical support relation and lifted-material handling tested at emitted triangle vertices and centroid. Any support layer at height within1mm is accepted; totalnonzero ensures an oracle ran, not exhaustive per-material coverage. Source fixture cannot be reported as passing without execution.",
+    "aggregate_limits": [
+      "Sequential indexing uses native mesh vertex count; equal attribute cardinality/valid topology are producer/native requirements, not independently validated here.",
+      "Reflection parity/root transform is documented and adapter behavior consistent, but actual complete caller scene graph not newly audited by these two bodies.",
+      "Fixture zip/chunks can omit unmatched attribute tails or trailing vertices if a producer violates its native contract; actual accepted such output not established.",
+      "Four points per triangle are sampled evidence; continuous support proof depends actual producer clipping/coplanar-triangle contract. No generated counterexample or test execution.",
+      "Fixtures no additional tests/helpers/assertions authored or run."
+    ]
+  },
+  "dedup": "materials183-184-dedup-navigation-001.json:0of1002 exact path/testname metadata matches; no global uniqueness proof.",
+  "new_unique_findings": 0,
+  "own_accepted_findings_count": 10,
+  "original_counts_unchanged": true,
+  "prior183checkpoint_preserved": true,
+  "other_lens_verdict_credit": false,
+  "current_CI_credit": false,
+  "source_or_git_mutation": false,
+  "project_execution": false,
+  "global_clearance": false
+}

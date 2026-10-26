@@ -1,0 +1,204 @@
+{
+  "lens": "derivability",
+  "registry": "../shared-material-successor/source-extensions-187.json",
+  "registry_sha256": "afd8158f9381deffcb264daf382e4db681880cd51b120b9a3fcc9b8bfc2ea3b9",
+  "receipts": [
+    {
+      "material_index": 112,
+      "registration": {
+        "source_id": "pinned-registry:thiserror-impl-2.0.20/src/expand.rs",
+        "sha256": "76285acc08ccb8a0a93a3cbd58c3e12cbcde61720ad676be181fff7b1f278df3",
+        "ranges": [
+          [
+            22,
+            72
+          ],
+          [
+            126,
+            165
+          ],
+          [
+            201,
+            220
+          ]
+        ],
+        "package_checksum": "bc04cd3e1236dd4a98afca4569f2deb3f120e5422a4023be2cb683f8486292af",
+        "reason": "Exact unit-error derive source for UnknownThreatId no-source Error and fixed literal Display equivalence; only stated ranges consumed.",
+        "line_count": 600,
+        "registration_evidence": "derivability/fresh-dependency-registration-017.json",
+        "revision": "FrozenP16 lock and manifest/source proof in017",
+        "qualification": "Only direct Error/Display derive equivalence context, no whole SDK or baseline replay."
+      },
+      "source_origin": "../audit02-delta/sources/76285acc08ccb8a0a93a3cbd58c3e12cbcde61720ad676be181fff7b1f278df3",
+      "source_sha256": "76285acc08ccb8a0a93a3cbd58c3e12cbcde61720ad676be181fff7b1f278df3",
+      "read_ranges": [
+        [
+          22,
+          72
+        ],
+        [
+          126,
+          165
+        ],
+        [
+          201,
+          220
+        ]
+      ],
+      "inventory_and_semantics": "Actual thiserror struct expansion differentiates transparent source forwarding from explicit source field Some(cause), optional-source absence and default no-source method. Transparent Display delegates innerfmt; annotated formatting has inferred field bounds. Generic Error adds Self Debug/Display. This supports preserving exact source chain and bounds, not blanket transparent conversion.",
+      "disposition": "Bounded native derive support recorded; preserve per-owner source/bound/format proof",
+      "evidence_basis": "Fresh personal exact registered material bodies/narratives; hash-verified source copies convey no other-lens coverage",
+      "limits": "Only stated ranges; no blanket owner/source admission/runtime/global acceptance"
+    },
+    {
+      "material_index": 113,
+      "registration": {
+        "source_id": "pinned-registry:thiserror-impl-2.0.20/src/attr.rs",
+        "sha256": "d3c7fa9e8269973f140e5382f753664ac32bee44c09875f678100b890aea4d06",
+        "ranges": [
+          [
+            302,
+            340
+          ]
+        ],
+        "package_checksum": "bc04cd3e1236dd4a98afca4569f2deb3f120e5422a4023be2cb683f8486292af",
+        "reason": "Exact unit-error derive source for UnknownThreatId no-source Error and fixed literal Display equivalence; only stated ranges consumed.",
+        "line_count": 358,
+        "registration_evidence": "derivability/fresh-dependency-registration-017.json",
+        "revision": "FrozenP16 lock and manifest/source proof in017",
+        "qualification": "Only direct Error/Display derive equivalence context, no whole SDK or baseline replay."
+      },
+      "source_origin": "../audit02-delta/sources/d3c7fa9e8269973f140e5382f753664ac32bee44c09875f678100b890aea4d06",
+      "source_sha256": "d3c7fa9e8269973f140e5382f753664ac32bee44c09875f678100b890aea4d06",
+      "read_ranges": [
+        [
+          302,
+          340
+        ]
+      ],
+      "inventory_and_semantics": "Actual thiserror Display emission uses formatter.write_str for labels without formatting machinery and core::write otherwise. Confirms static-label family equivalence at fmt-call shape if annotation/native version/owning dependency are appropriate; dynamic labels and ignored payloads still need per-owner comparison.",
+      "disposition": "Bounded native derive support recorded; preserve per-owner source/bound/format proof",
+      "evidence_basis": "Fresh personal exact registered material bodies/narratives; hash-verified source copies convey no other-lens coverage",
+      "limits": "Only stated ranges; no blanket owner/source admission/runtime/global acceptance"
+    },
+    {
+      "material_index": 114,
+      "registration": {
+        "source_id": "pinned-registry:thiserror-impl-2.0.20/src/expand.rs",
+        "sha256": "76285acc08ccb8a0a93a3cbd58c3e12cbcde61720ad676be181fff7b1f278df3",
+        "ranges": [
+          [
+            222,
+            277
+          ],
+          [
+            279,
+            280
+          ],
+          [
+            379,
+            444
+          ],
+          [
+            486,
+            505
+          ]
+        ],
+        "package_checksum": "bc04cd3e1236dd4a98afca4569f2deb3f120e5422a4023be2cb683f8486292af",
+        "reason": "Range amendment to registered112 same exact expand.rs SHA: enum fixed-message/no-source Error equivalence for ElapsedError; no whole macro coverage.",
+        "line_count": 600,
+        "registration_evidence": "derivability/fresh-dependency-registration-026.json",
+        "qualification": "Bounded material trace only. Prior original roles and completed baseline findings remain adopted; no replay, whole-lens clearance, or cross-lens verdict transfer.",
+        "range_amendment_of": 112
+      },
+      "source_origin": "../audit02-delta/sources/76285acc08ccb8a0a93a3cbd58c3e12cbcde61720ad676be181fff7b1f278df3",
+      "source_sha256": "76285acc08ccb8a0a93a3cbd58c3e12cbcde61720ad676be181fff7b1f278df3",
+      "read_ranges": [
+        [
+          222,
+          277
+        ],
+        [
+          279,
+          280
+        ],
+        [
+          379,
+          444
+        ],
+        [
+          486,
+          505
+        ]
+      ],
+      "inventory_and_semantics": "Actual thiserror enum expansion forwards transparent variant to inner.source(), explicit source variant returns Some(inner), source-less variants return None; annotated/transparent Display and inferred generic bounds separately generated. Therefore explicit source/from fields must be deliberate; transparent changes Some(inner) chain and is not interchangeable.",
+      "disposition": "Bounded native derive support recorded; preserve per-owner source/bound/format proof",
+      "evidence_basis": "Fresh personal exact registered material bodies/narratives; hash-verified source copies convey no other-lens coverage",
+      "limits": "Only stated ranges; no blanket owner/source admission/runtime/global acceptance"
+    },
+    {
+      "material_index": 115,
+      "registration": {
+        "source_id": "pinned-registry:thiserror-2.0.20/src/lib.rs",
+        "sha256": "817cfdb6c24d60de78f399d4db84f2910c543dec9a9d75d191215b4308e19823",
+        "ranges": [
+          [
+            38,
+            59
+          ]
+        ],
+        "package_checksum": "ec86235f5fcc2a73650310756d2ac5b138a5780bbbdfae3eeccec992c435ba4f",
+        "reason": "Pinned primary documentation for generated Error/Display API preservation and tuple {0} interpolation equivalence; selected docs only, no whole package audit.",
+        "line_count": 291,
+        "registration_evidence": "derivability/fresh-dependency-registration-037.json",
+        "qualification": "Bounded material trace only. Prior original roles and completed baseline findings remain adopted; no replay, whole-lens clearance, or cross-lens verdict transfer."
+      },
+      "source_origin": "../audit02-delta/sources/817cfdb6c24d60de78f399d4db84f2910c543dec9a9d75d191215b4308e19823",
+      "source_sha256": "817cfdb6c24d60de78f399d4db84f2910c543dec9a9d75d191215b4308e19823",
+      "read_ranges": [
+        [
+          38,
+          59
+        ]
+      ],
+      "inventory_and_semantics": "Native thiserror docs describe structs/enums/unit errors and formatting interpolation. Narrative read supports macro availability/format contract, does not itself prove all owner equivalence or dependency availability.",
+      "disposition": "Bounded native derive support recorded; preserve per-owner source/bound/format proof",
+      "evidence_basis": "Fresh personal exact registered material bodies/narratives; hash-verified source copies convey no other-lens coverage",
+      "limits": "Only stated ranges; no blanket owner/source admission/runtime/global acceptance"
+    },
+    {
+      "material_index": 116,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/examples/armor_fixture/manifold.rs",
+        "pin": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_blob": "9803c813faeba0162ad70d21c20a3400d90aed6d",
+        "sha256": "6c193531b08ef45d0da983a54e0e3c54cab095b24fe2c9629bd66d4d62b7426d",
+        "ranges": [
+          [
+            1,
+            96
+          ]
+        ],
+        "material_reason": "Actual recipient: frozen1304 calls manifold validator107/142 via frozen1307 reexport10, and1307:55 invokes shared_contact::beyond_shared_feature. Required definition of edge closure/inner-outer face/feature-contact applicability in the exact independently asserted shell validation contract. No directory-adjacency expansion.",
+        "line_count": 96,
+        "registration_evidence": "enum-shapes/source-registration-604.json",
+        "qualification": "Bounded material trace only. Prior original roles and completed baseline findings remain adopted; no replay, whole-lens clearance, or cross-lens verdict transfer."
+      },
+      "source_origin": "../audit02-delta/sources/6c193531b08ef45d0da983a54e0e3c54cab095b24fe2c9629bd66d4d62b7426d",
+      "source_sha256": "6c193531b08ef45d0da983a54e0e3c54cab095b24fe2c9629bd66d4d62b7426d",
+      "read_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "inventory_and_semantics": "Existing armor manifold helper computes canonical vertices, coherent edge winding, connected fans and positive signed shell volume. Assertions are existing semantic fixture/oracle; no handwritten trait/serde or new test additions/execution.",
+      "disposition": "No derivability candidate; retain existing semantic fixture",
+      "evidence_basis": "Fresh personal exact registered material bodies/narratives; hash-verified source copies convey no other-lens coverage",
+      "limits": "Only stated ranges; no blanket owner/source admission/runtime/global acceptance"
+    }
+  ],
+  "checks": "not run",
+  "source_edits": false,
+  "clear": false
+}

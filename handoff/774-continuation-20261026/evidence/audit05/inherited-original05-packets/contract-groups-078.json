@@ -1,0 +1,156 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-078",
+  "at": "2026-10-23T01:13:00.498086+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs",
+      "sha256": "35462629537232e291556fb180d6092e157ed718cf492f6a448d1c1c142cf0cb",
+      "scope041_index": 1817,
+      "actual_EOF": 242,
+      "scoped_ranges_compared": [
+        [
+          1,
+          242
+        ]
+      ],
+      "actual05_comparison": "Fresh full242 including test-module declaration only. GroundTriangle rotates canonical lexicographic first point, f64 determinant roundoff rejects unmeasurable plan plane, corrects winding and creates all three checked positions together. Private triple immutable, no decoder/setter. height interpolation and clipping reuse exact plane; final f32 represented XY quantization occurs BEFORE lifting elevation, preserving represented-source relation. Triangulation checks each completed triangle again; rejected degenerate slivers omitted, not synthetic support. F023 triangle determinant about1e-30 comfortably exceeds its relative roundoff bound, so this lower constructor does NOT reject that intrinsic tiny triangle; whole floor constraints remain separately qualified. intersection uses actual registered clip helper, no name-only carry. Boundary tolerance is rounding-cell uncertainty, distinct physical architectural tolerance. SourceCutRegions exact helper body remains unread.",
+      "source_body_proof": "Fresh actual complete scoped body personally read; fixtures source-only, not executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar/query.rs",
+      "sha256": "6876c759c1e7a12a44cce57a8c372f1f7dcb4f926b9edc6e1486fc341a489cf6",
+      "scope041_index": 1833,
+      "actual_EOF": 156,
+      "scoped_ranges_compared": [
+        [
+          1,
+          156
+        ]
+      ],
+      "actual05_comparison": "Fresh complete156 including external test declaration only. PlanarQueryIndex owns bounds plus nodes; source ordinals initially0..len. Root append only nonempty; recursion splits onlylen>8 atlen/2, so both child slices nonempty. Private internal node refs created from actual node length before children, then filled together. Empty index returns empty results. Query visits only constructed node refs, leaf candidates filter against original matching bound and finally sort authoritative source ordinals. This cache alone has no sourcecollection identity seal; GeographicSurface actual constructor builds it from exact sorted immutable triangles, while internal pubsuper mutation is separate latent cache-correspondence weakness. Broad phase does not reorder actual authoritative clipping decisions.",
+      "source_body_proof": "Fresh actual complete scoped body personally read; fixtures source-only, not executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source/region.rs",
+      "sha256": "aab2deff4bbdbd96050f2c2016de6e735105d4d6643e4ec5854262eac1ab2bc3",
+      "scope041_index": 1824,
+      "actual_EOF": 146,
+      "scoped_ranges_compared": [
+        [
+          1,
+          146
+        ]
+      ],
+      "actual05_comparison": "Fresh full146 incl existing inline fixture source-only. measure_region validates actual checked polygon finite/nonempty/positive signed area, bounds query against matching source triangles; complete convex clipping rather than corner sample derives observations. Slope computed after f64 widening of source f32 points, so distinct from F023 f32 horizontal squared norm. Location/grade/areas/evidence admitted together at actual maximum, final covered-area replaced by completed total. Covered area is SUM of source face intersections, not union; duplicate overlapping source can compensate for missing source under existing public from_triangles (F024), no normal vista failure inferred. Fixture tests rotated hidden slope and partial coverage, not cancellation/overlap proof.",
+      "source_body_proof": "Fresh actual complete scoped body personally read; fixtures source-only, not executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs",
+      "sha256": "ff887ab06cf0892fa9f624f587e493319a93fc570898a890fb117a382061e3b3",
+      "scope041_index": 2693,
+      "actual_EOF": 181,
+      "scoped_ranges_compared": [
+        [
+          1,
+          179
+        ]
+      ],
+      "actual05_comparison": "Fresh exact1-179,181 test module declaration excluded. GeographicSurface::from_triangles checks EVERY triangle through actual GroundTriangle, requiresnonempty, sorts canonical order then computes query and boundary factor from exact same completed vector before publishing. No explicit pairwise nonoverlap, complete-domain promise or duplicate rejection. from_vista_lod checks width/depth>=2, exact width*depth heights and positive finite spacing/finite origin before indexing; actual cell diagonal fixed a-c, two faces per cell. Completed point finiteness/quantization tested by triangle constructor, so no raw source finite inference. Private query/boundary factor depend on pubsuper triangles; sibling mutation can invalidate correspondence (existing Root03 source-encapsulation graph, not new defect count). height_range retains min/max evidence point with same admitted elevation, exact source intersections; elevation_at chooses first canonical containing source face, not average or silent ownership merge.",
+      "source_body_proof": "Fresh actual complete scoped body personally read; fixtures source-only, not executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs",
+      "sha256": "067e6669cec19996bd4cbe6fc1caf61c221b294ad11a150ccc3ca36423379797",
+      "scope041_index": 1814,
+      "actual_EOF": 390,
+      "scoped_ranges_compared": [
+        [
+          1,
+          390
+        ]
+      ],
+      "actual05_comparison": "Fresh full390. PropertyFoundationMesh validates positive prism geometry, sixvertex storage, exact count and EXACT topology template/offset equality for every cell before publication; separate support/solid triangle domains and cutfaces retained. append_cell prospective total capacitychecked BEFORE coupled vertices/support/solid append. Generator is local candidate and validates completed mesh before return. Foundation bottom min(source,support)-architecturalembedment follows exact plane difference sections, no epsilon collapse or inferred structural strength. visit_source_intersections checks allactual polygon controls for cut-fill then SUMS clipped area; validate_coverage compares signed discrepancy to perimeter*contact tolerance. Summed overlap can cancel missing coverage (F024), distinct from correct explicit absolute tolerance. Native convex_mesh/collider failure returns owner/member/cell evidence; native kernel body not credited. volume depth subtraction remains f32 before widening, no normal representability proof invented.",
+      "source_body_proof": "Fresh actual complete scoped body personally read; fixtures source-only, not executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/replacement.rs",
+      "sha256": "b75aba1e567b755f62e7882e2ad69001c5ad5fc8923d0b9a8430a4ffcebf0f32",
+      "scope041_index": 1818,
+      "actual_EOF": 152,
+      "scoped_ranges_compared": [
+        [
+          1,
+          152
+        ]
+      ],
+      "actual05_comparison": "Fresh complete152 including externaltest declaration only. BoundedPropertyTerrain compile uses sameplan geographic embedment forfoundations and sourcecutouts, locallycomputes allfields before publishing. Owned exterior elevations combine natural/source support, sorted/dedup by declared contacttolerance rather than averaging multi-level heights. Collision/presentation use retained samegeometry; native trimesh/convex contracts lowerpending. Source clipping welds ONLY actual declared street-entry join, retains unrelated terraces. Private front plot corners and appended apron order established in current plan producer, so regions[0]/last/apron[2..] require actualplan invariant, not arbitrary Vec names. Empty natural surface intentionally returns onlyfoundation colliders.",
+      "source_body_proof": "Fresh actual complete scoped body personally read; fixtures source-only, not executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement.rs",
+      "sha256": "73463b02d4801103755fe0b5ed7fe7251892415ba3b7352dcce9b9634b454e8f",
+      "scope041_index": 1819,
+      "actual_EOF": 420,
+      "scoped_ranges_compared": [
+        [
+          1,
+          420
+        ]
+      ],
+      "actual05_comparison": "Fresh full420. Settlement compilation sorts canonical property IDs, rejects duplicateproperties/members and positive ownershipoverlap before clipping. Local foundationvector/naturaltriangles then finitepresentationcapacity and queryvalidation before returned aggregate. from_foundations admits samewholegeometry then builds/validates exact query; Wire decoder does not trust serialized query without validate. Prepared ArcOnceLock is derivative and excluded from PartialEq; geometry/query/tolerance retained asauthoritative values. Internal pubsuper vectors allow sibling latent cache-coherence bypass, existing Root03 encapsulation graph. Source validations protect exact prism topology/unique owners/nativecapacity, not general naturaltriangle coverage/overlap. Actualnativecollisionreceivers uncredited. validate_owners compares completeclipping outlines notjustplotcentres, preserves exact diagnostic ownership; genericrawfrom_foundations does not promise globallynonoverlappingterraces merely bytypename.",
+      "source_body_proof": "Fresh actual complete scoped body personally read; fixtures source-only, not executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+      "sha256": "443ff701ad79a52b06623fc199de7ea1df011b7527ed2ef8056057b9b8fac059",
+      "registration_id": "NATIVE-INITIAL05-REG022",
+      "global_membership": "pending",
+      "actual_EOF": 83,
+      "scoped_ranges_compared": [
+        [
+          3,
+          66
+        ]
+      ],
+      "actual05_comparison": "Fresh bounded3-68 after prospective registration;67blank/68nexthelperdoc excluded. clip retains closed positivehalfplane and inserts exactcrossing byside ratio; empty returns empty. subtract first tests actual completeintersection, leaves whollyoutside topologyunchanged, then partitions outsidepieces from successiveinsidehalfplanes (convex orderedoutline precondition). signed_area fan aroundfirstorigin returns0forempty andpreserveswinding. Does not union/deduplicate independent inputtriangles: repeatedsourcefaces produce repeatedequalintersections, substantive F024 support. distance_outside69+notread/notcredited.",
+      "source_body_proof": "Fresh bounded actual helper bodies read after REG022, no whole-file exemption."
+    }
+  ],
+  "comparison_groups": {
+    "complete-plane-and-source": "Canonical triples and source/query initialized together; f64 geometry differs from f32 grade measurement.",
+    "area-sum-is-not-union": "Actual clipping preserves duplicate input faces; scalar sum cannot certify independentcoverage/overlap.",
+    "mesh-topology-and-ownership": "Exact sixvertex template/count/index correlation plus unique settlement owner gates, localcandidates before publish.",
+    "cache-and-canonical-storage": "Private caches derivative but pubsuper source storage remains trust boundary; existing encapsulation findings preserved."
+  },
+  "new_unique_findings": [
+    {
+      "id": "NATIVE-INITIAL05-F024",
+      "lens": "audit-aggregate-states",
+      "classification": "overlapping geographic source can cancel missing coverage in area sum",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs",
+      "sha256": "067e6669cec19996bd4cbe6fc1caf61c221b294ad11a150ccc3ca36423379797",
+      "source_ranges": [
+        [
+          319,
+          374
+        ]
+      ],
+      "relationship": "Complete support coverage and absence of source overlap are independent correlated geometry properties; equality of summed areas does not prove either.",
+      "source_counterexample": "Flat support triangle A=(0,0),B=(2,0),C=(0,2), area2. GeographicSurface::from_triangles accepts two identical flat faces A,B,M=(1,1), eacharea1. Actual clip produces eachfullhalf triangle. visit_source_intersections accumulates2 and validate_coverage discrepancy0 passes although triangle A,M,C ismissing and A,B,M isdoublycovered. No new test/execution.",
+      "actual_path": "Representable public source/foundation API acceptance weakness in actual coverage predicate; source from_triangles has no nonoverlap gate. Exact normal vista-grid source emits two propera-c faces percell, not this duplicatecounterexample. No complete normal installedbadscene/runtime claim; further banks/query/native construction may reject a particular enclosingplan for other reasons.",
+      "connected_repair": "Join existing physicalsupport/sourcecoverage repairgraph; Root retains implementationauthority. Keep requiredarea, unioncoveredarea and overlappedarea distinct, or establish sourcepartition invariant at admission and preserve it under mutation. Do not rename summedarea as union.",
+      "acceptance": "Missing region and overlapping source cannot compensate numerically; preserve exactsourceorder/physicalplane/legitimate sharededges/contactareatolerance and separate ownership/retaining levels. No arbitrary global exact-zero tolerance or proximitymerging.",
+      "proof_ref": "contract-groups-078.json",
+      "repair": "frozen",
+      "validation": "not_established"
+    }
+  ],
+  "remaining_dependency_obligations": [
+    "Exact SourceCutRegions/banks/constraints/settlement query/prepared and source difference helpers still unread; no native kernel or runtime coverage."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

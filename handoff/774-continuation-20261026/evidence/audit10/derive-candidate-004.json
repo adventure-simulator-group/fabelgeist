@@ -1,0 +1,12 @@
+{
+ "id":"OWN10-QUALIFIED-CANDIDATE-004",
+ "scope_index":1761,
+ "path":"crates/adventuresim-tactical-core/src/animation/event_span.rs",
+ "range":[77,81],
+ "implementation":"From<CoalescedEventBudget> for u64 returns budget.0.get()",
+ "potential_existing_adapter":"derive_more::Into with explicit #[into(u64)] on the NonZeroU64 wrapper, analogous to current explicit-target forwarding in frozen HeightDistance/HeightSpeed original1764",
+ "status":"QUALIFIED_CANDIDATE_REQUIRES_EXACT_MACRO_AND_STANDARD_LIBRARY_SOURCE_EQUIVALENCE_NOT_NEW_FINDING",
+ "needed_proof":"Prospectively register and personally inspect derive_more-impl2.1.1 Into expansion and exact installed/frozen compiler NonZeroU64->u64 From implementation. Verify identical owned From<CoalescedEventBudget> for u64 API/coherence and scalar bits; no blanket Into or thiserror substitution.",
+ "known_capability":"Frozen TacticalCore manifest original1749 already enables derive_more into; no dependency/feature addition proposed.",
+ "qualification":"This does not establish missing derivability remedy or unique finding; global saved-remedy dedup and exact source support pending. Existing implementation is correct and remains retained until proof. No project checks or source edits."
+}

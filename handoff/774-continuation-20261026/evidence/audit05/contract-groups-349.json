@@ -1,0 +1,57 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-349",
+  "at": "2026-10-25T23:30:54.421453+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 51,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/authored_weapon.rs",
+      "sha256": "d51000403c3e70e523d5bdfe690114fcf0781449dabb10a52ee3dc006b00f5ca",
+      "personally_read_ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Authored melee projection checks item kind and melee-only flags, computes checked timing, derives recipe striking-head length and copies corresponding catalog geometry/material/skill fields into CombatWeapon. Total attack interval uses windup plus checked recovery; no independent parallel item-index join.",
+        "Missing equipment uses zero dimensions/grip before downstream distal-surface/balance calculation; validated catalog requirements and recipe/catalog dimension/material coherence remain separate whole-owner obligations. Public mutable ItemDefinition values are not admitted merely because this method returns Ok. Entire130 lines read; no execution."
+      ]
+    },
+    {
+      "scope_index": 54,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/incapacitation_tests.rs",
+      "sha256": "82fefbb149fc497e21bc9a6807ba2c59a7ede49ce15681838342a37fdd4a6527",
+      "personally_read_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full86line existing test module read: compares equal total impairment from fatigue vs other condition, asserts no fatigue movement multiplier, and asserts burden changes incapacitation once without reducing physical skill checks. This is source-level intent evidence, not executed acceptance or proof of all gameplay consumers."
+      ]
+    },
+    {
+      "scope_index": 55,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+      "sha256": "7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
+      "personally_read_ranges": [
+        [
+          1,
+          329
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full329line joint melee source read. Round is split into nominal64Hz windows; earliest pending contact bounds movement, near contacts retained within tolerance, exact-time members define contact batch, deterministic contact order uses time then attacker ID, and matched vectors zip one batch per attack.",
+        "Contact resolution checks scheduled identity current, permits defeated attacker only for simultaneous batch, then clears all three schedule optional fields together. Actual stable unique participant IDs and schedule-timing invariants remain necessary to avoid aliased attack IDs/stale target references.",
+        "Movement advances index-paired allies/enemies up to shorter side, whereas pending scheduling targets may choose other indexes; actual assignment/engagement consistency requires receiving comparison. Recursive window consumes earliest contact before remainder; progress depends on contact cancellation/currentness and representable timestamps, not established by type alone.",
+        "Substep count derives from authored round seconds without explicit upper cap in this module; actual tuning admission required for execution bound. No stack/time simulation or deterministic regression tests run; qualified questions retained without whole battle clearance."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

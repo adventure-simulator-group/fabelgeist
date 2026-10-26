@@ -1,0 +1,64 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-013-PARTIAL",
+  "lens": "08 behavior-preservation",
+  "completed_original": [],
+  "partial_original": [
+    1474,
+    1479,
+    1495
+  ],
+  "source_pins": [
+    {
+      "index": 1479,
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/equipment/preview.rs",
+      "head_sha256": "650387466e93e9e4fca78192a92d693a82d7df3669d21a2e4bf8990921d48e17",
+      "base_status": "Absent; movedoldfunction/fixturebodiesactualparent1474whole845diff read",
+      "fresh_head_ranges": [
+        [
+          1,
+          437
+        ]
+      ],
+      "diff": "source-evidence/pr1479.diff",
+      "diff_sha256": "e536dca4eb0cb09d61ea13f051bcc3d0cae0d007f7ea13d012be96f8390a3000",
+      "diff_lines": 443,
+      "diff_body_read_qualification": "Currenthead completeaddition437 consumed; actualgitdiffstored but6headerlinesnotyetexplicitlyconsumed. Do notclaimcomplete443diffread."
+    },
+    {
+      "index": 1495,
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/equipment/slot_selection.rs",
+      "head_sha256": "95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
+      "base_sha256": "f40cd24794678726d7cde4441d6f3cdb089539541ef81a21048aab335640c87b",
+      "fresh_head_ranges": [
+        [
+          1,
+          243
+        ]
+      ],
+      "fresh_diff_ranges": [
+        [
+          1,
+          133
+        ]
+      ],
+      "diff": "source-evidence/pr1495.diff",
+      "diff_sha256": "c0a40406d449b1aead79ed042c976bf9e36989e4e7d0db73b1cee0475f48ffc5"
+    }
+  ],
+  "facts": [
+    "NewPreviewTarget maps oldgeneratedstates: emptycapacity occupiedfalse/attachedtrue ->EmptyAttachment parent; occupiedtrue/false->OccupiedDetached; occupiedtrue/topologyattachedpredicate->Occupied withsamepredicate. Addressedentity preservesoldparent/childidentity. Samefirstoccupied andfirstattachment lookup. Impossibleoldbooleancombinations removed fromprivateconstructors, noordinaryinputcaseinferredlost.",
+    "Same visitedsetcycle gate, ownerfilter/root_ordercall/sort, attachmentpoint(order,id)sort/locationfilter/capacityloop, firstchild match anddepthfirstbeforeparent traversal in both queryshapes. Oldparent234deletedfunctionlines andmovedold2fixtures actuallyread; new2fixtures preserveinputs/oracles with intendedcanonicalbeltID andunionpredicate/getteradaptation.",
+    "HeldPreviewItem classifies NoneEmpty, SomeunknownIDUnknown, SomeknownIDDefined canonicalfirstlookup; oldSomeunknownstring eligiblelookupNone remainsnoeligible insteadofemptyhand. MissingItemPropertiesstillmapsEmpty exactlyoldand_then behavior; no newly inventedhardeningclaim.",
+    "Slotselection entire243/133diff freshread. Same mappingorder/repeatstart/rotatingfirsteligible/u16trydepth/HUDstart/apply/invalidflash. Defined uses actualitemrecord matchingoldcataloglookup, Unknownnone,Emptyoutermostoccupied. Existing2fixtures samecases/assertions with canonicalstaticMITTEN_GAUNTLET and addressedentityadapter. No cases run.",
+    "Actual parent1474selection/HUD/click/releaseexpected_destination receives same addressedentity andselectiondepth; sameColors/grid/tooltips fromcurrentfull1745body. Typedrequestchronology/revisionbranch separatelyaccounted own010."
+  ],
+  "remaining_exact_work": [
+    "Checkactualregisteredroot_order supplier in coreinventory/ordering.rs before complete1479/1495 sourcecontract; declarationonly navigated fnroot_order at20, bodyNOTread. Identifyoriginalrole+scope/hash first.",
+    "Read6headerlines/verifywholeadditionmapping for1479actualdiff beforeclaimingdiffcomplete.",
+    "1474remaining actualskin1494jointfixture andruntime/renderbinding/socket receiver contracts stillpartial."
+  ],
+  "next_action": "ParentrequestedcurrentCI no-growthdelta review atHEAD30bc4dfb1; preserve08checkpointandreturnafterreview.",
+  "new_unique_findings": [],
+  "global_clearance": false,
+  "execution": "No source/Gitmutations/tests/projectchecks."
+}

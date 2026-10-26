@@ -1,0 +1,806 @@
+{
+  "id": "OWN10-OVERLAY-SUCCESSOR-008",
+  "lens": "derivability",
+  "registration_authority": "../audit05/raw-overlay-registration-000.jsonl",
+  "registration_sha256": "c26e2def8f8520c870f359ef66919ce730fcddb65beb051365fce42371a7bc68",
+  "receipts": [
+    {
+      "overlay_index": 30,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-031",
+        "at": "2026-10-22T04:50:25.369817+00:00",
+        "source_id": "physical-p16:crates/fabelgeist-geometry/src/cuboid.rs",
+        "sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+        "material_ranges": [
+          [
+            1,
+            80
+          ]
+        ],
+        "audit_owner": "rig",
+        "reason": "Exact prospectively registered material range/role reconciliation; byte overlap never substitutes semantic role acceptance.",
+        "new_byte_ranges": [],
+        "scope_registration": {
+          "authority": "continuation/root/producer-scope-extension-authority-022.json",
+          "candidate_record": "continuation/native/producer-registry-reconciliation/candidate-002.json",
+          "registered_before_body_analysis": [
+            {
+              "registry": "continuation/rig/owner-reached-producer-followup/additional-sources.jsonl",
+              "row_1based": 3,
+              "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-003",
+              "supplier": "rig",
+              "original_record": {
+                "id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-003",
+                "source_id": "physical-p16:crates/fabelgeist-geometry/src/cuboid.rs",
+                "sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+                "requested_ranges": [
+                  [
+                    1,
+                    80
+                  ]
+                ],
+                "new_variant": true,
+                "reason": "Actual P16 LeafDimensions14\u00e2\u20ac\u201c22 calls CuboidDimensions::from_metres/metres/cuboid; P16 cuboid is not in current2483files and differsPR source1fe1e..., so cannot use PR definition by alias/hash. Exact necessary constructors/axisgetters/nativeVec3 projection only. Cuboid Serde81+excluded unless actuallycalled. Metadata hash/EOF123/signature navigation only, no bodyanalysis yet.",
+                "status": "pre_read_pending_root"
+              },
+              "per_registration_qualification": {
+                "registry": "continuation/rig/owner-reached-producer-followup/source-qualifications.jsonl",
+                "row_1based": 3,
+                "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-003",
+                "supplier": "rig",
+                "original_record": {
+                  "id": "RIG-OWNER-REACHED-PRODUCER-SOURCE-QUALIFICATION-003",
+                  "registration_ref": "additional-sources.jsonl#line=3",
+                  "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-003",
+                  "source_id": "physical-p16:crates/fabelgeist-geometry/src/cuboid.rs",
+                  "snapshot": "p16",
+                  "sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+                  "actual_EOF": 123,
+                  "original_registered_ranges": [
+                    [
+                      1,
+                      80
+                    ]
+                  ],
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      80
+                    ]
+                  ],
+                  "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+                  "qualification": "Only exact registered role; original exclusions preserved.",
+                  "scope_and_owner_gate": "Root authoritative global reconciliation and necessary owner delta pending; no other lens/repair credit",
+                  "authority": "Root global007/overlays018/019 acknowledged before source body read."
+                }
+              },
+              "effective_registration_material_ranges": [
+                [
+                  1,
+                  80
+                ]
+              ],
+              "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance",
+              "independent_producer_proof": true
+            }
+          ],
+          "effective_local_material_ranges": [
+            [
+              1,
+              80
+            ]
+          ],
+          "qualification_refs": [
+            {
+              "registry": "continuation/rig/owner-reached-producer-followup/source-qualifications.jsonl",
+              "row_1based": 3,
+              "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-003",
+              "supplier": "rig",
+              "original_record": {
+                "id": "RIG-OWNER-REACHED-PRODUCER-SOURCE-QUALIFICATION-003",
+                "registration_ref": "additional-sources.jsonl#line=3",
+                "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-003",
+                "source_id": "physical-p16:crates/fabelgeist-geometry/src/cuboid.rs",
+                "snapshot": "p16",
+                "sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+                "actual_EOF": 123,
+                "original_registered_ranges": [
+                  [
+                    1,
+                    80
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    1,
+                    80
+                  ]
+                ],
+                "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+                "qualification": "Only exact registered role; original exclusions preserved.",
+                "scope_and_owner_gate": "Root authoritative global reconciliation and necessary owner delta pending; no other lens/repair credit",
+                "authority": "Root global007/overlays018/019 acknowledged before source body read."
+              }
+            }
+          ],
+          "scope_limits": "Every original registration/role/caller/reason remains embedded independently. Byte overlap is not semantic role coverage, producer acceptance, owner-fit acceptance or edit ownership. none; Native qualifications trim local supplier roles only, never historical global scope.",
+          "producer_discovery": "separate actual source/recipient packet acceptance required",
+          "owner_fit": "pending exact new-role delta against owner019",
+          "source_or_other_lens_credit": "none from scope bookkeeping"
+        },
+        "producer_followup": "separate actual source/recipient packet acceptance required",
+        "owner_fit": "pending exact new-role delta against owner019"
+      },
+      "source_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/fabelgeist-geometry/src/cuboid.rs",
+      "source_sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+      "read_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "Actual P16 CuboidDimensions checked finite/nonnegative axis lengths and array/native Vec3 projection, structural Clone/Copy/Debug/PartialEq/optional Reflect already derived.",
+      "disposition": "No handwritten trait in1-80; keep semantic checked constructors/projections. Cuboid Serde81+ explicitly excluded, no PR counterpart/source identity substitution."
+    },
+    {
+      "overlay_index": 31,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-032",
+        "at": "2026-10-22T04:50:25.369817+00:00",
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+        "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+        "material_ranges": [
+          [
+            19,
+            23
+          ],
+          [
+            38,
+            45
+          ],
+          [
+            71,
+            76
+          ],
+          [
+            94,
+            141
+          ],
+          [
+            151,
+            154
+          ]
+        ],
+        "audit_owner": "root",
+        "reason": "Exact prospectively registered material range/role reconciliation; byte overlap never substitutes semantic role acceptance.",
+        "new_byte_ranges": [],
+        "scope_registration": {
+          "authority": "continuation/root/producer-scope-extension-authority-022.json",
+          "candidate_record": "continuation/native/producer-registry-reconciliation/candidate-002.json",
+          "registered_before_body_analysis": [
+            {
+              "registry": "continuation/native/root-roof-producer-followup/local-source-scope-extensions.jsonl",
+              "row_1based": 20,
+              "registration_id": "NATIVE-ROOF-SCOPE-020",
+              "supplier": "native",
+              "original_record": {
+                "id": "NATIVE-ROOF-SCOPE-020",
+                "registered_at": "2026-10-22T04:21:55.979697+00:00",
+                "authority": "continuation/root/producer-scope-extension-authority-022.json",
+                "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+                "snapshot": "pr-working",
+                "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/generator/small_church.rs",
+                "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+                "actual_EOF": 154,
+                "material_ranges": [
+                  [
+                    1,
+                    47
+                  ]
+                ],
+                "actual_caller": "belfry_enclosure_top71 necessary namespace/Dimensions declaration path",
+                "scope": "Exact direct roof geometry/source/recipient function or necessary declarations; exclude unrelatedfixturetails.",
+                "reason_prior_proof_insufficient": "Actual current callers newlyfound; rawpoint/numeric/state source/operation unknownwithoutbody, no nativehelper name exemption.",
+                "credit_at_registration": "none"
+              }
+            },
+            {
+              "registry": "continuation/native/root-roof-producer-followup/local-source-scope-extensions.jsonl",
+              "row_1based": 22,
+              "registration_id": "NATIVE-ROOF-SCOPE-022",
+              "supplier": "native",
+              "original_record": {
+                "id": "NATIVE-ROOF-SCOPE-022",
+                "registered_at": "2026-10-22T04:22:28.875481+00:00",
+                "authority": "continuation/root/producer-scope-extension-authority-022.json",
+                "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+                "snapshot": "pr-working",
+                "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/generator/small_church.rs",
+                "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+                "actual_EOF": 154,
+                "material_ranges": [
+                  [
+                    94,
+                    154
+                  ]
+                ],
+                "actual_caller": "belfry_enclosure_top72/74 Dimensions::from_program/bell_floor",
+                "scope": "Exact actual called rawroofderivedsource/geometry helper andnecessaryrecord; no unrelatedfixture.",
+                "reason_prior_proof_insufficient": "Actualcalleeheadernavigation and caller show numericalresult travels internalRoofFace/Enclosure branch; prior metadata source range notsemanticproof.",
+                "credit_at_registration": "none"
+              }
+            }
+          ],
+          "effective_local_material_ranges": [
+            [
+              19,
+              23
+            ],
+            [
+              38,
+              45
+            ],
+            [
+              71,
+              76
+            ],
+            [
+              94,
+              141
+            ],
+            [
+              151,
+              154
+            ]
+          ],
+          "qualification_refs": [
+            {
+              "registry": "continuation/native/root-roof-producer-followup/local-source-scope-extensions.jsonl",
+              "row_1based": 24,
+              "registration_id": "NATIVE-ROOF-SCOPE-QUALIFICATION-001",
+              "supplier": "native",
+              "original_record": {
+                "id": "NATIVE-ROOF-SCOPE-QUALIFICATION-001",
+                "qualifies": [
+                  "NATIVE-ROOF-SCOPE-020",
+                  "NATIVE-ROOF-SCOPE-022"
+                ],
+                "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+                "effective_material_ranges": [
+                  [
+                    19,
+                    23
+                  ],
+                  [
+                    38,
+                    45
+                  ],
+                  [
+                    71,
+                    76
+                  ],
+                  [
+                    94,
+                    141
+                  ],
+                  [
+                    151,
+                    154
+                  ]
+                ],
+                "excluded_incidental_displayed_roles": [
+                  [
+                    25,
+                    36
+                  ],
+                  [
+                    142,
+                    150
+                  ]
+                ],
+                "reason": "SmallChurchPlan and unrelatedDimensions nave_depth/depth/bell_centre are not reached by belfry helper; displayedwithoutsemanticcoverage. Existingglobal154scope preserved but this supplierdoesnotclaimthosefunctions.",
+                "source_or_lens_credit": "none for excludedroles"
+              }
+            }
+          ],
+          "scope_limits": "Every original registration/role/caller/reason remains embedded independently. Byte overlap is not semantic role coverage, producer acceptance, owner-fit acceptance or edit ownership. none; Native qualifications trim local supplier roles only, never historical global scope.",
+          "producer_discovery": "separate actual source/recipient packet acceptance required",
+          "owner_fit": "pending exact new-role delta against owner019",
+          "source_or_other_lens_credit": "none from scope bookkeeping"
+        },
+        "producer_followup": "separate actual source/recipient packet acceptance required",
+        "owner_fit": "pending exact new-role delta against owner019"
+      },
+      "source_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/small_church.rs",
+      "source_sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+      "read_ranges": [
+        [
+          19,
+          23
+        ],
+        [
+          38,
+          45
+        ],
+        [
+          71,
+          76
+        ],
+        [
+          94,
+          141
+        ],
+        [
+          151,
+          154
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "Actual SmallChurchKind derives serde/comparison, from_use semantic classifier; Dimensions::from_program selects chapel/parish authored sizes/eaves and belfry_enclosure_top/bell_floor compute supported roof height.",
+      "disposition": "Semantic classification/authored geometry, no manual traits. Do not add serde solely to replace from_use. Exact effective ranges only, no roof arithmetic or omitted generator function acceptance."
+    },
+    {
+      "overlay_index": 32,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-033",
+        "at": "2026-10-22T04:50:25.369817+00:00",
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index.rs",
+        "sha256": "d2e0b7635bddd25114a9b505fbe03ea8ac464fff52e2bba8a9dc62a28d88ac71",
+        "material_ranges": [
+          [
+            1,
+            39
+          ]
+        ],
+        "audit_owner": "rig",
+        "reason": "Exact prospectively registered material range/role reconciliation; byte overlap never substitutes semantic role acceptance.",
+        "new_byte_ranges": [],
+        "scope_registration": {
+          "authority": "continuation/root/producer-scope-extension-authority-022.json",
+          "candidate_record": "continuation/native/producer-registry-reconciliation/candidate-002.json",
+          "registered_before_body_analysis": [
+            {
+              "registry": "continuation/native/root-roof-producer-followup/local-source-scope-extensions.jsonl",
+              "row_1based": 26,
+              "registration_id": "NATIVE-ROOF-SCOPE-025",
+              "supplier": "native",
+              "original_record": {
+                "id": "NATIVE-ROOF-SCOPE-025",
+                "registered_at": "2026-10-22T04:26:02.069641+00:00",
+                "authority": "continuation/root/producer-scope-extension-authority-022.json",
+                "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index.rs",
+                "snapshot": "pr-working",
+                "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/geometry_index.rs",
+                "sha256": "d2e0b7635bddd25114a9b505fbe03ea8ac464fff52e2bba8a9dc62a28d88ac71",
+                "actual_EOF": 268,
+                "material_ranges": [
+                  [
+                    1,
+                    40
+                  ]
+                ],
+                "actual_caller": "roof_contacts21/33 ResolvedSolid::yaw_bounds",
+                "scope": "Exact called record constructor andtypedbounds operation; unrelatedfunctions/Serde/fixtures excluded.",
+                "reason_prior_proof_insufficient": "Need actual sourcebody proof constructor retains checkedgeometry vs rawrecord and actual yaw math; oldername/owner/hash notenough.",
+                "credit_at_registration": "none"
+              }
+            }
+          ],
+          "effective_local_material_ranges": [
+            [
+              1,
+              39
+            ]
+          ],
+          "qualification_refs": [
+            {
+              "registry": "continuation/native/root-roof-producer-followup/local-source-scope-extensions.jsonl",
+              "row_1based": 28,
+              "registration_id": "NATIVE-ROOF-SCOPE-QUALIFICATION-002",
+              "supplier": "native",
+              "original_record": {
+                "id": "NATIVE-ROOF-SCOPE-QUALIFICATION-002",
+                "qualifies": [
+                  "NATIVE-ROOF-SCOPE-025",
+                  "NATIVE-ROOF-SCOPE-026"
+                ],
+                "effective_material_roles": {
+                  "pr-working:crates/adventuresim-building-generator/src/geometry_index.rs": [
+                    [
+                      1,
+                      39
+                    ]
+                  ],
+                  "pr-working:crates/adventuresim-building-generator/src/model/resolved_shapes.rs": [
+                    [
+                      360,
+                      380
+                    ]
+                  ]
+                },
+                "excluded_incidental_displayed_roles": {
+                  "model/resolved_shapes.rs": [
+                    [
+                      381,
+                      391
+                    ]
+                  ],
+                  "geometry_index.rs": [
+                    [
+                      40,
+                      40
+                    ]
+                  ]
+                },
+                "reason": "Actual yaw_bounds body doesnotcallcuboid_envelope; that separatemethod was incidentaldisplay and receivesno source/rolecredit. Only actuallycalled ResolvedSolid::new copyrecord andyaw kernel aretraced.",
+                "source_or_lens_credit": "none for excludedroles"
+              }
+            }
+          ],
+          "scope_limits": "Every original registration/role/caller/reason remains embedded independently. Byte overlap is not semantic role coverage, producer acceptance, owner-fit acceptance or edit ownership. none; Native qualifications trim local supplier roles only, never historical global scope.",
+          "producer_discovery": "separate actual source/recipient packet acceptance required",
+          "owner_fit": "pending exact new-role delta against owner019",
+          "source_or_other_lens_credit": "none from scope bookkeeping"
+        },
+        "producer_followup": "separate actual source/recipient packet acceptance required",
+        "owner_fit": "pending exact new-role delta against owner019"
+      },
+      "source_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/geometry_index.rs",
+      "source_sha256": "d2e0b7635bddd25114a9b505fbe03ea8ac464fff52e2bba8a9dc62a28d88ac71",
+      "read_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "Complete ResolvedSolid::yaw_bounds computes rotated native cuboid half bounds, admits SpatialBounds and attaches CollisionError source ID.",
+      "disposition": "Semantic numeric/native-bounds projection plus context, no handwritten traits/candidate. No constructor/callee/numerical/runtime clearance."
+    },
+    {
+      "overlay_index": 33,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-034",
+        "at": "2026-10-22T04:50:25.369817+00:00",
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+        "sha256": "485156188b8c858094e576418d153b0e315f06c01ef25685a6e11eb97e60a56b",
+        "material_ranges": [
+          [
+            360,
+            380
+          ]
+        ],
+        "audit_owner": "native",
+        "reason": "Exact prospectively registered material range/role reconciliation; byte overlap never substitutes semantic role acceptance.",
+        "new_byte_ranges": [],
+        "scope_registration": {
+          "authority": "continuation/root/producer-scope-extension-authority-022.json",
+          "candidate_record": "continuation/native/producer-registry-reconciliation/candidate-002.json",
+          "registered_before_body_analysis": [
+            {
+              "registry": "continuation/native/root-roof-producer-followup/local-source-scope-extensions.jsonl",
+              "row_1based": 27,
+              "registration_id": "NATIVE-ROOF-SCOPE-026",
+              "supplier": "native",
+              "original_record": {
+                "id": "NATIVE-ROOF-SCOPE-026",
+                "registered_at": "2026-10-22T04:26:02.102599+00:00",
+                "authority": "continuation/root/producer-scope-extension-authority-022.json",
+                "source_id": "pr-working:crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+                "snapshot": "pr-working",
+                "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+                "sha256": "485156188b8c858094e576418d153b0e315f06c01ef25685a6e11eb97e60a56b",
+                "actual_EOF": 447,
+                "material_ranges": [
+                  [
+                    360,
+                    391
+                  ]
+                ],
+                "actual_caller": "roof_resolution221/allnativecheckedsolid producers ResolvedSolid::new; typedcuboid_envelope recipient neededbyyaw_bounds",
+                "scope": "Exact called record constructor andtypedbounds operation; unrelatedfunctions/Serde/fixtures excluded.",
+                "reason_prior_proof_insufficient": "Need actual sourcebody proof constructor retains checkedgeometry vs rawrecord and actual yaw math; oldername/owner/hash notenough.",
+                "credit_at_registration": "none"
+              }
+            }
+          ],
+          "effective_local_material_ranges": [
+            [
+              360,
+              380
+            ]
+          ],
+          "qualification_refs": [
+            {
+              "registry": "continuation/native/root-roof-producer-followup/local-source-scope-extensions.jsonl",
+              "row_1based": 28,
+              "registration_id": "NATIVE-ROOF-SCOPE-QUALIFICATION-002",
+              "supplier": "native",
+              "original_record": {
+                "id": "NATIVE-ROOF-SCOPE-QUALIFICATION-002",
+                "qualifies": [
+                  "NATIVE-ROOF-SCOPE-025",
+                  "NATIVE-ROOF-SCOPE-026"
+                ],
+                "effective_material_roles": {
+                  "pr-working:crates/adventuresim-building-generator/src/geometry_index.rs": [
+                    [
+                      1,
+                      39
+                    ]
+                  ],
+                  "pr-working:crates/adventuresim-building-generator/src/model/resolved_shapes.rs": [
+                    [
+                      360,
+                      380
+                    ]
+                  ]
+                },
+                "excluded_incidental_displayed_roles": {
+                  "model/resolved_shapes.rs": [
+                    [
+                      381,
+                      391
+                    ]
+                  ],
+                  "geometry_index.rs": [
+                    [
+                      40,
+                      40
+                    ]
+                  ]
+                },
+                "reason": "Actual yaw_bounds body doesnotcallcuboid_envelope; that separatemethod was incidentaldisplay and receivesno source/rolecredit. Only actuallycalled ResolvedSolid::new copyrecord andyaw kernel aretraced.",
+                "source_or_lens_credit": "none for excludedroles"
+              }
+            }
+          ],
+          "scope_limits": "Every original registration/role/caller/reason remains embedded independently. Byte overlap is not semantic role coverage, producer acceptance, owner-fit acceptance or edit ownership. none; Native qualifications trim local supplier roles only, never historical global scope.",
+          "producer_discovery": "separate actual source/recipient packet acceptance required",
+          "owner_fit": "pending exact new-role delta against owner019",
+          "source_or_other_lens_credit": "none from scope bookkeeping"
+        },
+        "producer_followup": "separate actual source/recipient packet acceptance required",
+        "owner_fit": "pending exact new-role delta against owner019"
+      },
+      "source_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+      "source_sha256": "485156188b8c858094e576418d153b0e315f06c01ef25685a6e11eb97e60a56b",
+      "read_ranges": [
+        [
+          360,
+          380
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "Actual ResolvedSolid::new360-380 flattens CollisionCuboid authoritative centre/dimensions/orientations into resolved record plus owner/role/shape/support metadata.",
+      "disposition": "Semantic record construction, no manual trait. Multiple-argument/source representation change is not field-identical From derive. Effective360-380 only; original proposed380+ helpers not granted credit."
+    },
+    {
+      "overlay_index": 34,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-035",
+        "at": "2026-10-22T04:50:25.369817+00:00",
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/device_footwear_fit.rs",
+        "sha256": "a5ff6c930746498007808fb52e47a2ef6971347270a35ce8e0eeec3c03c77b1e",
+        "material_ranges": [
+          [
+            284,
+            284
+          ]
+        ],
+        "audit_owner": "rig",
+        "reason": "Exact prospectively registered material range/role reconciliation; byte overlap never substitutes semantic role acceptance.",
+        "new_byte_ranges": [
+          [
+            284,
+            284
+          ]
+        ],
+        "scope_registration": {
+          "authority": "continuation/root/producer-scope-extension-authority-022.json",
+          "candidate_record": "continuation/native/producer-registry-reconciliation/candidate-002.json",
+          "registered_before_body_analysis": [
+            {
+              "registry": "continuation/rig/owner-reached-producer-followup/additional-sources.jsonl",
+              "row_1based": 52,
+              "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-052",
+              "supplier": "rig",
+              "original_record": {
+                "id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-052",
+                "source_id": "pr-working:crates/adventuresim-character-creator/src/device_footwear_fit.rs",
+                "snapshot": "pr-working",
+                "sha256": "a5ff6c930746498007808fb52e47a2ef6971347270a35ce8e0eeec3c03c77b1e",
+                "actual_EOF": 284,
+                "material_ranges": [
+                  [
+                    284,
+                    284
+                  ]
+                ],
+                "reached_role": "Complete final raw-string const terminator of actual FAIR WGSL source whose function body ends283; syntax/native code-source delimiter only, not a new primitive role.",
+                "why_existing_proof_insufficient": "Original scoped101\u00e2\u20ac\u201c283 cannot receive nonexistent EOF credit; actual EOF284 requires exact final delimiter registration before body read.",
+                "authority": "continuation/root/producer-scope-extension-authority-022.json",
+                "status": "locally_registered_before_actual_body_analysis",
+                "new_variant": false
+              },
+              "per_registration_qualification": {
+                "registry": "continuation/rig/owner-reached-producer-followup/source-qualifications.jsonl",
+                "row_1based": 52,
+                "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-052",
+                "supplier": "rig",
+                "original_record": {
+                  "id": "RIG-OWNER-REACHED-PRODUCER-SOURCE-QUALIFICATION-052",
+                  "registration_ref": "additional-sources.jsonl#line=52",
+                  "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-052",
+                  "source_id": "pr-working:crates/adventuresim-character-creator/src/device_footwear_fit.rs",
+                  "snapshot": "pr-working",
+                  "sha256": "a5ff6c930746498007808fb52e47a2ef6971347270a35ce8e0eeec3c03c77b1e",
+                  "actual_EOF": 284,
+                  "original_registered_ranges": [
+                    [
+                      284,
+                      284
+                    ]
+                  ],
+                  "qualified_material_ranges": [
+                    [
+                      284,
+                      284
+                    ]
+                  ],
+                  "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+                  "qualification": "Only exact registered role; original exclusions preserved.",
+                  "scope_and_owner_gate": "Root authoritative global reconciliation and necessary owner delta pending; no other lens/repair credit"
+                }
+              },
+              "effective_registration_material_ranges": [
+                [
+                  284,
+                  284
+                ]
+              ],
+              "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance",
+              "independent_producer_proof": true
+            }
+          ],
+          "effective_local_material_ranges": [
+            [
+              284,
+              284
+            ]
+          ],
+          "qualification_refs": [
+            {
+              "registry": "continuation/rig/owner-reached-producer-followup/source-qualifications.jsonl",
+              "row_1based": 52,
+              "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-052",
+              "supplier": "rig",
+              "original_record": {
+                "id": "RIG-OWNER-REACHED-PRODUCER-SOURCE-QUALIFICATION-052",
+                "registration_ref": "additional-sources.jsonl#line=52",
+                "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-052",
+                "source_id": "pr-working:crates/adventuresim-character-creator/src/device_footwear_fit.rs",
+                "snapshot": "pr-working",
+                "sha256": "a5ff6c930746498007808fb52e47a2ef6971347270a35ce8e0eeec3c03c77b1e",
+                "actual_EOF": 284,
+                "original_registered_ranges": [
+                  [
+                    284,
+                    284
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    284,
+                    284
+                  ]
+                ],
+                "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+                "qualification": "Only exact registered role; original exclusions preserved.",
+                "scope_and_owner_gate": "Root authoritative global reconciliation and necessary owner delta pending; no other lens/repair credit"
+              }
+            }
+          ],
+          "scope_limits": "Every original registration/role/caller/reason remains embedded independently. Byte overlap is not semantic role coverage, producer acceptance, owner-fit acceptance or edit ownership. none; Native qualifications trim local supplier roles only, never historical global scope.",
+          "producer_discovery": "separate actual source/recipient packet acceptance required",
+          "owner_fit": "pending exact new-role delta against owner019",
+          "source_or_other_lens_credit": "none from scope bookkeeping"
+        },
+        "producer_followup": "separate actual source/recipient packet acceptance required",
+        "owner_fit": "pending exact new-role delta against owner019"
+      },
+      "source_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_footwear_fit.rs",
+      "source_sha256": "a5ff6c930746498007808fb52e47a2ef6971347270a35ce8e0eeec3c03c77b1e",
+      "read_ranges": [
+        [
+          284,
+          284
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "Actual FAIR source final raw-string delimiter284 read and matched exact source hash; shader body personally traced in overlay8.",
+      "disposition": "Syntax closure only, no trait/codecs/new primitive role or runtime shader correctness credit."
+    },
+    {
+      "overlay_index": 35,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-036",
+        "at": "2026-10-22T04:50:25.369817+00:00",
+        "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+        "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+        "material_ranges": [
+          [
+            486,
+            501
+          ]
+        ],
+        "audit_owner": "rig",
+        "reason": "Exact prospectively registered material range/role reconciliation; byte overlap never substitutes semantic role acceptance.",
+        "new_byte_ranges": [
+          [
+            486,
+            501
+          ]
+        ],
+        "scope_registration": {
+          "authority": "continuation/root/producer-scope-extension-authority-022.json",
+          "candidate_record": "continuation/native/producer-registry-reconciliation/candidate-002.json",
+          "registered_before_body_analysis": [
+            {
+              "registry": "continuation/camera/owner-reached-producer-followup/source-range-registration.jsonl",
+              "row_1based": 7,
+              "registration_id": "CONT-CAMERA-PP-FOLLOWUP-LOCAL-REGISTRATION-007",
+              "supplier": "camera",
+              "original_record": {
+                "id": "CONT-CAMERA-PP-FOLLOWUP-LOCAL-REGISTRATION-007",
+                "at": "2026-10-22T04:20:13.767599+00:00",
+                "authority": "continuation/root/producer-scope-extension-authority-022.json",
+                "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+                "snapshot": "pr-working",
+                "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+                "actual_eof_metadata": 3812,
+                "ranges": [
+                  [
+                    486,
+                    501
+                  ]
+                ],
+                "material_reach": "Exact remaining character_summary_icons tail between new341\u00e2\u20ac\u201c485 and old502\u00e2\u20ac\u201c507actualreturn.",
+                "existing_proof_insufficiency": "P16 context absent or exact role/range absent; cannot infer from PR counterpart path/SHA/owner verdict.",
+                "pre_body_status": "registered_before_new_body_analysis; no coverage credit"
+              }
+            }
+          ],
+          "effective_local_material_ranges": [
+            [
+              486,
+              501
+            ]
+          ],
+          "qualification_refs": [],
+          "scope_limits": "Every original registration/role/caller/reason remains embedded independently. Byte overlap is not semantic role coverage, producer acceptance, owner-fit acceptance or edit ownership. none; Native qualifications trim local supplier roles only, never historical global scope.",
+          "producer_discovery": "separate actual source/recipient packet acceptance required",
+          "owner_fit": "pending exact new-role delta against owner019",
+          "source_or_other_lens_credit": "none from scope bookkeeping"
+        },
+        "producer_followup": "separate actual source/recipient packet acceptance required",
+        "owner_fit": "pending exact new-role delta against owner019"
+      },
+      "source_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "source_sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "read_ranges": [
+        [
+          486,
+          501
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "Fresh exact remaining summary icon tail486-501 connects surgery/tailoring/smithing semantic roles. Same own full receiving body195-507 traced in overlay19; independent explicit raw role reconciliation.",
+      "disposition": "No handwritten traits/codecs/candidate. Native/other-lens verdict not imported; no unrelated UI source coverage."
+    }
+  ],
+  "checks": "not run",
+  "source_edits": false,
+  "clear": false
+}

@@ -1,0 +1,11 @@
+{
+ "parent_candidate":"OWN10-QUALIFIED-CANDIDATE-007",
+ "scope_index":1788,
+ "path":"crates/adventuresim-tactical-core/src/animation/state/raised_locomotion.rs",
+ "ranges":[[21,32],[57,66]],
+ "comparison":"Manual Default57-61 delegates planted64-66, exactly Self(RaisedLocomotionKind::Planted). Private non-generic enum unit Planted can use standard Default default marker and public non-generic wrapper can derive Default, preserving identical public output/API without payload bounds. Custom Deserialize41-55 remains unchanged.",
+ "remedy":"Same standard unit-enum plus wrapper Default family as candidate007; dedup as one remedy family, not automatically a second unique finding.",
+ "status":"EXACT_STANDARD_DERIVE_OCCURRENCE_PENDING_GLOBAL_SAVED_REMEDY_DEDUP",
+ "checks":"not run",
+ "source_changes":false
+}

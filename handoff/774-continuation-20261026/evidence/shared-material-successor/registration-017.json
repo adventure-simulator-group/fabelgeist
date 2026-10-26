@@ -1,0 +1,46 @@
+{
+  "at": "2026-10-26T05:38:45.092598+00:00",
+  "previous": "source-extensions-195.json",
+  "successor": "source-extensions-196.json",
+  "prefix_immutable": true,
+  "new_indices": [
+    195
+  ],
+  "new_entries": [
+    {
+      "source_id": "canonical-support:4530:Cargo.lock#http-package",
+      "revision": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+      "sha256": "197d8605659fa581961b37f9c18f2a46b04db822a666d3abefe5653b4204401a",
+      "bytes": 306163,
+      "ranges": [
+        [
+          6079,
+          6088
+        ]
+      ],
+      "reason": "F005 exact current lock mapping needed after986 changed lock bytes; old990 native package proof cannot imply new resolution. Only name/header/next-header locator; actual version/checksum/dependencies not semantically read before prospective registration.",
+      "object": "source-objects/197d8605659fa581961b37f9c18f2a46b04db822a666d3abefe5653b4204401a",
+      "registration_evidence": "registration-017.json",
+      "own_prospective_authority": "../audit05/remedy-reconciliation/main4530/F005-prospective-http-lock-registration-001.json",
+      "prior_reads": "Own05 locatoronly and hash/copy before registration; body unread. Root metadata/hash/copy only, no native package body assessment.",
+      "scope_limits": "Exact http package block only; no full lock/SDK/dependency/runtime/otherlens coverage.",
+      "lenses": {
+        "producer-propagation": "Pending independent exactboundedsource assessment; no transferred verdict.",
+        "existing-type-owners": "Pending independent exactboundedsource assessment; no transferred verdict.",
+        "admission-contracts": "Pending independent exactboundedsource assessment; no transferred verdict.",
+        "invariant-operations": "Pending independent exactboundedsource assessment; no transferred verdict.",
+        "aggregate-states": "Pending independent exactboundedsource assessment; no transferred verdict.",
+        "type-ownership": "Pending independent exactboundedsource assessment; no transferred verdict.",
+        "redundant-authority": "Pending independent exactboundedsource assessment; no transferred verdict.",
+        "behavior-preservation": "Pending independent exactboundedsource assessment; no transferred verdict.",
+        "enum-shapes": "Pending independent exactboundedsource assessment; no transferred verdict.",
+        "derivability": "Pending independent exactboundedsource assessment; no transferred verdict.",
+        "type-granularity": "Pending independent exactboundedsource assessment; no transferred verdict.",
+        "magic-strings": "Pending independent exactboundedsource assessment; no transferred verdict.",
+        "magic-numbers": "Pending independent exactboundedsource assessment; no transferred verdict."
+      }
+    }
+  ],
+  "source_changes": false,
+  "original_scope_changed": false
+}

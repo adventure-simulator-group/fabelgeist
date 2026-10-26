@@ -1,0 +1,102 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-038",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 503,
+      "source_id": "pr-working:assets/shaders/tactical_city.wgsl",
+      "sha256": "b9f68613f166dd35f4ef5de3e5ccc51a46aa330079aea84b1ef20d6073a4185f",
+      "ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "source_basis": "FreshrootexactfrozenregisteredfullWGSLbody.",
+      "concepts_actual_uses_and_mixup": [
+        "ActualGPUCityVertexkernelconsumespackedthreevec4vertexrecords withposition/normal/tangentandUVinw, typedlayoutBuilding/DrawRange/CityFrame plusnativeGPUindex/owner buffers. City-local/world/clip transforms andnormal/tangenthandedness have distinctroles, surfaceUVtransformatlastnativeboundary. Hostcount/stride/ownerassociation/normaltransformadmission remainseparate#780proof; shaderprimitivearraysnotblanketallCPUrawtypesexemption."
+      ],
+      "disposition": "Own11sourceaccountedWITHactualhost/nativeGPUadmissionlimits; no newuniquefinding orGPU/renderingruntimeclearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 504,
+      "source_id": "pr-working:assets/shaders/tactical_city_cull.wgsl",
+      "sha256": "4d432edb3c8b72dfcd163fa412e19aa2ee5603f621de9e0fae55fc7e7e46132f",
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "source_basis": "FreshrootexactfrozenregisteredfullWGSLbody.",
+      "concepts_actual_uses_and_mixup": [
+        "GPUcullingselectsperretainedviewbuildingLoDmask, separatecamera/shadowpolicy andhysteresis/previousselection; compactiongroupsdrawrange/placement/owner/clusterthenatomicdrawcount. Nativeu32indices/counts/masksnotinterchangeable; capacityandmultiplicationbounds mustcomefromactualCPUproducer/devicebuffers. No deviceexecutionorallviewhistoryadmissionclearance."
+      ],
+      "disposition": "Own11sourceaccountedWITHactualhost/nativeGPUadmissionlimits; no newuniquefinding orGPU/renderingruntimeclearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 505,
+      "source_id": "pr-working:assets/shaders/tactical_city_ground.wgsl",
+      "sha256": "3bc0e8bdfb4aea730fbca506f80fd06afd9f410c658869396cc616d6c35c6a21",
+      "ranges": [
+        [
+          1,
+          189
+        ]
+      ],
+      "source_basis": "FreshrootexactfrozenregisteredfullWGSLbody.",
+      "concepts_actual_uses_and_mixup": [
+        "CityGroundParametersgroupsnativepackedsurface/weather/scale/traffic/sourceframeuniforms. Sourceworldmetres, localfootprintUVandpixelderivatives aredifferentframes/units, continuouswear/moisture/snow/dampness differentfromphysicaldistance. PureWGSLmaterialkernelprojectsheight/normal/roughness/colors atGPUboundary; actualhostuniform/sourcepixelmetadata/admissionandruntimevisualresultnotcredited."
+      ],
+      "disposition": "Own11sourceaccountedWITHactualhost/nativeGPUadmissionlimits; no newuniquefinding orGPU/renderingruntimeclearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 506,
+      "source_id": "pr-working:assets/shaders/tactical_cloud_composite.wgsl",
+      "sha256": "bc687e4b087232f3d4cea9b9f05393ece9f197db7269d1df1467ea686a8730d4",
+      "ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "source_basis": "FreshrootexactfrozenregisteredfullWGSLbody.",
+      "concepts_actual_uses_and_mixup": [
+        "Cloudcompositeactualfragmentconvertsscreenpositionminusviewportorigin dividedviewportextenttonativeUV, samplespremultipliedoffscreencloudtexture. NativeGPUviewportpixelcoordinates/UV/color differentroles; CPUviewportvalidity/targetbinding/colorcontractunread."
+      ],
+      "disposition": "Own11sourceaccountedWITHactualhost/nativeGPUadmissionlimits; no newuniquefinding orGPU/renderingruntimeclearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 507,
+      "source_id": "pr-working:assets/shaders/tactical_clouds.wgsl",
+      "sha256": "a04c3a457fc4e9bdf80cb0bb2eca4eb2364d8d3b5233f9942c740594b3084e66",
+      "ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "source_basis": "FreshrootexactfrozenregisteredfullWGSLbody.",
+      "concepts_actual_uses_and_mixup": [
+        "CloudWGSLgroupslighting/shape/layer/motion/spectral/geometryandpairedbakes/samplers. Ray-origin/direction/shellradius/center separate, winddisplacement derivesintervalandblend; opacity/transmissiondepthinterpolatedratherthanlinearalpha, bakedchannelsretainseparateopticalmeaning. NativeGPUvector/scalarprojectioniskeyedlastboundary,notsourceownerproof; noCPU/GPUbitidentitycloudbake/sampling/build/runtimeclearance. Full177bodyreadonly."
+      ],
+      "disposition": "Own11sourceaccountedWITHactualhost/nativeGPUadmissionlimits; no newuniquefinding orGPU/renderingruntimeclearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

@@ -1,0 +1,40 @@
+{
+  "lens": "derivability",
+  "registry": "../shared-material-successor/source-extensions-188.json",
+  "registry_sha256": "73846bd42ba121fb76a97b144629235b610dd04f4f12f46e3dedc3dea5923c95",
+  "receipts": [
+    {
+      "material_index": 187,
+      "registration": {
+        "source_id": "frozen-fixture-selection:assets/tactical-scenes/flat-dry-grassland.json#vista-lod-count",
+        "sha256": "eeb9965d5d06a5f36d05480eea259ee149c37fbdd866812128a14aa0ba92f920",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "bytes": 616746,
+        "ranges": [],
+        "structured_selection": {
+          "json_pointer": "/vista/lods",
+          "projection": "Presence, array type and array length only; no element bodies, heights, environment or minifiedline dump."
+        },
+        "registration_evidence": "registration-012.json",
+        "reason": "Ordinary named scene fixture materially reached by08no-vista selectedview question; count alone resolves whether this fixture lacks vista, avoiding616KBbodydump.",
+        "prior_reads": "Only Gitpath/bytes/hash/minifiedline metadata. No JSONparse/semanticbody by08or coordinator before registration."
+      },
+      "source_sha256": "eeb9965d5d06a5f36d05480eea259ee149c37fbdd866812128a14aa0ba92f920",
+      "structured_selection": {
+        "json_pointer": "/vista/lods",
+        "present": true,
+        "json_type": "array",
+        "array_length": 3
+      },
+      "method": "A fresh source read and hash verification was performed separately for this lens. A JSON parser was used only to project presence, type, and array length at /vista/lods. No element values, heights, environment, or minified line were displayed or semantically inspected. No other-lens coverage or verdict was transferred.",
+      "analysis": "This is authored JSON data, not a handwritten Rust trait or codec body. The exact selected array exists with length three; no derivability candidate is exposed. No fixture-wide schema, decoder equivalence, element validity, or runtime acceptance is inferred.",
+      "scope_limit": "Only the registered structured projection; no full fixture or element coverage.",
+      "new_unique_finding_claimed": false
+    }
+  ],
+  "historical_closure_preserved": "material-stage-closure-001.json",
+  "first_unfinished_material": null,
+  "source_edits": false,
+  "checks": "not run",
+  "final_clearance": false
+}

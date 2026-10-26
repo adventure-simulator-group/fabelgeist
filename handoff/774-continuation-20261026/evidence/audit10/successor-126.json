@@ -1,0 +1,45 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-126",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1858,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat.rs",
+      "sha256": "6da9d5558329053c0ceaadbcb7a19730884fc55bbc50cdd90af9b9305346b48c",
+      "ranges": [
+        [
+          1,
+          290
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh full290line requested combat lunge source and existing cases. Native checked ForwardLungeAcceleration and timing/lunge states already derive selected basic traits; input actions derive Default/InputAction. No handwritten trait/custom codec. Explicit kernels admit finite acceleration, distinguish nonarrival, compute timing with normalization/overflow errors, select lunge range/mode and consume runtime authority config. Existing cases compare authored ranges/timing without implementing traits.",
+      "disposition": "No derivability candidate in full requested role. Numeric admission, semantic outcome classification and timing/range computation remain explicit; adding serialization/conversion merely to replace runtime classifiers would change API. Existing tests read only, no behavior/numeric/combat acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1859,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat/attack_key.rs",
+      "sha256": "0c195d5b16f4846e5d0e043e5864a0b65328387495a88af8a48719234aacd063",
+      "ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh full23line requested MeleeAttackKey owner. Existing derive_more Debug/From and standard/basic/serde transparent derives already implement exact opaque u64 correlation wrapper traits. Native diagnostic encoded() and deterministic to_le_bytes() are explicit permitted ports; no handwritten trait/codec remains.",
+      "disposition": "No derivability candidate. Selected mechanical derives already used; retain explicit scalar/byte boundary methods and opaque public API. No further conversion/representation surface proposed.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

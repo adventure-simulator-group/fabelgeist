@@ -1,0 +1,25 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-304",
+  "at": "2026-10-25T22:51:16.286185+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2588,
+      "source_id": "dependency-serde_core1.0.229:src/de/impls.rs",
+      "sha256": "2f8e2ef9d343875bb996319e69feae0dee2287e2548cedd8d3c752b64812331c",
+      "personally_read_ranges": [
+        [
+          1,
+          3173
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read entire3173-line frozen serde_core1.0.229 standardDeserialize implementations in contiguous260-line chunks plus final2861-3173. Integer narrowing usesTryFrom, NonZero callsnew;f32visitor acceptsf64viaas preservingNaNsign understd without finite/rangecheck(222-240,450-456), so serde conversion alone doesnot guarantee finite targetf32. OptionSome delegatesT, unit/NonebecomesNone; untaggedprivateoption intentionallydiscardsTconversionerror toNone. Vec/sets/maps construct/insert values with cautiousreserve butno application cardinality/correlation checks; mapduplicates overwrite unlessformat rejects; setsdeduplicate. In-place collections/arrays/tuples can partiallymutate beforefailure, no transactional guarantee. Fixedarray/tuplevisitors requireeach expectedvalue butformat checks excess. Duration checksnormalizedsecs overflow beforeDuration::new;SystemTime useschecked_add. Rangestart/end accepted withoutordering;Rc/Arcreconstruct independently andWeakcannotupgrade as documented. These are dependency capabilities, no concrete projectconsumerdefect or universalSerdecorrectnessclaim; no execution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

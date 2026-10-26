@@ -1,0 +1,13 @@
+{
+ "scope_index":2649,
+ "revision":"6533e444fa37552927070cc8d8190907fd3b413e",
+ "path":"crates/fabelgeist-xpbd/src/particles/packed.rs",
+ "ranges":[[56,60],[96,100]],
+ "implementation":"Manual From<Vec<ParticlePositionRecord>> for ParticlePositions and From<Vec<ParticleVelocityRecord>> for ParticleVelocities each return Self(records), exactly owning the same nongeneric Vec field.",
+ "equivalent_repair":"Add existing derive_more::From on these two tuple wrappers and remove only those two Vec-record wrapping impls. Keep native position/mass layout, POD derives, checked new, and semantic From<&[Vec3]> velocity packing unchanged.",
+ "proof":"Existing From expansion source evidence candidate001 constructs the same owned field without added bounds, allocation, validation or altered API. Exact same-revision owning manifest2348 already enables derive_more2.1.1 from. Generated Vec-record From is disjoint from retained velocity slice From.",
+ "classification":"Additional existing candidate001 mechanical occurrence; current behavior correct, shared/historical remedy dedup pending",
+ "new_unique_findings_claimed":0,
+ "acceptance":"After exhaustive own10 and dedup, existing packed native record/conversion/compile-fail contracts only; no new tests/cases/assertions/helpers, no source edits or checks here.",
+ "clear":false
+}

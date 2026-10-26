@@ -1,0 +1,287 @@
+{
+  "id": "AUDIT12-CONTRACTS-001",
+  "at": "2026-10-26T06:41:36.226667+00:00",
+  "lens": "12 magic-strings",
+  "source_members": [
+    {
+      "scope_index": 0,
+      "source_id": "dependency-wgpu29.0.4:src/api/device.rs",
+      "source_sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "source_object_git": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "registered_ranges": [
+        [
+          398,
+          428
+        ],
+        [
+          752,
+          853
+        ]
+      ],
+      "personally_read_actual_ranges": [
+        [
+          398,
+          428
+        ],
+        [
+          752,
+          853
+        ]
+      ],
+      "actual_EOF": 877,
+      "inventory": [
+        {
+          "ranges": [
+            [
+              804,
+              804
+            ],
+            [
+              813,
+              813
+            ]
+          ],
+          "role": "Open nativeGPU validation/internal diagnostic description String",
+          "actual_boundary": "wgpu::Error retains typedvariant+ErrorSource; Display829-835 emits description text. No scoped decision branches on prose. No application error erasure justified."
+        },
+        {
+          "ranges": [
+            [
+              832,
+              832
+            ]
+          ],
+          "role": "Out of Memory literal",
+          "actual_boundary": "Final fmt::Display of existing OutOfMemory enumvariant; typedstate remains separate."
+        },
+        {
+          "ranges": [
+            [
+              849,
+              849
+            ]
+          ],
+          "role": "must_use warning prose",
+          "actual_boundary": "Rust compiler diagnostic attribute, not runtime errorclassification."
+        },
+        {
+          "ranges": [
+            [
+              401,
+              428
+            ],
+            [
+              756,
+              758
+            ],
+            [
+              762,
+              813
+            ],
+            [
+              839,
+              848
+            ]
+          ],
+          "role": "Documentation prose/links and code-name mentions",
+          "actual_boundary": "Rustdoc/native API documentation boundary; actual Error variants/callback signatures own semantic failure roles."
+        }
+      ],
+      "disposition": "ACCOUNTED_FOR_LENS12_REGISTERED_CONTRACT_WITH_QUALIFICATIONS",
+      "qualification": "Registered first slice ends mid error-scope documentation; no unseen push/pop/drop behavior or native descriptions producer body clearance. Actual raw scopeddescription/nativeDisplay contract traced, not blanketSDK exemption.",
+      "untraced_scope": "All source outside registered ranges remains uncredited."
+    },
+    {
+      "scope_index": 1,
+      "source_id": "native-anyhow1.0.104:error.rs",
+      "source_sha256": "2a78ee4e5f8d6b4476c761f77473362b9ed12f5402e4701001e7d04d628ba030",
+      "source_object_git": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/2a78ee4e5f8d6b4476c761f77473362b9ed12f5402e4701001e7d04d628ba030",
+      "registered_ranges": [
+        [
+          32,
+          87
+        ],
+        [
+          138,
+          190
+        ],
+        [
+          780,
+          810
+        ]
+      ],
+      "personally_read_actual_ranges": [
+        [
+          32,
+          87
+        ],
+        [
+          138,
+          190
+        ],
+        [
+          780,
+          810
+        ]
+      ],
+      "actual_EOF": 1060,
+      "inventory": [
+        {
+          "ranges": [
+            [
+              145,
+              145
+            ],
+            [
+              158,
+              158
+            ],
+            [
+              176,
+              179
+            ],
+            [
+              182,
+              182
+            ],
+            [
+              807,
+              807
+            ]
+          ],
+          "role": "std feature selector literals",
+          "actual_boundary": "ExternalCargo/Rust cfg feature contract; exact owned feature name required at conditional compilation adapter."
+        },
+        {
+          "ranges": [
+            [
+              38,
+              74
+            ],
+            [
+              84,
+              87
+            ]
+          ],
+          "role": "Error::msg example prose/ellipsisstring and documented openFFI error text",
+          "actual_boundary": "Rustdoc/doctest message conversion example; scoped constructor77-81 stores genericM throughMessageError, unlike StdError construction147-164 with concreteE vtable."
+        },
+        {
+          "ranges": [
+            [
+              162,
+              163
+            ],
+            [
+              186,
+              187
+            ],
+            [
+              782,
+              794
+            ]
+          ],
+          "role": "Safety/source commentary and type names",
+          "actual_boundary": "Native implementation documentation, not independently retained application string classifications."
+        }
+      ],
+      "disposition": "ACCOUNTED_FOR_LENS12_REGISTERED_CONTRACT_WITH_QUALIFICATIONS",
+      "qualification": "Explicit Error::msg docs distinguish message from StdError cause preservation; this native open message container is not justification to erase concrete firstparty causes before a display boundary. No omitted construct/vtable/helper body correctness clearance.",
+      "untraced_scope": "All source outside registered ranges remains uncredited."
+    },
+    {
+      "scope_index": 2,
+      "source_id": "native-anyhow1.0.104:wrapper.rs",
+      "source_sha256": "079218e1d8c9374f52311b1c7971f7fbdeba4d7af1b0749c0d535010f1232697",
+      "source_object_git": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/079218e1d8c9374f52311b1c7971f7fbdeba4d7af1b0749c0d535010f1232697",
+      "registered_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "personally_read_actual_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "actual_EOF": 84,
+      "inventory": [
+        {
+          "ranges": [
+            [
+              4,
+              4
+            ]
+          ],
+          "role": "std feature selector",
+          "actual_boundary": "NativeCargo/Rustcfg feature name."
+        },
+        {
+          "ranges": [
+            [
+              11,
+              31
+            ],
+            [
+              34,
+              40
+            ]
+          ],
+          "role": "GenericM message/displaypayload and formatting signatures",
+          "actual_boundary": "Native genericerror wrapper preservesM; Display/Debug trait implementations format that actual payload. No concrete runtime stringliteral or application closedvalue set introduced in registered1-40."
+        }
+      ],
+      "disposition": "ACCOUNTED_FOR_LENS12_REGISTERED_CONTRACT_WITH_QUALIFICATIONS",
+      "qualification": "Source ends scopedrange40 mid Debug implementation; only registered signature/body prefix assessed. No unregistered41-84 body credit or claim everygenericM is String.",
+      "untraced_scope": "All source outside registered ranges remains uncredited."
+    },
+    {
+      "scope_index": 3,
+      "source_id": "native-dependency:bevy_app-0.19.1/src/app.rs",
+      "source_sha256": "0240f4b60c9848fcb5386998381c7b8f0be4fef83bfb574b19d818b99fc5e668",
+      "source_object_git": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/0240f4b60c9848fcb5386998381c7b8f0be4fef83bfb574b19d818b99fc5e668",
+      "registered_ranges": [
+        [
+          1468,
+          1483
+        ]
+      ],
+      "personally_read_actual_ranges": [
+        [
+          1468,
+          1483
+        ]
+      ],
+      "actual_EOF": 2120,
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1468,
+              1473
+            ],
+            [
+              1479,
+              1481
+            ]
+          ],
+          "role": "Rustdoc example/prose",
+          "actual_boundary": "Native Bevy API documentation; scoped add_observer uses typedIntoObserver and get_error_handler returns typedOption<ErrorHandler>, no raw text API."
+        }
+      ],
+      "disposition": "ACCOUNTED_FOR_LENS12_REGISTERED_CONTRACT_WITH_QUALIFICATIONS",
+      "qualification": "No compiled raw stringliteral/field/parameter/return in scoped1468-1483. Documentation disposition only, no unseen observer dispatch/handler behavior clearance.",
+      "untraced_scope": "All source outside registered ranges remains uncredited."
+    }
+  ],
+  "new_findings": [],
+  "new_unique_count": 0,
+  "first_unfinished_original": 4,
+  "inherited_partial_slices": "inherited-qualified-slices-001.json preserved, no whole-role credit",
+  "source_or_git_mutation": false,
+  "project_execution": false,
+  "other_lens_credit": false,
+  "global_clearance": false
+}

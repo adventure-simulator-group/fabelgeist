@@ -1,0 +1,43 @@
+{
+  "lens": "04 invariant operations",
+  "registry": "../shared-material-successor/source-extensions-191.json",
+  "registry_sha256": "7748636f3b22b4f3434f814a759410c8a851a28f5dfc8a0aa71e70dbbcb42286",
+  "receipts": [
+    {
+      "material_index": 190,
+      "registration": {
+        "source_id": "native-support:http-1.5.0/src/uri/path.rs#scan-classification",
+        "sha256": "d69c30a915c83bb99f956da92d9a3cc16b754da43d1e940bd750676e9a7a5c7f",
+        "revision": "Cargo.lock pinned http1.5.0",
+        "archive_checksum": "918d3568bebf352712bc2ef3d46a8bcf1a75b373be6539de198e9105cbbf9ce0",
+        "ranges": [
+          [
+            412,
+            465
+          ]
+        ],
+        "actual_EOF": 709,
+        "registration_evidence": "registration-014.json",
+        "reason": "Exact classification maps/constants referenced by registered URI scanner; needed to establish literal fragment acceptance. Additive bounded dependency, no whole file.",
+        "prior_reads": "05 declaration names/span navigation only; table values/build bodies not consumed. Coordinator hash/prefix metadata only."
+      },
+      "source_sha256": "d69c30a915c83bb99f956da92d9a3cc16b754da43d1e940bd750676e9a7a5c7f",
+      "read_ranges": [
+        [
+          412,
+          465
+        ]
+      ],
+      "source_basis": "Fresh independent source read and hash verification for this lens. No other-lens coverage or verdict transfer.",
+      "analysis": "Both builders initialize fixed [u8;256] tables and loop with i<256, making t[i] and i as u8 bounded. A scanner byte converted to usize is also0..255, so these actual tables close that lookup-index proof. High bytes0x80..0xFF mark CLASS_HIGH; a false high flag means retained pre-fragment data is ASCII, supporting the scanner's unchecked UTF-8 fast path. High bytes after a fragment are removed by truncation and need not be retained as UTF-8. Literal # terminates either path/query scan; percent is accepted as ASCII and the suffix is not scanned after #. MAX_LEN's exact value remains outside this range, so the prior u16-offset bound qualification remains. No new URI defect or proposed repair.",
+      "disposition": "Exact native classification contract supports existing witness admission qualification; no new issue or repair.",
+      "limits": "Only412-465 and explicit same-lens earlier scanner receipt. No whole-file/SDK acceptance; MAX_LEN, parse_full and Authority details remain outside this bounded read.",
+      "new_unique_finding_claimed": false
+    }
+  ],
+  "previous_closure": "additive-closure-003.json",
+  "first_unfinished_material": null,
+  "final_clearance": false,
+  "source_edits": false,
+  "checks": "not run"
+}

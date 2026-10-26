@@ -1,0 +1,37 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-152",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 769,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/compact.rs",
+      "sha256": "4aa7045f30b54218cf1897ee3f74e1d8831a35debb7905ad3365a796e20f7ca9",
+      "ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "assessment": "Actual whole104 body read after hash verification. Private CompactShell/Target records keep channels named and retain source identity. Same sorted BTreeSet of referenced vertices selects all channels and remaps faces/edges consistently; retained edge requires both endpoints in used set. Raw u32 face/edge indices and parallel public source arrays retain Q009 admission/length provenance; arbitrary invalid caller is not an ordinary witness. PackedRigSkin carries rig joint count, but does not encode vertex-channel association. rigged accepts targets separately despite self.targets ownership, private actual caller767 constructs both from matching compact item; this local proof does not clear unrelated callers. No new unique finding.",
+      "new_unique_finding": false,
+      "repair": "Qualified Q009 questions retained.",
+      "validation": "Frozen source not run; no local project checks."
+    },
+    {
+      "scope_index": 770,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/glb.rs",
+      "sha256": "99b359ccf03e94e704e08e8f66f7b23c4dcf00a358ac7b1fabd98993530d26f8",
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "assessment": "Exact registered1-38 frozen body read after hash verification. Magic/version/chunk tags, u32 lengths, little-endian bytes and native filesystem paths are concrete GLB wire/native boundaries. Frozen layout uses unchecked next_multiple_of/usize sum/as u32 and infallible final Vec capacity; format length/addressability admission is absent here. This is existing recovered checked-framing repair scope PR987, not a new globally unique finding or current-main failure claim. Existing anyhow contexts preserve native causes; no cause-erasure assertion. Current987 source differs and its separate acceptance does not retroactively clear this frozen SHA.",
+      "new_unique_finding": false,
+      "repair": "PR987 addresses checked GLB framing separately; other qualified granularity questions retained.",
+      "validation": "Frozen source not run; no local project checks."
+    }
+  ],
+  "clear": false
+}

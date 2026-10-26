@@ -1,0 +1,197 @@
+{
+  "id": "ADLER-CONT07-LATER-001",
+  "lens": "redundant-authority",
+  "receipts": [
+    {
+      "extension_index": 100,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/contracts.rs",
+      "sha256": "082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33",
+      "source_ranges": [
+        [
+          1,
+          291
+        ],
+        [
+          338,
+          384
+        ]
+      ],
+      "actual_eof": 384,
+      "source_basis": "Same exact personally consumed source reused as source evidence, freshly analyzed for07; critical bodies re-read where noted. No03verdict transfer.",
+      "analysis": {
+        "fact": "Current contract assignment versus durable issuer-interaction evidence.",
+        "representations": "Contract status/accepted_by/accepted_at, Party.active_contract_id, and interaction receipt keyed by contract+party+stage plus captured issuer/dialogue/location/minute.",
+        "updates_invalidation": "Fresh complete body re-read. Accept verifies parsed state/offered/open case/party leader/location then consumes receipt and writes both contract and party. Abandon withdraws contract and clears party pointer in same reducer; accepted_by remains historical. Recorder stage checks current contract and live issuer presence, replaces same stage receipt only after successful checks.",
+        "disagreement_and_authority": "A raw malformed row could disagree with derived receipt ID or assignment fields, but this body actual producer creates coordinates together and actual consumers use same key/stage. Persisted dialogue provenance is historical, not a replacement current session. Simulation deliberately uses separate provenance-like strings/rev0 under sender-owned disposable guard.",
+        "disposition": "Keep existing contract-state/coordinated authority and provenance-shape obligations; no new normal disagreement demonstrated. Cross-reference original F259 simulation-origin remedy, not an authorization exploit or duplicate unique count."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 101,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade/streams.rs",
+      "sha256": "f0317997a922b05065564f3a5b4963d424f0efd3a2c4ed70dbb72a1de6c9569e",
+      "source_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "actual_eof": 18,
+      "source_basis": "Same exact personally consumed source reused as source evidence, freshly analyzed for07; critical bodies re-read where noted. No03verdict transfer.",
+      "analysis": {
+        "fact": "Deterministic battle loot presence and amount.",
+        "representations": "Separate fixed StreamIds encode independent draws; maximum is input policy, returned amount is realized observation.",
+        "updates_invalidation": "Fresh18line body re-read. One immutable Seed per draw; no persisted cache. Presence controls whether amount draw executes. Known actual caller supplies difficulty-derived max from original inventory_trade1345-1384.",
+        "disagreement_and_authority": "Presence and amount are independent random choices, not redundant authorities. Maximum-zero/overflow precondition is03/04, not a second copy of current loot fact.",
+        "disposition": "No07 cache/update discrepancy. Preserve distinct streams and conditional amount consumption."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 102,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/scalp.rs",
+      "sha256": "64a5cc8196a567a3b4d071c355bc491a23956d815c57d4805277bf15b1135304",
+      "source_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "actual_eof": 412,
+      "source_basis": "Same exact personally consumed source reused as source evidence, freshly analyzed for07; critical bodies re-read where noted. No03verdict transfer.",
+      "analysis": {
+        "fact": "Surface geometry, its sampling cumulative area, and uploaded GPU scalp area.",
+        "representations": "Surface public positions/triangles plus private cached cdf/BVH; upload independently recomputes tri_cdf from current public geometry but publishes area:scalp.area() from old private cdf. GpuScalp retains buffers/counts/area and exposes area() plus read().",
+        "updates_invalidation": "Fresh102whole registered body re-read plus exact original Surface1-68 at6533e444, SHA117cfab53d13fbb84de5149685248b1c6a0b6d5578fb8ffdb522d08af10ccd60. Surface::new computes cdf once and area returns cached last element; no setter invalidates public-field mutation. upload recomputes CDF, uploads current positions then copies cached area.",
+        "disagreement_and_authority": "Representable API counterexample: construct one finite triangle, scale public positions by2, upload. GPU CDF/positions represent4times original area, while GpuScalp.area() retains original area. Its read() reconstructs Surface::new from current GPU positions and therefore obtains4times area. Source proof, not an executed normal UI failure.",
+        "disposition": "Qualified redundant-authority finding candidate ADLER-CONT07-LATER-C001; deduplicate with existing780 coherent Surface/native scalp family before any unique count. Canonical repair is controlled Surface snapshot updates/rebuilt derived cdf/BVH and one source-consistent upload area, not a local clamp or only swapping one accessor."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 103,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast.rs",
+      "sha256": "55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "source_ranges": [
+        [
+          157,
+          175
+        ],
+        [
+          212,
+          220
+        ]
+      ],
+      "actual_eof": 284,
+      "source_basis": "Same exact personally consumed source reused as source evidence, freshly analyzed for07; critical bodies re-read where noted. No03verdict transfer.",
+      "analysis": {
+        "fact": "Native shape-cast impact time/position.",
+        "representations": "Input initial pose+velocity and native time_of_impact permit derived impact position in documented example.",
+        "updates_invalidation": "Immutable input call; example computes pose at time from original inputs. Already-touching time0 explicitly valid.",
+        "disagreement_and_authority": "Derived example pose is a projection at hit time, not an independently editable current body pose. Docs alone do not settle local/world witness-frame contract.",
+        "disposition": "No new07 duplicate authority; preserve original pending frame/native interpretation qualification."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 104,
+      "source_id": "pinned-registry:bevy_render_macros-0.19.1/src/extract_component.rs",
+      "sha256": "2deb41c36880e96baffe3899ba832ae528a5cd97eb5bd611272651e032223932",
+      "source_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "actual_eof": 76,
+      "source_basis": "Same exact personally consumed source reused as source evidence, freshly analyzed for07; critical bodies re-read where noted. No03verdict transfer.",
+      "analysis": {
+        "fact": "Simulation component snapshot extracted for render world.",
+        "representations": "ExtractComponent macro emits Out=Self and Some(item.clone()), while SyncComponent declares target.",
+        "updates_invalidation": "Fresh native body confirms clone-only extraction; actual plugin scheduling must execute it.",
+        "disagreement_and_authority": "Source and render copies have intentional temporal framework roles; derive capability itself does not invalidate/update a user cache or guarantee installed scheduling.",
+        "disposition": "Do not classify native render snapshot as duplicate strategic authority or claim actual cache refresh from derive alone."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 105,
+      "source_id": "pinned-registry:bevy_render_macros-0.19.1/src/lib.rs",
+      "sha256": "9f94ce2c2e61634a28dedcca4a440c9ba5332efa3bede22b30d3b0a563d89884",
+      "source_ranges": [
+        [
+          27,
+          62
+        ]
+      ],
+      "actual_eof": 111,
+      "source_basis": "Same exact personally consumed source reused as source evidence, freshly analyzed for07; critical bodies re-read where noted. No03verdict transfer.",
+      "analysis": {
+        "fact": "Native extraction capability versus actual scheduling.",
+        "representations": "Macro declaration/docs and caller plugin; cloned component output described explicitly.",
+        "updates_invalidation": "Fresh bounded docs say deriving enables but does not execute extraction; ExtractComponentPlugin needed.",
+        "disagreement_and_authority": "Capability and execution are distinct facts; native example booleans are not local duplicated gameplay policy.",
+        "disposition": "No new07 defect in native macro entry; actual local plugin/caller ownership remains whatever original baseline established."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 106,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/material.rs",
+      "sha256": "67733383aa74089a84e76448e23b6911132a2a298ab684e44655f8e85fa0765c",
+      "source_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "actual_eof": 203,
+      "source_basis": "Same exact personally consumed source reused as source evidence, freshly analyzed for07; critical bodies re-read where noted. No03verdict transfer.",
+      "analysis": {
+        "fact": "Instanced material authored pipeline policy.",
+        "representations": "Native trait defaults shader refs, prepass/debug/double-sided flags, color and polygon mode; specialization receives actual bind-group data.",
+        "updates_invalidation": "Fresh native trait body read; values queried from material or trait defaults, no independent per-instance cached labels in bounded body.",
+        "disagreement_and_authority": "Defaults are owning native trait policy, not a second authored local policy table; custom implementations may independently specialize. No local caller disagreement follows from equal defaults.",
+        "disposition": "Native capability support only; no local material authority repair inferred."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 107,
+      "source_id": "pinned-registry:bevy_render-0.19.1/src/render_resource/bind_group.rs",
+      "sha256": "c0efbc7a55dffa8e71f5a7ff158b5123b2b031f44db99275a61ad6c008dda14f",
+      "source_ranges": [
+        [
+          500,
+          504
+        ]
+      ],
+      "actual_eof": 740,
+      "source_basis": "Same exact personally consumed source reused as source evidence, freshly analyzed for07; critical bodies re-read where noted. No03verdict transfer.",
+      "analysis": {
+        "fact": "Prepared native bind group companion data.",
+        "representations": "Associated Data stored alongside prepared group, Param is SystemParam.",
+        "updates_invalidation": "Fresh5line trait read declares capability only; no construction/update or local specialization policy body.",
+        "disagreement_and_authority": "Prepared data may be derived snapshot but has intentional native compilation role. Cannot certify invalidation or duplicate authority without actual local owner.",
+        "disposition": "No new07 finding from trait declaration; do not import whole dependency clearance."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    }
+  ],
+  "global_clearance": false,
+  "new_unique_count": "not asserted; remedies require deduplication",
+  "extra": {
+    "candidate_count": 1,
+    "qualified_candidate": "ADLER-CONT07-LATER-C001 uncounted pending dedup with780 Surface/scalp coherence family",
+    "critical_existing_source": "6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/surface.rs lines1-68; original baseline support only"
+  }
+}

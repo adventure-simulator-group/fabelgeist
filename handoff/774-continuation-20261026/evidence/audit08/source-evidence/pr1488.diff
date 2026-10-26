@@ -1,0 +1,45 @@
+diff --git a/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/mesh_tests.rs b/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/mesh_tests.rs
+index d5e9a0f0e..543829623 100644
+--- a/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/mesh_tests.rs
++++ b/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/mesh_tests.rs
+@@ -27,7 +27,11 @@ fn material_parts_preserve_skin_uvs_and_relative_position_when_dropped() {
+         ],
+         normals: vec![[0.0, 0.0, 1.0]; 7],
+         texcoords: vec![[0.25, 0.75]; 7],
+-        joint_indices: vec![[2; 8]; 7],
++        joint_indices: fabelgeist_rig::PackedRigSkin::from_native(
++            vec![[2; 8]; 7],
++            fabelgeist_rig::RigJointCount::from_native_joint_count(3),
++        )
++        .unwrap(),
+         joint_weights: vec![[0.125; 8]; 7],
+         indices: vec![0, 1, 2, 3, 4, 5],
+         faces: Vec::new(),
+@@ -57,7 +61,17 @@ fn material_parts_preserve_skin_uvs_and_relative_position_when_dropped() {
+     assert_eq!(center, Vec3::new(4.0, 3.0, 0.0));
+     let mut meshes = Assets::default();
+     let mut materials = Assets::default();
+-    let parts = equipment_parts(&armor, "linen_tunic", &mut meshes, &mut materials);
++    let parts = equipment_parts(
++        &armor,
++        adventuresim_core::equipment_assets::CatalogItem::find(
++            adventuresim_core::item_catalog::catalog(),
++            "linen_tunic",
++        )
++        .unwrap(),
++        &mut meshes,
++        &mut materials,
++    )
++    .unwrap();
+     assert_eq!(parts.len(), 2);
+     assert_eq!(
+         materials.get(&parts[0].material).unwrap().base_color,
+@@ -94,7 +108,7 @@ fn material_parts_preserve_skin_uvs_and_relative_position_when_dropped() {
+         .map(|part| {
+             app.world_mut()
+                 .spawn((
+-                    ProceduralEquipmentPart::new(item, default(), vec![], center),
++                    ProceduralEquipmentPart::new(item, default(), Default::default(), center),
+                     Mesh3d(part.mesh.clone()),
+                     Visibility::Hidden,
+                 ))

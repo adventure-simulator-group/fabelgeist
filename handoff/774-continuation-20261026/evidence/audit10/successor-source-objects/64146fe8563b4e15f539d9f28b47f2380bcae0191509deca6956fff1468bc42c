@@ -1,0 +1,696 @@
+//! Strategic travel view models and road-network routing.
+
+use std::{
+    collections::{HashMap, VecDeque},
+    sync::{Arc, Mutex},
+    time::{Duration, Instant},
+};
+
+use adventuresim_core::{
+    strategic_schedule::DailySchedule,
+    strategic_time::{ItineraryMember, ItinerarySegment, forecast_itinerary},
+};
+use adventuresim_world_schema::calendar::StrategicMinute;
+use serde::Deserialize;
+
+use crate::spacetimedb::{
+    BackendContract, CharacterAttributes, CharacterLimbs, CharacterStats, CharacterTime,
+    CharacterTrainingSchedule, DestinationKnowledgeStage, PartyView, ScheduleAllocation,
+    SettlementView,
+};
+pub(crate) use topology::{TRAVEL_EDGE_CACHE, connected_destinations};
+mod selected_terrain;
+mod topology;
+
+const TERRAIN_PLAN_TIMEOUT: Duration = Duration::from_secs(10);
+const TERRAIN_PLAN_CACHE_ENTRIES: usize = 128;
+
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
+struct TerrainPlanKey {
+    coordinates: [i32; 4],
+    profile: adventuresim_terrain::TerrainSkillProfile,
+    weather_rules_version: u16,
+    weather_interval_start: StrategicMinute,
+    ground_moisture_bps: u16,
+    snow_cover_bps: u16,
+    snow_check_millirank: u16,
+}
+
+/// Derived routes for one immutable terrain package. Keys include weather
+/// and skill inputs; bounded eviction or dropping the planner invalidates them.
+#[derive(Default)]
+struct TerrainPlanCache {
+    plans: HashMap<TerrainPlanKey, adventuresim_terrain::RoutePlan>,
+    order: VecDeque<TerrainPlanKey>,
+}
+
+/// Bounded async facade around the CPU-heavy, synchronous terrain planner.
+/// At most two plans run concurrently and successful normalized routes are
+/// cached for the life of the immutable terrain package.
+pub struct TerrainPlanner {
+    pub(crate) pack: Arc<adventuresim_terrain::TerrainPack>,
+    permits: Arc<tokio::sync::Semaphore>,
+    cache: Mutex<TerrainPlanCache>,
+}
+
+#[derive(Debug, Default, Deserialize)]
+pub struct TravelForm {}
+
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct TravelProvisionForecast {
+    pub planning_minutes: u64,
+    pub living_members: u32,
+    pub food_days: f32,
+    pub water_days: f32,
+    pub ordinary_water_days: f32,
+    pub emergency_alcohol_days: f32,
+    pub emergency_alcohol_hydration_ml: u32,
+    pub food_reserve_kcal: f32,
+    pub water_reserve_ml: f32,
+    pub ration_count: u32,
+    pub waterskin_count: u32,
+    pub ration_kcal: f32,
+    pub waterskin_capacity_ml: u32,
+    pub rations_to_buy: u32,
+    pub waterskins_to_buy: u32,
+}
+
+#[derive(Clone)]
+pub struct TravelCampForecast {
+    pub fatigue_percent: u8,
+    pub camp_stop_minutes: Vec<u64>,
+}
+
+#[derive(Clone)]
+pub struct TravelDestination {
+    pub id: String,
+    pub name: String,
+    pub description: String,
+    pub summary: Option<String>,
+    pub travel_action: String,
+    pub track_action: Option<String>,
+    pub tracked: bool,
+    pub distance_m: u64,
+    pub journey_minutes: u64,
+    /// Cumulative minutes for server-derived camp forecasts.
+    pub camp_stop_minutes: Vec<u64>,
+    pub camp_forecasts: Vec<TravelCampForecast>,
+    pub departure_minute: StrategicMinute,
+    pub itinerary_total_elapsed_minutes: u64,
+    pub itinerary_segments: Vec<ItinerarySegment>,
+    /// Whether travel planning includes an estimated return to the origin.
+    pub round_trip_destination: bool,
+    pub case_site_knowledge: Option<CaseSiteKnowledgePresentation>,
+    pub active_contract_destination: bool,
+    pub provision_forecast: Option<TravelProvisionForecast>,
+    pub terrain_route: Option<adventuresim_terrain::RoutePlan>,
+    pub return_terrain_route: Option<adventuresim_terrain::RoutePlan>,
+    pub uses_straight_line_estimate: bool,
+}
+
+pub(crate) struct ItineraryForecastSources<'a> {
+    pub(crate) party_members: &'a [u64],
+    pub(crate) attributes: &'a [CharacterAttributes],
+    pub(crate) limbs: &'a [CharacterLimbs],
+    pub(crate) stats: &'a [CharacterStats],
+    pub(crate) times: &'a [CharacterTime],
+    pub(crate) schedules: &'a [CharacterTrainingSchedule],
+    pub(crate) party: &'a PartyView,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum CaseSiteKnowledgePresentation {
+    ReportedExactLocation,
+    VisitedCaseSite,
+}
+
+impl TerrainPlanKey {
+    fn new(
+        start: (f64, f64),
+        goal: (f64, f64),
+        profile: adventuresim_terrain::TerrainSkillProfile,
+        weather: Option<adventuresim_core::weather::WeatherSnapshot>,
+        snow_check_millirank: u16,
+    ) -> Self {
+        Self {
+            coordinates: [
+                (start.0 * 100_000.0).round() as i32,
+                (start.1 * 100_000.0).round() as i32,
+                (goal.0 * 100_000.0).round() as i32,
+                (goal.1 * 100_000.0).round() as i32,
+            ],
+            profile,
+            weather_rules_version: weather.map_or(0, |value| value.rules_version),
+            weather_interval_start: weather
+                .map_or(StrategicMinute::ZERO, |w| w.interval_start_minute),
+            ground_moisture_bps: weather.map_or(0, |value| value.ground_moisture_bps),
+            snow_cover_bps: weather.map_or(0, |value| value.snow_cover_bps),
+            snow_check_millirank,
+        }
+    }
+}
+
+impl TerrainPlanner {
+    pub fn new(pack: Arc<adventuresim_terrain::TerrainPack>) -> Self {
+        Self {
+            pack,
+            permits: Arc::new(tokio::sync::Semaphore::new(2)),
+            cache: Mutex::new(TerrainPlanCache::default()),
+        }
+    }
+
+    pub fn digest(&self) -> &str {
+        self.pack.digest()
+    }
+
+    /// Bounded immutable vicinity sample used by personal foraging. The center
+    /// cell is authoritative; eight nearby samples only identify coast access.
+    pub fn forage_environment(
+        &self,
+        latitude: f64,
+        longitude: f64,
+    ) -> Result<(adventuresim_terrain::Cell, bool, bool), String> {
+        let center = self
+            .pack
+            .cell(latitude, longitude)
+            .map_err(|error| error.to_string())?
+            .ok_or("The current location is outside the terrain package")?;
+        let water_samples = [-0.01, 0.0, 0.01]
+            .into_iter()
+            .flat_map(|dy| [-0.015, 0.0, 0.015].into_iter().map(move |dx| (dx, dy)))
+            .filter(|(dx, dy)| *dx != 0.0 || *dy != 0.0)
+            .filter(|(dx, dy)| {
+                self.pack
+                    .cell(latitude + dy, longitude + dx)
+                    .ok()
+                    .flatten()
+                    .is_some_and(|cell| cell.surface == adventuresim_terrain::Surface::Water)
+            })
+            .count();
+        let coastal = water_samples >= 4;
+        let river_or_wet = river_or_wet_ground(center, water_samples);
+        Ok((center, river_or_wet, coastal))
+    }
+
+    pub async fn plan_with_profile(
+        &self,
+        start: (f64, f64),
+        goal: (f64, f64),
+        profile: adventuresim_terrain::TerrainSkillProfile,
+    ) -> Result<adventuresim_terrain::RoutePlan, String> {
+        self.plan_with_profile_and_weather(start, goal, profile, None, 0)
+            .await
+    }
+
+    pub async fn plan_with_profile_and_weather(
+        &self,
+        start: (f64, f64),
+        goal: (f64, f64),
+        profile: adventuresim_terrain::TerrainSkillProfile,
+        weather: Option<adventuresim_core::weather::WeatherSnapshot>,
+        snow_check_millirank: u16,
+    ) -> Result<adventuresim_terrain::RoutePlan, String> {
+        let key = TerrainPlanKey::new(start, goal, profile, weather, snow_check_millirank);
+        if let Some(plan) = self
+            .cache
+            .lock()
+            .map_err(|_| "terrain route cache poisoned")?
+            .plans
+            .get(&key)
+            .cloned()
+        {
+            return Ok(plan);
+        }
+        let permit =
+            tokio::time::timeout(TERRAIN_PLAN_TIMEOUT, self.permits.clone().acquire_owned())
+                .await
+                .map_err(|_| "terrain route planning queue timed out")?
+                .map_err(|_| "terrain planner is shutting down")?;
+        let pack = Arc::clone(&self.pack);
+        let deadline = Instant::now() + TERRAIN_PLAN_TIMEOUT;
+        let routing_weather =
+            weather.map_or_else(adventuresim_terrain::RoutingWeather::default, |weather| {
+                adventuresim_terrain::RoutingWeather {
+                    ground_moisture_bps: weather.ground_moisture_bps,
+                    snow_cover_bps: weather.snow_cover_bps,
+                    snow_check_millirank,
+                }
+            });
+        let task = tokio::task::spawn_blocking(move || {
+            let _permit = permit;
+            pack.plan_until_with_profile_and_weather(
+                start,
+                goal,
+                profile,
+                routing_weather,
+                deadline,
+            )
+        });
+        let plan = tokio::time::timeout(TERRAIN_PLAN_TIMEOUT + Duration::from_secs(1), task)
+            .await
+            .map_err(|_| "terrain route planning timed out")?
+            .map_err(|error| format!("terrain route worker failed: {error}"))?
+            .map_err(|error| error.to_string())?;
+        let mut cache = self
+            .cache
+            .lock()
+            .map_err(|_| "terrain route cache poisoned")?;
+        if !cache.plans.contains_key(&key) {
+            if cache.plans.len() == TERRAIN_PLAN_CACHE_ENTRIES
+                && let Some(oldest) = cache.order.pop_front()
+            {
+                cache.plans.remove(&oldest);
+            }
+            cache.order.push_back(key);
+            cache.plans.insert(key, plan.clone());
+        }
+        Ok(plan)
+    }
+}
+
+impl CaseSiteKnowledgePresentation {
+    pub fn from_stage(stage: DestinationKnowledgeStage) -> Option<Self> {
+        match stage {
+            DestinationKnowledgeStage::ExactBelieved => Some(Self::ReportedExactLocation),
+            DestinationKnowledgeStage::Visited => Some(Self::VisitedCaseSite),
+            DestinationKnowledgeStage::Unknown
+            | DestinationKnowledgeStage::Textual
+            | DestinationKnowledgeStage::Landmark
+            | DestinationKnowledgeStage::ApproximateArea
+            | DestinationKnowledgeStage::RouteSegment => None,
+        }
+    }
+
+    pub fn label(self) -> &'static str {
+        match self {
+            Self::ReportedExactLocation => "Reported exact location",
+            Self::VisitedCaseSite => "Visited case site",
+        }
+    }
+}
+
+impl TravelDestination {
+    pub fn forecast_minutes(&self) -> u64 {
+        if self.round_trip_destination {
+            let route = self.return_terrain_route.as_ref();
+            let return_minutes = route.map_or(self.journey_minutes, |r| r.minutes);
+            self.journey_minutes.saturating_add(return_minutes)
+        } else {
+            self.journey_minutes
+        }
+    }
+}
+
+pub(crate) fn active_contract_summary(contract: &BackendContract) -> String {
+    format!(
+        "Active quest · {} {}",
+        contract.opposition_count_wording, contract.opposition_wording
+    )
+}
+
+pub(crate) fn active_contract_tooltip(contract: &BackendContract) -> String {
+    format!(
+        "{}\n{}",
+        contract.description,
+        active_contract_summary(contract)
+    )
+}
+
+pub(crate) fn settlement_destination(
+    settlement: SettlementView,
+    distance_m: u64,
+    journey_minutes: u64,
+) -> TravelDestination {
+    let summary = (settlement.population_estimate > 0).then(|| {
+        format!(
+            "Population approximately {}",
+            settlement.population_estimate
+        )
+    });
+    TravelDestination {
+        id: settlement.id.clone(),
+        name: settlement.name.clone(),
+        description: crate::templates::settlement::settlement_description(
+            settlement.population_level,
+        )
+        .to_string(),
+        summary,
+        travel_action: crate::location_urls::patterns::TRAVEL.url([&settlement.id]),
+        track_action: None,
+        tracked: false,
+        distance_m,
+        journey_minutes,
+        camp_stop_minutes: Vec::new(),
+        camp_forecasts: Vec::new(),
+        departure_minute: StrategicMinute::ZERO,
+        itinerary_total_elapsed_minutes: journey_minutes,
+        itinerary_segments: Vec::new(),
+        round_trip_destination: false,
+        case_site_knowledge: None,
+        active_contract_destination: false,
+        provision_forecast: None,
+        terrain_route: None,
+        return_terrain_route: None,
+        uses_straight_line_estimate: true,
+    }
+}
+
+pub(crate) async fn apply_terrain_route(
+    destination: &mut TravelDestination,
+    terrain: Option<&TerrainPlanner>,
+    start: (f64, f64),
+    goal: (f64, f64),
+    profile: adventuresim_terrain::TerrainSkillProfile,
+) {
+    let Some(terrain) = terrain else {
+        destination.uses_straight_line_estimate = true;
+        return;
+    };
+    match terrain.plan_with_profile(start, goal, profile).await {
+        Ok(plan) => {
+            let return_plan = if destination.round_trip_destination {
+                match terrain.plan_with_profile(goal, start, profile).await {
+                    Ok(plan) => Some(plan),
+                    Err(error) => {
+                        tracing::warn!(%error, destination=%destination.id, "return terrain route unavailable; using explicitly marked straight-line estimate");
+                        destination.uses_straight_line_estimate = true;
+                        return;
+                    }
+                }
+            } else {
+                None
+            };
+            destination.distance_m = plan.distance_m;
+            destination.journey_minutes = plan.minutes;
+            destination.itinerary_total_elapsed_minutes = if destination.round_trip_destination {
+                plan.minutes.saturating_add(
+                    return_plan
+                        .as_ref()
+                        .map_or(plan.minutes, |route| route.minutes),
+                )
+            } else {
+                plan.minutes
+            };
+            destination.terrain_route = Some(plan);
+            destination.return_terrain_route = return_plan;
+            destination.uses_straight_line_estimate = false;
+        }
+        Err(error) => {
+            tracing::warn!(%error, destination=%destination.id, "bounded terrain route unavailable; using explicitly marked straight-line estimate");
+            destination.uses_straight_line_estimate = true;
+        }
+    }
+}
+
+pub(crate) fn populate_itinerary_forecasts(
+    destinations: &mut [TravelDestination],
+    sources: ItineraryForecastSources<'_>,
+) {
+    let ItineraryForecastSources {
+        party_members,
+        attributes,
+        limbs,
+        stats,
+        times,
+        schedules,
+        party,
+    } = sources;
+    let members: Option<Vec<_>> = party_members
+        .iter()
+        .map(|id| {
+            let attributes = attributes.iter().find(|row| row.character_id == *id)?;
+            let limbs = limbs.iter().find(|row| row.character_id == *id)?;
+            let stats = stats.iter().find(|row| row.character_id == *id)?;
+            let schedule = schedules.iter().find(|row| row.character_id == *id)?;
+            Some(ItineraryMember {
+                fatigue_capacity: (attributes.endurance * limbs.chest_health).max(0.01) * 1_000.0,
+                calories_used: stats.calories_used,
+                camp_schedule: camp_schedule(&schedule.downtime),
+            })
+        })
+        .collect();
+    let Some(members) = members else {
+        return;
+    };
+    let departure = party_members
+        .iter()
+        .filter_map(|id| times.iter().find(|row| row.character_id == *id))
+        .map(|row| StrategicMinute::new(row.minutes.minutes))
+        .max()
+        .unwrap_or(StrategicMinute::ZERO);
+    for destination in destinations {
+        if let Some(forecast) = forecast_itinerary(
+            departure,
+            destination.forecast_minutes(),
+            party.walking_minutes_per_day,
+            party.travel_at_night,
+            &members,
+        ) {
+            destination.departure_minute = departure;
+            destination.itinerary_total_elapsed_minutes = forecast.total_elapsed_minutes;
+            destination.camp_stop_minutes = forecast
+                .segments
+                .iter()
+                .filter(|segment| {
+                    matches!(
+                        segment.kind,
+                        adventuresim_core::strategic_time::ItinerarySegmentKind::Camp
+                    )
+                })
+                .map(|segment| segment.movement_start)
+                .collect();
+            destination.itinerary_segments = forecast.segments;
+        }
+    }
+}
+
+fn river_or_wet_ground(center: adventuresim_terrain::Cell, water_samples: usize) -> bool {
+    center.surface == adventuresim_terrain::Surface::Wetland
+        || center.wetland_fraction_percent > 0
+        || (1..4).contains(&water_samples)
+}
+
+/// Calculate a camp forecast from the same pure fatigue function used by the
+/// strategic reducer. The first leg uses current fatigue; later legs assume
+/// the leader takes the recommended full-fatigue camp rest.
+fn camp_schedule(allocation: &ScheduleAllocation) -> DailySchedule {
+    DailySchedule {
+        reading_minutes: 0,
+        combat_training_minutes: allocation.combat_training_minutes,
+        carousing_minutes: allocation.carousing_minutes,
+        socializing_minutes: allocation.socializing_minutes,
+        apprenticeship_minutes: allocation.apprenticeship_minutes,
+        profession_practice_minutes: allocation.profession_practice_minutes,
+        labor: 0,
+        prayer: allocation.prayer_minutes,
+        thievery: 0,
+        raiding: 0,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::spacetimedb::ContractStatus;
+    use adventuresim_world_schema::{FallbackIndustry, IndustryEvidence, InferredIndustryProfile};
+
+    #[test]
+    fn road_over_authoritative_wetland_counts_as_wet_ground() {
+        let road = adventuresim_terrain::Cell {
+            surface: adventuresim_terrain::Surface::Road,
+            wetland_fraction_percent: 100,
+            ..Default::default()
+        };
+        assert!(river_or_wet_ground(road, 0));
+        assert!(!river_or_wet_ground(
+            adventuresim_terrain::Cell {
+                surface: adventuresim_terrain::Surface::Road,
+                ..Default::default()
+            },
+            0
+        ));
+    }
+
+    #[test]
+    fn route_cache_identity_distinguishes_departure_weather() {
+        let clear = adventuresim_core::weather::WeatherSnapshot {
+            rules_version: adventuresim_core::weather::WEATHER_RULES_VERSION,
+            interval_start_minute: adventuresim_world_schema::calendar::StrategicMinute::new(0),
+            cell_latitude: 0,
+            cell_longitude: 0,
+            temperature_deci_c: 120,
+            wind_speed_bps: 1_000,
+            precipitation: adventuresim_core::weather::Precipitation::Clear,
+            intensity_bps: 0,
+            ground_moisture_bps: 0,
+            snow_cover_bps: 0,
+            atmosphere: Default::default(),
+        };
+        let wet = adventuresim_core::weather::WeatherSnapshot {
+            interval_start_minute: adventuresim_world_schema::calendar::StrategicMinute::new(360),
+            precipitation: adventuresim_core::weather::Precipitation::Rain,
+            intensity_bps: 8_000,
+            ground_moisture_bps: 7_000,
+            ..clear
+        };
+        let profile = adventuresim_terrain::TerrainSkillProfile::default();
+        assert_ne!(
+            TerrainPlanKey::new((53.0, 10.0), (53.1, 10.1), profile, Some(clear), 0),
+            TerrainPlanKey::new((53.0, 10.0), (53.1, 10.1), profile, Some(wet), 0)
+        );
+        assert_ne!(
+            TerrainPlanKey::new((53.0, 10.0), (53.1, 10.1), profile, Some(wet), 0),
+            TerrainPlanKey::new((53.0, 10.0), (53.1, 10.1), profile, Some(wet), 5_000)
+        );
+    }
+
+    fn settlement(id: &str, node: u64) -> SettlementView {
+        SettlementView {
+            id: id.to_string(),
+            name: id.to_string(),
+            longitude: 0.0,
+            latitude: 0.0,
+            population_level: 0,
+            population_estimate: 0,
+            category: crate::spacetimedb::SettlementCategory::Unknown,
+            languages: adventuresim_world_schema::SettlementLanguageProfile {
+                east_central_bp: 10_000,
+                west_central_bp: 0,
+                low_bp: 0,
+                yiddish_incidence_bp: 75,
+            },
+            industries: InferredIndustryProfile::new(vec![IndustryEvidence::Fallback(
+                FallbackIndustry::WoodlandFuelwood,
+            )])
+            .unwrap(),
+            economy: adventuresim_world_schema::SettlementEconomyProfile::stage_placeholder(),
+            religious_status: adventuresim_world_schema::SettlementReligiousStatus::Established {
+                religion: adventuresim_world_schema::OfficialReligion::RomanCatholic,
+            },
+            scene_key: String::new(),
+            religion_id: String::new(),
+            currency_id: "rhenish_gulden".into(),
+            source_node_id: Some(node),
+        }
+    }
+
+    fn quest(id: &str, settlement_id: &str, status: ContractStatus) -> BackendContract {
+        BackendContract {
+            id: id.to_string(),
+            case_id: format!("case:{id}"),
+            title: id.to_string(),
+            description: String::new(),
+            difficulty: 1,
+            gold_reward: 1,
+            xp_reward: 1,
+            settlement_id: settlement_id.to_string(),
+            service_id: "inn".into(),
+            issuer_resident_character_id: 0,
+            status,
+            accepted_by: None,
+            opposition_wording: "unknown opposition".into(),
+            opposition_count_wording: "an unknown number of".into(),
+            opposition_count: 0,
+            opposition_combat_power: 0,
+            accepted_at_minute: None,
+            paid_at_minute: None,
+            distance_m: 0,
+        }
+    }
+
+    #[test]
+    fn walking_time_rounds_up_to_a_minute() {
+        let origin = settlement("origin", 1);
+        let destination = settlement("destination", 2);
+        for (length_m, expected_minutes) in [(1, 1), (5_000, 60)] {
+            let edges = [topology::TravelEdgeTopology {
+                from_node_id: 1,
+                to_node_id: 2,
+                length_m,
+            }];
+            let destinations =
+                connected_destinations(&origin, std::slice::from_ref(&destination), &edges);
+            assert_eq!(destinations.len(), 1);
+            assert_eq!(destinations[0].journey_minutes, expected_minutes);
+        }
+    }
+
+    #[test]
+    fn only_exact_destination_stages_have_case_site_presentations() {
+        assert_eq!(
+            CaseSiteKnowledgePresentation::from_stage(DestinationKnowledgeStage::ExactBelieved),
+            Some(CaseSiteKnowledgePresentation::ReportedExactLocation)
+        );
+        assert_eq!(
+            CaseSiteKnowledgePresentation::from_stage(DestinationKnowledgeStage::Visited),
+            Some(CaseSiteKnowledgePresentation::VisitedCaseSite)
+        );
+        assert_eq!(
+            CaseSiteKnowledgePresentation::from_stage(DestinationKnowledgeStage::RouteSegment),
+            None
+        );
+    }
+
+    #[test]
+    fn active_quest_tooltip_includes_encounter_summary() {
+        let mut quest = quest("crypt", "riverdale", ContractStatus::Accepted);
+        quest.description = "A necromancer has raised the dead.".into();
+        quest.opposition_count_wording = "perhaps eleven".into();
+        quest.opposition_wording = "walking dead".into();
+
+        assert_eq!(
+            active_contract_tooltip(&quest),
+            "A necromancer has raised the dead.\nActive quest · perhaps eleven walking dead"
+        );
+    }
+
+    #[test]
+    fn travel_form_has_no_provisioning_choice() {
+        assert!(serde_json::from_str::<TravelForm>(r#"{}"#).is_ok());
+    }
+
+    #[test]
+    fn quests_forecast_a_return_but_settlements_do_not() {
+        let mut destination = settlement_destination(settlement("town", 1), 1_000, 120);
+        assert_eq!(destination.forecast_minutes(), 120);
+        destination.round_trip_destination = true;
+        assert_eq!(destination.forecast_minutes(), 240);
+    }
+
+    #[test]
+    fn terrain_cache_keys_normalize_sub_metre_coordinate_noise() {
+        assert_eq!(
+            TerrainPlanKey::new(
+                (53.500_000_1, 10.000_000_1),
+                (53.6, 10.1),
+                Default::default(),
+                None,
+                0,
+            ),
+            TerrainPlanKey::new(
+                (53.500_000_2, 10.000_000_2),
+                (53.6, 10.1),
+                Default::default(),
+                None,
+                0,
+            )
+        );
+        assert_ne!(
+            TerrainPlanKey::new((53.500_02, 10.0), (53.6, 10.1), Default::default(), None, 0,),
+            TerrainPlanKey::new((53.500_04, 10.0), (53.6, 10.1), Default::default(), None, 0,)
+        );
+        assert_ne!(
+            TerrainPlanKey::new((53.5, 10.0), (53.6, 10.1), Default::default(), None, 0,),
+            TerrainPlanKey::new(
+                (53.5, 10.0),
+                (53.6, 10.1),
+                adventuresim_terrain::TerrainSkillProfile {
+                    forest: 1_000,
+                    ..Default::default()
+                },
+                None,
+                0,
+            )
+        );
+    }
+}

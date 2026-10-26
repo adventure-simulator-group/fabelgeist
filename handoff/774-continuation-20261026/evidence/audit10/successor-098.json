@@ -1,0 +1,71 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-098",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1757,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/elapsed_reflection.rs",
+      "sha256": "01d422dc938f9f193c310740e7f13210c400077bde9e3de66d170bc3acc96c43",
+      "ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete14line remote reflection wrapper for canonical AnimationElapsed. reflect_remote plus CloneDebugSerializeDeserialize already derive, opaque reflection and transparent serde delegate checked owner.",
+      "disposition": "No derivability candidate. Existing macro/derive already handles adaptation without raw field mutation.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1758,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "7b026fd31eb9c09c84b446dbb0b71faea9717f93c027226dfbe357c5150dd704",
+      "ranges": [
+        [
+          1,
+          591
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete591line animation evaluation and all fixtures read consecutive1-200/201-400/401-591. PoseSample/AnimationEvaluation/PoseSampling already basic+serde derived with field-specific checked progress/tangent decode adapters. No handwritten trait/custom record codec in owner.",
+      "disposition": "No derivability candidate. Skeleton/context-derived sampling, posture/guard/roll/dive policy and checked blend coordinates are semantic operations. Preserve explicit finite-normalization hooks already traced1756; no new serde or conversion derives needed. Fixtures read only, no runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1759,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/evaluation/attack.rs",
+      "sha256": "c1787a5b36b9fd27891c2646fd70a7d5206d7a1eefe00b86d1b3068d4dba8b03",
+      "ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete82line attack sample selection and pose classification functions; no manual trait/codecs.",
+      "disposition": "No derivability candidate; authoritative attack continuation/phase and authored semantic pose selection are behavior.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1760,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "2767919da7545eecbaab9b212fc6a8e52802f6a61f3862c447903f75cf1ec6e7",
+      "ranges": [
+        [
+          1,
+          327
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete327line checked locomotion sampling, scaled staging and test-only gait pair read consecutive1-180/181-327. No handwritten trait/custom codec.",
+      "disposition": "No derivability candidate. Config-aware thresholds, weighted native direction/cycle calculations and checked precollection before extension are semantic algorithms. Small record construction helpers are purposeful policy, not mechanical traits; no test execution or whole-invariant claim.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

@@ -1,0 +1,62 @@
+{
+  "at": "2026-10-26T02:53:51.119255+00:00",
+  "skill": "target/recovery-20261025/handoff/826/skills/comment-review/SKILL.md",
+  "base": "91e7d86403ea969b573366506106de5e7e17d3ea",
+  "scope": "11 uncommitted proposal paths in source-proposal-001.json, actual Rust/source-comment/doc diffs and current ignored PR body; no product edits/checks.",
+  "pins": "pins-001.json",
+  "body_sha256": "df81ee3abba5fd21d62b6c1b21023fef2d9d30bf6b3aa1afc20a97959461204a",
+  "actual_read": "All changed diff hunks in five math producers, geometry header, bake-version literal, client manifest and hazel revision; ART_DEMO158-175 and full draft body. Cargo.lock identity only, no exhaustive generated lock body credit. Prior current-source investigation exact ranges support native hash/libm receiving contracts; no frozen audit credit.",
+  "findings": [
+    {
+      "id": "CI-MATH-COMMENT-001",
+      "priority": 2,
+      "status": "open",
+      "locations": [
+        {
+          "path": "crates/strategic-web/ART_DEMO.md",
+          "lines": [
+            171,
+            175
+          ]
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry.rs",
+          "lines": [
+            3,
+            5
+          ]
+        }
+      ],
+      "problem": "ART_DEMO says source geometry matches bit for bit; header says exact geometry bits compared. Actual matches_art_demo compares64-bit source fingerprints, and tree_source_geometry_hash covers selected branch endpoint/radius and leaf petiole/center/length/width/identity fields. It neither compares complete geometry arrays nor all rendering-relevant leaf fields. The deterministic math change is still valid, but prose should name the actual fingerprint boundary.",
+      "suggested_guide": "The non-ignored art-demo tests verify that every expected playable and vista impostor exists and carries the current source-geometry fingerprint. Centreline and leaf-placement transcendentals use the pinned software math library so Linux and Windows can check the same prepared asset. Mesh tessellation, software rasterization and shaders retain their separate native arithmetic contracts.",
+      "suggested_header": "Source centreline and leaf-placement transcendentals use pinned software math so prepared impostors can retain exact source fingerprints across hosts.",
+      "limits": "Not asking to weaken hash, quantize values or add full-image equality; no claim of observed cross-platform pass."
+    },
+    {
+      "id": "CI-MATH-COMMENT-002",
+      "priority": 2,
+      "status": "open_known_root_update_before_publish",
+      "path": "target\\recovery-20261025\\ci-recovery\\pr986-body.md",
+      "lines": [
+        14,
+        18
+      ],
+      "problem": "Draft body says native wood geometry unchanged and hazel/tree revisions3/18; proposal changes source transcendental evaluation across oak/beech/shrub producers and revisions4/19. Earlier export evidence predates this math source and cannot establish current generated output acceptance. Existing pending final-head sentence is useful but needs explicit new source/output scope.",
+      "suggested_scope": "Use pinned software trigonometric and power functions for woody centrelines and leaf placement while preserving exact prepared-source fingerprint checks. Narrow near beech cards by2% (width scale1.0 to0.98). Advance hazel geometry revision to4 and tree-bake revision to19; regenerate the affected snapshots and dependent assets with the existing generators.",
+      "suggested_validation": "The linked export runs validated the earlier source. Regeneration and final generated-output review for the software-math change are pending, along with ordinary Linux and focused Windows verification on the final head.",
+      "qualification": "Update pending language when actual new export/results exist; do not publish a stale success claim. Root already flagged this body update as necessary."
+    }
+  ],
+  "non_findings": [
+    "New source math header correctly narrows software arithmetic to source centreline/leaf placement, with native mesh/shader boundaries distinct; fingerprint wording correction remains.",
+    "ART_DEMO Linux/Windows can check is purpose statement, not claimed observed cross-platform success.",
+    "Existing producer comments about crown morphology and root presentation remain consistent with equations; no added obsolete workaround guidance or platform-specific expected assets.",
+    "No changed error prose or new contributor workflow command found beyond existing accurate regeneration link."
+  ],
+  "retained_limits": [
+    "Diagnostic91e7 still active per parent; no exact observed first-field difference or passing Windows result imported.",
+    "Prepared outputs remain stale until exporter; revision-only envelope edit not generated-data acceptance.",
+    "Frozen own05 final handoff unaffected, no current review credit to that lens."
+  ],
+  "verdict": "Two actionable wording findings; no broader code/runtime/global acceptance verdict. Source-math comment/doc review may close after exact corrected bytes are independently read."
+}

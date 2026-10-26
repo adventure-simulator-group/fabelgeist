@@ -1,0 +1,105 @@
+{
+  "at": "2026-10-26T04:38:01.066455+00:00",
+  "finding_id": "ADLER-RESUMED05-F002",
+  "phase": "Read-only global remedy/current-canonical reconciliation",
+  "finding_authority": {
+    "path": "target\\recovery-20261025\\audit05\\source-support-002-industry-profile-constructor.json",
+    "sha256": "a002804cebd1a7eb3565f2200b210afeabec70b400defd1af9f289fd78824d1a",
+    "frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+    "source_sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+    "ranges": [
+      [
+        2081,
+        2086
+      ],
+      [
+        2099,
+        2109
+      ],
+      [
+        2145,
+        2168
+      ],
+      [
+        2175,
+        2189
+      ],
+      [
+        2233,
+        2242
+      ],
+      [
+        2472,
+        2481
+      ]
+    ]
+  },
+  "current_canonical": {
+    "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "path": "crates/adventuresim-world-schema/src/lib.rs",
+    "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+    "entire_blob_exact_equal_to_frozen": true,
+    "personally_read_ranges": [
+      [
+        1978,
+        1989
+      ],
+      [
+        2081,
+        2086
+      ],
+      [
+        2099,
+        2138
+      ],
+      [
+        2145,
+        2168
+      ],
+      [
+        2168,
+        2189
+      ],
+      [
+        2220,
+        2244
+      ],
+      [
+        2472,
+        2481
+      ]
+    ]
+  },
+  "disposition": "CURRENT_UNREPAIRED_QUALIFIED",
+  "smallest_source_proof": {
+    "enum_payload": "ProductionScale::Regional is representable; PeatCuttingIndustry scale public and DerivedIndustry::scale returns it unchanged.",
+    "constructor": "new accepts any nonempty <=24 unique canonically sorted outputs, returns private-backed profile without relational validate.",
+    "validator_decoder": "validate rejects Regional PeatCutting; manual serde Deserialize calls validate before returning profile.",
+    "ordinary_producer": "infer_industries explicitly clamps peat scale to Local; it is not accused of emitting bad ordinary world data."
+  },
+  "dedup": {
+    "inventory": "target\\recovery-20261025\\audit05\\inherited\\adler-finding-records.json",
+    "inventory_sha256": "473fc7ce6d08f96419a86d239410cf94fa1ba9b8cf8c93ef45ba2d7b44d6942d",
+    "records": 1002,
+    "navigation": "F002-inventory-navigation-001.json",
+    "candidate": "ROOT-ADM-F007",
+    "candidate_actual_metadata_read": "Full record read: travel_geometry; bounded_named_products; route_terrain routes, same schema file but no industry profile/peat route.",
+    "assessment": "Related canonical admission family, not an exact duplicate failing constructor/validate/serde relationship on stated existing routes. Cross-reference for possible connected remedy grouping; do not blindly merge or add an issue/unique count.",
+    "global_uniqueness": "Not closed by limited inventory search; final remedy grouping and all source-role overlap reconciliation remain root-owned."
+  },
+  "retained_remedy_identity": "Existing F002 requires successful private-backed industry profile and validator/decoder to agree on aggregate scale/evidence predicate. No implementation design or API policy chosen here.",
+  "qualification": [
+    "Supported public API source counterexample, not runtime reproduction or observed imported world failure.",
+    "Typed scalar/enum payloads individually valid; relational aggregate policy is the mismatch.",
+    "Feature-specific SpacetimeDB raw decoding and other schema admission graphs remain separate prior findings, no macro source/foreign-body expansion.",
+    "Current comparison pinned to990430b, not current CI branch or later main.",
+    "No materially reached unregistered body consumed."
+  ],
+  "source_or_git_mutations": false,
+  "project_checks": false,
+  "new_issue": false,
+  "new_unique_count": 0,
+  "accepted_own_findings_unchanged": 10,
+  "global_clearance": false
+}

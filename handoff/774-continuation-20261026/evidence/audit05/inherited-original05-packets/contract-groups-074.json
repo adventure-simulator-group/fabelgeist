@@ -1,0 +1,654 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-074",
+  "at": "2026-10-23T00:57:14.801984+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/animation_pack_id.rs",
+      "sha256": "f5933a0bf3fad1149d1f10c1e16ae4883fa626338fc6aa29723816dc8ae4e317",
+      "scope041_index": 854,
+      "actual_EOF": 43,
+      "scoped_ranges_compared": [
+        [
+          1,
+          43
+        ]
+      ],
+      "actual05_comparison": "Fresh full43. AnimationPackId has one Cow string payload, deliberately OPEN authored identity. FromString/str and transparent Serde retain arbitrary text, constants are conveniences not closed catalogue membership. No correlated fields, mutation or length/order relation to enforce inside this leaf. Actual runtime pack lookup remains a different owning catalogue contract; do not narrow empty/unknown by assuming enum semantics.",
+      "source_body_proof": "Fresh complete actual PR body personally read, or exact declared 1–7; all existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/error.rs",
+      "sha256": "e3bd3bd8fb753b33e583e5cba64967ca07539dd8b4b0032a2153a330b59a01df",
+      "scope041_index": 860,
+      "actual_EOF": 19,
+      "scoped_ranges_compared": [
+        [
+          1,
+          19
+        ]
+      ],
+      "actual05_comparison": "Fresh full19. BattleResolutionError is a payload-bearing closed failure sum preserving exact Speed/Elapsed/BattleTime/Fraction errors via From, so kind and actual cause cannot independently diverge. Display is output formatting, not early String erasure. No aggregate valid-state admission to seal; underlying error definitions/producer ownership remain their separate roles.",
+      "source_body_proof": "Fresh complete actual PR body personally read, or exact declared 1–7; all existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/error.rs",
+      "sha256": "9864f16e67033ea8f14d686f25f2b71c78ff6e8866be6f8459df6384c4c5b647",
+      "scope041_index": 866,
+      "actual_EOF": 46,
+      "scoped_ranges_compared": [
+        [
+          1,
+          46
+        ]
+      ],
+      "actual05_comparison": "Fresh full46. MeleeIterationError retains actual Name/Weapon/Resolution/Timing/Performance causes and distinct missing/not-shield/empty-protection/evidence variants. Strings are rejected raw item keys, not accepted catalogue identity; preserving original input is meaningful diagnostic policy. Variant payload owns corresponding label; no product flags that can disagree. Does not establish roster completeness or guarantee no caller erases the error.",
+      "source_body_proof": "Fresh complete actual PR body personally read, or exact declared 1–7; all existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/battle_rewards.rs",
+      "sha256": "b01daaf0a320f38062f1772b90da65b1d29e49f85f49a1dcde2d72b539a381b5",
+      "scope041_index": 879,
+      "actual_EOF": 31,
+      "scoped_ranges_compared": [
+        [
+          1,
+          31
+        ]
+      ],
+      "actual05_comparison": "Fresh full31 including source-only fixtures. living_participant_ids builds living set then filters recorded IDs in original order; output is a subset of BOTH given lists. It deliberately preserves repeated recorded entries, so not a uniqueness admission gate or fresh database living proof. Actual benefit consumer/recorded roster uniqueness remains separate pending original source graph; no duplicate reward finding from this function alone. Zero/full u64 not bounded here.",
+      "source_body_proof": "Fresh complete actual PR body personally read, or exact declared 1–7; all existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/bestiary/error.rs",
+      "sha256": "279813fa320c4ce35bbef2229faa4367af4c93d97f074cec46e6984974245b6c",
+      "scope041_index": 882,
+      "actual_EOF": 51,
+      "scoped_ranges_compared": [
+        [
+          1,
+          51
+        ]
+      ],
+      "actual05_comparison": "Fresh full51 including existing fixtures. UnknownThreatId is a unit failure with stable Display and no source, no independently inconsistent aggregate state. Fixtures distinguish unknown authored key parsing from known ThreatId roundtrip, but actual ThreatId declaration/membership gate must be its own source proof; no type-name credit or execution.",
+      "source_body_proof": "Fresh complete actual PR body personally read, or exact declared 1–7; all existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/contact_timing.rs",
+      "sha256": "3b347473e5083f9fd02f59949b49f45eb7bf03e75c288b167cf003e2acc6ca89",
+      "scope041_index": 896,
+      "actual_EOF": 57,
+      "scoped_ranges_compared": [
+        [
+          1,
+          57
+        ]
+      ],
+      "actual05_comparison": "Fresh full57. ContactTimingOffset private signed finite seconds, including zero and negative. between_contacts computes the completed difference in original f32 order and rejects overflow before construction, retaining precise failure. Duration conversion is finite because u64 seconds are below f32MAX; not a positive-only timing interval. No shared battle-origin membership guarantee is inferred from two BattleTime inputs; the API explicitly calculates coordinates supplied by caller.",
+      "source_body_proof": "Fresh complete actual PR body personally read, or exact declared 1–7; all existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/fatigue_config.rs",
+      "sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+      "scope041_index": 899,
+      "actual_EOF": 46,
+      "scoped_ranges_compared": [
+        [
+          1,
+          46
+        ]
+      ],
+      "actual05_comparison": "Fresh full46. CombatFatigueParameters is raw public authored data until explicit validate. The validator checks all physical coefficients finite>0, efficiency<=1, both elapsed durations positive and min<=max. PositiveSpeed leaf is separate canonical input, not raw float. Independent public mutation/Serde does not seal accepted state; actual installer/consumer gate remains pending. One visible fatigue-pool calibration is not a per-muscle or oxygen pool. No blanket constructor guarantee or new defect from raw DTO design.",
+      "source_body_proof": "Fresh complete actual PR body personally read, or exact declared 1–7; all existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/weapon_contact_config.rs",
+      "sha256": "ad51483d70e3e95165e16c92b3d3e270e381db2c9aa9135056cb6484e3e1b287",
+      "scope041_index": 905,
+      "actual_EOF": 32,
+      "scoped_ranges_compared": [
+        [
+          1,
+          32
+        ]
+      ],
+      "actual05_comparison": "Fresh full32. WeaponContactParameters public authored product: validate checks positive finite length/areas, finite nonnegative unarmed precision. No ordering between different point/edge/broad reference areas is promised; they describe independent physical calibration. Actual runtime consumer must use the validation gate; ordinary Serde alone is raw. Zero precision legitimate, no <=1 probability narrowing.",
+      "source_body_proof": "Fresh complete actual PR body personally read, or exact declared 1–7; all existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/disease/entropy.rs",
+      "sha256": "10eb46750c66da9cd03f116270ab91b4a1acad817e28333ac2fca342773e3bd8",
+      "scope041_index": 913,
+      "actual_EOF": 26,
+      "scoped_ranges_compared": [
+        [
+          1,
+          26
+        ]
+      ],
+      "actual05_comparison": "Fresh full26. Entropy helpers derive one Seed from the actual episode ID plus character/disease/contracted minute, or target plus source/episode/minute, keeping named purposes separate. No independent cached seed or duplicate source field retained, so no stale correlated backing here. Inputs do not prove episode ownership/DB membership; seed collision freedom or authorizing provenance is not this contract. No other disease evaluation credit.",
+      "source_body_proof": "Fresh complete actual PR body personally read, or exact declared 1–7; all existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_presentation.rs",
+      "sha256": "7e48b429725c7241c26a7f4f83f3306b0b6c0372240e0c2e8310249ebf6ebe97",
+      "scope041_index": 924,
+      "actual_EOF": 48,
+      "scoped_ranges_compared": [
+        [
+          1,
+          48
+        ]
+      ],
+      "actual05_comparison": "Fresh full48. Equipment presentation records are raw read-only transport products: item/placement/occupancy list, optional generated weapon/holder and Character-or-Attachment anchor. Closed anchor sum prevents simultaneous character and attachment flags; string PresentationId intentionally lossless decimal transport identity, not parsed u64 seal. GeneratedAppearance version/hash/recipe can be independently authored and occupancies ordinal indices do not prove membership or acyclicity; actual projection and decoder consumers own those checks. No renderer-ready acceptance inferred from DTO name, no new defect without relying path.",
+      "source_body_proof": "Fresh complete actual PR body personally read, or exact declared 1–7; all existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/essential.rs",
+      "sha256": "3d1b91f2f3bd1d9ffaeaa98eb8cf921fcbfee807aba9fd8bd16ca762448a10e0",
+      "scope041_index": 925,
+      "actual_EOF": 40,
+      "scoped_ranges_compared": [
+        [
+          1,
+          40
+        ]
+      ],
+      "actual05_comparison": "Fresh full40. PlayerEssentials trait derives strategic daily fatigue from caller-supplied essentials/attributes/body and combines equipment contribution. There is no retained parallel fatigue backing in this trait; combat explicitly uses incapacitation separately. Positive finite endurance and compatible same-character inputs are caller policies, raw trait f32 returns do not establish them. Generic default may divide by zero/nonfinite if arbitrary implementor supplies such values; do not invent normal gameplay failure or globally brand unrelated trait inputs from this declaration alone.",
+      "source_body_proof": "Fresh complete actual PR body personally read, or exact declared 1–7; all existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/ingredient_preparation.rs",
+      "sha256": "ae086fd226814d3e6a5085e053f4e16a02c4a46ecbfbe9e0c2bf7063e6edf170",
+      "scope041_index": 931,
+      "actual_EOF": 72,
+      "scoped_ranges_compared": [
+        [
+          1,
+          72
+        ]
+      ],
+      "actual05_comparison": "Fresh full72 including original fixtures. Closed Cut/Grind action enum maps exhaustively to stable lowercase ID, code1/2 and distinct definition ID; parser rejects unknown, wire Serde enum vocabulary is separate and exact. These projections share one enum source, no drift-prone parallel accepted strings. No quantity, timing or rights admission contained here. Macro SDK enum route is not re-audited or assumed from derive name.",
+      "source_body_proof": "Fresh complete actual PR body personally read, or exact declared 1–7; all existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_fit.rs",
+      "sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "scope041_index": 938,
+      "actual_EOF": 46,
+      "scoped_ranges_compared": [
+        [
+          1,
+          46
+        ]
+      ],
+      "actual05_comparison": "Fresh full46. EquipmentFitZone closed six tags explicitly limits arm versus leg locations. Occupancy conflict compares SAME location/channel plus singleton-or-equal order, then None fit zone means whole-location overlap or matching zone. It does not itself validate whether a zone fits a location, reserve capacity, enforce parent membership, or prove two occupied objects differ; those are actual graph admission consumers. Different layer orders and disjoint valid zones are intentionally nonconflicting, not missing aggregate equality.",
+      "source_body_proof": "Fresh complete actual PR body personally read, or exact declared 1–7; all existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_material.rs",
+      "sha256": "823eb461e0534843b71a2b8199e6428fd9a558cf9bc1387beedf87500bf71f8a",
+      "scope041_index": 942,
+      "actual_EOF": 17,
+      "scoped_ranges_compared": [
+        [
+          1,
+          17
+        ]
+      ],
+      "actual05_comparison": "Fresh full17. Optional material-name predicate explicitly requires Some and exact ten allowed names. It stores no second roster or paired material properties, no cross-field invariant in this helper. Absence false here does not mean every item kind must have equipment material; owning capabilities/kind validator decides applicability. No blanket material catalogue/runtime membership credit.",
+      "source_body_proof": "Fresh complete actual PR body personally read, or exact declared 1–7; all existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+      "sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+      "scope041_index": 943,
+      "actual_EOF": 49,
+      "scoped_ranges_compared": [
+        [
+          1,
+          49
+        ]
+      ],
+      "actual05_comparison": "Fresh full49. finite_in requires a present numeric finite value within inclusive supplied bounds, appends path and reason together. positive_f32_in checks completed f64→f32 conversion stays finite>0, preventing positive-underflow-to-zero before typed decode. Supplied min/max must be meaningful owning validator constants; no generic guarantee for arbitrary NaN bounds from this internal helper signature. No accepted whole item seal; shared diagnostics retained, no formatting-to-error-identity inference.",
+      "source_body_proof": "Fresh complete actual PR body personally read, or exact declared 1–7; all existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_references.rs",
+      "sha256": "e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+      "scope041_index": 946,
+      "actual_EOF": 76,
+      "scoped_ranges_compared": [
+        [
+          1,
+          76
+        ]
+      ],
+      "actual05_comparison": "Fresh full76. Six currency IDs,14 medication IDs, two hip placements,19 required gameplay IDs and named carry constants are immutable explicit rosters. Array cardinalities establish actual nonempty index precondition for currency and exact14 profile-key roster, not proof those IDs resolve or matching catalogue order elsewhere. Runtime gameplay validator reexport does not provide implementation credit. No universal closed ItemId restriction: these are specific mandatory reference sets.",
+      "source_body_proof": "Fresh complete actual PR body personally read, or exact declared 1–7; all existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_references/gameplay.rs",
+      "sha256": "5ea6b74abe83e50e450510c6e28499ad7597e7dddf14a93428184b5ece767263",
+      "scope041_index": 947,
+      "actual_EOF": 30,
+      "scoped_ranges_compared": [
+        [
+          1,
+          30
+        ]
+      ],
+      "actual05_comparison": "Fresh full30. validate_gameplay_references gathers mandatory IDs, canonical currency roster, actual intervention preparation IDs and loot IDs from SUPPLIED quest catalogue monsters before single item-catalogue reference check. It does not clone a separate monster roster; zero-loot None intentionally skipped. Returned missing IDs preserve structured collection, not diagnostic strings. Lower validate_references and actual initialized catalogue proof remain pending own cells; no guaranteed complete-content acceptance inferred from function name.",
+      "source_body_proof": "Fresh complete actual PR body personally read, or exact declared 1–7; all existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests.rs",
+      "sha256": "7cb3ba6a24f81afd052cf1c35d004918cfcf693f5e7c7655302b74a74cb731ba",
+      "scope041_index": 976,
+      "actual_EOF": 10,
+      "scoped_ranges_compared": [
+        [
+          1,
+          10
+        ]
+      ],
+      "actual05_comparison": "Fresh full10. This source is an include-only cfgtest module naming five exact fixture files. No production aggregate or admission operation here. Included bodies are independently scoped obligations and get no automatic coverage from these declarations. No tests executed or new cases introduced.",
+      "source_body_proof": "Fresh complete actual PR body personally read, or exact declared 1–7; all existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/starting_character/professional.rs",
+      "sha256": "c0b4700f02ec367c49f7a3db0dc7646f19be07fabef65f0945e051ef058e4a60",
+      "scope041_index": 1005,
+      "actual_EOF": 24,
+      "scoped_ranges_compared": [
+        [
+          1,
+          24
+        ]
+      ],
+      "actual05_comparison": "Fresh full24. Starting-profession selector filters actual catalogue organizations to Some(starting_role) with exact requested profession, checks nonempty before canonical RNG index(eligible.len), then returns that actual member reference. This establishes the later role Some/profession precondition for normal selection; it does not validate arbitrary public spec/slot/age or whole catalogue. Empty eligible roster gives explicit Err before sampling.",
+      "source_body_proof": "Fresh complete actual PR body personally read, or exact declared 1–7; all existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_currency.rs",
+      "sha256": "837f9fd6f0198b1141b6908e9a329a770104cb67be25e2234764977af3db85df",
+      "scope041_index": 1007,
+      "actual_EOF": 40,
+      "scoped_ranges_compared": [
+        [
+          1,
+          40
+        ]
+      ],
+      "actual05_comparison": "Fresh full40 including source-only fixtures. Currency checks/name lookup consult actual item definition and Currency kind before return. assigned_currency_id samples the immutable six-ID roster using same roster.len; exact six declaration946 supports nonzero length and membership of returned index. It does not claim every ID is in actual loaded catalogue until startup reference validation or fixture proves that separately. Settlement ID derives stable seed, not database authorization.",
+      "source_body_proof": "Fresh complete actual PR body personally read, or exact declared 1–7; all existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/weather/streams.rs",
+      "sha256": "441a11bfce5d076e3dc78875c0f4bfbe8622178c5c1a4cba2c7e0077f5ea2ea8",
+      "scope041_index": 1026,
+      "actual_EOF": 11,
+      "scoped_ranges_compared": [
+        [
+          1,
+          11
+        ]
+      ],
+      "actual05_comparison": "Fresh full11. Eight nonempty named weather random purposes separate convection, moisture layers, precipitation, pressure, shear and temperature streams; constants store no correlated weather snapshot, interval or mutable lifecycle. Actual root-stream names are replay-sensitive vocabulary; no weather arithmetic or validity credit merely from purpose declaration.",
+      "source_body_proof": "Fresh complete actual PR body personally read, or exact declared 1–7; all existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/threat_escalation_limits.rs",
+      "sha256": "f6fd77cd38865e477731cf06914d6e576b6498e4b2847c2a586368b378073929",
+      "scope041_index": 2678,
+      "actual_EOF": 7,
+      "scoped_ranges_compared": [
+        [
+          1,
+          7
+        ]
+      ],
+      "actual05_comparison": "Fresh exact1–7 only, EOF7. MIN_BASELINE_ENEMY_POWER1000 <= MAX_ORC_EQUIVALENT_POWER300000 and both nonzero, actual shared dependency-free constants keep build/runtime authored baseline and ceiling equal. There is no product admission or independent setter here. No extra source body/test/foreign graph or magic-number lens credit.",
+      "source_body_proof": "Fresh complete actual PR body personally read, or exact declared 1–7; all existing tests source-only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/animation_pack_id.rs",
+      "sha256": "f5933a0bf3fad1149d1f10c1e16ae4883fa626338fc6aa29723816dc8ae4e317",
+      "scope041_index": 48,
+      "actual_EOF": 43,
+      "scoped_ranges_compared": [
+        [
+          1,
+          43
+        ]
+      ],
+      "actual05_comparison": "Fresh full43. AnimationPackId has one Cow string payload, deliberately OPEN authored identity. FromString/str and transparent Serde retain arbitrary text, constants are conveniences not closed catalogue membership. No correlated fields, mutation or length/order relation to enforce inside this leaf. Actual runtime pack lookup remains a different owning catalogue contract; do not narrow empty/unknown by assuming enum semantics. P16 current exact comparison: Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried.",
+      "source_body_proof": "Complete actual P16 body personally compared by full unified source diff against freshly read PR counterpart; two added typed Geometry failure variants inspected independently, no hash or old-verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/error.rs",
+      "sha256": "877b773ae83bec290966d406d2aae3f84f7e5d804970e4f7771faa63e7b1d318",
+      "scope041_index": 53,
+      "actual_EOF": 21,
+      "scoped_ranges_compared": [
+        [
+          1,
+          21
+        ]
+      ],
+      "actual05_comparison": "Fresh full19. BattleResolutionError is a payload-bearing closed failure sum preserving exact Speed/Elapsed/BattleTime/Fraction errors via From, so kind and actual cause cannot independently diverge. Display is output formatting, not early String erasure. No aggregate valid-state admission to seal; underlying error definitions/producer ownership remain their separate roles. P16 current exact comparison: Personally compared complete declaration, constructors/operations/visibility/Serde/enum projections and actual function-local recipient from PR facts; same contract for these exact leaf/helper roles only, no PR/P16 caller/import namespace policy assumed. Geometry error variants separately retain concrete P16 neutral owner cause.",
+      "source_body_proof": "Complete actual P16 body personally compared by full unified source diff against freshly read PR counterpart; two added typed Geometry failure variants inspected independently, no hash or old-verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration/error.rs",
+      "sha256": "a434a6844f7fc1634be9cab2e144ae9a6e7bc9b09a93c1b72b0bdca38140c197",
+      "scope041_index": 59,
+      "actual_EOF": 48,
+      "scoped_ranges_compared": [
+        [
+          1,
+          48
+        ]
+      ],
+      "actual05_comparison": "Fresh full46. MeleeIterationError retains actual Name/Weapon/Resolution/Timing/Performance causes and distinct missing/not-shield/empty-protection/evidence variants. Strings are rejected raw item keys, not accepted catalogue identity; preserving original input is meaningful diagnostic policy. Variant payload owns corresponding label; no product flags that can disagree. Does not establish roster completeness or guarantee no caller erases the error. P16 current exact comparison: Personally compared complete declaration, constructors/operations/visibility/Serde/enum projections and actual function-local recipient from PR facts; same contract for these exact leaf/helper roles only, no PR/P16 caller/import namespace policy assumed. Geometry error variants separately retain concrete P16 neutral owner cause.",
+      "source_body_proof": "Complete actual P16 body personally compared by full unified source diff against freshly read PR counterpart; two added typed Geometry failure variants inspected independently, no hash or old-verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/battle_rewards.rs",
+      "sha256": "b01daaf0a320f38062f1772b90da65b1d29e49f85f49a1dcde2d72b539a381b5",
+      "scope041_index": 73,
+      "actual_EOF": 31,
+      "scoped_ranges_compared": [
+        [
+          1,
+          31
+        ]
+      ],
+      "actual05_comparison": "Fresh full31 including source-only fixtures. living_participant_ids builds living set then filters recorded IDs in original order; output is a subset of BOTH given lists. It deliberately preserves repeated recorded entries, so not a uniqueness admission gate or fresh database living proof. Actual benefit consumer/recorded roster uniqueness remains separate pending original source graph; no duplicate reward finding from this function alone. Zero/full u64 not bounded here. P16 current exact comparison: Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried.",
+      "source_body_proof": "Complete actual P16 body personally compared by full unified source diff against freshly read PR counterpart; two added typed Geometry failure variants inspected independently, no hash or old-verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary/error.rs",
+      "sha256": "279813fa320c4ce35bbef2229faa4367af4c93d97f074cec46e6984974245b6c",
+      "scope041_index": 76,
+      "actual_EOF": 51,
+      "scoped_ranges_compared": [
+        [
+          1,
+          51
+        ]
+      ],
+      "actual05_comparison": "Fresh full51 including existing fixtures. UnknownThreatId is a unit failure with stable Display and no source, no independently inconsistent aggregate state. Fixtures distinguish unknown authored key parsing from known ThreatId roundtrip, but actual ThreatId declaration/membership gate must be its own source proof; no type-name credit or execution. P16 current exact comparison: Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried.",
+      "source_body_proof": "Complete actual P16 body personally compared by full unified source diff against freshly read PR counterpart; two added typed Geometry failure variants inspected independently, no hash or old-verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/contact_timing.rs",
+      "sha256": "3b347473e5083f9fd02f59949b49f45eb7bf03e75c288b167cf003e2acc6ca89",
+      "scope041_index": 82,
+      "actual_EOF": 57,
+      "scoped_ranges_compared": [
+        [
+          1,
+          57
+        ]
+      ],
+      "actual05_comparison": "Fresh full57. ContactTimingOffset private signed finite seconds, including zero and negative. between_contacts computes the completed difference in original f32 order and rejects overflow before construction, retaining precise failure. Duration conversion is finite because u64 seconds are below f32MAX; not a positive-only timing interval. No shared battle-origin membership guarantee is inferred from two BattleTime inputs; the API explicitly calculates coordinates supplied by caller. P16 current exact comparison: Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried.",
+      "source_body_proof": "Complete actual P16 body personally compared by full unified source diff against freshly read PR counterpart; two added typed Geometry failure variants inspected independently, no hash or old-verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/fatigue_config.rs",
+      "sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+      "scope041_index": 85,
+      "actual_EOF": 46,
+      "scoped_ranges_compared": [
+        [
+          1,
+          46
+        ]
+      ],
+      "actual05_comparison": "Fresh full46. CombatFatigueParameters is raw public authored data until explicit validate. The validator checks all physical coefficients finite>0, efficiency<=1, both elapsed durations positive and min<=max. PositiveSpeed leaf is separate canonical input, not raw float. Independent public mutation/Serde does not seal accepted state; actual installer/consumer gate remains pending. One visible fatigue-pool calibration is not a per-muscle or oxygen pool. No blanket constructor guarantee or new defect from raw DTO design. P16 current exact comparison: Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried.",
+      "source_body_proof": "Complete actual P16 body personally compared by full unified source diff against freshly read PR counterpart; two added typed Geometry failure variants inspected independently, no hash or old-verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact_config.rs",
+      "sha256": "ad51483d70e3e95165e16c92b3d3e270e381db2c9aa9135056cb6484e3e1b287",
+      "scope041_index": 89,
+      "actual_EOF": 32,
+      "scoped_ranges_compared": [
+        [
+          1,
+          32
+        ]
+      ],
+      "actual05_comparison": "Fresh full32. WeaponContactParameters public authored product: validate checks positive finite length/areas, finite nonnegative unarmed precision. No ordering between different point/edge/broad reference areas is promised; they describe independent physical calibration. Actual runtime consumer must use the validation gate; ordinary Serde alone is raw. Zero precision legitimate, no <=1 probability narrowing. P16 current exact comparison: Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried.",
+      "source_body_proof": "Complete actual P16 body personally compared by full unified source diff against freshly read PR counterpart; two added typed Geometry failure variants inspected independently, no hash or old-verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/essential.rs",
+      "sha256": "3d1b91f2f3bd1d9ffaeaa98eb8cf921fcbfee807aba9fd8bd16ca762448a10e0",
+      "scope041_index": 105,
+      "actual_EOF": 40,
+      "scoped_ranges_compared": [
+        [
+          1,
+          40
+        ]
+      ],
+      "actual05_comparison": "Fresh full40. PlayerEssentials trait derives strategic daily fatigue from caller-supplied essentials/attributes/body and combines equipment contribution. There is no retained parallel fatigue backing in this trait; combat explicitly uses incapacitation separately. Positive finite endurance and compatible same-character inputs are caller policies, raw trait f32 returns do not establish them. Generic default may divide by zero/nonfinite if arbitrary implementor supplies such values; do not invent normal gameplay failure or globally brand unrelated trait inputs from this declaration alone. P16 current exact comparison: Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried.",
+      "source_body_proof": "Complete actual P16 body personally compared by full unified source diff against freshly read PR counterpart; two added typed Geometry failure variants inspected independently, no hash or old-verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/ingredient_preparation.rs",
+      "sha256": "ae086fd226814d3e6a5085e053f4e16a02c4a46ecbfbe9e0c2bf7063e6edf170",
+      "scope041_index": 111,
+      "actual_EOF": 72,
+      "scoped_ranges_compared": [
+        [
+          1,
+          72
+        ]
+      ],
+      "actual05_comparison": "Fresh full72 including original fixtures. Closed Cut/Grind action enum maps exhaustively to stable lowercase ID, code1/2 and distinct definition ID; parser rejects unknown, wire Serde enum vocabulary is separate and exact. These projections share one enum source, no drift-prone parallel accepted strings. No quantity, timing or rights admission contained here. Macro SDK enum route is not re-audited or assumed from derive name. P16 current exact comparison: Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried.",
+      "source_body_proof": "Complete actual P16 body personally compared by full unified source diff against freshly read PR counterpart; two added typed Geometry failure variants inspected independently, no hash or old-verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_fit.rs",
+      "sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "scope041_index": 2581,
+      "actual_EOF": 46,
+      "scoped_ranges_compared": [
+        [
+          1,
+          46
+        ]
+      ],
+      "actual05_comparison": "Fresh full46. EquipmentFitZone closed six tags explicitly limits arm versus leg locations. Occupancy conflict compares SAME location/channel plus singleton-or-equal order, then None fit zone means whole-location overlap or matching zone. It does not itself validate whether a zone fits a location, reserve capacity, enforce parent membership, or prove two occupied objects differ; those are actual graph admission consumers. Different layer orders and disjoint valid zones are intentionally nonconflicting, not missing aggregate equality. P16 current exact comparison: Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried.",
+      "source_body_proof": "Complete actual P16 body personally compared by full unified source diff against freshly read PR counterpart; two added typed Geometry failure variants inspected independently, no hash or old-verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation_material.rs",
+      "sha256": "823eb461e0534843b71a2b8199e6428fd9a558cf9bc1387beedf87500bf71f8a",
+      "scope041_index": 2584,
+      "actual_EOF": 17,
+      "scoped_ranges_compared": [
+        [
+          1,
+          17
+        ]
+      ],
+      "actual05_comparison": "Fresh full17. Optional material-name predicate explicitly requires Some and exact ten allowed names. It stores no second roster or paired material properties, no cross-field invariant in this helper. Absence false here does not mean every item kind must have equipment material; owning capabilities/kind validator decides applicability. No blanket material catalogue/runtime membership credit. P16 current exact comparison: Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried.",
+      "source_body_proof": "Complete actual P16 body personally compared by full unified source diff against freshly read PR counterpart; two added typed Geometry failure variants inspected independently, no hash or old-verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+      "sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+      "scope041_index": 2583,
+      "actual_EOF": 49,
+      "scoped_ranges_compared": [
+        [
+          1,
+          49
+        ]
+      ],
+      "actual05_comparison": "Fresh full49. finite_in requires a present numeric finite value within inclusive supplied bounds, appends path and reason together. positive_f32_in checks completed f64→f32 conversion stays finite>0, preventing positive-underflow-to-zero before typed decode. Supplied min/max must be meaningful owning validator constants; no generic guarantee for arbitrary NaN bounds from this internal helper signature. No accepted whole item seal; shared diagnostics retained, no formatting-to-error-identity inference. P16 current exact comparison: Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried.",
+      "source_body_proof": "Complete actual P16 body personally compared by full unified source diff against freshly read PR counterpart; two added typed Geometry failure variants inspected independently, no hash or old-verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_currency.rs",
+      "sha256": "837f9fd6f0198b1141b6908e9a329a770104cb67be25e2234764977af3db85df",
+      "scope041_index": 149,
+      "actual_EOF": 40,
+      "scoped_ranges_compared": [
+        [
+          1,
+          40
+        ]
+      ],
+      "actual05_comparison": "Fresh full40 including source-only fixtures. Currency checks/name lookup consult actual item definition and Currency kind before return. assigned_currency_id samples the immutable six-ID roster using same roster.len; exact six declaration946 supports nonzero length and membership of returned index. It does not claim every ID is in actual loaded catalogue until startup reference validation or fixture proves that separately. Settlement ID derives stable seed, not database authorization. P16 current exact comparison: Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried.",
+      "source_body_proof": "Complete actual P16 body personally compared by full unified source diff against freshly read PR counterpart; two added typed Geometry failure variants inspected independently, no hash or old-verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/weather/streams.rs",
+      "sha256": "441a11bfce5d076e3dc78875c0f4bfbe8622178c5c1a4cba2c7e0077f5ea2ea8",
+      "scope041_index": 164,
+      "actual_EOF": 11,
+      "scoped_ranges_compared": [
+        [
+          1,
+          11
+        ]
+      ],
+      "actual05_comparison": "Fresh full11. Eight nonempty named weather random purposes separate convection, moisture layers, precipitation, pressure, shear and temperature streams; constants store no correlated weather snapshot, interval or mutable lifecycle. Actual root-stream names are replay-sensitive vocabulary; no weather arithmetic or validity credit merely from purpose declaration. P16 current exact comparison: Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried.",
+      "source_body_proof": "Complete actual P16 body personally compared by full unified source diff against freshly read PR counterpart; two added typed Geometry failure variants inspected independently, no hash or old-verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_references.rs",
+      "sha256": "e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+      "scope041_index": 2744,
+      "actual_EOF": 76,
+      "scoped_ranges_compared": [
+        [
+          1,
+          10
+        ],
+        [
+          12,
+          27
+        ],
+        [
+          30,
+          37
+        ]
+      ],
+      "actual05_comparison": "Fresh exact P16 six currency IDs,14 medication keys and carry-kit/hip pair declaration independently read and compared with PR946: same current literals/order/cardinalities. Six nonempty currency roster closes local149 sampler bound,14 profile roster does not prove profile order automatically. No P16 required gameplay list39+ or runtime validator/full76 credit; these remain outside exact material role.",
+      "source_body_proof": "Fresh bounded P16 actual body, old roles and mandatory currency overlay221 retained."
+    }
+  ],
+  "comparison_groups": {
+    "leaf-versus-aggregate": "Open identity, failure sum, enum vocabulary and named streams have no independently inconsistent product to seal; raw DTOs remain raw until actual owning validator/consumer.",
+    "explicit-correlation": "Fatigue min/max durations, exact occupancy conflict relation, filtered nonempty profession roster and currency index membership personally compared.",
+    "native-boundary": "Positive f32 admission checks completed narrowing; raw rejected key errors and full-range decimal transport retained; no accepted state from Serde or error Display.",
+    "counterpart-comparison": "15 complete actual P16 body comparisons with all differences preserved, per-source semantics compared; no source/hash/verdict stamp or caller graph inference."
+  },
+  "counterpart_pairs": [
+    {
+      "PR_index": 854,
+      "P16_index": 48,
+      "complete_body_diff": "No differences in complete bodies",
+      "current_role_comparison": "Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried."
+    },
+    {
+      "PR_index": 860,
+      "P16_index": 53,
+      "complete_body_diff": "--- PR\n+++ P16\n@@ -6,6 +6,8 @@\n /// Checked physical inputs and interval arithmetic used during pure resolution.\n #[derive(Debug, thiserror::Error)]\n pub enum BattleResolutionError {\n+    #[error(transparent)]\n+    Geometry(#[from] fabelgeist_geometry::GeometryError),\n     #[error(transparent)]\n     Speed(#[from] SpeedError),\n     #[error(transparent)]",
+      "current_role_comparison": "Personally compared complete declaration, constructors/operations/visibility/Serde/enum projections and actual function-local recipient from PR facts; same contract for these exact leaf/helper roles only, no PR/P16 caller/import namespace policy assumed. Geometry error variants separately retain concrete P16 neutral owner cause."
+    },
+    {
+      "PR_index": 866,
+      "P16_index": 59,
+      "complete_body_diff": "--- PR\n+++ P16\n@@ -9,6 +9,8 @@\n \n #[derive(Debug, thiserror::Error)]\n pub enum MeleeIterationError {\n+    #[error(transparent)]\n+    Geometry(#[from] fabelgeist_geometry::GeometryError),\n     #[error(transparent)]\n     Name(#[from] NameCatalogError),\n     #[error(transparent)]",
+      "current_role_comparison": "Personally compared complete declaration, constructors/operations/visibility/Serde/enum projections and actual function-local recipient from PR facts; same contract for these exact leaf/helper roles only, no PR/P16 caller/import namespace policy assumed. Geometry error variants separately retain concrete P16 neutral owner cause."
+    },
+    {
+      "PR_index": 879,
+      "P16_index": 73,
+      "complete_body_diff": "No differences in complete bodies",
+      "current_role_comparison": "Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried."
+    },
+    {
+      "PR_index": 882,
+      "P16_index": 76,
+      "complete_body_diff": "No differences in complete bodies",
+      "current_role_comparison": "Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried."
+    },
+    {
+      "PR_index": 896,
+      "P16_index": 82,
+      "complete_body_diff": "No differences in complete bodies",
+      "current_role_comparison": "Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried."
+    },
+    {
+      "PR_index": 899,
+      "P16_index": 85,
+      "complete_body_diff": "No differences in complete bodies",
+      "current_role_comparison": "Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried."
+    },
+    {
+      "PR_index": 905,
+      "P16_index": 89,
+      "complete_body_diff": "No differences in complete bodies",
+      "current_role_comparison": "Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried."
+    },
+    {
+      "PR_index": 925,
+      "P16_index": 105,
+      "complete_body_diff": "No differences in complete bodies",
+      "current_role_comparison": "Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried."
+    },
+    {
+      "PR_index": 931,
+      "P16_index": 111,
+      "complete_body_diff": "No differences in complete bodies",
+      "current_role_comparison": "Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried."
+    },
+    {
+      "PR_index": 938,
+      "P16_index": 2581,
+      "complete_body_diff": "No differences in complete bodies",
+      "current_role_comparison": "Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried."
+    },
+    {
+      "PR_index": 942,
+      "P16_index": 2584,
+      "complete_body_diff": "No differences in complete bodies",
+      "current_role_comparison": "Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried."
+    },
+    {
+      "PR_index": 943,
+      "P16_index": 2583,
+      "complete_body_diff": "No differences in complete bodies",
+      "current_role_comparison": "Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried."
+    },
+    {
+      "PR_index": 1007,
+      "P16_index": 149,
+      "complete_body_diff": "No differences in complete bodies",
+      "current_role_comparison": "Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried."
+    },
+    {
+      "PR_index": 1026,
+      "P16_index": 164,
+      "complete_body_diff": "No differences in complete bodies",
+      "current_role_comparison": "Personally compared each exact full body against fresh PR definition/helper reasoning above: same meaning, bounds, zero/absence, mutation and recipient policies for this source. No caller graph or other-lens credit carried."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual catalogue initialization/reference gates, benefit roster uniqueness, fatigue/contact installers and presentation decoder/graph membership remain their exact own source roles; no current bad caller assumed.",
+    "Native allocator and owned support prerequisites from071/073 remain explicit."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

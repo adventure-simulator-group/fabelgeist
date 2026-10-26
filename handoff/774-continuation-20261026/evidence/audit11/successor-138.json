@@ -1,0 +1,52 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-138",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 747,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_head_frame.rs",
+      "sha256": "0ba82a07830e04fce84a96018b01826029ddf86029936f1a328c91e41330406c",
+      "ranges": [
+        [
+          1,
+          327
+        ]
+      ],
+      "assessment": "Full327 actual source read in two windows after hash match. Canonical head/jaw/eye ordinals and rig membership table project into actual GPU pass uniforms and packed frame. Shared FRAME_WORDS allocation and four fixed native kernel order align. Deferred FINISH status validates finite/positive/orthonormal frame; returned DeviceFrame remains unvalidated until caller check. Q009 buffer/state correspondence context retained; no physical/deterministic-device/runtime/current-main acceptance from comments/source alone.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 748,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_limb.rs",
+      "sha256": "e0d892a94ac4639bcb6d76efd6ffe7b88eaab221e530f54832fba6daafd8355d",
+      "ranges": [
+        [
+          1,
+          212
+        ]
+      ],
+      "assessment": "Full212 exact reached owner source read after hash match. Typed LimbArmorDesign/FitRegion and PlateFit propagate; gauge lengths project into raw ClearanceFit before kernel Q009. Independent design/region arguments rely on actual693/726 fit-region dispatch for coherent ordinary use; no arbitrary pairing ordinary witness. Internal side/depth/reserve semantic tuple extends Q008; native shell-of/bounds generation relies on actual DevicePart ranges. No new accepted finding/current-main/runtime/physical clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 749,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_piece.rs",
+      "sha256": "01c4a60fd64a4c0fc9c1c368d85e1c693d5e1e09849c67bead477704da65362f",
+      "ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "assessment": "Full34 exact reached owner source read after hash match. DeviceRecording names part, frame/region correspondence and deferred checks; semantic Vec(frame,region) pair is Q008, not an unavoidable framework tuple. DeviceCheck Device/Mesh closed sum retains distinct callback recipient phase; future/boxed closure encodings are real async native API constraints. Aggregate validity pending execution is documented, not accepted-ready claim. No new unique or current-main/runtime/global clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

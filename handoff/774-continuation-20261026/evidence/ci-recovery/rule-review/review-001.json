@@ -1,0 +1,85 @@
+{
+  "kind": "INDEPENDENT_CI_RECOVERY_RULE_REVIEW",
+  "author": "recovery_826; no product authorship or project execution",
+  "source_pins": "source-pins-001.json",
+  "support_pins": "support-pins-001.json",
+  "comparison": "Current candidate versus main, including uncommitted changes; all44 tracked changed paths pinned. Unrelated untracked compute source and handoff directory excluded.",
+  "scope": "Changed responsibilities of preserved CI recovery, connected shoot identity producers/retained state/consumers/hash, cloud bake extraction and existing-test adaptations, workflow exporter and existing acceptance guards, baseline delta, generated artifact boundaries.",
+  "rules_read": [
+    "Repository AGENTS.md",
+    "crates/AGENTS.md",
+    "crates/adventuresim-character-creator/AGENTS.md",
+    "crates/fabelgeist-armor/AGENTS.md (fixture maintenance, no equipment shape change)",
+    "Captured handoff/826/skills/rule-review/SKILL.md",
+    "Captured bespoke-type-review.md",
+    "Root task explicit no new tests/cases/assertions/helpers; existing-test adaptations allowed"
+  ],
+  "findings": [
+    {
+      "id": "CI-RULE-001",
+      "severity": "P2",
+      "classification": "Explicit task constraint; local test-helper closures, not a demonstrated runtime defect",
+      "locations": [
+        {"path": "crates/adventuresim-tactical-client/src/presentation/clouds.rs", "line": 1302, "item": "new named sample closure in existing cloud test"},
+        {"path": "crates/adventuresim-tactical-client/src/presentation/terrain/cliff_surface.rs", "line": 164, "item": "new named assert_shared_sampler closure in existing terrain test"}
+      ],
+      "rule": "Root review task forbids new helpers while permitting existing-test adaptations.",
+      "consequence": "The candidate introduces two reusable local test helpers despite that literal restriction. No new test function/case is needed to preserve the intended adaptation.",
+      "correction": "Inline the sampled-ray iteration in the existing assertion/data construction and restore a direct loop over the same two sampler pairs. Retain existing assertion contracts; do not add cases or helper functions.",
+      "qualification": "If root's stated restriction intentionally excludes local closures inside existing-test adaptations, this is a scope interpretation to resolve explicitly rather than a production correctness defect. No alternative rule violation is inferred merely from using a closure."
+    }
+  ],
+  "family_traces": [
+    {
+      "family": "Shoot identity",
+      "status": "Source contract coherent within stated deterministic identity increment; hosted realization acceptance pending",
+      "owner": "geometry/leaves/identity.rs: TreeShootId private u64, one named SHOOT_IDENTITY StreamId, directly derived word traits",
+      "admission_and_producers": "Oak OAK_SHOOT, beech BEECH_TWIG, shrub SHRUB_SHOOT and stem SHRUB_TIP purpose seeds produce TreeShootId before geometry-dependent identity could be reconstructed. Distinct upstream seed streams carry actual source identities; no new raw decoder/serde/public tuple field.",
+      "retained_operations": "TreeBranchSegment.foliage Option<TreeShootId> joins foliage membership and identity. append_branch_curve copies Some only to final segment. Nonfoliage axes/roots/knots use None. is_limb_tip remains separate wood-curve termination meaning. Native radii fixed pair now destructured into start_radius/end_radius with metre/Y-up boundary documentation.",
+      "consumers": "All three leaf arrangements carry the stored identity to TreeLeaf and deterministic sampler seeds; sparse/detailed selection and raster stratification use it. Bud and review-specimen selection use same foliage state rather than recomputing IDs from coordinate bits. Source geometry hash consumes all64 identity bits directly instead of f32 cast. Old shoot_identity API/stream duplicate removed.",
+      "boundary_limits": "64-bit deterministic identity is not a proof of collision-free mathematical uniqueness or receiver membership; candidate makes no such new API claim. Geometry remains native numerical code; no global numeric/tree migration clearance. Leaf realization intentionally changes, even if wood source arithmetic is preserved. Current expected counts/envelope/assets require exact hosted regeneration and acceptance."
+    },
+    {
+      "family": "Oak root extraction",
+      "status": "Source-preserving connected extraction",
+      "trace": "Existing root generation loop moved from oversized skeleton responsibility into existing root_plan module. Same root specs/order, trunk base offset, fork profile and native radius expressions; None foliage. No new production unwrap/expect or compatibility path in extracted function."
+    },
+    {
+      "family": "Cloud integration and native image adapter",
+      "status": "Source contract preserved; bounded checks deliberately cover less than full-image determinism",
+      "trace": "CloudBakeRequest::integrated_pixel in focused bake module owns the prior native ray integration, with documented unit-ray/metre/Y-up frame and RGBA8 boundary. Same layer/sample order and arithmetic. cloud_bake_image retains full row-major lattice and calls canonical image_from_rgba8, whose dimensions/format/clamp/linear sampler match former direct image construction. Owned Vec avoids the extra generated pixel copy; prebaked callers explicitly copy static bytes once.",
+      "acceptance_limit": "Adapted existing cloud test checks16 ray samples and native image allocation/filtering; seam test still compares every seam row. It no longer proves repeated complete-image equality or every interior pixel. Do not advertise that stronger old test scope. New native module is cohesive and below growth limits; no new broad suppression."
+    },
+    {
+      "family": "Existing fixture and resource setup repairs",
+      "status": "Source review coherent, execution pending",
+      "trace": "Settled wearer fixture names/states now match unchanged one-joint PackedRigSkin receiver validation and all-zero ordinals. Equipment test adds required Image asset resource. Studio cache test installs existing asset infrastructure. Material/terrain/litter fixtures reserve native handles using existing canonical ProceduralTextureAssets owner instead of rebaking unrelated complete texture catalogues; handle/physical material assertions remain. Cliff sampler assertions decode committed recipe maps rather than comparing empty reserved image placeholders. Existing geometry expectations remain exact values, not wider tolerances or relaxed inequalities.",
+      "limits": "No equipment geometry or artistic acceptance claim. Sampler adapter compares committed map metadata, not a rendered sampler-binding test. Root owns execution and any next deterministic failure. Existing fixture seed/count changes and current-site silhouette adaptation need the preserved hosted evidence and final exact-source run; this review did not execute them."
+    },
+    {
+      "family": "Workflow and enforcement",
+      "status": "Static source reviewed; required quality result still pending",
+      "trace": "Ordinary push/PR and default manual runs retain rust-quality; explicit manual regenerate_fixtures enables separate exporter job. Only existing managed-hazel and ignored art-demo tree exporters are invoked, then existing shrub/leaves cases. Job records revision and uploads generated artifacts/evidence, and is not an acceptance verdict. Ordinary quality path still verifies source revision, nonempty successful required result populations, existing broad suite cells and baseline artifact. Timeout is bounded20minutes on existing presentation step.",
+      "baseline": "Only checked-in ceiling change is clouds1014→900; no raised ceiling, broad registry exemption, dependency or compatibility fallback in reviewed delta.",
+      "limits": "Exporter success alone cannot prove runtime correctness or replace ordinary quality. No new runtime acceptance bypass inferred from manual export job; generated bytes must be imported/reviewed and followed by ordinary full quality on exact final source."
+    },
+    {
+      "family": "Generated artifacts and revision boundary",
+      "status": "Pending exact hosted export and artifact-source reconciliation",
+      "trace": "Pinned envelope geometry_revision1→3 and existing geometry expectation changes; tree bake version16→18 at owning constant. Pinned JSON schema comparison found city layout/furniture numerical/layout data changes and flower scene seed change, not hand-edited schema/bindings. Clouds and tree binaries pinned as opaque artifact bytes; no decoding/runtime claims. Existing managed-hazel exporter uses current envelope revision and emits hull/count/heights, and existing tree exporter generates all6 current bakes with current source hash/version.",
+      "required_acceptance": "Import exact hosted current-source envelope/tree assets; reconcile unchanged or newly changed budgets against its logs; verify current art-demo resolve/hash/version consumers with ordinary hosted suite. Existing installed old artifact cannot be accepted solely because an exporter was scheduled."
+    }
+  ],
+  "coverage": {
+    "changed_source_diff": "All Rust/TOML/YAML hunks personally read in bounded windows, plus actual critical producer/retained/consumer and existing exporter bodies. No other reviewer verdict read.",
+    "data": "Generated JSON compared structurally with bounded leaf-change summaries; no giant data dump credited as source review. Binary assets hash-pinned only.",
+    "first_unfinished_source_review": null,
+    "first_unfinished_acceptance": "Hosted current-source regeneration, artifact import/reconciliation and full ordinary quality result",
+    "project_checks": "Not run, as expressly required; sole implementation/check owner is root",
+    "product_or_git_mutations": false,
+    "other_lens_credit": false,
+    "global_audit_clearance": false
+  },
+  "verdict": "ONE_TASK_CONSTRAINT_OBSERVATION_WITH_SCOPE_QUALIFICATION; no demonstrated new production rule defect in inspected increment; merge/runtime acceptance remains pending",
+  "clear": false
+}

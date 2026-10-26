@@ -1,0 +1,83 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-432",
+  "at": "2026-10-26T00:46:13.296983+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 505,
+      "source_id": "pr-working:assets/shaders/tactical_city_ground.wgsl",
+      "sha256": "3bc0e8bdfb4aea730fbca506f80fd06afd9f410c658869396cc616d6c35c6a21",
+      "personally_read_ranges": [
+        [
+          1,
+          189
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full city_ground1-189. Surface/material/weather/traffic transform and footprint vertex attributes jointly determine physical-looking ground at source_from_world coordinates; derivative normal uses signed determinant guard, explicit subpixel relief/mixture. ground.surface.y is divisor/stone scale and host must admit nonzero; derivative cross may degenerate at actual raster constraints. No actual zero-scale producer or shader failure witnessed. Source and world coordinates intentionally distinct with explicit matrix; no GPU run."
+      ]
+    },
+    {
+      "scope_index": 506,
+      "source_id": "pr-working:assets/shaders/tactical_cloud_composite.wgsl",
+      "sha256": "bc687e4b087232f3d4cea9b9f05393ece9f197db7269d1df1467ea686a8730d4",
+      "personally_read_ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full cloud_composite1-20. Uses current view viewport offset/size to address one premultiplied offscreen texture; actual host must associate texture, viewport and depth-tested dome/material. Zero viewport or wrong-view texture remains host association question, no ordinary capture mismatch/validation claim."
+      ]
+    },
+    {
+      "scope_index": 507,
+      "source_id": "pr-working:assets/shaders/tactical_clouds.wgsl",
+      "sha256": "a04c3a457fc4e9bdf80cb0bb2eca4eb2364d8d3b5233f9942c740594b3084e66",
+      "personally_read_ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full clouds1-177. Dome-ray mapping and wind compensation sample two baked endpoint textures and interpolate optical depths (not raw alpha), preserving opacity/transmission/underside channels in one product. Layer altitude, shell geometry, endpoint interval/blend/wind and lighting uniforms must refer to same bake/source observation. Nonzero normalized light/ray and finite shell roots depend actual host producer; no actual wrong endpoints/zero direction or GPU result observed. Final output explicitly premultiplied opacity matches506's compositing contract."
+      ]
+    },
+    {
+      "scope_index": 508,
+      "source_id": "pr-working:assets/shaders/tactical_foliage.wgsl",
+      "sha256": "e820d0090e4d3b180de4ebac4c8c5259559ca5b19b9709c1d284af8fe75f2eb9",
+      "personally_read_ranges": [
+        [
+          1,
+          507
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full foliage1-507 in two bounded chunks. Per-draw quality selects cheap versus interactive blade reconstruction; shared root/threshold attributes, world mask transform, density/LOD, authored seed-head UV role and current wind/interaction jointly produce position/normal. Near mask collapses rejected blades at root; far path retains geometry and multiplies wind visibility, so actual mask/LOD host policy needed before claiming missing rejection. No generic shader boundary clears mesh/material aggregate.",
+        "Normals use multiple normalizations; small added epsilon does not universally admit nonzero vectors, and zero wind could affect both cheap/near branches if host emits rawzero direction. No actual calm-wind producer witness read here, no new accepted finding. Two-sided light preserves upper-normal bias deliberately; outputLODcoverage is presentation policy, no tactical impairment/state authority."
+      ]
+    },
+    {
+      "scope_index": 511,
+      "source_id": "pr-working:assets/shaders/tactical_interior_lighting.wgsl",
+      "sha256": "92d6043b6367ed1a9ce3159c5e749bbff8eb7b5b528dd26ae9cd17592fada2d4",
+      "personally_read_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full interior_lighting1-100. Field contains fixed16 building headers plus dynamic samples, per-building dimensions/offset/transform and positive room IDs. Host must bound counts.x<=16, counts.y reservedzero, nonzero cell dimensions and offset products within samplebuffer; room-aware bilinear neighbors reuse centre when missing or different room. Explicitnormal transform/directional lobe evaluation chooses local irradiance; no ordinary invalidheader/wrongroom witness.",
+        "Indoor contribution replaces outdoor diffuse and attenuates probe, while common PBR call preserves directshadow/exterior behavior. Degenerate normals and frame/extent coherence remain actual host admission requirement, no all-interior shader guarantee or GPU execution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "5 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

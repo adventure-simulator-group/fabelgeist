@@ -1,0 +1,68 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-410",
+  "at": "2026-10-26T00:25:11.066215+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 292,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/mission_roster.rs",
+      "sha256": "f67d08c1d5b6f22ad63de5ab13e46c5b4f2cd5d7512a7d90de2d1c1cc538a292",
+      "personally_read_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full101 lines. Captured MissionEnemyRoster validates IDs/cardinality then matches current group count once at binding; stored mission snapshot later validates same roster plus actual Character existence without rereading live group size. Constructor captures party/observer/site/group/entropy/state/scene/contact/difficulty/scale/drop in one owner but assumes caller already correlates site/group/party; current bound-caller proof273 does so. Error variants preserve roster cause structure locally; Display formatting boundary separate.",
+        "Stored IDs need only existing Characters, not currentalive or currentgroup membership, intentionally immutable mission snapshot. No stale-invalid roster runtime observed or full tactical source acceptance."
+      ]
+    },
+    {
+      "scope_index": 293,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/mission_roster/authority_tests.rs",
+      "sha256": "d9c4ce465bfb869bfde7aaade8b21ca64cec33f41267edca408d12561d4c9904",
+      "personally_read_ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full231 lines. Guarded existing acceptance fixture intentionally drifts live count, proves captured roster independence and rejects empty/duplicate/missing IDs across tactical launch/autoresolve, then valid request/report. Standalone launch count/ID agreement and exact finale receipt idempotency/conflicts are source assertions, not executed checks. Fixture manipulates database only when explicitly run; no mutation performed."
+      ]
+    },
+    {
+      "scope_index": 294,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/mod.rs",
+      "sha256": "f2c7bd8a10ef22ad1fc696786a18c09fa024604c9e249f13ce8a872362249246",
+      "personally_read_ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full actual97 lines; older supplementary1\u2013105 range exceeds this exact EOF, no phantom lines credited. Ordered shared-module includes preserve macro/accessor scope; explicit child helpers plus source-test concatenation. Included file names/declarations are navigation, not body coverage; direct relative include scenario_characters differs nested pathsourcefile? Registered296 actual source remains separate. No compilation/ABI acceptance."
+      ]
+    },
+    {
+      "scope_index": 296,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/scenario_characters.rs",
+      "sha256": "fe732c13e4aebc3bfbe24b75f8a91f654d37117925eeea8cfdf8766f5eec402e",
+      "personally_read_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full31 lines. Isolated scenario character reuse compares exactsettlement only; creation derives stableID seed and explicit requestedorigin/player-mode/soloparty/carry defaults via actual character constructor. Fixture caller authorizes this knownID, no assertion arbitraryexistingidentity exactness. Errors propagate."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "4 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

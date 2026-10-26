@@ -1,0 +1,67 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-420",
+  "at": "2026-10-26T00:35:02.011300+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 341,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs",
+      "sha256": "b8ca7d503b8d6de9b9f0892346e97eb71f3a801b68012337f4943be7e7057af9",
+      "personally_read_ranges": [
+        [
+          1,
+          265
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full view_camera.rs1-265. CapturePose dispatch selects admitted Position/Direction views, bounded authored camera lookup and explicit missing/live-query errors; optional focuses intentionally use ground or obstacle focus by pose. Camera arithmetic is fallible before product return, finite SignedLength alone does not bound products and distinct target admission handles degeneracy. No actual oversized capture input/witness or capture execution."
+      ]
+    },
+    {
+      "scope_index": 342,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/landscape.rs",
+      "sha256": "0ca70d46d9aafbe4f1fef2e245b771e23fd6a79eb7263b7937c6306ed1068a11",
+      "personally_read_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full landscape.rs1-101. Vista peak/valley require admitted extrema and choose stable direction fallback only for degenerate horizontal heading; compute safe height/target pitch then admit complete view. Horizon has documented local terrain fallback; city oblique uses actual frame extent and yaw. Intermediate overflow or float precision collapse at extreme admitted finite geography remains qualified without actual producer bound/witness; no fabricated successful transform."
+      ]
+    },
+    {
+      "scope_index": 343,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/placement.rs",
+      "sha256": "6f16515e0ef35ed320d6c8b862676bb68e853ba485c30454c7c049a6c61bfa0c",
+      "personally_read_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full placement.rs1-60. SceneCameraView::looking_at validates nonzero normalizable target displacement and nonparallel up before product creation; fixed orientation explicitly carries RigidRotation rather than assuming target look-at. native_transform is the actual Bevy port. Position and target fields are crate-scoped mutable despite initial checked orientation, so later mutation can invalidate prior proof; actual caller graph/normal mutation and native behavior needed before finding. No blanket whole-family checked guarantee inferred from type name."
+      ]
+    },
+    {
+      "scope_index": 344,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/targeting.rs",
+      "sha256": "d98b3d7ac9f2dd1dfd08f9eaa0442053cdc84b0e110c02d79de04eadafa0529f",
+      "personally_read_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full targeting.rs1-103. Native ranking kernel normalizes camera direction, applies maxzero squared bounded range or explicit prevalidated movement variant, then orders angular error/distance/stable key. Behind-camera selection deliberately allowed and exercised by existing no-cone fixture; no forward-cone bug. Finite huge vectors/squared ranges can overflow and raw invalid candidate may survive, requiring actual producer/reach validity before ordinary finding. Source fixtures read only, no execution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "4 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

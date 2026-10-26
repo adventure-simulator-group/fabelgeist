@@ -1,0 +1,48 @@
+{
+  "material_index": 182,
+  "source_id": "scope-amendment:native:glam-0.32.1/src/f32/vec3.rs#normalization-contract",
+  "sha256": "28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+  "registered_ranges": [
+    [
+      573,
+      579
+    ],
+    [
+      626,
+      658
+    ]
+  ],
+  "exact_source_receipt": "contracts-039.json",
+  "original_context_reread": {
+    "index": 1645,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/natural.rs",
+    "sha256": "724bf4201d7a9163847a097d79c1b60de6d72e529328bb507431b22e0e05661e",
+    "ranges": [
+      [
+        50,
+        110
+      ],
+      [
+        110,
+        130
+      ]
+    ],
+    "authority": "Actual frozen6533 source from Git, exact hash verified; existing role only, no count increment."
+  },
+  "admission": "try_normalize adds finite-positive reciprocal admission before Some. normalize instead always multiplies then may assert finite depending glam configuration. They are not equivalent failure APIs for zero/nonfinite or reciprocal0/Inf/NaN.",
+  "successful_arithmetic": "Same length_recip operation feeds same vector-scalar multiplication; conditional successful value arithmetic is preserved. No claim every arbitrary input returns Some or optional assertion feature active.",
+  "aggregate_context": "Natural vista vertex samples tangent pair, cross product, try_normalize, maps None to point-located DegenerateNormal and propagates Result. On success packs normal with sampled position/color; mesh builder only installs completed fallible vertex results. Degenerate data stops that result rather than inventing a substitute normal.",
+  "dedup": "material182-dedup-navigation-001.json:2of1002 metadata hits, existing rig interval/targeting nonfinite cases not the vista normal contract; no uniqueness claimed.",
+  "qualified_remaining": [
+    "Native length/cfg/multiplication deeper bodies outside registered amendment remain uncredited, with usual native mathematical contract assumed only at interface.",
+    "Actual supported terrain producing reciprocal rejection not demonstrated; no new production failure accepted.",
+    "Changing native normalize to try_normalize makes degenerate rejection explicit; compatibility is not project goal and no fallback requested.",
+    "M83 clamp length remains separate registered contract; no full Vec3 or SDK coverage.",
+    "Current source-math CI review source identity cannot substitute frozen lens review."
+  ],
+  "new_unique_findings": 0,
+  "accepted_own_findings_count": 10,
+  "runtime_or_project_checks": false,
+  "source_or_git_changes": false,
+  "global_clearance": false
+}

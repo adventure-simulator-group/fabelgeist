@@ -1,0 +1,76 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-307",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 2626,
+      "source_id": "cargo-registry:num_enum_derive-0.7.6/src/lib.rs",
+      "sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+      "ranges": [
+        [
+          190,
+          260
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh pinned num_enum_derive0.7.6 TryFromPrimitive entry/expansion. Actual integer repr/variant/alternative matching, exact configured error constructor and generated TryFrom delegation read.",
+      "disposition": "Derivation implementation owner, not downstream handwritten trait candidate. Keep semantic numeric vocabulary/error expansion; no other macro/enum/API/global acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2627,
+      "source_id": "cargo-registry:num_enum_derive-0.7.6/src/parsing.rs",
+      "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+      "ranges": [
+        [
+          1,
+          20
+        ],
+        [
+          62,
+          406
+        ],
+        [
+          408,
+          447
+        ],
+        [
+          506,
+          533
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh pinned num_enum parser registered union. Actual repr/attribute/variant/discriminant and duplicate/alternative/catch-all validation, native syntax projection, configured error path/constructor and explicit ErrorTypeAttribute\u00e2\u2020\u2019ErrorType nested-field extraction read.",
+      "disposition": "Retain semantic macro syntax/admission/code generation and nested path projection; not direct field-equivalent derive candidate. No omitted helper/variant parser, whole SDK/unsafe/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2628,
+      "source_id": "cargo-registry:num_enum_derive-0.7.6/src/enum_attributes.rs",
+      "sha256": "169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+      "ranges": [
+        [
+          1,
+          210
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh pinned num_enum enum attributes210. Clone/Default structural traits already derived. Native Parse implementations consume keywords/punctuation/variant dispatch and enforce exact duplicate/name/constructor requirements with source spans.",
+      "disposition": "No downstream derivability candidate. Semantic syntax parser remains explicit; no omitted attribute tails211+ or whole SDK/macro-execution acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

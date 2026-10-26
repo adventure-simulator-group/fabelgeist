@@ -1,0 +1,17 @@
+diff --git a/crates/fabelgeist-mhr/src/model_def/tests.rs b/crates/fabelgeist-mhr/src/model_def/tests.rs
+index 290c28aa1..1fc515812 100644
+--- a/crates/fabelgeist-mhr/src/model_def/tests.rs
++++ b/crates/fabelgeist-mhr/src/model_def/tests.rs
+@@ -1,11 +1,12 @@
+ use super::*;
++use fabelgeist_rig::RigJointOrdinal;
+ 
+ fn skeleton() -> Skeleton {
+     Skeleton {
+         names: vec!["root".into(), "child".into()].into(),
+         parents: vec![None, Some(RigJointOrdinal::from(0usize))].into(),
+         translation_offsets: vec![[0.0; 3]; 2].into(),
+         prerotations: vec![[0.0, 0.0, 0.0, 1.0]; 2].into(),
+     }
+ }
+ 

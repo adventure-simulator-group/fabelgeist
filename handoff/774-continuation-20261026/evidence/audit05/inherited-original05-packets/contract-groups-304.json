@@ -1,0 +1,119 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-304",
+  "at": "2026-10-23T07:22:13.208166+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_design_input.rs",
+      "sha256": "7491f2bed3feecf76fd4446b7a20ce1470ef026f6deb1409b36798c860497ed1",
+      "scope068_index": 688,
+      "actual_EOF": 400,
+      "scoped_ranges_compared": [
+        [
+          1,
+          400
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source including original inline tests; explicit schema selection/recipe family/placement/body skin/native material relationships compared. Tests not executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_design_output.rs",
+      "sha256": "76a902a4473ed977521ac29b57a0fe40b7aa6961768097e1470fc19c2fbdf5e1",
+      "scope068_index": 689,
+      "actual_EOF": 118,
+      "scoped_ranges_compared": [
+        [
+          1,
+          118
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source including original inline tests; explicit schema selection/recipe family/placement/body skin/native material relationships compared. Tests not executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_frames.rs",
+      "sha256": "f5c8d7cf65f9cdc3472f6944d83c5d8340c2380bf19320be39b2613c3c9bc352",
+      "scope068_index": 690,
+      "actual_EOF": 316,
+      "scoped_ranges_compared": [
+        [
+          1,
+          316
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source including original inline tests; explicit schema selection/recipe family/placement/body skin/native material relationships compared. Tests not executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_layer.rs",
+      "sha256": "5e2b4c7c67044192056d8912377b42a2d69f2dd12eb2bc7dff7d475fd7dcc834",
+      "scope068_index": 691,
+      "actual_EOF": 54,
+      "scoped_ranges_compared": [
+        [
+          1,
+          54
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source including original inline tests; explicit schema selection/recipe family/placement/body skin/native material relationships compared. Tests not executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_metal.rs",
+      "sha256": "ae70b9acd477b6b29e03bd540b451d5e8556222a33a7cbb10babafab1206fbba",
+      "scope068_index": 692,
+      "actual_EOF": 198,
+      "scoped_ranges_compared": [
+        [
+          1,
+          198
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source including original inline tests; explicit schema selection/recipe family/placement/body skin/native material relationships compared. Tests not executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_recipes.rs",
+      "sha256": "a6c834971b1cd263330dea65a4a48a826dda0b767e3e16b49dc26c8a7405c725",
+      "scope068_index": 693,
+      "actual_EOF": 262,
+      "scoped_ranges_compared": [
+        [
+          1,
+          262
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source including original inline tests; explicit schema selection/recipe family/placement/body skin/native material relationships compared. Tests not executed."
+    }
+  ],
+  "groups": [
+    {
+      "id": "loaded recipes are item-and-placement choices",
+      "comparison": "ArmorPlacement admits only left/right/worn strings through Serde; catalog conversion derives from selected placement ID. ArmorDesigns public defaults and placements maps are broad raw authored state. selected first resolves exact selected item+placement override then shared item default. parse validates placement-map item has an actual embedded parametric recipe and requested placement exists on that same catalog item; every default and placement design invokes validate then requires same construction family as embedded recipe. encode serializes then calls parse before returning bytes, so save reuses these checks. Empty maps intentionally valid; no inferred blanket membership for directly constructed public ArmorDesigns. No fallback unknown recipe or arbitrary family replacement accepted by normal load."
+    },
+    {
+      "id": "strict shape versus dispatcher scope",
+      "comparison": "reject_unknown_fields walks input object fields recursively and requires corresponding decoded object path. It does not descend arrays; no actual unknown control array witness here. Serde enum variants and validators remain actual delegates, not proof of every lower numeric condition. ParametricDesign seven variants dispatch own validate; same_family checks nested Helmet/Limb discriminants, PuffAndSlash/Garment/Underlayer kind, and allows any TrunkHose or WaistAssembly within their construction. Embedded LazyLock decode performs shared structural/numeric validation, panics on invalid authored static source; map/item completeness only asserted in original source fixtures, not a guessed production catalogue all-keys gate. Actual underlying armor validators and authored JSON/catalogue content remain source-specific lower obligations if not independently compared."
+    },
+    {
+      "id": "design set validation and writes",
+      "comparison": "DesignPaths::save encodes checked catalog, validates separate bracer and breastplate, resolves all three paths and checks distinct resolved paths before encoding/writing any. Existing paths canonicalized; new paths resolve canonical parent+file name, Windows casing lowered. Bytes then written sequentially to the three corresponding paths. This proves validation-before-write and tested simple alias rejection; it does not promise rollback of earlier filesystem writes after later I/O error or prove hardlink/race identity. No actual I/O failure, unusual alias or source test run asserted. Original fixture reads all three back and verifies alias leaves original file before valid save."
+    },
+    {
+      "id": "anatomical region and lower surface ownership",
+      "comparison": "FittingPlacement maps left/right precisely, all other placement IDs Unpaired; paired fit side returnsErr for unpaired. FitRegion::owners builds intentional region-specific joint-name families; support_owners Shoulder adds clavicle while upper-arm frame remains upper arm. support_indices_for requires equal skin indices/weights row counts and packed joint count equal names count, computes included name families then sums only those row influences against .30. It does not assert borrowed Wearer positions/normals/faces/joints all share row lengths/order or validate finite weights; public Wearer is broad aggregate input. Do not infer same rig merely from equal counts. Original shoulder/twist/clavicle and terminal hand fixtures read, no execution. Actual skin_family body belongs separate queued rig_selection source."
+    },
+    {
+      "id": "checked lower armor surface at chosen morph",
+      "comparison": "ArmorLayerSurface::from_generated selects requested direct_positions by exact morph name or fails; None uses actual base. It rejects triangle remainder, empty faces, mismatched positions/skin/weight rows, or any vertex index outside selected positions before publishing borrowed product. This is direct positive counterpart to cloth topology admission gap, retaining actual selected morph rather than substituting base. Public fields still allow raw caller literals; packed lower joint-count versus chosen wearer is checked by support_indices_for, not this factory. No generated armor universal finite/morph identity seal inferred."
+    },
+    {
+      "id": "metal texture coordinates derive from current fitted surface",
+      "comparison": "Only three plate-steel material variants receive scratched Metal; mail retains separate weave. Surface edge lengths and UV edge lengths computed from corresponding triangle indices/rows, repeated edges contribute both sums consistently; total texture must positive and physical total finite before modifying UVs. Uses f64 accumulators but subtraction occurs f32 first; raw extremes/malformed parallel arrays are not admitted checked geometry by this helper. No exact finite counterexample/normal renderer failure claimed. Trim invokes GeneratedArmor::trimmed then derives matching trim coordinates from resulting band rows; absent trim returns empty vector rather than fabricated per-vertex trim. Original square/20-cell-grid material and trim fixtures read only."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Exact delegated ParametricDesign/Bracer/Breastplate validator bodies, authored embedded JSON/item catalogue and current fitting callers retain their own scope obligations; method names and existing fixture assertions do not clear them.",
+    "Wearer and public GeneratedArmor same-rig/row/finiteness guarantees require actual producer/recipient comparison, no whole-model stamp."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

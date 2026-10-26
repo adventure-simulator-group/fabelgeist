@@ -1,0 +1,246 @@
+{
+  "id": "ADLER-CONT04-MATERIAL-001",
+  "lens": "04 invariant operations",
+  "source_scope": "Later registered material104\u2013173 only; inherited closure678 preserved",
+  "completed_material": [
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114,
+    115
+  ],
+  "sources": [
+    {
+      "index": 104,
+      "source_id": "pinned-registry:bevy_render_macros-0.19.1/src/extract_component.rs",
+      "sha256": "2deb41c36880e96baffe3899ba832ae528a5cd97eb5bd611272651e032223932",
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "line_count": 76,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\2deb41c36880e96baffe3899ba832ae528a5cd97eb5bd611272651e032223932",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\2deb41c36880e96baffe3899ba832ae528a5cd97eb5bd611272651e032223932",
+      "disposition": "ExtractComponent macro adds Self:Clone, returns Some(item.clone()) through generated ECS extraction. Filter/target parsing errors become compile_error before code publication. No normalization, arithmetic, index narrowing or retained application mutation in registered body; arbitrary user Clone implementations remain outside this bounded dependency.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 105,
+      "source_id": "pinned-registry:bevy_render_macros-0.19.1/src/lib.rs",
+      "sha256": "9f94ce2c2e61634a28dedcca4a440c9ba5332efa3bede22b30d3b0a563d89884",
+      "ranges": [
+        [
+          27,
+          62
+        ]
+      ],
+      "line_count": 111,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\9f94ce2c2e61634a28dedcca4a440c9ba5332efa3bede22b30d3b0a563d89884",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\9f94ce2c2e61634a28dedcca4a440c9ba5332efa3bede22b30d3b0a563d89884",
+      "disposition": "Registration/docs forward TokenStream to ExtractComponent implementation104; no additional numerical or mutation operation. Derive registration alone does not perform runtime extraction.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 106,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/material.rs",
+      "sha256": "67733383aa74089a84e76448e23b6911132a2a298ab684e44655f8e85fa0765c",
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "line_count": 203,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\67733383aa74089a84e76448e23b6911132a2a298ab684e44655f8e85fa0765c",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\67733383aa74089a84e76448e23b6911132a2a298ab684e44655f8e85fa0765c",
+      "disposition": "InstancedMaterial defaults return default shader role, false configuration predicates, Fill polygon mode, WHITE color and successful no-op specialize. Registered trait/default methods do not alter descriptor or compute derived quantities; actual material implementations remain baseline responsibilities.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 107,
+      "source_id": "pinned-registry:bevy_render-0.19.1/src/render_resource/bind_group.rs",
+      "sha256": "c0efbc7a55dffa8e71f5a7ff158b5123b2b031f44db99275a61ad6c008dda14f",
+      "ranges": [
+        [
+          500,
+          504
+        ]
+      ],
+      "line_count": 740,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\c0efbc7a55dffa8e71f5a7ff158b5123b2b031f44db99275a61ad6c008dda14f",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\c0efbc7a55dffa8e71f5a7ff158b5123b2b031f44db99275a61ad6c008dda14f",
+      "disposition": "AsBindGroup associated Data Send+Sync and Param SystemParam constraints only. No construction, arithmetic, mutation or publication operation in exact500\u2013504 range.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 108,
+      "source_id": "pinned-registry:serde_derive-1.0.229/src/ser.rs",
+      "sha256": "18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+      "ranges": [
+        [
+          191,
+          212
+        ]
+      ],
+      "line_count": 1369,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+      "disposition": "Transparent Serialize generated body forwards selected field and serializer without numeric transform or application-state mutation. Native AST field-selection assumption is not a claim about every serde internal route; exact registered fragment only.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 109,
+      "source_id": "pinned-registry:glam-0.32.1/src/features/impl_serde.rs",
+      "sha256": "da9b8a13b57b257793481f554e6888a8fb0c82a7669e52d7e2d2af74701f0061",
+      "ranges": [
+        [
+          73,
+          86
+        ],
+        [
+          730,
+          748
+        ],
+        [
+          1044,
+          1062
+        ]
+      ],
+      "line_count": 1638,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\da9b8a13b57b257793481f554e6888a8fb0c82a7669e52d7e2d2af74701f0061",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\da9b8a13b57b257793481f554e6888a8fb0c82a7669e52d7e2d2af74701f0061",
+      "disposition": "glam Vec3 native Serialize emits exactly x,y,z in fixed three-element tuple-struct order, forwarding errors from serialize_field/end. Macro wiring selects f32 Vec3A/Vec3 without clamp/normalization/narrowing; serializer semantics stay native boundary.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 110,
+      "source_id": "pinned-registry:bevy_math-0.19.1/Cargo.toml",
+      "sha256": "55eaac570fdbe4828cebd617d6feb73ce13af0fb030f5c4cba99417c967a2a2f",
+      "ranges": [
+        [
+          118,
+          121
+        ]
+      ],
+      "line_count": 208,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\55eaac570fdbe4828cebd617d6feb73ce13af0fb030f5c4cba99417c967a2a2f",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\55eaac570fdbe4828cebd617d6feb73ce13af0fb030f5c4cba99417c967a2a2f",
+      "disposition": "Cargo dependency declaration pins glam version/feature graph; no value-changing operation.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 111,
+      "source_id": "pinned-registry:bevy_math-0.19.1/src/lib.rs",
+      "sha256": "d743684d4c464873715e1fa8ef5fe0b6fa537fabb1172894056c3a7bff504a26",
+      "ranges": [
+        [
+          103,
+          103
+        ]
+      ],
+      "line_count": 103,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\d743684d4c464873715e1fa8ef5fe0b6fa537fabb1172894056c3a7bff504a26",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\d743684d4c464873715e1fa8ef5fe0b6fa537fabb1172894056c3a7bff504a26",
+      "disposition": "bevy_math reexports glam types; no operation or new invariant owner.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 112,
+      "source_id": "pinned-registry:thiserror-impl-2.0.20/src/expand.rs",
+      "sha256": "76285acc08ccb8a0a93a3cbd58c3e12cbcde61720ad676be181fff7b1f278df3",
+      "ranges": [
+        [
+          22,
+          72
+        ],
+        [
+          126,
+          165
+        ],
+        [
+          201,
+          220
+        ]
+      ],
+      "line_count": 600,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\76285acc08ccb8a0a93a3cbd58c3e12cbcde61720ad676be181fff7b1f278df3",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\76285acc08ccb8a0a93a3cbd58c3e12cbcde61720ad676be181fff7b1f278df3",
+      "disposition": "thiserror validates parsed Input before selecting struct/enum expansion. Registered source generation retains borrowed error fields, optional-source None semantics, Display bounds and generated error traits; no arithmetic or application-state publication. Native AST indexing depends on its validation, not a new game-data constructor.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 113,
+      "source_id": "pinned-registry:thiserror-impl-2.0.20/src/attr.rs",
+      "sha256": "d3c7fa9e8269973f140e5382f753664ac32bee44c09875f678100b890aea4d06",
+      "ranges": [
+        [
+          302,
+          340
+        ]
+      ],
+      "line_count": 358,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\d3c7fa9e8269973f140e5382f753664ac32bee44c09875f678100b890aea4d06",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\d3c7fa9e8269973f140e5382f753664ac32bee44c09875f678100b890aea4d06",
+      "disposition": "Display expansion forwards to write!/write_str and conditional generated local bindings. Formatter result is returned; no error-message parsing, numeric arithmetic or retained state update.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 114,
+      "source_id": "pinned-registry:thiserror-impl-2.0.20/src/expand.rs",
+      "sha256": "76285acc08ccb8a0a93a3cbd58c3e12cbcde61720ad676be181fff7b1f278df3",
+      "ranges": [
+        [
+          222,
+          277
+        ],
+        [
+          279,
+          280
+        ],
+        [
+          379,
+          444
+        ],
+        [
+          486,
+          505
+        ]
+      ],
+      "line_count": 600,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\76285acc08ccb8a0a93a3cbd58c3e12cbcde61720ad676be181fff7b1f278df3",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\76285acc08ccb8a0a93a3cbd58c3e12cbcde61720ad676be181fff7b1f278df3",
+      "disposition": "Enum source generation matches actual variant, returns its source or None, and delegates transparent Error::source. Display generation indexes parser-validated fields/bounds and produces variant match; no application quantities transformed or mutated.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 115,
+      "source_id": "pinned-registry:thiserror-2.0.20/src/lib.rs",
+      "sha256": "817cfdb6c24d60de78f399d4db84f2910c543dec9a9d75d191215b4308e19823",
+      "ranges": [
+        [
+          38,
+          59
+        ]
+      ],
+      "line_count": 291,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\817cfdb6c24d60de78f399d4db84f2910c543dec9a9d75d191215b4308e19823",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\817cfdb6c24d60de78f399d4db84f2910c543dec9a9d75d191215b4308e19823",
+      "disposition": "thiserror documentation explains direct field formatting and native Error/Display implementations. No executable arithmetic/mutation in registered38\u201359 range.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    }
+  ],
+  "new_findings": [],
+  "findings_qualification": "Earlier closure678 findings remain required. No final repaired-source clearance; native fragment dispositions do not clear unregistered SDK bodies or application consumers.",
+  "next_unfinished_material": 116,
+  "project_execution": "none",
+  "source_edits": false
+}

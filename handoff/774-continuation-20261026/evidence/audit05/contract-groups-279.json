@@ -1,0 +1,27 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-279",
+  "at": "2026-10-25T22:33:08.719507+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2435,
+      "source_id": "pr-working:vendor/bevy_ahoy/src/lib.rs",
+      "sha256": "a0b15625d3086b64fd425b8bccae4f18370ae8f1f64b2633b9b3736523cc580d",
+      "personally_read_ranges": [
+        [
+          1,
+          552
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozen1-552 in two bounded chunks: Ahoy plugin group wires shared schedule into movement/force plugins; schedule chains MoveCharacters then ApplyForces before PhysicsFirst. Required controller components establish default kinematic/interpolation/state/derived/output/input/water set, not semantic numeric validation.",
+        "CharacterController public fields and optional serialize expose independent geometry/speed/gravity/timing parameters; coherent default values personally read. No shared validator or dirty-state linkage to derived standing/crouching/hand collider is present in this module; actual KCC owner/caller must establish rebuild semantics before defect claim. Runtime mutation representability alone is not an ordinary wrong-collider witness.",
+        "CharacterLook quaternion conversion preserves roll only on apply, default orientation/velocities/timers explicit. Derived collider selection keys same crouching state; scaled shape radius dispatch exhaustive, halfspace infinity deliberate. Mantle optional payload replaces bool-plusfields. TouchingEntity copies point/normal/position/velocity/distances from same MoveAndSlideHitData, keeping actual hit association. No execution or new finding."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,72 @@
+diff --git a/crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared.rs b/crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared.rs
+index 8ce985cd6..d52db95d0 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared.rs
+@@ -1,15 +1,15 @@
+ //! Pure street clipping and retained upload-ready city-ground batches.
+ use super::*;
++use crate::presentation::preparation::PreparationResult;
+ use crate::presentation::{
+     ownership::{PresentationOwner, PresentationOwners},
+     terrain::PreparedTerrainLandform,
+     vista::geographic_ground,
+ };
+-use adventuresim_tactical_core::scene_input::SceneInputResult;
+-use std::sync::OnceLock;
++use std::sync::{Arc, OnceLock};
+ 
+ type InstalledGround = Vec<(traffic::TrafficTile, CityGroundKind, Handle<Mesh>, usize)>;
+-type GroundUpload = Result<InstalledGround, geographic_ground::GeographicGroundError>;
++type GroundUpload = Result<InstalledGround, Arc<geographic_ground::GeographicGroundError>>;
+ 
+ #[derive(serde::Serialize, serde::Deserialize)]
+ pub(in crate::presentation) struct PreparedCityGround {
+@@ -73,7 +73,7 @@ impl PreparedCityGround {
+         landform: &PreparedTerrainLandform,
+         groups: &[FurnitureGroup],
+         maximum_lods: usize,
+-    ) -> SceneInputResult<Self> {
++    ) -> PreparationResult<Self> {
+         let mut support = GroundSupport::default();
+         let environment = input.environment_snapshot(input.digest()?);
+         let lods = input
+@@ -127,7 +127,7 @@ impl PreparedCityGround {
+                 (index == 0).then_some(&environment),
+                 environment.weather,
+                 input.landform.map(|recipe| recipe.transition_collar()),
+-            ) {
++            )? {
+                 support.add_mesh(&mesh, origin);
+             }
+             inner = Vec2::new(f32::from(lod.width - 1), f32::from(lod.depth - 1))
+@@ -141,7 +141,7 @@ impl PreparedCityGround {
+         &self,
+         owner: PresentationOwner,
+         meshes: &mut Assets<Mesh>,
+-    ) -> Result<&InstalledGround, &geographic_ground::GeographicGroundError> {
++    ) -> Result<&InstalledGround, Arc<geographic_ground::GeographicGroundError>> {
+         self.installed
+             .get(owner)
+             .get_or_init(|| {
+@@ -155,9 +155,11 @@ impl PreparedCityGround {
+                         let triangles = mesh_triangle_count(&mesh);
+                         Ok((*tile, *kind, meshes.add(mesh), triangles))
+                     })
+-                    .collect()
++                    .collect::<Result<_, geographic_ground::GeographicGroundError>>()
++                    .map_err(Arc::new)
+             })
+             .as_ref()
++            .map_err(Arc::clone)
+     }
+ }
+ 
+@@ -185,7 +187,7 @@ mod tests {
+         .unwrap();
+         assert_eq!(
+             support.position(query).unwrap().y,
+-            terrain.height_at(query.metres()).unwrap()
++            terrain.height_at(query).unwrap().metres()
+         );
+         assert!(
+             support

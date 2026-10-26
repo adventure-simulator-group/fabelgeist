@@ -1,0 +1,150 @@
+{
+  "id": "GLB-MAIN4530-INDEPENDENT-RULE-REVIEW-001",
+  "reviewer": "recovery_826",
+  "head": "6431c2faf1b50608344d1031d0f9413830c271fa",
+  "base": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+  "physical_workspace": "C:/Users/adler/projects/fabelgeist",
+  "source_pins": "source-pins-001.json",
+  "candidate_source_identity_verified": true,
+  "preserved_source_comparison": [
+    {
+      "path": "crates/adventuresim-character-creator/README.md",
+      "matches_preserved_25fe_bytes": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "matches_preserved_25fe_bytes": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb.rs",
+      "matches_preserved_25fe_bytes": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb/error.rs",
+      "matches_preserved_25fe_bytes": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb/layout.rs",
+      "matches_preserved_25fe_bytes": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/profiling.rs",
+      "matches_preserved_25fe_bytes": true
+    }
+  ],
+  "reviewed_rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/AGENTS.md",
+      "sha256": "b222ba01455443717c807738e311b12d8ded9a33cd95084b35870943357898a7"
+    },
+    {
+      "path": "crates/fabelgeist-armor/AGENTS.md",
+      "sha256": "52390164bf3eb74a0160ee3ac19527fd43856aa998920d16824f2f41058cf47f"
+    },
+    {
+      "path": "target/recovery-20261025/handoff/826/skills/rule-review/SKILL.md",
+      "sha256": "ff68d5ccf9f2545336b105f987ae17bb1a1f55dfbf1afb035dba8bef7053f27a"
+    },
+    {
+      "path": "target/recovery-20261025/glb-review-rule/bespoke-type-review.md",
+      "sha256": "c6a71896616123559c0be4d318cbde751d8767dccc6009a943971dc3d4424f71"
+    }
+  ],
+  "scope": "Six-file checked GLB chunk/container framing, final-frame reservation, concrete cause propagation and optional profiling integration on current main. Existing BufferBuilder, texture publication and normal exported-GLB fixtures inspected as connected support. No other reviewer verdict read or adopted.",
+  "findings": [],
+  "verdict": "NO_ACTIONABLE_RULE_FINDINGS_IN_REVIEWED_SOURCE_SCOPE",
+  "family_traces": [
+    {
+      "family": "Native GLB lengths/layout/encoding",
+      "source_trace": "export.rs588-628 and821-842 produce JSON Value plus BufferBuilder bytes; glb.rs24-45 serializes JSON, admits GlbLayout, reserves final Vec and emits frame using retained checked getters. layout.rs25-54 checks padded chunk lengths, checked host total and u32 fields.",
+      "invariants": "Private ChunkLayout/GlbLayout fields have one admitted construction path, no Default/serde/reflection/raw public mutation. JSON/BIN lengths come from actual Vec lengths at explicit native container boundary; padding0..3 follows checked_next_multiple_of4 and padded>=raw. Total28+payloads+padding is checked on usize then u32. Zero-length binary remains permitted; total has no invented signed32 ceiling. On hosts unable to allocate a format-representable size, final Vec reservation fails through native TryReserveError. Encoding order/header sizes/padding exactly consume the admitted total; immutable payloads and private layout retain correspondence.",
+      "completeness": "Complete for the scoped byte-framing/layout family by source inspection. Native-width and full-u32 boundary reasoning is static; no giant allocation, 32-bit execution or boundary-test result claimed."
+    },
+    {
+      "family": "Concrete errors and final allocation",
+      "source_trace": "glb/error.rs7-55 owns GlbResult and role/layout/serialize/reserve/directory/write causes. glb.rs24-28 propagates native serializer/layout/reservation errors;47-64 retains io::Error with owned PathBuf. export.rs842 converts concrete GlbError directly into existing anyhow::Result.",
+      "invariants": "No string classification or cause erasure at these adapters. Width retains TryFromIntError and bytes/role; overflow preserves semantic role when arithmetic cannot represent a length. Existing derive_more Display uses static role labels; thiserror From/source annotations retain concrete native payloads. try_reserve_exact occurs before all final-frame appends, whose proven total fits reserved capacity.",
+      "completeness": "Source path complete within final framing. Earlier JSON/native mesh/texture allocations, BufferBuilder growth and public export-wide errors remain outside any all-allocation-fallibility claim."
+    },
+    {
+      "family": "Publication and caller integration",
+      "source_trace": "export.rs840 invokes unchanged TextureImages::finish before GLB writer; textures.rs129-165 can create/write shared images. glb.rs47-64 prepares full packet before GLB directory creation/write.",
+      "invariants": "Layout/final-frame failure cannot open/truncate the GLB file. Earlier shared-image writes can already exist; native filesystem writes can fail after publication begins and are not transactional. README added paragraph and glb module docs state those limits accurately. Public export signature stays existing anyhow Result while downcastable GlbError is reachable via public export::glb; no compatibility alias/fallback path added.",
+      "completeness": "Scoped publication ordering complete by source inspection. No filesystem fault injection or runtime atomicity acceptance claimed."
+    },
+    {
+      "family": "Optional profiling",
+      "source_trace": "profiling.rs measure preserves operation result; record serializes Timing only when enabled and emits a diagnostic only on successful JSON encoding.",
+      "invariants": "Removed expect prevents optional timing serialization failure from panicking through this diagnostic step. Failed timing encoding skips optional output; it does not replace or swallow the wrapped operation result. Existing native elapsed-time/JSON port remains; no new gameplay value or state path introduced.",
+      "completeness": "Complete source review of modified profiling responsibility; no timing/output execution claimed."
+    }
+  ],
+  "style_module_enforcement_review": "Imports/reexports precede modules in export.rs and glb.rs; new layout/error modules own stable admission and error responsibilities and use cohesive Result aliases. Protocol constants and semantic role enum have canonical GLB ownership; usize/u32/PathBuf remain actual native boundary representations. No new unwrap/expect/allow, compatibility path, dependency, generated binding, test case/helper/assertion or baseline/exception/ceiling edit. export.rs shrinks by2 lines, profiling by1; new production files55/87 lines and new functions remain bounded. The six-file diff does not change quality enforcement scope. Existing oversized exporter behavior outside import/module moves and final error conversion is not granted global clearance.",
+  "existing_fixture_source_evidence": "Existing export.rs849-851 reader and908-972 normal rig export read; gltf parser/magic assertions remain unchanged. Existing shared-texture fixture122-200 parses exports, checks exact shared bytes/material roles and rejects corrupted shared files. Those unchanged sources describe ordinary acceptance only; they do not demonstrate new overflow/reservation/I/O failure execution.",
+  "connected_source_pins": [
+    {
+      "path": "crates/adventuresim-character-creator/src/export/buffer.rs",
+      "sha256": "c92b80be46c77268cf276c3686aaedbd70bba5be1e4f7d5eaef7041f865be104",
+      "unchanged_from_base": true,
+      "read_ranges": [
+        [
+          1,
+          49
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "a1209864646b06dca2b190b469fab5b2ecec8109d7c7fc95c95b7105e5c911b2",
+      "unchanged_from_base": true,
+      "read_ranges": [
+        [
+          15,
+          42
+        ],
+        [
+          129,
+          165
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures/tests.rs",
+      "sha256": "43e385b5074a6c8884aabe7f27f70c016f9b16b16e19a0020d58cd01090de0b8",
+      "unchanged_from_base": true,
+      "read_ranges": [
+        [
+          120,
+          200
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.toml",
+      "sha256": "63d6c669c0beb22c2df485aaccff7a09dc0a7d623e09191c7b0322a8689d3c72",
+      "unchanged_from_base": true,
+      "read_ranges": [
+        [
+          23,
+          24
+        ]
+      ]
+    }
+  ],
+  "guide_scope_note": "Shared armor guide read as required. This increment changes binary framing/error publication, not equipment geometry/fitting/appearance, and makes no artistic/body-support acceptance claim. No new modeling/visual cycle is inferred for unrelated maintenance.",
+  "project_checks": "NOT_RUN (parent is sole implementation/check owner; task expressly forbids local checks)",
+  "new_tests_or_probes": "NONE",
+  "hosted_acceptance": "PENDING; no hosted success claimed by this independent source review",
+  "source_edits": false,
+  "git_state_changes": false,
+  "other_review_verdicts_read": false,
+  "merge_or_global_audit_clearance": false
+}

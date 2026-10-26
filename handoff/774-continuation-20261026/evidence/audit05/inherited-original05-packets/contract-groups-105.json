@@ -1,0 +1,234 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-105",
+  "at": "2026-10-23T02:10:33.431468+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "scope048_index": 385,
+      "actual_EOF": 308,
+      "scoped_ranges_compared": [
+        [
+          1,
+          308
+        ]
+      ],
+      "actual05_comparison": "Complete actual P16/PR diff empty personally reanalyzed. Same distinctpairedcombatants mutation, actualapplieddamage/wounds/receipt, Party-only strategicsummary and itemprovenancefilters. Same normalconsequence changes totalinputs withouttotalrefresh, F029support specificallyP16too; no P16Condition ordering inferred fromPRplugin. Same inventoryID-onlycontactmerge recipient lifecyclequalification. All308actualsource compared, not oldverdict.",
+      "current05_shared_actual_body_ref": "contract-groups-101.json",
+      "complete_actual_diff": "",
+      "source_body_proof": "Fresh actual source where unique; otherwise complete actual counterpart diff personally consumed and current05 semantic contract compared, no hash/verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/contact.rs",
+      "sha256": "c92333b6813f028d894f8de669a20b823341813213103079ddb3c038388e44d6",
+      "scope048_index": 386,
+      "actual_EOF": 161,
+      "scoped_ranges_compared": [
+        [
+          1,
+          161
+        ]
+      ],
+      "actual05_comparison": "Complete actual P16/PR diff personally compared. Only InitialMeleeContact.weapon_reach finite signed leaf andZEROdefault changes; actualsame actorhand+target+side sampling product, optionalbodypart deliberate. Same forcedbodypart replaces anatomy/coverage coherently fromsamecoordinate. Localimpactnormal/nativeTransform rawport has unchangedfinite/singularitylimitations; no canonicalPosition API assumedbyunchangedVec3signature. Nativewindupfromsaturatingsampleelapsed remains samepurpose.",
+      "current05_shared_actual_body_ref": "contract-groups-101.json",
+      "complete_actual_diff": "--- P16\n\n+++ PR\n\n@@ -54,5 +54,5 @@\n\n     pub(super) defense_alignment_sample: f32,\n     pub(super) body_part: Option<BodyPart>,\n-    pub(super) weapon_reach: SignedLength,\n+    pub(super) weapon_reach: f32,\n }\n \n@@ -66,5 +66,5 @@\n\n     let sample = random.unit_f32();\n     let attacker = viewer.get_for_attack(event.attacker, event.hand).ok();\n-    let weapon_reach = attacker.as_ref().map_or(SignedLength::ZERO, |view| view.weapon_reach());\n+    let weapon_reach = attacker.as_ref().map_or(0.0, |view| view.weapon_reach());\n     let body_part = event.target.and_then(|target| {\n         let attacker = attacker.as_ref()?;",
+      "source_body_proof": "Fresh actual source where unique; otherwise complete actual counterpart diff personally consumed and current05 semantic contract compared, no hash/verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/defense.rs",
+      "sha256": "68cb46b9efe6c4f44ba41fe4386c02fa7000314c52d6e10b7d33fa9742290d8e",
+      "scope048_index": 387,
+      "actual_EOF": 255,
+      "scoped_ranges_compared": [
+        [
+          1,
+          255
+        ]
+      ],
+      "actual05_comparison": "Complete actual P16/PR diff empty personally compared current05. Same Response|FinishTrade sideeffect distinction, threat-relative requestedmeleedodge vs now-relative passivewindow, explicitzero branches andcurrentguardneutral predicate. Same optionalreciprocal actualsource facts; no changed P16Core numeric guarantee fromcommon helpername.",
+      "current05_shared_actual_body_ref": "contract-groups-102.json",
+      "complete_actual_diff": "",
+      "source_body_proof": "Fresh actual source where unique; otherwise complete actual counterpart diff personally consumed and current05 semantic contract compared, no hash/verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee.rs",
+      "sha256": "6fd64503e79c60d080ad7322bfdd270e451887f48d89c80898c47cd161532727",
+      "scope048_index": 393,
+      "actual_EOF": 363,
+      "scoped_ranges_compared": [
+        [
+          1,
+          363
+        ]
+      ],
+      "actual05_comparison": "Complete actual P16/PR diff personally compared. P16 moves actualcontact/facts observation into MeleeCompletionGeometry, freshlyread395; typed SignedLength/Position values and GeometryError before capability consumption replacePRrawscalars. Restsame preparedefense→consumeauthority→commitwork/defense→contact/result→publish. No outputpartialgeometry afterErr. Reliesretainedtotal inlocalfacts/performance, supporting sameF029 writerproductdependency; do nottransferPRCondition schedule toP16 fromsamefiles. Full363 productionbody currentroles compared.",
+      "current05_shared_actual_body_ref": "contract-groups-101.json",
+      "complete_actual_diff": "--- P16\n\n+++ PR\n\n@@ -4,9 +4,7 @@\n\n use active_defense::{commit_active_defense, commit_defense_during_attack, prepare_active_defense};\n use outcome::emit_melee_outcome;\n-use geometry::{CompletionActors, CompletionAuthorization, MeleeCompletionGeometry};\n \n mod active_defense;\n mod outcome;\n-mod geometry;\n \n /// Read-only contact admission; authority is consumed only after defense preparation.\n@@ -29,11 +27,11 @@\n\n         config: &TacticalCombatConfig,\n         attack_key: Option<MeleeAttackKey>,\n-        surface_distance: SignedLength,\n-        reach: SignedLength,\n+        surface_distance: f32,\n+        reach: f32,\n     ) -> Option<Self> {\n         let validated = match validate_melee_intent_cheap(facts) {\n             Ok(validated) => validated,\n             Err(reason) => {\n-                info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?facts.attacker, target = ?facts.target, body_part = ?facts.body_part, reason = ?reason, surface_distance_metres = surface_distance.metres(), reach_metres = reach.metres(), \"melee_completion_rejected\");\n+                info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?facts.attacker, target = ?facts.target, body_part = ?facts.body_part, reason = ?reason, surface_distance_metres = surface_distance, reach_metres = reach, \"melee_completion_rejected\");\n                 info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?facts.attacker, target = ?facts.target, body_part = ?facts.body_part, outcome = \"miss\", reason = ?reason, \"melee_attack_resolved\");\n                 return None;\n@@ -49,5 +47,5 @@\n\n         );\n         if let Err(reason) = validate_melee_line_of_sight(line_of_sight) {\n-            info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?facts.attacker, target = ?facts.target, body_part = ?facts.body_part, reason = ?reason, surface_distance_metres = surface_distance.metres(), reach_metres = reach.metres(), \"melee_completion_rejected\");\n+            info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?facts.attacker, target = ?facts.target, body_part = ?facts.body_part, reason = ?reason, surface_distance_metres = surface_distance, reach_metres = reach, \"melee_completion_rejected\");\n             info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?facts.attacker, target = ?facts.target, body_part = ?facts.body_part, outcome = \"miss\", reason = ?reason, \"melee_attack_resolved\");\n             return None;\n@@ -74,13 +72,105 @@\n\n         now: CombatInstant,\n         attack_key: Option<MeleeAttackKey>,\n-        surface_distance: SignedLength,\n-        reach: SignedLength,\n+        surface_distance: f32,\n+        reach: f32,\n     ) -> Option<AuthorizedMeleeAttack> {\n         let attack = self.attack;\n         authority.authorize_attack(attack, now, self.cooldown).or_else(|| {\n-            info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?attack.attacker(), target = ?attack.target(), body_part = ?attack.body_part, reason = \"authorization_consumed\", surface_distance_metres = surface_distance.metres(), reach_metres = reach.metres(), \"melee_completion_rejected\");\n+            info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?attack.attacker(), target = ?attack.target(), body_part = ?attack.body_part, reason = \"authorization_consumed\", surface_distance_metres = surface_distance, reach_metres = reach, \"melee_completion_rejected\");\n             info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?attack.attacker(), target = ?attack.target(), body_part = ?attack.body_part, outcome = \"miss\", reason = \"authorization_consumed\", \"melee_attack_resolved\");\n             None\n         })\n+    }\n+}\n+\n+fn contact_at_completion(\n+    attacker: &TacticalPlayerView<'_, '_, '_>,\n+    authority: &MeleeAttackAuthority,\n+    surface_distance: f32,\n+    reach: f32,\n+    attack_style: MeleeAttackStyle,\n+    fallback_reach_fraction: f32,\n+) -> MeleeContactAtTime {\n+    let grip_to_tip_metres = attacker.weapon_grip_to_tip();\n+    let striking_head_length_metres = attacker.weapon_striking_head_length();\n+    let body_material = attacker.weapon_body_material();\n+    let striking_material = attacker.weapon_striking_material();\n+    let distal_headed = adventuresim_core::combat::has_distal_striking_surface(\n+        grip_to_tip_metres,\n+        striking_head_length_metres,\n+        body_material,\n+        striking_material,\n+    );\n+    resolve_melee_contact_at_time(MeleeContactAtTimeFacts {\n+        scheduled_measure_metres: authority\n+            .scheduled_measure_metres()\n+            .unwrap_or(surface_distance),\n+        actual_measure_metres: surface_distance,\n+        ideal_measure_metres: adventuresim_core::combat::preferred_melee_striking_measure(\n+            reach,\n+            grip_to_tip_metres,\n+            striking_head_length_metres,\n+            distal_headed,\n+            fallback_reach_fraction,\n+        ),\n+        effective_reach_metres: reach,\n+        grip_to_tip_metres,\n+        total_length_metres: attacker.weapon_total_length(),\n+        striking_head_length_metres,\n+        distal_headed,\n+        attack_style,\n+        body_material,\n+        striking_material,\n+    })\n+}\n+\n+#[expect(\n+    clippy::too_many_arguments,\n+    reason = \"validation facts join both live actor projections\"\n+)]\n+fn completion_intent_facts(\n+    event: &MeleeAttackIntent,\n+    attacker: &TacticalPlayerView<'_, '_, '_>,\n+    authority: &MeleeAttackAuthority,\n+    attacker_look: &CharacterLook,\n+    attacker_transform: &Transform,\n+    defender_look: &CharacterLook,\n+    defender_transform: &Transform,\n+    attacker_dimensions: &CharacterDimensions,\n+    weapon_reach: f32,\n+    surface_distance: f32,\n+    now: CombatInstant,\n+    sides: &Query<&TacticalCombatSide>,\n+    states: &Query<&mut TacticalCombatState>,\n+    config: &TacticalCombatConfig,\n+) -> MeleeIntentFacts {\n+    MeleeIntentFacts {\n+        attacker: event.attacker,\n+        target: event.target,\n+        attacker_side: sides.get(event.attacker).ok().copied(),\n+        target_side: sides.get(event.target).ok().copied(),\n+        attacker_incapacitated: states\n+            .get(event.attacker)\n+            .ok()\n+            .map(TacticalCombatState::is_incapacitated),\n+        target_incapacitated: states\n+            .get(event.target)\n+            .ok()\n+            .map(TacticalCombatState::is_incapacitated),\n+        attack_capability: adventuresim_core::combat::melee_attack_capability(attacker, attacker),\n+        reported_precision: event.reported_precision,\n+        arm_reach: attacker_dimensions.arm_reach_metres,\n+        weapon_reach,\n+        range_latency_tolerance: config\n+            .realtime_authority\n+            .melee\n+            .range_latency_tolerance_metres,\n+        separation: surface_distance,\n+        authority_permits: authority.permits(event.target, event.body_part, now),\n+        body_part: event.body_part,\n+        attacker_position: attacker_transform.translation,\n+        target_position: defender_transform.translation,\n+        attacker_yaw: attacker_look.yaw,\n+        target_yaw: defender_look.yaw,\n     }\n }\n@@ -210,4 +300,5 @@\n\n     let (defender_look, defender_transform) = defender_character;\n \n+    let weapon_reach = attacker_view.weapon_reach();\n     let Ok(attacker_dimensions) = q_dimensions.get(entity) else {\n         info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?entity, reason = \"missing_attacker_dimensions\", \"melee_completion_rejected\");\n@@ -215,17 +306,36 @@\n\n     };\n     let now = CombatInstant::from_elapsed(&time);\n-    let geometry = match MeleeCompletionGeometry::observe(\n-        CompletionActors { attacker_look, attacker_transform, defender_look, defender_transform,\n-            dimensions: attacker_dimensions },\n-        CompletionAuthorization { event: &event, authority, now },\n-        &attacker_view, &q_sides, &q_states, &config,\n-    ) {\n-        Ok(geometry) => geometry,\n-        Err(error) => {\n-            warn!(?entity, %error, \"cannot admit melee completion geometry\");\n-            return;\n-        }\n-    };\n-    let MeleeCompletionGeometry { surface_distance, reach, contact_at_time, facts } = geometry;\n+    let reach = melee_interaction_range(attacker_dimensions.arm_reach_metres, weapon_reach);\n+    let center_separation = attacker_transform\n+        .translation\n+        .xz()\n+        .distance(defender_transform.translation.xz());\n+    let surface_distance = (center_separation\n+        - adventuresim_core::combat::HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES)\n+        .max(0.0);\n+    let contact_at_time = contact_at_completion(\n+        &attacker_view,\n+        authority,\n+        surface_distance,\n+        reach,\n+        attack_style,\n+        config.ai.ordinary.offense.melee_measure_reach_fraction,\n+    );\n+    let facts = completion_intent_facts(\n+        &event,\n+        &attacker_view,\n+        authority,\n+        attacker_look,\n+        attacker_transform,\n+        defender_look,\n+        defender_transform,\n+        attacker_dimensions,\n+        weapon_reach,\n+        surface_distance,\n+        now,\n+        &q_sides,\n+        &q_states,\n+        &config,\n+    );\n     let contact_sample = event.contact_sample;\n     let defense_alignment_sample = event.defense_alignment_sample;\n@@ -287,5 +397,5 @@\n\n         return;\n     };\n-    info!(attack_key = attack.attack_key().encoded(), attacker = ?attack.attacker(), target = ?attack.target(), body_part = ?attack.body_part(), surface_distance_metres = surface_distance.metres(), reach_metres = reach.metres(), \"melee_completion_accepted\");\n+    info!(attack_key = attack.attack_key().encoded(), attacker = ?attack.attacker(), target = ?attack.target(), body_part = ?attack.body_part(), surface_distance_metres = surface_distance, reach_metres = reach, \"melee_completion_accepted\");\n     let attempted_defender_response = commit_active_defense(\n         prepared_defense,",
+      "source_body_proof": "Fresh actual source where unique; otherwise complete actual counterpart diff personally consumed and current05 semantic contract compared, no hash/verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/active_defense.rs",
+      "sha256": "291b5d7171d5674bc929189b672bf92ee1b1348b9866f526f65d4377c8fbedbe",
+      "scope048_index": 394,
+      "actual_EOF": 186,
+      "scoped_ranges_compared": [
+        [
+          1,
+          186
+        ]
+      ],
+      "actual05_comparison": "Complete actual P16/PR diff empty personally compared under05. Same defender-condition total/fraction pair, same read-only preview+commit, pairedworkdelta, parrycancel vs offhanddepower lifecycle. Actualtypedactual P16lowerSkeleton/authority implementations separatecurrentroles, no foreignblanket.",
+      "current05_shared_actual_body_ref": "contract-groups-102.json",
+      "complete_actual_diff": "",
+      "source_body_proof": "Fresh actual source where unique; otherwise complete actual counterpart diff personally consumed and current05 semantic contract compared, no hash/verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/geometry.rs",
+      "sha256": "0e6bff7b2a9b88f916e90495f72d65ce3e854b21a05b6a59d30a684174dfe957",
+      "scope048_index": 395,
+      "actual_EOF": 137,
+      "scoped_ranges_compared": [
+        [
+          1,
+          137
+        ]
+      ],
+      "actual05_comparison": "Fresh complete137 actualP16 helper. CompletionActors borrows actualsame actor/defender look/transform/dimensions; CompletionAuthorization event/authority/now usedtogether. Observe computeschecked reach,nonnegativeobserveddistance, fallible contactandFacts local thenSelf; failedobservation no authoritymutation. Same surface_distance threadedcontact.actual andfacts.separation, same scheduledmeasure retained separately from current actualdistance. Positionadmission actualnative observations beforeFacts. Event actoridentity versusborrowedviews suppliedbyexisting melee363 normalpairedquery, notselfvalidatingunrelatedinputs; no needbrand arbitraryborrowproduct. Lower contactmath finite/bounds guarantees remainactualCore contract, notcheckedname.",
+      "current05_shared_actual_body_ref": null,
+      "complete_actual_diff": null,
+      "source_body_proof": "Fresh actual source where unique; otherwise complete actual counterpart diff personally consumed and current05 semantic contract compared, no hash/verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+      "sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+      "scope048_index": 396,
+      "actual_EOF": 129,
+      "scoped_ranges_compared": [
+        [
+          1,
+          129
+        ]
+      ],
+      "actual05_comparison": "Complete actual P16/PR diff empty personally compared current05. Same authorizedidentity+matchedviews/transforms produceoneimpact/result forgameplay+clientresponse; originalentity/handcaller actualmelee sourcebinding compared separately. Option alignment maps3fields fromonevalue. None/Both hand ambiguity rejectsbeforepublish. No acceptedobservationguarantee stronger thanactualconsequence totalinputs mutation.",
+      "current05_shared_actual_body_ref": "contract-groups-101.json",
+      "complete_actual_diff": "",
+      "source_body_proof": "Fresh actual source where unique; otherwise complete actual counterpart diff personally consumed and current05 semantic contract compared, no hash/verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ranged/outcome.rs",
+      "sha256": "666e7ae0d0aaeeed9b53efc70bf96befd2ffbbfdc84adf176db63126431658f5",
+      "scope048_index": 399,
+      "actual_EOF": 105,
+      "scoped_ranges_compared": [
+        [
+          1,
+          105
+        ]
+      ],
+      "actual05_comparison": "Complete actual P16/PR diff personally compared, onlyintended contactdistance usesSignedLength::ZERO. Same RangedContact→gameplay/clientresult mapping, midpointanatomy/coverage intentional andabsentalignment diagnostics. Rawpubsuperbuilder separatetargetargument current325/335producer relationship closesnormalcall, no generaldecodedpayloadseal oractualfalsehit claim.",
+      "current05_shared_actual_body_ref": "contract-groups-101.json",
+      "complete_actual_diff": "--- P16\n\n+++ PR\n\n@@ -97,5 +97,5 @@\n\n         impact_recipient: response.impact_recipient,\n         impact_velocity_change: response.impact_velocity_change,\n-        contact_at_time: MeleeContactAtTime::intended(SignedLength::ZERO),\n+        contact_at_time: MeleeContactAtTime::intended(0.0),\n     });\n     commands.server_trigger(ToClients {",
+      "source_body_proof": "Fresh actual source where unique; otherwise complete actual counterpart diff personally consumed and current05 semantic contract compared, no hash/verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/dive_launch.rs",
+      "sha256": "92c5c2966afd08f99f1107fb60067033371cb1a4139a5d3c348ad79f27ee7bd9",
+      "scope048_index": 412,
+      "actual_EOF": 101,
+      "scoped_ranges_compared": [
+        [
+          1,
+          101
+        ]
+      ],
+      "actual05_comparison": "Complete actual P16/PR diff empty personally compared. Same closedlaunchtrajectory/direction; slide no horizontalrewrite, airborne preservesverticalphysics andsets sameyawrotatedhorizontal. Same directionreferencefixtures source-only, zero speedvalid, no hiddenpenalty/productcache.",
+      "current05_shared_actual_body_ref": "contract-groups-103.json",
+      "complete_actual_diff": "",
+      "source_body_proof": "Fresh actual source where unique; otherwise complete actual counterpart diff personally consumed and current05 semantic contract compared, no hash/verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/item_geometry.rs",
+      "sha256": "fd0e55979400ec53e6db4c76a659bca5f732e45e2431a7f66db35335c3472a75",
+      "scope048_index": 413,
+      "actual_EOF": 112,
+      "scoped_ranges_compared": [
+        [
+          1,
+          112
+        ]
+      ],
+      "actual05_comparison": "Fresh complete112 actual P16 itemgeometry. PreparedInventoryItem Empty|Admitted ensuresnonzeroquantitybeforephysicalpreparation, no arbitraryzero forcedintovalidbranch. PreparedItemGeometry derivesinstance once thenmass/optionalphysical/weapon fromsame item. Canonical XYZ axisreplacement checksdimensions andsignedlengths beforeSelf; nativeanchortranslation extractedatfinalequation, weaponcatalogue/material requiredonlyWeaponkind. Rawweight/skillweights/precision/inertia copiedunrefined atfallback, and holdermasshelper canassert; doesnotsealallrawmetadata. No appearancehash/topology/armorpreparation inthisproduct, so existing Native03F004 whole-batch gap remains despitepositive typedphysicalproduct. ActualcompleteP16parentprojection use stillsourceobligation, no PRlatebodymassclaimtransferred.",
+      "current05_shared_actual_body_ref": null,
+      "complete_actual_diff": null,
+      "source_body_proof": "Fresh actual source where unique; otherwise complete actual counterpart diff personally consumed and current05 semantic contract compared, no hash/verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+      "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+      "scope048_index": 414,
+      "actual_EOF": 162,
+      "scoped_ranges_compared": [
+        [
+          1,
+          162
+        ]
+      ],
+      "actual05_comparison": "Complete actual P16/PR diff empty personally compared current05. Same borrowed configsnapshot/onecamera mode, transitionrootlock, downedheldaimvsreleasedsettle, onecalculatedrootrotation writesbothTransform/physics. ActualSkeletonphase advancesbeforefalliblefacing, but no demonstratedvalidnormal failure/rawnativeframe seal; notautomatictransactionbug. Exact currentP16lowerbodypolicy independentfromPRbody.",
+      "current05_shared_actual_body_ref": "contract-groups-103.json",
+      "complete_actual_diff": "",
+      "source_body_proof": "Fresh actual source where unique; otherwise complete actual counterpart diff personally consumed and current05 semantic contract compared, no hash/verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+      "sha256": "5e4a989041915c8e90f822e9947824bb05615df6c4b4427d6ec00a9cad71a726",
+      "scope048_index": 415,
+      "actual_EOF": 176,
+      "scoped_ranges_compared": [
+        [
+          1,
+          176
+        ]
+      ],
+      "actual05_comparison": "Complete actual P16/PR diff personally compared current05. Parametricweapon validation now typed Result errors forversion/decode/catalogue/hash/derive/finite SignedLength/combatgeometry; same physicalderivation source, correctorder preserved before retainedinstance. projected weapon/holder appearance hash arrays andholdermassasserts/armorplacement/materialexpects remain unchanged, so no completewholeitempromise fromfallibleweaponfunction. Armor index/mask geometryrelation same actualplacement/protectedparts. Keep validnonparametricNone distinct rejectedmissingparametricrecipe.",
+      "current05_shared_actual_body_ref": "contract-groups-103.json",
+      "complete_actual_diff": "--- P16\n\n+++ PR\n\n@@ -5,44 +5,17 @@\n\n \n use super::tactical_covered_parts;\n-use fabelgeist_geometry::{GeometryError, SignedLength};\n-\n-pub(crate) type EquipmentProjectionResult<T> = Result<T, EquipmentProjectionError>;\n-\n-#[derive(Debug, thiserror::Error)]\n-pub(crate) enum EquipmentProjectionError {\n-    #[error(transparent)]\n-    Geometry(#[from] GeometryError),\n-    #[error(transparent)]\n-    Recipe(#[from] adventuresim_weapon_model::CodecError),\n-    #[error(\"parametric weapon {item_id} has no recipe\")]\n-    MissingRecipe { item_id: String },\n-    #[error(\"weapon generator version {found} differs from {expected}\")]\n-    GeneratorVersion { found: u16, expected: u16 },\n-    #[error(\"weapon recipe catalogue identity differs from {item_id}\")]\n-    CatalogIdentity { item_id: String },\n-    #[error(\"weapon recipe hash differs from the native observation\")]\n-    DesignHash,\n-    #[error(\"weapon {item_id} has invalid derived properties: {errors:?}\")]\n-    DerivedProperties { item_id: String, errors: Vec<adventuresim_weapon_model::ValidationError> },\n-    #[error(\"weapon {item_id} has invalid combat geometry\")]\n-    CombatGeometry { item_id: String },\n-    #[error(\"weapon {item_id} has no authored equipment metadata\")]\n-    MissingEquipment { item_id: String },\n-    #[error(\"weapon {item_id} has no authored striking material\")]\n-    MissingStrikingMaterial { item_id: String },\n-}\n-\n \n pub(super) fn projected_parametric_weapon(\n     item: &ConnectedPlayerItem,\n     parameters: adventuresim_core::combat::WeaponContactParameters,\n-) -> EquipmentProjectionResult<Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry>> {\n+) -> Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry> {\n     let Some(appearance) = item.weapon_appearance.as_ref() else {\n-        if adventuresim_weapon_model::default_design(&item.item.id).is_some() {\n-            return Err(EquipmentProjectionError::MissingRecipe { item_id: item.item.id.clone() });\n-        }\n-        return Ok(None);\n+        assert!(\n+            adventuresim_weapon_model::default_design(&item.item.id).is_none(),\n+            \"strategic authority omitted a parametric weapon recipe\"\n+        );\n+        return None;\n     };\n-    parametric_combat_geometry(&item.item.id, appearance, parameters).map(Some)\n+    parametric_combat_geometry(&item.item.id, appearance, parameters)\n }\n \n@@ -51,30 +24,20 @@\n\n     appearance: &adventuresim_stdb_client::ConnectedWeaponAppearance,\n     parameters: adventuresim_core::combat::WeaponContactParameters,\n-) -> EquipmentProjectionResult<adventuresim_core::equipment::ParametricWeaponCombatGeometry> {\n+) -> Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry> {\n     use adventuresim_weapon_model::{GENERATOR_VERSION, decode, derive_properties, design_hash};\n-    if appearance.generator_version != GENERATOR_VERSION {\n-        return Err(EquipmentProjectionError::GeneratorVersion {\n-            found: appearance.generator_version, expected: GENERATOR_VERSION,\n-        });\n-    }\n-    let design = decode(&appearance.recipe)?;\n-    if design.catalog_id != item_id {\n-        return Err(EquipmentProjectionError::CatalogIdentity { item_id: item_id.to_owned() });\n-    }\n-    if design_hash(&design).0.as_slice() != appearance.design_hash {\n-        return Err(EquipmentProjectionError::DesignHash);\n-    }\n-    let derived = derive_properties(&design).map_err(|errors| EquipmentProjectionError::DerivedProperties {\n-        item_id: item_id.to_owned(), errors,\n-    })?;\n+    assert_eq!(appearance.generator_version, GENERATOR_VERSION);\n+    let design = decode(&appearance.recipe).expect(\"strategic authority sent a decodable recipe\");\n+    assert_eq!(design.catalog_id, item_id);\n+    assert_eq!(design_hash(&design).0.as_slice(), appearance.design_hash);\n+    let derived = derive_properties(&design).expect(\"strategic authority sent a valid recipe\");\n     adventuresim_core::equipment::ParametricWeaponCombatGeometry::new(\n         derived.mass_kg,\n-        SignedLength::from_metres(derived.length_m)?,\n-        SignedLength::from_metres(derived.grip_to_tip_m)?,\n-        SignedLength::from_metres(derived.striking_head_length_m)?,\n+        derived.length_m,\n+        derived.grip_to_tip_m,\n+        derived.striking_head_length_m,\n         derived.moment_of_inertia_kg_m2,\n         derived.balance,\n         parameters.precision_for_design(&design).value(),\n-    ).ok_or_else(|| EquipmentProjectionError::CombatGeometry { item_id: item_id.to_owned() })\n+    )\n }\n ",
+      "source_body_proof": "Fresh actual source where unique; otherwise complete actual counterpart diff personally consumed and current05 semantic contract compared, no hash/verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/spawn_admission.rs",
+      "sha256": "43080d2bf8aa77667af8dad133c2266cae1829c0b33d658e858391aaa93ab474",
+      "scope048_index": 416,
+      "actual_EOF": 119,
+      "scoped_ranges_compared": [
+        [
+          1,
+          119
+        ]
+      ],
+      "actual05_comparison": "Complete actual P16/PR diff personally compared. P16prepare additionally checksBodyMass andtakesrawitemVec throughPreparedInventoryItem::observe beforeadmittedpush. Thus actualnonzeroquantity/typedphysicalweapon products movedbeforebatchCommands, unlikePR; do nottransferthePRbodymasslateexpect observation. StillrawConnectedPlayer plusincompleteitemmetadata/holderappearance/topology/armor constraints remain, helper413proofexplicit. privateVeclocalErr abortsbatch beforeproject but actualinfallibleproject callsnormalrecipient, completeparent P16currentrolepending. PreservemissingLoading skip/enemyfixture selection/native terrainposition andEmptyitem roles.",
+      "current05_shared_actual_body_ref": "contract-groups-103.json",
+      "complete_actual_diff": "--- P16\n\n+++ PR\n\n@@ -2,5 +2,4 @@\n\n \n use super::{LoadingPlayer, player_collider, spawn_connected_player};\n-use super::item_geometry::PreparedInventoryItem;\n use crate::{\n     Args,\n@@ -23,6 +22,4 @@\n\n     pub(super) position: Position<Scene>,\n     pub(super) collider: Collider,\n-    pub(super) items: Vec<PreparedInventoryItem>,\n-    pub(super) body_mass: adventuresim_core::physiology::BodyMassKg,\n }\n \n@@ -41,5 +38,5 @@\n\n     ) -> SceneSpawnResult<Self> {\n         let mut admitted = Vec::with_capacity(players.len());\n-        for mut player in players {\n+        for player in players {\n             let recipient = if player.mission_side == TacticalMissionSide::Enemy {\n                 let packages = if let Some(fixture) = args.enemy_fixture.as_ref() {\n@@ -83,11 +80,4 @@\n\n                 point.metres().y,\n             ))?;\n-            let body_mass = adventuresim_core::physiology::BodyMassKg::try_new(player.body_weight_kg)\n-                .map_err(|cause| SceneSpawnError::BodyMass {\n-                    character: CharacterId(player.character.id), cause,\n-                })?;\n-            let items = std::mem::take(&mut player.items).into_iter()\n-                .map(|item| PreparedInventoryItem::observe(item, combat.resolution.contact))\n-                .collect::<Result<Vec<_>, _>>()?;\n             admitted.push(AdmittedPlayer {\n                 player,\n@@ -95,6 +85,4 @@\n\n                 position,\n                 collider,\n-                items,\n-                body_mass,\n             });\n         }\n@@ -106,7 +94,8 @@\n\n         args: &Args,\n         commands: &mut Commands,\n+        combat: &TacticalCombatConfig,\n     ) {\n         for admitted in self.0 {\n-            spawn_connected_player(admitted, args.enemy_combat_scale_bps, commands);\n+            spawn_connected_player(admitted, args.enemy_combat_scale_bps, commands, combat);\n         }\n     }",
+      "source_body_proof": "Fresh actual source where unique; otherwise complete actual counterpart diff personally consumed and current05 semantic contract compared, no hash/verdict carry."
+    }
+  ],
+  "comparison_groups": {
+    "typed-completion-product": "P16 same distance/facts/contact local checked product before authoritymutation.",
+    "partly-prepared-inventory": "Quantity andgeometry strengthened beforebatchcommands, othermetadata stillseparate.",
+    "same-contract-current-roles": "Every named unchanged lifecycle/condition/publish helper personally compared aftercompleteactualdiff.",
+    "snapshot-specific-deltas": "No PRlatebodymass orrawlengthpolicy transferredontoP16 typedproduct."
+  },
+  "new_unique_findings": [],
+  "independent_cross_lens_supports": [
+    "NATIVE-CAMERA-SUPPORT03-F004"
+  ],
+  "qualifies": [
+    "NATIVE-INITIAL05-F029"
+  ],
+  "remaining_dependency_obligations": [
+    "Full P16playerprojection411 notcounted; actualparent use andallother frozeninventory stillpending. No P16Condition scheduler admission from PR sharedhelperfacts."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

@@ -1,0 +1,15 @@
+{
+  "supplemental_owner_bodies": [
+    "Frozen6533 tactical-core/animation/authored_angle.rs1-105: SignedAngleDegrees finiteunwrapped vs nonnegativeAngularMagnitudeDegrees; numericreuse requires separate reviewrole.",
+    "Frozen6533 world-schema/lib.rs1249-1311: CanopyDensity1..100percent excludeszero and differs0..10000integerbps.",
+    "Frozen6533 world-schema/calendar.rs84-135 and actualviewerreceivergrep767-821: StrategicMinute allu64 absoluteclock alreadyconstructedfrom CLI input.",
+    "Frozen6533 building-generator/model/storey_index.rs1-70: StoreyIndex exactu16wire, zeroGround, checkedserialization.",
+    "Frozen6533 tactical-core/scene_coordinates/spatial.rs216-294: SceneDoorPose privateDoorSpec<Scene>/RigidRotation association with read-onlyleafcopy and actualnative_rotation."
+  ],
+  "concrete_reuse_candidates": [
+    "HeatingTarget::Floor should retain existingStoreyIndex fromserde throughlookup; no dependencybarrier or wirechange, existing reviewfixtures unchanged.",
+    "ReviewLeafPose should retain actualSceneDoorPose/SceneWindowPose until nativeTransformport; keep eachsceneleaf identity/frame/rotationrelated, underexistinggraphicsremedy.",
+    "CLIprofile internalrun boundary may reuseactualCaptureProfile moved tosharedviewerowner; preserve acceptedprofilewire spelling and allcallers withoutcompatibilityalias."
+  ],
+  "unique_count_policy": "Source-backed candidates only; dedupagainstsharedexistingremedies required before any globalnewfindingcount."
+}

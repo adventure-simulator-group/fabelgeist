@@ -1,0 +1,86 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-222",
+  "at": "2026-10-25T21:50:41.013743+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2243,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "8cb7511310b96d6e799dd584a3a6f64270c73ee3abbb50a7f730831938ef2fcf",
+      "personally_read_ranges": [
+        [
+          1,
+          379
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all379lines kernel/fast.rs. Private UniformArena belongs to onebatch2244, chunks64KiB and stridealigned from actualuniformsize<=256, eachprepared dispatch owns freshbindgroup and itsdynamicuniformoffset. This closes documentedcrossbatchslotreuse within this representation. Packing readsnamedvalues but ignores reflectedsize; exact inherited RIG-ADMISSION03-F058. No newfinding; devicealignment/backendlimits remain devicecontract, no numericalprobe."
+      ]
+    },
+    {
+      "scope_index": 2244,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+      "personally_read_ranges": [
+        [
+          1,
+          406
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all406lines kernel/mod.rs including existing borrowedcontext testsource. Kernel's declaredworkgroups admittednonzero then retainedbesideprivatefastpath; publicmutation/cachecontext gaps exact RIG-ADMISSION03-F057. KernelBatch ownsencoder/uniformarena/callbacks, consumes itself on submit then runscallbacks exactlyonce; zero dispatch intentionallyno-op, notmissingvalidationfailure. copy checks bothbyteextents before nativecopy. Noexecution."
+      ]
+    },
+    {
+      "scope_index": 2245,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/prelude.rs",
+      "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "personally_read_ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all16lines compute/prelude.rs. GPUowner types remain crateprivatealiases, publicalgorithmexports retain canonical GPUowner; no correlatedproduct reconstruction or newfinding."
+      ]
+    },
+    {
+      "scope_index": 2246,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/readback.rs",
+      "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "personally_read_ranges": [
+        [
+          1,
+          294
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all294lines exact recovered readback.rs object, source_statepresent despite catalog archivepath SNAPSHOTS/pr-working. Private StagedRange offsets+lengths computedfromsame inputbuffer sequence, checked paddedaddition beforeallocation/copy; read consumesone Readback, maps ranges in same order. PendingReadback closed enum records Pending/Ready/Failed/Taken underoneMutex, successfultake unmaps+Taken; readinessdoesnottake; after_submit binding preserves producerbatch timing. Context/buffer association still caller/backendcontract, no ordinarybadcurrentcaller. Noexecution."
+      ]
+    },
+    {
+      "scope_index": 2247,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/sort/mod.rs",
+      "sha256": "2cf6b4446ab00dce84c8b3169d9685d3b2e304b869f4c25d0e4322c7bedf9634",
+      "personally_read_ranges": [
+        [
+          1,
+          327
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all327lines exact recovered sort/mod.rs source_statepresent despite archivepath. Stable digit-majorhistogram plus earlierlane rank carries key/payloadtogether; four8bitpasses and oddpasscopybackrestorecallerbuffers. Publicinput count/scratchcapacity/inputbyteschecks; public scratchbuffer mutation/capacitywidthoverflow exact RIG-ADMISSION03-F059. Count<=1 deliberately no-ops; documented higherbitszero iscaller bit-policy, no arbitrarybadkey claim."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "5 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "dedup": [
+    "RIG-ADMISSION03-F057",
+    "RIG-ADMISSION03-F058",
+    "RIG-ADMISSION03-F059"
+  ]
+}

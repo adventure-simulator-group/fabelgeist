@@ -1,0 +1,75 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-089",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 624,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior.rs",
+      "sha256": "6dfb61f15cc323392577e8773083c09ea549a3efaace1d3c92802e113ba026cd",
+      "ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "assessment": "Full129 read. InteriorPlacement/Waypoint use typedkey/RoomIndex/StoreyIndex/ArchitecturalPlanPoint/Direction, yaw returnscheckedRadiansconstants. FurnitureAccessPath exposesrawplacement_index/Vecwaypoints and UnmetBudget exposesrawrequested/placedusize counts; association/collection/countcontract unresolved, notintrinsiccontainer exemption. InteriorLayout groups relatedplacements/paths/budgets withpublicserde/default allowing independentconstruction; validationowner separate. Errors retain typedroom/storey/causes, butnativeplacement/node/stair indices distinctroles needcanonicalownerreview. No acceptedunique/runtimeclaim.",
+      "source_basis": "Root personally read exact frozen source after SHA256 match.",
+      "disposition": "Scoped role accounted with native/producer/canonicalowner/context qualifications; no global or family clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 625,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/architecture.rs",
+      "sha256": "ea8f3edc195be45a804f200cf4651c7855317fcb7726dfdc1dff0f256fb9bde7",
+      "ranges": [
+        [
+          1,
+          281
+        ]
+      ],
+      "assessment": "Full281 read. FloorSupport names footprint/elevationcheckedleaves; Floor privateconstructsgatheredsolids/supports but cells BTreeSet<(i16,i16)> duplicates existingCell spatialpair and unchecked point\u2192i32\u2192i16 conversion requiresactualcatalog/admissionrangeproof. Qualified canonicalCellreuse question, notacceptedunique. Planpoint/Rect/PlanExtents/Elevation/PositiveLength carried acrossactual APIs; scalar kernels extract metre values withpurpose, staircase rawdomainfields and spiralwell semanticminmax pair remain native-handoff/Q008/Q009 questions. Roles classifyfloor/obstructions explicitly. No wholeinterior/nav/physical/currentmain or largecoordinateincident guarantee.",
+      "source_basis": "Root personally read exact frozen source after SHA256 match.",
+      "disposition": "Scoped role accounted with native/producer/canonicalowner/context qualifications; no global or family clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 626,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/budgets.rs",
+      "sha256": "a767c9aff3ec12709517bf615d1f46bfc97bfbc85b1b8a4b7c4da138a263ce13",
+      "ranges": [
+        [
+          1,
+          191
+        ]
+      ],
+      "assessment": "Full191 read. FurniturePosition/FurnitureKind/BuildingUse modelclosedroles; FurnitureBudget countusize targets with caps, calculatedarea rawf32squaremetres and metres_per_item parameter actuallyarea-per-item scalar; namedsemantic checkedunit/quantityowner pending. Authored recipe rows arecatalogdata but ratiocalculation/caps/minone policy notblanketexempt. TradeKit names threeactualroles yet matchfirst buildssemantictriple(Q008). Default Dwelling explicitpolicy; no configuredusageorcontinuity/physicalruntimeproof.",
+      "source_basis": "Root personally read exact frozen source after SHA256 match.",
+      "disposition": "Scoped role accounted with native/producer/canonicalowner/context qualifications; no global or family clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 627,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/church.rs",
+      "sha256": "acda6fd16215547057139382ba949b935f7da6c3418ffa32674503dc5ba7932b",
+      "ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "assessment": "Full109 readincludingexistingfixture. nave_routes carries typedheight/Rect/Planpoint/Extents atboundaries; publicprocessionalroute kind enum selectsactualrole. NativewaypointVec3/width sourcefields re-admitted into rects(Q009); windows2 establishespairbounds, minmaxhomogeneouspair immediatelynamed. Roomstorey serializedreadmission Q007. Publicsmallchurch andlargechurch optionpaths maybothcontribute; no aggregateexclusive-state proofclaimed. Existing fixture source checksaisle/pulpit butnotrun/no newtest. No wholecontinuousphysical/navigation/currentmain guarantee.",
+      "source_basis": "Root personally read exact frozen source after SHA256 match.",
+      "disposition": "Scoped role accounted with native/producer/canonicalowner/context qualifications; no global or family clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

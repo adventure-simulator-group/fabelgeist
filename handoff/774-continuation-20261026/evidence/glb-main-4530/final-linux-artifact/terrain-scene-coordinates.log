@@ -1,0 +1,13 @@
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 0.43s
+[1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/adventuresim_tactical_core-1c1f0e01b14fa6e8)
+
+running 6 tests
+test scene_coordinates::polygon::tests::rigid_projection_retains_vertices_and_rejects_coordinate_collapse ... ok
+test scene_coordinates::spatial_tests::architectural_floor_and_collision_centre_datums_preserve_native_arithmetic ... ok
+test scene_coordinates::spatial_tests::building_orientation_decoding_preserves_canonical_native_values ... ok
+test scene_coordinates::spatial_tests::gate_datum_changes_only_elevation_and_preserves_both_hinges ... ok
+test scene_coordinates::tests::scene_coordinates_reject_nonfinite_components_and_roundtrip_signed_positions ... ok
+test scene_coordinates::window::tests::rotated_window_pose_retains_hinges_dimensions_and_native_product ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 404 filtered out; finished in 0.06s
+

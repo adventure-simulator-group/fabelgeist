@@ -1,0 +1,38 @@
+{
+  "source": "root ledger lenses.derivability.examined_contracts",
+  "slices": [
+    {
+      "file": "crates/adventuresim-tactical-core/src/animation/motion_modes.rs",
+      "start": 6,
+      "end": 20,
+      "disposition": "derive-through-wire conversion retained",
+      "evidence": "Two explicit Boolean mappings carry semantic policy while Serde derives mechanical encoding.",
+      "source_sha256": "9181b00087f1047a6a98384a3dfedf32c803368a63afed7727703c7999c51617"
+    },
+    {
+      "file": "crates/fabelgeist-rig/src/table.rs",
+      "start": 82,
+      "end": 86,
+      "disposition": "manual Default justified",
+      "evidence": "Generic derive can introduce T:Default; existing manual empty Vec default intentionally has no such bound.",
+      "source_sha256": "491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282"
+    },
+    {
+      "file": "crates/fabelgeist-geometry/src/cuboid.rs",
+      "start": 81,
+      "end": 125,
+      "disposition": "manual wire adapter retained",
+      "evidence": "Native Vec3 tuple-struct identity and axis-order construction must be preserved, not replaced by a structurally different unverified derive.",
+      "source_sha256": "1fe1e6483da91ee1bd681df6ff788ec97d680ac453c450069a30111c66dc40ed"
+    },
+    {
+      "file": "crates/fabelgeist-geometry/src/error.rs",
+      "start": 84,
+      "end": 95,
+      "disposition": "manual scalar encoding retained",
+      "evidence": "DirectionError uses serialize_str; ordinary unit-enum Serialize may alter non-JSON serializers. JSON similarity alone does not justify replacement.",
+      "source_sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3"
+    }
+  ],
+  "qualification": "Retained starting same-lens partial source evidence only; no original role complete from these slices. Source variants/hash/ranges must match exact role before reuse."
+}

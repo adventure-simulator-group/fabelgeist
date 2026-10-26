@@ -1,0 +1,345 @@
+{
+  "lens": "derivability",
+  "registry": "../shared-material-successor/source-extensions-187.json",
+  "registry_sha256": "afd8158f9381deffcb264daf382e4db681880cd51b120b9a3fcc9b8bfc2ea3b9",
+  "receipts": [
+    {
+      "material_index": 102,
+      "registration": {
+        "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/scalp.rs",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "sha256": "64a5cc8196a567a3b4d071c355bc491a23956d815c57d4805277bf15b1135304",
+        "ranges": [
+          [
+            1,
+            129
+          ]
+        ],
+        "reason": "Actual GpuScalp public upload boundary needed to qualify edge_closest first-corner cull; exact body read, no native-execution or other-lens coverage.",
+        "personal_read_qualification": "Full source displayed and consumed, but registration requests only1\u2013135 actual type/read/upload boundary; cut_scalp downstream not needed to prove custom uploaded route.",
+        "line_count": 412,
+        "registration_evidence": "operations/fresh-dependency-registration-666.json",
+        "qualification": "Only selected1\u2013129 is shared material; source metadata describes EOF412. Root registered identity/range without importing another lens verdict."
+      },
+      "source_origin": "../audit02-delta/sources/64a5cc8196a567a3b4d071c355bc491a23956d815c57d4805277bf15b1135304",
+      "source_sha256": "64a5cc8196a567a3b4d071c355bc491a23956d815c57d4805277bf15b1135304",
+      "read_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "inventory_and_semantics": "GpuScalp read/upload performs native host/device transfers, truncation, vector padding, area CDF/boundary/bounds computation. Explicit record construction encodes native buffer layout and errors; no handwritten trait/codec. Registered1-129 ends at upload body tail only, not entire file.",
+      "disposition": "No derivability candidate; retain semantic/native behavior",
+      "evidence_basis": "Fresh personal exact registered material bodies/narratives; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no manual-owner blanket equivalence, feature/runtime/global acceptance"
+    },
+    {
+      "material_index": 103,
+      "registration": {
+        "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast.rs",
+        "sha256": "55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+        "revision": "pinned native parry3d-0.27.0 lock checksum",
+        "line_count": 284,
+        "ranges": [
+          [
+            157,
+            175
+          ],
+          [
+            212,
+            220
+          ]
+        ],
+        "range_amendment_of": 88,
+        "kind": "additional bounded ranges of an existing exact source identity; not a new unique source",
+        "registration_evidence": "operations/fresh-dependency-registration-674-docs.json",
+        "reason": "Actual velocity-frame question in registered cast receiver; additional API documentation and positional example determine expected input contract.",
+        "qualification": "Keep earlier index88 range dispositions. Only these previously excluded ranges are new obligations; no baseline replay."
+      },
+      "source_origin": "../audit02-delta/sources/55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "source_sha256": "55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "read_ranges": [
+        [
+          157,
+          175
+        ],
+        [
+          212,
+          220
+        ]
+      ],
+      "inventory_and_semantics": "Native Parry cast_shapes documentation describes touching/moving-apart/time-of-impact semantics and example geometry. Independent narrative read complements earlierM88 body ranges; no trait/codec candidate or execution proof.",
+      "disposition": "No derivability candidate; retain semantic/native behavior",
+      "evidence_basis": "Fresh personal exact registered material bodies/narratives; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no manual-owner blanket equivalence, feature/runtime/global acceptance"
+    },
+    {
+      "material_index": 104,
+      "registration": {
+        "source_id": "pinned-registry:bevy_render_macros-0.19.1/src/extract_component.rs",
+        "sha256": "2deb41c36880e96baffe3899ba832ae528a5cd97eb5bd611272651e032223932",
+        "ranges": [
+          [
+            1,
+            76
+          ]
+        ],
+        "package_checksum": "6be6eba0ce9770ae4576693804d6c605f8afd9c4769787414254efcf92196a90",
+        "reason": "ActualavailableExtractComponent derive macro body/docs necessary to compare nativeEidolon MaterialBindGroupData manualimpl exactgenericbounds andSyncComponenttarget, not an unrelatedSDK expansion.",
+        "line_count": 76,
+        "revision": "Exact frozen P16 lock/native revision; provenance in registration005",
+        "registration_evidence": "derivability/fresh-dependency-registration-005.json",
+        "qualification": "Actual derive/manual impl generic bounds comparison; exact selected ranges only. No automatic other-lens credit or completed baseline replay."
+      },
+      "source_origin": "../audit02-delta/sources/2deb41c36880e96baffe3899ba832ae528a5cd97eb5bd611272651e032223932",
+      "source_sha256": "2deb41c36880e96baffe3899ba832ae528a5cd97eb5bd611272651e032223932",
+      "read_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "inventory_and_semantics": "Actual Bevy ExtractComponent macro adds Self:Clone to where-clause, implements both SyncComponent Target(defaultSelf or attribute), QueryData=&staticSelf, filter(default() or attribute), Out=Self and Some(item.clone()). Thus any manual-owner replacement must preserve both trait/bound/target/filter APIs; macro existence alone does not clear owner equivalence.",
+      "disposition": "Bounded native/derive support contract recorded; no new independent owner remedy established",
+      "evidence_basis": "Fresh personal exact registered material bodies/narratives; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no manual-owner blanket equivalence, feature/runtime/global acceptance"
+    },
+    {
+      "material_index": 105,
+      "registration": {
+        "source_id": "pinned-registry:bevy_render_macros-0.19.1/src/lib.rs",
+        "sha256": "9f94ce2c2e61634a28dedcca4a440c9ba5332efa3bede22b30d3b0a563d89884",
+        "ranges": [
+          [
+            27,
+            62
+          ]
+        ],
+        "package_checksum": "6be6eba0ce9770ae4576693804d6c605f8afd9c4769787414254efcf92196a90",
+        "reason": "ActualavailableExtractComponent derive macro body/docs necessary to compare nativeEidolon MaterialBindGroupData manualimpl exactgenericbounds andSyncComponenttarget, not an unrelatedSDK expansion.",
+        "line_count": 111,
+        "revision": "Exact frozen P16 lock/native revision; provenance in registration005",
+        "registration_evidence": "derivability/fresh-dependency-registration-005.json",
+        "qualification": "Actual derive/manual impl generic bounds comparison; exact selected ranges only. No automatic other-lens credit or completed baseline replay."
+      },
+      "source_origin": "../audit02-delta/sources/9f94ce2c2e61634a28dedcca4a440c9ba5332efa3bede22b30d3b0a563d89884",
+      "source_sha256": "9f94ce2c2e61634a28dedcca4a440c9ba5332efa3bede22b30d3b0a563d89884",
+      "read_ranges": [
+        [
+          27,
+          62
+        ]
+      ],
+      "inventory_and_semantics": "Native derive entrypoint declares filter/sync-target helper attributes and docs require Clone; plugin required to actually execute extraction. SupportsM104 macro contract, not runtime/plugin setup acceptance.",
+      "disposition": "Bounded native/derive support contract recorded; no new independent owner remedy established",
+      "evidence_basis": "Fresh personal exact registered material bodies/narratives; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no manual-owner blanket equivalence, feature/runtime/global acceptance"
+    },
+    {
+      "material_index": 106,
+      "registration": {
+        "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/material.rs",
+        "sha256": "67733383aa74089a84e76448e23b6911132a2a298ab684e44655f8e85fa0765c",
+        "ranges": [
+          [
+            1,
+            70
+          ]
+        ],
+        "reason": "ActualInstancedMaterial supertraits Clone andAsBindGroup decide derive-bound comparison.",
+        "line_count": 203,
+        "revision": "Exact frozen P16 lock/native revision; provenance in registration005",
+        "registration_evidence": "derivability/fresh-dependency-registration-005.json",
+        "qualification": "Actual derive/manual impl generic bounds comparison; exact selected ranges only. No automatic other-lens credit or completed baseline replay."
+      },
+      "source_origin": "../audit02-delta/sources/67733383aa74089a84e76448e23b6911132a2a298ab684e44655f8e85fa0765c",
+      "source_sha256": "67733383aa74089a84e76448e23b6911132a2a298ab684e44655f8e85fa0765c",
+      "read_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "inventory_and_semantics": "Native InstancedMaterial supertraits include Asset+AsBindGroup+Clone+Sized+Send+Sync+static; default shader/specialize/flags methods encode native material policy. Only1-70; MaterialBindGroupData manual impl outside these ranges not independently re-credited.",
+      "disposition": "Bounded native/derive support contract recorded; no new independent owner remedy established",
+      "evidence_basis": "Fresh personal exact registered material bodies/narratives; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no manual-owner blanket equivalence, feature/runtime/global acceptance"
+    },
+    {
+      "material_index": 107,
+      "registration": {
+        "source_id": "pinned-registry:bevy_render-0.19.1/src/render_resource/bind_group.rs",
+        "sha256": "c0efbc7a55dffa8e71f5a7ff158b5123b2b031f44db99275a61ad6c008dda14f",
+        "ranges": [
+          [
+            500,
+            504
+          ]
+        ],
+        "reason": "ImmediateAsBindGroup::Data bound isSend+Sync, not Eq/Hash; no wholemodule bodycredit.",
+        "provenance_qualification": "Exactcachedpackagechecksum matches frozenphysicalP16 Cargo.lock andactualmemberbytes. Selected500\u2013504 only.",
+        "package_checksum": "fc86a32b2eef9859e1e7d323c6d1a9150fe77aa17c30fd05abebc12f645929dc",
+        "line_count": 740,
+        "revision": "Exact frozen P16 lock/native revision; provenance in registration005",
+        "registration_evidence": "derivability/fresh-dependency-registration-005.json",
+        "qualification": "Actual derive/manual impl generic bounds comparison; exact selected ranges only. No automatic other-lens credit or completed baseline replay."
+      },
+      "source_origin": "../audit02-delta/sources/c0efbc7a55dffa8e71f5a7ff158b5123b2b031f44db99275a61ad6c008dda14f",
+      "source_sha256": "c0efbc7a55dffa8e71f5a7ff158b5123b2b031f44db99275a61ad6c008dda14f",
+      "read_ranges": [
+        [
+          500,
+          504
+        ]
+      ],
+      "inventory_and_semantics": "Native AsBindGroup associated Data only Send+Sync and Param:SystemParam+static; no implied Eq/Hash/Clone on Data established. Preserve this generic-bound limit in potential derive comparison.",
+      "disposition": "Bounded native/derive support contract recorded; no new independent owner remedy established",
+      "evidence_basis": "Fresh personal exact registered material bodies/narratives; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no manual-owner blanket equivalence, feature/runtime/global acceptance"
+    },
+    {
+      "material_index": 108,
+      "registration": {
+        "source_id": "pinned-registry:serde_derive-1.0.229/src/ser.rs",
+        "sha256": "18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+        "ranges": [
+          [
+            191,
+            212
+          ]
+        ],
+        "package_checksum": "e7a5d71263a5a7d47b41f6b3f06ba276f10cc18b0931f1799f710578e2309348",
+        "reason": "Exact immediate serialization wire/transparent derive dependency for LeafDimensions equivalence; only stated ranges read.",
+        "line_count": 1369,
+        "revision": "FrozenP16 exact native package; registration006 contains lock checksum proof",
+        "registration_evidence": "derivability/fresh-dependency-registration-006.json",
+        "qualification": "Exact derive versus manual wire semantics; bounded ranges only; no automatic other-lens credit or baseline replay."
+      },
+      "source_origin": "../audit02-delta/sources/18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+      "source_sha256": "18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+      "read_ranges": [
+        [
+          191,
+          212
+        ]
+      ],
+      "inventory_and_semantics": "Actual serde transparent Serialize expansion dispatches selected field Serialize with &self.member and same serializer (or explicit serialize_with). It does not write wrapper/newtype name. Supports exact per-owner candidates only when selected field/wire/bounds remain equivalent; no automatic allwrapper clearance.",
+      "disposition": "Bounded native/derive support contract recorded; no new independent owner remedy established",
+      "evidence_basis": "Fresh personal exact registered material bodies/narratives; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no manual-owner blanket equivalence, feature/runtime/global acceptance"
+    },
+    {
+      "material_index": 109,
+      "registration": {
+        "source_id": "pinned-registry:glam-0.32.1/src/features/impl_serde.rs",
+        "sha256": "da9b8a13b57b257793481f554e6888a8fb0c82a7669e52d7e2d2af74701f0061",
+        "ranges": [
+          [
+            73,
+            86
+          ],
+          [
+            730,
+            748
+          ],
+          [
+            1044,
+            1062
+          ]
+        ],
+        "package_checksum": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+        "reason": "Exact immediate serialization wire/transparent derive dependency for LeafDimensions equivalence; only stated ranges read.",
+        "line_count": 1638,
+        "revision": "FrozenP16 exact native package; registration006 contains lock checksum proof",
+        "registration_evidence": "derivability/fresh-dependency-registration-006.json",
+        "qualification": "Exact derive versus manual wire semantics; bounded ranges only; no automatic other-lens credit or baseline replay."
+      },
+      "source_origin": "../audit02-delta/sources/da9b8a13b57b257793481f554e6888a8fb0c82a7669e52d7e2d2af74701f0061",
+      "source_sha256": "da9b8a13b57b257793481f554e6888a8fb0c82a7669e52d7e2d2af74701f0061",
+      "read_ranges": [
+        [
+          73,
+          86
+        ],
+        [
+          730,
+          748
+        ],
+        [
+          1044,
+          1062
+        ]
+      ],
+      "inventory_and_semantics": "Actual glam Vec3 serializer emits serialize_tuple_struct with name stringify(Vec3),3 fields x/y/z; macro invocation confirms f32 Vec3. Array/newtype serde is observably different. Preserve named tuple-struct wire and admission/diagnostics in any owner comparison.",
+      "disposition": "Bounded native/derive support contract recorded; no new independent owner remedy established",
+      "evidence_basis": "Fresh personal exact registered material bodies/narratives; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no manual-owner blanket equivalence, feature/runtime/global acceptance"
+    },
+    {
+      "material_index": 110,
+      "registration": {
+        "source_id": "pinned-registry:bevy_math-0.19.1/Cargo.toml",
+        "sha256": "55eaac570fdbe4828cebd617d6feb73ce13af0fb030f5c4cba99417c967a2a2f",
+        "ranges": [
+          [
+            118,
+            121
+          ]
+        ],
+        "package_checksum": "98ead494dcfaa9b4594eed7f09a27d868b7cc7fc9ebd655c5643322778f4a8a2",
+        "reason": "Exact immediate serialization wire/transparent derive dependency for LeafDimensions equivalence; only stated ranges read.",
+        "line_count": 208,
+        "revision": "FrozenP16 exact native package; registration006 contains lock checksum proof",
+        "registration_evidence": "derivability/fresh-dependency-registration-006.json",
+        "qualification": "Exact derive versus manual wire semantics; bounded ranges only; no automatic other-lens credit or baseline replay."
+      },
+      "source_origin": "../audit02-delta/sources/55eaac570fdbe4828cebd617d6feb73ce13af0fb030f5c4cba99417c967a2a2f",
+      "source_sha256": "55eaac570fdbe4828cebd617d6feb73ce13af0fb030f5c4cba99417c967a2a2f",
+      "read_ranges": [
+        [
+          118,
+          121
+        ]
+      ],
+      "inventory_and_semantics": "Native Bevy Math manifest glam0.32 dependency with bytemuck and no defaultfeatures confirms version selection only; no serde activation or full-feature closure inferred.",
+      "disposition": "Bounded native/derive support contract recorded; no new independent owner remedy established",
+      "evidence_basis": "Fresh personal exact registered material bodies/narratives; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no manual-owner blanket equivalence, feature/runtime/global acceptance"
+    },
+    {
+      "material_index": 111,
+      "registration": {
+        "source_id": "pinned-registry:bevy_math-0.19.1/src/lib.rs",
+        "sha256": "d743684d4c464873715e1fa8ef5fe0b6fa537fabb1172894056c3a7bff504a26",
+        "ranges": [
+          [
+            103,
+            103
+          ]
+        ],
+        "package_checksum": "98ead494dcfaa9b4594eed7f09a27d868b7cc7fc9ebd655c5643322778f4a8a2",
+        "reason": "Exact immediate serialization wire/transparent derive dependency for LeafDimensions equivalence; only stated ranges read.",
+        "line_count": 103,
+        "revision": "FrozenP16 exact native package; registration006 contains lock checksum proof",
+        "registration_evidence": "derivability/fresh-dependency-registration-006.json",
+        "qualification": "Exact derive versus manual wire semantics; bounded ranges only; no automatic other-lens credit or baseline replay."
+      },
+      "source_origin": "../audit02-delta/sources/d743684d4c464873715e1fa8ef5fe0b6fa537fabb1172894056c3a7bff504a26",
+      "source_sha256": "d743684d4c464873715e1fa8ef5fe0b6fa537fabb1172894056c3a7bff504a26",
+      "read_ranges": [
+        [
+          103,
+          103
+        ]
+      ],
+      "inventory_and_semantics": "Bevy Math pub use glam::* is exact native reexport, no wrapper transformation/trait codec.",
+      "disposition": "Bounded native/derive support contract recorded; no new independent owner remedy established",
+      "evidence_basis": "Fresh personal exact registered material bodies/narratives; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no manual-owner blanket equivalence, feature/runtime/global acceptance"
+    }
+  ],
+  "checks": "not run",
+  "source_edits": false,
+  "clear": false
+}

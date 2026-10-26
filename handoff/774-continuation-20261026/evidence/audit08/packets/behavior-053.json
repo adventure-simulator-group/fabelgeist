@@ -1,0 +1,268 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-053",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1607,
+    1608,
+    1609,
+    1611,
+    1614,
+    1615,
+    1616,
+    1630
+  ],
+  "partial_original": [
+    1612,
+    1617
+  ],
+  "source_pins": [
+    "source-pins-and-scope-079.json",
+    "source-pins-and-scope-081.json",
+    "support-heightmap-082.json",
+    "support-species-heightmap-083.json",
+    "support-species-receivers-084.json",
+    "support-species-manifest-085.json"
+  ],
+  "source_reads": {
+    "1607": {
+      "head": [
+        [
+          1,
+          1392
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          175
+        ]
+      ]
+    },
+    "1608": {
+      "head": [
+        [
+          1,
+          194
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          167
+        ]
+      ]
+    },
+    "1609": {
+      "prior_personal_full_source_and_diff": "051",
+      "fresh_head_critical_reread": [
+        [
+          1,
+          78
+        ]
+      ],
+      "new_component_and_serialized_recipient_proof": "Selected1699/1719/1722 ranges below"
+    },
+    "1611": {
+      "head": [
+        [
+          1,
+          59
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1612": {
+      "head": [
+        [
+          1,
+          115
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          121
+        ]
+      ],
+      "status": "Full error-owner source read; actual preparation producers/recipients and changed failure transitions remain partial."
+    },
+    "1614": {
+      "head": [
+        [
+          1,
+          87
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1615": {
+      "head": [
+        [
+          1,
+          143
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1616": {
+      "head": [
+        [
+          1,
+          189
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1617": {
+      "head": [
+        [
+          1,
+          284
+        ]
+      ],
+      "actual_diff": "empty",
+      "status": "Source read; connected install/ground/prepare ownership still queued, no whole-role credit."
+    },
+    "1630": {
+      "head": [
+        [
+          1,
+          96
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          102
+        ]
+      ]
+    }
+  },
+  "support_reads": {
+    "1626": {
+      "head": [
+        [
+          1,
+          30
+        ]
+      ],
+      "base": [
+        [
+          1,
+          112
+        ]
+      ],
+      "status": "Heightmap reexport and old complete heightmap implementation only; original whole role pending."
+    },
+    "1905": {
+      "head_critical_reread": [
+        [
+          1,
+          85
+        ]
+      ],
+      "prior_full_personal_support": "038",
+      "status": "No new whole-role credit"
+    },
+    "old_scene": {
+      "base_fresh": [
+        [
+          262,
+          280
+        ]
+      ],
+      "prior_personal_range": "281-375 in038 includes remaining maximum-height tail and sampled interpolation"
+    },
+    "1699": {
+      "head": [
+        [
+          155,
+          185
+        ],
+        [
+          2955,
+          3010
+        ],
+        [
+          3094,
+          3130
+        ],
+        [
+          3650,
+          3675
+        ],
+        [
+          3880,
+          3906
+        ]
+      ],
+      "base": [
+        [
+          3564,
+          3630
+        ],
+        [
+          3713,
+          3732
+        ],
+        [
+          4478,
+          4492
+        ]
+      ],
+      "navigation_only": "Species occurrences and declaration lines elsewhere; no body coverage there"
+    },
+    "1722": {
+      "head": [
+        [
+          175,
+          243
+        ]
+      ],
+      "status": "Species camera recipient functions only; original role remains queued"
+    },
+    "1719": {
+      "head": [
+        [
+          1,
+          50
+        ],
+        [
+          303,
+          319
+        ]
+      ],
+      "base": [
+        [
+          1,
+          44
+        ],
+        [
+          296,
+          312
+        ]
+      ],
+      "status": "Species CaptureRecord serialization/guard only; original whole role pending"
+    },
+    "1704": {
+      "status": "Pinned and declaration navigation only; no body read or credit"
+    }
+  },
+  "analysis": [
+    "1607 complete1392 source and175 diff read. Native spawn/display name remains exactly Presented mature plus species.name(); new immutable species component is inserted on the same root as PresentedTree. Existing cached source/LOD masks, camera projection, cluster visibility, alpha handoff, warm retention and all fixture cases/oracles are preserved. New finite ScenePlanPoint is admitted before species/variant lookup; x/z bytes including signed/unwrapped finite coordinates are unchanged by the already-read owner. Invalid nonfinite root footprints now warn and retain PendingTreePresentation for a later attempt, rather than generating undefined source coordinates; this is the accepted finite-point policy, not claimed identical invalid-input output.",
+    "1608 complete194 source and167 diff read. Three coupled terrain fields become one optional contact record. Same scene digest fast path, reverse-most retained variant precedence, active plus two previous scenes, current scene restoration, per-species bark memoization and atlas diagnostics remain. Successful new contact construction now precedes taking the active cache: on required support/range error, caller warns/returns before publication and active cache/diagnostics are retained. Retained matching scene removal cannot fail afterward; fresh construction has no removal candidate. No transactional guarantee is claimed for unrelated native asset allocation failures.",
+    "restore_variant is the exact former conditional moved to its owner: already-current key wins; otherwise clone latest retained cached source, bind bark to destination terrain and add same resident counters before insertion. Same live terrain and contact image/range passed to prior1606 material native Vec4 port; all valid range bits and quantization operands preserved.",
+    "1630 whole new96 source/diff compared to actual deleted1626 base40-90. Same centred native texel coordinates, row/column iteration order, min/max normalization with max(.001), clamp, round65535, little-endian RGBA bytes, texture dimensions/format and render-only usage. New u32 checked dimensions and finite support/range/encoding failures replace truncation, missing-height minimum fallback and malformed terrain encodings. Actual1905 required wrappers preserve the existing height query; finite nonempty min/max reductions match old reductions for ordinary admitted samples. Equal finite range remains valid; extreme finite subtraction overflow now rejected. Pre-existing huge dimension/capacity/native image constraints remain qualified, not cleared.",
+    "1609 source/diff from051 reused only personally read exact hashes; new component/serialization edge is now closed locally. Actual1699 query receives immutable species from PresentedTree root, passes Some enum to1722 review/branch camera or None when missing, and copies it to CaptureRecord. Actual1722 comparison chooses exactly old common-beech vs default-oak camera constants and equations; prior normal publication names exactly match old suffix classifier. Actual1719 Option<enum> Serialize uses1609 rename English oak/common beech, preserving old optional string/null shape; both old/new beech-motion guards compare the same distinction. Actual1699 finish_capture serializes the manifest using serde_json::to_vec_pretty. Arbitrary externally renamed Name no longer changes species, an intentional authority correction; no compatibility string reader remains.",
+    "1611 full59 byte-identical: same two owner slots, get/get_mut selection and default/layer3 mapping.1614 full87 byte-identical: same local-origin position subtraction, normal/UV/index forwarding, material tangent selection and existing native tangent expectations. Retain native generator/mesh constraints; no arbitrary malformed LodMesh validity claim.",
+    "1615 full143 byte-identical: authoritative sky lights copied into isolated map layer; same below-horizon sunlight zeroing, no shadows, unchanged-source skip and stale-source cleanup. Entire existing daylight/night/source-isolation case/oracles read, not executed.1616 full189 byte-identical: same typed pose, finite f64 geographic pan/rotate, clamp, route framing, window scale precedence and snap arithmetic. Raw/native projection assumptions and lower geography contracts are not globally cleared.",
+    "1612 full pure error/type owner read; typed native causes and stable browser code mapping inspected. Actual product preparation lifecycle, application and rollback transitions remain pending under its broader consumers.1617 full284 byte-identical source read, but its installation/PreparedCityProduct/FocusedGround transition is left pending until connected next roles, not stamped by source identity alone."
+  ],
+  "findings": [],
+  "qualifications": [
+    "Frozen6533/base3a50 source only; current c94 CI arithmetic repair and any hosted results are not audit coverage.",
+    "All prior findings/policy qualifications retained: first unfinished1462, item identity1474/1484 and other saved partials.1609 local component/serialization edge closed without whole1699/1719/1722 credit.",
+    "No local project checks/tests/builds, source/Git mutation or global clearance."
+  ],
+  "global_clearance": false
+}

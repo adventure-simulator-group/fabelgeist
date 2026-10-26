@@ -1,0 +1,50 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-042",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1564,
+    1566,
+    1573
+  ],
+  "source_pins": [
+    "source-pins-and-scope-063.json",
+    "source-pins-and-scope-065.json"
+  ],
+  "source_reads": {
+    "1573": {
+      "head": [
+        [
+          1,
+          522
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          308
+        ]
+      ],
+      "prior_personal_ranges_reused": [
+        "1573 75-88 in040",
+        "1573 350-407 in041"
+      ]
+    }
+  },
+  "carried_exact_source": [
+    "1564 full964/diff442 and1566 full129/diff72 in041; no source changes."
+  ],
+  "analysis": [
+    "Actual1573 present_ground_scatter returns native Bevy Result. spawn_ground_foliage at487-504 propagates before success timing log and GroundScatterPresented insertion509. Thus a native litter merge failure reaches the established system-error boundary and leaves the scene unmarked. Old geometry failures already followed this Result/marker policy; newly nonpanicking merge failure joins that boundary.",
+    "MeshMergeError is retained inside GroundScatterError::LitterMesh rather than flattened. Geometry error remains transparent. The authored incompatibility label is changed error presentation; no successful mesh/body/RNG change. Native Bevy system error handling is not asserted to provide transaction rollback.",
+    "The orchestration reads canopy/wetland/cultivation as before; ensure_understory_presentations precedes checked litter-family preparation, then lazily retained materials, stable digest+scene scatter seed, instanced shrubs, litter and loose stone. Earlier cache/commands can survive an error; this packet makes no all-or-nothing scene claim.",
+    "TacticalFoliageMaterial fields/bind slots and Material methods relocate verbatim: same shader path, alpha-to-coverage, disabled prepass/shadows and no face culling. Lighting change threshold and material updates, density/pigment/terminal pigment equations and scene-digest purpose are unchanged.",
+    "Actual cache producer1565 ensures complete missing families before their retained installation. Native litter helper/recipe/fixture analysis from041 now has its actual outer receiver, completing1564/1566 for lens08 with the explicit changed-error policy retained. Other downstream loose-stone/specimen/scene-mask bodies retain their own queued roles, without automatic coverage."
+  ],
+  "findings": [],
+  "qualifications": [
+    "Frozen6533 source only. No current runtime/source substitution.",
+    "Native renderer and Bevy error-handler internals, later original roles/material queue and existing audit findings remain separately tracked.",
+    "Source-only; no local checks/tests/builds or product/Git mutation."
+  ],
+  "global_clearance": false
+}

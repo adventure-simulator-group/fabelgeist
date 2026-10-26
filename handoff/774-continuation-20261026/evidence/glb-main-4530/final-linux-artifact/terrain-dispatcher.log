@@ -1,0 +1,36 @@
+[1m[92m   Compiling[0m adventuresim-world-schema v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-world-schema)
+[1m[92m   Compiling[0m fabelgeist-determinism v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-determinism)
+[1m[92m   Compiling[0m fabelgeist-geometry v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-geometry)
+[1m[92m   Compiling[0m adventuresim-puzzles v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-puzzles)
+[1m[92m   Compiling[0m bevy_ahoy v0.2.0 (/home/runner/work/fabelgeist/fabelgeist/vendor/bevy_ahoy)
+[1m[92m   Compiling[0m adventuresim-stdb-client v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-stdb-client)
+[1m[92m   Compiling[0m adventuresim-dialogue v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-dialogue)
+[1m[92m   Compiling[0m adventuresim-core v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-core)
+[1m[92m   Compiling[0m adventuresim-building-generator v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-building-generator)
+[1m[92m   Compiling[0m adventuresim-terrain v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-terrain)
+[1m[92m   Compiling[0m adventuresim-tactical-core v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-core)
+[1m[92m   Compiling[0m adventuresim-tactical-server-dispatcher v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-server-dispatcher)
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 3m 13s
+[1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/adventuresim_tactical_server_dispatcher-6b1a5e40ed58b24c)
+
+running 17 tests
+test scene_input::geological_landforms::tests::coarse_source_steps_retain_landforms_after_production_repair ... ok
+test scene_input::geological_landforms::tests::imported_lithology_and_relief_generate_a_safe_downhill_landform ... ok
+test scene_input::geological_landforms::tests::mapped_competent_carbonates_select_dissolution_but_marl_does_not ... ok
+test scene_input::geological_landforms::tests::mapped_fault_surface_accepts_lithology_without_a_standalone_landform_kind ... ok
+test scene_input::geological_landforms::tests::mapped_granitoids_select_joint_faces_but_unclassified_plutonic_rock_does_not ... ok
+test scene_input::geological_landforms::tests::missing_wrong_lithology_flat_water_road_and_cultivation_cannot_generate_cliffs ... ok
+test scene_input::geological_landforms::tests::only_classified_basalt_selects_cooling_columns ... ok
+test scene_input::geological_landforms::tests::only_cohesive_clay_selects_slump_headscarps ... ok
+test scene_input::terrain_capture::tests::source_samples_keep_scene_position_absolute_height_and_typed_rejections ... ok
+test scene_input::tests::environment_projection_retains_crossing_and_independent_cover ... ok
+test scene_input::tests::establishment_binding_is_complete_scoped_and_operator_named ... ok
+test scene_input::tests::geographic_offsets_are_stable_and_axis_aligned ... ok
+test scene_input::tests::imported_scene_samples_a_known_final_pack_coordinate ... ok
+test scene_input::tests::imported_settlement_keeps_distant_properties_on_the_relative_datum ... ok
+test scene_input::tests::nearby_fault_keeps_its_canonical_offset_and_source_orientation ... ok
+test scene_input::tests::overlapping_fault_uses_coarser_lod_without_changing_its_extent ... ok
+test scene_input::tests::startup_fixtures::export_distinct_startup_destinations ... ignored, exports client fixtures to STRATEGIC_STARTUP_FIXTURE_DIR
+
+test result: ok. 16 passed; 0 failed; 1 ignored; 0 measured; 8 filtered out; finished in 26.31s
+

@@ -1,0 +1,69 @@
+{
+  "kind": "INDEPENDENT_COMMENT_REVIEW",
+  "at": "2026-10-25T20:57:21.794291+00:00",
+  "reviewer": "/root/glb_comment_review",
+  "source_author": "/root",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "branch": "codex/settled-drape-fixture-rig",
+  "skill": "target/recovery-20261025/handoff/780/skills/comment-review/SKILL.md",
+  "verdict": "CLEAR_WITHIN_REVIEWED_SOURCE_SCOPE",
+  "findings": [],
+  "source_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/settled/tests.rs",
+      "sha256": "4c2808636d16aef46474b2b617aa29b24aaf30700a02736b87c9dd549e604dd3",
+      "base_sha256": "18961b0116bbc93358501df011ca5a6a31d912a61f357c201ed56f9ff61f3476",
+      "read_ranges": "whole file, including wearer/sphere/cap/thighs helpers and all eight existing cases",
+      "review_boundary": "two wearer rig-field initializers and comments/case descriptions relying on the helper"
+    }
+  ],
+  "checked_claims": [
+    {
+      "claim": "Sphere/cap/thighs comments describe fixture geometry",
+      "source": "Only names/joints initialization changes. Sphere positions/faces, cap mesh, thigh offsets, radii and all construction expressions remain unchanged. No comment claims use of an empty skeleton.",
+      "disposition": "accurate; no wording change needed"
+    },
+    {
+      "claim": "Existing case descriptions remain valid",
+      "source": "The helper now supplies the one root name/identity state matching its existing one-joint skin/weight fixture. Shape, moved-body/ease, clearance, topology rejection, unsettled rejection, compact JSON, truncated records and split-parts cases retain their original inputs beyond the required rig repair and all original assertions.",
+      "disposition": "accurate; no new case or runtime-acceptance claim"
+    },
+    {
+      "claim": "Compact JSON and geometry comments remain applicable",
+      "source": "SettledDrape::capture persists geometry/topology/surface bindings; wearer rig metadata is used when assigning skin on wear. Existing comments about packed arrays, faceted sphere clearance and stretch geometry are unaffected.",
+      "disposition": "accurate"
+    }
+  ],
+  "supporting_sources": [
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/settled.rs",
+      "read_ranges": [
+        [
+          1,
+          238
+        ]
+      ],
+      "sha256": "3dbafb11ea673b81b72c6d8599bf9c1ac4c55b3e456982e39d16d38faef2e42d"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment.rs",
+      "read_ranges": [
+        [
+          37,
+          54
+        ],
+        [
+          374,
+          398
+        ]
+      ],
+      "sha256": "3a53a6a40c78d926e2f50031f319b7fb338014633b6c73431b891b85a308c828"
+    }
+  ],
+  "limits": [
+    "Source/comment review only; no local builds, checks, tests or runtime drapes performed.",
+    "No review of broader settled-drape geometry/admission correctness claimed.",
+    "Historical main CI failure used only as dated context, not as proof candidate passes.",
+    "No product source edits, PR actions or other reviewer verdict reads."
+  ]
+}

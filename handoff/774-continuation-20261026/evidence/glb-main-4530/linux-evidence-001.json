@@ -1,0 +1,202 @@
+{
+  "head": "6431c2faf1b50608344d1031d0f9413830c271fa",
+  "run": 40274774510,
+  "job": 121415088581,
+  "artifact": 12634601650,
+  "conclusion": "success",
+  "required_cells": 48,
+  "required_execution": "All exact revision, accepted, >0 passed, zero failed.",
+  "creator": [
+    {
+      "cell": "creator-armor-frames",
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "cell": "creator-clothing",
+      "passed": 11,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "cell": "creator-device-frames",
+      "passed": 4,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "cell": "creator-gorget-bib",
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "cell": "creator-gorget-collar",
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "cell": "creator-wrapped-tasset",
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "cell": "creator-export",
+      "passed": 12,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "cell": "creator-garment",
+      "passed": 37,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "cell": "creator-runtime-equipment",
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "cell": "creator-skin-rules",
+      "passed": 6,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "cell": "creator-torso-domain",
+      "passed": 3,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "cell": "creator-underlayer-design",
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "cell": "creator-character-morphs",
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "cell": "creator-animation-preview",
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "cell": "creator-device-bracer",
+      "passed": 4,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "cell": "creator-device-breastplate",
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0
+    }
+  ],
+  "creator_total_passed": 93,
+  "export_cases": [
+    [
+      "export::assembly::tests::compact_components_keep_names_hinges_skin_and_all_morphs",
+      "ok"
+    ],
+    [
+      "export::morphs::tests::rejects_incompatible_channels_and_non_finite_deltas",
+      "ok"
+    ],
+    [
+      "export::skinning::tests::dropping_minor_influences_preserves_world_translation",
+      "ok"
+    ],
+    [
+      "export::tests::exports_clothing_as_a_separately_materialed_skinned_primitive",
+      "ok"
+    ],
+    [
+      "export::tests::exports_four_normalized_skin_influences_and_a_zero_animation_rig",
+      "ok"
+    ],
+    [
+      "export::tests::exports_independent_skinned_armor_topology_with_named_morph_targets",
+      "ok"
+    ],
+    [
+      "export::tests::exports_shell_only_equipment_without_character_attachment_geometry",
+      "ok"
+    ],
+    [
+      "export::tests::fitted_socket_resolves_uv_per_lod_and_bootstrap_recovers_the_anchor",
+      "ok"
+    ],
+    [
+      "export::tests::rejects_non_normalized_weights",
+      "ok"
+    ],
+    [
+      "export::textures::tests::normal_only_material_preserves_its_authored_metal_properties",
+      "ok"
+    ],
+    [
+      "export::textures::tests::separate_equipment_glbs_share_exact_surface_files_and_material_roles",
+      "ok"
+    ]
+  ],
+  "export_command": "cargo test --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --lib export:: -- --test-threads=1 --nocapture",
+  "baseline": [
+    {
+      "kind": "files",
+      "committed": [
+        {
+          "path": "crates/adventuresim-character-creator/src/export.rs",
+          "ceiling": 803
+        }
+      ],
+      "hosted": [
+        {
+          "path": "crates/adventuresim-character-creator/src/export.rs",
+          "ceiling": 778
+        }
+      ]
+    },
+    {
+      "kind": "functions",
+      "committed": [
+        {
+          "path": "crates/adventuresim-character-creator/src/export.rs",
+          "item": "bootstrap_equipment_surface_uv",
+          "ceiling": 111
+        },
+        {
+          "path": "crates/adventuresim-character-creator/src/export.rs",
+          "item": "export_rigged_glb",
+          "ceiling": 268
+        }
+      ],
+      "hosted": [
+        {
+          "path": "crates/adventuresim-character-creator/src/export.rs",
+          "item": "bootstrap_equipment_surface_uv",
+          "ceiling": 111
+        },
+        {
+          "path": "crates/adventuresim-character-creator/src/export.rs",
+          "item": "export_rigged_glb",
+          "ceiling": 247
+        }
+      ]
+    }
+  ],
+  "source_failure_path_limits": [
+    "No oversized allocation, failed reservation, 32-bit or filesystem failure execution claimed."
+  ]
+}

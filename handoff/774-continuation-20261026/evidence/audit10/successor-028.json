@@ -1,0 +1,71 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-028",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1550,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs",
+      "sha256": "d375436ca9d226ccb6fbc5b65afcaf94a6b9c3e4bfa90fc1016da8cb958a7281",
+      "ranges": [
+        [
+          1,
+          1237
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete1237line grass source personally read in five bounded consecutive windows including existing fixtures. GrassMeshLod/GrassSpecies derive CloneCopyDebugEqPartialEq, GrassBlade/GrassInflorescence derive CloneCopy, GroundScatterLayer component comes from parent. No manual trait impl or codec anywhere in role. Inherent tier/index/ALL and morphology classifiers, density selection and mesh attribute/UV/quad generation are semantic.",
+      "disposition": "No derivability replacement. Do not replace runtime classification with serde, or native mesh/UV encoding with derived field codec. Explicit authored tier/species mapping and native geometry construction retained; fixtures read only, no execution. This lens does not certify arithmetic/numeric safety.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1551,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass/community.rs",
+      "sha256": "950c6a30f2beb4beaf5cdcc2e7b4cf410f6beb5c993bffc23fd8f99e918941a2",
+      "ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete263line grass community source read including cache equivalence fixture. GrassCommunity derives standardtraits; profile and CommunitySite derive CloneCopy; no handwritten trait impl or codec. Inherent index/ALL, environmental weight interpolation, deterministic selection and cached lattice lookup are semantic.",
+      "disposition": "No derivability candidate. Explicit world-cell sampling and weighted species selection cannot be derived from fields; no new serde/runtime classifier. Source-level existing test read only.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1552,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass/placement.rs",
+      "sha256": "d16bd96cb1443180658a7961e14da85b6f03d0a0a89b11a86c3a8a5054bc9bd8",
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Grass placement helpers perform cover/habitat/shore/slope admission; no handwritten traits/codecs.",
+      "disposition": "No derivability candidate. Semantic filtering and coordinate arithmetic retained, no global numeric clearance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1553,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass/streams.rs",
+      "sha256": "c7dec0c3ade3ab3bcab4c7477cd16a656dde75abd939c0f7ecdb56ca96a0dca3",
+      "ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Deterministic authored stream constants and blade_angle function, no handwritten traits/codecs.",
+      "disposition": "No derivability candidate; explicit deterministic stream selection/angle generation.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

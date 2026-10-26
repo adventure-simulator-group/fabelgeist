@@ -1,0 +1,70 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-263",
+  "at": "2026-10-25T22:24:04.994195+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2398,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_details/summary.rs",
+      "sha256": "8296a4e8146021634980e305ecae90f3794704fc74dd9865c9be8d4de2a57a4e",
+      "personally_read_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozen 1-56: capability/attributes/skills/combat-profile/religion inputs flow together into canonical character_summary_icons; each returned icon drives its own label, rank tier, tooltip and mask/monogram presentation. Empty icons produce the explicit no-notable-capabilities state. No gameplay mutation or new aggregate finding."
+      ]
+    },
+    {
+      "scope_index": 2399,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health.rs",
+      "sha256": "e2d0f9c9b380042b6620943eeb712aacad78d4b258feeff578329ce8891bdb24",
+      "personally_read_ranges": [
+        [
+          1,
+          2165
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozen 1-2165 personally read in six bounded chunks: surgery duration/skill delegates canonical procedure helpers, including self treatment; procedure paths, limb slug, patient and supplied equipment remain associated within each form. Open-body action is disabled for a living patient; corpse actions use the separate corpse window and same revision/action ID. Interred corpse identity/condition/findings are withheld until exhumation; opened state gates internal examination. Existing CAM-PPS-F004 string classification boundary remains deduplicated, not newly cleared.",
+        "Condition rail derives pain, blood, fear, fatigue, hunger, thirst and temperature from the same optional condition; all seven visual segments and labels remain paired. Rendering clamps and signed reserve/deficit meters do not introduce gameplay penalties. Surgery/projectile helpers filter limb but do not independently prove patient identity; actual route2376 supplies patient-scoped rows, so raw helper admission is a qualified API question rather than an observed wrong-patient treatment.",
+        "Physiology chart uses first/last time bounds and fixed seven-region/four-humour ordering; gaps break paths, administration annotations share bounded timeline coordinates, and tooltip IDs match controls. Actual medical sanitizer2357 sorts readings and constrains array shape. Public unsorted readings could violate first<=last before clamp, but no ordinary producer witness or new finding is asserted. Last available reading labels the current end Today; freshness policy remains qualified.",
+        "Attribute/region health uses canonical BodyRegion ordering and limb health, preserves damage hatching and assessment concealment, and presents effective raw attribute times physical health. Missing limb observation defaults to healthy within this renderer; upstream completeness remains qualified. First matching limb injury/projectiles do not independently bind character, while actual caller scopes rows. Full fixture/test source1509-2165 read, not executed."
+      ]
+    },
+    {
+      "scope_index": 2400,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health/notebook.rs",
+      "sha256": "ddcf5b6d32ce9793570df94471b1a5098b3bed2ea8bf83e36cc6f0381915183f",
+      "personally_read_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozen1-27: notebook overview receives optional latest reading separately from history; actual2399 caller supplies history.last. Count, candidate index and tooltip IDs stay associated without local reranking. Ordered-likelihood wording relies on producer order; no unsupported independent ordering clearance."
+      ]
+    },
+    {
+      "scope_index": 2401,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health/segments.rs",
+      "sha256": "75b12a94fe2b1cd0fc29b530c43478d275fd9454c9af1e6cb9a8e388ee797692",
+      "personally_read_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozen1-72: four assessed humours retain their colour/value pairing under one scale. PhysicalDamage allocates cut then frostbite then blunt/fracture against remaining physical damage, with fracture contained within blunt and no double count. Negative/nonfinite raw injury components and residual damage not represented by a known injury remain producer/policy questions; no ordinary invalid-state witness or new defect is asserted."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "4 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

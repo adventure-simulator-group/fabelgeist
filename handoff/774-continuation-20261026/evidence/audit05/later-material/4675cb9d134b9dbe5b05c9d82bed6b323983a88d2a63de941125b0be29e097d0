@@ -1,0 +1,114 @@
+//! Deterministic native capture harness for tactical sky presentation.
+
+#![cfg_attr(
+    not(target_family = "wasm"),
+    expect(
+        dead_code,
+        reason = "the native sky viewer compiles shared presentation but exercises only deterministic sky capture paths"
+    )
+)]
+
+#[cfg(not(target_family = "wasm"))]
+mod presentation;
+#[cfg(not(target_family = "wasm"))]
+mod tactical_sky_viewer;
+
+#[cfg(not(target_family = "wasm"))]
+use std::path::PathBuf;
+
+#[cfg(not(target_family = "wasm"))]
+use clap::{Parser, ValueEnum};
+
+#[cfg(not(target_family = "wasm"))]
+#[derive(Clone, Copy, Debug, ValueEnum)]
+enum SkyView {
+    Sun,
+    SunDetail,
+    Twilight,
+    Moon,
+    Stars,
+    CloudCumulus,
+    CloudStratocumulus,
+    CloudCirrus,
+    CloudOvercast,
+    CloudStorm,
+}
+
+#[cfg(not(target_family = "wasm"))]
+impl SkyView {
+    const fn id(self) -> &'static str {
+        match self {
+            Self::Sun => "Sun",
+            Self::SunDetail => "SunDetail",
+            Self::Twilight => "Twilight",
+            Self::Moon => "Moon",
+            Self::Stars => "Stars",
+            Self::CloudCumulus => "CloudCumulus",
+            Self::CloudStratocumulus => "CloudStratocumulus",
+            Self::CloudCirrus => "CloudCirrus",
+            Self::CloudOvercast => "CloudOvercast",
+            Self::CloudStorm => "CloudStorm",
+        }
+    }
+}
+
+#[cfg(not(target_family = "wasm"))]
+#[derive(Debug, Parser)]
+#[command(version, about = "Capture one deterministic tactical sky view")]
+struct Args {
+    /// Celestial feature and canonical time to render.
+    #[arg(long, value_enum)]
+    view: SkyView,
+
+    /// PNG output path.
+    #[arg(long)]
+    output: PathBuf,
+
+    /// Render frames allowed for atmosphere and custom pipelines to settle.
+    #[arg(long, default_value_t = 24)]
+    settle_frames: u32,
+}
+
+#[cfg(not(target_family = "wasm"))]
+fn main() {
+    let args = Args::parse();
+    tactical_sky_viewer::run(args.view, args.output, args.settle_frames);
+}
+
+#[cfg(target_family = "wasm")]
+fn main() {
+    panic!("tactical-sky-viewer is a native-only capture harness");
+}
+
+#[cfg(all(test, not(target_family = "wasm")))]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn sky_view_ids_have_explicit_stable_values() {
+        assert_eq!(SkyView::Sun.id(), "Sun");
+        assert_eq!(SkyView::SunDetail.id(), "SunDetail");
+        assert_eq!(SkyView::Twilight.id(), "Twilight");
+        assert_eq!(SkyView::Moon.id(), "Moon");
+        assert_eq!(SkyView::Stars.id(), "Stars");
+        assert_eq!(SkyView::CloudCumulus.id(), "CloudCumulus");
+        assert_eq!(SkyView::CloudStratocumulus.id(), "CloudStratocumulus");
+        assert_eq!(SkyView::CloudCirrus.id(), "CloudCirrus");
+        assert_eq!(SkyView::CloudOvercast.id(), "CloudOvercast");
+        assert_eq!(SkyView::CloudStorm.id(), "CloudStorm");
+    }
+
+    #[test]
+    fn capture_arguments_select_a_view_and_output() {
+        let args = Args::try_parse_from([
+            "tactical-sky-viewer",
+            "--view",
+            "sun",
+            "--output",
+            "sun.png",
+        ])
+        .unwrap();
+        assert!(matches!(args.view, SkyView::Sun));
+        assert_eq!(args.output, PathBuf::from("sun.png"));
+    }
+}

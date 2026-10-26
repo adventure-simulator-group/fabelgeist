@@ -1,0 +1,243 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-127",
+  "at": "2026-10-23T03:18:36.683299+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "scope052_index": 269,
+      "actual_EOF": 1586,
+      "scoped_ranges_compared": [
+        [
+          1,
+          1586
+        ]
+      ],
+      "actual05_comparison": "Fresh1–1517 and1532–1586; existing093 personally reviewed exact1518–1531 PartyJoinRequest role is joined unchanged after current full-source contract comparison. All definitions, actual functions/views/factories reviewed; raw storage adapter vs parsed/validated product and historical/current/forecast distinctions preserved in ten exact groups. Does not clear lower Core/gateway/writer families or imply native transaction rollback.",
+      "source_body_proof": "Fresh actual full scoped source except prior exact14-line role reused with explicit same contract comparison; no hash/verdict stamp."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "quest-replay-authority",
+      "ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "members": [
+        "CaseAuthority",
+        "QuestGenerationAuthority",
+        "ValidatedQuestGenerationAuthority",
+        "quest_generation_context_commitment",
+        "validate_quest_generation_authority"
+      ],
+      "comparison": "Raw private-table metadata/JSON are not accepted replay proof. Actual validator first compares length-framed domain/version canonical-Value commitment, parses developer.base or ordinary context, manifest and trace; checks case/public ID, seed, catalogue revision, trace, settlement identity/name and scope; validates manifest and regenerates exact context before equality/return. Normal factory binds all facts. Accepted pair has pub(crate) mutable fields, so F033 latent encapsulation route remains. No public truth disclosure or malicious current DB writer claimed. Native JSON duplicate-key/key-sort operation specifics stay their registered lower contracts, no whole serde graph credit."
+    },
+    {
+      "id": "contract-lifecycle-and-observer",
+      "ranges": [
+        [
+          139,
+          294
+        ]
+      ],
+      "members": [
+        "ContractAuthority",
+        "ContractAuthority::parsed_state",
+        "BackendContract",
+        "backend_contracts"
+      ],
+      "comparison": "Stored status/acceptor/accepted-at/paid-at flattened native row is broad; parsed_state delegates exact Core sum parser for lifecycle-sensitive use, not private DB row seal. BackendContract is gateway-only projection, not checked lifecycle authority. View joins exact sites, canonical typed case-site key+place before groups; derives maximum destination distance conservatively and sums count/power from SAME group list with checked arithmetic, fail-closed omission on invalid profile/overflow. Wording distinct presentation, not count authority. No actual Core parser body credit from method name here."
+    },
+    {
+      "id": "case-custody-continuity-and-finales",
+      "ranges": [
+        [
+          296,
+          429
+        ]
+      ],
+      "members": [
+        "CaseOutcome",
+        "CaseOutcomeFact",
+        "CaseCustody",
+        "ObjectiveContinuityKind",
+        "ObjectiveContinuityGuard",
+        "CaseFinaleAuthority",
+        "CaseFinaleExecution",
+        "ContractInteractionStage",
+        "ContractIssuerInteractionReceipt"
+      ],
+      "comparison": "CaseOutcome final resolution and immutable finale receipt own different stages; receipt presence, not second mutable finale checkpoint, owns completed effects. OutcomeFact indexed identity adapts JSON semantic payload; native public fields can disagree unless ingestion gate preserves relation. Custody holder kind+ID/version are raw row, not membership proof. Continuity started/through/broken and completed checkpoint intentionally separate history versus ingested effect; deadline alone not completed. Capture custody version optional by objective kind, not everyNone invalid. Issuer receipt binds contract/party/stage/issuer/interactor/time/dialogue/revision/location with consumed checkpoint; no generic live authorization from IDs. Actual lifecycle writers/recipients remain separate queued roles; do not fabricate all-or-none constraints."
+    },
+    {
+      "id": "incident-and-recruitment-authorities",
+      "ranges": [
+        [
+          431,
+          535
+        ]
+      ],
+      "members": [
+        "IncidentId",
+        "IncidentSourceId",
+        "IncidentKind",
+        "IncidentStatus",
+        "StrategicIncident",
+        "ActivityIncidentEntropy",
+        "RecruitmentOfferId",
+        "RecruitmentSourceId",
+        "RecruitmentOfferStatus",
+        "RecruitmentOffer"
+      ],
+      "comparison": "Source-dedupe/private incident site+hostile binding distinct from random unlinkable action token. Private activity entropy Seed differs from deterministic public source identity. Newtype String fields themselves open native transport. Recruitment offer social/public projection deliberately excludes investigation/quest identity; sourceID, recruiting party/resident unique columns bind different purposes. Created/expiry interval semantics rely actual writer, not independently sealed by raw table. No guessed cryptographic entropy guarantee or enum whitelist beyond actual closed declarations."
+    },
+    {
+      "id": "party-location-and-journey-clocks",
+      "ranges": [
+        [
+          537,
+          683
+        ]
+      ],
+      "members": [
+        "Party",
+        "party",
+        "JourneyCampInterval",
+        "JourneySettlementEndpoint",
+        "JourneyCaseSiteEndpoint",
+        "JourneyEndpoint",
+        "PartyJourney",
+        "PartyJourneyEncounterAuthority"
+      ],
+      "comparison": "Gateway-only current Party location differs durable journey original endpoints/progress. JourneyEndpoint sum selects Settlement/CaseSite/Camp explicitly. Party current settlement/case/contract/camp fields are broad raw native storage; no accepted location exclusivity/clock interval proof from type. Frozen canonical wilderness anchor versus accumulated subjective elapsed are intentional different clocks. JourneyCampInterval movement coordinate, elapsed interval and fatigue observations differ; reached camps/actual intervals versus forecast intervals are historical versus future products, not redundant authorities. Leader threshold/budget snapshot remains departure-specific while Party current preferences may change. is_solo is explicit derived living projection. Actual itinerary/movement/governance mutation gates remain queued, no current inconsistent normal party asserted."
+    },
+    {
+      "id": "encounter-and-route-products",
+      "ranges": [
+        [
+          685,
+          848
+        ]
+      ],
+      "members": [
+        "StrategicEncounterLoss",
+        "StrategicEncounterStatus",
+        "StrategicEncounter",
+        "StrategicEncounterResolutionReceipt",
+        "JourneyTerrainKind",
+        "JourneyRoutePoint",
+        "JourneyTerrainWeights",
+        "JourneyTerrainSpan",
+        "JourneyRouteLeg",
+        "JourneyRoutePlan",
+        "PartyJourneyRoute"
+      ],
+      "comparison": "Strategic encounter is durable interruption/choice/revision/outcome, expressly excludes transient tactical ticks/positions/HP/enemies. Awareness sides, choices/current selection/outcome and loss-preview are stage-dependent raw row, not independent boolean authority. Receipt expected/result revision with action identity owns replay provenance; no automatic monotonic arithmetic from raw words. TerrainKind stable spelling parser explicit closed5; point lat/lon raw pair needs geographic gate. Five terrain weights/spans/leg totals/point order/weather snapshot/return route are correlated route data, no validator or private seal in these declarations. Forecast return leg optional by route purpose; do not assume alllegs same cardinality or constrain weights merely by name. Actual gateway route plan/DB admission must establish relationships, preserved as separate source obligations."
+    },
+    {
+      "id": "gateway-whole-package-authority",
+      "ranges": [
+        [
+          850,
+          965
+        ]
+      ],
+      "members": [
+        "strategic_view_is_gateway",
+        "party_journey",
+        "party_journey_route",
+        "StrategicGatewayAuthority",
+        "valid_route_digest",
+        "register_strategic_gateway",
+        "require_strategic_gateway",
+        "require_strategic_character_authority"
+      ],
+      "comparison": "Actual views gate singleton id0 Identity==sender before returning private destinations/route. Register rejects ZERO sender and enforces whole pair: Some64lowerhex digest with schema3, or None with schema0; same authenticated existing owner only may rotate. Constructs complete row then inserts/updates. Raw public struct broad, no implicit package existence/content proof or future schema inferred. require_character allows gateway OR target disposable simulation ownership deliberately; lower simulation helper implementation separate, not guaranteed by call name. First-authenticated bootstrap is documented policy, no invented allowlist decision."
+    },
+    {
+      "id": "inventory-target-ledgers-and-battle-products",
+      "ranges": [
+        [
+          968,
+          1204
+        ]
+      ],
+      "members": [
+        "PartyMember",
+        "PartyInventoryItem",
+        "PartyItemCondition",
+        "InventoryQuantityTarget",
+        "set_inventory_quantity_target",
+        "PartyStake",
+        "PartyInventoryState",
+        "BattleResult",
+        "AutoresolveReport",
+        "BattleLootItem",
+        "BattleParticipant",
+        "BackendCaseBattle",
+        "mission_public_case_id",
+        "backend_case_battles"
+      ],
+      "comparison": "Target quantity derived ID/scope/owner/item fields built together by actual reducer after living character, catalogue existence, optional party-leader checks; zero target valid, no raw sentinel ban. Reducer does not itself call gateway/owner authority helper, so no sender authorization proof from living helper name. Party condition five bins raw, durable quantity1 invariant belongs actual inventory writer, not table struct. Member stake entitlement, communal unallocated reserve and physical pooled items/coins are intentionally distinct ledgers, not requireequal scalar totals. Battle result/report/loot/participants distinct event/diagnostic products, no generic terminal row invariant. Gateway case-battle view gates identity; mission_public_case_id delegates actual validated generated disclosure rather than expose private canonical ID. Lower validator/writer implementations separately scoped."
+    },
+    {
+      "id": "mission-and-hostile-snapshots",
+      "ranges": [
+        [
+          1206,
+          1451
+        ]
+      ],
+      "members": [
+        "MissionAuthority",
+        "MissionAuthority::parsed_state",
+        "MissionApproachCapability",
+        "MissionOutcomeCandidate",
+        "HostileGroupDisposition",
+        "validate_hostile_resolution_contract",
+        "HostileGroupAuthority",
+        "materialize_hostile_group",
+        "hostile_group_authority_row"
+      ],
+      "comparison": "Mission raw flattened binding/capture fields parse to canonical Core lifecycle sum; exact enemy vector immutable bind snapshot owns cardinality, live hostile escalation different authority. Approach capability and copied immutable outcome candidates are observer/objective-scoped, not blanket capture flag. Resolution contract explicitly rejects killed capture target as success, loot exceptDefeated, expected kind mismatch and expected capture subject mismatch. Hostile row factory binds string query key and typed site from SAME actual site, checks ID nonempty, clamps count and difficulty, parses threat/profile and derives initial escalation/drop values. Existing-ID retry compares immutable authority plus canonical key/place, then rematerializes roster; live count/version deliberately not replaced by baseline. Insert followed by fallible roster helper needs actual DB reducer transaction semantics, no proven rollback or installed partial row claim. String key duplication is storage adapter, checked before use here; no new arbitrary ID equality rule."
+    },
+    {
+      "id": "outcome-recruitment-action-records",
+      "ranges": [
+        [
+          1453,
+          1586
+        ]
+      ],
+      "members": [
+        "OutcomeSourceAuthority",
+        "HostileResolutionReceipt",
+        "RecruitmentRolePurpose",
+        "PartyRecruitmentRole",
+        "SavedRecruitmentRole",
+        "PartyJoinRequest",
+        "PartyActionRequest",
+        "party_action_request",
+        "ResolvedPartyAction",
+        "PartyLeaderVote"
+      ],
+      "comparison": "Battle-independent hostile resolution receipt distinguishes pre-combat withdrawal from tactical battle side effects. Optional mission identity intentional, no made-up everyresolutionrequiresbattle rule. Recruitment live role/saved template share typed requirements but different owners; PartyJoinRequest cached requirement bool is precise CameraF029 graph already independently shown in093. Governance update/request bodies remain partly reviewed and full282 pending. Proposed action raw kind+JSON+summary has gateway-only disclosure, replay must validate typed reducer and leader authority at consumption; private resolved receipt owns replay, raw DB columns do not auto-prove that. Leader vote candidate/voter/party must bind in actual governance operations, not table-name promise."
+    }
+  ],
+  "new_unique_findings": [
+    "NATIVE-INITIAL05-F033"
+  ],
+  "independent_cross_lens_supports": [
+    "CAMERA-INITIAL07-F029"
+  ],
+  "remaining_dependency_obligations": [
+    "Core ContractState/MissionAttemptState actual parsers and accepted readers remain source-specific obligations, not cleared by parsed_state wrapper. Raw route/party movement, inventory ledger and governance state relations need their actual queued producer/mutator/consumer comparisons. No recipient family clearance. Parent exact dedup query pending; merge if another same graph receipt exists."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

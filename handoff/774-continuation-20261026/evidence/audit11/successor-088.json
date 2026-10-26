@@ -1,0 +1,62 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-088",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 621,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index.rs",
+      "sha256": "d2e0b7635bddd25114a9b505fbe03ea8ac464fff52e2bba8a9dc62a28d88ac71",
+      "ranges": [
+        [
+          1,
+          268
+        ]
+      ],
+      "assessment": "Full268 read afterhash includingexistingtests. BoundsIndex privateconstructs boundvector plus treefromsameenumerated0..len indices; nodepartitions retain sourceindices, querysorts result. This settles600 indexassociation/ordering withinactualconstructor/sourcecontext. BoundsNode enum namedLeaf/Branch andnonempty childsplits protectfixedindices; axis0..2 nativevector kernel. CheckedSpatialBounds andCollisionError preserve frame/source identity; yaw/fulloriented rawmathreadmitted atleaf. overlapping_solids returns homogeneoussolidpair relation externally consumed; no positionalprimitive domainrecord introduced. Existing hugeleaf/branch tests readnotrun; no precision/physics/currentmain guarantee.",
+      "source_basis": "Root personally read exact frozen registeredranges after SHA256 match.",
+      "disposition": "Scoped role accounted with producer/native/context qualifications; no global or family clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 622,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index/checked.rs",
+      "sha256": "c22c004b9567bec8accd9108a2d1c0d3da7bec4f0e08068281b3c1e8179e02c9",
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "assessment": "Full28 read afterhash. Generic Result<bool,E> predicates implement ordinaryshortcircuit any/all withfirstvisitederror via?; boolgenuinepredicate, unitlessgeneric values neednotbespokewrappers. Unvisited later malformeditems intentionally notexamined after decisivepredicate, no claimglobalvalidation/allerrors. Nonewgranularitydefect.",
+      "source_basis": "Root personally read exact frozen registeredranges after SHA256 match.",
+      "disposition": "Scoped role accounted with producer/native/context qualifications; no global or family clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 623,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/heating/placement.rs",
+      "sha256": "5dbdcafe3866798548d26b03a8880417e25b5730dd9c4d2de43f81b19dc0faa3",
+      "ranges": [
+        [
+          1,
+          103
+        ],
+        [
+          240,
+          457
+        ]
+      ],
+      "assessment": "Exactregisteredunion read afterhash,104-239excluded. Placement/PlacementCandidate/KitchenPair nameidentity/state association and carrytypedStoreyIndex/RoomIndex/architectural elevations/planpoint/direction/SignedLength; HearthSection andHostWallPolicy areclosedroles. Producers still readmit rawstorey/room fields(Q007/Q011), stationoffsets convertscheckedmetres tonativekernelthenreadmits, generating orderedfloats/untypedVec pending fullcollection/admission/capacitypolicy. Matching twoRoomKinds tuple islocalpattern; section/station cartesianpair immediatelynamed. roofheight dividesplanenormal.y andadmitsElevation; ordinaryfacevalidity outsideexcerpt. is_usable/cleardoors workboundedonly; body/shaft/backing funcs excluded. No wholeheating/physicalclearance/newacceptedunique.",
+      "source_basis": "Root personally read exact frozen registeredranges after SHA256 match.",
+      "disposition": "Scoped role accounted with producer/native/context qualifications; no global or family clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

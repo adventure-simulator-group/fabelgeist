@@ -1,0 +1,14 @@
+--- base-send
+
++++ head-send
+
+@@ -8,7 +8,7 @@
+
+     scripted: Res<PlayerInputOverride>,
+ ) {
+     let simulation_tick = input_tick.0;
+-    input_tick.0 = input_tick.0.wrapping_add(1);
++    input_tick.0 = input_tick.0.wrapping_next();
+     for (actions, look) in &players {
+         if let Some(mut request) = scripted.0 {
+             request.simulation_tick = simulation_tick;

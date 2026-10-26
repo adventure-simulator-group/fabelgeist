@@ -1,0 +1,180 @@
+{
+  "id": "ADLER-CONT01-LATER-007",
+  "lens": "producer-propagation",
+  "registry_sha256": "01e11726b2c32ab6f86d513d62a5aa88980e29a8b2ccaf8716319bf0e7629459",
+  "receipts": [
+    {
+      "extension_index": 100,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/contracts.rs",
+      "sha256": "082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33",
+      "source_ranges": [
+        [
+          1,
+          291
+        ],
+        [
+          338,
+          384
+        ]
+      ],
+      "actual_eof": 384,
+      "trace": {
+        "producer": "Contract interaction producer accepts canonical ContractInteractionStage, resolves current living character/party/contract/issuer/presence, builds stage-keyed durable receipt and later consumes it before assignment transition.",
+        "retained_and_operations": "Stage/status/time remain typed; receipt coordinates originate current native rows or actual DialogueSession fields. Private helper map_err(error.to_string()) discards parsed-state error and discards parsed state itself before raw contract field mutation; simulation uses explicit owned-disposable route.",
+        "actual_receiver": "accept_contract consumes receipt then writes native contract status/accepted_by/accepted_at and party pointer; abandon validates parsed state then writes Withdrawn and clears pointer. Native table writes justify final String IDs, not premature typed-state/error loss in internal operations.",
+        "boundary_and_disposition": "Retain known contract-state transition/cause/provenance family: carry authoritative parsed state/error through actual internal transition where migrated, encode at reducer/storage boundary. No authorization exploit or forbidden simulation removal; dialogue versus simulation provenance is existing F259 qualification. No new unique count or fresh global authority clearance."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 101,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade/streams.rs",
+      "sha256": "f0317997a922b05065564f3a5b4963d424f0efd3a2c4ed70dbb72a1de6c9569e",
+      "source_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "actual_eof": 18,
+      "trace": {
+        "producer": "Loot RNG helper accepts raw maximumu32 and returns Option<u32>, adapting maximum to NonZeroU64 only at native RNG below port.",
+        "retained_and_operations": "Actual original inventory_trade1343-1396 freshly re-read: difficulty.max(1) asu32*10 feeds helper; result travels through combined HashMap<String,u32>, unchecked +=gold, then BattleLootItem.quantity native table write.",
+        "actual_receiver": "Random streambelow requires NonZeroU64 at mathematical sampling boundary; actual combined quantities and BattleLootItem are internal aggregation followed by real DB integer boundary, not immediate native RNG return alone.",
+        "boundary_and_disposition": "Earliest quantity producer remains difficulty\u2192gold-cap and realized loot output/aggregation; a coherent canonical amount/nonzero-cap migration must reach real inventory/loot recipients and preserve saturation versus unchecked policies. Do not infer zero-cap ordinary failure, reorder deterministic draws, or add caps. Existing count/overflow/inventory family, no new unique issue."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 102,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/scalp.rs",
+      "sha256": "64a5cc8196a567a3b4d071c355bc491a23956d815c57d4805277bf15b1135304",
+      "source_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "actual_eof": 412,
+      "trace": {
+        "producer": "Surface::new caches CDF/BVH while exposing raw columns; upload_scalp recalculates CDF and narrows raw counts into GpuScalp, but copies stale scalp.area into retained resource.",
+        "retained_and_operations": "GpuScalp raw triangle/vertex/area/boundary fields and public bounds feed read(), counts(), area(), root/guide kernels. read truncates native arrays then reconstructs Surface; no retained device/source identity in this frozen role.",
+        "actual_receiver": "Actual read/count/area APIs in same1-129 body are concrete application recipients; GPU buffers/WGSL need native numbers only at actual dispatch/upload descriptors. Existing exact780S3/NS3 alias confirmed in audit07 reconciliation, relatedNS4 source/channel/device admission stays open in both WIP snapshots.",
+        "boundary_and_disposition": "Carry canonical mesh/boundary counts and admitted coherent area/CDF/source layout from earliest host/native producer through retained state, project only at real GPU/Buffer/scan/sort/launch ports. Keep logical zero closed-boundary distinct from native nonempty padding and separate cut packed limit. No duplicate unique count; neither typed count wrapper nor scoped native publication review clears source family."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 103,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast.rs",
+      "sha256": "55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "source_ranges": [
+        [
+          157,
+          175
+        ],
+        [
+          212,
+          220
+        ]
+      ],
+      "actual_eof": 284,
+      "trace": {
+        "producer": "Native shape-cast docs specify pose/velocity/time input and impact time including legitimate touching0.",
+        "retained_and_operations": "Example derives impact position from initial pose plus velocity*time, demonstrating units rather than new stored domain state.",
+        "actual_receiver": "Already freshly traced native88-93\u2192Avian\u2192camera normal/distance ports preserve actual producer frames; these additional doc ranges establish native time role and zero policy.",
+        "boundary_and_disposition": "Do not force strictly positive impact time or conflate general velocity-based time with Avian unit-direction distance. Native docs are scoped support, not separate application validation or whole frame/numerical guarantee."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 104,
+      "source_id": "pinned-registry:bevy_render_macros-0.19.1/src/extract_component.rs",
+      "sha256": "2deb41c36880e96baffe3899ba832ae528a5cd97eb5bd611272651e032223932",
+      "source_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "actual_eof": 76,
+      "trace": {
+        "producer": "Native ExtractComponent macro reads actual Self component and emits Some(item.clone()) with native QueryData/Filter/SyncTarget.",
+        "retained_and_operations": "Clone preserves actual application field types; no scalar/string flattening or new constructor is inserted.",
+        "actual_receiver": "Bevy extraction trait/framework consumes native query item and output; actual plugin must schedule extraction, as105states.",
+        "boundary_and_disposition": "Real framework Clone adapter is not unfinished bespoke producer by itself. Actual local component schema/primitive uniforms still need original owner trace; derive availability does not certify installed producer or whole render-source coherence."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 105,
+      "source_id": "pinned-registry:bevy_render_macros-0.19.1/src/lib.rs",
+      "sha256": "9f94ce2c2e61634a28dedcca4a440c9ba5332efa3bede22b30d3b0a563d89884",
+      "source_ranges": [
+        [
+          27,
+          62
+        ]
+      ],
+      "actual_eof": 111,
+      "trace": {
+        "producer": "Native macro entry exposes ExtractComponent capability for Clone components and optional filter/sync target attrs.",
+        "retained_and_operations": "Deriving only enables trait; no runtime extraction occurs until actual plugin. Native example flags remain native toy input, not new application roles.",
+        "actual_receiver": "Delegates104 actual clone implementation; framework plugin consumes it when installed.",
+        "boundary_and_disposition": "No repeated admission or primitive escape in macro entry. Preserve distinction between capability and actual producer execution; no imported rendering lifecycle coverage."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 106,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/material.rs",
+      "sha256": "67733383aa74089a84e76448e23b6911132a2a298ab684e44655f8e85fa0765c",
+      "source_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "actual_eof": 203,
+      "trace": {
+        "producer": "Native InstancedMaterial trait provides native shader refs/polygon mode/predicate defaults and specialization hook.",
+        "retained_and_operations": "Associated materialData and native descriptors remain typed SDK/framework schema; bool returns are actual trait adapter predicates, not erased carried game roles.",
+        "actual_receiver": "Actual native material pipeline calls shaders/defaults and specialize with MeshVertexBufferLayoutRef/RenderPipelineDescriptor. No application wrapper extracting/reconstructing same semantic type appears in bounded trait.",
+        "boundary_and_disposition": "Native interface requires those primitives at that concrete framework boundary; do not add incompatible bespoke trait signatures. Original local material parameters/producers remain separate unfinished family; no whole GPU material clearance."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 107,
+      "source_id": "pinned-registry:bevy_render-0.19.1/src/render_resource/bind_group.rs",
+      "sha256": "c0efbc7a55dffa8e71f5a7ff158b5123b2b031f44db99275a61ad6c008dda14f",
+      "source_ranges": [
+        [
+          500,
+          504
+        ]
+      ],
+      "actual_eof": 740,
+      "trace": {
+        "producer": "Native AsBindGroup associated Data/Param declarations define actual prepared-data/system parameter boundary.",
+        "retained_and_operations": "No scalar fields, getter or raw conversion in selected5lines; callers can preserve any actual typed Data.",
+        "actual_receiver": "Native bind-group machinery stores associated Data alongside prepared resource; concrete local implementations own meaning before adapter.",
+        "boundary_and_disposition": "No01 primitive producer gap follows from trait bound alone. Native declaration is support only, not evidence all local Data schemas/updates are coherent."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    }
+  ],
+  "global_clearance": false,
+  "new_unique_count": "not asserted; existing-remedy dedup required",
+  "extra": {
+    "source_basis": "Exact personally consumed100-107 bodies reused as source facts with fresh independent01analysis; no03/07verdict imported. Critical101 actual caller1343-1396 freshly read."
+  }
+}

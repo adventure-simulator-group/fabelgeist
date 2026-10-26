@@ -1,0 +1,82 @@
+{
+  "findings": [
+    {
+      "id": "F1",
+      "classification": "defect",
+      "summary": "All connected texture view construction must honor borrowed-device blocking_validation policy",
+      "locations": "texture_2d::view_with_format; texture_3d::new/view_with_format; texture_cube::new/face_view_with_format/view_with_format",
+      "connected_repair": "Apply existing context policy to validation scopes and polls; update context/texture docs",
+      "acceptance": "owned diagnostic and real cause retained; no borrowed queue drain; existing tests only",
+      "dependencies": [],
+      "discovery": "complete",
+      "repair": "independent source repair committed at 6bab9585a75c6e9fbec713f68aa968bf2e7e03e5",
+      "validation": "preliminary independent Code/Rule source review; hosted validation and final three reviews outstanding"
+    },
+    {
+      "id": "F2",
+      "classification": "admission/aggregate migration gap",
+      "summary": "Independent public cache/native/metadata writes permit relabelled or unrelated cached view",
+      "locations": "three whole-texture structs; TextureView conversion/face constructor; compute/resource/bind consumers",
+      "connected_repair": "Private coordinated metadata and handles, explicit cache/native clearing operations, immutable getters. Keep all four absence combinations, logical sRGB distinction and pointer-sharing. Consume one selected-view record in binding consumers. Also retain/verify actual owning wgpu device for alternate-view error scopes (supplement device-provenance-01); cache-first branch remains independent of unused context.",
+      "acceptance": "No independent cache relabel/resource replacement; same-format detached cache and missing cache precedence retained; all callers adapted without compatibility paths",
+      "dependencies": [
+        "D774",
+        "F3"
+      ],
+      "discovery": "complete",
+      "repair": "not started",
+      "validation": "not started"
+    },
+    {
+      "id": "F6",
+      "classification": "connected cause loss",
+      "summary": "Initial whole-texture and cube-face view construction stringify actual native errors",
+      "locations": "Texture2d::create; Texture3d::new; TextureCube::new/face_view_with_format",
+      "connected_repair": "Retain original wgpu::Error with context through existing result graph; classify face separately if using view owner. Do not fabricate or parse causes.",
+      "acceptance": "Native concrete source preserved through callers; diagnostic context and original request retained",
+      "dependencies": [],
+      "discovery": "complete",
+      "repair": "independent source repair committed at 6bab9585a75c6e9fbec713f68aa968bf2e7e03e5",
+      "validation": "preliminary independent Code/Rule source review; hosted validation and final three reviews outstanding"
+    },
+    {
+      "id": "F9",
+      "classification": "comment accuracy defect",
+      "summary": "Inherited queue-draining rationale contradicts pinned wgpu polling semantics; image-readback documentation is attached to write; view-error absence docs exclude new consumers",
+      "locations": "WgpuContext blocking_validation/submitted_work_done/test rationale; Texture2d::create rationale; Texture2d::write vs image::read_image; TextureViewError module/absence variants; claimed ComputePipeline validation-readback docs",
+      "connected_repair": "Correct current polling description from pinned PollType source; retain deliberate borrowed-context skip policy without asserting inevitable hang or instant owned completion; move existing read_image prose onto read_image; broaden absence error docs to actual consumers. Claimed pipeline doc fix remains under D774 agreement. No new tests/cases/assertions.",
+      "acceptance": "Independent Comment Review accepts precise current wording at final snapshot; native SDK references and empirical limits distinguished; original test assertions/inputs unchanged.",
+      "dependencies": [
+        "D774 for claimed pipeline doc"
+      ],
+      "discovery": "complete with source-backed preliminary reviewer evidence",
+      "repair": "independent C1-C3 corrections committed and accepted in targeted independent re-review; claimed pipeline comment remains D774",
+      "validation": "targeted Comment re-review accepted independent corrections; final complete revision not yet available"
+    }
+  ],
+  "validation_scope_policy": {
+    "head": "6bf03a8d04bf246c996bbbfa17c1925ebd150c38",
+    "known_sites": "23 exact wait sites: W01-W18 root; W19-W23 peer",
+    "proposed_contract": [
+      "Native ValidationScope::new(&WgpuContext)->Option<Self> owns exact ArcDevice+SDKguard; finish()->ValidationScopeResult<()> preserves wait-then-pop, alwaysscopepop evenpollfailure. None for borrowedfalse; browser native-sites cfgskipped.",
+      "ValidationScopeError Native(actualwgpuError) vs Progress{actualPollError,optionalactualnativeError}; standardprimarysource isearliercapturednative ifpresent, pollotherwise; both structuredcausesavailable. Native-only view/errorvariants/directSDKcause/Display unchanged.",
+      "ComputePass/Pipeline/Shader owning errorconversions mapNativeunchanged, newProgress ownsretainedcause; TextureView Progress retainsexactoriginalformat+closedoperationrole.",
+      "Transient Progress nevercachedorReady; removeolderuncheckedentry on failedre-observation, retrylater; ordinaryNative-only rejection cacheexact.",
+      "Nestedearlieroperationfailure staysprimary, outerguardalwaysread; typedcomposite retainsbothbody+observation instead ofmaskingearliererror. ExistingBody/Observation-only diagnosticsunchanged.",
+      "Immediate observe_validation/submit, mappingcleanup, callback/readbackcompletion remainseparatecontracts; no new synchronousborrowed/browsernativeverdict."
+    ],
+    "SDK_proof": [
+      "wgpu-types29.0.4 PollType::wait_indefinitely usesNone index/timeout; PollError Timeout/WrongSubmissionIndex areactualSDKclasses",
+      "wgpu-hal29.0.4 gles/device.rs1596 waitNone clampsu32MAXnanoseconds; fencewaitfurtherbackendlimit sourceunderreview. coredevice/resource.rs maintain returnsTimeout iftargetunfinished; NativePollError therefore real, not merelyhypothetical.",
+      "wgpu29.0.4 backend/wgpu_core.rs pop_error_scope returnsready(scope.error), SDKguard !Send/Sync andDrop immediatelypops; fatalDeviceerrorsstillprovidercontrolled, not returnedPollError."
+    ],
+    "acceptance": [
+      "All13 discovery complete before repair, full23site ownership/cause/state table andaffectedunchangedadmissions",
+      "Directnativecauseidentity/source/display andactualoriginalrequestedformats preserved; same tests/cases/oracles/nohelpers/assertions/doctestsadded",
+      "Rootandpeer connected scope callers integrated beforepush/CI; allglobal13/full3reviews/requiredhostedchecks atsamefinalrevision"
+    ],
+    "owner_agreement": "Peer explicitly accepted actualDevice+guard ValidationScope factory/finish, no parallelhelper; peer continuesfivecachedcallers afterexactRootsourcepin. Source contracts/canonicalProducers independentlyinprogress, no sourcepush/CI.",
+    "cache_policy_detail": "Progress invalidates/removes older DeviceHandled entry for this exactentry, isnotcachedanddoesnotcompilePreparedstate; Native-only rejected/accepted cachebehaviorunchanged. Both earliestbody+observation causesretainedviaowningComputePassError resolve_observation; directnativeonly variants/Display unwrappedunchanged."
+  },
+  "status": "Historical requirements and source navigation; semantic conclusions below come from fresh listed source bodies, not inherited verdicts."
+}

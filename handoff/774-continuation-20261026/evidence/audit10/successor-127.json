@@ -1,0 +1,64 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-127",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1860,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "5d114988a64595879b04e6f151d2a184cdf8f893f2f2b17a9987a3faf933d4ab",
+      "ranges": [
+        [
+          1,
+          826
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh full826line requested combat configuration owner read1-225/226-450/451-665/666-826. Config records already derive selected Clone/Copy/Debug/PartialEq/Resource/serde deny_unknown_fields; error derives thiserror. Manual Default clones validated compiled canonical YAML, not field defaults. Manual From<&'static str> for TacticalCombatConfigError is direct Validation variant construction. Other functions validate supplied bounds/interdependent controls, hash only validated serialization and classify body-part index. Existing cases inspect canonical/invalid configurations.",
+      "disposition": "Retain semantic canonical Default and validation/digest logic. Same mechanical error conversion candidate family002 occurrence003 proves selective derive_more::From equivalence without adding Serialization(String) API or thiserror source-chain changes. No new unique finding count, config/numeric/runtime acceptance or implicit child-module credit.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1861,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/ai_offense.rs",
+      "sha256": "ee4573d3b48808c80f0dcea6b98ccbb8b44ef4d1120c6c8b0889571c572b982c",
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh full37line requested AI offense configuration. Existing basic/serde derives cover its representation. Manual Default clones the offense projection from the validated compiled canonical YAML. has_valid_intervals checks actual typed/native cross-field range constraints.",
+      "disposition": "Retain semantic configured Default; ordinary derive would construct different zero/field defaults and require additional traits. Interval checking is semantic. No derivability candidate or AI/config acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1862,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh full26line requested canonical default source. No handwritten trait/codec. LazyLock parses one exact embedded YAML, validates canonical configuration and preserves concrete fatal setup failures. canonical() returns a shared validated immutable value; deserialization and validation do not recurse through runtime snapshot.",
+      "disposition": "No derivability candidate. Source-dependent parsing/validation and lazy initialization are semantic rather than mechanical field defaults or serialization boilerplate. No execution/initialization acceptance inferred.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

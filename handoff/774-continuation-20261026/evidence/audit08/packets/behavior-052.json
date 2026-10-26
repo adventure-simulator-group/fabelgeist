@@ -1,0 +1,53 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-052",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1605,
+    1606
+  ],
+  "source_pins": [
+    "source-pins-and-scope-079.json",
+    "support-tree-source-pins-078.json"
+  ],
+  "source_reads": {
+    "1605": {
+      "head": [
+        [
+          1,
+          402
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1606": {
+      "head": [
+        [
+          1,
+          629
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          70
+        ]
+      ],
+      "prior_personal_range_reused": "263-269 in051; other ranges freshly read"
+    }
+  },
+  "support": "support-scene-elevation-range-080.json",
+  "analysis": [
+    "1605 complete402 source is byte-identical. Actual1600 projected leaf/trunk/aggregate visibility helpers receive the same native camera projection/viewport and clamped scale, optional cluster radius, forced representation and benchmark isolation. Same selected markers, abrupt forced range, representation filter, and only-write-on-change semantics. Entire existing component-cold/idempotence and isolation fixture bodies/oracles read without execution.",
+    "1606 entire629 current source and70 actualdiff read. Changed bark APIs retain SceneElevationRange until native Vec4 terrain_surface port, replacing old .x/.y with minimum().metres()/maximum().metres() only. Actual1905 range owner stores finite SupportElevation endpoints unchanged, permits equality and preserves order <=; getters return the same endpoints. Existing fixture admits exactly old-.075/.705 values with all original bark/soil material oracles unchanged.",
+    "Actual1699 native receiver1476-1483 already read in072 constructs TerrainContactHeightmap and passes its range/image into oak_bark_material. The remaining contact-heightmap producer role stays queued for its own full source/diff comparison; this material consumer introduces no new arithmetic or fallback.",
+    "All species textures/optics and raw parameter values, native material fields/bindings, semantic shader payload, aggregate relief-free specialization, alpha-to-coverage/no-shadow/no-prepass/culling and linear color conversion are unchanged. All material fixture bodies and source-string oracles read; external shader contents were not counted as read by include_str. Native shader/render acceptance remains separate.",
+    "Core range-owner reduction explicitly rejects an empty or nonfinite sample set; equal finite elevations remain admitted. New finite-error policy belongs to canonical terrain support/contact producers and is not confused with altered valid-value material output. Arbitrary raw/native asset validity and platform portability are not universally cleared."
+  ],
+  "findings": [],
+  "qualifications": [
+    "Frozen6533 source only; no current CI source/results substitution.",
+    "1607 actual publication/residency and1609 new component/serialization edge remain pending, as do deeper contact/native shader roles.",
+    "All prior findings/policy qualifications preserved. No checks/tests/builds or source/Git mutation; no global clearance."
+  ],
+  "global_clearance": false
+}

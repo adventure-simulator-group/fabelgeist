@@ -1,0 +1,43 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-359",
+  "at": "2026-10-25T23:36:54.532701+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 83,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/defense.rs",
+      "sha256": "a3019cfa64106abc38bbfa7b0962e406cc6cb1a1a663a8a0dfdee71f874201e1",
+      "personally_read_ranges": [
+        [
+          1,
+          444
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full444line P16 defense source read. Committed decision computes sunk-work versus intercept-benefit from one snapshot of contact lag/windup/recovery/impairment/inertia/repeated interception count and sampled behavior; nonpositive own contact lag deterministically finishes. Public scalar facts still require finite/whole temporal correlation admission.",
+        "Weapon alignment retains attempted/effective response, raw alignment sample, derived probability and engagement; sample is clamped for inverse logistic but recorded raw. Body-side shield geometry maps same contact to resting-hand distance and attenuates or rejects block. Missing shield side leaves response unchanged, narrowing relevance of71 abstract shield-side absence to producer policy rather than a missing-row crash.",
+        "Performance scales one response-specific dimension: block effectiveness, parry precision, dodge reflex. Factor/rebound/classification functions preserve response variants. Finite normalized inputs keep engagement bounded, while NaN/raw Inf windup/inertia can propagate; actual real producer constraints/dedup required, no new finding. All inline tests read, not run."
+      ]
+    },
+    {
+      "scope_index": 84,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/fatigue.rs",
+      "sha256": "823dc22517760aafcf6f7107becb2e1d9c647c685bfe5022f7865d7739cb52f5",
+      "personally_read_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full263line P16 fatigue source read. One metabolic workload scalar is produced from action kind, duration-clamped weapon translation/rotation energy or dodge moved mass, divided by mechanical efficiency; application increments one fatigue fraction with capacity based on endurance. Rest and movement rates use same capacity/parameters, with explicit sustainable-speed comparison.",
+        "Parameter validation remains external and not invoked inside workload/recovery/rate functions; individual valid elapsed/speed leaves can be zero, and raw mass/endurance/workload plus products can overflow or produce0/0. NonnegativeSpeed sustainable zero with positive effort givesInf rate; accepted actual movement owner/config bounds needed before a defect claim.",
+        "All source/tests read without running. This establishes workload-kernel behavior, not that every actual ranged/movement event charges it; earlier battle receiving questions remain open. No new hidden fatigue pool represented here and no whole UI legibility clearance."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

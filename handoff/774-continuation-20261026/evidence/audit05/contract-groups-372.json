@@ -1,0 +1,58 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-372",
+  "at": "2026-10-25T23:49:59.343711+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 150,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_economy.rs",
+      "sha256": "0821918d44bc66de59484518b50255c6a75b8001427feaa6ab8309a7a8ec7e5c",
+      "personally_read_ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered economy body1-143 read. Unit quote f32 conversions can saturate before checkedu64 extension; exactP16 source supports existing ROOT-INITIAL04-F034 (u32MAXbuy and f32MAXfoodlot), no ordinaryauthoredprice/lot or executedtradeclaim. Foodlotnegative/nonfinite rejected and subcoinfoodremainder canzero; wholeitemsellminimum1 distinctintent.",
+        "Inn daycount uses quotient+singlepartialday and checkedmultiply; zerochargeforzero duration. Party payment uses sharedfundsfirst/saturatingsum onlyforaffordability, min/subtractionavoidsoverspend whenmathematicalsum>u64MAX. This is distinct from personal-before-stake budget151, not automatically inconsistent same-sourcepolicy. Medicinal valuesexactclosedlookup; no externalbalanceclearance."
+      ]
+    },
+    {
+      "scope_index": 151,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_inventory.rs",
+      "sha256": "d271b63418f6ef51f276ab1e383bb534724f08ae106ffd7285f530e0308fef3e",
+      "personally_read_ranges": [
+        [
+          1,
+          455
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered inventory body1-455 read. NonZero CoinAmount privateleaf and paymentauthorizationplan guarantee nonzerototal andrequiredstake<=maximum, personalfirst; variants structurallyexcludeemptyzero funding sources. Publicenum still can combine legitimateCoinAmounts fromdifferentplans, so aggregateauthorizationmembership requirescurrentplan/receiver handling, nottypealone.",
+        "Provider selection rejects missing/second entry andonlythencheckednonzero; duplicate sameID stillAmbiguousbyexactcardinality. Merchant route ties serviceandlocation privately and deliberatelyrejectsherbalist as existingteststates, distinctfromgeneralavailability135. Tradequantity privatelywrapscheckednonzero; parsevalidatesparallelvectoralignment beforezip; partyofferaddsemptyreject. IDs/membership/duplicates/quantitysum arelaterauthoritycontracts; StorefrontTradeRequest itself permitsboth-empty bydesignhere, notordinarymutationwithoutactualreducer trace. Existingproducererasure CAM-PROP-F021 metadata preservedseparately, no importedcredit. Testsreadnotrun."
+      ]
+    },
+    {
+      "scope_index": 152,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_presence.rs",
+      "sha256": "2eeea5c9831e10b7c5d51d0d3f61b0093ce8c682bd0994d2c94de50aa3354a52",
+      "personally_read_ranges": [
+        [
+          1,
+          365
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read exact registered material union1-365, nottesttail366-662 ordeclaredcontextmodule. Privatepresence constructors encodeplace/basis/frontier, but validatedvenue constructor requirescaller-navigationvalidation externally and publicfrontierobserverisnot automaticallyownercharacter. Refinementrequirescoarsesettlementbasis/samesettlement/exactvenue; residence requiresnotfuture,activeholding andtypedresidence, while actualoccupancyedge suppliedbyadapter.",
+        "Scheduledresident requiresalive/exactvenueanddelegatesdurationtoDailyPresenceWindow atobserverminute. Caseoccupancy andcontextmembership requireflags andexplicitcontext/revisionchecks but do not proveactualDBfacts or place/contextcorrelation themselves. Suppression checksrecovery>=contracted, returnshealthsuppressedfordead andhistoricalactivecourseindependentoflaterremediation; remediationchronologyrelativetocontraction isnotvalidatedhere, noactualproducerinvalidfactwitness.",
+        "Dailywindowboundsallow1440 endpoint and delegatesremaining/waitdaywrap toStrategicMinute owner; start=end rejectsminutesuntilstart butremainingdelegate ownsoutcome. are_co_present compareswholefrontier+canonicalplace, preservingobserverchronologyandcoarse/exactdistinction. Necessarycalendarreceivingsemantics remainseparate; notwholecalendar/sourceclearance."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "scope_authority": "original-scope-072.json full150/151, bounded1521-365; no laterstage verdict imported."
+}

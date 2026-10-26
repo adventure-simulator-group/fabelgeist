@@ -1,0 +1,110 @@
+{
+  "id": "ADLER-CONT01-LATER-003",
+  "lens": "producer-propagation",
+  "registry_sha256": "01e11726b2c32ab6f86d513d62a5aa88980e29a8b2ccaf8716319bf0e7629459",
+  "receipts": [
+    {
+      "extension_index": 76,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/viewer/capture.rs",
+      "sha256": "de950524563388fee6bf5f849cc9cf10683a7eb8befcacdb3ebb8a0d562b3521",
+      "source_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "actual_eof": 56,
+      "trace": {
+        "producer": "Capture reads current typed Recipe/RecipeOrigin/PlantLod from Editor plus Options Seed/View, regenerates actual specimen and obtains eye/target from same parameters.",
+        "retained_and_operations": "Typed recipe/LOD/seed/view are serialized directly into JSON sidecar; only camera arrays, mesh lengths/indextriangles and native file names are projected at actual artifact boundary. Frame counter60/90 and warmup select two capture requests.",
+        "actual_receiver": "Actual Bevy Screenshot observer48-54 calls native save_to_disk(M78) and then unconditionally AppExit::Success on second capture. Native helper logs IO/format failure and returns unit, so caller receives no writer result.",
+        "boundary_and_disposition": "Typed recipe propagation reaches metadata without reconstructing owner from preset text; presetname is optional display provenance. Screenshot-save error observation is a source-backed unfinished producer/receiver family: failure can be logged yet caller reports success and sidecar already exists. Preserve original P17/capture findings and dedup before count; scope observation does not prove current image/cohort or render output. Physical.generate expect/IO panic and output cohort remain existing audit obligations, no new tests."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 77,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/sigil.rs",
+      "sha256": "938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+      "source_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "actual_eof": 83,
+      "trace": {
+        "producer": "Sigil owns closed five-choice vocabulary and ALL cardinality; serde/FromStr admit only canonical variants.",
+        "retained_and_operations": "Typed Sigil remains enum for puzzle clue/solution/submission. stable_id and label are separate projections; parsing reuses Deserialize, not label text.",
+        "actual_receiver": "Newly read analysis80 actual rune query/answer vectors and solution enumeration retain Sigil through apply_rune_route and sort/dedup, with only solution counts projected numerically. Concrete stable_id strings terminate at submission/wire boundary from completed original puzzle adapter family.",
+        "boundary_and_disposition": "No repeated string\u2192same owner reconstruction is introduced in this owner/analysis path. Do not unify display label with stable vocabulary simply because current labels match IDs; preserve distinct intent and existing checked submission policies."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 78,
+      "source_id": "pinned-registry:bevy_render-0.19.1/src/view/window/screenshot.rs",
+      "sha256": "f49e4ca4f0929fc51a5c55fc002294c6009ae7a4c1c07dc6ef6c8ff737df0c5b",
+      "source_ranges": [
+        [
+          125,
+          240
+        ]
+      ],
+      "actual_eof": 702,
+      "trace": {
+        "producer": "Native ScreenshotCaptured contains actual Image; save_to_disk derives dynamic image and image format from path, writes native image or browser download.",
+        "retained_and_operations": "Closure retains owned path and returns unit. Native image conversion/format/IO/browser errors all terminate in logs; callback never exposes Result to76. trigger_screenshots forwards actual captured image from channel.",
+        "actual_receiver": "Plant capture76 calls returned native closure then writes AppExit::Success for image1 regardless of logged failure. Real file/image/browser APIs justify raw path, bytes and pixel encodings, not success erasure.",
+        "boundary_and_disposition": "Native writer is terminal encoding port but observing successful capture event is not successful persistence. Connected application error producer must observe real write outcome and carry it to exit/manifest acceptance rather than infer success from unit callback. Do not alter upstream SDK; use an actual fallible writer path at owning application boundary if repaired. Existing screenshot/fixture family dedup required."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 79,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/witness_path.rs",
+      "sha256": "363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+      "source_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "actual_eof": 75,
+      "trace": {
+        "producer": "WitnessPath closed enum owns Ash/Moon/Thorn with ALL and serde parser.",
+        "retained_and_operations": "stable_id is canonical submission key; label deliberately adds human-facing path wording. FromStr uses same canonical serde membership, not text label.",
+        "actual_receiver": "Actual analysis80 conclusions collect Vec<WitnessPath>, sort/dedup and count only at diagnostic calculation. Private solution/public offered path/submission remain typed in original puzzle authority family.",
+        "boundary_and_disposition": "Native text projection is at real form/serde boundary; no need another string wrapper or display parse. Full puzzle constructor/choice consistency remains original baseline obligation, not inferred from enum owner alone."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 80,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/analysis.rs",
+      "sha256": "fb36566c1c5d3a10b22638406e6341f7fcd427c4226b20604e56153dc380caeb",
+      "source_ranges": [
+        [
+          1,
+          348
+        ]
+      ],
+      "actual_eof": 348,
+      "trace": {
+        "producer": "PuzzleAuthority::analysis consumes all five typed puzzle variants, canonical solver outputs and typed clues/specs/paths/gates/operations/Sigil.",
+        "retained_and_operations": "Solver result identities remain typed until counts/logarithm-based diagnostic metrics. Rune helper carries RuneGate/RuneOperation/Sigil through local laws and apply_rune_route; WitnessPath remains typed through conclusions. Returned PuzzleAnalysis retains raw u16/u32/f32 diagnostic measures and per-fact counts, with intentional saturating products and max1 logarithm policy.",
+        "actual_receiver": "analysis is actual semantic receiver used by original generation/replay complexity/report fixtures (registry reason), and derives Serialize for report boundary; no new application re-admission of Sigil/Path from primitive within body. Full methods and recursive helper1-348 personally read.",
+        "boundary_and_disposition": "Choice producer propagation is source-backed throughout bounded analysis. Metric width/admitted-size policy and ordered/grid possible_answers=1 uniqueness assumption remain actual producer/admission/analysis family obligations; arbitrary public inconsistent authority can make assumptions false, while ordinary validated generators are not proved failing here. Do not treat experimental structural score as calibrated character difficulty or add hidden gameplay modifiers. Preserve known puzzle findings/questions; no new unique count or whole-family clearance."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    }
+  ],
+  "global_clearance": false,
+  "new_unique_count": "not asserted; existing-remedy dedup required",
+  "extra": null
+}

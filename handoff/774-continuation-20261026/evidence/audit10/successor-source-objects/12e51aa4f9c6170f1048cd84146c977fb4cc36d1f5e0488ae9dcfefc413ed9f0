@@ -1,0 +1,50 @@
+[package]
+name = "strategic-web"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "strategic-web"
+path = "src/main.rs"
+
+[dependencies]
+fabelgeist-determinism = { path = "../fabelgeist-determinism" }
+adventuresim-core.workspace = true
+adventuresim-building-generator.workspace = true
+adventuresim-dialogue.workspace = true
+adventuresim-puzzles.workspace = true
+adventuresim-stdb-client.workspace = true
+adventuresim-world-schema.workspace = true
+adventuresim-tactical-core.workspace = true
+adventuresim-tactical-server-dispatcher = { path = "../adventuresim-tactical-server-dispatcher" }
+adventuresim-weapon-model.workspace = true
+adventuresim-terrain = { path = "../adventuresim-terrain" }
+anyhow = "1"
+axum = "0.8"
+axum-extra = { version = "0.10", features = ["cookie"] }
+base64 = "0.22"
+getrandom.workspace = true
+hmac = "0.12"
+tokio = { version = "1", features = ["full"] }
+futures-util = "0.3"
+form_urlencoded = "1"
+maud = { version = "0.26", features = ["axum"] }
+reqwest = { version = "0.12", features = ["json"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2.workspace = true
+spacetimedb-sats.workspace = true
+tower-http = { version = "0.6", features = ["fs", "compression-br", "compression-gzip"] }
+tower = { version = "0.5", features = ["util"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+clap = { workspace = true }
+thiserror = { workspace = true }
+
+[dev-dependencies]
+axum = { version = "0.8", features = ["ws"] }
+serde_urlencoded = "0.7"
+
+[lints]
+workspace = true

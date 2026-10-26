@@ -1,0 +1,11 @@
+{
+ "id":"OWN10-QUALIFIED-CANDIDATE-005",
+ "scope_index":1775,
+ "path":"crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+ "range":[82,86],
+ "implementation":"Owned From<AnimationSampleRate> for f32 projects rate.frequency.hertz(), leaving checked reciprocal interval unencoded",
+ "potential_existing_adapter":"Existing derive_moreInto target f32 with checked frequency field retained and interval ignored, if exact pinned macro supports this selected-field shape. AnimationFrequency already derives Into<f32> in same owner20-22.",
+ "status":"QUALIFIED_CANDIDATE_REQUIRES_EXACT_MACRO_SOURCE_AND_SELECTED_FIELD_API_PROOF_NOT_NEW_FINDING",
+ "needed_proof":"Prospectively registered derive_more-impl2.1.1 Into expansion must support explicit target/field ignore without introducing borrowed conversion APIs or tuple return shape. Preserve exactly owned From<AnimationSampleRate> for f32 and original stored frequency bits. No recomputation from reciprocal.",
+ "qualification":"Current implementation is correct; keep until exact source equivalence and global saved-remedy dedup. No local check, macro execution, source mutation or independent unique finding."
+}

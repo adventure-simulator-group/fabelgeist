@@ -1,0 +1,43 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-387",
+  "at": "2026-10-26T00:07:12.481857+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 242,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/repair.rs",
+      "sha256": "059b098c4d5f5c79ce5f04d376a03631e5d78b601474c3f151881ccae4a66d45",
+      "personally_read_ranges": [
+        [
+          1,
+          726
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozenrequested repair1-726 read. DamageBins normalizedboth read/write, repairOrder linksowner/item/settlement/quotedcost/readytime/savedplacement+targets. Submission requirescurrentsettlement,oneownedinstance,noexistingorder, servicekind+actualsmithskill, existingrepairablebins. Capturesallparentrequirementsordered, rejects equippedchildren beforeescrow, detachesphysicalobject thenmovesnativeinventoryowner0 andstoresorder, refreshcapability/condition.",
+        "Single-entryerrors propagate; submit_all catchesOperation variants andcontinues, whilelateroperationerrors canoccurafterescrow/orderwrites (refresh/condition paths). Thus no blanketper-itemno-oponfailure; actuallatefailurewitnessandoutertransactionpath neededbeforepartialbatchfinding. Noexplicitsender/livingauthorityguard inpublicsubmit/retrieveentryhere, actualglobalSDK/gatewaypolicy remainsquestion as221.",
+        "Retrievechecksowner/currentsettlement/readiness, chargesquote thenvalidatesescrow andcondition, repairsbins, returnsinventory/physicalobject, restoresplacement anddeletesorder thenrefreshes. AllunexpectedErr propagatesincludingbatchretrieve, soDBtransactionrollbackapplies; errorprose complete-but-graphcannotrestore doesnotprovecommittedrepair. Savedtargetconditionfieldnotusedtorepair (bins.repair_throughfrozsmithskill instead), currentcondition-underescrowwriterpolicy requiredbeforestalequote/conditionfinding.",
+        "Fieldrepair capseligibleskill2 andconsumesboundedminutes acrossinventoryiteration, noIDsorthere; whichitemgetsbudgetcanfollowDBiterationorder, actualpersistenttableordering/desiredpolicy separate. Impactlocalizeddamagedistributionusescanonicalprofile/qualityandsoftwear80/20split, missingrefs skipwithoutordinarybadrowclaim. Simulatorwearseed checksownedrun+claimedcharacter+itemownership. Existingtestsreadnotrun, no globalfinite/admission/escrowclearance."
+      ]
+    },
+    {
+      "scope_index": 243,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/repair/smiths.rs",
+      "sha256": "9f6f941a9c20133485bdb87f96731d858974bde4c8f173fd90da3f51fc1227a6",
+      "personally_read_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered smiths1-61 read. Stablederivationseparateweapon/armor/tailorstreams yields3..5 andexistingrowreturnedunchanged; actualseededcraftrowadmission beyondhelperseparate. service_skill requireskind'sspecialistservice orGeneralBlacksmith, thenreadsactualcorrespondingcraftskill; clothingGeneralBlacksmithfallbackiscurrentexplicitpolicy, notautomaticlexicalmistake. Servicepresence/routingdependsactualrequire_settlement_servicecallee. No execution/newtest."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "scope_authority": "original-scope-072.json fullrequested242 andmaterial243. No newacceptedfinding."
+}

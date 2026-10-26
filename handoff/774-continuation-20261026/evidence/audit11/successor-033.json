@@ -1,0 +1,87 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-033",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 476,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/server_event.rs",
+      "sha256": "7581eeb1d81d9aca0af14bf56033e76b351ceb6237d950b42639821ea8c18a97",
+      "ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "source_basis": "FreshrootexactregisteredpinnedSDKcontractranges; repeatedsourceSHArolesindependentlyread.",
+      "concepts_actual_uses_and_mixup": [
+        "SDKServerEvent registration groupsEventtype/channel/serializer/deserializer/trigger. Mappedserverevent selectsactualmappedincomingfunction, which preservesvalue/entitymapping distinction. make_event_independent changesreplicationorderingpropertyonlyaftermatchingpreviousregisteredmessageID; notapplicationauthority. Erasedtypedtriggerretainstypeassociationpreconditions. Only1-170registered; finalaccessorbodyunread."
+      ],
+      "disposition": "Own11accountedWITHlowerprotocol/component/SDKsafetylimits; no newuniquefinding or network/runtimeclearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 477,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/server_message.rs",
+      "sha256": "45e815a2ac1b0e0c9117be00cbb45355a5085ed54c1e0225c82c4d5a3901532d",
+      "ranges": [
+        [
+          721,
+          747
+        ]
+      ],
+      "source_basis": "FreshrootexactregisteredpinnedSDKcontractranges; repeatedsourceSHArolesindependentlyread.",
+      "concepts_actual_uses_and_mixup": [
+        "Servereventdefaultencode/decode followsactualPostcardSerde, mappeddecode mapsentities afterdecoderOk. SpecificapplicationDeserialize mustownsemanticchecks; actualwiretype/formatcompatibilitystillrequiresproducer/componentscope, notprovedbySDKgenericbound."
+      ],
+      "disposition": "Own11accountedWITHlowerprotocol/component/SDKsafetylimits; no newuniquefinding or network/runtimeclearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 478,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/registry/rule_fns.rs",
+      "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+      "ranges": [
+        [
+          65,
+          115
+        ]
+      ],
+      "source_basis": "FreshrootexactregisteredpinnedSDKcontractranges; repeatedsourceSHArolesindependentlyread.",
+      "concepts_actual_uses_and_mixup": [
+        "RuleFns<C> privatelycouplesencode/decode/inplace/consumeoperations; newconstructsdefaultinplaceandconsumefromspecifieddecoder, new_as<T> usesinfallibleFrom/Intoatnativeprojectionboundary. Thisreadcomplementsdifferentrole470rangeswithoutcoveragebytransfer; nativeunsafeerasurefragmentnotfullsafetyproof. with_inplaceclosingtailunread."
+      ],
+      "disposition": "Own11accountedWITHlowerprotocol/component/SDKsafetylimits; no newuniquefinding or network/runtimeclearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 479,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/rules.rs",
+      "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "ranges": [
+        [
+          748,
+          809
+        ],
+        [
+          901,
+          939
+        ]
+      ],
+      "source_basis": "FreshrootexactregisteredpinnedSDKcontractranges; repeatedsourceSHArolesindependentlyread.",
+      "concepts_actual_uses_and_mixup": [
+        "CustomreplicationruleAPIacceptswholecomponent_rules, computesnativepriority/filtercomposition and registerscomponentfns,filtersandprioritytogether. ActualR::into_rules/registryreceiverunread, no typeIDunsafeorapplicationdecoder/fullgraphclearance. Registeredtwochunksonly, trailingbundlefunctionfragmentnotbodycredit."
+      ],
+      "disposition": "Own11accountedWITHlowerprotocol/component/SDKsafetylimits; no newuniquefinding or network/runtimeclearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

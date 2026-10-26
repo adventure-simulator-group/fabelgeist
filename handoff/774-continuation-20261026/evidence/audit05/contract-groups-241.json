@@ -1,0 +1,28 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-241",
+  "at": "2026-10-25T22:07:59.086504+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2360,
+      "source_id": "pr-working:crates/strategic-web/src/routes/data.rs",
+      "sha256": "2cba5629aedb862b8c04b750219bef16c9eba8b47116c75b3e8cda4cf21791bb",
+      "personally_read_ranges": [
+        [
+          1,
+          308
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Shared data loader distinguishes incomplete cache None from complete empty Some(None); complete subscribed Character cache wins, but private case-site projection is separately fetched through HTTP SQL and checked CaseSiteId before mutating retained CharacterView. No shared cache authorization guarantee inferred.",
+        "Cross-character mutable read requires subject frontier<=observer, equal-frontier helper exists for co-location. Self short-circuits first predicate intentionally. Actual character_as_observed gates before loading mutable fields; scene-equipment bypass already exact RIG-ADMISSION03-F085. Separate life-only helper intentionally uses effective-dated death history without unrelated mutable-frontier gate.",
+        "project_alive_as_observed joins observer minute and each dead character death record, hides future death; missing/error chronology explicitly renders alive to preserve availability and leaves reducer authority. This represents uncertain state as presentation bool by written policy, not proof of actual alive; retain policy qualification rather than assert an ordinary live-state defect.",
+        "new_id projects system wall-clock microseconds to u64 without independent uniqueness guarantee; actual recipient reservation/dedup contract needed before collision finding. Tests personally read only."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,63 @@
+diff --git a/crates/adventuresim-tactical-core/src/animation/calibration_parameters.rs b/crates/adventuresim-tactical-core/src/animation/calibration_parameters.rs
+new file mode 100644
+index 000000000..55fbd977c
+--- /dev/null
++++ b/crates/adventuresim-tactical-core/src/animation/calibration_parameters.rs
+@@ -0,0 +1,57 @@
++//! Authored contact-window scale and periodic fit-grid extent.
++
++use super::{AnimationQuantity, AnimationValueError, AnimationValueResult};
++use serde::{Deserialize, Serialize};
++
++/// Positive finite multiplier of the observed foot-height range; not bounded by one.
++#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize, derive_more::Into)]
++#[serde(try_from = "f32", into = "f32")]
++pub struct ContactHeightScale(f32);
++
++/// At least three intervals in the authored periodic phase-fit grid.
++#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize, derive_more::Into)]
++#[serde(try_from = "u32", into = "u32")]
++pub struct PhaseCalibrationIntervals(u32);
++
++impl ContactHeightScale {
++    pub fn from_factor(value: f32) -> AnimationValueResult<Self> {
++        if !value.is_finite() {
++            return Err(AnimationValueError::NonFinite {
++                quantity: AnimationQuantity::ContactHeightScale,
++            });
++        }
++        if value <= 0.0 {
++            return Err(AnimationValueError::NonPositive {
++                quantity: AnimationQuantity::ContactHeightScale,
++            });
++        }
++        Ok(Self(value))
++    }
++    /// Native multiplier in the completed height-range/window-clamp kernel.
++    pub fn factor(self) -> f32 {
++        self.0
++    }
++}
++
++impl PhaseCalibrationIntervals {
++    pub fn count(self) -> u32 {
++        self.0
++    }
++}
++
++impl TryFrom<f32> for ContactHeightScale {
++    type Error = AnimationValueError;
++    fn try_from(value: f32) -> AnimationValueResult<Self> {
++        Self::from_factor(value)
++    }
++}
++
++impl TryFrom<u32> for PhaseCalibrationIntervals {
++    type Error = AnimationValueError;
++    fn try_from(value: u32) -> AnimationValueResult<Self> {
++        if value < 3 {
++            return Err(AnimationValueError::InsufficientPhaseIntervals { actual: value });
++        }
++        Ok(Self(value))
++    }
++}

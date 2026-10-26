@@ -1,0 +1,102 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-227",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 2243,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "8cb7511310b96d6e799dd584a3a6f64270c73ee3abbb50a7f730831938ef2fcf",
+      "ranges": [
+        [
+          1,
+          379
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh whole unchanged reached kernel-fast379 hair018/construction021/bytes022. UniformArena Default already derived; no handwritten trait/codec. Actual batch-owned allocation, native pipeline validation, reflection shape eligibility, fresh bind groups, dynamic offset and scalar/vector/matrix LE packing read.",
+      "disposition": "No derivability candidate. Semantic native layout/packing/lifetime policy remains explicit; no GPU/cache/device/size invariant clearance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2244,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+      "ranges": [
+        [
+          1,
+          406
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh whole unchanged reached kernel406. Handwritten Kernel Debug reports entry/workgroup plus computed cached flag while hiding pipeline; PartialEq compares shader source only. Cache structural derives existing. Actual compile serialization, reflected entry/fast path, shared cache, folded grid, zero no-op, copy/clear/submit/callback and existing borrowed-context case read.",
+      "disposition": "Keep semantic Debug and source-only equality: structural derives change observable fields/equality and native pipeline requirements. No full cache/device/coherence or GPU acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2245,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/prelude.rs",
+      "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh whole Compute prelude16 canonical crate/native internal imports and owning math/anyhow exports; no handwritten trait/codec.",
+      "disposition": "No derivability candidate; reexport/import metadata provides no source/runtime credit elsewhere.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2246,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/readback.rs",
+      "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "ranges": [
+        [
+          1,
+          294
+        ]
+      ],
+      "scope_kind": "materially_reached_producer_contract",
+      "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh whole registered producer readback294 PPS009 using exact6533 real path despite SNAPSHOTS display name. Existing structural/thiserror derives with typed concrete poll/map causes; no handwritten trait/codec. Actual aligned checked staging extent, deferred callback, async map, Pending/Ready/Failed/Taken mutex transition, poison policy and existing cases read.",
+      "disposition": "No derivability candidate. Explicit asynchronous ownership/one-shot native mapping semantics remain necessary; no progress/extent/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2247,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/sort/mod.rs",
+      "sha256": "2cf6b4446ab00dce84c8b3169d9685d3b2e304b869f4c25d0e4322c7bedf9634",
+      "ranges": [
+        [
+          220,
+          305
+        ]
+      ],
+      "scope_kind": "materially_reached_producer_contract",
+      "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh exact producer sort220-305 PPS009, not full327lines. No handwritten trait/codec in range. Actual low-bit pass calculation, count/scratch/native buffer checks, histogram/scan/scatter ping-pong and odd-pass copyback read.",
+      "disposition": "No derivability candidate in reached range. Semantic dispatch ordering/native size adaptation remains explicit; no sort/GPU/index invariant clearance.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

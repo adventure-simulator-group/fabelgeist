@@ -1,0 +1,21 @@
+{
+  "id": "OWN10-QUALIFIED-OCCURRENCES-OVERLAY154-155",
+  "occurrences": [
+    {
+      "overlay": 154,
+      "source": "pinned avian3d0.7.0 physics_transform/transform.rs1052-1056",
+      "inventory": "From<Rotation> for Quaternion is mechanical rot.0 projection in cfg3d; unlike neighbouring Transform/global/Quat/DQuat semantic conversions.",
+      "qualification": "Potential Into derive needs actual existing upstream macro dependency/features and 2d/3d cfg coherence proof; out of registered direct source here. No blanket upstream exemption and no automatic cleanup."
+    },
+    {
+      "overlay": 155,
+      "source": "P16 WorldSchema source_package.rs35-53",
+      "inventory": "SourcePackageDigest single String Display delegation; SourcePackageDigestError static Display/empty Error.",
+      "qualification": "Same existing candidate008/015 remedy families, but owning WorldSchema Cargo has no suitable Display/Error macro normal dependency (own overlay078 support). Separate global dependency decision; preserve current scalar wire and source(None). Checked Deserialize has no existing matching TryFrom String; retain tiny admission."
+    }
+  ],
+  "new_unique_finding": false,
+  "classification": "Qualified mechanical suggestions, not current correctness defects; global dedup pending",
+  "checks": "not run",
+  "clear": false
+}

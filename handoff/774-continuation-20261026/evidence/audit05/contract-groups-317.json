@@ -1,0 +1,81 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-317",
+  "at": "2026-10-25T23:04:49.020701+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2650,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact/tests.rs",
+      "sha256": "d47118137b70b8890c2fdf7fccf3bbc6baebf211a90545f06a45d5c37c9d295c",
+      "personally_read_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-54 personally read native GPU tests as evidence only: capacity growth16->32 for17 colliders, empty replacement preserves upload tail, smaller list updates prefix, rejected wrong-count update preserves host list and bytes. Tests use valid ground colliders and do not cover F007 centred-box shader response; not executed."
+      ]
+    },
+    {
+      "scope_index": 2651,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact/count/tests.rs",
+      "sha256": "5f6a37ac323b7d9f38f2860278533c757e8e64aeed950b38de10925067184878",
+      "personally_read_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-19: 64bit fixture test compares host growth capacity before native byte-length narrowing. External included fixture rows/owner implementation separate; no execution or whole arithmetic correctness credit."
+      ]
+    },
+    {
+      "scope_index": 2652,
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/incidence.rs",
+      "sha256": "afd9754c0a781e0331b3be0f62f8398363593aa57dc474a0ed5decfeb5ee600f",
+      "personally_read_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-142: ConstraintArity checked nonzero, immutable incidence requires complete fixed-size records and preserves order; ParticleIndex assigns role explicitly without particle-buffer membership. upload_ordered consumes private Coloring order to slice records; correctness requires Coloring generated for same incidence, constructor coupling next owner needed. Edge pair owner preserves two addresses and shares borrowed flat storage."
+      ]
+    },
+    {
+      "scope_index": 2653,
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/constraint/address.rs",
+      "sha256": "1cca95c32add21d41c68abe0296d3d31684d982060d8b2098f896423b2f97075",
+      "personally_read_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-32: original constraint index distinct from cardinality, empty count allocates one lambda word; count uniform/dispatch cast usize to u32 without extra bound. Huge-count compatibility/narrowing remains existing native-policy qualification, no actual allocation witness."
+      ]
+    },
+    {
+      "scope_index": 2655,
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/coloring.rs",
+      "sha256": "1f97fcaab5611d5acf757c551732b3e02485babc05c3ad976d05407da73f3a2a",
+      "personally_read_ranges": [
+        [
+          1,
+          153
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-153 compared2652/53: greedy colors reserve each particle before next record, repeats within a record handled idempotently; stable input order preserved inside prefix-counted color ranges. Empty records allowed and empty set gets one zero boundary; private order/ranges prevent arbitrary mutation. Membership not checked by design. Original->slot permutation coherence holds for constructed feasible native-size inputs; overflow scale questions remain qualified, no new finding."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "5 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-054",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 541,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/collision/cuboid.rs",
+      "sha256": "2d9a1cfbd92acc218b8fb3abaf6f579fde6217c2f3776ece0539c340602baec9",
+      "ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "source_basis": "Root personally read complete frozen registered source after SHA256 verification.",
+      "concepts_actual_uses_and_mixup": [
+        "Full111-line cuboid topology and existing fixture read. CuboidCorners keeps checked Position<F> array private; from_pose receives existing checked position/dimensions/rotation, extracts only at immediate quaternion corner arithmetic and admits every computed corner. CuboidEdge has named typed endpoints; native bit-coded8corner and12edge ordinals are intrinsic fixed topology, not domain roles. CollisionCuboid::corners preserves source ID in mapped geometry errors. Existing exact identity-pose topology fixture is source-only and does not prove every floating/extreme input."
+      ],
+      "disposition": "Scoped role accounted with concrete native/type/receiver limitations; no new accepted unique finding or whole-family clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 542,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/detail.rs",
+      "sha256": "00f757ddff51e8079daf3a85241adea4b79272687b86f5e166a917ced784681f",
+      "ranges": [
+        [
+          1,
+          815
+        ]
+      ],
+      "source_basis": "Root personally read complete frozen registered source after SHA256 verification.",
+      "concepts_actual_uses_and_mixup": [
+        "Full815 lines read in four bounded windows, including production1-184 and complete existing fixture/helper module185-815. Typed solid/material/roof-surface roles and ResolvedItemId exclusion set carry meaning to mesh compilation; bar geometry extraction goes straight to native render append helper. Native mesh/material batch indices are proven by position or immediately preceding push, while final index admission/remapping belongs to child APIs, not inferred here. Roof weather/boundary/enclosure vs interior material dispatch explicit; static door/window source exclusion separate from dynamic representation. UV2metres/unit named owner; physical fidelity, unseen children, canonical numeric tolerance owners and prior family findings remain separate. Existing helpers use native projection axes/pairwise triangle SAT and static geometry tolerances under cfg(test); storey/wall-index fixture lookups do not establish universal production admission. Complete tests read for contract roles, none run or added."
+      ],
+      "disposition": "Scoped role accounted with concrete native/type/receiver limitations; no new accepted unique finding or whole-family clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

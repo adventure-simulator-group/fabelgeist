@@ -1,0 +1,223 @@
+{
+  "id": "ADLER-CONT04-MATERIAL-008",
+  "lens": "04 invariant operations",
+  "sources": [
+    {
+      "index": 155,
+      "source_id": "pinned-registry:derive_more-2.1.1/src/as.rs",
+      "sha256": "c51f277897f4a2a62c0824f00d6775814282673efd16d0c8df8f87d406f7e984",
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "line_count": 78,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\c51f277897f4a2a62c0824f00d6775814282673efd16d0c8df8f87d406f7e984",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\c51f277897f4a2a62c0824f00d6775814282673efd16d0c8df8f87d406f7e984",
+      "disposition": "Registered immutable ExtractRef implementations return identical borrowed T directly or invoke the existing AsRef trait with unchanged lifetime. PhantomData-only Conv holds no value to reconstruct. No numeric conversion or mutation; mutable tail54+ is outside registered scope and not credited.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 156,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/hilt.rs",
+      "sha256": "8afb3bf2ceb343de66192b0c257b876deade739f32668e38e70244c3b6036f0b",
+      "ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "line_count": 414,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\8afb3bf2ceb343de66192b0c257b876deade739f32668e38e70244c3b6036f0b",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\8afb3bf2ceb343de66192b0c257b876deade739f32668e38e70244c3b6036f0b",
+      "disposition": "GuardParameters declarations retain Metres/Ratio/Degrees and closed option enums, with deny_unknown_fields and present-value decoder. No arithmetic/normalization or mutation body in registered1-135. Structural typed leaves do not by themselves prove all later kernel output operations, which are outside this entry.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 157,
+      "source_id": "scope-amendment:pr-working:crates/adventuresim-weapon-model/src/recipe/choices.rs#guard-owner-enums",
+      "sha256": "32853562a79ddc5ae393bc38780b86583500e079c5ca22109b07f1a479e030c0",
+      "ranges": [
+        [
+          193,
+          199
+        ],
+        [
+          226,
+          282
+        ]
+      ],
+      "line_count": 367,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\32853562a79ddc5ae393bc38780b86583500e079c5ca22109b07f1a479e030c0",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\32853562a79ddc5ae393bc38780b86583500e079c5ca22109b07f1a479e030c0",
+      "disposition": "Registered guard enums provide closed wire choices including shared/profile/none and named terminal shapes, without numeric operations. No array-index interpretation or defaulting in these fragments; unread gap200-225 is not certified.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 158,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+      "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "line_count": 50,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "disposition": "Seed resolves physiology key before loop; each generated administration resolves private variation before insert, uses typed dose constants and StrategicMinute saturating subtraction. Native6*day_minutes multiplication is not intrinsically overflow-proof for arbitrary u64, but frozen6533 disease.rs actual caller2622 passes DAY=1440 (const2400), so all six-day products fit; no normal fixture defect. Earlier inserts rely on reducer transaction for later Err rollback, not local all-or-none collection.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 159,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/authority_tests.rs",
+      "sha256": "9b8f6ef268561b6c24817749d89472e8024db82c7f13e4d837db84e0dba66e80",
+      "ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "line_count": 96,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\9b8f6ef268561b6c24817749d89472e8024db82c7f13e4d837db84e0dba66e80",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\9b8f6ef268561b6c24817749d89472e8024db82c7f13e4d837db84e0dba66e80",
+      "disposition": "Guarded acceptance reducers intentionally insert/read/delete valid rows then damage a stored key and demand rejection. Source indices0/1 are short-circuit guarded by len!=2, so malformed population returns error without indexing. Invalid-key reducer intentionally inserts before admission and returns episode Err for caller rollback acceptance. These are existing cases, not evidence of a normal invalid write or independent transaction proof.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 160,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/commands/mod.rs",
+      "sha256": "a379a6828b061f0ef889b7a495f591282ac97f568e21d8355a14d33a3f7b3cc9",
+      "ranges": [
+        [
+          42,
+          62
+        ],
+        [
+          398,
+          426
+        ],
+        [
+          1897,
+          1915
+        ]
+      ],
+      "line_count": 3134,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\a379a6828b061f0ef889b7a495f591282ac97f568e21d8355a14d33a3f7b3cc9",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\a379a6828b061f0ef889b7a495f591282ac97f568e21d8355a14d33a3f7b3cc9",
+      "disposition": "Native Bevy Commands documentation and spawn body establish sequential deferred application, allocate identity before enqueue, and do not promise later entity command success. Despawn uses warn handler. No batch transaction guarantee: production callers must prepare before queueing where required. No game arithmetic or bespoke type reconstruction in registered ranges.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 161,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population/authority_tests.rs",
+      "sha256": "3d35f13b4f3e263e8f175c10c010bf9361228812c3ab76d55199b371c33dc0b5",
+      "ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "line_count": 113,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\3d35f13b4f3e263e8f175c10c010bf9361228812c3ab76d55199b371c33dc0b5",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\3d35f13b4f3e263e8f175c10c010bf9361228812c3ab76d55199b371c33dc0b5",
+      "disposition": "Guarded authority fixture delegates admitted resident draft insertion, resolves organisation/chapter/settlement fallibly, then updates actual fetched representative. Household fixture resolves generated family before member inserts and intentionally binds twice to check idempotency. No numeric arithmetic or unchecked index; possible later Err after earlier database mutation depends reducer rollback, not local atomicity, and is deliberate acceptance behavior.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 162,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/focused.rs",
+      "sha256": "98c72492107d3f8b6409717857e0a590ae552afe300e7e53eed0f789f9d8671b",
+      "ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "line_count": 63,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\98c72492107d3f8b6409717857e0a590ae552afe300e7e53eed0f789f9d8671b",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\98c72492107d3f8b6409717857e0a590ae552afe300e7e53eed0f789f9d8671b",
+      "disposition": "Focused city builds a local pending queue, fallibly compiles each facade, computes native centre+rotation*local_origin, and only replaces owner queue once all appends succeed. Cache/asset population can precede failure, so comment only promises current GPU queue/actor placements, not complete cache rollback. Derived native Transform finiteness requires connected admitted geometry/frame owner bounds (existing graphics operation obligation); no new ordinary generated overflow witness.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 163,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/strategic.rs",
+      "sha256": "c6448721576dbf02f9333d85245249b9eb8cfe4dfc3bd675d50f919d9e4af3cb",
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "line_count": 24,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\c6448721576dbf02f9333d85245249b9eb8cfe4dfc3bd675d50f919d9e4af3cb",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\c6448721576dbf02f9333d85245249b9eb8cfe4dfc3bd675d50f919d9e4af3cb",
+      "disposition": "Strategic queue filters occupied building IDs and copies remaining placements before queueing traffic and PendingCityBuildings resources. No numeric conversion or fallible operation after first enqueue. Deferred commands apply sequentially per160; not a new atomic city-transaction guarantee.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 164,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event/authority_tests.rs",
+      "sha256": "9c08b2624216387d88ba3f3bfe7d15c525726b4fbc53746c1d31ac467f7b9888",
+      "ranges": [
+        [
+          1,
+          172
+        ]
+      ],
+      "line_count": 172,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\9c08b2624216387d88ba3f3bfe7d15c525726b4fbc53746c1d31ac467f7b9888",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\9c08b2624216387d88ba3f3bfe7d15c525726b4fbc53746c1d31ac467f7b9888",
+      "disposition": "Existing guarded authority reducers exercise offense duplicate identity, conflicting severity/retry and legal settlement preservation, then consequence replay. Fixed loop counts and saturation of now+60 avoid rawtime overflow. Query-derived counts compared to1 without narrowing; no unchecked index or new quantity-producing arithmetic. Actual transactional behavior is acceptance target, not inferred from these source-only cases.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 165,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials/furniture.rs",
+      "sha256": "2335cdb45fb125b437642bd587707adc68aeb3d1b3e177f8ca23b5de97d4deda",
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "line_count": 44,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\2335cdb45fb125b437642bd587707adc68aeb3d1b3e177f8ca23b5de97d4deda",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\2335cdb45fb125b437642bd587707adc68aeb3d1b3e177f8ca23b5de97d4deda",
+      "disposition": "Four closed furniture roles create local materials then add handles. Static native color components intentionally include values>1 (HDR color boundary); roughness finite0.58/0.94. Endgrain/painted unwrap requires actual workplace_surface match support (registered173), not unproved arbitrary role coverage. Fixed srgb[0..2] safe array indexing; final native material assignment is infallible.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 166,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials/workplace.rs",
+      "sha256": "60040ff58b1a6d59e8eb9a126073b8109d91b7793911d56f72617c2e1f0436c5",
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "line_count": 50,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\60040ff58b1a6d59e8eb9a126073b8109d91b7793911d56f72617c2e1f0436c5",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\60040ff58b1a6d59e8eb9a126073b8109d91b7793911d56f72617c2e1f0436c5",
+      "disposition": "WorkplaceMaterials invokes closure only for explicit fourteen closed roles, translates returned fixed3 native srgb/roughness/metallic into StandardMaterial, then adds handle. Expect is conditional on actual173 role table totality for these call sites. No arithmetic-derived scalar, dynamic index, or partial Result contract; allocation/native asset insertion semantics remain native boundary.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    }
+  ],
+  "new_unique_findings_claimed": 0,
+  "execution": "No project execution, source edits or Git changes",
+  "supplemental_source": [
+    {
+      "git_revision": "6533e444f",
+      "path": "crates/adventuresim-stdb-module/src/disease.rs",
+      "personally_read": "caller2622 passes DAY; const DAY=1440 and FIXTURE_NOW=60*DAY at2399-2401",
+      "purpose": "Disambiguate arbitrary helper multiplication from actual finite fixture call; no additional whole-file audit credit."
+    }
+  ],
+  "retained_obligations": [
+    "Native graphics transform/frame admission remains existing broader remedy; queue publication proof does not discharge scalar closure."
+  ]
+}

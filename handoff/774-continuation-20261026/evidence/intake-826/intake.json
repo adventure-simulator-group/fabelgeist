@@ -1,0 +1,144 @@
+{
+  "kind": "read-only recovery intake and first-PR extraction recommendation",
+  "pins": {
+    "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "original826": "d2e9f2f2984d33073386f0267a673fb7ac6478a3",
+    "canonical826": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+    "preserved780": "14ab6617658ae3a94670db0e31b5d04531f1c7cc"
+  },
+  "no_source_edits_or_project_checks": true,
+  "actual_source_review": [
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+      "lines": 113
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "79e4c931540af7e78e64ccb4819d93997800e554add2de78141df25c11f8040b",
+      "lines": 165
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "0d8100e52a87510bab94ff9d3cad2d5428152ab3e3d74372376a82df3275881a",
+      "lines": 112
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "d65e7afd1fd3c33a56a8df0661712768e562d6665e7e61eea7f61cd9ccdf4fee",
+      "lines": 112
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "cd05d6421bbca3cbc7692ed4fe9c5ff5d730a7da827247ab70f58f15a7d89d98",
+      "lines": 202
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "1c9dc99c0f186c95668f0b42fffcbc51b94bd822a907476d449f51e38570db01",
+      "lines": 250
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/signature/texture_value.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "d840e177522b7d59f70ae3373c25707b3cc0d1ac06c93939da1ca6cb126b261f",
+      "lines": 94
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/map/mod.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "65ca55becef0b0c833137a2a1fb84babb0c0b0b1557709e1f7b6d6e96340154e",
+      "lines": 228
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "99a525ad033c159eccb7ed9ed9202f631c1087f978370b98736936d0294c58f6",
+      "lines": 197
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/source_cache.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "686fa8c6510d57714063bb26f287a16c170e690ea25695abd94078041e1d9836",
+      "lines": 82
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/admission_error.rs",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "sha256": "a5a41a86f6c2a1e31715329fe4a234d8d9c30dd4c972660c405e4cbeade13a40",
+      "lines": 41
+    }
+  ],
+  "canonical_receiving": {
+    "826_owned": "GPU native buffer/texture/dispatch/pipeline/resource/error contracts; Map/Gather/Scatter/Stencil/Stream/fluid program/signature sources",
+    "780_owned": "Scan/Reduce/sort/extraction/MC/DC/DistanceField/JFA/noise and actual callers/lib/prelude/locks; physical body/fitting/material/export graph",
+    "latest_manifest": "evidence/handoff-generated-compute-ccb1b6944/manifest.json with texture_value.rs override from handoff-result-style-19a6b6268/manifest.json",
+    "canonical_override": "Never overwrite later826 generated files with older780 transferred Map/signature files.",
+    "remaining_native_receiving": "Cube sRGB owner, typed TextureBinaryOp inputs, named texture cache key, parameters derives, texture guide prose classifications and actual native/core receiver errors still require exact780 receiving receipts."
+  },
+  "first_pr": {
+    "recommendation": "Extract a complete typed whole-texture view-result contract, not the entire826 WIP. Original9-file patch alone mechanically rebases but is not sufficient to close later same-body F1/progress findings.",
+    "original_files": [
+      "crates/fabelgeist-gpu/README.md",
+      "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "crates/fabelgeist-gpu/tests/fixtures/texture_views.json",
+      "crates/fabelgeist-gpu/tests/texture_views.rs",
+      "crates/fabelgeist-gpu/texture-views.md"
+    ],
+    "main_reconciliation": "texture/mod.rs,2d/mod.rs,3d/mod.rs identical to original base; Cube only current WASM context rename/unused-variable attribute differs. Preserve that main change.",
+    "actual_callers": [
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+        "lines": [
+          272,
+          301,
+          329
+        ],
+        "contract": "Three texture arms call view_with_format with ? into existing anyhow Result; concrete Error+Send+Sync+static preserves source through standard conversion."
+      }
+    ],
+    "must_include_in_touched_bodies": [
+      "Retain exact same-format cached Arc first, MissingView precedence, alternate-view Uninitialized, original requested format and operation-specific native cause.",
+      "Honor existing context.blocking_validation for native alternate-view observation; no scope or blocking wait when false; WASM retains its nonblocking path.",
+      "Consume canonical ValidationScope device+guard factory/finish so a real poll failure cannot become success, scope is always popped and optional captured native cause retained.",
+      "Extend original TextureViewError with Progress(requested,operation,cause) from canonical later implementation; Native-only variants,source and Display remain exact.",
+      "Preserve descriptor labels, dimensions,layers,storage sRGB-to-linear projection and successful cached view identity."
+    ],
+    "minimal_additional_dependency_closure": [
+      "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "existing WgpuContext.device and blocking_validation fields"
+    ],
+    "outstanding_broader_contracts_not_silently_cleared": [
+      "F2 coordinated private texture/native/cache/device metadata and selected-view record through all binding/resource consumers remains broader pre-existing admission/aggregate migration.",
+      "F6 initial texture and cube-face native cause preservation remains broader constructor family; no statement that all texture operations now return bespoke errors.",
+      "F9 old context polling rationale and guide claims need truthful scope/current API wording; avoid claiming a borrowed context inevitably hangs or polling guarantees device health.",
+      "If complete initial texture-policy correction is included, extend scope to all constructor/face sites before repairs; no partial inherited all13 verdict."
+    ],
+    "existing_tests": [
+      "Four original published826 texture_views integration cases; fixture JSON and existing assertions/oracles retained.",
+      "Original published826 TextureViewResult compile_fail doctest; no newly authored doctests.",
+      "Existing WgpuContext::tests::a_borrowed_device_skips_blocking_validation preserves assertions (comments may be corrected)."
+    ],
+    "hosted_commands": [
+      "cargo test --locked --package fabelgeist-gpu --test texture_views -- --test-threads=1 --nocapture",
+      "cargo test --locked --package fabelgeist-gpu --doc",
+      "cargo test --locked --package fabelgeist-gpu --lib globals::wgpu_context::tests::a_borrowed_device_skips_blocking_validation -- --exact --test-threads=1 --nocapture",
+      "Required existing format/generated bindings/semantic growth/WASM/native lint gates on exact final PR head"
+    ],
+    "workflow": "Port only texture-view execution/artifact cells from826 rust-quality.yml into current main; preserve all existing gates. Record exact SHA, nonempty test results, exit failures, source identity and uploaded artifacts. No new project check/helper/probe.",
+    "reviews": "Complete scoped all13 discovery at new source/delta and independent Code,Rule,Comment reviews; current intake gives no clearance.",
+    "historical_validation_limits": "Published original826 hosted run37602637638 success applies only d2e9. Broad software numerical failures/Creator SIGSEGV are historical unverified here; slice-specific runtime/native acceptance still requires fresh hosted evidence."
+  },
+  "status": "recommendation and precise source/dependency navigation, not source-complete or audit clearance; no publication authorized by this report"
+}

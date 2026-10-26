@@ -1,0 +1,86 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-158",
+  "at": "2026-10-25T20:41:48.527644+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1699,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+      "personally_read_ranges": [
+        [
+          1,
+          4477
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozen4477-line module personally consumed in bounded sequential chunks, including all537 test-source lines; tests not executed. SceneSetupData binds validated input/generated digest/environment/projection and selected profile views in one native-command construction; optional overrides intentionally change environment and are serialized. Private SceneSetup Option is consumed once by setup system; failure is explicit native error/panic lifecycle, no retry or successful incomplete-capture claim.",
+        "Authored benchmark mode tables, sample vectors and mode indices are locally constructed and advanced together. Each mode waits warmup then pushes a sample before dividing/indexing; even zero requested samples therefore has a nonempty percentile vector. Tree-lighting configured_mode tracks actual material/shadow update; performance modes update isolation and camera together then snapshot counts. ScenePerformanceModeIndex controls attribution independent of labels. There is no execution evidence for device readiness or wall/GPU measurements here.",
+        "Benchmark report calculations retain missing GPU measurements as Option; target acceptance requires matching host+release+nonempty render diagnostics and natural-mode measured gate. Isolated costs are differences of matching path summaries. Private report records are emitted after collected modes; raw-native diagnostic values/prose maps remain known semantic-contract work. Local f64 infinity reduction identity in fastest baseline is not retained gameplay absence.",
+        "Capture profile selection rejects unknown, duplicate and explicit warmup requests; cold traversal selection deliberately preserves full preceding temporal prefix. Actual authored nonempty profile/warmup relationships and required payloads remain selected-source aggregate contracts; caller-exhaustiveness is not proven from names. Camera placement/result failure invokes capture rejection, not fabricated support. Frozen camera/position source adapters remain typed at checked boundaries.",
+        "CapturePhase controls configure/settle/prime/warmup/screenshot: callbacks check current phase+view, records created once per nonwarmup view, counters advance only at callback completion. Final manifest is pending before last screenshot and finalized from updated captures; actual PendingSceneCaptureManifest body remains queued role1719. Readback hash None cannot satisfy pair-is-identical zip gate, though retries may be skipped when both are None; final false outcome stays explicit. Intermediate0/infinity CaptureRecord fields and correlated optional debris observations are not clear aggregate designs, preserve later report/state/enum findings and finalization dependency instead of claiming current successful zero evidence.",
+        "Actual leaf benchmark sums retained TreeLeafTriangleCount for selected representation, supporting existing SEGO-INITIAL05-F010 emitted-card metadata mismatch without new duplicate finding. requested_detail_targets availability, obstruction, recursiveLOD, support, visibility and pixel gates are explicitly carried into Pending manifest; beauty/calibration remains outside automatic semantics. Capture terrain/wireframe/interior/debris/plant/view-spec producers remain their own queued roles; declaration imports do not earn coverage."
+      ]
+    }
+  ],
+  "findings": [],
+  "qualified_questions": [
+    {
+      "id": "ADLER-RESUMED05-Q030",
+      "classification": "qualified source-policy question, not accepted defect",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "ranges": [
+        [
+          2401,
+          2463
+        ],
+        [
+          2345,
+          2376
+        ],
+        [
+          4433,
+          4475
+        ]
+      ],
+      "contract": "Reported base13-inch fanless M5 Air target versus broader host-class predicate",
+      "source_observation": "benchmark_host_matches_target only checks macOS/aarch64, chip/GPU substring Apple M5 and memory>=16. It does not retain machine model, GPU core count or cooling, while report publishes fixed base-model target. A synthetic independently valid BenchmarkHost with a broader Apple M5 label can satisfy this predicate. No actual system_profiler output or intended class-equivalence policy proven.",
+      "next": "Trace existing target acceptance documentation/configuration authority before deciding predicate is wrong; retain qualification and do not change policy silently."
+    },
+    {
+      "id": "ADLER-RESUMED05-Q031",
+      "classification": "source-recipient trace pending, not accepted defect",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "ranges": [
+        [
+          3071,
+          3108
+        ],
+        [
+          3411,
+          3464
+        ]
+      ],
+      "contract": "Largest visible vista observation should correspond to current rendered camera set",
+      "source_observation": "largest_visible_vista_tree queries transform/provenance/range/collider and filters range only; no ViewVisibility/frustum is queried. Need actual provenance and final vista_tree_near_field_bounded consumer before claiming a bad successful report or normal-scene occurrence.",
+      "next": "Consume queued manifest1719 and actual VistaTreePresentation producer/visibility policy; dedup with inherited visibility/support findings."
+    }
+  ],
+  "dependencies": [
+    {
+      "scope_index": 1719,
+      "reason": "actual PendingSceneCaptureManifest finalization and truthfulness recipient"
+    },
+    {
+      "scope_index": 1704,
+      "reason": "actual correlated CapturePhase/SceneCaptureState mutations and convergence owner"
+    },
+    {
+      "scope_index": 1725,
+      "reason": "actual CaptureViewSpec profile payload relationships"
+    }
+  ],
+  "discovery": "1 newly accounted original role; no global clear",
+  "repair": "not_started",
+  "validation": "not_run"
+}

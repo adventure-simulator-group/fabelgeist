@@ -1,0 +1,146 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-044",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1574,
+    1575,
+    1576,
+    1577,
+    1578,
+    1579,
+    1580,
+    1581,
+    1582
+  ],
+  "source_pin": "source-pins-and-scope-067.json",
+  "source_reads": {
+    "1574": {
+      "head": [
+        [
+          1,
+          232
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          207
+        ]
+      ]
+    },
+    "1575": {
+      "head": [
+        [
+          1,
+          140
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1576": {
+      "head": [
+        [
+          1,
+          11
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1577": {
+      "head": [
+        [
+          1,
+          301
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          96
+        ]
+      ]
+    },
+    "1578": {
+      "head": [
+        [
+          1,
+          99
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          140
+        ]
+      ]
+    },
+    "1579": {
+      "head": [
+        [
+          1,
+          67
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1580": {
+      "head": [
+        [
+          1,
+          147
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1581": {
+      "head": [
+        [
+          1,
+          96
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1582": {
+      "head": [
+        [
+          1,
+          357
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          168
+        ]
+      ]
+    }
+  },
+  "prior_personal_ranges_reused": [
+    "1574 45-155 in038",
+    "1582 1-160 and full168 actualdiff in040; this packet freshly reads161-357"
+  ],
+  "support": [
+    "support-review-specimen-viewer-068.json",
+    "support-review-specimen-header-069.json"
+  ],
+  "analysis": [
+    "1574 retains the old habitat gates, 2m site lattice, .32 occupancy, per-site seed purposes and draws, shared 3x3 community weighted species selection, finite support/slope filtering, five .4m opening probes, .002m root embed and full-u64 seed ordering before bounded512 priority selection. Native point/root getters preserve valid bits including sorting bit keys. New finite point/root admission omits invalid arithmetic.",
+    "Actual CoverageMask producer proof038 is reused only at its exact frozen hash. Its new GeometryResult propagates through placements; actual present matches error and warns/continues before preparing the cache or marking PlantsPresented. Successful empty population still prepares the cache and marks complete, as before. Moving cache preparation after placement changes failure staging intentionally, without a valid-output population change.",
+    "Actual1575 native recipient is byte-identical: one shared material and all nine species times three generated native LODs, per-species aggregate AABB, same transform for all co-located tiers and complementary visibility ranges. Existing generator expect/native mesh conversion remain preexisting boundaries, not blanket validated by this packet.1576 purpose strings unchanged.",
+    "1577 full existing cases and oracles were read: seasonal catalogs, fixture fungi/flower openings, repeatability/budget/grounding/substrate/winter exclusions and native plugin idempotence/three tiers. Actual96diff changes Result unwrap and root getter spelling only. External fixture files and shaders are not credited as read merely because source includes them.",
+    "1578 validates all three named species cache handle bundles before either entity for any specimen is queued. Old per-entity expects become typed IncompletePresentation; successful six hidden entities keep the same names, marker/focus, branch/card handles, AlphaCard marker and native translations. No cache rollback guarantee: ensure_understory_presentations still precedes validation.",
+    "Actual1699 setup_scene Result header1235-1246 and call1562-1575 prove finite origin admission and error propagation before terrain_setup and SceneCaptureState publication. Its setup is taken once, so this is not a claimed automatic retry; earlier queued viewer entities may exist on failure. Rest of1699 remains unreviewed except selected saved support.",
+    "1579 scene-mask query and sample reconstruction are byte-identical. Actual per-sample finite point/collar containment replaces covered samples with bare/water and retains urban surfaces; invalid deserialized grid universal safety is not claimed.1581 all existing density/pigment/material/collar oracles unchanged.",
+    "1580 full production/fixture source is byte-identical: hazel envelope seed and fixed thorn seeds, original skeleton/leaves/native mesh layouts, branch color removal and retained cache publication. Envelope-export conditional fixture and all oracles read only, not executed. Lower skeleton/leaf generator and fixture asset/runtime portability remain their own roles; current CI recovery is not substituted.",
+    "1582 production/diff own040 plus fresh remaining fixtures complete the original role. Same species/community/density/managed-ground acceptance, bounded geometry tuples and source-order determinism oracles. Frozen tuple expectations remain exactly preserved; source comparison alone is not a claim that they pass on every platform."
+  ],
+  "findings": [],
+  "qualifications": [
+    "Frozen6533 only; no current CI code/results substituted.",
+    "Native generator, shader, renderer, deeper collar/urban geometry and asset semantics retain separate obligations.",
+    "All existing audit findings/policy qualifications remain; no global774/780/826 clearance.",
+    "Source-only; no local project checks/tests/builds or source/Git mutation."
+  ],
+  "global_clearance": false
+}

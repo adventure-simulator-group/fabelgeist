@@ -1,0 +1,119 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-428",
+  "at": "2026-10-26T00:42:26.833108+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 482,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/math/mod.rs",
+      "sha256": "67a006eda87315f690718b4d9c45b656b04958f32a80dffb0700cd9fa2d3a0e0",
+      "personally_read_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered Avian math/mod1-70. Featuregates choose native 3dVec3/Ray3d/Dir3 and angularvector, while f32/f64 modules separate. Frame/finite semanticadmission is not provided by dimensionalalias; confirms actual329/334native spatial adapter. No full668-line body or builtfeature graph clearance."
+      ]
+    },
+    {
+      "scope_index": 483,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/math/single.rs",
+      "sha256": "279b93c665684614416422084c7c9a7aca565ef6a57bd3fa61e76e388a1f71b9",
+      "personally_read_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered math/single1-85 plus86-90complete DVec2conversion. Scalar=f32,Vector3=Vec3,Quaternion=Quat; AdjustPrecision narrows f64/DVec values by rawcasts and leavesnativef32 unchanged. A caller-owned checked f64 aggregate may overflow at actualnative narrowing, requiring actual producer conversion bound; no wrongcurrent build inferred."
+      ]
+    },
+    {
+      "scope_index": 484,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs",
+      "sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+      "personally_read_ranges": [
+        [
+          115,
+          150
+        ],
+        [
+          730,
+          748
+        ],
+        [
+          1040,
+          1078
+        ],
+        [
+          1085,
+          1118
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered transform125-146 plus115-124/147-150context, effective740-745/1051-1074/1092-1114 plus730-739/746-748/1040-1050/1075-1078/1085-1091/1115-1118context. 3dRotation is rawpublicQuaternion withderivedserde, FromQuat/DQuat onlycopies/narrows and FromGlobalTransformdecomposes. Cannot infer rigidrotationvalidation at this framework boundary; actual application checkedRigidRotation and geometry admission remain owncontract. No unrelated1275-line kernel coverage."
+      ]
+    },
+    {
+      "scope_index": 485,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/ray_caster.rs",
+      "sha256": "bcc49b636bc3db8ebe946f004414493433003c689a819ede071337f555cc7c52",
+      "personally_read_ranges": [
+        [
+          370,
+          410
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered rayhit384-410 plus370-383iterator/mapsignature context. Older scoped endpoint415 exceeds actualEOF410; actualcomplete410body is authority, no phantomlines credit. RayHitData keeps entity/rawdistance/worldnormal, MapEntitiesonlyupdatesentity. Successful nativehit does not itself seal positivefinite/unitnormal applicationobservation; actual P16contact337checks measured SignedLength separately."
+      ]
+    },
+    {
+      "scope_index": 486,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+      "sha256": "e7ddca53ee044c4814c925fffa7f172680988ea9456834049da965f16a5c6b66",
+      "personally_read_ranges": [
+        [
+          390,
+          612
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered shapecaster400-612union plus390-399onaddsignature/context. ShapeCastConfig retainsmaxdistance/targetdistance/penetrationoptions asrawnativepolicy; defaultScalarMAX actuallyfinite despite docinfinite. Hitrecordkeeps distinctworldpoint1/2 andnormals, with documentedpenetration/targetdistancedifferences. ShapeHitsorder not guaranteed and iter_sorted unwrapspartialcmp; actualAPI-producedNaNsortingwitness not established. Registered614 beyondactualEOF612 no phantomcredit. No entire612body or shape computation execution."
+      ]
+    },
+    {
+      "scope_index": 487,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/system_param.rs",
+      "sha256": "a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+      "personally_read_ranges": [
+        [
+          80,
+          155
+        ],
+        [
+          170,
+          229
+        ],
+        [
+          410,
+          493
+        ],
+        [
+          515,
+          609
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered system_param87-155/176-229/420-493/523-609 plus80-86/170-175/410-419/515-522context. Raycast wraps Dir3 and filterscurrentcollidersthenreturns strictclosestdistance; nosemanticorigin/rangeadmission. Shapecast prepares poses/config and transformsactualwitnesspoints/normals back toworld, explicitly includes traveling pose2offset. Queryfailure/unsupportedParryresult collapses toNone nativequerypolicy. Current camera/contactreceivers must distinguish missing/invalid observation where meaningful; no entire1293-line library or alloutcome validity claim."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "6 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

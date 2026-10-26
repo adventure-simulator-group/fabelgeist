@@ -1,0 +1,95 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-035",
+  "at": "2026-10-22T20:55:45.483553+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "scope": "027:2781+205",
+  "source_members": [
+    {
+      "source_id": "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/sats.rs",
+      "sha256": "bf26e6331c7cf9a560ecec507b5e06b11bc77460dec17ac0d553cff5278a5bc4",
+      "scope027_index": 2562,
+      "actual_EOF": 752,
+      "scoped_ranges_compared": [
+        [
+          54,
+          85
+        ],
+        [
+          87,
+          96
+        ],
+        [
+          98,
+          143
+        ],
+        [
+          273,
+          287
+        ],
+        [
+          295,
+          329
+        ],
+        [
+          331,
+          637
+        ],
+        [
+          728,
+          752
+        ]
+      ],
+      "actual05_comparison": "Actual generated Product decoder admits each field and builds one named literal; duplicate/missing/unknown named fields rejected but no constructor, Serde field attribute or whole-record relational predicate is called. Sum decoder admits one known variant tag/name and its matching zero/one payload, rejecting unknown variant; it is not a correlated-state validator inside payload. variant_data only permits unit or exactly one named/unnamed data field, otherwise derive error. Current WorldEvent semantic payload/receipt/envelope relationships remain app-owned validation; SDK restriction is compatible with one canonical typed payload pervariant, not a reason persist independent duplicated fields. repr(C) primitive fast body copies primitives and similarly has no relationship predicate; only scoped generator role analyzed, not any new actual app reprC call.",
+      "source_body_proof": "Fresh actual all qualified source ranges read, distinct unit variant and DATA variant roles independently compared. Root117 preserves old EquipmentChannel unit restriction versus meaningful new data-role support; no old unit verdict transfer or 638–727 serialize helpers coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/food.rs",
+      "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "scope027_index": 107,
+      "actual_EOF": 848,
+      "scoped_ranges_compared": [
+        [
+          7,
+          10
+        ],
+        [
+          156,
+          179
+        ],
+        [
+          195,
+          215
+        ],
+        [
+          247,
+          307
+        ],
+        [
+          309,
+          338
+        ]
+      ],
+      "actual05_comparison": "Immutable FOOD_CATALOG filters one actual ItemDefinition food capability then derives id/name/class/nutrition/mass/value/growth/cooking/flavors/fat/quality from the SAME item/capability in one literal. Units remain per-item and flavor mass-equivalent, not normalized fractions; all mapped fields stay together and definition lookup returns reference to same static record, no mutable duplicate index. Public standalone FoodDefinition/FlavorProfile are raw products, no whole-source guarantee inferred from static projection. Class mapping assumes actual upstream canonical catalogue class gate, unreachable on unknown text is a relying precondition; upstream build/main validators remain their own pending05 cells. contamination_at couples anchor/growth/elapsed in bounded f64 kernel, sanitizes nonfinite toMAX, negative tozero, exponent cap80 and amount cap1e9. cooked_contamination uses exact closed method multiplier then floor1e-9/MAX1e9 orderedclamp, not reversedbounds. Deterministic initial limits1e-8<=1e-5 positive and actual P16 inclusive RNG unit already current05packet018; log interpolation bounded by those endpoints. No mutation of catalogue/input, no new aggregate defect proven.",
+      "source_body_proof": "Fresh exact all global prior food ranges plus new overlay20597lines and already-qualified line9 consumed. Original 309–335 partial cooked helper completed by existing03 ranges336–338; unrelated food operations/flavor methods216–246/tests not credited."
+    }
+  ],
+  "groups": {
+    "generated-product-versus-semantic-aggregate": {
+      "relationship": "Independent decoded field validity does not establish ordered dates, matching IDs/provenance, physiological or WorldEvent product constraints. Actual product visitor constructs all fields without semantic re-admission; app accepted-state constructors/validators must own these relationships.",
+      "support": "Existing admission03 SATS refined leaf bypass findings remain distinct and preserve exact current manifests/namespace boundaries. This packet does not assert every generated Product invalid or any live row corrupt.",
+      "data_variant_role": "728–752 new DATA structural role independently read: multi-field payload cannot derive directly in this pinned SDK. Unit or one payload works; canonical shared payload can own actual whole variant relation. Keep envelope/request/consequence/receipt separate meaning and existing effect/ordering/authority validation; this is aggregate construction analysis, no other-lens clearance.",
+      "connected_repair_acceptance": "At actual app ingress, decode raw evidence then admit the complete correlated payload before relying operations. SDK shape alone neither bans canonical typed payloads nor proves state accepted. No whole foreign SDK graph/serialization helpers review."
+    },
+    "food-definition-same-source-projection": {
+      "invariant": "Record components refer to same item capability and retain per-item dimensions; contamination clamp limits ordered and proper cooking method belongs one closed choice.",
+      "establishment": "Actual static iteration borrows one item+food; tuple is constructed together, then immutable static lookup. Counterexample raw FoodDefinition can combine different physical quantities but public raw record has no accepted-state seal; no normal catalogue mismatched source found in this scoped builder.",
+      "qualification": "Actual upstream item-catalogue/class validation dependency remains exact pending05 source role, not cleared by unreachable message. No invented flavor sum1/probability or value-mass proportionality. Preserve absence of food capability as intentional non-food filtering."
+    }
+  },
+  "new_unique_findings": [],
+  "scope_role_qualification": "Root parallel-scope-qualification-117.json SHA f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b explicitly consumed; old overlay183 unit role not data-role credit.",
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

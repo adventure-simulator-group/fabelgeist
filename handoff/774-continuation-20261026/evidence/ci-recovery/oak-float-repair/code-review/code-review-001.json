@@ -1,0 +1,147 @@
+{
+  "schema": 1,
+  "reviewer": "recovery_780",
+  "base": "91e7d86403ea969b573366506106de5e7e17d3ea",
+  "head": "91e7d86403ea969b573366506106de5e7e17d3ea",
+  "state": "Uncommitted root-owned source proposal002; source review only",
+  "source_fingerprint": "2ef430614578db6fd59bed6d33afe70e9b482f44e862f194fb106c94da79cbe3",
+  "fingerprint_encoding": "SHA256 of ordered proposal002 path + NUL + SHA256 + LF records",
+  "paths": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "197d8605659fa581961b37f9c18f2a46b04db822a666d3abefe5653b4204401a"
+    },
+    {
+      "path": "content/tactical/garden-hazel-envelope.json",
+      "sha256": "ceecbcf47a22344bb3da7a677b1230a9c3389e2ff7bc4f990a08fdc13356a34f"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/Cargo.toml",
+      "sha256": "736240a91cfc44359688a19535bd9984824264c4c2d9f5637ef5e477c17924a1"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry.rs",
+      "sha256": "b730b2dc02270ffc2b2990aceb80eb7ae0dc0a268b0c9c99974b05d87a5f0db9"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/arrangement.rs",
+      "sha256": "08200ee848bdbb6c0fa054926133bdf10cef64231fecb5506da098ce0210e73b"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+      "sha256": "661e960ce52adbbd70eff6d9b7f9e4704273a9b2de2b0ad64b9dcea9de9ecf38"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs",
+      "sha256": "b436cbf44b376a8eff01bc3e1ff7592cb839a353fa7ab1cb986943417dcb0ec4"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_plan.rs",
+      "sha256": "edb14de1c8633e1c97b7e6d5b4cb4b150d04e908a68db882eb1bd92ff1ae9012"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_profile.rs",
+      "sha256": "d95e1f977abe46b3b6d27f3f9b12f3fe78aa33c8e2406e4b6ad89ebc3b542c23"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs",
+      "sha256": "89d34cfa5179d198fb44055235ef1638c1626b9fa979bdc722f0e06ba62a632a"
+    },
+    {
+      "path": "crates/strategic-web/ART_DEMO.md",
+      "sha256": "ba93cbcaa705efcd50d8deb01f035678aca84b192c61edad3d7d49b459820b4c"
+    }
+  ],
+  "scope": "Eleven changed paths plus directly connected unchanged contracts; no broader audit or merge clearance",
+  "findings": [],
+  "execution": "No product edits, Git mutations, project checks, tests, builds, lints, probes or network actions performed by reviewer.",
+  "disposition": "No actionable source-code finding in the pinned arithmetic repair; generated-output and hosted acceptance remain incomplete.",
+  "coverage": [
+    {
+      "path": "Cargo.lock",
+      "read": "Full package-model comparison using standard-library TOML; raw UTF-8 and archive checksum verification",
+      "result": "Only tactical-client dependency list adds existing locked libm; no new package/version/checksum resolution."
+    },
+    {
+      "path": "content/tactical/garden-hazel-envelope.json",
+      "read": "Full 83-line JSON and diff",
+      "result": "Revision 3 to 4 only. Existing hull payload explicitly stale until exporter, not an accepted generated artifact."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/Cargo.toml",
+      "read": "Full manifest and dependency diff; unchanged root Cargo.toml libm declaration",
+      "result": "Reuses workspace exact 0.2.16 dependency, default features disabled, force-soft-floats enabled."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry.rs",
+      "read": "Changed header 1-5, connected owner declarations, unchanged fixtures by exact section proof; own prior complete source review carried for unchanged bytes",
+      "result": "Header accurately separates source fingerprints from native mesh/shader boundaries."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/arrangement.rs",
+      "read": "Full 1-277 and diff",
+      "result": "Oak and shrub source radial sin/cos use pinned software API with unchanged arguments/order and species flow."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+      "read": "Full production 1-788 and complete diff; unchanged fixture section exact proof",
+      "result": "Seed streams, typed terminal shoot IDs, counts, source formulas/grouping retained. Native source sin/cos/powf replaced with pinned functions. Stem points are seven unfiltered collected values at 648-655, so index 6 at 716 selects the same guaranteed last tip. Final declaration order independently re-read."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs",
+      "read": "Full 1-91 and diff",
+      "result": "Same trunk/shrub producer math and ID routing; precomputed sin window squared by multiplication, same operands and grouping."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_plan.rs",
+      "read": "Full 1-223 and diff",
+      "result": "Only beech root angle trig switches API; root selection, radius, seed, sorting, fork and downstream append semantics unchanged."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_profile.rs",
+      "read": "Full production 1-54 and diff; fixtures compared with explicit raw/newline-normalized proof",
+      "result": "Same root profile trig arguments and vector equations. Fixture text identical; CRLF differences preclude raw-byte equality for this test section only."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs",
+      "read": "Version diff, unchanged fingerprint exact section, own prior connected implementation review carried by byte identity",
+      "result": "Bake version 18 to 19 invalidates old prepared assets. Fingerprint body remains identical, section SHA256 9da91f30dcefce65c7326fa20d8b7f997b351815c1996e982bfd66e515e76b1d; eight widened f32-bit words plus full u64 ID retain word order, XOR and wrapping multiply."
+    },
+    {
+      "path": "crates/strategic-web/ART_DEMO.md",
+      "read": "Changed contributor guide 141-175 and diff; final paragraph re-read",
+      "result": "Describes source fingerprint purpose and separate native boundaries; existing regeneration guide links Linux/Windows acceptance."
+    }
+  ],
+  "dependency_proof": "dependency-source-proof-001.json",
+  "actual_library_contracts": [
+    "Installed package source is byte-equal to checksum-matching 0.2.16 archive for Cargo.toml, configure.rs, sinf.rs, cosf.rs and powf.rs.",
+    "Read configure.rs full: force-soft-floats disables architecture and intrinsic paths even if other feature users enable them.",
+    "Read sinf.rs/cosf.rs full and powf.rs 48-160: same f32 radians/float boundary; exponent 2 special branch at 134-137 returns x*x, matching intended square without adding another libm helper. Deeper library kernels are not whole-package audited."
+  ],
+  "connected_review": {
+    "proof": "connected-source-pins-001.json",
+    "prior_evidence": "Own ci-recovery/batch-review-code/8d6bc9672 plus own 30bc hash-fold proof; carried only unchanged bodies.",
+    "fresh_8d6_to_91e_delta": [
+      "Read entire 38-line workflow diff: optional manual prepared-tree diagnostic and --nocapture logging; ordinary acceptance commands/guards remain.",
+      "Read entire 33-line impostor_assets diff: cfg(test) bounded fingerprint/LOD diagnostics only; existing equality predicate and case oracles unchanged."
+    ],
+    "unchanged_identity": "Existing seed-derived TreeShootId remains authority before geometry; no f32-derived ID reintroduced."
+  },
+  "counterexamples_considered": [
+    "No exponent-domain policy expansion: fractional curve powers still consume clamped or generated nonnegative t; zero/one endpoints preserve their source roles. No new narrowing, denominator, epsilon, remainder semantics or count choice.",
+    "No stem-tip out-of-bounds path exists in the actual unfiltered 0..=6 collection; the index remains local to that construction.",
+    "No new native-math fallback or feature-unification override of force-soft-floats.",
+    "No loss of full u64 ID in unchanged exact fingerprint; no compatibility reader/schema fallback introduced."
+  ],
+  "evidence_corrections": "unchanged-contract-proof-002.json supersedes proof001 raw-byte wording for fixture sections.",
+  "qualifications": [
+    "The arithmetic intentionally changes native source transcendental realizations, so old generated payloads are not evidence for the new source. Revision 4 and bake version 19 require a complete connected hosted refresh before final asset review.",
+    "Current envelope payload and committed prepared assets are stale pending export. This is an explicit unfinished acceptance obligation, not a hidden source-review approval.",
+    "Ordinary Linux and focused Windows existing-case acceptance must run on the final regenerated source/assets head. Source library/feature review does not establish runtime portability.",
+    "Native vector arithmetic, mesh tessellation, software rasterization and shader arithmetic remain separate boundaries. No universal floating-point determinism or full libm package correctness is claimed.",
+    "Existing broad #774 type, admission, aggregate-state and numeric-policy debts remain qualified. This scoped repair does not clear the frozen audit, #780 physical/material graph or #826 mutable metadata/device association.",
+    "Existing fixtures/cases/assertions are unchanged. geometry/skeleton/impostor test sections are raw-byte equal; root_profile test text is equal only after newline normalization. See proof002, which corrects proof001 wording.",
+    "Hosted source-body/no-growth thresholds and normal checks are pending; no local execution was performed."
+  ]
+}

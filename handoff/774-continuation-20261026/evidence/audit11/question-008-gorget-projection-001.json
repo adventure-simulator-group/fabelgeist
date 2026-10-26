@@ -1,0 +1,39 @@
+{
+  "id": "ADLER-CONT11-Q008-GORGET-PROJECTION-001",
+  "lens": "type-granularity",
+  "status": "qualified source-backed extension; no accepted/global unique finding",
+  "sources": [
+    {
+      "scope_index": 745,
+      "sha256": "9e52d00ac15a857a4516fef35e94758bc61262edf250f23a42f2d249f1713ef3",
+      "ranges": [
+        [
+          25,
+          55
+        ]
+      ]
+    },
+    {
+      "scope_index": 742,
+      "sha256": "002c0b80c36401a0849cba9cb6f2a4cecc3e6eb6bcd57bef872bd3a5b7fde726",
+      "ranges": [
+        [
+          111,
+          129
+        ]
+      ]
+    },
+    {
+      "scope_index": 744,
+      "sha256": "6cd43102b63b735db4a75e2516057f9cd804a0190d4acd0ced4595d37662fb52",
+      "ranges": [
+        [
+          112,
+          117
+        ]
+      ]
+    }
+  ],
+  "assessment": "Actual internal WGSL ray_depth returns vec2(depth,hit-as-f32); production callers inspect .y then .x. This function is not itself the final packed-buffer interface. WGSL permits named structs, as existing Section/EnvelopePoint helpers show, so eventual hardware encoding alone does not prove positional pair is required. Named native helper result could separate hit presence from depth. No ordinary wrong-result witness, current-main comparison or global remedy dedup performed.",
+  "validation": "not run"
+}

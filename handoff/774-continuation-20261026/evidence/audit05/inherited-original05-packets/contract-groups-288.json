@@ -1,0 +1,97 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-288",
+  "at": "2026-10-23T06:54:11.918840+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/heating/placement.rs",
+      "sha256": "5dbdcafe3866798548d26b03a8880417e25b5730dd9c4d2de43f81b19dc0faa3",
+      "scope066_index": 623,
+      "actual_EOF": 457,
+      "scoped_ranges_compared": [
+        [
+          1,
+          103
+        ],
+        [
+          240,
+          457
+        ]
+      ],
+      "actual05_comparison": "Fresh exact original scoped fragments plus mandatory overlay068; own current frame/selected membership/physical site relationship comparison with partial context QUAL089. No unscoped source roles credited."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/round_towers.rs",
+      "sha256": "960deb25a489575e080a8dd78b759d18ccaccd9ffe4dc235d4a35cb236f770b3",
+      "scope066_index": 610,
+      "actual_EOF": 98,
+      "scoped_ranges_compared": [
+        [
+          1,
+          98
+        ]
+      ],
+      "actual05_comparison": "Fresh exact original scoped fragments plus mandatory overlay068; own current frame/selected membership/physical site relationship comparison with partial context QUAL089. No unscoped source roles credited."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_castle.rs",
+      "sha256": "14b02a0705bb6723b34d844c890603f50c3752efba281e3fefc495c1f4b70c71",
+      "scope066_index": 589,
+      "actual_EOF": 1859,
+      "scoped_ranges_compared": [
+        [
+          475,
+          555
+        ]
+      ],
+      "actual05_comparison": "Fresh exact original scoped fragments plus mandatory overlay068; own current frame/selected membership/physical site relationship comparison with partial context QUAL089. No unscoped source roles credited."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/viewer/player_build_scene.rs",
+      "sha256": "d68cb8b9206234b010317faa212f96853e08a712d19e2bc67dfca81fbb035384",
+      "scope066_index": 675,
+      "actual_EOF": 420,
+      "scoped_ranges_compared": [
+        [
+          225,
+          269
+        ]
+      ],
+      "actual05_comparison": "Fresh exact original scoped fragments plus mandatory overlay068; own current frame/selected membership/physical site relationship comparison with partial context QUAL089. No unscoped source roles credited."
+    }
+  ],
+  "groups": [
+    {
+      "id": "hearth local frame and selected relationship",
+      "comparison": "PlacementCandidate retains same wall/storey/floor/optionalnextfloor/section/kitchen/stube/centre/direction. HearthLocal explicit Xperpendicular andZkitchen axis distinguishes appliance local from architectural frame. find derives room pair by actual current wall inside/outside, looks up matching storey and room.id fallibly, requires actual Kitchen and CommonRoom/GreatHall and checked normalized outward sign. No assumption room ID equals vector index. Nextfloor is minimum actual higher storey, not current+1 guess. Selected roof/face IDs from same roof_route.find result used immediately in is_usable; no independent unrelated face list zip. Called roof_route/floor support bodies not credited here."
+    },
+    {
+      "id": "placement admission and station preconditions",
+      "comparison": "Candidate.is_usable checks actual body/shaft/operating/doors/support/shoulders/floors/weather before returning Some. Walllength minus body/endreserve negative candidates skipped; limit readmitted SignedLength, actualstation function derives grid plus current joist gaps, samewallprojection andabs<=limit. Joistwindows2 guaranteespairindices, sorting/dedup native bounds checked; station outputs all readmitted SignedLength. Arbitrarily extreme finite limit can overflow sample-count arithmetic/workcapacity before perstation admission, normal authored length bounds not independently established here, no ordinary unbounded loop/run claim. Actual find is crate-private and current factory candidate relation, not allrawserializedplan acceptance."
+    },
+    {
+      "id": "coupled roof equation and door relation",
+      "comparison": "roof_height applies actual coupled plane normal and constant together, divides by normal.y and readmits Elevation. Zero vertical denominator or derived nonfinite numerator is Err, no normalization ofnormalwithoutconstant. clear_doors checks same appliancebody against actual current opening interiorwidth/tangent/outward envelopes and accepts only separation in X/Z. Scope240–250 begins inside previous clear closure and is contextual, not full host-wall replacement predicate proof;104–239 methods and clear prefix remain excluded."
+    },
+    {
+      "id": "round tower same annular source",
+      "comparison": "Each actual tower enumerated produces grounded node, same centre/radius/height/inner-radius/chord shell and wall+radial frame. Matching crown found by actual tower_index, bond uses actual bothowners, currentradius/towerheight and intentional conservative AABB penetration allowance1.10 while physical annulus remains meaning. No arbitrary radius minus wallthickness validation from genericCuboid; upstream rawshape/source F005 remains. Tower_index native namespace capacity private collection assumption, no normal huge tower count demonstrated."
+    },
+    {
+      "id": "artillery current fragment preserves paired source selection",
+      "comparison": "Within shown parent loop, two bonds resolve actual tower chord interface nth(index) or source-bearing error. Three authored facings enumerate fixed3, levels derive same stationordinal, matching RoundTower wall found by sourceindex, clone retagged exact new source/owner and old host/opening IDs cleared. Actual resolve_artillery_gun_opening result used with last appended opening to populate new wall host members; callee append/body not yet compared here, so last-row actualsame-ID is a dependency rather than proof from methodname. Parent scope475 starts in preceding match and555 is nextbond push header; no whole ArtilleryCastle1859 coverage."
+    },
+    {
+      "id": "viewer topology projection only",
+      "comparison": "freeform_wall_faces derives inside/outside floor membership from same current StoreyPlan cells and opposite neighbor, then emits exactly one interior face/two-sided exposed faces under four-case classification. Room0 is presentation occupancy placeholder here, not canonical room authority. It preserves geometrydirection/cell on original face, reverse moves neighbor+opposite.225–233 tail of earlier floor-spawn function and269 nextattribute are context only; no complete floor prism creation, arbitrary origin transform or later helper proof."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Roof route/floors physical gate and artillery opening actual append recipient retain own exact source cells.",
+    "Normal large wall/tower collection bounds remain qualified, no arbitrary full-schema validity inferred."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

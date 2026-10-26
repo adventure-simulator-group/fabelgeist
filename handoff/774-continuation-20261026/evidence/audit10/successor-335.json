@@ -1,0 +1,72 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-335",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 2785,
+      "source_id": "dependency-serde_json1.0.151:src/map.rs",
+      "sha256": "b5a2fd1ee865e6cfd83ef2da0a2e1057f892465ac7ede8a78a11354a60526f33",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/b5a2fd1ee865e6cfd83ef2da0a2e1057f892465ac7ede8a78a11354a60526f33",
+      "ranges": [
+        [
+          29,
+          36
+        ],
+        [
+          120,
+          129
+        ]
+      ],
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "scope_limits": "OnlyMapbacking29-36 andinsert120-129;130blankexcluded, nofullmap/dependencygraph.",
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh exact recovered serde_json1.0.151 Map storage cfg(BTreeMap/IndexMap) and native insert forwarding only. No manual trait implementations.",
+      "disposition": "Keep tiny backend abstraction; exact dependency ranges only, no ordering/runtime acceptance or whole map coverage.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2790,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/resources.rs",
+      "sha256": "27170c66f375325cae411ea34e591c86aabb86e9d13a3d18da7144037b5ecd9c",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/27170c66f375325cae411ea34e591c86aabb86e9d13a3d18da7144037b5ecd9c",
+      "ranges": [
+        [
+          1,
+          182
+        ]
+      ],
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "scope_limits": "Only InstancePage/GlobalInstanceAllocator native storage and actual allocation/update/flush methods; complete182 is exactdirect declaration+implementation, no other native module. Exact direct pinned native storage/caller only; no whole package or other lens credit.",
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh exact recovered eidolon resources full182. Existing Bevy Deref/DerefMut/Resource and InstancePage Default derives. Generic MaterialBatchRanges/GlobalInstanceAllocator manual Defaults avoid extra M:Default bound while constructing PhantomData and native non-generic defaults. Page allocation/free/flush/bind-group population semantic.",
+      "disposition": "Retain generic manual Defaults for exact bounds and native lifecycle operations. Standard derive would impose generic default constraint; no blanket external exemption/runtime clearance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2791,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/core.rs",
+      "sha256": "203681714cad9e19d57130e093b1736e04ac387de5369ec56c12fe72f4f227e8",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/203681714cad9e19d57130e093b1736e04ac387de5369ec56c12fe72f4f227e8",
+      "ranges": [
+        [
+          1,
+          56
+        ],
+        [
+          84,
+          112
+        ]
+      ],
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "scope_limits": "BatchKey59-81 excluded, no unrelated material batching identity role. Exact direct pinned native storage/caller only; no whole package or other lens credit.",
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh exact recovered eidolon registered definitions. InstanceAllocation tuple-to-named-record From is tiny native allocator address adapter; allocator trait defines lifecycle. BatchRanges and BatchMetadata default/layout traits already derive; clear resets related collections together.",
+      "disposition": "Keep native allocator glue/trait contract and existing derives; no new upstream procedural dependency proposed. Excludes57-83 and other external bodies.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

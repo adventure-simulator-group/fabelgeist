@@ -1,0 +1,180 @@
+diff --git a/crates/adventuresim-tactical-core/src/animation/cadence_limit.rs b/crates/adventuresim-tactical-core/src/animation/cadence_limit.rs
+new file mode 100644
+index 000000000..c572f86f9
+--- /dev/null
++++ b/crates/adventuresim-tactical-core/src/animation/cadence_limit.rs
+@@ -0,0 +1,174 @@
++//! Checked authored cadence policy and its complete native smoothing kernel.
++
++use super::{
++    AnimationElapsed, AnimationQuantity, AnimationValueError, AnimationValueResult, CycleDelta,
++    NonnegativeLength, measurement::checked_nonnegative,
++};
++use adventuresim_building_generator::spatial_geometry::PositiveLength;
++use adventuresim_core::linear_speed::NonnegativeSpeed;
++use serde::{Deserialize, Serialize};
++
++/// Nonnegative authored steps per second; zero needs no reciprocal period.
++#[derive(Clone, Copy, Debug, PartialEq, PartialOrd, Serialize, Deserialize, derive_more::Into)]
++#[serde(try_from = "f32", into = "f32")]
++pub struct StepCadence(f32);
++
++/// The smooth cap cannot begin below zero cadence. Keep authored scalar bits
++/// and the calibrated-distance floor together after admission.
++#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
++#[serde(try_from = "CadenceCapInput")]
++pub struct AuthoredCadenceCap {
++    maximum_per_second: StepCadence,
++    transition_width_per_second: StepCadence,
++    minimum_step_distance_metres: PositiveLength,
++}
++
++#[derive(Deserialize)]
++#[serde(deny_unknown_fields)]
++struct CadenceCapInput {
++    maximum_per_second: StepCadence,
++    transition_width_per_second: StepCadence,
++    minimum_step_distance_metres: PositiveLength,
++}
++
++#[derive(Clone, Copy, Debug)]
++pub struct CadenceSelection {
++    requested: CadenceDemand,
++    applied: StepCadence,
++}
++
++/// Finite motion can demand a rate beyond f32 when divided by a small stride.
++#[derive(Clone, Copy, Debug)]
++pub enum CadenceDemand {
++    Finite(StepCadence),
++    ExceedsScalarRange,
++}
++
++impl StepCadence {
++    pub fn from_per_second(value: f32) -> AnimationValueResult<Self> {
++        checked_nonnegative(value, AnimationQuantity::StepCadence).map(Self)
++    }
++
++    /// Native steps/second at trace, polynomial and derivative endpoints.
++    pub fn per_second(self) -> f32 {
++        self.0
++    }
++
++    /// Two steps make one cycle. Multiplication precedes halving so overflow
++    /// is reported before an unwrapped phase delta can be retained.
++    pub fn cycle_delta(self, elapsed: AnimationElapsed) -> AnimationValueResult<CycleDelta> {
++        CycleDelta::from_arithmetic(self.0 * elapsed.seconds().max(0.0) * 0.5)
++    }
++}
++
++impl AuthoredCadenceCap {
++    pub fn new(
++        maximum_per_second: StepCadence,
++        transition_width_per_second: StepCadence,
++        minimum_step_distance_metres: PositiveLength,
++    ) -> AnimationValueResult<Self> {
++        if transition_width_per_second.0 * 0.5 > maximum_per_second.0 {
++            return Err(AnimationValueError::CadenceTransitionBelowZero);
++        }
++        Ok(Self {
++            maximum_per_second,
++            transition_width_per_second,
++            minimum_step_distance_metres,
++        })
++    }
++
++    pub fn select_for_motion(
++        self,
++        speed: NonnegativeSpeed,
++        step_distance: NonnegativeLength,
++    ) -> AnimationValueResult<CadenceSelection> {
++        let requested =
++            CadenceDemand::from_motion(speed, step_distance, self.minimum_step_distance_metres)?;
++        self.select(requested)
++    }
++
++    pub fn select(self, requested: CadenceDemand) -> AnimationValueResult<CadenceSelection> {
++        let applied = match requested {
++            CadenceDemand::ExceedsScalarRange => self.maximum_per_second,
++            CadenceDemand::Finite(requested) => {
++                // Native C2 polynomial in steps/second. The checked policy
++                // prevents a negative transition start; no reciprocal is needed
++                // for a zero-width hard cap. Preserve every scalar operation.
++                let half_width = self.transition_width_per_second.0 * 0.5;
++                let transition_start = self.maximum_per_second.0 - half_width;
++                let transition_end = self.maximum_per_second.0 + half_width;
++                if requested.0 <= transition_start {
++                    requested
++                } else if requested.0 >= transition_end {
++                    self.maximum_per_second
++                } else {
++                    let t = (requested.0 - transition_start) / self.transition_width_per_second.0;
++                    // Integral of 1 - smoothstep(t): unit initial slope,
++                    // zero final slope and zero curvature at both ends.
++                    let applied = transition_start
++                        + self.transition_width_per_second.0 * (t - t.powi(3) + 0.5 * t.powi(4));
++                    if !applied.is_finite() {
++                        return Err(AnimationValueError::Overflow {
++                            quantity: AnimationQuantity::StepCadence,
++                        });
++                    }
++                    StepCadence::from_per_second(applied)?
++                }
++            }
++        };
++        Ok(CadenceSelection { requested, applied })
++    }
++}
++
++impl CadenceDemand {
++    fn from_motion(
++        speed: NonnegativeSpeed,
++        step_distance: NonnegativeLength,
++        minimum: PositiveLength,
++    ) -> AnimationValueResult<Self> {
++        // Metres/second divided by calibrated metres/step at the complete
++        // demand kernel. Positive floor and finite speed exclude NaN/negative
++        // demand; represent positive scalar overflow explicitly before retention.
++        let requested = speed.metres_per_second() / step_distance.metres().max(minimum.metres());
++        if requested.is_infinite() {
++            Ok(Self::ExceedsScalarRange)
++        } else {
++            StepCadence::from_per_second(requested).map(Self::Finite)
++        }
++    }
++}
++
++impl CadenceSelection {
++    pub fn requested(self) -> CadenceDemand {
++        self.requested
++    }
++
++    pub fn applied(self) -> StepCadence {
++        self.applied
++    }
++
++    pub fn is_capped(self) -> bool {
++        match self.requested {
++            CadenceDemand::Finite(requested) => self.applied < requested,
++            CadenceDemand::ExceedsScalarRange => true,
++        }
++    }
++}
++
++impl TryFrom<f32> for StepCadence {
++    type Error = AnimationValueError;
++    fn try_from(value: f32) -> AnimationValueResult<Self> {
++        Self::from_per_second(value)
++    }
++}
++
++impl TryFrom<CadenceCapInput> for AuthoredCadenceCap {
++    type Error = AnimationValueError;
++    fn try_from(value: CadenceCapInput) -> AnimationValueResult<Self> {
++        Self::new(
++            value.maximum_per_second,
++            value.transition_width_per_second,
++            value.minimum_step_distance_metres,
++        )
++    }
++}

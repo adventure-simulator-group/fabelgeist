@@ -1,0 +1,102 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-016",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 412,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/dive_launch.rs",
+      "sha256": "92c5c2966afd08f99f1107fb60067033371cb1a4139a5d3c348ad79f27ee7bd9",
+      "ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "source_basis": "Fresh root exact frozen source body;412/414 registered reached ranges are full1-101/1-162;413/415/416 requested change fullbody.",
+      "concepts_actual_uses_and_mixup": [
+        "DiveLaunch couples travel direction and grounded/airborne trajectory; camera yaw and nonnegative speed project to native velocity. Grounded slide leaves every existing velocity component unchanged; airborne launch replaces x/z only. Existing fixtures read, not executed."
+      ],
+      "disposition": "Source-reviewed own11 WITH earlier findings/qualified graph and raw observation obligations; no new unique finding, no whole dependency/runtime clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 413,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/item_geometry.rs",
+      "sha256": "fd0e55979400ec53e6db4c76a659bca5f732e45e2431a7f66db35335c3472a75",
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "source_basis": "Fresh root exact frozen source body;412/414 registered reached ranges are full1-101/1-162;413/415/416 requested change fullbody.",
+      "concepts_actual_uses_and_mixup": [
+        "PreparedInventoryItem Empty or Admitted couples positive tactical quantity with native item observation and geometry. PreparedItemGeometry still exposes native massf32 plus optional physical and weapon records; no blanket raw-float validation inferred. Catalog equipment, selected instance-derived size/reach and native attachment translation have separate meanings. Receiver415 personally read; holder and generic mass raw/expect policy remains existing audit obligation."
+      ],
+      "disposition": "Source-reviewed own11 WITH earlier findings/qualified graph and raw observation obligations; no new unique finding, no whole dependency/runtime clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 414,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+      "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+      "ranges": [
+        [
+          1,
+          162
+        ]
+      ],
+      "source_basis": "Fresh root exact frozen source body;412/414 registered reached ranges are full1-101/1-162;413/415/416 requested change fullbody.",
+      "concepts_actual_uses_and_mixup": [
+        "AuthoritativeFacing groups same config/tick/elapsed/attack observation with native controller/world frames. Posture transitions own facing, downed align versus aim/free is explicit, and attack contact deadline differs from elapsed update duration. Native quaternion projection updates render and physics rotation together; source read does not certify all lower animation math."
+      ],
+      "disposition": "Source-reviewed own11 WITH earlier findings/qualified graph and raw observation obligations; no new unique finding, no whole dependency/runtime clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 415,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+      "sha256": "5e4a989041915c8e90f822e9947824bb05615df6c4b4427d6ec00a9cad71a726",
+      "ranges": [
+        [
+          1,
+          176
+        ]
+      ],
+      "source_basis": "Fresh root exact frozen source body;412/414 registered reached ranges are full1-101/1-162;413/415/416 requested change fullbody.",
+      "concepts_actual_uses_and_mixup": [
+        "Connected weapon appearance validates generator revision, decoded catalog identity, design hash and derived geometry before optional source reaches native weapon records. Fixed hash array conversion expects prior validation rather than independently proving it. Holder path retains asserted version/catalog/hash/decode/derive; no new typed acceptance claim. Authored armor selected placement drives per-body coverage geometry and channel layer order; durable protected-part list and catalog/placement remain distinct association sources."
+      ],
+      "disposition": "Source-reviewed own11 WITH earlier findings/qualified graph and raw observation obligations; no new unique finding, no whole dependency/runtime clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 416,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/spawn_admission.rs",
+      "sha256": "43080d2bf8aa77667af8dad133c2266cae1829c0b33d658e858391aaa93ab474",
+      "ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "source_basis": "Fresh root exact frozen source body;412/414 registered reached ranges are full1-101/1-162;413/415/416 requested change fullbody.",
+      "concepts_actual_uses_and_mixup": [
+        "PreparedPlayerSpawns collects applicable party-loading/enemy recipients with typed Scene position, collider, positive body mass and per-item preparation before project queues entity commands. Missing LoadingPlayer is explicitly skipped with warning, not treated as admitted. This body validates individual physical observations but contains no complete inventory graph or zero-quantity parent association check; preserve that prior qualified obligation rather than inferring graph validity from Prepared label."
+      ],
+      "disposition": "Source-reviewed own11 WITH earlier findings/qualified graph and raw observation obligations; no new unique finding, no whole dependency/runtime clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

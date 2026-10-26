@@ -1,0 +1,86 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-174",
+  "at": "2026-10-25T21:00:07.302603+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1804,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/access.rs",
+      "sha256": "cf8f7790613cc67bc1de9815eea5ef31cc30c35b571b64930902c42c8d0469ab",
+      "personally_read_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full115 lines read. access_regions retains plot and same-side half of corridor street in admitted bounds, then promotes those corners to double precision. Corridor normal/tangent must be meaningful before fallible dimensions/orientation succeed; other patch kinds intentionally do not expand approach ownership. available_run subtracts region union from one complete approach strip, discards residual polygons below contact tolerance, and finds earliest uncovered station; shared street joins do not require a single region owner.",
+        "Maximum nonfinite selects a computed region reach rather than directly publishing nonfinite width. Its raw direction/offset/tolerance inputs assume the matched unit direction/perpendicular width produced by caller1797; arbitrary malformed slice geometry is not certified. minimum_width explicitly zeroes signed-zero-area polygons before normalized axes; planar subtraction and convex polygon admission remain separate owning roles."
+      ]
+    },
+    {
+      "scope_index": 1805,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/access/tests.rs",
+      "sha256": "95d01208f51eef1ecd658d46f278a2653900f5d066b8dbd204b06f92568df4fa",
+      "personally_read_ranges": [
+        [
+          1,
+          92
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full92-line fixture body read. Shared adjacent street regions preserve full strip run, one region or a gap blocks it, and region permutation must preserve result. Repeated clipping endpoint is expected zero-area/unblocked. Doorway-junction fixture ties property, street, entrance threshold/outward and actual footprint before computing approach. The assertions were read only; no project execution or asset/runtime-wide claim."
+      ]
+    },
+    {
+      "scope_index": 1806,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/boundaries.rs",
+      "sha256": "e66d93cefb4883a44af53783082b0b68b858239941caff7321c9e1f4def9c9d4",
+      "personally_read_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full106 lines read. exterior splits each owner edge at shared projected endpoints and crossings, then examines each interval midpoint against other region half-planes. Arithmetic predicate_error scales double precision roundoff to source coordinates; it is not the gameplay contact tolerance. Equal shared boundaries use owner order to deduplicate interval rather than erasing both. Returned edge endpoints retain one original owner segment.",
+        "segment_interval retains begin/end together while clipping one segment against convex ordered polygon half-planes with metre tolerance scaled by edge length. Empty/degenerate arbitrary native polygons lack admission here; actual admitted region construction and planar source owners are required before claiming union-wide correctness. No independently proved defect from the helper body."
+      ]
+    },
+    {
+      "scope_index": 1807,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/compound.rs",
+      "sha256": "22142125daa3ad166d22b90691982c18b7e3de421212d6d49f62079e9ec0b26b",
+      "personally_read_ranges": [
+        [
+          1,
+          304
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full304 lines read. Actual CompoundSupportPlan producer validates front/rear IDs against property, valid matching-oriented plot/court/contact bounds, unique routes ending at each member threshold and exactly one gate-centre passage. Each route is constrained to property-local axial direction, nonzero finite length exceeding width, and positive finite half-width before any division, passage query or plan retention. This closes the earlier1803 zero-passage query dependency for this producer.",
+        "Profiles, split frontage, passage region and levels are constructed from the same property and admitted observations; fallible bearing validation occurs before returning private plan. Bearing checks compare mesh elevations at contact corners and court-profile intersections to the bound member floor, selecting nearest actual retained elevation at multilevel edges rather than averaging. Missing mesh elevations produce infinite mismatch and reject.",
+        "street_gate_level separately requires unique gate route and bounded access-grade reach; its projected gate elevation keeps street observation fixed. Exact numerical overflow/native duplicate-member policy requires actual property/source admission; no ordinary invalid installed result or blanket arbitrary-native safety asserted."
+      ]
+    },
+    {
+      "scope_index": 1808,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/compound/profiles.rs",
+      "sha256": "6ab4bf585e63e8be980b2d6913fe980abd7d17f035499e321ada84e8b0bd2b0b",
+      "personally_read_ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full171 lines read. Level treatment deliberately moves court/rear floor to front floor; Terraced keeps observed member floors and produces explicit stair flights. Court profile uses member bearing extrema and rejects empty/inverted court interval before constructing stepped points. All fallible ProfilePoints must exist before publishing SupportProfile. Local mutable levels is owned by outer compile, so intermediate changes do not mutate caller input on profile failure.",
+        "Passage direction uses nonzero route established1807. Gate hinge/sweep comes from the same property gate, retaining street/gate/court landing station roles with full gate-swing reservation. Checked profile admission receives limits and a coordinate-to-world diagnostic mapping. Detailed SupportProfile constraints remain their source role; numeric endpoints alone do not prove all profiles pass."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "5 newly accounted original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

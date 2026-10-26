@@ -1,0 +1,46 @@
+--- PRbase/crates/adventuresim-tactical-client/src/animation_viewer/scenarios/admission.rs
++++ frozen/crates/adventuresim-tactical-client/src/animation_viewer/scenarios/admission.rs
+@@ -0,0 +1,43 @@
++//! Checked constants and arithmetic for the built-in review-frame catalogue.
++
++use super::{JOHN_CURRENT_TOTAL_BURDEN_KG, QUICKSTEP_FIXTURE_LEG_STRENGTH};
++use adventuresim_building_generator::spatial_geometry::Radians;
++use adventuresim_core::linear_speed::SignedSpeed;
++use adventuresim_tactical_core::animation::AnimationElapsed;
++use adventuresim_tactical_core::physics::tactical_sprint_speed;
++
++/// These inputs are the authored catalogue's constants, not gameplay input.
++pub(super) fn authored_frame_time(seconds: f32) -> AnimationElapsed {
++    match AnimationElapsed::from_seconds(seconds) {
++        Ok(elapsed) => elapsed,
++        Err(error) => panic!("invalid authored review-frame time: {error}"),
++    }
++}
++
++pub(super) fn authored_camera_angle(radians: f32) -> Radians {
++    match Radians::new(radians) {
++        Ok(angle) => angle,
++        Err(error) => panic!("invalid authored review-camera angle: {error}"),
++    }
++}
++
++/// Finite signed drive authored by the built-in scenario catalogue.
++pub(in crate::animation_viewer) fn authored_drive_speed(value: f32) -> SignedSpeed {
++    match SignedSpeed::from_metres_per_second(value) {
++        Ok(speed) => speed,
++        Err(error) => panic!("invalid authored review-frame drive: {error}"),
++    }
++}
++
++pub(in crate::animation_viewer) fn canonical_john_sprint_speed() -> SignedSpeed {
++    match tactical_sprint_speed(
++        QUICKSTEP_FIXTURE_LEG_STRENGTH,
++        QUICKSTEP_FIXTURE_LEG_STRENGTH,
++        1.0,
++        1.0,
++        JOHN_CURRENT_TOTAL_BURDEN_KG,
++    ) {
++        Ok(speed) => SignedSpeed::from(speed),
++        Err(error) => panic!("invalid canonical sprint fixture: {error}"),
++    }
++}

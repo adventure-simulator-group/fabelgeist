@@ -1,0 +1,19 @@
+--- 6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_frames/tests.rs
++++ 13fc9dcc71ab879de364117e5462310673e43210:crates/adventuresim-character-creator/src/device_frames/tests.rs
+@@ -141,11 +141,15 @@
+ #[test]
+ fn collinear_arm_landmarks_are_rejected_instead_of_inventing_a_bend_plane() {
+     for side in [Side::Left, Side::Right] {
+         for wrist_y in [0.6, 1.5] {
+             let mut arms = Arms::bent();
+-            let first = if matches!(side, Side::Left) { 0 } else { 3 };
++            let first = if matches!(side, Side::Left) {
++                0usize
++            } else {
++                3
++            };
+             arms.joints[fabelgeist_rig::RigJointOrdinal::from(first)][2] = 0.0;
+             arms.joints[fabelgeist_rig::RigJointOrdinal::from(first + 2)][1] = wrist_y;
+             arms.joints[fabelgeist_rig::RigJointOrdinal::from(first + 2)][2] = 0.0;
+             assert!(arms.frame(side).is_err());
+         }

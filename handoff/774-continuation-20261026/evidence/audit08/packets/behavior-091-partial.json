@@ -1,0 +1,123 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-091-PARTIAL",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1783,
+    1786,
+    1791
+  ],
+  "partial_original": [
+    1789
+  ],
+  "source_pins": [
+    "source-pins-and-scope-104.json",
+    "source-pins-and-scope-106-support.json"
+  ],
+  "source_reads": {
+    "1789": {
+      "head": [
+        [
+          1,
+          432
+        ]
+      ],
+      "base": [
+        [
+          1,
+          40
+        ]
+      ],
+      "head_sha256": "bb92ce4b2c2252c6c68cc37955cba5f4d2c90ccdab05a4456a632a7f4adadc4e",
+      "base_sha256": "2b9e0250057ef1d5001b4451bae195193d8e5270d766e0a3f569cb843f34bf6f",
+      "actual_diff_accounted": [
+        [
+          1,
+          458
+        ]
+      ],
+      "diff_coordinate_proof": "source-evidence/pr1789-read-map-106.json",
+      "status": "Full source and actual delta read; moved fixtures are being compared with original1790 before final role closure."
+    },
+    "1791": {
+      "head": [
+        [
+          1,
+          217
+        ]
+      ],
+      "head_sha256": "18c3232bb01109cd7ec857f3c750d2c04ffb869dd52ca42cec82524816c41206",
+      "actual_diff_accounted": [
+        [
+          1,
+          223
+        ]
+      ],
+      "diff_sha256": "0d3129a94e1f90ad49354d0de333f1b6a6770ec026a7830424532dec86cd6661",
+      "method": "Full new-file body personally read; actual added payload equals exact head; headers personally displayed."
+    }
+  },
+  "support_reads": [
+    {
+      "index": 2067,
+      "head_sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "base_sha256": "7d56f25736a01ae495fddd7a316eb3f22b1e63939eb48585ee6291efde5c3b9d",
+      "head": [
+        [
+          1612,
+          1693
+        ]
+      ],
+      "base": [
+        [
+          1580,
+          1764
+        ]
+      ],
+      "credit": "Bounded supporting source only, no original2067 closure."
+    },
+    {
+      "index": 2069,
+      "head_sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+      "head": [
+        [
+          70,
+          162
+        ]
+      ],
+      "prior_head": [
+        [
+          1,
+          69
+        ]
+      ],
+      "credit": "Full current body now personally read across090/091; own delta not yet audited and no original2069 closure."
+    },
+    {
+      "index": 1790,
+      "base_sha256": "fd5b4d20062f23ea383725464ad0a46a57585ebe3811e96fb89a773c295e6368",
+      "base": [
+        [
+          430,
+          490
+        ]
+      ],
+      "credit": "Moved fixture counterparts and incidental adjacent fixture prefix only; not whole1790."
+    }
+  ],
+  "analysis": [
+    "1783 closes the saved downed-facing comparison: native controller_yaw/body_yaw bodies in1789 preserve the old planar yaw/atan2 calculation. Actual old server1725-1730 passes native elapsed/get_up_seconds; current2069 passes the same operands via DownedFacingStep::for_frame. Old callee finite/nonnegative step sanitation moved into that producer. Current helper retains held-aim versus released-contact branches and never seeds a free-camera roll. Actual original1790 base448-455 camera yaw fixture has the same orientations and three thresholds as new1783 lines331-351, with checked half_turns projection only. Signed/unwrapped coordinates, stable contact and direct-invalid-input policy qualifications from090 remain.",
+    "1786 closes the external posture handoff: current2069 advances the same transition, computes dive delta times supine counter-yaw, normalizes once and stores the same rotation into Transform and physics Rotation. The new Result is consumed by actual2067 lines1681-1685 as warn-and-skip posture progress. Invalid or unrepresentable custom quantities can now fail instead of flowing raw; this is an explicit checked-admission policy change, not claimed universal bitwise preservation or global rollback. Old finite production transition kernels were compared in088-090.",
+    "1789 full432 and actual458-line histogram delta are now accounted. Exact payload mapping proves413 added,21 removed,19 context lines against the personally consumed head and40-line base. Base length40 is authoritative; the earlier transient43-line recollection was wrong. Old deadline max(intervals), missing direction and zero-duration behavior is retained for admitted values. Quotient then elapsed product then pi cap order remains intact, allowing transient overflow inside the complete numerical kernel as before. Do not infer a new tiny-deadline bug or all-paused custom-input guarantee. Direct signed/nonfinite raw operands are replaced by checked quantities. Actual server AttackFacing keeps saturating tick span and sample-rate conversion before the same deadline turn; errors now warn and skip facing. Full moved fixtures read, but the rest of original1790 old fixture comparison remains the next bounded stage.",
+    "1791 is a new owning error vocabulary rather than a gameplay branch. All quantities, enum payloads, format strings and for_quantity arms were read. Semantic roles are replaced on numeric errors, while cadence/readiness/seam/sample-count errors retain their own data; no wildcard or silent success conversion. Shared Speed/Elapsed/Fraction error conversions preserve negative/nonpositive/nonfinite/range distinctions as explicit numeric rejection; NativeRange intentionally maps to Overflow. Actual server consumers log these rejections and continue the existing per-player iteration. No independent gameplay recovery or compatibility fallback was added by this file."
+  ],
+  "errata": [
+    {
+      "packet": "behavior-090-partial.json",
+      "field": "analysis[1]",
+      "correction": "The phrase leadingcontact<=0orde adline means leading contact <= 0 or deadline due; no semantic amendment."
+    }
+  ],
+  "findings": [],
+  "global_clearance": false,
+  "execution": "Source-only. No product/Git edits, project checks/tests, or new cases/assertions/helpers."
+}

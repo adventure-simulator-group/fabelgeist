@@ -1,0 +1,119 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-027",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1543,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/tests.rs",
+      "sha256": "32f0edc7da00b969eea03422e474149cba6574f2d986745a29222fd64b5da6f2",
+      "ranges": [
+        [
+          1,
+          467
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete existing generation fixture file467lines; tests exercise workerderived-codec roundtrip, wrong-input rejection, owner isolation, publication, retainedfacades and scene cloning. No trait impl/custom codec introduced in fixture helpers.",
+      "disposition": "No derivability candidate. Tests read only, never executed; ignored imported-settlement fixture remains an external input requirement.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1544,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/travel_fixtures.rs",
+      "sha256": "d17bb98218acfd8b7ed02a7eb8e2013209bf849a6a04910ef510e3e04c950c96",
+      "ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete204line authored travel fixture, simple DestinationSeed record/constants and semantic fixture-generation test. No handwritten trait or codec.",
+      "disposition": "No derivability candidate. serde_json delegates existing codecs; no fixture output or test execution performed.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1545,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/venue.rs",
+      "sha256": "5e4b722af6525a9d5d8be612acd50c57eedaeb97c3886fb264a0e73796cf5c0a",
+      "ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "VenueRequest/Visitor derive Deserialize; PreparedVenue/VenueGeometry/PreparedBatch derive Clone and serde. Five fields explicitly select super::packed codec. Inherent new/into_mesh reconstruct native vertex attributes; generate checks recipeprogram and compiles detail/facade/shell/interior.",
+      "disposition": "Already derived model codecs. NativeMesh adaptation and compilation semantic, cannot replace by From field projection. Packed helper implementation not covered by this role and retains its own future catalog obligation.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1546,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/wasm.rs",
+      "sha256": "0a41df378f9ee30c826e6902365d1400622895612dc9f55b337a3bbe0085880d",
+      "ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Wasm exports contain typed ticket decoding, operation delegation and error mapping. Generic decode/encode delegate serde_json; no custom trait impl/manual field codec.",
+      "disposition": "No derivability candidate; ABI wrappers include operation invocation and typed admission, not handwritten serialization implementation.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1547,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/wasm_error.rs",
+      "sha256": "4ccc83fc48a4ceaffaaea93ec7387dc43ffc32996324f04e6dbd84852e4273a4",
+      "ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Manual From<PreparationError> for JsValue constructs native JavaScript Error using Display message, assigns stable error.code() name, then native conversion.",
+      "disposition": "Keep explicit boundary conversion: formats message and sets semantic exception classification, not a transparent field/variant conversion derivable by From. Do not add serde to replace runtime code classification.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1548,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/worker_products.rs",
+      "sha256": "c3f678338ff7c06487580632000b48d3948022da0a3c8845056df88a34efab63",
+      "ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Worker generate/receive delegate existing serde/ciborium codecs, enforce owner and product identity before retained-product mutation. No trait impl/manual codec.",
+      "disposition": "No derivability candidate. Classification, generation, checked association and publication are semantic operations; cannot replace aggregate handling with unvalidated From.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1549,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/cover_mask.rs",
+      "sha256": "5d2662fa8f5c9fad7ea8d6428397a79a7df3bba69053a7b778d29b31ea74bfb6",
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "CoverageMask has inherent constructor and framed CPU cover sampling; no trait impl or codec.",
+      "disposition": "No derivability candidate. Numeric sampling/indexing belongs to other lenses, not a mechanical trait/codec; no global safety clearance inferred.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

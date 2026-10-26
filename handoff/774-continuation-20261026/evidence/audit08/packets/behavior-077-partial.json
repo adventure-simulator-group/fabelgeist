@@ -1,0 +1,123 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-077-PARTIAL",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1720,
+    1721
+  ],
+  "partial_original": [
+    1699,
+    1704,
+    1722,
+    1723
+  ],
+  "source_pin": "source-pins-and-scope-099.json",
+  "source_reads": {
+    "1720": {
+      "head": [
+        [
+          1,
+          113
+        ]
+      ],
+      "actual_histogram_diff_payload": [
+        [
+          1,
+          65
+        ]
+      ],
+      "head_sha256": "36ec27846639fcd39472f076870256cb3a37ae29dfd489fe49f7e93cbe40d0a7",
+      "base_sha256": "aaf8583f1de5d909792d3b73f1fd83e1b656d12e99cd725269e42c257eafb27d",
+      "diff_sha256": "64d8e0a9b1da62931176d8e7ac6b1fcd105d187c851fa4a03ed13cafde009128",
+      "qualification": "1721/1723 fullnewfile addedsource and1722 full350current new+context hunk reconstructed exactly; source readonce wherepossible."
+    },
+    "1721": {
+      "head": [
+        [
+          1,
+          166
+        ]
+      ],
+      "actual_histogram_diff_payload": [
+        [
+          1,
+          172
+        ]
+      ],
+      "head_sha256": "ed251a1127b90eec10478382e61cb9fc193e36c1d7c15104e43dfdefab03d3e4",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "diff_sha256": "e72e8e413e02ff5f88221d709ef6a09ebacdaa25f66e4ad617bd7244eed643c8",
+      "qualification": "1721/1723 fullnewfile addedsource and1722 full350current new+context hunk reconstructed exactly; source readonce wherepossible."
+    },
+    "1722": {
+      "head": [
+        [
+          1,
+          350
+        ]
+      ],
+      "actual_histogram_diff_payload": [
+        [
+          1,
+          373
+        ]
+      ],
+      "head_sha256": "17a9a24f5d15cbd9db474bed73f9cecc39d1dddb1af6a7ff2d9d74a83ae13461",
+      "base_sha256": "21be7d5a25e19c03f9f07049b592e0e8af2e83615a0b872757c68af7d45e24d6",
+      "diff_sha256": "13ac744888f0e685849abf9aaa731c36fc25b75a3b75d4c55cc906a2b0dfda7e",
+      "qualification": "1721/1723 fullnewfile addedsource and1722 full350current new+context hunk reconstructed exactly; source readonce wherepossible."
+    },
+    "1723": {
+      "head": [
+        [
+          1,
+          122
+        ]
+      ],
+      "actual_histogram_diff_payload": [
+        [
+          1,
+          128
+        ]
+      ],
+      "head_sha256": "8a9fe4f5dd1a72f306edf38bf29bb147569abd3314d13ff00e9f3fc01fb8e66e",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "diff_sha256": "7dc289b219509eff14a93495957fac7b97afa5872012825e8df73a1dbdfd55de",
+      "qualification": "1721/1723 fullnewfile addedsource and1722 full350current new+context hunk reconstructed exactly; source readonce wherepossible."
+    }
+  },
+  "analysis": {
+    "1720": "Full113/65actualdiff: same optionalrootempty result,1e-8 translationfilter, LODlevelsort, nativecamera-specific visibilitylist/distance/range/meshtriangle observations andoriginalnear/farothercamera fixture/oracles; typedroot unwrappedatkernel only.",
+    "1721": "Full166newfile vsold1699obstacleloop personallyreadactualdiff. Samegridspacing multiplythen subtractterrainhalf, nativecollision/overlays/radii/colors, strict nearest focus/squared distance ties, same orderedposition sum/count,fullu64rockseed top24yawcalculation andentity/overlaypublication. Entirepositions/support candidates admitted beforecreating anyobstacleassets/entities; previousoldloop couldpublishpriorobstaclesbeforelaterinvalidsupport. Missingheightdefault0 becomes requiredfailure, no unconditional invalidinput equivalence; earlier nonobstacle setup sideeffects notrolledback.",
+    "1722": "Full350source fromactual373diffpayload andolddeleted1699cameradispatch compared; actualtypederror causes andacceptednativeconstants/order same for tree/root/recursive/branch/rock/groundcover/LOD/overhead/city variants. Canonical finiteangles getters preserveunwrappeddegrees (073). Missingplant/buildingcamera/livequery becomeexpliciterrors, actual1699writescapturefailure andreturns; no fallbackcompatibility. Actual1724LookAt validatesdistinctusableview thenusesoriginalnativeBevylookatkernel,oriented preservesfixedrotation. Remaininglandscapeabsence qualificationbelow preventsfull1722/1699 closure.",
+    "1723": "Full122newfile comparedold1699horizon/peak helpers plusold1722valleybody: existing-vista branch preserves strict min/maxtargetsource,rowmajortie, originalfallbackdirectionX/-X, maxheight+18, half*.62/*5, clamp[-80,-8], city*.1.6/.85,grazingoffsets. Actual no-vista Horizon changes observableheading/heightpolicy asQ005, beyondmanifestnull; Peak/Valley nowMissingVista insteadfabricatedzero-extrema target."
+  },
+  "qualified_candidates": [
+    {
+      "id": "CONT08-Q005",
+      "counted_unique_issue": false,
+      "scope": "1723horizon36-57 andvista_peak/valley versusold1699helpers",
+      "difference": "Ifvista_geometry=None, newHorizon uses terrainmaximumonly andheading ground_eye_target-position; oldmax includednumeric0 andheadingtowardVec3::ZERO. Peak/Valley nowexplicitMissingVista insteadsyntheticzero target.",
+      "unresolved": "Ordinaryallowedselected-profile no-vista witness, intendedabsencepolicy andexistingfinding/remedyalias notyetreconciled. Notcurrentmainbug/runtimeincident/globaluniqueclaim.",
+      "prospective_fixture_request": {
+        "frozen_path": "assets/tactical-scenes/flat-dry-grassland.json",
+        "sha256": "eeb9965d5d06a5f36d05480eea259ee149c37fbdd866812128a14aa0ba92f920",
+        "bytes": 616746,
+        "lines": 1,
+        "status": "Metadata/hash+vista-key declaration navigationonly; no JSONbodyparse/read. Parentrequested narrowstructural$.vista.lods scopebeforebody, avoidlargecontextdump."
+      }
+    }
+  ],
+  "metadata_errata": [
+    {
+      "packet": "behavior-076",
+      "correction": "Support2272read1-55 proves SignedLength transparentserde,finiteconstructor,native min/max; wording getterwasimprecise, actualmetresgetteroutside1-55 notclaimedread. Serializationproofunchanged."
+    }
+  ],
+  "findings": [],
+  "qualifications": [
+    "Earliest1462 and1474/1484 policy qualifications remain. No checks/tests/source/Git mutation/publication.",
+    "No inventedcompatibility fallback; do notdeclarefullcamera/no-vista behaviorunchanged fromtypesalone."
+  ],
+  "global_clearance": false
+}

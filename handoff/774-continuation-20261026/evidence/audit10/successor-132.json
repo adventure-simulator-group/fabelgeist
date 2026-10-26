@@ -1,0 +1,83 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-132",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1877,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory.rs",
+      "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+      "ranges": [
+        [
+          1,
+          862
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh full862line requested inventory owner read1-225/226-450/451-670/671-862. ECS records/relationships/topology derive selected Component/Reflect/serde/basic/MapEntities; EquipSlot derives strum Display/EnumCount/VariantArray; query/system wrappers derive Bevy traits. One handwritten PlayerEquipment implementation resolves actual attack-hand inventory entities, selected weapon/shield, authored material/skill/timing and layered armor, with semantic unarmed/absent cases and native property projections. No custom serde. Rebind/hook functions maintain derived ownership caches; existing cases inspect combat timing, layers, topology mapping and quantity shape.",
+      "disposition": "Retain semantic PlayerEquipment implementation; it synthesizes query-dependent equipment behavior, not forwarding a stored implementor. Existing mechanical derives already cover selected fields/relationships. No derivability candidate, ECS/ownership/combat/cache correctness or passing-test acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1878,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/armor.rs",
+      "sha256": "49cd8bc000aa19cd346741cd36179b1477050c9c1949bcddc4696e486cd0461c",
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh exact registered53line armor inventory role, Scope072 RIG-OWNER-CATALOG-008/GRAPH-009/NATIVE report and ROOT-PPS-PHYSICAL-SOURCE-CONTRACTS-0291-53. ArmorItem, TacticalInventoryItemId, ArmorLayerContact, ArmorSlot and ArmorSide already derive their selected ECS/basic/serde/Reflect traits; ignored reflection field explicit. No handwritten trait/custom codec/runtime function.",
+      "disposition": "No derivability candidate; selected representation traits already derive. No additional identity/conversion/serialization API or broader owner verdict proposed.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1879,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/chronology.rs",
+      "sha256": "bc1144d088c13835018209779eecddba0f5a94957c7987fa4b8c7be902db9fb9",
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh full76line requested equipment chronology. Basic/serde transparent/Reflect traits derive; EquipmentRevision derives Default to real zero initial value. Manual EquipmentSequence Default deliberately returns FIRST=1. Inherent methods preserve full encoded u32, wrapping next and half-window freshness/first-observation admission.",
+      "disposition": "Retain semantic nonzero-first sequence Default; standard field derive yields zero and changes initial command behavior. No manual trait/codec candidate, chronology/numeric acceptance or native-port expansion.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1880,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/ordering.rs",
+      "sha256": "a16a4fd249e9a9fa97fa44588caa57dc7a15e35ef78bfd5e194267419a507f20",
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "scope_kind": "materially_reached_producer_contract",
+      "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh exact registered130line producer-only equipment root ordering role, Scope072 CAM-PPS-SERVER-PROJECTION-EQUIPMENT-055/NATIVE-PS-SERVER-PLAYER-PROJECTION-0261-130. Borrowed EquipmentRootOrder already derives complete basic/Eq/Ord field ordering, using Reverse native depths. No handwritten traits/codecs. root_order resolves actual catalog placement/occupancy, filters exact location and constructs canonical semantic sort key; existing case checks reversed entity remapping.",
+      "disposition": "No derivability candidate. Mechanical ordering already derives; semantic catalog lookup/key construction remains explicit and network entity identity stays absent. Source test only, no ordering/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

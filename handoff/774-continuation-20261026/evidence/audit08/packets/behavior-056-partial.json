@@ -1,0 +1,216 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-056-PARTIAL",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1626,
+    1637,
+    1653,
+    1674
+  ],
+  "partial_original": [
+    1612,
+    1617,
+    1618,
+    1636,
+    1638,
+    1639,
+    1640,
+    1643,
+    1656
+  ],
+  "source_pins": [
+    "source-pins-and-scope-088.json",
+    "source-pins-and-scope-089.json",
+    "support-vista-native-090.json",
+    "support-surface-hit-091.json"
+  ],
+  "source_reads": {
+    "1636": {
+      "head": [
+        [
+          1,
+          1187
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          520
+        ]
+      ],
+      "status": "Full source and every existing fixture/oracle read; lower natural/owned mesh and backdrop preparation remain queued."
+    },
+    "1637": {
+      "head": [
+        [
+          1,
+          362
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          84
+        ]
+      ]
+    },
+    "1638": {
+      "head": [
+        [
+          1,
+          21
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          27
+        ]
+      ],
+      "status": "Typed error owner full read; actual producer mesh errors remain queued."
+    },
+    "1639": {
+      "head": [
+        [
+          1,
+          144
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          44
+        ]
+      ],
+      "status": "Full source read; GroundMeshes/new mesh and paving errors still qualify lower transition."
+    },
+    "1640": {
+      "head": [
+        [
+          1,
+          144
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          70
+        ]
+      ],
+      "status": "Full source read; VistaChunks lower mesh producers still queued."
+    },
+    "1643": {
+      "head": [
+        [
+          1,
+          130
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          156
+        ]
+      ],
+      "status": "Scenery native path compared; sampled/owned mesh complete owner bodies still queued."
+    },
+    "1653": {
+      "head": [
+        [
+          1,
+          83
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1656": {
+      "head": [
+        [
+          1,
+          62
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          68
+        ]
+      ],
+      "status": "Full source read, empty-ring/source-index/extent advance compared; actual fallible sampled/owned mesh producers pending."
+    },
+    "1674": {
+      "head": [
+        [
+          1,
+          168
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          106
+        ]
+      ]
+    }
+  },
+  "support_reads": {
+    "1964": {
+      "head": [
+        [
+          1,
+          226
+        ],
+        [
+          279,
+          310
+        ],
+        [
+          384,
+          480
+        ]
+      ],
+      "base": [
+        [
+          5,
+          131
+        ],
+        [
+          183,
+          247
+        ]
+      ],
+      "qualification": "Includes actually read extra rectangle split helpers115-200/base29-98; no automatic full-role or untouched227-278/311-383 coverage. Old/new height, scene point and finite-difference helper bodies explicitly read."
+    },
+    "1848": {
+      "head": [
+        [
+          1,
+          37
+        ]
+      ],
+      "base": [
+        [
+          1,
+          33
+        ]
+      ],
+      "qualification": "Actual source/support construction and old/new normalization path only; no original whole-role/diff credit yet."
+    }
+  },
+  "analysis": [
+    "1626 partial from055 is closed by actual1674/1964 lower support comparison. Same playable height takes precedence before scene-digest check; same first two retained rings, origin addition, native bilinear lower/upper and lerp order, coarse weight and playable clamp/seam blend. New has_height_grid/finite SupportElevation/scene-point wrappers reject malformed grids or nonfinite output, accepted finite-support policy, not claimed identical invalid native array behavior. Complete original1626 source and fixtures were already personally read055; no replay.",
+    "1674 complete168/106diff retains wrapping revision, two-ring retention, urban support and chunk origin/markers/render flags. Valid finite local-to-world f32 origin addition is exactly old arithmetic in actual1964 scene_point94-102; new SupportElevation wraps same native stitch. Existing boundary10/15m/digest-mismatch fixture/adaptations preserve oracles, read but not run.",
+    "1637 complete362/84diff preserves rock scene/seed cells/jitter, exact0.08m lift, exposed presence/scale, local-vs-world tree footprint routing, full candidate/count/variant/species/LOD/visibility/AABB pipeline. Existing source1607/1609/1610 consumers were personally compared051/053. Finite point/position admission only skips invalid arithmetic. Actual1643 scenery sampled path uses1964 VistaVertexGeometry, whose two2m finite-difference edges match old equations and missing-neighbor centre fallback; raw displacement remains unnormalized until the same tangent_z.cross(tangent_x). Actual1848 old SurfaceHit::from_geometry uses the same Dir3::new normalization and finite elevation check as new SurfaceHit::new with already-admitted fields. No duplicated normalization or changed RNG draw order.",
+    "1653 full83 byte-identical, retains exactly matching digest gate, cloning only when unready and trigger-once take when terrain arrives. Entire existing late/unrelated/exact arrival oracle read, not executed. Actual1636 still consumes pending accept before the new mesh preflight; on preflight error no active surface replacement/despawn occurs. This is a source preparation failure, not a claim of automatic retry after malformed input.",
+    "1636 complete source/520diff and every existing ground/ring/source/sward/rock/tree/boundary/furniture-support fixture/oracle read. Material/extension/helper relocation is pure. New staged preflight completes mesh Vec before active surface update/removing old entities; valid chunks/material/order remain intended same. Actual1656 empty mesh rings continue before extent advance, matching old root skip; scenery range uses original source_index0/1, not post-filter index, so empty ring does not shift near scenery. Zero visible LODs produce empty prepared Vec as before. Natural/owned raster validation and PreparedBackdrop lower owners remain pending, so no whole1636 or1656 clearance yet.",
+    "1638 typed VistaMeshError and1639/1640 focused installation bodies/diffs read. New material failure propagates before native ground publication; VistaChunks propagates lower mesh error before returning GroundMeshes and finishing reflection. Same original source iteration/half-extent/handedness/ground support arrays and exact root error cleanup are visible through1618, but complete new mesh/paving producers still required before closing those roles. No native asset rollback claim.",
+    "Actual1964 new check for malformed coarser metadata returns None before morph even if old weight would permit own height; recorded as malformed-grid admission-policy change, not ordinary valid-data preservation or a new unique defect. Arbitrary raw VistaLod structs still require their own source admission audit."
+  ],
+  "findings": [],
+  "qualifications": [
+    "All older findings/policy qualifications preserved; current CI source/results never substituted for frozen6533.",
+    "Incomplete1612/1617/1618/1636/1638/1639/1640/1643/1656 retain exact full body and diff receipts for later edge closure; no repeated whole-file reads required.",
+    "No project checks/tests/builds, source/Git changes or global clearance."
+  ],
+  "global_clearance": false
+}

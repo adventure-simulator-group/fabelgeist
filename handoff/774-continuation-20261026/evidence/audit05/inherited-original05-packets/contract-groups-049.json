@@ -1,0 +1,146 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-049",
+  "at": "2026-10-22T21:29:18.399199+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural/body_response/target.rs",
+      "sha256": "81446933b198eac655968dd876b5bdd007e102f4daad11024f3e92242a34bd20",
+      "scope033_index": 2486,
+      "actual_EOF": 140,
+      "scoped_ranges_compared": [
+        [
+          84,
+          140
+        ]
+      ],
+      "actual05_comparison": "Actual inertial_lean samebody-local velocity/acceleration +brakingScale+tuning→separatelycheckedpitch/roll candidates, finite speedratio beforeUnitInterval→interpolatedgain→signspecificanglecaps. Ratio-before-angle multiplication preserved; no wholebodyresponse/caller credit outside84–140.",
+      "source_body_proof": "Actual bounded P16 bodies displayed and personally compared operation-by-operation to current PR source-backed05 narrative; exact ranges also diff-identical, not hash-verdict carry. All remaining bodies excluded.",
+      "same_contract_current_pr_ref": "contract-groups-045.json"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs",
+      "sha256": "d307ec89363164d57e5762fea3f35d38adf4cb28c64801233bceacaddd9f5727",
+      "scope033_index": 2487,
+      "actual_EOF": 490,
+      "scoped_ranges_compared": [
+        [
+          195,
+          217
+        ]
+      ],
+      "actual05_comparison": "Actual current configgetter+smooth_acceleration chooses attackvsrelease by separatelychecked current/target norm² thenresponse.exponential_fraction(elapsed) andadmission ofcompleted lerp. Typedscalarfinite doesnotguarantee nativeVecnorm², explicitchecks. Whole observation/publication218+excluded.",
+      "source_body_proof": "Actual bounded P16 bodies displayed and personally compared operation-by-operation to current PR source-backed05 narrative; exact ranges also diff-identical, not hash-verdict carry. All remaining bodies excluded.",
+      "same_contract_current_pr_ref": "contract-groups-045.json"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/ragdoll/muscles.rs",
+      "sha256": "4d66c5e28731d05a4ff8e3fb3489cbe7d05bec7c2e76af21c7e2d7a58d846998",
+      "scope033_index": 2488,
+      "actual_EOF": 275,
+      "scoped_ranges_compared": [
+        [
+          18,
+          180
+        ]
+      ],
+      "actual05_comparison": "Actual muscle envelope fromcheckedage/tone/elapsed, clampedquintic+explicitNever/After; age/envelopeadmitted beforeagecommit, sameprivateparent/childbodyindices usedforkick/damping. get_many_mut rejectsduplicate/unavailableentities; kinematicpelvis neverkicked; finite-only nativephysics preconditions preserved, no generalrawQuat/spin guarantee. P16normal definition construction outsideexactscope NOTinferredfromPR; wholedefinition/bodyindexprovenance separatelypendingP16ifneeded. 179–180testheadercontext only, testbodies181+excluded.",
+      "source_body_proof": "Actual bounded P16 bodies displayed and personally compared operation-by-operation to current PR source-backed05 narrative; exact ranges also diff-identical, not hash-verdict carry. All remaining bodies excluded.",
+      "same_contract_current_pr_ref": "contract-groups-044.json"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/presentation.rs",
+      "sha256": "6a067389a1cdcbddd0dd3814f95e17664351794be139353572edd19928a18171",
+      "scope033_index": 2489,
+      "actual_EOF": 867,
+      "scoped_ranges_compared": [
+        [
+          82,
+          116
+        ],
+        [
+          178,
+          181
+        ]
+      ],
+      "actual05_comparison": "Scoped predictionfragment observes exactsource_tick gap, maximumsourcegap andcan_predict gate then exponentialvelocityblend ofsameprevious/currentsource. nextlocal+world velocity derive same response. Bounded82–116 ends insideprediction_delta arithmetic: doNOTclaimcompletegaitphase outcome/fullhelper orlifecycle admission. Getter178–180 directplayback snapshot, blank181context; attack/posture helper fields notread here.",
+      "source_body_proof": "Actual bounded P16 bodies displayed and personally compared operation-by-operation to current PR source-backed05 narrative; exact ranges also diff-identical, not hash-verdict carry. All remaining bodies excluded.",
+      "same_contract_current_pr_ref": "contract-groups-041.json"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "sha256": "b1645110395d62b1dab020f6328f9b3d3fde6cd3f64b88101d6c66d5e7d8b0e6",
+      "scope033_index": 2490,
+      "actual_EOF": 2973,
+      "scoped_ranges_compared": [
+        [
+          285,
+          315
+        ],
+        [
+          2968,
+          2973
+        ]
+      ],
+      "actual05_comparison": "Scoped terrain blend transition computesdesired fromactualmode/settle/handoff; actualcandidate.UnitInterval beforeassignment anderrorcontinue; desired0/1 rate*elapsed cap symmetric. Remaindercontext312–315 framecomment only; ik_tuning2968–2970 directconfiggetter, testmod2972–2973 context, noP16IKtest/current wholepose credit. PRfull2973 actualnotautomaticP16fullrole.",
+      "source_body_proof": "Actual bounded P16 bodies displayed and personally compared operation-by-operation to current PR source-backed05 narrative; exact ranges also diff-identical, not hash-verdict carry. All remaining bodies excluded.",
+      "same_contract_current_pr_ref": "contract-groups-047.json"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural/body_values.rs",
+      "sha256": "ac32044bdad9c67748eefca7b1b7db59a7eed439e3182af7581833f49076750b",
+      "scope033_index": 2510,
+      "actual_EOF": 211,
+      "scoped_ranges_compared": [
+        [
+          1,
+          85
+        ],
+        [
+          124,
+          147
+        ]
+      ],
+      "actual05_comparison": "Scoped privateBodyAngle/Radians andBodyLocalAcceleration Vecfinite/default0; actualsignedanglecap±maximum andbrakingscale/gain arithmetic checked result; planar_acceleration_squared independentlyrejectsoverflow. BodyResponseAngles/Step declaration correlatedtwoaxis/velocity roles visiblebut constructors148+excluded; noP16proof ofwhole spring/cap policy transferred.",
+      "source_body_proof": "Actual bounded P16 bodies displayed and personally compared operation-by-operation to current PR source-backed05 narrative; exact ranges also diff-identical, not hash-verdict carry. All remaining bodies excluded.",
+      "same_contract_current_pr_ref": "contract-groups-044.json"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "sha256": "8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+      "scope033_index": 2559,
+      "actual_EOF": 1813,
+      "scoped_ranges_compared": [
+        [
+          157,
+          230
+        ],
+        [
+          669,
+          716
+        ]
+      ],
+      "actual05_comparison": "Actualsameowner current Transform.rotation lookup then guardedcamera look fromactualCharacterLook+guard/transition; sameowner map feeds perboneweights andprelookbase+appliedrotation; sourceworldyaw once, head/neckguardedpitch only. guarded/constrainedcamera extractsboundedresidual afterownerinverse, distributesbyactualconfiguredjointcount thenperjointcap. additive storesbase alongsideappliedrotation, needactualrestore caller outsideP16range so base-restoration guarantee notinferredfromPRfacade. Nativevalidlook/quaternion/frame preconditions remain; jumpanticipation228–230commentcontext excludedsemantic.",
+      "source_body_proof": "Actual bounded P16 bodies displayed and personally compared operation-by-operation to current PR source-backed05 narrative; exact ranges also diff-identical, not hash-verdict carry. All remaining bodies excluded.",
+      "same_contract_current_pr_ref": "contract-groups-045.json"
+    }
+  ],
+  "comparison_groups": {
+    "snapshot-specific-physical-P16-receivers": "Each exact scoped operation inspected P16 bytes and compared units/frame/actualarguments/retainedresult to currentPR role; meaningful fragment/context endpoints explicitly separate. No P16 full-file/producer/definition or blanketnamespace guarantee from samepath/diff."
+  },
+  "new_unique_findings": [],
+  "context_qualifications": [
+    "P16Muscles179–180 testheader; fixtures181+excluded",
+    "P16Presentation82–116 cutmidexpression, no fullgait outcome claim",
+    "P16IK2972–2973externaltestmodule context only; fullIK/tests excluded",
+    "P16Procedural228–230nextjumpcomment context only"
+  ],
+  "remaining_dependency_obligations": [
+    "P16 exact lower owner definitions/callers outsideboundedranges remain scope-specific, notPRfullcounterpartcredit",
+    "Whole initialinventory incomplete, externalPRanimationtests pending"
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

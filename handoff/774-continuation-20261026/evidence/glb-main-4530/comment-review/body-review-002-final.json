@@ -1,0 +1,110 @@
+{
+  "at": "2026-10-26T16:18:14.567808+00:00",
+  "scope": "Independent final PR987 Comment/publication-wording review; localbody/evidence only, thenhandoffstop.",
+  "body": "target\\recovery-20261025\\glb-main-4530\\pr-body-final.md",
+  "body_sha256": "166762b73bad99b2eaa447ad80b9b57b62711bdb0b0a71973221167db16b6f3c",
+  "body_lines_read": [
+    [
+      1,
+      45
+    ]
+  ],
+  "head": "2ef288d1085c249fa056156182ea626a060bb8d1",
+  "run": 40339807509,
+  "prior_source_review": "source-review-001.json",
+  "prior_body_review": "body-review-001.json",
+  "evidence": [
+    {
+      "path": "target\\recovery-20261025\\glb-main-4530\\linux-evidence-002.json",
+      "sha256": "095fe2c8125736f01b51a56083882ed0131500be9ee998108009de541a257a7f"
+    },
+    {
+      "path": "target\\recovery-20261025\\glb-main-4530\\windows-evidence-002.json",
+      "sha256": "564591fa1ac435f5dde164d8b7a4f1b68ab5e25eb9cee2de69ad0fbe8609896f"
+    }
+  ],
+  "source_identity_comparison": [
+    {
+      "path": "crates/adventuresim-character-creator/README.md",
+      "sha256": "95e3abd4304b0585e8c5c4d5ec1d4585493c7ef5c15b4fe013c6523aa2357bdb",
+      "exact_equal_to_prior_reviewed6431": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "fe5c1027be20d6ab87b6bd34c3227d38b5eddaf7e33382917ff75e1459a37d69",
+      "exact_equal_to_prior_reviewed6431": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb.rs",
+      "sha256": "54be7e4aa7f3cdef3e59c0ffd22ce5594034e9be9b15deb6c141586002d58c29",
+      "exact_equal_to_prior_reviewed6431": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb/error.rs",
+      "sha256": "a9f6695f0d792b48a94a12333c437769a0b6f6f262484c402327018a0e491ecc",
+      "exact_equal_to_prior_reviewed6431": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb/layout.rs",
+      "sha256": "c7598f12fd08c312d0422f86b062f038090e0a9527106a79b369a4e971cc469f",
+      "exact_equal_to_prior_reviewed6431": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/profiling.rs",
+      "sha256": "e4bc8f373cddb24d0b8772fa66a004d59e8a69a5113d82b34f288e268bdfaf95",
+      "exact_equal_to_prior_reviewed6431": true
+    }
+  ],
+  "baseline_only_delta": {
+    "from": "6431c2faf1b50608344d1031d0f9413830c271fa",
+    "to": "2ef288d1085c249fa056156182ea626a060bb8d1",
+    "only_changed_path": "rust-quality-baseline.toml",
+    "actual_diff_reviewed": [
+      {
+        "owner": "export.rs file",
+        "old": 803,
+        "new": 778
+      },
+      {
+        "owner": "export_rigged_glb function",
+        "old": 268,
+        "new": 247
+      }
+    ],
+    "hosted_baseline_values_match": true
+  },
+  "claim_assessment": [
+    {
+      "lines": [
+        1,
+        18
+      ],
+      "result": "Concrete unchecked framing/finalreserve issue, dedicatedtypederror distinction, partial sharedimage/filesystempublication and loweredceilings scope remain accurate. No oldcausechain-erasure overclaim."
+    },
+    {
+      "lines": [
+        22,
+        31
+      ],
+      "result": "Supplied exact-head Linux success evidence records48acceptedpositive/no-failurecells and11namedexistingexportcasesallok. Windows exact-head evidence has10namedrequiredcasesallok. Body identifies Windows portability group without implying allGLBexportcases ran onWindows. Failure-path/32bit/allocation/filesystem source-only limits and noaddedtests/no localchecks retained."
+    },
+    {
+      "lines": [
+        35,
+        45
+      ],
+      "result": "Prior exactsourceComment assessment applies because allsixblobsbytehashmatch reviewed6431 and full6431..2efdiffonlylowers twoexistingceilings. Finalframe reservation distinguished from earlierallocations; geometry/texture/equipment changes not implied. Hostedbaselineevidence matches loweredvalues. No reviewedpublicsnapshot availability invented."
+    }
+  ],
+  "evidence_chronology": "Windows summary retains earlier Linuxpending scope text; later finalLinuxsuccess evidence establishes completedrun. Finalbody correctlyuses finalcombinedstate, not staleintermediate limit.",
+  "prior_finding_resolution": "GLB-COMMENT-001 remains closed: contextualerror versus dedicatedtype stated correctly, no claim oldanyhowcontextlostunderlyingcause.",
+  "new_actionable_findings": [],
+  "review_limits": "Independent source/Rule reviewcompletion attributed to coordinator; thisreceipt is Comment only. No fresh runtime/check/artifactdownload; saved authoritative bounded evidence compared. No broader774clearance or actual oversized/failure-path execution claimed.",
+  "publication_status": "Exactlocal finalbodyreviewed; no externalPRbodyequality/networkreadorwrite performed. Parentownspublication/handoffstatus.",
+  "verdict": "No actionable wordingcorrection. Exactlocalfinalbodyaccuratelysupports PR987 hostedchecks successful on2ef288 within statedscope.",
+  "source_or_git_mutation": false,
+  "project_execution": false,
+  "external_publication": false,
+  "frozen_audit_credit": false,
+  "stop": "Stopped after finalwordingreceipt; no furtherimplementation/auditsweep."
+}

@@ -1,0 +1,80 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-344",
+  "at": "2026-10-23T08:09:36.977991+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/fitted.rs",
+      "sha256": "90a73376395b601a39a8d4a51fe9004d62176ce2ac236c578bee720bab2007a6",
+      "scope071_index": 784,
+      "actual_EOF": 588,
+      "scoped_ranges_compared": [
+        [
+          1,
+          588
+        ]
+      ],
+      "actual05_comparison": "Fresh complete fitted coif, rigid lining and outfit sequence bodies including every original inline fixture. Cut seam origin identity, solver row indices, lining triangle/rim alignment and failure-prefix publication compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/lining.rs",
+      "sha256": "693fb7bf790d8bfebd26304241c8dfd0e2b338bc37225a4d0795b0fe754e8b70",
+      "scope071_index": 785,
+      "actual_EOF": 227,
+      "scoped_ranges_compared": [
+        [
+          1,
+          227
+        ]
+      ],
+      "actual05_comparison": "Fresh complete fitted coif, rigid lining and outfit sequence bodies including every original inline fixture. Cut seam origin identity, solver row indices, lining triangle/rim alignment and failure-prefix publication compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/outfit.rs",
+      "sha256": "571784773d4506fa741fed5d4dab85c61bbf9dee836fab1833987b233a4ecdb9",
+      "scope071_index": 786,
+      "actual_EOF": 82,
+      "scoped_ranges_compared": [
+        [
+          1,
+          82
+        ]
+      ],
+      "actual05_comparison": "Fresh complete fitted coif, rigid lining and outfit sequence bodies including every original inline fixture. Cut seam origin identity, solver row indices, lining triangle/rim alignment and failure-prefix publication compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "fitted carrier checked before cut topology",
+      "comparison": "784 surface_mesh checks positive vertex count, complete triples and every face index<count. FrontCut copies only front-center vertices used by both sides, retains originals at original indices, creates exact origin table and seam pairs, avoiding stranded original for left-only use. Mesh positions and material unwrap use same cut origins/faces; whole uncut topology bending still indexes original vertices deliberately preserved. Requires actual nonempty front seam, back-center pin and nonempty usable-area rest triangles. No general proof arbitrary current PartFrame/carrying normals or every disconnected chart valid."
+    },
+    {
+      "id": "unwrap solver addresses one complete unknown mapping",
+      "comparison": "Conformal pins two distinct physical positions, excludes their exact variables from free map, appends rows from actual triangle gradients and unknown ordinals. Median positive area scaling requires at least one usable value. Rigid rounds remove one anchor variable consistently in row construction, warm start, and scatter-back; least_squares apply and transpose iterate exactly matching row vectors. Bounded iterations are numerical approximation, not an acceptance theorem about every UV orientation/scale; original fixture assertions are source only. Finite narrowing to Vec2 and general raw extreme carrier are not universally checked here."
+    },
+    {
+      "id": "lining geometry and rims retain same triangle identity",
+      "comparison": "785 collects actual Inner face tags zipped to triangle triples, offsets indices into concatenated piece positions, builds undirected geometric edge-use counts then one rim triple for every retained triangle in identical order. Private surface and rims committed together; press indexes rim by same BVH triangle ordinal. Empty retained lining returns None. Public raw GeneratedArmor can supply mismatched tag/triangle rows or bad indices; normal generated product/native final gates remain separate existing graph, not a newly observed malformed plate."
+    },
+    {
+      "id": "press spreads while respecting actual plate edge",
+      "comparison": "Nearest point within fixed reach ignored on boundary rim, inner normal gives wearer-directed press, and only positive depth applied. UnderPlate channel policy compares canonical channel order. Jacobi spreading uses prior snapshot, skips empty neighbours before divide, leaves directly covered presses unchanged; two rounds allow another plate to cover moved cloth. Bounded heuristic and public standoff remain caller conditions; no claim continuous penetration freedom or normal bad output."
+    },
+    {
+      "id": "outfit accepted prefix and checkpoint relation now directly read",
+      "comparison": "786 loops actual input order, replaces obstacles with exactly previously finished garments, saved wear or drape produces current result. Preview is prefix snapshot plus current garment. On first Err it returns existing finished prefix and all attempted checkpoints immediately; no middle-hole compaction. Successful append and named warnings derive same current result. Checkpoints matched by input ordinal but actual stage key must validate current input; queued792 remains required. This directly closes the stop-first-failure fact previously consumed through Camera252, while parent export identity binding remains independently qualified."
+    },
+    {
+      "id": "all original fixtures read only",
+      "comparison": "784454-588 constructs measured coif fit words, tests seam duplication/positive masses/bends and texture orientation/area distribution;785167-227 tests inside/outside/rim press and no-lining None. No GPU open, fit, file export, simulation or test executed."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Queued checkpoint key792 and saved drape788 remain direct bodies.",
+    "Native topology/bending/normal contracts remain separately scoped source obligations."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

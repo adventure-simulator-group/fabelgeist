@@ -1,0 +1,182 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-345",
+  "at": "2026-10-25T23:27:56.191189+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 39,
+      "source_id": "physical-p16:Cargo.lock",
+      "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+      "personally_read_ranges": [
+        [
+          1,
+          5
+        ],
+        [
+          133,
+          171
+        ],
+        [
+          172,
+          194
+        ],
+        [
+          1435,
+          1440
+        ],
+        [
+          9758,
+          9763
+        ],
+        [
+          9768,
+          9773
+        ],
+        [
+          9814,
+          9819
+        ],
+        [
+          10220,
+          10225
+        ],
+        [
+          10303,
+          10308
+        ],
+        [
+          10373,
+          10378
+        ],
+        [
+          10437,
+          10442
+        ],
+        [
+          13092,
+          13103
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Parent explicitly authorized generated dependency-ledger disposition for this exact lock role. Full bytes/SHA pinned; personally read bounded actual generated header, complete core/creator root dependency entries, relevant Bevy/serde/serde-saphyr/serde_json/SpacetimeDB package identity/version/source/checksum headers when present, and tail. stdlib TOML parsed package/section bookkeeping recorded separately.",
+        "Nonsemantic inventory disposition only: 13103 actual lines, 1126 package records, top sections version/package. Full package bodies were not exhaustively read; no resolved feature graph, Rust semantics, source-contract, compiler/runtime or other-lens clearance. Absent packages in creator-specific lock are bookkeeping, not missing application dependency proof. Actual dependency ambiguity requires targeted source/manifest trace."
+      ]
+    },
+    {
+      "scope_index": 497,
+      "source_id": "pr-working:Cargo.lock",
+      "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+      "personally_read_ranges": [
+        [
+          1,
+          5
+        ],
+        [
+          133,
+          171
+        ],
+        [
+          172,
+          194
+        ],
+        [
+          1434,
+          1439
+        ],
+        [
+          9757,
+          9762
+        ],
+        [
+          9767,
+          9772
+        ],
+        [
+          9813,
+          9818
+        ],
+        [
+          10219,
+          10224
+        ],
+        [
+          10302,
+          10307
+        ],
+        [
+          10372,
+          10377
+        ],
+        [
+          10436,
+          10441
+        ],
+        [
+          13091,
+          13102
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Parent explicitly authorized generated dependency-ledger disposition for this exact lock role. Full bytes/SHA pinned; personally read bounded actual generated header, complete core/creator root dependency entries, relevant Bevy/serde/serde-saphyr/serde_json/SpacetimeDB package identity/version/source/checksum headers when present, and tail. stdlib TOML parsed package/section bookkeeping recorded separately.",
+        "Nonsemantic inventory disposition only: 13102 actual lines, 1126 package records, top sections version/package. Full package bodies were not exhaustively read; no resolved feature graph, Rust semantics, source-contract, compiler/runtime or other-lens clearance. Absent packages in creator-specific lock are bookkeeping, not missing application dependency proof. Actual dependency ambiguity requires targeted source/manifest trace."
+      ]
+    },
+    {
+      "scope_index": 680,
+      "source_id": "pr-working:crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "60cf80c50552791fe98d6c50b3a730b7c0f04bdfa993ec003a781538683e6d72",
+      "personally_read_ranges": [
+        [
+          1,
+          5
+        ],
+        [
+          118,
+          159
+        ],
+        [
+          160,
+          180
+        ],
+        [
+          887,
+          892
+        ],
+        [
+          9297,
+          9302
+        ],
+        [
+          9307,
+          9312
+        ],
+        [
+          9354,
+          9359
+        ],
+        [
+          9666,
+          9671
+        ],
+        [
+          9701,
+          9706
+        ],
+        [
+          12299,
+          12310
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Parent explicitly authorized generated dependency-ledger disposition for this exact lock role. Full bytes/SHA pinned; personally read bounded actual generated header, complete core/creator root dependency entries, relevant Bevy/serde/serde-saphyr/serde_json/SpacetimeDB package identity/version/source/checksum headers when present, and tail. stdlib TOML parsed package/section bookkeeping recorded separately.",
+        "Nonsemantic inventory disposition only: 12310 actual lines, 1064 package records, top sections version/package. Full package bodies were not exhaustively read; no resolved feature graph, Rust semantics, source-contract, compiler/runtime or other-lens clearance. Absent packages in creator-specific lock are bookkeeping, not missing application dependency proof. Actual dependency ambiguity requires targeted source/manifest trace."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "coverage_kind": "explicitly authorized nonsemantic generated dependency-ledger disposition",
+  "bookkeeping": "locks-039-497-680-dispositions.json"
+}

@@ -1,0 +1,60 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-092",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1789,
+    1790
+  ],
+  "source_pins": [
+    "source-pins-and-scope-104.json"
+  ],
+  "source_reads": {
+    "1790": {
+      "head": [
+        [
+          1,
+          1969
+        ]
+      ],
+      "head_sha256": "48ba1b8005d63740183260c570153bbd903dba12c0fc3615253199a65a70f27e",
+      "base_sha256": "fd5b4d20062f23ea383725464ad0a46a57585ebe3811e96fb89a773c295e6368",
+      "actual_diff_accounted": [
+        [
+          1,
+          2089
+        ]
+      ],
+      "diff_sha256": "990114da3619c421428c5076df0338c50124b91985d15d7493c4902889d9bcd9",
+      "proof": "source-evidence/pr1790-read-map-107.json",
+      "method": "Full current body read in six bounded blocks. Added849/context700 coordinate checked against that exact body. Removed472 personally read in two bounded projections, with the tiny output truncation at removed362/363 explicitly reread361-366. All65 inter-hunk gaps/420lines byte-verified to personally consumed current; complete base1592 accounted without duplicate unchanged output."
+    },
+    "1789": {
+      "head": [
+        [
+          1,
+          432
+        ]
+      ],
+      "base": [
+        [
+          1,
+          40
+        ]
+      ],
+      "prior_read_and_diff": "packets/behavior-091-partial.json",
+      "actual_owning_delta": "source-evidence/pr1789-read-map-106.json"
+    }
+  },
+  "analysis": [
+    "Original1790 remains an existing fixture module: pack fallback and fallback-cycle expectations retain a/b/unarmed/rapier/sword/shield/empty/missing names and humanoid family while typed IDs replace strings. False mirror flags become Original; phase/weight projections preserve their numeric oracles. Raised intent uses the same planar norm and direction, with its zero case remaining planted at the actual private constructor.",
+    "Projection cases preserve the controller-frame transformation, fixed stride, physical-speed selection, normalized total weights, one contact/landing edge, impact4, world acceleration cap80, camera pitch independence and quickstep momentum/guard outcomes. Numeric ticks and elapsed inputs are wrapped without changing their values; new Result unwraps make rejection explicit. These source cases are evidence of intended behavior, not executed acceptance.",
+    "Guard fixtures retain directional front-foot choices, lead freeze, contact sequence ordering, reversal without visual snap, contact-time tightening, 0.840348 geometry input, unsupported-contact hold, finite contacts and immediate handoff margin. Same iteration counts80 and velocity directions remain. Intent input and local-speed consumers were read directly in1787/1788; no inference from renamed parameter physical_speed.",
+    "Locomotion/evaluation fixtures retain sparse walk/run interpolation, half mirror decisions, 0.25/0.75 quarter ordering, 0.75/0.25 diagonal weights, sprint versus ordinary guarded mode, guard endpoint reset once, lowered strafe-to-aligned frame blending, airborne span0/1, four-quarter anchor and monotone Hermite oracles. bool guarded_sprint maps directly to explicit Sprint enum; no new hidden pace policy is inferred.",
+    "Action fixtures retain contact/recovery ticks10/20/30 and asymmetric26, continued recovery coordinate, 7/24 readiness, follow-up24/48 spans, quickstep200 timeline and guard-hold semantics. Handling0.03/5 and1.2/1 still compare tell/drawback/follow-through, endpoint1/0, derivative step0.0025/tolerance0.02, acceleration step0.01/tolerance1, monotonic128samples/epsilon1e-5. Checked coordinate and interval projection is the only wrapper change in those calculations. No output oracle relaxation was identified in this file.",
+    "1789 moved fixtures now have their actual old counterparts read from1790 removals: bounded half-turn/exact positive reversal and quarter-second completion, dive camera-relative axes, slow downed alignment, guard look versus travel. The old native rate expression body_turn_speed_radians/64 is expressed as the same complete turn operation with admitted duration; configured source defaults were already compared. The separate paused/deadline fixture remains in the old1789 file and was compared directly in091. New local render-frame and deadline tracking fixtures were personally read as source; no unsupported claim that every current fixture existed in the PR base.",
+    "1783 camera fixture relocation was closed091. New malformed-input rejection oracles in1778 remain the explicitly recorded stronger-admission policy from087/090, not silently treated as unchanged malformed behavior. The full animation family is not globally cleared by this fixture-role receipt; pending role dependencies and earliest1462 remain in STATE."
+  ],
+  "findings": [],
+  "global_clearance": false,
+  "execution": "Source-only; no product/Git edits, project checks/tests, or authored cases/assertions/helpers."
+}

@@ -1,0 +1,64 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-023",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 444,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/person_names.rs",
+      "sha256": "e41326d6c8ae20b958581c0027d3b5bdd79a58faf43a142e446f52dc4a8f70ec",
+      "ranges": [
+        [
+          1,
+          849
+        ]
+      ],
+      "source_basis": "Fresh root complete exactfrozenregisteredfullbody,444in4boundedwindows.",
+      "concepts_actual_uses_and_mixup": [
+        "NameFamilyId/NameFormId/SurnameId distinguish identityroles, NameStableSeed versus FormSelectionSeed keep deterministic stages separate. GivenNameResolution is Resolved family+nativeform, UnresolvedHistorical evidence+candidates, or Authored wholetext; culture/register/socialclass/education/birthyear are distinct context. RenderedPersonalName proves boundedtrimmedcontrolfree displayonly, not social/authenticidentity. Public raw semantic identity can be assembled/decoded then actual render calls validate446 before use. Generation samplesfamily before form with separate streams, preservesinheritance as supplied; catalogue/build/schema validation are separate dependencies, not inferred from include. Whole849body and existingfixtures read, notexecuted; NameCatalog output and prosepolicy not new acceptance."
+      ],
+      "disposition": "Own11accounted WITH externalcatalog/buildvalidation limits; no newunique finding oridentityruntimeclearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 445,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/person_names/error.rs",
+      "sha256": "d61ede6d1993fc5dd57a526c714ccd91c133b235f1cd8dc86d019b11ae1c479a",
+      "ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "source_basis": "Fresh root complete exactfrozenregisteredfullbody,444in4boundedwindows.",
+      "concepts_actual_uses_and_mixup": [
+        "NameCatalogError distinguishes no repertoire, emptyeligible, invaliddisplay, missingcatalogentry, inconsistentnativeassociation and samplingfailure. ExistingStringsamplingcause isdiagnostic flattening, not errorchainproof. No newmanualDisplayderive recommendation for this lens."
+      ],
+      "disposition": "Own11accounted WITH externalcatalog/buildvalidation limits; no newunique finding oridentityruntimeclearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 446,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/person_names/identity_validation.rs",
+      "sha256": "d1d7a7cff2bd6d44336c622d4f9e451f72c6166a16eb2702d128d32adc27525b",
+      "ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "source_basis": "Fresh root complete exactfrozenregisteredfullbody,444in4boundedwindows.",
+      "concepts_actual_uses_and_mixup": [
+        "PersonalNameIdentity validation checks selectedfamily exists, nativeform membership/culture/everydayregister, validateshistorical/authored text and allstoredsurname refs evenifnotrendered. Historicalcandidateempty is intentionallyallowed byexistingfixture; don'taddnonnull/nonemptyinvariant. Authoredfulltext bypassesparsing butnotname/text/metadata validation. Existingassociationfixturespersonallyread, notrun; buildcatalogsourcevaliditynotcredited."
+      ],
+      "disposition": "Own11accounted WITH externalcatalog/buildvalidation limits; no newunique finding oridentityruntimeclearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

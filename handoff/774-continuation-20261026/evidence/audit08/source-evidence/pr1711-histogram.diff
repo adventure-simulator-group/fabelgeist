@@ -1,0 +1,33 @@
+diff --git a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_overlay.rs b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_overlay.rs
+index 98a30599c..4af77675e 100644
+--- a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_overlay.rs
++++ b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_overlay.rs
+@@ -1,6 +1,6 @@
+ //! Debug-only annotations of accepted placement clearances.
+ use super::CaptureOverlay;
+-use adventuresim_tactical_core::prelude::*;
++use adventuresim_tactical_core::{prelude::*, scene_coordinates::ScenePlanPoint};
+ use bevy::prelude::*;
+ 
+ const OVERLAY_LIFT_METRES: f32 = 0.12;
+@@ -40,7 +40,10 @@ pub(super) fn annotate(
+             let start = corners[index];
+             let end = corners[(index + 1) % corners.len()];
+             let centre = (start + end) * 0.5;
+-            let Some(height) = terrain.height_at(centre) else {
++            let Some(point) = ScenePlanPoint::from_metres(centre) else {
++                continue;
++            };
++            let Some(height) = terrain.height_at(point) else {
+                 continue;
+             };
+             let delta = end - start;
+@@ -52,7 +55,7 @@ pub(super) fn annotate(
+                     OVERLAY_LINE_METRES,
+                 ))),
+                 MeshMaterial3d(material.clone()),
+-                Transform::from_xyz(centre.x, height + OVERLAY_LIFT_METRES, centre.y)
++                Transform::from_xyz(centre.x, height.metres() + OVERLAY_LIFT_METRES, centre.y)
+                     .with_rotation(Quat::from_rotation_y(-delta.y.atan2(delta.x))),
+                 Visibility::Hidden,
+             ));

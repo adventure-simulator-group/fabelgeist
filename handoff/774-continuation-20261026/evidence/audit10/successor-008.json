@@ -1,0 +1,23 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-008",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1479,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/preview.rs",
+      "sha256": "650387466e93e9e4fca78192a92d693a82d7df3669d21a2e4bf8990921d48e17",
+      "ranges": [
+        [
+          1,
+          437
+        ]
+      ],
+      "source_basis": "Fresh root complete exact recovered-object read; own10 interpretation.",
+      "trait_inventory_and_semantics": "HeldPreviewItem From<Option<&ItemProperties>>31-40 performs canonical item-catalog lookup and distinguishes Empty from Unknown from Defined static definition. Other enum traits Clone/Copy/Debug/Eq already derive. PreviewAttachment predicate/target addressing/recursive occupancy order are inherent policy, not codecs.",
+      "disposition": "Keep manual From: derive_more direct/forwarded From cannot preserve lookup plus three-way classification and borrowed->static result. Do not add serialization solely to replace runtime selectors. Existing source tests read only; no new opportunity or runtime claim.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

@@ -1,0 +1,360 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-018",
+  "at": "2026-10-22T19:43:11.702683+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/lib.rs",
+      "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "scope020_index": 2248,
+      "actual_EOF": 58,
+      "scoped_ranges_compared": [
+        [
+          1,
+          58
+        ]
+      ],
+      "evidence_kind": "Fresh PRwhole58/213/169 + completeactualP16bodydiff compared for exact scoped current roles. P16onlylistedqualifiedranges; no P16unscopedwrap/weighted_order/shuffle/range_f32/testcredit."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "scope020_index": 2249,
+      "actual_EOF": 213,
+      "scoped_ranges_compared": [
+        [
+          1,
+          213
+        ]
+      ],
+      "evidence_kind": "Fresh PRwhole58/213/169 + completeactualP16bodydiff compared for exact scoped current roles. P16onlylistedqualifiedranges; no P16unscopedwrap/weighted_order/shuffle/range_f32/testcredit."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/stream.rs",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "scope020_index": 2250,
+      "actual_EOF": 169,
+      "scoped_ranges_compared": [
+        [
+          1,
+          169
+        ]
+      ],
+      "evidence_kind": "Fresh PRwhole58/213/169 + completeactualP16bodydiff compared for exact scoped current roles. P16onlylistedqualifiedranges; no P16unscopedwrap/weighted_order/shuffle/range_f32/testcredit."
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-determinism/src/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "scope020_index": 2531,
+      "actual_EOF": 213,
+      "scoped_ranges_compared": [
+        [
+          1,
+          116
+        ],
+        [
+          147,
+          174
+        ]
+      ],
+      "evidence_kind": "Fresh PRwhole58/213/169 + completeactualP16bodydiff compared for exact scoped current roles. P16onlylistedqualifiedranges; no P16unscopedwrap/weighted_order/shuffle/range_f32/testcredit."
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-determinism/src/stream.rs",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "scope020_index": 2532,
+      "actual_EOF": 169,
+      "scoped_ranges_compared": [
+        [
+          1,
+          10
+        ],
+        [
+          12,
+          28
+        ],
+        [
+          30,
+          61
+        ],
+        [
+          74,
+          89
+        ],
+        [
+          104,
+          115
+        ],
+        [
+          134,
+          138
+        ]
+      ],
+      "evidence_kind": "Fresh PRwhole58/213/169 + completeactualP16bodydiff compared for exact scoped current roles. P16onlylistedqualifiedranges; no P16unscopedwrap/weighted_order/shuffle/range_f32/testcredit."
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-determinism/src/lib.rs",
+      "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "scope020_index": 2594,
+      "actual_EOF": 58,
+      "scoped_ranges_compared": [
+        [
+          1,
+          35
+        ]
+      ],
+      "evidence_kind": "Fresh PRwhole58/213/169 + completeactualP16bodydiff compared for exact scoped current roles. P16onlylistedqualifiedranges; no P16unscopedwrap/weighted_order/shuffle/range_f32/testcredit."
+    },
+    {
+      "source_id": "native-rand0.9.5:src/distr/weighted/weighted_index.rs",
+      "sha256": "b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+      "scope020_index": null,
+      "actual_EOF": 631,
+      "scoped_ranges_compared": [
+        [
+          1,
+          145
+        ],
+        [
+          358,
+          369
+        ]
+      ],
+      "prospective_scope_refs": [
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "row_1based": 2,
+          "id": "ROOT-INITIAL04-REG002"
+        }
+      ],
+      "scope_limits": [
+        "u64 WeightedIndex private cumulative vector+total and actual checkednew/Distribution<usize>sample only; update_weights/remove/float/customWeight/testgraphs excluded"
+      ],
+      "evidence_kind": "Personally consumed exact Root014 actual source-backed definitions/constructor/kernel narratives and performed05 invariant proof. Fresh bounded WeightedIndex1-145/358-369 and UniformInt1-160/280 critical field-correspondence reread; remaining exact lower source operation facts consumed explicitly from Root014, not transferred04 verdict."
+    },
+    {
+      "source_id": "native-rand0.9.5:src/distr/uniform.rs",
+      "sha256": "04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c",
+      "scope020_index": null,
+      "actual_EOF": 622,
+      "scoped_ranges_compared": [
+        [
+          219,
+          260
+        ],
+        [
+          268,
+          312
+        ],
+        [
+          399,
+          415
+        ],
+        [
+          190,
+          219
+        ]
+      ],
+      "prospective_scope_refs": [
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "row_1based": 3,
+          "id": "ROOT-INITIAL04-REG003"
+        },
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "row_1based": 9,
+          "id": "ROOT-INITIAL04-REG009"
+        }
+      ],
+      "scope_limits": [
+        "ActualUniform<u64> wrapper constructor/sample andstaticSampleUniform/UniformSampler/SampleBorrow bindings usedbycheckedzero-to-nonzeroupper; ranges mayendincontext, allunselectedsingle_range/testgraphs excluded",
+        "AttachedUniformdefinitionattrs/derivecontext neededforrepresentation versus canonicalconstructor guarantee; exactheader only, notextraalgorithm/testgraph."
+      ],
+      "evidence_kind": "Personally consumed exact Root014 actual source-backed definitions/constructor/kernel narratives and performed05 invariant proof. Fresh bounded WeightedIndex1-145/358-369 and UniformInt1-160/280 critical field-correspondence reread; remaining exact lower source operation facts consumed explicitly from Root014, not transferred04 verdict."
+    },
+    {
+      "source_id": "native-rand0.9.5:src/distr/uniform_int.rs",
+      "sha256": "30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0",
+      "scope020_index": null,
+      "actual_EOF": 914,
+      "scoped_ranges_compared": [
+        [
+          71,
+          160
+        ],
+        [
+          280,
+          280
+        ],
+        [
+          1,
+          70
+        ]
+      ],
+      "prospective_scope_refs": [
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "row_1based": 4,
+          "id": "ROOT-INITIAL04-REG004"
+        },
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "row_1based": 10,
+          "id": "ROOT-INITIAL04-REG010"
+        }
+      ],
+      "scope_limits": [
+        "Actualu64 UniformInt state+genericintegerconstructor/newinclusive/sample+u64macroinstantiation; sample_single/SIMD/usize/float/otherint/tests excluded",
+        "DirectimportsWideningMultiply andUniformIntderive/representation/Lemirecontract context; notsample_single/SIMD/tests graph."
+      ],
+      "evidence_kind": "Personally consumed exact Root014 actual source-backed definitions/constructor/kernel narratives and performed05 invariant proof. Fresh bounded WeightedIndex1-145/358-369 and UniformInt1-160/280 critical field-correspondence reread; remaining exact lower source operation facts consumed explicitly from Root014, not transferred04 verdict."
+    },
+    {
+      "source_id": "native-rand0.9.5:src/distr/weighted/mod.rs",
+      "sha256": "52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe",
+      "scope020_index": null,
+      "actual_EOF": 115,
+      "scoped_ranges_compared": [
+        [
+          25,
+          60
+        ],
+        [
+          85,
+          115
+        ]
+      ],
+      "prospective_scope_refs": [
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "row_1based": 5,
+          "id": "ROOT-INITIAL04-REG005"
+        }
+      ],
+      "scope_limits": [
+        "Concreteu64 Weightchecked_add_assignmacro+instantiation, canonicalweightedErrorvariants/format only; floatWeight62-83 excluded."
+      ],
+      "evidence_kind": "Personally consumed exact Root014 actual source-backed definitions/constructor/kernel narratives and performed05 invariant proof. Fresh bounded WeightedIndex1-145/358-369 and UniformInt1-160/280 critical field-correspondence reread; remaining exact lower source operation facts consumed explicitly from Root014, not transferred04 verdict."
+    },
+    {
+      "source_id": "native-rand0.9.5:src/distr/utils.rs",
+      "sha256": "a631940e728257c9b0cb753bc64fa631958c92ce52d5b2265c7ed06a46567b8f",
+      "scope020_index": null,
+      "actual_EOF": 408,
+      "scoped_ranges_compared": [
+        [
+          16,
+          61
+        ]
+      ],
+      "prospective_scope_refs": [
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "row_1based": 6,
+          "id": "ROOT-INITIAL04-REG006"
+        }
+      ],
+      "scope_limits": [
+        "ActualscalarWideningMultiplyu64→u128high/low proof+u64macroinstantiation; SIMDmacrocontextonly, othernativekernels/usize/floats/tests excluded."
+      ],
+      "evidence_kind": "Personally consumed exact Root014 actual source-backed definitions/constructor/kernel narratives and performed05 invariant proof. Fresh bounded WeightedIndex1-145/358-369 and UniformInt1-160/280 critical field-correspondence reread; remaining exact lower source operation facts consumed explicitly from Root014, not transferred04 verdict."
+    },
+    {
+      "source_id": "native-rand0.9.5:src/distr/integer.rs",
+      "sha256": "69ac205b6fed57ae09e2f8f1b15ae3d2049b85874bc4da3f246a18188b42d8ea",
+      "scope020_index": null,
+      "actual_EOF": 307,
+      "scoped_ranges_compared": [
+        [
+          49,
+          54
+        ]
+      ],
+      "prospective_scope_refs": [
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "row_1based": 7,
+          "id": "ROOT-INITIAL04-REG007"
+        }
+      ],
+      "scope_limits": [
+        "ExactStandardUniformDistribution<u64>::sample actualnext_u64nativewordprojection only; u8/u16/u32/u128/SIMD/tests excluded."
+      ],
+      "evidence_kind": "Personally consumed exact Root014 actual source-backed definitions/constructor/kernel narratives and performed05 invariant proof. Fresh bounded WeightedIndex1-145/358-369 and UniformInt1-160/280 critical field-correspondence reread; remaining exact lower source operation facts consumed explicitly from Root014, not transferred04 verdict."
+    },
+    {
+      "source_id": "native-rand0.9.5:src/rng.rs",
+      "sha256": "19a29d58ea169c50ae7fea0a941c405e4a8f3a9b2ac0dc0edd9f7a55e9431703",
+      "scope020_index": null,
+      "actual_EOF": 657,
+      "scoped_ranges_compared": [
+        [
+          58,
+          58
+        ],
+        [
+          95,
+          103
+        ],
+        [
+          357,
+          357
+        ]
+      ],
+      "prospective_scope_refs": [
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "row_1based": 8,
+          "id": "ROOT-INITIAL04-REG008"
+        }
+      ],
+      "scope_limits": [
+        "ExactRng:RngCore traitbinding, genericrandomdelegation andblanketRngimpl; otherRngmethodalgorithms excluded."
+      ],
+      "evidence_kind": "Personally consumed exact Root014 actual source-backed definitions/constructor/kernel narratives and performed05 invariant proof. Fresh bounded WeightedIndex1-145/358-369 and UniformInt1-160/280 critical field-correspondence reread; remaining exact lower source operation facts consumed explicitly from Root014, not transferred04 verdict."
+    }
+  ],
+  "actual_shared_source_witness": {
+    "record": "audit\\continuation\\root\\initial04-invariant-operations\\contract-groups-014.json",
+    "sha256": "c136ba939afcb6619579991a45fab1e2023098985e0a1cba20ae010321ec0228",
+    "consumed": "All7source definitions/9range source-backed narratives plus fresh actualcriticalcumulative/UniformIntbodies; own05 relationships derived above, no04verdicttransfer"
+  },
+  "groups": {
+    "seed-word-stream-context-framing": {
+      "relationship": "Derived context framing must distinguish root, namedstream and ordered fields while preserving exact byte convention; Seed itself intentionally stores one arbitrary word, not metadata provenance.",
+      "actual_source": "PR Seed5-20 uses shared domain-derived base hasher clone, then exactly root length+root bytes and stream length+stream bytes; numeric StreamId::seed34-41 follows root LE8 plus each context u64 length8/LE8. Seed::derive63-70 loops callerordered arbitrary fields with perfieldlength. finish17-20 copies exactfirst8 bytes and converts little-endian. No stored root/stream/digest fields can become independently stale. Allu64words0/MAX valid; DEFAULT0/From/nativeRandoneword preserve that policy. Source length framing is actual ordered algorithm, not a claim hash outputs collision-free or arbitrary callercontext slots stable.",
+      "retention": "Wrappingoffset and xor preserve fullword domain. Clone/self seed word remains singleauthority. StreamId private nonempty staticstring constructor28; openwhitespace/namespace otherwiseallowed, no globalunique-purpose registration. Appropriate stablecontext ordering at each caller remains separate source obligation. P16 actual bounded current roles use identical body/imports as fullPR comparison, but qualified exclusionlisted per source preserved.",
+      "disposition": "Positive algorithmic framing/self-consistency; no need store derived metadata redundantly. No new provenance brand or restrictedzero seed justified by05."
+    },
+    "unit-bit-projection-and-raw-ranges": {
+      "actual_source": "PRlib12-35 staticpositive2^24/2^53 and inclusive-minus1 divisors paired with shifted24/53bits establish bounded0..1 endpoints. P16libonly1-35 sameactualbody. Seed and RNG projection methods delegate exactlycurrentword/rawdraw. Scalar output has no retained aggregate.",
+      "qualification": "PR range_f3291-94 finiteordered inputs can have overflowing difference; Root04F005 remains a scalaroperationgap, notnew05state. No P16range_f32 scope credit (not in exactP16ranges). ExistingPRlib37-58,Seed176-213,stream140-169 inlineoracles actually source-read, never run; P16testtails excluded. Choice/index documentednonempty preconditions remain distinct from encodedSeed validity."
+    },
+    "weighted-private-cache-construction": {
+      "relationship": "cumulative_weights, total_weight and weight_distribution range must be constructed from the SAME stableordered source weights before distribution publication.",
+      "actual_definition_and_comparison": "Fresh nativeWeightedIndex81-85 privatevector/total/sampler; new99-137 rejects empty, negativegenericweights and total0; for actualu64 Weight checked_add from Root014 prevents overflow and pushes cumulative endpoint BEFORE each later addition. Therefore N-1 cumulativeprefixes monotonenondecreasing, positiveT corresponds exactfinalsum, and sampler new(0,T) uses same finaltotal. Own fields never independently mutated in actualfreshconstructor path. Checkedstate published only after construction; no RNGargument means no sampling or sequencechange on invalidconstructor input. Root014 actualsource-native pin frozenPRCargo rand0.9.5+exactlock ranges personallyconsumed, not localfolder-name inference.",
+      "valid_leaf_counterexample_and_limit": "Optional foreignDerivedDeserialize on WeightedIndex/UniformInt can create inconsistent fields despite private normalconstructors. This is native broad format, not project accepted distribution state; actual project stream105-114 buildsfreshlocal::new fromrawu64weights onEVERY call, never decodesone. Do not upgrade foreigntype to universalvalidatedcertificate or patch genericforeignSerde. Other customWeight/float/update_weights definitions explicitly outside scope."
+    },
+    "unit-u64-sampler-and-exact-index-membership": {
+      "relationship": "UniformInt low/range/threshold must describe same requested interval; WeightedIndex returned index must select positiveweight in original N-entryvector.",
+      "actual_critical_body": "Fresh UniformInt71-75 stores low/range/thresh, exclusiveconstructor102-113 checkslow<high BEFORE high-1; inclusive117-141 computes range and threshold together; concreteu64macro280 gives allu64nativetypes. Belowuseslow0, NonZeroUpper, rangeupper!=0 so thresholdmoddivisorpositive. Native range0 fullword sentinel is intentional inclusivewholeword case, not an invalid universal zero. sample145-159 rejection uses same range/thresh andactualu128wideningmultiply from consumed Root014 utils16-61; high=floor(word*range/2^64)<range, so resultlow+high in0..upper. Native Rng58/95-103/357 +integer49-54 ensure u64draw; mayconsume multipleu64words, neverfixedone-per-call guarantee.",
+      "selected_bucket": "NativeWeightedIndex358-368 partition_point(cumulative<=chosen) with chosen[0,T) returns0..N-1; equalprefixes skipzeroentries together, leading0cannotwin andtrailing0atTcannotwin. This is a relationship between exact constructorprefixes and sampler, not fromreturnusize alone. Ordinaryslice partitionpoint bounds contract used; no new arbitrarystdlibgraph.",
+      "disposition": "Actualconstructor-coupled nativeu64membership proof, no fullnativepackage/floating/SIMD/single-range/foreigncodec credit."
+    },
+    "weighted-order-without-replacement-local-state": {
+      "relationship": "remainingweights and outputindices must retain SAMEoriginalindexspace; eachselectedentryzeroed once, kpositive entries produce exactlykdistinct indices.",
+      "actual_current_receiver": "PRstream118-130 clonesweights, countsnonzero k andkeepslength/order unchanged. Ifk0, weighted_index(original) returns empty/zerototalerror beforedraw. Ifinitialsumoverflow, firstconstructor errors beforedraw. AfteradmittedpositivefirsttotalT, actual nativeproof says chosenindex<remaining.len and selectedentry>0. Settingthatentry0 reducesnonnegative sum andpositivesexactly1; atiterationj<k positives=k-j>0 andsum<=T<=MAX. Thus all later constructors remain valid and no selected index repeats. Originalcallerweights unchanged; resultlocal vector andactualRNGmutation are intended correlated numerical operation. No externally mutable cached weights/sampler exists.",
+      "acceptance": "Preserve stableauthored/canonicalorder, zeroentryomission, concreteu64errors andnative rejectiondrawsequence. Do not fabricate defaultindex/fallbackweight, assumefixedkwords or rebuildother ordering. Any future retained distribution mutation must preserve same constructor-coupled fields. Existingproductionexpect cleanup independentRuststylegate preserved, no new tests."
+    }
+  },
+  "new_unique_findings": [],
+  "finding_support": [
+    "Root04F005 raw PRfloatrange gap remains separatelyqualified"
+  ],
+  "connected_repair_acceptance": "No demonstrated constructor-route cumulative/cache bug in exact nativeu64 or local weighted-order pairing. Root/Native existingdeterminismclaims retained; stablewords/byteframing/sourceorder/nativeerrors and rejectiondraws must survive other propagation/numeric repairs. No ambientRNG/defaultfallback/per-columnbranding.",
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

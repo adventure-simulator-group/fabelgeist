@@ -1,0 +1,25 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-292",
+  "at": "2026-10-25T22:43:20.840771+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2561,
+      "source_id": "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/lib.rs",
+      "sha256": "4ddcdb3edbf28ff93e4d013fa71135ce98698acc219481abaadf9a27005193ff",
+      "personally_read_ranges": [
+        [
+          1,
+          372
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read complete372-line frozen pinned spacetimedb-bindings-macro2.6.1 entrypoint. Attribute handlers parse specific AST/args and dispatch owning implementations; table syntactically deduplicates helper derive at end so multiple table attributes share serialization/schema helpers. sats derive selects module/library fallback and emits schema+serialization+registration from same parsed type; does not itself enforce project semantic validation. Duration macro admits integer/string via humantime and emits paired secs/nanos const. Visibility filter requires no args and const AST; settings accepts only known CASE_CONVERSION_POLICY and fixed export symbol detects duplicate setting registration. Project aggregate invariants can be bypassed by generated deserialization unless owning bespoke type validates; actual generated SATS implementation and project field admissions remain required, no blanket macro safety clearance. No macro expansion or module execution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

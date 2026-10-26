@@ -1,0 +1,71 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-030",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1558,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/material.rs",
+      "sha256": "254f470bded28494465ba373831b3e8c80ce627e4480f65c9a5b49e05988b459",
+      "ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Material derives Asset/TypePath/AsBindGroup/Debug/Clone; uniform derives Clone/Default/ShaderType. Manual From<&TacticalGrassInstancedMaterial> copies five named Vec4 fields into separate uniformrecord. Manual InstancedMaterial selects custom shaders, disablesprepass and specializes native pipeline double-sided/MSAA coverage.",
+      "disposition": "Keep manual material trait behavior. Five-field reference-to-uniform bridge is mechanical but existing derive_more::From produces constructor inputs from targetfields, not arbitrary named source-record projection; no applicable existing derive established. Do not substitute a single-field From or alter borrowed API/lifetime/layout. Retain small bridge absent verified derive support; representation merger is a separate design change, not credited as exact derive replacement.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1559,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/streams.rs",
+      "sha256": "d2d6a5f0c533722ba0ce88a029935857b9e7a23ea1bb3a30dbd2844af3336ae8",
+      "ranges": [
+        [
+          1,
+          7
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Three deterministic stream constants only; no handwritten trait/codecs.",
+      "disposition": "No derivability candidate.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1560,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/variation.rs",
+      "sha256": "26eeca7140343b37a83e417dd24a51470b41e153827cac511230b030e80a96cf",
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "TuftVariation::new consumes deterministic RNG in fixed authored order and computes jitter/rotation/native shaderseed. No trait impl/manual codec.",
+      "disposition": "Keep semantic seeded construction; deriving From would lose draworder and transformedfields.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1561,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/view_culling.rs",
+      "sha256": "6411bfc2ee44c3d991461d3817be5580974b682de88df4337e4beb492766407c",
+      "ranges": [
+        [
+          1,
+          167
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "GrassCullingPlugin manually implements Plugin.build/finish for render scheduling/pipeline creation. Pipelines/GrassViews derive Resource and latter Default. Native camera uniform extraction, retainedbuffer upload and perview GPU dispatch have no handwritten codec/other traits.",
+      "disposition": "Keep imperative Plugin behavior and native camera/dispatch adapter. No derivability candidate. Existing derive traits already cover record mechanics; shader-pipeline/layout/numeric constraints outside own10 clearance.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

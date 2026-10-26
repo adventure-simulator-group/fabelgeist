@@ -1,0 +1,270 @@
+{
+  "authority": "authority-proof-001.json",
+  "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "head": "13fc9dcc71ab879de364117e5462310673e43210",
+  "members": [
+    {
+      "index": 0,
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "before_sha256": "60cf80c50552791fe98d6c50b3a730b7c0f04bdfa993ec003a781538683e6d72",
+      "head_sha256": "5753b3fa224b8d7e052c5ab7c6a7420f0c22cbcdb9303d7ae9d2980421ac6a27",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "00.diff",
+      "hunks": [
+        {
+          "before_start": 5028,
+          "before_count": 12,
+          "head_start": 5028,
+          "head_count": 10
+        }
+      ],
+      "disposition": "Entire15line dependency-ledger delta read: local fabelgeist-geometry removes bevy_math/bevy_reflect dependencies, retaining serde/thiserror. Exact before/headpins; no package body/feature graph/compiler clearance implied, no exhaustive12308line claim."
+    },
+    {
+      "index": 1,
+      "path": "crates/adventuresim-character-creator/src/animation_preview/binding.rs",
+      "before_sha256": "1d37cdfbe3438b86643502d8f147cec1c22cfb04ba2ccdf09da1c30aacac7152",
+      "head_sha256": "80cd2b04543c35e3ad7d0cae1d5fd89eb5a92e78d68204e990a93a4672d84d65",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "01.diff",
+      "hunks": [
+        {
+          "before_start": 3,
+          "before_count": 10,
+          "head_start": 3,
+          "head_count": 17
+        }
+      ],
+      "disposition": "Only non-test dead_code expectation on Unweighted cloth variant, documented preview/test reachability; no aggregate variant or binding behavior change."
+    },
+    {
+      "index": 2,
+      "path": "crates/adventuresim-character-creator/src/clothing.rs",
+      "before_sha256": "01a1b2449b801b5bc0597ad35ddb9a5cef1bc7f86612b1c02efcb50c6b18e049",
+      "head_sha256": "d3bce4f4d9a53afc7ea141c5edf1163e85f55cb1b455b976b3bd5e329902ce33",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "02.diff",
+      "hunks": [
+        {
+          "before_start": 229,
+          "before_count": 31,
+          "head_start": 229,
+          "head_count": 16
+        }
+      ],
+      "disposition": "Former inlined ring expansion delegates same faces/mask/vertices/rings to extracted validation helper. Read head203-236confirms one selected-face boolean per triangle; no new index admission policy."
+    },
+    {
+      "index": 3,
+      "path": "crates/adventuresim-character-creator/src/clothing/validation.rs",
+      "before_sha256": "630f8e3e98411ed571b011cdd36f22ff53ea367770a459c0fd16617077b05a1c",
+      "head_sha256": "2a753a0c1f67e4c3c7f6ee4560557063c65d99202ef7073ecfaa93260bc95415",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "03.diff",
+      "hunks": [
+        {
+          "before_start": 24,
+          "before_count": 5,
+          "head_start": 24,
+          "head_count": 35
+        }
+      ],
+      "disposition": "Compared complete new expansion body with removed original2body: same selected-vertex accumulation, two-vertex neighboring threshold and convergence break. Read actual old validator1-28finite/out-of-range checks separately; caller must supply validated indices and same-length mask, no arbitrary helper-input guarantee."
+    },
+    {
+      "index": 4,
+      "path": "crates/adventuresim-character-creator/src/device_fit.rs",
+      "before_sha256": "5eb9fadd5491db5b34e9ea0b0478355229d88f1b0b9d937911f586dc55a0b710",
+      "head_sha256": "937f4a7860d38a7b490464615e476551a565f2119242b8e30ea3aeaf7c8307d7",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "04.diff",
+      "hunks": [
+        {
+          "before_start": 300,
+          "before_count": 20,
+          "head_start": 300,
+          "head_count": 20
+        },
+        {
+          "before_start": 353,
+          "before_count": 19,
+          "head_start": 353,
+          "head_count": 19
+        }
+      ],
+      "disposition": "suspended_waist now returns Result and caller forwards it, allowing existing fallible skin.append? to reject. Read full head305-366joining/endpoint logic: geometry/component joining unchanged, skin error occurs before final result. Existing empty-geometry/endpoint-cardinality questions not silently closed."
+    },
+    {
+      "index": 5,
+      "path": "crates/adventuresim-character-creator/src/device_frames/tests.rs",
+      "before_sha256": "10bca4c1bb7cc62d88939a0f0420714d8f441a19fd156e102deeced8ae0ec21c",
+      "head_sha256": "b178ed9f64a000436dc816d4e811966de89e28293321d599b16158c6d981f12a",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "05.diff",
+      "hunks": [
+        {
+          "before_start": 141,
+          "before_count": 11,
+          "head_start": 141,
+          "head_count": 15
+        }
+      ],
+      "disposition": "Existing collinear-landmark fixture explicitly types first index usize for typed ordinal conversion; no assertion or acceptance claim from static test source."
+    },
+    {
+      "index": 6,
+      "path": "crates/adventuresim-character-creator/src/device_garment.rs",
+      "before_sha256": "33088136dedaa0cf15c3541ea4c9c3c2dd930c7cc1e4f8bb63c09c66680ccf6f",
+      "head_sha256": "895213b60ba9bc4762eeefb0a1b73958013e271dd9a8818448ffbb3caaf62973",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "06.diff",
+      "hunks": [
+        {
+          "before_start": 19,
+          "before_count": 11,
+          "head_start": 19,
+          "head_count": 11
+        }
+      ],
+      "disposition": "Ratio import moves to canonical units module; unchanged use sites/aggregate semantics, no old facade compatibility retained here."
+    },
+    {
+      "index": 7,
+      "path": "crates/adventuresim-character-creator/src/device_garment_skirt.rs",
+      "before_sha256": "963e22ca61e7f29b6424e65db9f7d987fca66e0e9543944b1584d9873ec8e285",
+      "head_sha256": "3acbc3c2ff55ab00d9db818a502874cedb6878b2e93d4a880cfbb864332affa0",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "07.diff",
+      "hunks": [
+        {
+          "before_start": 11,
+          "before_count": 11,
+          "head_start": 11,
+          "head_count": 11
+        }
+      ],
+      "disposition": "Same canonical Ratio import repair for skirt; no formula change."
+    },
+    {
+      "index": 8,
+      "path": "crates/adventuresim-character-creator/src/device_garment_torso.rs",
+      "before_sha256": "458442ee3b24c55c84a9ac0fbf3c4ec8c2923ff2b934b0dd2833c40b2ce89027",
+      "head_sha256": "1e18fa755a6820a35e6fbd3ac25599f1f43e0b80f583d1dbe944f8584c8187c8",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "08.diff",
+      "hunks": [
+        {
+          "before_start": 14,
+          "before_count": 11,
+          "head_start": 14,
+          "head_count": 11
+        }
+      ],
+      "disposition": "Same canonical Ratio import repair for torso; no formula change."
+    },
+    {
+      "index": 9,
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "before_sha256": "ee364aaa0d304eb120d6f91216c6da3e186f5e20809e28ffa74f5864e568d72d",
+      "head_sha256": "884384793bf2b01712fd7d56d337b05c1a761b4b5ae86b1a13acf1e9e7048bb7",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "09.diff",
+      "hunks": [
+        {
+          "before_start": 668,
+          "before_count": 33,
+          "head_start": 668,
+          "head_count": 11
+        }
+      ],
+      "disposition": "Shell buffer-view creation delegates to extracted BufferBuilder method while preserving fallible skin append propagation. Full removed body compared directly to new10body."
+    },
+    {
+      "index": 10,
+      "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+      "before_sha256": "6d0c444527f9a25d6aaf8e23e15ab8d973c489f6edb3a75429444c15c4132038",
+      "head_sha256": "e7b3318bdb4f7567653217c780160f0aeaf9576b753bf473591aab010f0bc232",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "10.diff",
+      "hunks": [
+        {
+          "before_start": 76,
+          "before_count": 5,
+          "head_start": 76,
+          "head_count": 33
+        }
+      ],
+      "disposition": "Complete new method preserves per-shell position/normal/index uploads, optional joint_indices.zipjoint_weights, transpose? error and ordered collection. Existing mismatched optional-skin admission questions remain; extraction does not add a validation guarantee."
+    },
+    {
+      "index": 11,
+      "path": "crates/adventuresim-character-creator/src/garment/dressing.rs",
+      "before_sha256": "a5b190694f00f1dbc5e1895f5b40f65b6c1f7242da45ea844b59a6b6d6932523",
+      "head_sha256": "d9e49185a0d535f4dc1b7fb63850c927d5f59577fedf5d5f87ca8fc8b1e84a8a",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "11.diff",
+      "hunks": [
+        {
+          "before_start": 92,
+          "before_count": 11,
+          "head_start": 92,
+          "head_count": 11
+        }
+      ],
+      "disposition": "Joint ordinal conversion uses usize::from rather than cast in dominant-skin limb mask; unchanged fallback true behavior and iteration."
+    },
+    {
+      "index": 12,
+      "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+      "before_sha256": "2e71abeddf4c5c176e026eeed2284cacb0139045128e6437ea97bbb1181e9bc3",
+      "head_sha256": "68d980d533f30f094dc511d8e0eef78f92090b3d51d9754c28e57f190b80c864",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "12.diff",
+      "hunks": [
+        {
+          "before_start": 288,
+          "before_count": 11,
+          "head_start": 288,
+          "head_count": 11
+        }
+      ],
+      "disposition": "Hair render fixture supplies explicit ordinal0usize to mesh helper; same joint intent, no executed render acceptance."
+    },
+    {
+      "index": 13,
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "before_sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "head_sha256": "076c2d6f80214f1546520c29f4a7d418a7e2d53f55708d2b7081841273769a5f",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "13.diff",
+      "hunks": [
+        {
+          "before_start": 199,
+          "before_count": 11,
+          "head_start": 199,
+          "head_count": 11
+        }
+      ],
+      "disposition": "Design export now resolves catalogue item by ID before design lookup, matching actual canonical item handle rather than passing authored item definition directly. Missing lookup remains filter_map omission; no actual duplicate/missing immutable catalogue ID witness."
+    },
+    {
+      "index": 14,
+      "path": "crates/adventuresim-character-creator/src/wardrobe_tab.rs",
+      "before_sha256": "4cd80a0338aaafa8f2b1f80eca296ef22614825d8d1058692fb8c4fe7bbe9595",
+      "head_sha256": "ec1437075d1383eeae19ee3e2643e4d918de6a2032fe1e1ba83135d5f2353a0f",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "14.diff",
+      "hunks": [
+        {
+          "before_start": 217,
+          "before_count": 14,
+          "head_start": 217,
+          "head_count": 14
+        }
+      ],
+      "disposition": "Nested if rewritten as let-chain with same despawn then optional spawn and error assignment; no state-order change."
+    }
+  ],
+  "first_unfinished_merge_index": 15,
+  "new_findings": []
+}

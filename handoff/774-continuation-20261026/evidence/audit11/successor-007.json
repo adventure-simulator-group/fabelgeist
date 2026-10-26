@@ -1,0 +1,59 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-007",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 395,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/geometry.rs",
+      "sha256": "0e6bff7b2a9b88f916e90495f72d65ce3e854b21a05b6a59d30a684174dfe957",
+      "ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "source_basis": "Fresh root complete personal exact frozen physical-p16 source read; independent own11 analysis, no current-main substitution.",
+      "concepts_actual_uses_and_mixup": "CompletionActors borrows actual attacker/defender look/transform/dimensions, CompletionAuthorization pairs event/authority/current CombatInstant, and MeleeCompletionGeometry groups derived measure/reach/time-contact/facts. They are coherent observation/authorization/geometry stages, not equivalent generic records. Scheduled/actual/ideal measure, grip-to-tip/total/head length and attack timing have distinct consumer meanings.",
+      "disposition": "Keep meaningful coordinate, weapon-dimension, observation and authority roles beneath common numeric leaves. Surface measure is explicitly center separation minus fixed minimum, then placed in MeleeIntentFacts.separation; support existing11F001 with exact39538-49/128. Factory/callers currently coherent; no invented per-field positive constraints or new frame bug. A complete weapon geometry record can preserve relationships better than unrelated scalar wrappers; existing physical owner/propagation remedies remain.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 396,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+      "sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+      "ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "source_basis": "Fresh root complete personal exact frozen physical-p16 source read; independent own11 analysis, no current-main substitution.",
+      "concepts_actual_uses_and_mixup": "Outcome takes AuthorizedMeleeAttack, canonical MeleeContactLocation, MeleeContactAtTime, AttackResult and optional existing WeaponDefenseAlignment. It projects them to internal ApplyMeleeAttackResult and native SuccessfulAttackResponse; point/normal/velocity recipient and actual damage roles differ. Alignment record is flattened to three optional fields in event while source optionality is coordinated.",
+      "disposition": "Canonical alignment/contact/attack owners must retain association until actual wire boundary, not introduce parallel payload types. Native DTO projection is legitimate but internal event independent optionals remain existing aggregate/enum propagation question, not current mismatch (all three map same Option). Q001 reuse existing alignment record confirmed by actual outcome consumer. Actual impact tuple frame/recipient needs its canonical producer contract before any role retagging; no fresh frame/gameplay failure claim.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 397,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/protocol.rs",
+      "sha256": "bdc79a977759c6bc89210af417c605af95bdf23d383bcf29a3e1f49552590c6a",
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "source_basis": "Fresh root complete personal exact frozen physical-p16 source read; independent own11 analysis, no current-main substitution.",
+      "concepts_actual_uses_and_mixup": "DefendIntent vs DefendIntentResolved distinguish request from authoritative accepted outcome; PendingDefenderResponse retains receipt CombatInstant. Melee attack initial/pending/completion protocols distinguish optional target/bodypart, precise attack identity, samples, windup and current resolution time. RangedAttackIntent targetNone explicitly means authoritative miss consuming projectile.",
+      "disposition": "Keep request/accepted, attack identity/time and independent random samples distinct. Current388 client miss adapter fabricates Chest/zero precision to satisfy ranged record; hit-only payload relevance is a granularity/enum question pending actual398 receiver and exact finding dedup, no new issue counted yet. Optional melee target/bodypart combinations may intentionally represent failure-to-admit target contact; do not declare them impossible without producer/consumer policy. No native DTO excuse for flattening semantic internal protocol, and no blanket new wrapper prescribed.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "pending_receiver_trace": "Ranged miss bodypart/precision relevance: read scoped original398 next before final disposition; current question not counted as finding",
+  "clear": false
+}

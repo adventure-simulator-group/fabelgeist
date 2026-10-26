@@ -1,0 +1,30 @@
+{
+  "id": "ADLER-CONT11-Q001",
+  "classification": "qualified API-shape strengthening; not current gameplay defect",
+  "source_roles": [
+    393,
+    394
+  ],
+  "ranges": {
+    "393": [
+      [
+        303,
+        340
+      ]
+    ],
+    "394": [
+      [
+        100,
+        142
+      ]
+    ]
+  },
+  "fact": "commit_defense_during_attack accepts attempted and effective as same DefenderResponse; actual caller393 passes attempted_defender_response and alignment.effective/fallback coherently.",
+  "concrete_mixup": "For admitted attempted Block(effectiveness1) and effective None after failed alignment, swapping two same-typed arguments changes effective branch to Block and can call transform_attack_for_offhand_defense when actual effectiveNone should not. This is a compiler-permitted API association weakness; no current caller does that swap.",
+  "possible_coherent_boundary": "Retain one resolved-defense record associating attempted response and actual alignment/effective result, or meaningful stage roles sharing canonical DefenderResponse; compare actual uses before choosing, no duplicate response enum/blanket wrapper.",
+  "dedup": "No exact term match in173 coordinator finding metadata; not sufficient proof of globally new issue.1002/adopted11 alias/remedy and other variants still need exact reconciliation.",
+  "acceptance": "Preserve actual attempted-parry cancellation, effective-block transformation, charge-work and outgoing report semantics; no new gameplay policy or test cases.",
+  "new_unique_count": false,
+  "repair": "not started",
+  "validation": "not run"
+}

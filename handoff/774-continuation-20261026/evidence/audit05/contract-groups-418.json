@@ -1,0 +1,126 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-418",
+  "at": "2026-10-26T00:34:06.394381+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 331,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation_tests.rs",
+      "sha256": "b9ebdeb456f436026036cd6eeb640ee942b80fb5b4bd885d6c9cd78af795defe",
+      "personally_read_ranges": [
+        [
+          1,
+          395
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full frozen generation_tests.rs1-395 as fixture consumer source. Cases distinguish pending/resolved/failed readiness, preserved physical fit across worn/held/drop/rebuild/newwearer, recovery from invalid placement, geometry recentering excluding unused vertex, and least-recent cache eviction. Manually assembled empty body/model caches and no Assets<Image> initialization in fixture setup are exact historical bytes, not proof that this fixture currently executes or passes; parent CI recovery is a separate revision and owner. No tests run or changed."
+      ]
+    },
+    {
+      "scope_index": 332,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment/visuals.rs",
+      "sha256": "d5f2d169f12713c33afc9246eadbcc9389bfcdc8d14c17e64168b8a21b629704",
+      "personally_read_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full visuals.rs1-75. Orphan cleanup removes placeholders when item lacks TacticalEquipmentPhysical; ordered systems spawn, generate, bind skins/render and update attachment in same EquipmentVisualSystems scheduling relation. Read historical retirement fixture; no scheduler or runtime validation. Component-removal cleanup partly closes328 lifecycle concern for physical removal, but not arbitrary invalid mutation or appearance removal."
+      ]
+    },
+    {
+      "scope_index": 333,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player.rs",
+      "sha256": "5da51367e584ae158ebf0c1b3b4edc472dbc542fe12aa8b52682c918e1f42b62",
+      "personally_read_ranges": [
+        [
+          1,
+          575
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full player.rs1-575. Player observer binds local ID to controls/camera and fallback render, remote configured hitboxes; local facing prepares checked rotation before publishing. AttackState constructor admits both timer durations before product return. Update observes current target point, ticks facing/contact timers, removes completed AttackState then prepares contact; ranged sends CompleteHit/Miss while melee only emits local debug ray, leaving server action authoritative.",
+        "Prediction errors remove/consume local attack state or skip completion emission; actual recovery/server timeout remains receiving contract. Common direct controls publish attack preparation and call checked attack_start, roll request separate from sequenced quickstep stream. Read geometry/input and contact timing fixtures only; no current runtime/authoritative combat verdict."
+      ]
+    },
+    {
+      "scope_index": 334,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/acquisition.rs",
+      "sha256": "2e7f4ea1406c4d400b369bb79f73a65677af168b00a1d8eecc0489dbd013f746",
+      "personally_read_ranges": [
+        [
+          1,
+          409
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full acquisition.rs1-409. Body-stable auto aim selects ideal body then an available resolved hitbox, exhausts bodies finitely. Owned AttackAcquisition product keeps selected hitbox/body/local affine point and arrival together. Hostile/notincapacitated, visibility ray, angular threshold and geometry-derived travel/clearance filter candidates; missing ECS/camera produces no target with default direction.",
+        "All hitbox geometry results collect fallibly before selection, so one invalid transform can cancel acquisition; actual admitted invalid transform source remains unproved. Threshold uses actual surface distance but selected target position is hitbox translation, and inverse transform maps that selected point; hitbox versus impact-surface semantics should not be assumed equivalent. Ordinary collision/authoritative receipt trace needed before a mismatch finding. Existing angular/body-fallback fixtures read, not run."
+      ]
+    },
+    {
+      "scope_index": 335,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/action_clock.rs",
+      "sha256": "aaa9212aceb6edf4e5fbe62c3630c1d0dd02774cb3347740b2936d490049e610",
+      "personally_read_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full action_clock.rs1-199. Melee timing owns movement prerequisites and rejects impossible travel/arrival before publication. Delayed timing derives start/contact/end from same sequence or continuation tick; contact delay for continuation uses replicated locomotion clock. animation_ticks enforces one sample minimum while delay_ticks allows zero, checks nonfinite product then uses deliberate saturating conversion for finite oversized counts; maximum deadline witness remains raw representability, not ordinary run. Existing continuation timing fixture read only."
+      ]
+    },
+    {
+      "scope_index": 336,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/attack_start.rs",
+      "sha256": "8d0d41365f804ba69b7249db78e85fd95f091405b565cbcc2144bb269d944cc6",
+      "personally_read_ranges": [
+        [
+          1,
+          454
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full attack_start.rs1-454. Weapon observations, reach/usability/incapacitation, target acquisition, arrival/contact/recovery and AttackState creation precede skeleton transition and request publication. Busy melee stores bounded single buffered family/hand; replay flush reobserves current weapon/target and only publishes after successful transition. Ranged start publishes target body and local timer, later333 completion includes selected body part.",
+        "PreparedMeleeAttack retains spec/timing/state/target; nonfinite timer/sample math fails before publication. PredictedRangedAttack and buffered branch ignore transition error variants after preparation; actual diagnostic/policy consequence remains qualified. Native time conversion has saturating cast at extreme duration; no admitted ordinary maximal clock claim or execution."
+      ]
+    },
+    {
+      "scope_index": 337,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/contact.rs",
+      "sha256": "c2ecfdb4af316c360a84cf28f9b9e0217b87f33150794971dd656ec47239a599",
+      "personally_read_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full contact.rs1-82. Predicted contact prepares ray and hit/miss together from typed origin/reach, local aim and selected target. Ray excludes scene items+attacker; unobstructed predicate accepts target body or any its hitbox, while emitted body_part stays acquisition target.body_part. A different limb intercepting the ray can therefore be represented as selected limb in client CompleteHit; actual normal geometry plus authoritative ranged receiver behavior are still needed before reporting combat damage mismatch. No server damage or executed hit witness asserted."
+      ]
+    },
+    {
+      "scope_index": 338,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/quickstep_trace.rs",
+      "sha256": "d4c445ad8881a51294103c9f7ee9ef4024f1a3d64692356dfa8ac21f93604346",
+      "personally_read_ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full quickstep_trace.rs1-128. Diagnostics retain last action/actuator state and active/retained start tick, emitting on Dodge boolean, active flag or start tick change. quickstep melee-lunge presence participates in warning predicate but not has_changed_since, so a lunge-only transition with same observation fields could suppress diagnostic; actual snapshot transition witness/policy remains pending, and trace is not simulation authority."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "8 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

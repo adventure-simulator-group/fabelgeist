@@ -1,0 +1,23 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-014",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1498,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/player.rs",
+      "sha256": "e58cbe13aa543aebd82995383e999d55e0e47b9885396f958282313316f4e37c",
+      "ranges": [
+        [
+          1,
+          944
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "PlayerPlugin::build is solehandwritten trait, registering requiredcomponents, observers and orderedcontrols/facing systems. LocalCharacterId/ClientPlayer/LocalBodyFacing/LimbHitbox/AttackState/AttackTarget/BodyStableChoice/CombatTargeting/BufferedMeleeAttack/AttackStartRequest alreadyderive relevantnative/component/value traits. AttackState::new performs falliblenativeDuration conversion; targeting/control/facing/ray helpers are inherentsemanticruntime functions. Existingtests have no codecs/traits.",
+      "disposition": "Keep Plugin::build manual because it expresses nativeappregistration/policy, no equivalenteverexistingderive demonstrated. No otherderive opportunity. Preserve checkedtimerconversion, semanticstabletarget selection, bodyframe/combatclassification and failurepolicy; do not addserialization or rawFrom toreplace classifiers. Full944line frozenrole personallyread; no localexecution, newtests or combat/geometryclearance.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

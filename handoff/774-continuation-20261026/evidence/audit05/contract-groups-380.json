@@ -1,0 +1,30 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-380",
+  "at": "2026-10-25T23:58:11.890848+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 188,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/continuity.rs",
+      "sha256": "c93e1acda81c6f3f48403b86443fefb4e8244339b5e99a22ea5825a4233010a0",
+      "personally_read_ranges": [
+        [
+          1,
+          908
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozen requested continuity1-908 read. ChildDevelopment cursor/frozenfocus andtwoeffectivehouraccumulators retained; actualsettlecallerloopsindex0..2, closing189trackindexprecondition. Clipsendto16birthday, skipsnonforwardcursor, readsactualattributes/skillsonce andaddsgainsbeforecursorupdate. Per-intervalattributehistorydependssettlementbeforeattributechangecallers; localcommentalone doesnotproveallhistoricalattributes. Nolocalalivecheck fortraining, requiringactualdeathsettlementcaller beforedeadchildtrainingfinding.",
+        "Lineageclaimmaternalfirstownershipgrant frozenatbirth; adultpromotion requiresage>=16/livecharacter andclaim, thenactualgrant/soloparty/NPCpolicydeletion. Rawchildstage derivesageindependentlyfromplayabilitygrant, noactivitypermission fromstagealone. Initializersidempotentbyexistingrowbutmismatchingreplayinputsnotcompared, actualsinglebirthcallerneeded.",
+        "Estatechoicefirstdeathfrozeneldestlivingchild sortedbirth+ID, elsespouseatdeath, elseUnclaimed0sentinelvalidatedwithheirkind. Unequipsestate, storespending/effective, settlesonlyheirfrontiereligibleorpredeceased. Transferrehomephysicalobjectrootsandremaininginventoryrows withstableIDs, refreshcapability; container/food/custodysubtreeauthorityneededbeforefulltransferconservationclearance. DatabaseErrrollback requiredforafterwritefailures.",
+        "Successionrouting tracksvisitedIDs, explicitdeathchronology andalreadyTransferredlaterheirs, stopsatpendingestate intentionally forlatertransfer; detects cycles anddoesnotreselectfrozenpredeceasedheir. Setsstatus/settledminute onlyaftertransfer; mathematicalnonfinitecurrentcapabilitycouldblockoperationbyactualrefreshcontract, notexecutedfailure.",
+        "Viewsrequiregateway sender andselectedobservergrant/owner/frontier. Familyedges/birth/deathprojectatobserverminute, maturityandstagefromcanonicalbirth; playableflagusesownerAdultDescendantgrant andage, alive separate. Estateview filters effective<=frontier butretainedstatus mayreflectlatermaterialization; exacthistoricalstatuspolicy/consumerneedscomparisonbeforeleakfinding. Existingtestsreadnotrun; nofuturebirth/runtimeclaim."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "scope_authority": "original-scope-072.json fullrequested188, own189receivingcomparison379. No newacceptedfinding."
+}

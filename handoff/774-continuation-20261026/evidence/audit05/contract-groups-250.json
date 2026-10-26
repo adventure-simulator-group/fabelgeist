@@ -1,0 +1,30 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-250",
+  "at": "2026-10-25T22:14:39.274223+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2377,
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+      "sha256": "f2874ee749741d0ae6f0e3454f8e6da59b3b031b933580da15ec73a80ad33ed1",
+      "personally_read_ranges": [
+        [
+          1,
+          898
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Equipment graph collects worn/occupancy/inventory/catalog concurrently, derives worn IDs from same vector and available attachment capacity by parent+point, sorts targets deterministically. Failed inputs become fabricated empty graph exact RIG-PPS-F014. Parallel representations are not proven coherent solely from _character_id; canonical equipment admission owns missing parent/index/cycle capacity integrity.",
+        "set_equipment first owner-scopes inventory, requires catalog and valid authored placement index, parses attachment targets completely or rejects. Replace/attach/equip reducer selection depends on explicit replacement flag and placement parent requirements. Canonical native reducer remains authority for selected target/occupancy conflict. Browser fullu64 attachment ID precision is exact RIG-OWNER-F026/ADMISSION03-F087.",
+        "Medication toggle is explicit self-only administration using current canonical profile/version/route and STANDARDdose, rejects unchecked/unknown, not reversible equipment state. Native inventory association is passed unchanged for authoritative reducer verification.",
+        "Party transfer helper uses admitted entries from form, preserves paired id/quantity tuple to each reducer or splits both vectors from same tuple list for liquidation; invalid entries become empty with warning. This is distinct from independent filter_map loot parser question. Deposit/withdraw loop can partially succeed by separate reducer calls; atomic batch intent not promised here.",
+        "render_party_stats requires active actor at resolved location, selects self or observer-gated Character, requires matching current place before output. Current co-location still not exact equal-frontier check; canonical chronology qualification retained. Secondary capability/conditions/skills/injuries/projectiles/filth failures may become absent/empty.",
+        "medical_presentation requires observer+patient-scoped authorized chart query and explicit patient clock or unavailable; administrations visible only self or nonempty authorized observations. Failed administration query\u2192empty history exact RIG-PPS-F017. Passing patient current clock to active-course view narrows historical future-stopped question; no viewer-time reconstruction guarantee claimed. Stop action passes authenticated actor+administration ID and leaves patient authorization to reducer. Tests read only."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-353",
+  "at": "2026-10-25T23:32:55.968250+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 63,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_movement.rs",
+      "sha256": "3fcb38f4034fe1eccf1d7d99ee3310fed62812d16ef25d547e79e009e4425c33",
+      "personally_read_ranges": [
+        [
+          1,
+          392
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full392line P16 movement integrator read. Each axis clamps starting velocity to admitted speed, moves toward intent under acceleration then constant velocity, retains before/after/limit/displacement together and checks finite speed/displacement wrappers. Opposed integration combines same two contributions and clips distance to minimum/maximum, scales both displacements by bounded travel fraction and zeros forbidden velocity directions.",
+        "Ordered min/max distance and current position within interval are not encoded by individual SignedLength leaves; raw clamp can panic or clipped distance can fail to equal reported displacement sum when inputs violate aggregate bounds/overflow. Actual mobility caller and finite acceleration producer required before defect promotion.",
+        "Ground acceleration clamps summed mass/force/strength/gravity/traction through f32 arithmetic; overflow/nonfinite derived values may be hidden or later rejected. Existing finite substep/collision/zero-acceleration tests read, not run; no universal numeric integration proof."
+      ]
+    },
+    {
+      "scope_index": 65,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+      "sha256": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "personally_read_ranges": [
+        [
+          1,
+          239
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full239line P16 commitment owner read. Phase view combines target identity plus paired schedule start/contact/recovery without mutating, maps actual phase into availability and telemetry; target mismatch currently returns neutral guard before own schedule checks, so multiopponent occupancy needs actual assignment trace.",
+        "Commitment selection distinguishes neutral guard recovery, same-weapon cancellation, offhand retained-power transformation and other recovery. This helper returns commitment facts but does not itself clear scheduled attack fields; actual melee-round mutation must honor result. charge_defensive_work separately records work even attempted defense; actual caller must join attempted/effective/phase/commitment correctly.",
+        "Armor telemetry exposes one stored armor record for selected body region with geometry intersection; it is not a tactical full-layer-chain reconstruction. Earlier iteration overwrite/layer question remains qualified. No project execution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

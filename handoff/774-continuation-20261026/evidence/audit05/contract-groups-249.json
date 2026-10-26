@@ -1,0 +1,46 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-249",
+  "at": "2026-10-25T22:14:08.569359+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2375,
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/encumbrance.rs",
+      "sha256": "1b05e35b79269c08ac5183beede6022f00ca9cb2ffa3c3b0ca9e2121a62a4035",
+      "personally_read_ranges": [
+        [
+          1,
+          484
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Encumbrance IDs dedup living member identities and include active character for personal view. Per-member attributes/limbs/condition tuple queries remain sequential under outer concurrency bound4; row association later uses character ID, not completion order. Personal inventory and party pool remain separately filtered; food lot mass replaces stack mass at matching row association, contained-water custody adds water once.",
+        "Party total folds living member summaries then pool+party custody; same-party members/pooled origin is caller relationship, not revalidated by raw helper. Public inputs could duplicate a member or mix parties but no normal producer mismatch claimed. Missing query rows/defaults lose required observation distinctions; shared existing cause/observation family retained.",
+        "BodyMassKg try_new expect assumes persisted condition mass admission; malformed raw projection could panic but actual generated decode/schema contract remains unresolved, no ordinary malformed mass or accepted additional finding. get_character_capability ignores refresh and defaults query into absence, exact RIG-PPS-F017.",
+        "get_active_party_members gates mutable rows with subject<=observer and projects death chronology, sorts leader thenID. Social notification co-location compares optional current places without equal-frontier check or positive presence, unlike shared data contract; actual social source policy/caller meaning required before extra finding. Party load failure may omit leader ordering and failures can omit members.",
+        "Training profile joins Held occupancy to inventory/catalog by identity then computes canonical equipped-hands result; duplicates from multi-slot occupancy may repeat one item, requiring actual canonical occupancy multiplicity/profile consumer trace before asserting training distortion. Tests read only."
+      ]
+    },
+    {
+      "scope_index": 2376,
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/medical.rs",
+      "sha256": "4a65105b858f1a7597d6f005ffd1840aced5a93d6655837cb0ad03d4f1fdb502",
+      "personally_read_ranges": [
+        [
+          1,
+          567
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Surgery resolves location/limb, authenticated actor, party patient or raw current patient, and co-location or actual context membership before loading required injuries/projectiles/inventory/catalog. Separate observer-time guarantee for raw nonparty patient/current condition remains canonical context admission question, not proven by same-place equality.",
+        "Required surgery rows propagate concrete query failure to logged terminal unavailable markup. Best disinfectant index derives from same retained vector, splints exclude inventoryIDs already linked actor injuries. Capability failure->0surgery exact RIG-PPS-F017.",
+        "Procedure form uses canonical closed SurgeryProcedure; performs actual reducer with actor/patient/limb/projectile/soap/action and explicit absent context fields, then redirects without claiming successful treatment. Schedule serializes generated SATS including optional organization fields. Repair endpoints admit canonical service and preserve actor/item/order identities to reducers; no local permission proof inferred.",
+        "Settlement overview keeps owner-scoped corpse rows filtered same settlement/non-scene, sorts stableID, derives selected index from same vector; failed corpse/alias/description queries become empty with warning. Corpse observation loss exact RIG-PPS-F017; string location classification exact CAM-PPS-F004. Tests read only."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

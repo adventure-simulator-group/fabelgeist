@@ -1,0 +1,70 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-276",
+  "at": "2026-10-25T22:32:01.134234+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2424,
+      "source_id": "pr-working:crates/strategic-web/static/strategic-generation-pool.js",
+      "sha256": "1bdaad393a5c686960d03da626981eb3c163448b14f9572c0f93d857d4f1936d",
+      "personally_read_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozen1-150: workerCapacity positive safe integer bounded1..4; run phase prevents overlapping/reuse-after-close. Per-pool dispatch ordinal checked safe and response must match; generate reply requires transferable Uint8Array and finite nonnegative duration. Exact candidate job string cannot be changed by resolver. Dependencies transferable bytes checked; receive keeps same job/result pair.",
+        "On failure pool closes, aborts resolver signal, settles pending exchanges and terminates workers; completion checks closed phase after awaits. Independent CPU workers never share renderer/GPU. Raw duplicate requested job semantics and canonical Rust product address association remain owner contract, not hash or JavaScript-shape clearance."
+      ]
+    },
+    {
+      "scope_index": 2425,
+      "source_id": "pr-working:crates/strategic-web/static/strategic-generation-worker.js",
+      "sha256": "bceffb50a5faa6c054506fb4b2f52c1c85fb8793f9fc277db152e663c9662d0b",
+      "personally_read_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozen1-29: worker echoes validated dispatch through ready/generated/failed response, delegates exact job/dependency bytes to wasm_generate_job, transfers returned buffer. Errors serialize code/message for parent pool. Initialization-before-generation guaranteed by2424 ordinary producer, no universal raw protocol sequencing seal or actual worker execution claimed."
+      ]
+    },
+    {
+      "scope_index": 2426,
+      "source_id": "pr-working:crates/strategic-web/static/strategic-generation-write-queue.js",
+      "sha256": "d20d0b2685068cdcb5c197635e8b65ae1818dc30424a9a9f9bc2fc8cfd7894d1",
+      "personally_read_ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozen1-97: immutable positive-safe limits; queue charges full backing allocation plus UTF16job, replacement subtracts previous charge, product/count/total gates before transfer. Rejected buffer stays caller-owned; accepted structuredClone transfers ownership into Map. Close freezes admission, drains bounded lanes, decrements each retained allocation once in finally; failures become optional-cache diagnostics.",
+        "remove only pending entry, not an already in-flight write. Prior2423 remove-versus-inflight persistence question narrowed to explicit draining behavior and actual readiness sequence; no accepted stale cache overwrite claim. No JS execution."
+      ]
+    },
+    {
+      "scope_index": 2427,
+      "source_id": "pr-working:crates/strategic-web/static/strategic-generation.js",
+      "sha256": "990b58405ed9b2c9110031b9c0cfa98557a4803f43ed2cff46e64afa9d136101",
+      "personally_read_ranges": [
+        [
+          1,
+          117
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozen1-117: preparation token owns wasm begin/receive/finish/cancel sequence, ordinary cache.put occurs only after successful wasm receipt. Resolver accepts cached product only if Rust receipt succeeds, evicts only product-decode/mismatch, propagates residency/dependency failures. Exact job remains opaque identity; dependencies fetched with same preparation/job.",
+        "Abort closes pool, signal checked after cache/prepare awaits; finally cancels unfinished preparation and starts optional cache close without delaying asset readiness. Worker and write queues2424-26 personally compared. Runtime generator/receipt semantics remain canonical Rust owner, no new full-family clearance or execution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "4 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

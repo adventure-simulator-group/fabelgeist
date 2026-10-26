@@ -1,0 +1,47 @@
+--- 6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_fit.rs
++++ 13fc9dcc71ab879de364117e5462310673e43210:crates/adventuresim-character-creator/src/device_fit.rs
+@@ -300,20 +300,20 @@
+         })
+         .await?
+     } else {
+         fit(&ParametricDesign::Garment(waist.tassets.clone())).await?
+     };
+-    Ok(suspended_waist(fauld, tassets, &waist.tassets))
++    suspended_waist(fauld, tassets, &waist.tassets)
+ }
+ 
+ /// Hang the tassets below the fauld's hem on every realization, and join
+ /// both as one waist defense with a component each.
+ fn suspended_waist(
+     fauld: DevicePiece,
+     tassets: DevicePiece,
+     design: &fabelgeist_armor::GarmentArmorDesign,
+-) -> DevicePiece {
++) -> Result<DevicePiece> {
+     let join = |mut fauld: BuiltPart, mut tassets: BuiltPart| {
+         let hem = fauld
+             .positions
+             .iter()
+             .map(|p| p[1])
+@@ -353,19 +353,19 @@
+         base,
+         mut skin,
+         endpoints,
+     } = fauld;
+     skin.append(tassets.skin)?;
+-    DevicePiece {
++    Ok(DevicePiece {
+         base: join(base, tassets.base),
+         skin,
+         endpoints: endpoints
+             .into_iter()
+             .zip(tassets.endpoints)
+             .map(|(fauld, tassets)| join(fauld, tassets))
+             .collect(),
+-    }
++    })
+ }
+ 
+ /// Record a recipe fitted to one realization of the wearer, short of
+ /// thickening.
+ fn record_recipe(

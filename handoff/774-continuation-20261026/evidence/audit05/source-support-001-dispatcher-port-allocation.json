@@ -1,0 +1,32 @@
+{
+  "id": "ADLER-RESUMED05-F001",
+  "lens": "audit-aggregate-states",
+  "classification": "Accepted maximum starting port cannot advance dispatcher allocation coherently",
+  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/main.rs",
+  "sha256": "de12026f8d2b3c6409d0ff52f053b48b2caf54e3af425d2abdc2e7a3ec6b7eb5",
+  "source_ranges": [
+    [
+      50,
+      52
+    ],
+    [
+      98,
+      100
+    ],
+    [
+      142,
+      164
+    ],
+    [
+      186,
+      214
+    ]
+  ],
+  "relationship": "An allocated listening port and the next allocation state must remain coherent across the full accepted starting-port range. Reserving a port must represent exhaustion rather than overflowing the retained counter before the current launch.",
+  "source_counterexample": "CLI base_port is an unconstrained u16, so --base-port 65535 is admitted. On the first inserted request, callback copies65535 to local port then executes *p +=1 in u16 before launch_arguments/materialization/authorization. Overflow-checked execution panics here and never launches the current valid65535 allocation; unchecked arithmetic stores0 as the next allocation. No need to create many missions or invoke external services to derive the boundary.",
+  "actual_path": "Ordinary admitted CLI and actual on_insert callback, not a fabricated private struct or only arbitrary API combination. No process/network execution or observed deployed outage claimed. Build-profile overflow mode not established; both possible arithmetic modes lack explicit exhaustion handling.",
+  "dedup": "Searched inherited1002 finding records for dispatcher/src/main.rs, next_port, spawned_clone and TacticalLaunchArguments; no exact duplicate found. Broader primitive/CLI owner propagation may connect during final reconciliation, no family clearance.",
+  "proof_ref": "contract-groups-190.json",
+  "repair": "not_started_initial_discovery_gate",
+  "validation": "not_run"
+}

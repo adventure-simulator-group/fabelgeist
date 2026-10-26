@@ -1,0 +1,22 @@
+{
+  "1903": {
+    "ranges": [[1,378]],
+    "inventory": "Fresh full378line requested urban ground source read1-205/206-378. SpatialBuckets/UrbanGroundLookup/UrbanGroundSurfaces selected Default/Debug/Clone/serde/Reflect traits derive. Manual PartialEq for UrbanGroundSurfaces compares authoritative streets/yards/building bounds and deliberately excludes lazy OnceLock<UrbanGroundLookup>; ordinary derive changes cache population/bounds. Owning manifest has no selective-equality derive. Runtime functions compute spatial buckets, semantic surface priority and geometric overlap; constructor admits native building bounds then prepares derived cache. Existing cases inspect bucket ownership and transport/lazy reconstruction.",
+    "disposition": "Retain semantic cache-independent PartialEq; same necessary exception as settlement1819, no proposed extra equality/cache API. No other derivability candidate. Existing tests read only; no admission/cache/concurrency/render/runtime acceptance."
+  },
+  "1904": {
+    "ranges": [[1,181]],
+    "inventory": "Fresh full181line requested property terrain support adapter. TerrainGeometry selected basic/serde/Reflect/Default variant already derive. No handwritten traits/codecs. SceneTerrain methods explicitly distinguish sampled from owned accepted topology, project source/support and physical queries, emit exact presentation/collision triangles and retrieve canonical property foundations with actual owner IDs.",
+    "disposition": "No derivability candidate. Geometry-role selection, native buffer generation and owner lookup are semantic functions rather than representation boilerplate; no new serde/native-index API or runtime/geometry acceptance."
+  },
+  "1905": {
+    "ranges": [[1,170]],
+    "inventory": "Fresh full170line requested terrain query source. Selected range basic/error traits already derive; no handwritten traits/codecs. SceneElevationRange admits nonempty ordered finite native reduction. Terrain queries preserve missing support as explicit error/Option, select sampled or owned source, use exact native triangular diagonal and admit final SurfaceHit with checked elevation/normal.",
+    "disposition": "No derivability candidate. Nonempty/finite reduction, semantic source selection, interpolation and concrete missing-support error construction are explicit computation. No query/numeric/runtime acceptance."
+  },
+  "1906": {
+    "ranges": [[1,57]],
+    "inventory": "Fresh full57line requested terrain query existing-tests source. No handwritten traits/custom codecs. Existing cases construct admitted terrain/typed queries and inspect nonunit scale, exact diagonal height source and finite normals at boundary/centre.",
+    "disposition": "No derivability candidate. Semantic fixtures/assertions read only; no test/probe execution or query/geometry acceptance."
+  }
+}

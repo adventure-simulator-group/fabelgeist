@@ -1,0 +1,60 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-059",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1649,
+    1651,
+    1652
+  ],
+  "source_pin": "source-pins-and-scope-092.json",
+  "source_reads": {
+    "1649": {
+      "head": [
+        [
+          1,
+          278
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1651": {
+      "head": [
+        [
+          1,
+          118
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          21
+        ]
+      ]
+    },
+    "1652": {
+      "head": [
+        [
+          1,
+          350
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          100
+        ]
+      ]
+    }
+  },
+  "analysis": [
+    "1649 full278 byte-identical actual fixture helpers and all oracles: source face/cut filtering, exact and split rectangle cases including no regions and boundaries, unmodified source serialization, shared internal opposite sides at yaw0/.73, source cell bottoms, canonical support/collider ray, separate owners/terraces/unmatched/duplicate and ambiguous occurrences, exact source/cut face bits. Same checked prism construction, coordinates and property IDs; no assertions or inputs changed. Native checks read only, not run.",
+    "1651 full118/21diff preserves seed17 landform recipe/collar and authored facade fixture, natural removed-bit sets/foundation-bearing sets and each original cutout/oracle. Only passes same accepted property surface directly and unwraps new Result; external fixture not loaded.",
+    "1652 full350/100diff preserves scale1e-8/1/1e8 roundoff filter fixtures, garden layout/graded source, complete surface coverage and multi-valued support checks, access route endpoints and exact seam probes. Existing repeated traversal reference remains rectangle then face ordering and original native mesh normal/color construction; ignored12-fixture comparison still checks position/normal/color byte and index order without weaker assertions. All changed calls add typed point/displacement/getter or Result adaptation only. Imported garden JSON and manifest are unconsumed; no runtime/source family acceptance inferred."
+  ],
+  "findings": [],
+  "qualifications": [
+    "All prior findings/finite/native-policy qualifications preserved.",
+    "No local checks/tests/builds/source/Git changes or current CI source substitution; no global clearance."
+  ],
+  "global_clearance": false
+}

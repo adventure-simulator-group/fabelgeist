@@ -1,0 +1,61 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-356",
+  "at": "2026-10-25T23:34:52.788540+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 71,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/threat.rs",
+      "sha256": "bf72fdd14fdc1fc1e4196b4c65172f6c71d0658f4bad6896cb41495acf889798",
+      "personally_read_ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full190line P16 authored threat producer read. Parses closed threat ID, derives attributes/training from difficulty and scaling, binds bestiary categories/body mass/combat profile, projects weapon and ranged sidearm/ammunition, and applies innate/armored protection.",
+        "Actual ranged threat ammunition is fixed12, narrowing50 main ranged count concern for this producer; strategic party inventories/tuning remain separate. Armored protection overwrites innate armor deliberately; shield-block bonus may be positive without shield-side/instance facts, so tactical parity requires actual adapter/policy trace.",
+        "Public difficulty/scales inputs and external combat_scaling_multipliers admission remain required for finite result; returning typed Combatant alone is not full aggregate validation. No new findings/execution."
+      ]
+    },
+    {
+      "scope_index": 72,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/timeline.rs",
+      "sha256": "97e87014b1ece1247d03e8e2a7e1e36db3c28ccae7b17b95dd7857ca13075406",
+      "personally_read_ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full139line P16 timeline read. at(kind,time) derives tick from same admitted BattleTime and initializes all optional payloads empty; separate callers fill event-kind fields and batch identity. Raw public aggregate can represent mismatched kind/payload/time/tick, so emitting-owner evidence is essential.",
+        "tick_at clamps negative time to0, multiplies64, rounds/casts u64; finite large clock may saturate and quantization is intentionally many-to-one. Native sample tick must remain distinct from attack identity; exact ROOT-INITIAL04-F027 support retained with no new finding.",
+        "with_terminal sets only optional resolution and does not enforce kind; actual terminal recorder uses proper kind in50, narrowing that raw bypass for normal caller. No rendering/serialized report consumer clearance."
+      ]
+    },
+    {
+      "scope_index": 74,
+      "source_id": "physical-p16:crates/adventuresim-core/src/battle_time.rs",
+      "sha256": "989db0ee4ad72276f3923b7d005480e50b6c618e04d0b7623602bf0de0d2a350",
+      "personally_read_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full95line P16 BattleTime owner read. Private finite signed seconds are admitted by constructor/manual Serde TryFrom; negative clock coordinates are intentional. Checked add rejects nonfinite, elapsed differences delegate nonnegative span admission, saturating difference clamps backwards to0 but rejects positive overflow.",
+        "is_within and precedes_with_margin preserve unretained native subtraction/addition before predicate; overflowing differences cannot match finite tolerance. Type seals finite scalar coordinate, not chronological schedule/order/progress, tick injectivity or exact f32 elapsed advancement. No new finding/execution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "existing_finding_support": [
+    "ROOT-INITIAL04-F027"
+  ]
+}

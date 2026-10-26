@@ -1,0 +1,159 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-055",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1627,
+    1628,
+    1629,
+    1631,
+    1632,
+    1633,
+    1634,
+    1635
+  ],
+  "partial_original": [
+    1626
+  ],
+  "source_pins": [
+    "source-pins-terrain-087.json",
+    "source-pins-and-scope-088.json"
+  ],
+  "source_reads": {
+    "1626": {
+      "head": [
+        [
+          1,
+          1509
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          450
+        ]
+      ],
+      "prior_personal_range_reused": "1-30 selected053;31-1509 fresh",
+      "status": "Full source/diff read; actual ActiveVistaSurface height/support receiver1636 remains next closure edge."
+    },
+    "1627": {
+      "head": [
+        [
+          1,
+          216
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          14
+        ]
+      ]
+    },
+    "1628": {
+      "head": [
+        [
+          1,
+          258
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          240
+        ]
+      ],
+      "read_provenance": "Own038 full source/diff reused at exact matching head/base/diff hashes; fresh caller context1631/1634 now reviewed. No full body replay."
+    },
+    "1629": {
+      "head": [
+        [
+          1,
+          102
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1631": {
+      "head": [
+        [
+          1,
+          103
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          38
+        ]
+      ]
+    },
+    "1632": {
+      "head": [
+        [
+          1,
+          336
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          40
+        ]
+      ]
+    },
+    "1633": {
+      "head": [
+        [
+          1,
+          259
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          32
+        ]
+      ]
+    },
+    "1634": {
+      "head": [
+        [
+          1,
+          338
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          134
+        ]
+      ]
+    },
+    "1635": {
+      "head": [
+        [
+          1,
+          100
+        ]
+      ],
+      "actual_diff": "empty"
+    }
+  },
+  "analysis": [
+    "1626 complete requested1509 source/450diff now read. Finite centre snapping/radius/49x49 grid, per-sample exact coordinates, native height interpolation order, UV clamp, missing-sample index omission and computed normals preserve old ordinary arithmetic. New finite point and resulting-height filters omit invalid/nonfinite surface samples, accepted finite-support policy; native UV/unused placeholder vertices do not establish universal malformed geometry safety. Exact actual ActiveVistaSurface support routing remains next1636, so original1626 is partial despite complete source read.",
+    "All1626 existing fixture/oracles read without execution: pending terrain/environment lifecycle and stale-handle retry, detail canonical-vs-coarse morph and collider triangle equivalence, volumetric collar exclusion, water/road crown+ruts, geology/boulder socket/debris, directional drainage/creep/root ridges, deterministic organic/grass masks and unchanged shader source-string expectations. Only typed constructor/getter/Result adaptation appears in cases; no cases/assertions added or weakened. Test-only road best score Option selects first zero-or-higher score and only strictly greater later scores, exactly old initial-1 behavior because sums are0..6; direction/tie order preserved.",
+    "1627 full216 changes only existing fixture unwrap for fallible terrain material. Production shader bindings, textures/sampler sharing, exact geological recipe palette/basis-point conversion and geographic inverse frame are unchanged; all fixture inputs/oracles preserved. Native shader bodies are not read from shader-path declarations.",
+    "1628 personally read full258/full240diff in038 reused at identical head/base/diff hashes, with finite-point/huge-grid qualification retained. Actual1631 and1634 now close its terrain-material receiver: malformed ground-map point error propagates before images.add/material storage/native spawn, rather than publishing a partially generated ground map. Valid deterministic pixels, noise/chamfer/encoding and fallback behavior remain the same.1631 complete103 only changes Result plumbing; every native material coefficient, texture handle and semantic Vec4 field remains.",
+    "1629 full102 byte-identical: exact signed lattice coordinate widening, seed stream, floor/smooth bilinear operation order and table corner padding remain. Existing negative coordinates, boundaries, seed0/42/u64MAX oracle and ignored microbenchmark all read as source, not executed. Arbitrary extreme f32/IVec2/capacity safety remains pre-existing scope, not newly cleared.",
+    "1634 complete338/134diff: moved spawn_presentation retains exact original1626 material/detail clone, depth bias, base/fault publication order, origin centre, triangle counters and detail spawn. The new material error returns before commands/mesh/material publication. Refresh checks both material handles before producing a new image as before; after a successful material call writes same values and updates optional existing detail mesh/revision. Exclusive synchronous material borrow means newly defensive Some guards do not add an ordinary missing-handle transition. Native failure after source admission is not promised rollback. Existing fault-patch optional fallback and all native topology/collar/winding/UV/buffer handling are unchanged.",
+    "1632 complete336 production unchanged; only existing refined terrain and test material/centre adaptations. Same canonical owned-or-urban topology, sampled coarse fallback, revision-driven replacement and detail visibility/cutout, plugin ordering and GPU/CPU residency semantics.1633 complete259/32diff retains catalogue names, complete foundation/natural triangle-bit sets and exact reuse/cutout/terrain-immutability assertions. External catalogue JSON not counted by file load, nor successful runtime inferred.",
+    "1635 full100 byte-identical: same explicit string-to-full-u64 portrait admission, place-kind mapping, first establishment/operator then first occupied-building then first distant-building precedence. Existing u64MAX JSON string case/numeric token rejection unchanged and read. No new text/identity compatibility fallback."
+  ],
+  "findings": [],
+  "qualifications": [
+    "Existing broad raw grid/native capacity/finite policy qualifications and all earlier findings retained.",
+    "1626 remains partial for actual1636 height routing; no current CI source, artifact or hosted result substitution.1631/1634 source closure does not clear whole terrain/vista families.",
+    "No project checks/tests/builds, product/Git changes or global clearance."
+  ],
+  "global_clearance": false
+}

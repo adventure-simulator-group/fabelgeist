@@ -1,0 +1,123 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-433",
+  "at": "2026-10-26T00:46:54.096917+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 512,
+      "source_id": "pr-working:assets/shaders/tactical_moon.wgsl",
+      "sha256": "69d07afb5411b9aab80510259c6f30c47d2f6a6f27a07e96b09276dc3fb7639a",
+      "personally_read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full moon1-65. Actual normal/light/view directions define terminator and bounded scattering denominator; albedo texture luminance is converted to declared molded palette, radiance/earthshine are separate host uniforms. Shader does not admit nonzero directions or tie phase/orientation/light to same astronomy instant; actual host frame/time contract required. No observed lunar phase/radiance defect or GPU run."
+      ]
+    },
+    {
+      "scope_index": 513,
+      "source_id": "pr-working:assets/shaders/tactical_pebble.wgsl",
+      "sha256": "5a55c52e1b2950b498e8d1679e7983bd84b6da069dc6fe5698a4b22d0646353e",
+      "personally_read_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full pebble1-90. Native mesh positions/normals transform together; visibility dither and flat ambient plus all directional-light shadows use actualview/exposure. ConstantLambert/pi and shadowfloor are explicit presentationpolicy, not gameplayimpairment. Coherentlightcount/nativebuffer and normalizedmaterial inputs remain framework/host contract; no new accepted finding."
+      ]
+    },
+    {
+      "scope_index": 514,
+      "source_id": "pr-working:assets/shaders/tactical_pebble_billboard.wgsl",
+      "sha256": "c4644f87c9162b39d2fc1225d9912d8e7a0580cd7556d1333181defd62752b93",
+      "personally_read_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full pebble_billboard1-95. Mesh normal channel intentionally stores each centre, vertex position stores quad offsets; camera-facing basis reconstructs worldposition and broadnormal. Derivative pixelcoverage and stochastic silhouette fade perphysicalsize. Actual host layout/scale and nondegenerate horizontalcamera relation required; epsilon alone not proof for allvectors, no actualcameraonpebble witness. No rendereracceptance."
+      ]
+    },
+    {
+      "scope_index": 515,
+      "source_id": "pr-working:assets/shaders/tactical_shrub_bark_instanced.wgsl",
+      "sha256": "696467dcd07aed5f94b0dfb6d9605560daf85fd74e780da49e2449c840e15844",
+      "personally_read_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full shrub_bark_instanced1-119. Position uses eidolon instance yaw/scale and batch worldmatrix; normal uses instanceyaw only under declared yaw-onlyuniformscale assumption. Batch rotation/nonuniformscale would need actualhostproducer before reporting mismatch. Vertexcolor is metricrootheight metadata, explicitlynotpigment. Dither,flatambient,directionalshadow model intentional; no GPUexecution or derivedframeadmission guarantee."
+      ]
+    },
+    {
+      "scope_index": 516,
+      "source_id": "pr-working:assets/shaders/tactical_shrub_leaf_instanced.wgsl",
+      "sha256": "0f80c3f51e71056d7249e91d9dda6b82980138f76358602cf5aa887976e8aa52",
+      "personally_read_ranges": [
+        [
+          1,
+          197
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full shrub_leaf_instanced1-197. Same instance/batch positioning versus yaw-onlynormal assumption as515; shaderwindtime/materialdirection, front/backalbedo, opacity, AO and physicalpigment lane define one fastfoliageproduct. Normalmapbindings remain declaredunused, but no productcodeedited under audit. Hostwinddirectionnonzero/quality/batchframe and alpha mode remain actualproducerpolicy, no actualbadbinding orcalmwindwitness."
+      ]
+    },
+    {
+      "scope_index": 517,
+      "source_id": "pr-working:assets/shaders/tactical_stars.wgsl",
+      "sha256": "929fdce1cb1b288bcc885f481a2fd64d20f60dc513e16ebd534b84d700e7ca98",
+      "personally_read_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full stars1-61. Equatorialdirectiontransform and hoststarsettings producecamera-relativeplacement, screenpixelquadextent and magnitudeflux. Viewportsize/nonzerodirection, admittedcatalogmagnitude/color and astronomyframe/time must be coherent; powcanoverflowrawverynegative magnitude but noordinarycatalogwitness. No camera/sky/GPUacceptance."
+      ]
+    },
+    {
+      "scope_index": 519,
+      "source_id": "pr-working:assets/shaders/tactical_tree_aggregate_bark.wgsl",
+      "sha256": "9fbf0f983b8019500e6cdf95bd531a99a9a3b01eea1b07f27d9c4506364c4fe8",
+      "personally_read_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full tree_aggregate_bark1-49. Standardmaterial PBR supplies initialstate; samefront/backmacronormal and flatbarkpigment with boundedroughness feeddeferred/forwardports. Deliberateomissionofroot-contact/microrelief inaggregatebranches, no globaltreecontractclearance orshaderexecution."
+      ]
+    },
+    {
+      "scope_index": 520,
+      "source_id": "pr-working:assets/shaders/tactical_tree_impostor.wgsl",
+      "sha256": "131a902b24267466e1c039477a9a18a881b7fd31212c614b850fbc15673934c4",
+      "personally_read_ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full tree_impostor1-135. Whole-treelevel4 cards inherit actualhorizontal/verticalparentaxislengths whilecamera-facing; winddisplacement, LODhandoff and8-view3x3atlas convention explicit. Fragmentdirection currently derivesfromeachworldfragment, vertexbasisfromroot; exactatlasnormal/yawproducer and actualpresentation difference needed beforemismatchfinding. Hosttreelevel/material/atlasversion/lightframe co-association remains unsealedshaderinput, no actualordinarycorruptatlas orGPUrun."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "8 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

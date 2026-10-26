@@ -1,0 +1,54 @@
+{
+  "material_indices": [
+    185,
+    186
+  ],
+  "sources": [
+    {
+      "material_index": 185,
+      "source_id": "native-support:bevy_render-0.19.1/src/render_asset.rs",
+      "sha256": "fec69e4c27506056a55fc472e30fb113fdf316dc73647fb11794fb6c1ac77377",
+      "registered_ranges": [
+        [
+          280,
+          364
+        ]
+      ],
+      "archive_checksum_authority": "fc86a32b2eef9859e1e7d323c6d1a9150fe77aa17c30fd05abebc12f645929dc"
+    },
+    {
+      "material_index": 186,
+      "source_id": "native-support:bevy_render-0.19.1/src/texture/gpu_image.rs",
+      "sha256": "93ce4dd53c7e855b2ebc057fc23e71c191f1fd74c0f9ae224b49de260d556708",
+      "registered_ranges": [
+        [
+          26,
+          38
+        ]
+      ],
+      "archive_checksum_authority": "fc86a32b2eef9859e1e7d323c6d1a9150fe77aa17c30fd05abebc12f645929dc"
+    }
+  ],
+  "receipt": "contracts-041.json",
+  "aggregate_contract": {
+    "identity": "RenderAssets removal tracks AssetEvent::Unused ID, not mere CPU-store Removed event. Source CPU object presence and render resident object are distinct state coordinates.",
+    "event_state": "Per-frame extracted/removed/modified/added and needs_extracting reset, explicit re-extractions merged, Added/Modified request extraction, Unused removes need/modified and records removed. No inferred lifecycle from an absent CPU value alone.",
+    "usage": "Generic extraction consults actual GpuImage Image.asset_usage. Pure RENDER_WORLD uses take_gpu_data plus previous render asset, combined usage clones, no RENDER_WORLD does not extract.",
+    "failure": "take_gpu_data Err logs error and emits no successful extracted+added item for that path. Current range does not show scheduled retry, complete preparation or binding readiness; no API success inferred from queue processing alone.",
+    "image_owner": "Registered GpuImage excerpt proves SourceAsset/Image usage dispatch and native Param types only; its upload/data extraction body excluded."
+  },
+  "qualified_remaining": [
+    "Actual weather1675/1676 strong-handle/event ownership and resource lifetime must support retention assumptions; registration reason is navigation, not fresh caller body credit.",
+    "Other render preparation/removal functions and A::take_gpu_data/Image overrides are outside registered ranges, not blanket SDK coverage.",
+    "CPU data dropping versus complete source-object removal must not be conflated; generic code alone cannot prove actual source-memory size or texture-ready state.",
+    "No new defect from intended CPU removal while a render-use handle remains; no concrete actual prematurely unused image witness established."
+  ],
+  "dedup": "materials185-186-dedup-navigation-001.json; exact dependency-path metadata lookup only, no global dedup closure.",
+  "new_unique_findings": 0,
+  "accepted_own_findings_count": 10,
+  "prior185checkpoint_preserved": true,
+  "project_execution": false,
+  "source_or_git_mutation": false,
+  "other_lens_or_current_CI_credit": false,
+  "global_clearance": false
+}

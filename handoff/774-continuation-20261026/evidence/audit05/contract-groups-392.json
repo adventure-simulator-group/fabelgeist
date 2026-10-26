@@ -1,0 +1,41 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-392",
+  "at": "2026-10-26T00:12:44.239181+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 254,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+      "sha256": "0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+      "personally_read_ranges": [
+        [
+          1,
+          585
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full585 lines. Draft constructors derive sex/presentation coherently then finalize complete family chunks before unrelated population additions; remainders keep generated demographics. Household surname generated before persistence and copied as inherited surname, typed identity validated by actual name owner. Businesses serialized as exact structured seeds; canonical service only ordinal0, other operators preserve actual business key with additional presence. Chapter representative deterministic override is followed by duplicate-character/business rejection across drafts before writes. No actual hash collision witness.",
+        "Family grouping follows contiguous business usage ordering and ambient chunks; actual demand ordering is separate source authority. Draft role strings are author/generated inputs rather than sealed identity proof. Validation catches duplicates but does not itself enforce total planned population versus physical catalogue; actual settlement demand/allocation receivers remain separate."
+      ]
+    },
+    {
+      "scope_index": 255,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs",
+      "sha256": "40ec2a78bdcbb5225ff5558a6bb8f186af189dc527eef024048495ec10df0e94",
+      "personally_read_ranges": [
+        [
+          1,
+          299
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full299 lines. Prepares generated appearance/profile from finalized draft age/sex/presentation; persistent Character/personality/name identity created together from consistent finalized facts, then explicit profile, roles, presence, business binding and immutable historical explanation. explanation profile retains generation age band and inputs; current views join live identity rather than replaying historical presentation.",
+        "reuse_existing only checks settlement boundary then maintains roles/business link; it does not rewrite earlier demographics, authored location or presence. Same-settlement arbitrary ID collision/mutated authored source would reuse another profile, but full draft duplicate validation and deterministic normal producers do not supply an actual collision witness. Later insert failures propagate transaction error; no partial database mutation asserted. All service durations use valid daily schedule windows including full-day provider."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

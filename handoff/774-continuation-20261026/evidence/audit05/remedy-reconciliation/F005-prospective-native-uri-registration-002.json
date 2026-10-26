@@ -1,0 +1,20 @@
+{
+  "at": "2026-10-26T04:46:20.913154+00:00",
+  "prospective_before_table_body_read": true,
+  "source": "http1.5.0/src/uri/path.rs",
+  "sha256": "d69c30a915c83bb99f956da92d9a3cc16b754da43d1e940bd750676e9a7a5c7f",
+  "ranges": [
+    [
+      412,
+      465
+    ]
+  ],
+  "reason": "Actual registered scanner467-538 dispatches PATH_MAP/QUERY_MAP classifications; literal fragment admission needs exact table byte mapping, not constant names or guessed URI semantics.",
+  "declaration_navigation_only": [
+    "CLASS constants412-416 names only",
+    "build_path_map418 signature/name",
+    "build_query_map444 signature/name",
+    "PATH_MAP464/QUERY_MAP465 names only"
+  ],
+  "no_body_or_value_read": true
+}

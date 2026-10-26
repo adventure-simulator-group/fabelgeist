@@ -1,0 +1,47 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-354",
+  "at": "2026-10-25T23:33:25.096490+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 66,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "sha256": "6807ada697c587ffd96f625c61692de55a4ae1548d7dcd9e5d2d539e5f6187c0",
+      "personally_read_ranges": [
+        [
+          1,
+          234
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full234line P16 mobility read. Pair preview chooses nonnegative shared surface distance, derives both intents/speed/acceleration, integrates center distance with common collision floor/max, then converts retained distances back to surface units. Actual admitted weapons/settings make max no less than minimum; wrapper arithmetic rejects nonfinite center addition.",
+        "Pair-target mismatch resets both target IDs, distance and separation velocities before preview; success writes matching new distances and own axis velocity and records two deterministic-ID-ordered movement events from same result. On later error this mutates target/reset state first; root resolve_battle owns by-value vectors and returns Err rather than exposing partial battle outcome, narrowing externally visible reuse risk.",
+        "Movement does not charge action work in this owner; actual movement workload policy vs transient tactical owner remains separate. Index-pair scheduler/target reassignment and yielded/multiopponent behavior remain scoped questions. No tests executed."
+      ]
+    },
+    {
+      "scope_index": 67,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "sha256": "4d44aec14335abdea2ad0899a2d41cf09c7b5677fcb850b2ede69174596d3a34",
+      "personally_read_ranges": [
+        [
+          1,
+          597
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full597line P16 round owner read. Prepared exchange freezes sampled result/contact/response/phase/defender timing plus attack performance/duration/recovery from same participants, then charges attacker work, applies defender commitment, and records damage/log/timeline from corresponding values. Recomputed contact sample uses same draw; current body/equipment is unchanged between two contact projections.",
+        "apply_defender_response joins attempted/effective response and private phase, computes readiness, records before/after telemetry, then updates readiness, clears all three schedule optionals for same-weapon cancellation, records adaptation and intercept counter, charges attempted defense work. This closes65 helper's actual cancellation receiver for that branch; no general dodge/cross-target schedule coherence proof.",
+        "Contact timeline retains attack/batch/member/order and readiness from timing; response/transformation refer incoming and affected scheduled IDs. Existing ROOT-INITIAL04-F027 lossy identity remains exact support, not fixed by coherent record construction.",
+        "prepare resets retained attack power before fallible contact calculations; root by-value battle failure discards outcome, while direct private helper reuse/error policy requires local caller analysis. Contact result scales source performance and retained power; no extra hidden fatigue factor is introduced here, but shared physical kernel proof remains separate. Existing fixtures read, not run."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "existing_finding_support": [
+    "ROOT-INITIAL04-F027"
+  ]
+}

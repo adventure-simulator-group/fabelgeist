@@ -1,0 +1,71 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-077",
+  "at": "2026-10-23T01:09:23.957294+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/mesh/grid.rs",
+      "sha256": "8c28100b68a4934760fdb6e468d601a8a4f29890d5ee8837120d992250b837f3",
+      "scope041_index": 1831,
+      "actual_EOF": 279,
+      "scoped_ranges_compared": [
+        [
+          1,
+          279
+        ]
+      ],
+      "actual05_comparison": "Actual full279 read before compaction. CompoundGrid retains columns and row-major cells together, including None street-entry gaps. Retaining neighbor arithmetic only runs when an actual cell exists: xs.windows(2) producing any cell implies columns>0; i%columns and right/next-row membership are bounded explicitly. Cut sorting/tolerance dedup can empty mesh, which later surface admission rejects, not modulo-zero. floor_regions uses breaks[1]/len-2: actual private court producer profiles74-81 always retains SIX points, and translation preserves count, closing this real indexing precondition. Floor selection uses the same member ID/elevation and checked polygon from the same world cell, excluding street entry. Finite native midpoint/product arithmetic can still fail later checked geometry; no bad normal plan/run inferred.",
+      "source_body_proof": "Actual fresh bounded source read in preceding turn retained in compaction evidence; metadata identity validation now only, no duplicate semantic credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+      "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+      "scope041_index": 2696,
+      "actual_EOF": 323,
+      "scoped_ranges_compared": [
+        [
+          1,
+          299
+        ],
+        [
+          305,
+          311
+        ],
+        [
+          314,
+          323
+        ]
+      ],
+      "actual05_comparison": "Actual scoped1-299/305-311/314-323 read before compaction. FloorBearing private aggregate admits nonzero building/nonempty regions and rejects positive overlap or partial shared edges; complete shared partition edges intentionally allowed. Exterior edge counts use exact sorted endpoints and canonical signed-zero keys, not fuzzy authority. validate_floors145-160 checks BOTH length and exact ordered building-ID equality by zip before each floor. Coverage clips checked GroundTriangles against the same bearing outline; wrong-level intersections retain actual control and are excluded from eligible coverage; subtraction of original convex faces prevents duplicate faces masking holes. Allowed missing/wrong-level area is exterior perimeter times contact tolerance, intentional edge sliver tolerance. Whole final floor predicate now compared, but GroundTriangle::new canonical predicate still pending before any F023 fully-admitted surface inference. Excluded300-304/312-313 are test declaration/comments context, not material proof; no324+ bytes exist.",
+      "source_body_proof": "Actual fresh bounded source read in preceding turn retained in compaction evidence; metadata identity validation now only, no duplicate semantic credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/region.rs",
+      "sha256": "0776d212c25f4a233acb887f1fa0e5318c494cff1121dfb5125e6f5105d3d409",
+      "scope041_index": 2697,
+      "actual_EOF": 121,
+      "scoped_ranges_compared": [
+        [
+          1,
+          78
+        ]
+      ],
+      "actual05_comparison": "Actual material1-78 read before compaction, EOF121;79+ originaltests excluded. FloorRegion keeps private checked ScenePlanPolygon alongside private original admission wire. Scene wire builds checked scene outline; Architectural wire checks PlanPolygon then projects using same centre/origin/orientation. Both constructors delegate same complete wire TryFrom and publish the pair together; serialization returns stored admission and getters immutable, no independent mutation/Reflect/unchecked converter. This retained source authority plus derived outline is coherent by construction, not redundant authority solely because two representations exist. Architectural/scene topology and projection checks are actual earlier05 canonical obligations, not unit/frame inference from type names.",
+      "source_body_proof": "Actual fresh bounded source read in preceding turn retained in compaction evidence; metadata identity validation now only, no duplicate semantic credit."
+    }
+  ],
+  "comparison_groups": {
+    "ordered-floor-member-membership": "Exact ordered IDs and counts checked together, not count-only correspondence.",
+    "paired-source-projection": "FloorRegion admits source wire and derived scene outline atomically and exposes immutable views.",
+    "private-grid-cardinality": "Actual cell existence implies nonzero columns; six-point court factory closes neighbor profile indexing.",
+    "final-floor-qualification": "Whole floor tests compared; canonical GroundTriangle lower predicate pending, so no claim tiny mesh F023 is fully admitted."
+  },
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual GroundTriangle and planar clipping predicates; source reconstruction/refinement and native port prerequisites remain exact unread cells."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

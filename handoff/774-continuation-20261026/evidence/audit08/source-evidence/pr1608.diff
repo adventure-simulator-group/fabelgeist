@@ -1,0 +1,167 @@
+diff --git a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation/residency.rs b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation/residency.rs
+index df2978429..2762ee2d0 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation/residency.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation/residency.rs
+@@ -1,5 +1,7 @@
+ //! Retain terrain bindings and share matching plant assets across scenes.
+ use super::*;
++use crate::presentation::terrain::{TerrainContactHeightmap, TerrainHeightmapResult};
++use adventuresim_tactical_core::scene::SceneElevationRange;
+ use std::collections::VecDeque;
+ 
+ // Active scene plus two previous scenes bounds retained geometry and atlases.
+@@ -10,6 +12,20 @@ pub(in crate::presentation) struct RetainedTreePresentations {
+     scenes: VecDeque<RetainedScene>,
+ }
+ 
++#[derive(Clone)]
++pub(super) struct CachedTerrainContactHeightmap {
++    scene_digest: String,
++    image: Handle<Image>,
++    range: SceneElevationRange,
++}
++
++pub(super) struct TerrainBarkBinding<'a> {
++    pub(super) procedural_assets: &'a ProceduralTextureAssets,
++    pub(super) contact: &'a CachedTerrainContactHeightmap,
++    pub(super) terrain: &'a SceneTerrain,
++    pub(super) materials: &'a mut Assets<TacticalTreeBarkMaterial>,
++}
++
+ struct RetainedScene {
+     cache: TreePresentationCache,
+     diagnostics: TreeAssetResidencyDiagnostics,
+@@ -19,19 +35,16 @@ impl TreePresentationCache {
+     pub(super) fn bark_for_terrain(
+         &mut self,
+         species: TreePresentationSpecies,
+-        procedural_assets: &ProceduralTextureAssets,
+-        terrain_heightmap: Handle<Image>,
+-        terrain: &SceneTerrain,
+-        bark_materials: &mut Assets<TacticalTreeBarkMaterial>,
++        binding: &mut TerrainBarkBinding<'_>,
+     ) -> Handle<TacticalTreeBarkMaterial> {
+         match species {
+             TreePresentationSpecies::EnglishOak => {
+                 self.oak_bark_material.clone().unwrap_or_else(|| {
+-                    let material = bark_materials.add(oak_bark_material(
+-                        procedural_assets,
+-                        terrain_heightmap.clone(),
+-                        self.terrain_height_range,
+-                        terrain,
++                    let material = binding.materials.add(oak_bark_material(
++                        binding.procedural_assets,
++                        binding.contact.image.clone(),
++                        binding.contact.range,
++                        binding.terrain,
+                     ));
+                     self.oak_bark_material = Some(material.clone());
+                     material
+@@ -39,11 +52,11 @@ impl TreePresentationCache {
+             }
+             TreePresentationSpecies::CommonBeech => {
+                 self.beech_bark_material.clone().unwrap_or_else(|| {
+-                    let material = bark_materials.add(beech_bark_material(
+-                        procedural_assets,
+-                        terrain_heightmap.clone(),
+-                        self.terrain_height_range,
+-                        terrain,
++                    let material = binding.materials.add(beech_bark_material(
++                        binding.procedural_assets,
++                        binding.contact.image.clone(),
++                        binding.contact.range,
++                        binding.terrain,
+                     ));
+                     self.beech_bark_material = Some(material.clone());
+                     material
+@@ -61,18 +74,44 @@ impl RetainedTreePresentations {
+         cache: &mut TreePresentationCache,
+         diagnostics: &mut TreeAssetResidencyDiagnostics,
+         images: &mut Assets<Image>,
+-    ) {
+-        if cache.terrain_scene_digest.as_deref() == Some(&environment.scene_digest) {
+-            return;
++    ) -> TerrainHeightmapResult<()> {
++        if cache
++            .terrain_contact
++            .as_ref()
++            .is_some_and(|contact| contact.scene_digest == environment.scene_digest)
++        {
++            return Ok(());
+         }
+         let restored = self
+             .scenes
+             .iter()
+             .position(|scene| {
+-                scene.cache.terrain_scene_digest.as_deref() == Some(&environment.scene_digest)
++                scene
++                    .cache
++                    .terrain_contact
++                    .as_ref()
++                    .is_some_and(|contact| contact.scene_digest == environment.scene_digest)
+             })
+             .and_then(|index| self.scenes.remove(index));
+-        if cache.terrain_scene_digest.is_some() {
++        let next = match restored {
++            Some(restored) => restored,
++            None => {
++                let contact = TerrainContactHeightmap::from_terrain(terrain)?;
++                let range = contact.range();
++                RetainedScene {
++                    cache: TreePresentationCache {
++                        terrain_contact: Some(CachedTerrainContactHeightmap {
++                            scene_digest: environment.scene_digest.clone(),
++                            image: images.add(contact.into_image()),
++                            range,
++                        }),
++                        ..default()
++                    },
++                    diagnostics: default(),
++                }
++            }
++        };
++        if cache.terrain_contact.is_some() {
+             self.scenes.push_back(RetainedScene {
+                 cache: std::mem::take(cache),
+                 diagnostics: std::mem::take(diagnostics),
+@@ -81,17 +120,30 @@ impl RetainedTreePresentations {
+         while self.scenes.len() > PREVIOUS_TREE_SCENES {
+             self.scenes.pop_front();
+         }
+-        if let Some(restored) = restored {
+-            *cache = restored.cache;
+-            *diagnostics = restored.diagnostics;
+-        } else {
+-            let (heightmap, height_range) =
+-                crate::presentation::terrain::terrain_contact_heightmap_image(terrain);
+-            cache.terrain_heightmap = Some(images.add(heightmap));
+-            cache.terrain_height_range = height_range;
+-            cache.terrain_scene_digest = Some(environment.scene_digest.clone());
+-        }
++        *cache = next.cache;
++        *diagnostics = next.diagnostics;
+         self.update_diagnostics(cache, diagnostics);
++        Ok(())
++    }
++
++    pub(super) fn restore_variant(
++        &self,
++        key: Seed,
++        cache: &mut TreePresentationCache,
++        diagnostics: &mut TreeAssetResidencyDiagnostics,
++        species: TreePresentationSpecies,
++        binding: &mut TerrainBarkBinding<'_>,
++    ) {
++        if cache.variants.contains_key(&key) {
++            return;
++        }
++        let Some(mut cached) = self.variant(key) else {
++            return;
++        };
++        // Plant geometry is site-local; bind only bark to destination terrain.
++        cached.bark_material = cache.bark_for_terrain(species, binding);
++        diagnostics.add_resident_assets(&cached.resident_assets);
++        cache.variants.insert(key, cached);
+     }
+ 
+     pub(super) fn variant(&self, key: Seed) -> Option<CachedTreePresentation> {

@@ -1,0 +1,36 @@
+diff --git a/crates/adventuresim-tactical-client/src/strategic_scene/status.rs b/crates/adventuresim-tactical-client/src/strategic_scene/status.rs
+index bd1ad2990..5d13ae248 100644
+--- a/crates/adventuresim-tactical-client/src/strategic_scene/status.rs
++++ b/crates/adventuresim-tactical-client/src/strategic_scene/status.rs
+@@ -205,15 +205,22 @@ fn update_status(
+         waiting_pipelines: waiting,
+         equipment_ready,
+         equipment_pending: (!equipment_ready).then(|| equipment.pending_summary(items.iter())),
+-        error: scene
+-            .error
+-            .clone()
+-            .or_else(|| failure.0.clone())
+-            .or_else(|| {
+-                city.as_ref()
+-                    .and_then(|city| city.failure().map(str::to_owned))
+-            })
+-            .or_else(|| equipment_state.err().map(str::to_owned)),
++        error: status_error(&scene, &failure, city.as_deref(), equipment_state),
+     };
+     status.publish();
+ }
++
++fn status_error(
++    scene: &RetainedScene,
++    failure: &SceneAssetFailure,
++    city: Option<&crate::presentation::PendingCityBuildings>,
++    equipment_state: std::result::Result<bool, &'static str>,
++) -> Option<String> {
++    scene
++        .error
++        .as_ref()
++        .map(ToString::to_string)
++        .or_else(|| failure.0.clone())
++        .or_else(|| city.and_then(|city| city.failure().map(str::to_owned)))
++        .or_else(|| equipment_state.err().map(str::to_owned))
++}

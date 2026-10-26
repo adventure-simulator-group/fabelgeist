@@ -1,0 +1,119 @@
+{
+  "at": "2026-10-26T04:56:11.788529+00:00",
+  "finding_id": "ADLER-RESUMED05-F010",
+  "phase": "Read-only global remedy/current-canonical reconciliation",
+  "finding_authority": [
+    {
+      "scope_index": 287,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "sha256": "85c8f2c699beb1c00311678bbe179a5cc75bb33c607051bd967e91c9e6eba749",
+      "ranges": [
+        [
+          1799,
+          1831
+        ],
+        [
+          3007,
+          3057
+        ],
+        [
+          3090,
+          3109
+        ],
+        [
+          563,
+          593
+        ],
+        [
+          1531,
+          1555
+        ]
+      ]
+    }
+  ],
+  "current_canonical": {
+    "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "sources": [
+      {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+        "original_scope_index": 1225,
+        "scope_kind": "affected_unchanged_reached_contract",
+        "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+        "entire_blob_exact_equal_to_frozen_finding_variant": false,
+        "exact_equal_to_registered_original_variant": true,
+        "registered_scope": [
+          [
+            1,
+            3250
+          ]
+        ],
+        "scope_authority": "original-scope-072.json exact source_id/hash evidence and owner proofs1-3250",
+        "personally_read_ranges": [
+          [
+            563,
+            593
+          ],
+          [
+            1531,
+            1555
+          ],
+          [
+            1799,
+            1831
+          ],
+          [
+            3007,
+            3060
+          ],
+          [
+            3090,
+            3112
+          ]
+        ],
+        "exact_equal_frozen_current_same_line_ranges": [
+          [
+            563,
+            593
+          ],
+          [
+            1531,
+            1555
+          ],
+          [
+            3007,
+            3057
+          ],
+          [
+            3090,
+            3109
+          ]
+        ],
+        "relevant_actual_delta": "Transfer function return type StrategicOperationResult -> Result<(),String>; add_inventory_item call no longer uses ? because current API returnsunit. No direct retained PartyStake mutation is added in this transfer body. Settlement and positive-stake guard are exact equal."
+      }
+    ]
+  },
+  "disposition": "CURRENT_UNREPAIRED_QUALIFIED",
+  "source_relationship": "Temporary leader dismissal still calls settlement, settlement reads positive PartyStake and forwards amount to party-to-personal inventory currency transfer, then immediately queries unchanged positive stake and rejects. Same stake producers/settlement/guard survive current source variant; changed transfer error API does not itself clear retained stake.",
+  "dedup": {
+    "inventory": "target\\recovery-20261025\\audit05\\inherited\\adler-finding-records.json",
+    "inventory_sha256": "473fc7ce6d08f96419a86d239410cf94fa1ba9b8cf8c93ef45ba2d7b44d6942d",
+    "records": 1002,
+    "navigation": "F010-inventory-navigation-001.json",
+    "candidate_ids": [
+      "CAMERA-INITIAL07-F039"
+    ],
+    "assessment": "Full related metadata personally read: report response reward is independently previewed before canonical committed payout. Different receipt-authority contract; party stakes are part of payout receiving state but temporary dismissal settlement is distinct. No exact counterpart found by bounded temporary/stake terms, global dedup remains pending.",
+    "global_uniqueness": "Not established by limited inventory search; final connected remedy grouping remains pending."
+  },
+  "qualifications": [
+    "No reducer/transaction/database execution or observed generated companion with positive stake; blocked dismissal source conditional, not lost/duplicated currency.",
+    "Direct current transfer/settlement/guard and existing stake producer bodies compared. No newly reached inventory-item helper/native transaction implementation body expansion; broader callee/native transaction contracts remain existing authority qualifications.",
+    "Mapped declaration spans confirmed; no added tests/helpers/assertions."
+  ],
+  "project_checks": false,
+  "source_or_git_mutations": false,
+  "new_issue": false,
+  "new_unique_count": 0,
+  "accepted_own_findings_unchanged": 10,
+  "global_clearance": false
+}

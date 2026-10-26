@@ -1,0 +1,39 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-298",
+  "at": "2026-10-25T22:46:50.978975+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2573,
+      "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/api.rs",
+      "sha256": "02fd000004106ce209ca065c78b70c71a7b86ac03a3ddbedd48eb7e577358ce7",
+      "personally_read_ranges": [
+        [
+          1,
+          986
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full986-line frozen serde-saphyr1.2.0 API including docs/implementations in bounded contiguous250-line chunks. Single string/slice/reader entrypoints delegate actual T::deserialize through scoped helper and reject multiple content documents; slices explicitly validateUTF8. Reader paths use owned data and ring snippet context, includes attach recorded source chain provenance. Multi-doc vector and stream skip empty/null-like scalar documents; vector aborts on error, stream uses per-document policy and recovery at boundary for deserialization failures. read convenience deliberately disables raw reader cap, unlike options default; project selected entrypoint/options required before resource-budget claim. This parser delegates semantic target admission to serde impl, not bespoke normal constructors. No parsing/execution and no all-input dependency clearance."
+      ]
+    },
+    {
+      "scope_index": 2577,
+      "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/with_deserializer.rs",
+      "sha256": "c6304415acbe2cb08fe5a730da8625f2c4631d111b7dccde6dad44c2d5e34c95",
+      "personally_read_ranges": [
+        [
+          1,
+          222
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full222-line frozen scoped deserializer helper (out-of-order support role, distinct original count with canonical first unfinished retained). One leadingUTF8BOM stripped. Document scope pairs anchor store and interpolation redaction and finalizes document budget on successful target deserialization. Single-document enforcement probes trailing content and ignores non-IO parse errors after explicit document-end by documented dependency behavior, but calls finish; reader path uses AllContent, stream separate PerDocument. Whether target parse custom implementation fully consumes content and how finish retains budget errors requires concrete source, no accepted project data-loss/admission finding. No includes/readers executed."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

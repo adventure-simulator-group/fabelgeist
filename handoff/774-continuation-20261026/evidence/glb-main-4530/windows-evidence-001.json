@@ -1,0 +1,96 @@
+{
+  "head": "6431c2faf1b50608344d1031d0f9413830c271fa",
+  "run": 40274774510,
+  "job": 121415088796,
+  "artifact": 12631343523,
+  "status": "success",
+  "existing_cases": 10,
+  "logs": [
+    {
+      "file": "envelope.log",
+      "sha256": "32c8860625e3da75458ed0503a5d16c1e4192d4f08527dd0239085e65295ac24",
+      "cases": [
+        [
+          "presentation::ground_scatter::specimens::tests::managed_hazel_matches_shared_envelope",
+          "ok"
+        ]
+      ],
+      "summaries": [
+        "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 700 filtered out; finished in 0.07s"
+      ]
+    },
+    {
+      "file": "leaves.log",
+      "sha256": "8924968190dbd458b9c0362af6ea1ef8359224e1b2ec8b3b3a9f41975ca2f354",
+      "cases": [
+        [
+          "presentation::obstacles::tree::geometry::leaves::tests::alpha_leaf_lod_uses_exactly_two_triangles_per_leaf",
+          "ok"
+        ],
+        [
+          "presentation::obstacles::tree::geometry::leaves::tests::detailed_flat_cards_keep_a_stable_balanced_three_quarters_per_cluster",
+          "ok"
+        ],
+        [
+          "presentation::obstacles::tree::geometry::leaves::tests::leaf_shadow_transmission_is_stable_per_shoot_and_well_distributed",
+          "ok"
+        ],
+        [
+          "presentation::obstacles::tree::geometry::leaves::tests::production_oak_has_finite_cambered_leaf_geometry",
+          "ok"
+        ],
+        [
+          "presentation::obstacles::tree::geometry::leaves::tests::textured_leaf_lod_uses_exactly_eight_triangles_per_leaf",
+          "ok"
+        ]
+      ],
+      "summaries": [
+        "test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 696 filtered out; finished in 1.43s"
+      ]
+    },
+    {
+      "file": "prepared-impostors.log",
+      "sha256": "05484494e8b760f19827ed28d5e135cdb69acc494a2ead2e28e63e6467496ee6",
+      "cases": [
+        [
+          "art_demo::scenery::tests::fixed_oak_exhibit_has_every_matching_prebaked_impostor",
+          "ok"
+        ]
+      ],
+      "summaries": [
+        "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 348 filtered out; finished in 0.58s"
+      ]
+    },
+    {
+      "file": "sampling.log",
+      "sha256": "6ac913b976e1e98a2e09d02b53eadd04153a88f383263e87f4d4c469e8495edf",
+      "cases": [
+        [
+          "presentation::obstacles::tree::impostor::raster::tests::coarse_leaf_sampling_preserves_positions_across_every_shoot",
+          "ok"
+        ]
+      ],
+      "summaries": [
+        "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 700 filtered out; finished in 0.00s"
+      ]
+    },
+    {
+      "file": "understory.log",
+      "sha256": "c7091396398d2e99ddbeb093b784d44886fbaa4c944520ec610ff5a031e4db95",
+      "cases": [
+        [
+          "presentation::ground_scatter::understory::tests::minimal_shrub_cards_are_deterministic_when_source_order_changes",
+          "ok"
+        ],
+        [
+          "presentation::ground_scatter::understory::tests::minimal_shrub_cards_pin_the_per_species_geometry_budget",
+          "ok"
+        ]
+      ],
+      "summaries": [
+        "test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 699 filtered out; finished in 0.07s"
+      ]
+    }
+  ],
+  "scope": "Windows portability only; Linux and Creator gates pending."
+}

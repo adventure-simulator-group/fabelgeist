@@ -1,0 +1,55 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-075",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1679,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/cached_views.rs",
+      "sha256": "dca6bf2178d031e1dbc40c3af8a9024bbf5d730cddf00ac542845500227f737c",
+      "ranges": [
+        [
+          1,
+          529
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete529line cached views source read in three bounded windows, including existing fixtures. ViewKey derives CloneDebugPartialEqEqHash, Signature PartialEq, CachedViews ResourceDefault, SnapshotCamera Component, CacheWorld SystemParam. Inherent signature/cache/frame lifecycle and free compositor/settle functions; no handwritten trait/codec.",
+      "disposition": "No derivability candidate. Existing derives cover selected record equality/keys/defaults. Signature construction deliberately projects crop/key/equipment context, not direct From or serialization; native view allocation/reuse/render-order state remains semantic.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1680,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/cached_views/demand_tests.rs",
+      "sha256": "9b9e1c47575b75ed9e05a6bf4c177bf45f46268baffb3907822647c8003e2782",
+      "ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete169line existing portrait demand fixture read; no handwritten traits/codecs.",
+      "disposition": "No derivability candidate. Fixture native setup and bounded lifecycle observations are semantic; not executed.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1681,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/cached_views/environment_tests.rs",
+      "sha256": "5fde865575ed1523dfe0b0d67bc201ab597267943ffbdf1f7be8fb3838a429fa",
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete86line existing first/reused capture-camera environment fixture read; no handwritten traits/codecs.",
+      "disposition": "No derivability candidate. Native framework component comparisons use already-owned behavior; no fixture execution or runtime capture acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

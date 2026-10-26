@@ -1,0 +1,53 @@
+{
+  "id": "ADLER-CONT07-LATER-007",
+  "lens": "redundant-authority",
+  "receipts": [
+    {
+      "extension_index": 175,
+      "source_id": "scope-amendment:pr-working:crates/strategic-web/static/art-demo/viewer.mjs#send",
+      "sha256": "18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+      "source_ranges": [
+        [
+          32,
+          38
+        ]
+      ],
+      "actual_eof": 327,
+      "source_read_provenance": "Exact body facts personally read, independently analyzed for07.",
+      "analysis": {
+        "fact": "Requested selection and its actual UI/native transport projection.",
+        "representations": "Current catalogentry selected; remembered per-category history; selectedReady lifecycle; firstSelection metrics and prefetched request set are distinct facts, not one current renderer state.",
+        "updates_invalidation": "send encodes currentpayload only ifruntime available;174resends currentselected afterboot. Exception handled byfail; categoryOf computes grouping from currentkind/id on demand.",
+        "disagreement_and_authority": "Serialization boundary is now proven rather than inferred from helper name. UIcategory intentionally differs from native catalogkind forscenery; no second hand-maintained kind table here. Unitreturn does not certify command success or a loaded/resident exhibit.",
+        "disposition": "No new07duplicate fact proved; runtime origin177/native receiver and actualprefetch/readiness remain qualified. Currentselected is intent, not guaranteed currentdisplayed scene."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 176,
+      "source_id": "scope-amendment:pr-working:crates/strategic-web/static/art-demo/viewer.mjs#select",
+      "sha256": "18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+      "source_ranges": [
+        [
+          93,
+          161
+        ]
+      ],
+      "actual_eof": 327,
+      "source_read_provenance": "Exact body facts personally read, independently analyzed for07.",
+      "analysis": {
+        "fact": "Requested selection and its actual UI/native transport projection.",
+        "representations": "Current catalogentry selected; remembered per-category history; selectedReady lifecycle; firstSelection metrics and prefetched request set are distinct facts, not one current renderer state.",
+        "updates_invalidation": "select replaces selected with inputentry, resets ready=false/heldkeys/speculation, records categorylastchoice, rebuilds DOM and URL and sends sameID. Before runtime, future174send uses latest selected. Shown handlers use current catalog objects.",
+        "disagreement_and_authority": "Rememberedcategorychoice and firstSelectionAfterInitial are intentional navigation/performance history; UI and native command are projections of one requestedentry. prefetched.add is not native residency evidence. LaterpollStatus must associate completion correctly, but is unreviewed; do not infer stale-ready bug or success.",
+        "disposition": "No new duplicate-authority finding from exacthelper; preserve catalog/runtime revision/lifecycle qualification. No wholesale viewer invalidation clearance or import of01/03verdicts."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    }
+  ],
+  "global_clearance": false,
+  "new_unique_count": "not asserted",
+  "continuation": 177
+}

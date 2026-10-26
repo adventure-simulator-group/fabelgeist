@@ -1,0 +1,35 @@
+--- 6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-mhr/src/model/rig.rs
++++ 13fc9dcc71ab879de364117e5462310673e43210:crates/fabelgeist-mhr/src/model/rig.rs
+@@ -0,0 +1,32 @@
++//! Checked host rig slots projected once into forward-kinematics GPU tensors.
++use crate::{character::Character, skel_state};
++use anyhow::Result;
++use burn::tensor::{Device, Int, Tensor, TensorData};
++
++pub(super) type FkTensorLevel = (Tensor<1, Int>, Tensor<1, Int>);
++
++pub(super) fn fk_level_tensors(
++    character: &Character,
++    device: &Device,
++) -> Result<Vec<FkTensorLevel>> {
++    skel_state::prefix_multiplication_levels(&character.skeleton.parents)
++        .into_iter()
++        .map(|level| -> Result<_> {
++            let len = level.source.len();
++            let source: Vec<i32> = level
++                .source
++                .into_iter()
++                .map(|joint| i32::try_from(usize::from(joint)))
++                .collect::<Result<_, _>>()?;
++            let target: Vec<i32> = level
++                .target
++                .into_iter()
++                .map(|joint| i32::try_from(usize::from(joint)))
++                .collect::<Result<_, _>>()?;
++            Ok((
++                Tensor::from_data(TensorData::new(source, [len]), device),
++                Tensor::from_data(TensorData::new(target, [len]), device),
++            ))
++        })
++        .collect::<Result<_>>()
++}

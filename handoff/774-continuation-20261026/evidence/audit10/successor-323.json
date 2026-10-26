@@ -1,0 +1,144 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-323",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 2712,
+      "source_id": "pr-working:crates/adventuresim-terrain/src/terrain_feature.rs",
+      "sha256": "6a6dfd572ca9979a848a5ce84711bace83217c58b2725218a77475f13e3b81ae",
+      "ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh effective full51. TerrainPack getters and feature validator enforce count, geometry, bounds and canonical ID order, with mapped-geology-specific admission. No manual traits/codecs.",
+      "disposition": "Keep semantic terrain admission and accessors; no broader pack/runtime credit.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2713,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/terrain_feature.rs",
+      "sha256": "0e27249f12fa5c9007dcb4fc1bc99d1b0106a6b741d0ae6b4078e3078825b36a",
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh effective full43. TerrainFeature/MappedFault already derive serde and structural traits; ID accessor dispatches distinct nested owners and geometry intentionally returns empty for mapped geology.",
+      "disposition": "Keep tiny semantic enum projections; no structural derive supplies the mixed fault-trace/empty-geology policy.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2714,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/geologic_window.rs",
+      "sha256": "371180d1fdfd5e93061a55a884f3bbf816db1e853a49f81540f215c4f9c3e2b3",
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh full36. MappedGeologicWindow derives serde/structural traits; semantic rectangle validation widens native integers and checks bounded extent; contains projects bounds for float comparison.",
+      "disposition": "Keep semantic geometric predicates. No need to add serialization solely to selectors or new API.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2715,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/resolved_networks.rs",
+      "sha256": "f6935151a38ae59a0722eb9ffec6584b50ba1b3c89356185b7b9cdc2eb60dfe9",
+      "ranges": [
+        [
+          1,
+          192
+        ],
+        [
+          202,
+          209
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh effective1-192/202-209 only. Structural records mostly derive serde/Clone/Debug. StructuralNode manual Deserialize reads native Vec3 wire then contextual checked Position constructor retaining node in error; no matching existing TryFrom wire. StructuralNodeError already derives thiserror/source. Constructors preserve explicit identity/geometry.",
+      "disposition": "Keep tiny checked contextual node decoder and semantic constructors. No bypass by structural Deserialize; excluded193-201/210+ not credited.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2716,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+      "sha256": "bb92ce4b2c2252c6c68cc37955cba5f4d2c90ccdab05a4456a632a7f4adadc4e",
+      "ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh p16 effective production1-208. BodyFacingTurn/TurnPolicy derive structural traits; explicit policy constructors, finite admitted angle/deadline, native quotient/elapsed/pi cap and yaw/guard/locomotion integration. No handwritten traits/codecs.",
+      "disposition": "Keep semantic native integration/policy adapters. Tests209+ and foreign quantity implementations not covered; no numerical correctness verdict transferred.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2717,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/state/downed_facing.rs",
+      "sha256": "a9750618561952fe5915714dea2b3d942edf076b37f122e4c7518920255d7d63",
+      "ranges": [
+        [
+          1,
+          325
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh p16 effective production1-325. Scalar wrappers already derive Into+serde checked TryFrom. DownedFacingState wire conversion intentionally sanitizes nonfinite values and clamps lateral motion; checked scalar constructors differ from normalized wire behavior. Pose derives Default with Prone. Sector conversion, lattice unwrapping and state transitions explicit semantic operations.",
+      "disposition": "Keep semantic From wire normalization/TryFrom admission and camera/roll state machine. No unchecked derive From and no semantic serde codec replaced. Tests326+ excluded.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2718,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+      "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+      "ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh p16 full49. Wgs84BoundsE7 derives structural traits. Checked ordered-corner construction, native degrees axis projection and inclusive intersection semantic; no handwritten traits/codecs.",
+      "disposition": "Keep geographic boundary adapters/predicates; no antimeridian fallback or new unchecked conversion.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

@@ -1,0 +1,24 @@
+{
+  "pr": 986,
+  "head": "af5d569c1a608e9de0367f1eec99a79ef2180949",
+  "run": 40233264407,
+  "job": 121289346492,
+  "conclusion": "failure",
+  "failedStep": {
+    "name": "Test tactical equipment contracts",
+    "status": "completed",
+    "conclusion": "failure",
+    "number": 32
+  },
+  "passedThrough": 31,
+  "case": "equipment::runtime_equipment::generation::tests::physical_fit_survives_hold_drop_and_placeholder_rebuild_then_refits_new_wearer",
+  "testResult": "46 passed;1 failed;0 ignored",
+  "outputLimit": "Only schedule-level panic is present; no original inner panic reason in hosted output.",
+  "preservedRepair": {
+    "commit": "0dcca06bdab7f5aea543dd0ce49829156f75de36",
+    "change": "Initialize Assets<Image> in existing fixture",
+    "laterRun": 40059858369,
+    "status": "Passed equipment group on broader branch; source-specific prior evidence, no validation of current isolated repair."
+  },
+  "mergeReady": false
+}

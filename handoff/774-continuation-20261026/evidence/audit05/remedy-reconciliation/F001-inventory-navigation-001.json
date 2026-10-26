@@ -1,0 +1,183 @@
+{
+  "records": 1002,
+  "terms": [
+    "next_port",
+    "base_port",
+    "dispatcher/src/main.rs",
+    "port allocation",
+    "portallocation",
+    "65535",
+    "65_535",
+    "u16::MAX"
+  ],
+  "matches": [
+    {
+      "archive_file": "audit/continuation/camera/admission03/findings.jsonl",
+      "record_index": 14,
+      "record": {
+        "id": "CAMERA-ADM03-F014",
+        "at": "2026-10-22T07:10:32.540268+00:00",
+        "lens": "audit-admission-contracts",
+        "classification": "bounded systemic snapshot publicliteral/derivedSerde admissiongap",
+        "evidence": "CAMERA-ADM03-047",
+        "counterexample": "SystemicPathologySnapshot respiratory/circulatory/homeostatic/neurologicu16 canretain65535 beyondunitbasispoints10000; nofactory/decodercheck declared. Static representability, notcurrentbadproducer/runtimeclaim.",
+        "connected_repair": "Propagate actualcanonical UnitBasisPoints throughsnapshotproducer/retention/Serde/recipient and fixactual canonicaldecodebypassF001; preservefullu16handling/entropy andrawclinicalinputpolicy.",
+        "repair_status": "frozen",
+        "validation_status": "not_run",
+        "later_lens_credit": false
+      }
+    },
+    {
+      "archive_file": "audit/continuation/camera/admission03/findings.jsonl",
+      "record_index": 22,
+      "record": {
+        "id": "CAMERA-ADM03-F022",
+        "at": "2026-10-22T14:42:50.535765+00:00",
+        "contract": "CAMERA-ADM03-083",
+        "sources": [
+          "physical-p16:crates/adventuresim-core/src/encounter.rs",
+          "pr-working:crates/adventuresim-core/src/encounter.rs"
+        ],
+        "ranges": [
+          [
+            402,
+            412
+          ]
+        ],
+        "kind": "admitted full-primitive input violates arithmetic precondition; operations overlap cross-reference",
+        "finding": "sneak_succeeds402-412 accepts full u16 scores then ordinary u16 addition of rng.index(1000) as u16. For admitted score65535 and a permitted nonzero draw, the sum overflows before comparison (debug panic/release wrap). Static conditional counterexample, no claimed seed or executed failure. Actual RNG bounded-domain body remains explicit dependency. ",
+        "connected_repair": "Widen sneak score sums to preserve mathematical comparison across full u16 input domain; do not invent narrower score invariant. Conditional nonzero RNG draw, no runtime reproduction. Actual RNG route dependency retained.",
+        "validation_status": "not_run",
+        "repair_status": "frozen"
+      }
+    },
+    {
+      "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+      "record_index": 48,
+      "record": {
+        "id": "RIG-ADMISSION03-F049",
+        "source_id": "pr-working:crates/fabelgeist-armor/src/anime_design.rs",
+        "registration_refs": [
+          "RIG-ADMISSION03-REGISTER-049",
+          "RIG-ADMISSION03-REGISTER-052"
+        ],
+        "contract_refs": [
+          "RIG-ADMISSION03-CONTRACT-587",
+          "RIG-ADMISSION03-ADDITIONAL-049",
+          "RIG-ADMISSION03-ADDITIONAL-052"
+        ],
+        "invariant": "Invalid raw breastplate gauge reaches structured admission rejection before arithmetic requiring an admitted bounded gauge",
+        "routes": "validate_breastplate calls anime.validate(design.wall_thickness)119 before wall thickness range check137. Anime.validate50 multiplies rawu16 gauge by2.",
+        "counterexample": "Default otherwise-valid Anime controls with raw Millimeters(u16::MAX): all earlier Anime scalar checks pass, gauge*2 overflowsu16 before outer invalid gauge rejection. Rust debug overflow panic source proof; release wrapping differs, no project/runtime execution claimed.",
+        "connected_repair": "Represent admitted gauge/required lap distance coherently and use checked/widened unit calculation at raw admission boundary; preserve actual validation first-error order and structured DesignError rather than inserting a compatibility fallback or changing all millimetre range.",
+        "acceptance": "Every raw u16gauge reaches the intended structured result in allbuildprofiles; valid gauge/lift boundary semantics retained.",
+        "repair": "frozen",
+        "later_lens_credit": false
+      }
+    },
+    {
+      "archive_file": "audit/continuation/rig/initial06-type-ownership/findings.jsonl",
+      "record_index": 18,
+      "record": {
+        "id": "RIG-INITIAL06-F019",
+        "at": "2026-10-22T21:51:08.352276+00:00",
+        "classification": "migration_gap",
+        "title": "Retain canonical bounded fractions in exact weather snapshot roles",
+        "source_backed_targets": [
+          "Core weather59/68/115\u2013119/221\u2013222/321\u2013323/412\u2013415/571\u2013593",
+          "WorldSchema basis_points7\u201387"
+        ],
+        "contract_ref": "contracts-060.json#/groups/weather-retained-unit-fractions-versus-other-scales",
+        "connected_repair": "Compose existing UnitBasisPoints through exact humidity/cloud coverage/precipitation intensity/ground moisture/snow coverage and actual fraction inputs. Fix canonical codec bypass under existing findings, no duplicated numeric owner/compat aliases.",
+        "acceptance": "Preserve zero/whole/10000 precision/rounding/replay; distinguish signed lift, physical units, wind scale, optical density, wider diagnostic signals/skill inputs and65535 interpolation. No blanket all_bps rewrite.",
+        "limits": "No source repair, runtime assertion, new tests, other-lens or claim-transfer credit; Root retains integration after all13"
+      }
+    },
+    {
+      "archive_file": "audit/continuation/root/admission03/camera-support-extra40/findings.jsonl",
+      "record_index": 2,
+      "record": {
+        "id": "ROOT-CAMERA-EXTRA40-ADM03-F003",
+        "ranges": [
+          [
+            145,
+            171
+          ]
+        ],
+        "invariant": "Input admission or widened arithmetic must establish score multiplication precondition before saturation.",
+        "counterexample": "Static rawpublici32 population_level65535 convertsu16success then*u16(85) overflowbefore saturatedadds. Debugpanic/releasewrap conditional; actualnormalimportdomain notclaimedbad.",
+        "remedy": "Useactualcanonicalpopulationlevelowner throughproducers/callers ifrealboundedmeaning, orwidenfullaccepted arithmeticbeforecap; no inventednarrowpolicy/defaultcompatpath.",
+        "source_id": "pr-working:crates/adventuresim-world-schema/src/economy.rs",
+        "sha256": "ce7c60b4dca374b058a50d845ac3171642869aa47fc95b7873ac27392bff308e",
+        "at": "2026-10-22T17:24:20.564021+00:00",
+        "contract_ref": "contracts-004.json",
+        "lens": "audit-admission-contracts",
+        "repair": "frozen_initial_all13",
+        "validation": "not_established",
+        "later_lens_credit": false
+      }
+    },
+    {
+      "archive_file": "audit/continuation/root/initial04-invariant-operations/findings.jsonl",
+      "record_index": 50,
+      "record": {
+        "id": "ROOT-INITIAL04-F051",
+        "kind": "raw_deposit_total_overflows_before_wash_priority_and_plan",
+        "source_id": "physical-p16:crates/adventuresim-core/src/filth.rs",
+        "locations": [
+          [
+            257,
+            272
+          ],
+          [
+            289,
+            297
+          ]
+        ],
+        "case": "Public raw slice of65538 deposits eachamount65535 has mathematical total4295032830; sumu32 checking arithmetic overflows, unchecked wraps65534. Feasible API input size, not executed/allocated here. Intended accepted per-character total100 producer is untraced, so no normal wash overflow claimed.",
+        "operation": "Widening each scalar tou32 does not admit the whole aggregate; an overflowing raw total sizes capacity and prioritization before any checked plan publication.",
+        "connected_repair": "Prepare a canonical admitted bounded filth snapshot and coherent whole total, checking or widening aggregate arithmetic before accepted WashPriority/WashPlan. Propagate the admitted total through all recipients and preserve actual clipped meter/deposit policy. Do not silently saturate at an arbitrary machine maximum or merely wrap scalar amounts in bespoke types.",
+        "acceptance": "A successful accepted snapshot/plan has an exact representable total consistent with its deposits and capacity allocation, or returns structured rejection before publication. Existing tests only.",
+        "deduplication": "No exact RootF001-050 or Native05 earlier filth-total record; shared checked aggregate graph with other amount findings, distinct owning snapshot and recipients.",
+        "contract_ref": "ROOT-INITIAL04-CONTRACT-126"
+      }
+    },
+    {
+      "archive_file": "audit/continuation/root/initial04-invariant-operations/findings.jsonl",
+      "record_index": 52,
+      "record": {
+        "id": "ROOT-INITIAL04-F053",
+        "kind": "native_float_ceil_count_can_undersize_fully_folded_dispatch_grid",
+        "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/node.rs",
+        "locations": [
+          [
+            89,
+            107
+          ]
+        ],
+        "supporting_source_roles": [
+          {
+            "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/resources.rs",
+            "locations": [
+              [
+                32,
+                47
+              ],
+              [
+                113,
+                122
+              ]
+            ]
+          }
+        ],
+        "case": "Raw public compute_capacity20971201 (=64*(65535*5)+1) rounds tof3220971200 under nearest-even. node computes327675 groups then folded native grid(65535,5,1), exactly327675 groups, whereas hardcoded64-instance width requires327676. Native API/configuration arithmetic only: actual accepted huge GPU page, ordinary firstparty registration/use and shader/runtime omission unproved. No native buffers allocated or dispatch executed. The smaller16777217 example only proves pre-fold rounding and does not by itself establish undersized final grid.",
+        "operation": "Integer population is converted to a lower precision float before ceiling division; later 2Dfolding cannot always recover the lost workgroup. Checked leaf count alone does not establish a grid covers that population.",
+        "connected_repair": "At actual firstparty scheduling/receiving authority, carry canonical integer population and checked exact WorkgroupGrid through native dispatch, and reconcile any used generic native route with actual supported capacity/device limits and shader indexing. Reuse existing canonical launch owner/firstparty per-view route where appropriate; no duplicate scheduler or arbitrary precision-threshold cap. This is a supplier constraint to resolve, not unconditional instruction to edit the external package.",
+        "acceptance": "Every supported successful launch covers its admitted population under actual per-workgroup layout and device limits without precision-losing count conversion; unsupported configurations reject before publication/submission. Preserve per-view reset/order and legitimate native conversion. Existing tests only; no normal large-page failure claimed.",
+        "deduplication": "No exact RootF001-052; Native05 explicitly had no floatceil record and own newnode05 role still pending. Related to existing #779 canonical launch integration, not a new blanket thirdparty ownership claim. Native rawoptional-page precondition already recorded071 and not counted again.",
+        "contract_ref": "ROOT-INITIAL04-CONTRACT-128"
+      }
+    }
+  ],
+  "qualification": "Global reconciliation starts from saved1002 inventory; this bounded search is not blanket uniqueness or full family clearance."
+}

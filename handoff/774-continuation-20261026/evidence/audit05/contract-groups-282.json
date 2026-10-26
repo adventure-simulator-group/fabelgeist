@@ -1,0 +1,42 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-282",
+  "at": "2026-10-25T22:34:50.856901+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2470,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "cc0dcb8aa0f608af65aa968955667894a687e4f44ef547919b421d7c3e1d2616",
+      "personally_read_ranges": [
+        [
+          1,
+          1819
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full rig-quality snapshot1-1819 personally read in five bounded chunks. export_rigged_glb calls validator before compact shells/skin/buffer indexing, compacts each shell and its targets together, pairs accessors with exact underlying views/counts, appends grip/camera joints with names/parents/globals then inverse bind matrices. Stable nonjoint Skeleton root and joints list share same construction; texture packaging then GLB write, no exporter executed.",
+        "UV socket helper checks supported domain and face-count equality, joins shell/body source face keys, interpolates same face normals/positions with barycentric UV weights, gates anatomical skin weight and outward alignment, tie-breaks deterministicface index, transforms socket into pelvis-local frame. Bootstrap is explicit authoring utility separate from routine stored UV path, maps corners back by source vertex ID. Independently public mesh/shell/layout arrays can still be misassociated or short and indexed without local full validate; actual caller topology contract pending, no accepted ordinary panic witness.",
+        "Palmar socket derives mirrored hand orientation from named landmarks/thumb, limits ray distance to palm width and applies shared socket calibration. RawTransform/singularity/numeric validation remains actual export validator/caller responsibility, not universally guaranteed by helpers.",
+        "Full tests890-1819 read as fixtures: four normalized skin influences, zero-animation attachment rig, independent textured skin/morph topology, shell-only socket, perLOD UV anchor. Tests write/read/delete temporary files if run; none run. Source identity remains rig-quality distinct from pr-working export version."
+      ]
+    },
+    {
+      "scope_index": 2471,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "ff370d4ead428bf2bc7c6de55dcf2d22d7b358ab64054cac8e1ec34f71bda894",
+      "personally_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full rig-quality1-111: append_views creates each shell geometry and optional zipped skin buffer tuple, Writer zips same-shell views into accessor/material/UV/texture recipients. Actual views vector produced one-per-shell, so no ordinary length truncation here. Independent optional skin pairing is validated upstream export contract, not silently sealed by zip itself. Shared body skin fallback is intentional and compact owner must maintain corresponding topology. No new finding or execution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

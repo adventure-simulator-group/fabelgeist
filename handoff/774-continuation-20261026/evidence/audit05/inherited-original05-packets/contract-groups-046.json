@@ -1,0 +1,91 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-046",
+  "at": "2026-10-22T21:24:16.892152+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs",
+      "sha256": "09275206508fba4391d7e8dafc30589344978d5ced26b283173b2e5ab4691bfa",
+      "scope033_index": 1371,
+      "actual_EOF": 453,
+      "scoped_ranges_compared": [
+        [
+          1,
+          453
+        ]
+      ],
+      "actual05_comparison": "Observe_rendered_endpoints snapshots all sixoptionalfeet/toes/rotations, validates all present then commits them together; no fake endpoint for missingjoint. Postpropagation refresh differs analytic solve targets intentionally, checks observedownerframe then endpoints; partial laterdiagnosticfailure can leave newobservations, not allIKtransactionpromise. actual ownercoordinates use SAME selectedframe and actualrenderedworld, finitefilter beforeSome. Quickstep captures actualpropagatedhandoff, authoredlocomotion preserves endpoints then owns pose. Enabledsupport requires ankle+terrain+soleproximity andplannedtarget proximity; disabledmode intentionallynominal semantics. Contactsequence accepts wrapforwarddistance<=1, idle reset notfalse touchdown. Runretention keeps acquiredcontactuntil explicittoeoff ratherthan rawblendweight; zero/None support distinct; bilateralweights notsum1.",
+      "source_body_proof": "Fresh actual entire scoped source and inline original fixtures personally read for05, source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/settle.rs",
+      "sha256": "82541741fb7abc29a8018c22de3a815a496f10c8a19000345a9b5c708720a9c8",
+      "scope033_index": 1377,
+      "actual_EOF": 373,
+      "scoped_ranges_compared": [
+        [
+          1,
+          373
+        ]
+      ],
+      "actual05_comparison": "Stop/restart state separates future Acquiring contact from Acquired footprint. Cancelrestart preserves actualrendered foot when notacquired, clears settle/terminal andreleasegoal; no falseinstantplant. Finishidle transfers terminalshift to ordinarypelvis andretains finaltargets to avoid recurrentdrop, clearsallplannedcontact metadata, bothsupportONE is intentionaldouble-support. Terminalprepare needs bothleft/rightseed+planpoints+surfaceheights before replacingbothworld/ownerplanttargets andmarkprepared; terminalstate seed mayalreadychange before false, no allfunctionrollbackclaim. Actualrenderedterminal requires BOTH ankle+toe+target andterrainproximity, not timeralone. settle_stance projectsCOM onto segment withdenomguard>1e-6, degeneratecoincidentfeet chooses0. Native rawroot/quat arithmetic finaltargetfinite/precondition needsactualcaller; no genericallVec3finitepromise.",
+      "source_body_proof": "Fresh actual entire scoped source and inline original fixtures personally read for05, source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/settle/planning.rs",
+      "sha256": "f5003b3bf06fa6b565747e7a1e37a08ca9ed66aeb64d6d702ca90268078203c6",
+      "scope033_index": 1378,
+      "actual_EOF": 297,
+      "scoped_ranges_compared": [
+        [
+          1,
+          297
+        ]
+      ],
+      "actual05_comparison": "begin_settle uses actualownerframe/rig andvisiblefeet, missingCOM fallback root intentionallybalanceapproximation NOT fabricatedswingfoot. Selectsupport fromactualconfidence/geometry; requires actualoppositeswing_start elseOk no mutation. Computes checked landing andcapturepoint BEFORE observationseed/supportownership/fullsettle payload; failingleaveswholepreviousmemory. FixednativeVec offsets/capturephysics canoverflow but checked_foot_target gates completedtargets. projected_capture uses gravity/max(.25,signedCOMheight), deliberatelyclampedheight notstrictpositiveallcoordinates. Actualsafe fallbackdirection, anatomicaltrackside and forwardcapturemargin retained. Original234–297 fixtures readonly; lowerFootPlant andterminal enums actual034, IKmain caller unread.",
+      "source_body_proof": "Fresh actual entire scoped source and inline original fixtures personally read for05, source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/hands.rs",
+      "sha256": "e62b67d40676cfd09497eaf6f5b03e923700b922059570b8c56af5b520316243",
+      "scope033_index": 1367,
+      "actual_EOF": 391,
+      "scoped_ranges_compared": [
+        [
+          1,
+          391
+        ]
+      ],
+      "actual05_comparison": "Clientonly HandIkTarget translation/rawoptionalrotation+UnitInterval andHeldWeaponConstraint owner+primaryside+optionlocalgrip arerawnativepresentation ports, notreplicatedtickauthority. HandChain LEFT/RIGHT constructor fixesactualupper/lower/hand/same side. Pipeline solvesexplicitprimary first→reads updatedsocket→placesunit-scaledweapon→derivesoffhand worldgrip fromFINALweapon→derivedoverexplicit target→sameowner twoarm memory. Missingtarget/socket/bones inert. Actualcheckedobservedframe andmeasureddimensions +043solver gate completedsolution; memory ownerlocalbend uses sameownerrotation. NativeQuaternion/nondegenerateTransform preconditions remain; finite-onlynormalize doesnotmake arbitraryrawQuatZERO valid. Multipleconstraints sameowner/offhand collide inmap andrequireproducer single-item-perhand semantics, notprovedbythisfile; equipmentproducer ownpendingcell, noactualduplicateclaim. Allthreefixturemodules source-readno execution.",
+      "source_body_proof": "Fresh actual entire scoped source and inline original fixtures personally read for05, source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/approach.rs",
+      "sha256": "2c19e2ae2a9bad27291f92cec00c346ba03f1254289e441714f84016a5e37e7e",
+      "scope033_index": 1385,
+      "actual_EOF": 76,
+      "scoped_ranges_compared": [
+        [
+          1,
+          76
+        ]
+      ],
+      "actual05_comparison": "run_contact_approach_progress compares actualwindow<=ready FIRST then deliberate step ONE/ZERO; otherwise denominator strictlypositive before acquisitionratio, clampandUnitInterval admission. Collapsedreversedwindowintentionalstep notrejection; tinypositivewindow test preserveslinear .5 notepsilonflatten. CycleDelta finiteboundedtypeactualpriorqty proof; ordinaryperiodic signedphase displacement not genericpercentage. Original30–76 fixturesreadnotrun.",
+      "source_body_proof": "Fresh actual entire scoped source and inline original fixtures personally read for05, source-only."
+    }
+  ],
+  "comparison_groups": {
+    "planned-contact-versus-observed-support": "Actual endpointfilter, propagatedownerframe/terrain andtransition policy distinguish actualcontact from nominalgait/desiredtarget. No redundant-authority verdict carry.",
+    "stop-restart-and-terminal-payload": "Current checkedlanding/capture beforeseed andsupport/settle publication; absentfeet explicit no-op, terminaltruth requireswhole renderedpair not clockonly.",
+    "held-weapon-and-arm-snapshot": "Actualsame-frameprimary solve/socketweapon/offhand order, leftright chain correspondence; producer multiplicity/rawnativepreconditions remainpending notblanketclearance."
+  },
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual IKmain current operations/caller selection and retained state fields unread",
+    "HeldWeaponConstraint producer singleprimary/side multiplicity remains exactactualequipment cell; no duplicate normalcaller assertion"
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

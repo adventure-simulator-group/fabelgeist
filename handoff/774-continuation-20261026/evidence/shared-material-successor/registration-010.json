@@ -1,0 +1,77 @@
+{
+  "at": "2026-10-26T03:49:13.414577+00:00",
+  "previous": "source-extensions-183.json",
+  "successor": "source-extensions-185.json",
+  "prefix_immutable": true,
+  "new_indices": [
+    183,
+    184
+  ],
+  "new_entries": [
+    {
+      "source_id": "frozen-native-support:crates/adventuresim-tactical-client/src/presentation/vista/geographic_ground.rs",
+      "sha256": "36fbbccfd07c690a076b96d31d91f0a27008633fbd0b0b7f2e99566acde4c840",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "actual_EOF": 36,
+      "object": "source-objects/36fbbccfd07c690a076b96d31d91f0a27008633fbd0b0b7f2e99566acde4c840",
+      "registration_evidence": "registration-010.json",
+      "reason": "Direct reflection/error owner called by original1639 GroundChunk::reflected,1640 ground meshes and1665 PreparedCityGround::meshes. Absent original2853 catalogue and all183 shared material metadata. Hash/navigation only; no body consumed.",
+      "prior_reads": "08 declaration-only navigation and hash identity before prospective shared registration; actual requested body/oracles unread; coordinator copies/hashes only.",
+      "lenses": {
+        "producer-propagation": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "existing-type-owners": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "admission-contracts": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "invariant-operations": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "aggregate-states": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "type-ownership": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "redundant-authority": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "behavior-preservation": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "enum-shapes": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "derivability": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "type-granularity": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "magic-strings": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "magic-numbers": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage."
+      },
+      "status": "Prospective exact reached first-party source/fixture, no new original role, test or accepted finding."
+    },
+    {
+      "source_id": "frozen-fixture-support:crates/adventuresim-tactical-client/src/presentation/vista/streets/mesh/grounding_tests.rs",
+      "sha256": "2cec1a88bbf897aee0a1b1711e72e13579e58c113472e260ce10fd3cd22d5bc1",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "actual_EOF": 137,
+      "object": "source-objects/2cec1a88bbf897aee0a1b1711e72e13579e58c113472e260ce10fd3cd22d5bc1",
+      "registration_evidence": "registration-010.json",
+      "reason": "Original1663 complete source reaches mod grounding_tests at331; existing canonical paving fixture/oracle owner. Absent original2853 and all183 shared material metadata. Hash/navigation only; no fixture body consumed.",
+      "prior_reads": "08 declaration-only navigation and hash identity before prospective shared registration; actual requested body/oracles unread; coordinator copies/hashes only.",
+      "lenses": {
+        "producer-propagation": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "existing-type-owners": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "admission-contracts": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "invariant-operations": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "aggregate-states": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "type-ownership": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "redundant-authority": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "behavior-preservation": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "enum-shapes": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "derivability": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "type-granularity": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "magic-strings": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+        "magic-numbers": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage."
+      },
+      "status": "Prospective exact reached first-party source/fixture, no new original role, test or accepted finding."
+    }
+  ],
+  "coordinator_credit": "None: metadata/hash/copy only. Existing fixtures are read-only obligations; no new tests/helpers/assertions."
+}

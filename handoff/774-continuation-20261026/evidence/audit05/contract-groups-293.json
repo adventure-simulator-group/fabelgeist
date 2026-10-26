@@ -1,0 +1,53 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-293",
+  "at": "2026-10-25T22:44:00.568439+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2563,
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/lib.rs",
+      "sha256": "68c37f689d5b216ac404890b22b31426549fd9305c561cfdb51fa5ce4c299964",
+      "personally_read_ranges": [
+        [
+          1,
+          907
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full907-line frozen bevy_reflect_derive0.19.1 entrypoint including attribute documentation and macro dispatch. Reflect auto-derives FromReflect unless opted out and distinguishes structural from opaque. ignore excludes field access and reconstruction defaults it; skip_serializing changes serialization only, so does not prevent reflection mutation. reflect Default allows reconstruction from default plus supplied fields. Remote wrappers explicitly require matching public field/variant definitions and transparent representation; actual remote implementation/assertions separate2567. Generic/type-path and static registration helpers are compile-time identity/availability mechanisms, not project semantic validation. Static registration scans cached target function names only when feature enabled, documented environment/order requirements retained; no compile or cache interaction executed. These dependency capabilities establish representability only, no actual project reconstruction caller or invariant breach claimed."
+      ]
+    },
+    {
+      "scope_index": 2564,
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/from_reflect.rs",
+      "sha256": "5bcdff556cc6df65e841b8ac5170ec8d83b1ce4883237327ea8f0ffe7171d067",
+      "personally_read_ranges": [
+        [
+          1,
+          353
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full353-line frozen FromReflect codegen. Structural reconstruction matches reflective kind then directly constructs fields/variants; normal bespoke constructor is not called. With reflected Default it starts default and replaces each successfully converted active field independently, retaining default when conversion fails; without Default required active values fail entire Option and ignored fields get specified/default values. Tuple access uses reflection index while constructor uses declaration index. Opaque reconstruct requires exact downcast and clone; remote conversion uses transparent wrapper assumptions. MemberValuePair parallelvectors are unzip of same iterator. Project invariant issue still requires concrete derived type, field combination, actual caller/admission; no blanket finding or repair."
+      ]
+    },
+    {
+      "scope_index": 2565,
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/impls/opaque.rs",
+      "sha256": "7c0a7b4e1416658fd161b6874b82ac4603390c3e41c30e8425f1b4bb764742ca",
+      "personally_read_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full131-line frozen opaque reflection codegen. to_dynamic clones concrete value and apply only exact concrete downcast clone (or wrapped remote downcast); mismatched type returns structured ApplyError. Opaque metadata carries type info/path/registration; no structural field mutation/reconstruction in this path. Clone/custom attributes and remote assertions remain owning generator obligations. Confirms opaque differs from structural FromReflect bypass, not evidence all opaque project APIs validate or all structural types are faulty."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

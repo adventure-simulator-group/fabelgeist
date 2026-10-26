@@ -1,0 +1,171 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-427",
+  "at": "2026-10-26T00:41:45.212154+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 472,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/postcard_utils.rs",
+      "sha256": "4a9f413f61885f1581e0a3ddadb2528459e45bd2ea029a7a08ad3b2ab085d537",
+      "personally_read_ranges": [
+        [
+          1,
+          40
+        ],
+        [
+          110,
+          138
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered postcard_utils1-40/120-133 plus110-119doc and134-138compactentityreceiver. to_extend_mut appends via borrowed flavor; from_buf calls destination Deserialize on streamingbuffer without requiring entirebuffer exhausted because multiple fields/messages mayfollow. Actual per-message framing and destination serde validation remain distinct, no generic trailingbytes defect or aggregate admission inferred."
+      ]
+    },
+    {
+      "scope_index": 473,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/client_event.rs",
+      "sha256": "aab1a187ebfe12274e2d36a8e87e658429edf99f9570fd9f8381141e6ea7a18b",
+      "personally_read_ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered client_event1-137 plus138-139incidental next accessor header. Registration binds E, exact serializers and converting ClientMessageEvent adapter, stores TypeId/message/typedtrigger together. trigger_typed preserves client_id while draining exact FromClient container and queues originalevent. Unsafe typedpointer precondition depends registry, not locally proven arbitrarytype; default vs entitymapped event selection remains applicationregistration contract. No entire187-line body credit."
+      ]
+    },
+    {
+      "scope_index": 474,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/client_message.rs",
+      "sha256": "49ffa8758c206f00ed3ec3250015a7b76ee4fe5f0308151c368078185c7926e2",
+      "personally_read_ranges": [
+        [
+          460,
+          507
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered client_message479-507 plus460-478FromClient envelope. Default serialization/deserialization calls ordinarypostcard; mappedserialization clones and maps entities before serializing. Senderclient_id belongs receiving envelope rather than payload; raw payloadDeserialize does not itself authorize target actor. Actual P16client333/336requests and server410observers mustretain authoritygate; no unrestricted server action assumption."
+      ]
+    },
+    {
+      "scope_index": 475,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/message_fns.rs",
+      "sha256": "bd043879e363b91cda3145415f64244ee5b85707c33bc0bdcea4ecd3e4085f62",
+      "personally_read_ranges": [
+        [
+          105,
+          209
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered message_fns118-209 plus105-117conversion/signature context. Function-product keeps native adapters and original serialize/deserialize pair; with_convert changes wrapper adapters while preserving I. Converted message is constructed onlyafter successfuldeserialize. Local infallible From wrapper is adapter, not fullsemantic validation; partial bytes on failedstream remain enclosingframing contract. No unrelatedunsafe erased-function implementation clearance."
+      ]
+    },
+    {
+      "scope_index": 476,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/server_event.rs",
+      "sha256": "7581eeb1d81d9aca0af14bf56033e76b351ceb6237d950b42639821ea8c18a97",
+      "personally_read_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered server_event1-170. TypeId, message adapter and trigger pointer originate sameE; mapped variant chooses actual mappeddeserialize477. Registryindependentmode explicitlyrequires previousregistration and panics otherwise as developerconfiguration invariant. Drainingtrigger emits E onlyafterreceivedwrapperdecode. No authenticated applicationauthority or entire233-line module guarantee."
+      ]
+    },
+    {
+      "scope_index": 477,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/server_message.rs",
+      "sha256": "45e815a2ac1b0e0c9117be00cbb45355a5085ed54c1e0225c82c4d5a3901532d",
+      "personally_read_ranges": [
+        [
+          710,
+          747
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered server_message721-747 plus710-720recipientconstant/deprecatedaliascontext. Defaultserde remains postcard; mappeddeserialize runs completeMdeserialization then maps entityreferences. Aliased SendMode is upstreamlibrarycompatibility outside product mutation scope; no codechangeauthorizedhere. Messageframing, nativeentityownership and customDeserialize remain actualapplication receivingobligations."
+      ]
+    },
+    {
+      "scope_index": 478,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/registry/rule_fns.rs",
+      "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+      "personally_read_ranges": [
+        [
+          60,
+          169
+        ],
+        [
+          175,
+          268
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered rule_fns65-115 plus effective116-169/179-268; actualfresh context60-64/175-178 retained. RuleFns privatefunctionpair initializes deserialize/inplace/consume coherently; custom inplace/consume deliberatelyallowdifferentnativeoperations. Standardreplacement onlypublishes aftersuccessfuldeserialize and entitymapping; ignore_mappingerror-restoration question identical470samefrozenimplementation, no duplicate acceptedfinding. Not whole348lines or diff replay."
+      ]
+    },
+    {
+      "scope_index": 479,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/rules.rs",
+      "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "personally_read_ranges": [
+        [
+          735,
+          815
+        ],
+        [
+          890,
+          945
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered rules748-809/901-939 plus735-747/810-815/890-900/940-945context. Wholecomponentrules+filters installed as ReplicationRule after registryconversion and protocolhash update. Conversion is perrulecomponenttype registry, not numeric/actor authorization. Actual P16replication source mustselect customserde/mappingappropriately; no type-name-only guarantee, no full1386-line modulecredit."
+      ]
+    },
+    {
+      "scope_index": 480,
+      "source_id": "pinned-registry:avian3d-0.7.0/Cargo.toml",
+      "sha256": "784418664acf79e35890108db95d9b43517706726665ab37152f3f252cb0dba9",
+      "personally_read_ranges": [
+        [
+          50,
+          105
+        ],
+        [
+          360,
+          384
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered avianCargo55-104/364-381 plus50-54/105/360-363/382-384context. Featuredefaultis3d/f32/parry-f32 with optionalf64distinct; serializeenables serde atnative types/dependencies. Parry0.27feature/version sourceexact; doesnotprove entire resolved featuregraph or build output. Mathprimitive/shapevalidation actualreceivers482+ separate, no execution."
+      ]
+    },
+    {
+      "scope_index": 481,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+      "sha256": "2a04ce7d6913b008e654905c96ead648efd840ddf102863532bc38bd187e3945",
+      "personally_read_ranges": [
+        [
+          380,
+          442
+        ],
+        [
+          630,
+          810
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered parrycollider390-441/633-810 union (633-719,705-810,651-695) plus380-389/442/630-632context. AABB delegates scaledshape+make_pose; cast_ray uses rawdirection/nativeframe/maxdist with optionalhit, compound collects full transformedshape pairs, primitiveconstructors halve extents/height asnativeAPI. This confirms actual333/334/329nativeboundary, not semanticapplicationfinite/unit/positiveadmission. Zero/negative shape policy and make_pose precision require pinnedmath/Parry owners; no full1830-linemodulecredit."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "10 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

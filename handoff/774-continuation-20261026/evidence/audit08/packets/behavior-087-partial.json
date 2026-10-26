@@ -1,0 +1,51 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-087-PARTIAL",
+  "lens": "08 behavior-preservation",
+  "completed_original": [],
+  "partial_original": [
+    1778,
+    1781
+  ],
+  "source_pin": "source-pins-and-scope-103.json",
+  "source_reads": {
+    "1778": {
+      "head": [
+        [
+          1,
+          1132
+        ]
+      ],
+      "head_sha256": "bd7fae5f4804c3a1827174d3b17e17391688e8a3308bba7ecc68333100c7ac45",
+      "base_sha256": "50582a148c70a9127e85e2c03182f15284412aa143d8afbaf8b6170cf454b3a0",
+      "actual_histogram_diff": [
+        [
+          1,
+          953
+        ]
+      ],
+      "diff_sha256": "f9a4bd6eda741eac4ecd3eccdccaa6485da5d9af3ab8d5c8bd4df6f6687640de",
+      "method": "Head1-380/381-750/751-1132 consumed. Actualdiff1-210 personally displayed;211-953 all added/context bytes exact-coordinate mapped to personally consumedhead, all removed oldlines+hunkheaders personally displayed. Exact verified read map source-evidence/pr1778-read-map-104.json."
+    },
+    "1781": {
+      "head": [
+        [
+          1,
+          360
+        ]
+      ],
+      "head_sha256": "48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+      "base_sha256": "47c04943f11bc1d221e680cfdf8a44b05c9face66c7aa14279e6d7eee807aa7b",
+      "actual_diff_read": []
+    }
+  },
+  "analysis": [
+    "1778 full1132/delta accounted: stable41 semanticnames/30 requiredhumanoidnames, exact enumorder/Serde snakecase, stringlookup, mirroredleft/right fallback and capability map unchanged. All existing source test bodies read: body/actionpayloads, guards, stickysector .30/.31/.24/.19, quarterroll.125, downedcontactgait1.6, noresidualvelocitygait, aimrelease nearestcontact, dive takeoff/contact/recovery/tickboundaries, preemption andpostcard roundtrip. Valid-input fixture numericoracles/tolerances preserved throughbespoke constructors and getters.",
+    "One existing invalid-input case is substantively changed: former projection_owns_grounded_body_transitions_and_sanitizes_motion with NaNelapsed+velocity expectedAirborne andzero velocity; replacement projection_rejects_nonfinite_elapsed_before_mutating_body explicitlyexpects NonFiniteElapsed andretainedgrounded/defaultvelocity. This is stronger admission/retainedstate policy, not a claim that every original oracle unchanged. New Raising intent invalidnativeentry uses from_native_movement preserving plantedfallback; actual production normalization/projection sources pending1781children. Keep1778partial until actualstatepolicy comparison.",
+    "1781 only1-360 consumed: actualprivate guardcontacts/defaultnormalization, complete guardstep/footwork topology, same typed start/contactticks, saturatingsub/min1progress ratio, saturatingcontactdeadline normalization, semanticbody/posture/action/lead/dive declarations. These retain existing vectornormalization/fallback policy; no fullstate/rawgeometryclearance from early declarations. Complete state2069/delta2109 andactualchildren remain next."
+  ],
+  "findings": [],
+  "qualified_obligations": [
+    "No new unique finding; all inherited findings, earliest1462,1474/1484,Q005 and existing source-specific qualifications retained."
+  ],
+  "global_clearance": false
+}

@@ -1,0 +1,27 @@
+diff --git a/crates/adventuresim-character-creator/src/device_garment_skirt.rs b/crates/adventuresim-character-creator/src/device_garment_skirt.rs
+index 3624d652a..21cd6e8f3 100644
+--- a/crates/adventuresim-character-creator/src/device_garment_skirt.rs
++++ b/crates/adventuresim-character-creator/src/device_garment_skirt.rs
+@@ -6,21 +6,21 @@
+ use anyhow::{Result, bail};
+ use fabelgeist_armor::gpu::{record_fauld, record_garment_tube, record_tassets, wgsl};
+ use fabelgeist_armor::{
+     DevicePart, GARMENT_RING_SEGMENTS, GarmentArmorDesign, GarmentArmorKind as Kind,
+     GarmentPlateShape,
+ };
+ use fabelgeist_compute::KernelBatch;
+ use fabelgeist_geometry::SignedLength;
+ use fabelgeist_gpu::prelude::Buffer;
+ use fabelgeist_gpu::prelude::BufferUpload;
+-use fabelgeist_math::Ratio;
++use fabelgeist_math::units::Ratio;
+ use fabelgeist_rig::RigJointName;
+ 
+ use crate::armor_frames::FitRegion;
+ use crate::device_frames::{DeviceFrame, DeviceWearer};
+ use crate::device_garment::{BAND, JointHeightAnchor, JointReachTarget, UprightSpan};
+ use crate::device_garment_kernel::{Grid, Word, atomic, dispatch, read, read_u32, write};
+ use crate::device_garment_tube::{RING, RING_AT, RING_FIT_WORDS, hem};
+ use crate::device_piece::DeviceRecording;
+ 
+ use stations::DRAPE_STATIONS;

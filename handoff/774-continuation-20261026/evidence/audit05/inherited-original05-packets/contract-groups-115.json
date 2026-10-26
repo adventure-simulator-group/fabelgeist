@@ -1,0 +1,208 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-115",
+  "at": "2026-10-23T02:42:45.175209+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/mod.rs",
+      "sha256": "294366e9eac449d161658a404c461baaf901a04a89e96ea87909a819e322e88a",
+      "scope049_index": 2063,
+      "actual_EOF": 362,
+      "scoped_ranges_compared": [
+        [
+          1,
+          158
+        ]
+      ],
+      "actual05_comparison": "Fresh exact original1–158 and prospectiveREG027159–212;213blank excluded,214+test-only helper/tests uncredited. MissionState private timeout/enrollment/reconnect/hold/terminal state initialized together. Required enemy count can be0, deliberately prevents combat outcome until real mission bound; no timeout None error invented. Actual tick_timeout completes159–162; absent timeout false, native timer semantics uncredited beyond call. TerminalCombatSnapshot rawpub six fields but normal systems same-query count/filters derive loaded and incapacitated enemy/party; counter relationship not inherently sealed by pub record. CombatOutcomeHold rejects required0/underloaded/unsealed/no party and resetsboth durations. Both conditions tracked separately, false→ZERO, true→saturating add. Simultaneous party defeat takes precedence over enemy defeat. No arbitrary u32 raw snapshot claimed normal; usizecount asu32 has capacity precondition, not guessed unlimited entity representability. One selected current admission/terminal operation receiver rather than parallel private bool caches; lower PartyEnrollment/FrozenTerminal actualbodies compared below.",
+      "source_body_proof": "Fresh scoped PR bodies; complete actual P16 counterpart diffs plus current contract comparison where specified."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/systems.rs",
+      "sha256": "cc4bc873f502d3a08fc30a6f3d40d1d0752a81dfdee70651fb2c04737b64d6b8",
+      "scope049_index": 2064,
+      "actual_EOF": 320,
+      "scoped_ranges_compared": [
+        [
+          52,
+          320
+        ]
+      ],
+      "actual05_comparison": "Fresh exact52–320 only,1–51 imports/constants/unrelated setup uncredited. commit_terminal_resolution copies resolution+current consequence receipt into one FrozenTerminal then begin gate once; same frozen retry object submitted. Connected submit enqueue success is not strategic acceptance; failed enqueue→RetryScheduled, callback drained then transitions. Standalone noDB explicitly simulates Accepted synchronously, intentional local mode, not strategic durability claim. Ambiguous acknowledgement stall→exit Error with no outcome, presentation countdown→exit Success; no retry afterunknown commit. Current combat query counts both loaded and incapacitated from same snapshot, rejects unseen postseal characters before counting, handles loading gate and abandonment before outcome; timeout submitsfailure throughsamefrozenchannel. Original standalone test at279–320 source-only read, no execution. Subscription callback ordering and native command publication not guaranteed from wrapper names, exactsource2076 compared separately. Party roster authority filter/expectedcount is actual lower captured source role, not inferred from count alone.",
+      "source_body_proof": "Fresh scoped PR bodies; complete actual P16 counterpart diffs plus current contract comparison where specified."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/terminal.rs",
+      "sha256": "a381bfd75836c7f9f37ad73df102d94cfb8e8b2afb79592549e12b3ddbde1347",
+      "scope049_index": 2065,
+      "actual_EOF": 303,
+      "scoped_ranges_compared": [
+        [
+          1,
+          303
+        ]
+      ],
+      "actual05_comparison": "Fresh full303 including all existing lifecycle fixtures source-only. FrozenTerminal inseparably owns resolution+receipt, clonedexactly across begin/retry/enqueue/rejection. Private lifecycle sum Running|RetryScheduled{frozen,not_before}|Submitting{frozen,ack_deadline}|TransportFailed|Presenting{outcome,remaining}|Finished{outcome} prevents independent impossible optionalfields. begin onlyRunning, retry onlyscheduled+due, apply onlySubmitting, rejectionkeepssamepayload, acceptedmapsfrozenresolution and dropsreceipt into presentation. Ackstall terminalTransportFailed no retry/outcome; saturation atDurationMAX/nativezero deadlines intentional bounded nativeclock policy, no generic backdating assertion. advance_presentation saturating_sub and Finished exactlyonce. Parent module cannot fabricate lifecyclevariants viafacade privatefield. Accepted notification immediate and finish event later different purposes, not duplicate strategiccommit. Existing four fixtures demonstrate identical retry, one accepted presentation/finish, synchronousenqueuebackoff, ambiguousackfailclosed, not run. Resultmailbox has no attemptID but only one submission can await acknowledgement and ambiguousone exits; no reordered multiattempt exploit asserted without native callback contract.",
+      "source_body_proof": "Fresh scoped PR bodies; complete actual P16 counterpart diffs plus current contract comparison where specified."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/stdb.rs",
+      "sha256": "ab24f2abcf0306df9967ba4f53671ead170142f7fd1a0697bf116389584da5b8",
+      "scope049_index": 2076,
+      "actual_EOF": 191,
+      "scoped_ranges_compared": [
+        [
+          1,
+          191
+        ]
+      ],
+      "actual05_comparison": "Fresh full191. Private connection plus two Arc<Mutex<Vec>> mailboxes; SDK callbacks onlyclone row/result and push, systems mem::take atomically drains each independently. Rows are raw ConnectedPlayer, no wholeactor/item finite/topology seal, exact spawn F004 remains. SpacetimeDbReady privateIdentity published onlytry_identitySome afteractualframe_tick; no early SDKidentityexpect. Native connection object+Ready separate lifecycle relies same connection not replaced; no reconnect replacement bug asserted. submit_terminal forwardsresolution+receipt together; nested Ok(Ok)onlyAccepted, both reducer and transport callback failure classifiedRejected. Enqueue Result remains separate phase, no false immediatecommit. Terminal enum no requestidentity but currentparent maintains one pending payload; nowholeSDK deliveryproofinferred. Native mutex poisoning unwrap/advanceblocking shutdown explicitoperations, no source-only proof of arbitrarycallback failures/currentbadcallbackrun. Non-tactical persistent storage notadded.",
+      "source_body_proof": "Fresh scoped PR bodies; complete actual P16 counterpart diffs plus current contract comparison where specified."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/mission.rs",
+      "sha256": "998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "scope049_index": 955,
+      "actual_EOF": 106,
+      "scoped_ranges_compared": [
+        [
+          1,
+          106
+        ]
+      ],
+      "actual05_comparison": "Fresh full106 PR and complete actual P16 diff empty, personally compare each snapshot currentauthority/receipt roles. Hardconstants participants16/injuries64/contacts128/damage1/stress10000/ammo1024 are independent resource budgets, not mutually proportional. authority_id checkednew validates bounded canonicalprefix ASCII but transparentSerde rawString bypass remains existing admission graph; do not infer namedidentifier guarantees beyond route. HostileGroupBinding sum Unbound|Bound ID deliberately separatesrandomencounter fromeligiblepersistentgroup; StrategicBattleVictor andresolution closedtags have different strategic semantics, not interchangeable. Rawserialized tags neither bind mission toactualDBrow nor certify receipt. Full original ID/unbound fixtures read notrun.",
+      "source_body_proof": "Fresh scoped PR bodies; complete actual P16 counterpart diffs plus current contract comparison where specified."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/mission.rs",
+      "sha256": "998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "scope049_index": 120,
+      "actual_EOF": 106,
+      "scoped_ranges_compared": [
+        [
+          1,
+          106
+        ]
+      ],
+      "actual05_comparison": "Fresh full106 PR and complete actual P16 diff empty, personally compare each snapshot currentauthority/receipt roles. Hardconstants participants16/injuries64/contacts128/damage1/stress10000/ammo1024 are independent resource budgets, not mutually proportional. authority_id checkednew validates bounded canonicalprefix ASCII but transparentSerde rawString bypass remains existing admission graph; do not infer namedidentifier guarantees beyond route. HostileGroupBinding sum Unbound|Bound ID deliberately separatesrandomencounter fromeligiblepersistentgroup; StrategicBattleVictor andresolution closedtags have different strategic semantics, not interchangeable. Rawserialized tags neither bind mission toactualDBrow nor certify receipt. Full original ID/unbound fixtures read notrun. Separate P16 receivernamespace retained; not automatic PR DBclaim.",
+      "source_body_proof": "Fresh scoped PR bodies; complete actual P16 counterpart diffs plus current contract comparison where specified."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/mission/roster.rs",
+      "sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "scope049_index": 957,
+      "actual_EOF": 91,
+      "scoped_ranges_compared": [
+        [
+          1,
+          91
+        ]
+      ],
+      "actual05_comparison": "Fresh full91 PR plus complete actual P16 diff empty with currentsemanticcomparison. TacticalPartyRoster privateorderedVec admits onlynonempty<=16 uniqueu64 (0allowed); noSerde/Default/rawmutablegetter. expectedcount derivescurrentlen via checkedu32 conversion safe16 and NonZero safeemptycheck; consumesamevecpreservingcapturedorder. Actual snapshot IDs, not another stored count, authority; no living/ownership/DBmembership promised byscalarconstructor. Original order/empty/duplicate/cap fixtures readnotrun. ParentMissionState currentlytakesNonZeroexpectedratherthanroster, so roster constructorproofalone doesnotprove all projectedactors belongcapturedset.",
+      "source_body_proof": "Fresh scoped PR bodies; complete actual P16 counterpart diffs plus current contract comparison where specified."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/mission/roster.rs",
+      "sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "scope049_index": 122,
+      "actual_EOF": 91,
+      "scoped_ranges_compared": [
+        [
+          1,
+          91
+        ]
+      ],
+      "actual05_comparison": "Fresh full91 PR plus complete actual P16 diff empty with currentsemanticcomparison. TacticalPartyRoster privateorderedVec admits onlynonempty<=16 uniqueu64 (0allowed); noSerde/Default/rawmutablegetter. expectedcount derivescurrentlen via checkedu32 conversion safe16 and NonZero safeemptycheck; consumesamevecpreservingcapturedorder. Actual snapshot IDs, not another stored count, authority; no living/ownership/DBmembership promised byscalarconstructor. Original order/empty/duplicate/cap fixtures readnotrun. ParentMissionState currentlytakesNonZeroexpectedratherthanroster, so roster constructorproofalone doesnotprove all projectedactors belongcapturedset. SeparateP16actualrolecomparison; no currentPRgatecarry.",
+      "source_body_proof": "Fresh scoped PR bodies; complete actual P16 counterpart diffs plus current contract comparison where specified."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/mission/enemy_roster.rs",
+      "sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "scope049_index": 956,
+      "actual_EOF": 96,
+      "scoped_ranges_compared": [
+        [
+          1,
+          96
+        ]
+      ],
+      "actual05_comparison": "Fresh full96 PR plus complete actual P16 diff empty/currentrolescompared. MissionEnemyRoster privateVec, checkedusize→NonZeroU32 plusuniqueIDs; preservescaptureorder, zeroIDrepresentable, no party16limit intentionally. Getterborrowsimmutable IDs/countrederived, no independentlenstate. NativecountcapacityexplicitError beforeSelf; original 17enemies fixture intentionallyallowed and64bit overflowlengthhelperfixture source-only, notallocated/run. No enemy identity/liveness/provenance prooffromcount.",
+      "source_body_proof": "Fresh scoped PR bodies; complete actual P16 counterpart diffs plus current contract comparison where specified."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/mission/enemy_roster.rs",
+      "sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "scope049_index": 121,
+      "actual_EOF": 96,
+      "scoped_ranges_compared": [
+        [
+          1,
+          96
+        ]
+      ],
+      "actual05_comparison": "Fresh full96 PR plus complete actual P16 diff empty/currentrolescompared. MissionEnemyRoster privateVec, checkedusize→NonZeroU32 plusuniqueIDs; preservescaptureorder, zeroIDrepresentable, no party16limit intentionally. Getterborrowsimmutable IDs/countrederived, no independentlenstate. NativecountcapacityexplicitError beforeSelf; original 17enemies fixture intentionallyallowed and64bit overflowlengthhelperfixture source-only, notallocated/run. No enemy identity/liveness/provenance prooffromcount. SeparateP16actualrolecomparison; no currentPRgatecarry.",
+      "source_body_proof": "Fresh scoped PR bodies; complete actual P16 counterpart diffs plus current contract comparison where specified."
+    }
+  ],
+  "registered_direct_dependencies": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/mod.rs",
+      "sha256": "294366e9eac449d161658a404c461baaf901a04a89e96ea87909a819e322e88a",
+      "registration_id": "NATIVE-INITIAL05-REG027",
+      "actual_EOF": 362,
+      "scoped_ranges_compared": [
+        [
+          159,
+          212
+        ]
+      ],
+      "actual05_comparison": "Fresh exact original1–158 and prospectiveREG027159–212;213blank excluded,214+test-only helper/tests uncredited. MissionState private timeout/enrollment/reconnect/hold/terminal state initialized together. Required enemy count can be0, deliberately prevents combat outcome until real mission bound; no timeout None error invented. Actual tick_timeout completes159–162; absent timeout false, native timer semantics uncredited beyond call. TerminalCombatSnapshot rawpub six fields but normal systems same-query count/filters derive loaded and incapacitated enemy/party; counter relationship not inherently sealed by pub record. CombatOutcomeHold rejects required0/underloaded/unsealed/no party and resetsboth durations. Both conditions tracked separately, false→ZERO, true→saturating add. Simultaneous party defeat takes precedence over enemy defeat. No arbitrary u32 raw snapshot claimed normal; usizecount asu32 has capacity precondition, not guessed unlimited entity representability. One selected current admission/terminal operation receiver rather than parallel private bool caches; lower PartyEnrollment/FrozenTerminal actualbodies compared below.",
+      "source_body_proof": "Fresh exact registered body after registration",
+      "global_scope_status": "pending Root reconciliation"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/enrollment.rs",
+      "sha256": "9d6646ad8d4c3da14afcf544a8426c44afd33921fc4c39d20f4e2c09a49aa5f1",
+      "registration_id": "NATIVE-INITIAL05-REG028",
+      "actual_EOF": 189,
+      "scoped_ranges_compared": [
+        [
+          1,
+          124
+        ]
+      ],
+      "actual05_comparison": "Fresh prospective1–124 only,125blank excluded,126+tests uncredited. PartyEnrollment explicit Awaiting/Enrolling/Sealed sum with NonZeroexpected; beginoneway, observealwaysbegin beforematch so unreachableAwaiting justified. Seen HashSet distinguishesdurableCharacter identity; repeatadmittedwithoutduplicatecount. Seal whenseen>=expected andnoloading, laterunseenrejected, sameIDreconnectallowed. emptyDurationresetwhenloaded/loading andsaturatingaddonlyempty, grace0mayabandonimmediately bypolicy. Rawpub(crate) enumvariants allowlocalfabrication, actualMissionStateprivateinitializer usesnew; not a publicdomainsealedroster. PresealallowsanyID, so actualupstream capturedmembershipfilter stillneeded, no normalunauthorizedjoinclaim fromthisgenericstate alone.",
+      "source_body_proof": "Fresh exact registered body after registration",
+      "global_scope_status": "pending Root reconciliation"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/receipt.rs",
+      "sha256": "24e17b0e16c1731ef4fa81d7e8f2448cd42b12b6b75dbbe16bc502f0f606508d",
+      "registration_id": "NATIVE-INITIAL05-REG029",
+      "actual_EOF": 102,
+      "scoped_ranges_compared": [
+        [
+          1,
+          75
+        ]
+      ],
+      "actual05_comparison": "Fresh prospective1–75 only,76blank excluded,77+tests uncredited. Receiptprojection copiescurrentaccumulatedinjuries/blood/ammunition andstablebodypart mapping; addscontact-onlycharacters withzero consequences, sorts durableID then truncatesparty16, while retainsallcontact vector. Normal boundparty16 unique capturedroster wouldmake truncationinactive, but actualincoming membershipbinding separate andnotproven solelybycountconstructor. Raw accumulator>16 contactcharacters canmake serializedcontact referencecharacterexcludedbytruncate; keep concrete conditionalcapacityqualification, no actualnormalovercapacity/runorrecipientacceptancefailureassertion. FrozenTerminal includeswholeprojection once, laterretryneverrebuilds changingreceipt. Contactstress/role/IDcopiedfromsameentry, no freshnormalization/finite guarantee here.",
+      "source_body_proof": "Fresh exact registered body after registration",
+      "global_scope_status": "pending Root reconciliation"
+    }
+  ],
+  "comparison_groups": {
+    "frozen-terminal-lifecycle": "Private sum and whole resolution+receipt capture, retries identical, acceptance vsenqueue separate, ambiguousackfailclosed.",
+    "mission-enrollment": "Seen-ID membership/lifecycle distinct fromexpected cardinality andexternalcapturedroster; no assumed rosterauthorityfromscalar.",
+    "terminal-query-snapshot": "Loaded/incapacitated counts built fromsamequery, sealed/loading/required gates beforeholddurations.",
+    "roster-collection-contracts": "Private unique nonempty boundedparty versus unique nonempty u32capacityenemy; intentionallydifferentbudgets.",
+    "receipt-capacity-binding": "Participant truncation andretainedcontact IDs requireactualnormalmembershiplimit; conditionalrawcounterexample retainedwithoutnewfinding."
+  },
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual normal captured-roster→SDKprojection→loadedactor authority needs its own source-specific currentproof. Generic PartyEnrollment onlyreceivesexpected scalar and seenIDs; no global roster clear fromCoreconstructor. NativeSDKcallback/delivery implementation uncredited. Conditional overcapacity rawaccumulator notcalledordinaryfailure."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

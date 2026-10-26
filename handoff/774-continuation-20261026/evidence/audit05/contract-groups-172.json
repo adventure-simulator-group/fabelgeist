@@ -1,0 +1,39 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-172",
+  "at": "2026-10-25T20:58:08.837049+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1798,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/support/tests.rs",
+      "sha256": "7c6a8e1c2dff28aca275a96b548ba687a6723103c0ef7844b7dbd3b4cb22f0e8",
+      "personally_read_ranges": [
+        [
+          1,
+          250
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full250-line test source read. Required population/seed matrix builds one geographic source, generates/compiles/partitions exact city, checks selection does not mutate original layout, then compares member count and identity/programme/horizontal transform across accepted floors. Each retained contact/threshold is checked against composed terrain and selected tolerance; nonfloor property/business/garden state remains unchanged. Single/compound planners both have duplicate-physical-placement assertions. No matrix execution or proof from numeric expected values is claimed."
+      ]
+    },
+    {
+      "scope_index": 1799,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/support/tests/neighboring.rs",
+      "sha256": "05fa8e91c739271d3354f764d365b9faca0d7d667c13f993afbd9f200d8d08f8",
+      "personally_read_ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full152-line neighboring fixture body read. It derives reservations/transforms from current frozen production compilation, filters exact physical IDs519/520/16903 into compound/single roles, derives both support plans from the same geographic source/policy, and composes their surfaces. It queries actual recipe ground-contact points in the matching placement frame. An empty corner must remain outside all owned support surfaces and retain geographic source elevation; reversed surface/member order must preserve result. Assertions target envelope-versus-actual-bearing ownership, not a promise every arbitrary native layout has valid bindings. Fixture and imported asset were not executed, and asset identity is a separate covered role."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted original roles; inherited1800 not recounted; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

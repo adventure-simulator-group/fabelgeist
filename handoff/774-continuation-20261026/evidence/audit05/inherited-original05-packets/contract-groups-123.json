@@ -1,0 +1,49 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-123",
+  "at": "2026-10-23T03:00:16.810788+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-mesh/src/lib.rs",
+      "sha256": "6a0d874f4c07665cb0c5f3e477bd5a79d6c431a46aea2be921a7fab150e5e04b",
+      "scope051_index": 2816,
+      "actual_EOF": 22,
+      "scoped_ranges_compared": [
+        [
+          1,
+          22
+        ]
+      ],
+      "actual05_comparison": "Fresh full22 export surface. CPU MeshData and topology/frontface reexports separate from feature-gated GPU storage/upload/neighborhood/wireframe products. No aggregate constructor, mutation, decoder or retained scene/render-instance authority here. Module declarations do not credit their bodies or default-enabled GPU dependency graph. Exact reached role is competing generic CPU mesh owner for colored PlantMesh, not all lower mesh validity.",
+      "source_body_proof": "Fresh exact global051 material bodies personally read; mandatoryRoot173 exclusions retained."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mesh/src/data.rs",
+      "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "scope051_index": 2817,
+      "actual_EOF": 293,
+      "scoped_ranges_compared": [
+        [
+          1,
+          11
+        ],
+        [
+          41,
+          68
+        ]
+      ],
+      "actual05_comparison": "Fresh exact imports1–11 andCPU declaration/default41–68 permandatory173. MeshData is raw public parallel positions/normals/UV vectors and optional index/joint/weight vectors plus topology/frontface. Docs explicitly permit empty normals/UV absent and Noneindices consecutive vertices; Default whollyemptyTriangleList/Ccw has purposefulemptymeaning. Therefore do not invent required equal nonzero lengths acrossallattributes or requireindexedtriangles globally. Joint/weights mutualpresence, cardinality/indexbounds/numericnormalization dependon actual admission/native operation, whose methods70+ areoutside thisreachedrole anduncredited. No ownDeserialize/Reflect/checkedconstructor intheseexactlines. Competingowner lacks per-vertexcolors whilePlantMesh colors are material output, so no equivalent wholeproductsubstitution or proofgenericMeshData constructionsealsPlantMesh correlation. Actual upload/read helpers12–39/GPU204+/tests240+ expresslyexcluded; no new graph exploration fromfieldnames.",
+      "source_body_proof": "Fresh exact global051 material bodies personally read; mandatoryRoot173 exclusions retained."
+    }
+  ],
+  "comparison_groups": {
+    "generic-cpu-mesh-role": "Purposefully sparse/optional attributes, raw authoring record distinct from actual validated/native or colored output; only exact declaration/default competingowner role reached."
+  },
+  "new_unique_findings": [],
+  "mandatory_qualifications": [
+    "Root173 data.rs1–11/41–68 only;12–40/69+ excluded. Root170 oldprematurecapabilitycomparison no otherlens credit. Root176 P16configtail exact sourcecomparisons in120/122."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

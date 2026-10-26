@@ -1,0 +1,53 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-313",
+  "at": "2026-10-25T22:58:37.364520+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2626,
+      "source_id": "cargo-registry:num_enum_derive-0.7.6/src/lib.rs",
+      "sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+      "personally_read_ranges": [
+        [
+          1,
+          362
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-362 compared generated IntoPrimitive/FromPrimitive/TryFromPrimitive/UnsafeFromPrimitive/Default roles. Checked match conversions enumerate canonical+alternative values from one EnumInfo; unknown checked values use declared default/catch-all or structured error; UnsafeFromPrimitive explicitly requires caller-valid discriminant. No project unsafe caller or runtime range admission established; no semantic validation credit from derives alone."
+      ]
+    },
+    {
+      "scope_index": 2627,
+      "source_id": "cargo-registry:num_enum_derive-0.7.6/src/parsing.rs",
+      "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+      "personally_read_ranges": [
+        [
+          1,
+          574
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-574 read across the saved compaction boundary. Repr/enum/unit/catch-all shape restrictions and exclusive default/catch-all admission precede generation. Literal canonical/alternative collisions are checked; arbitrary expression collision handling relies on generated compiler patterns. Complex-expression ranges require explicit literal bounds and expand values; extreme expansion/overflow remains compile-input dependent, no actual project attribute witness. Naturally-exhaustive counting paired with deny-unreachable generated patterns in 2626; no blanket arbitrary-repr validity claim."
+      ]
+    },
+    {
+      "scope_index": 2628,
+      "source_id": "cargo-registry:num_enum_derive-0.7.6/src/enum_attributes.rs",
+      "sha256": "169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+      "personally_read_ranges": [
+        [
+          1,
+          342
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-342: error type name+constructor required together; crate path and custom error attributes exclusive both within and across attributes; parse errors preserve structured diagnostics. Included tests personally read as specification evidence, not executed. No new aggregate-state finding."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

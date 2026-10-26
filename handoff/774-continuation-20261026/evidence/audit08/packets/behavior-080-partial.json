@@ -1,0 +1,52 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-080-PARTIAL",
+  "lens": "08 behavior-preservation",
+  "completed_original": [],
+  "partial_original": [
+    1725,
+    1699,
+    1704,
+    1722,
+    1723
+  ],
+  "source_pin": "source-pins-and-scope-100.json",
+  "source_reads": {
+    "1725": {
+      "head": [
+        [
+          1,
+          1101
+        ]
+      ],
+      "actual_histogram_diff": [
+        [
+          1,
+          661
+        ]
+      ],
+      "head_sha256": "ee9206f01afa3ace0319c0d1098568b83cb983fe7240990836b13da56e045b16",
+      "base_sha256": "7fd40a1930f1fcccba80082846ffd4235d9658938d82b293e93a38cbaa6dcfcf",
+      "diff_sha256": "410cbcd1315557de5c3b4a9717d72bfc67b41f120a247706a61b915043e233e0"
+    }
+  },
+  "support_reads": [
+    {
+      "index": 1464,
+      "sha256": "62f911a33b3857f7f42007f9773937a09e031bc7944bcf57536a64a030a6b9fa",
+      "ranges": [
+        [
+          128,
+          139
+        ]
+      ],
+      "purpose": "Fresh authored_metres constant-constructor proof130-135; adjacent ScreenWindow declaration prefix137-139 adds no body/role credit; prior completed role retained."
+    }
+  ],
+  "analysis": [
+    "Full1101 source and661 actualdiff consumed: same40 semantic views,23 animation views,41 cold traversal and17 beech motion constants/order/labels/FOV/pixel minima/LOD overrides/suppression/radii/distances/boundarycoordinates. All numeric literals are wrapped without altered values; helper authored_degrees stores same finite signed degrees, authored_metres uses finite SignedLength with no wrapping/positive clamp; ScenePlanPoint v! macro retains authored east/north. Existing fault camera positions/targets are identical; typed error path uses actual1724 native look-at.",
+    "Constructor/field setter defaults and bitflags remain exact except typed finite FOV admission. None of these wrappers establishes all profiles/adapters correct: plant/fungus specialized camera implementations1731/1739/1740 remain queued, so1725 stays partial until their actual receiver bodies are reconciled.",
+    "Actual1725 CAPTURE_VIEWS679-686 includes slug horizon, CapturePose::Horizon,15degree FOV,50pixel minimum, vista flag;1699selected_capture_views1122-1192 includes semantic and accepts requested horizon after implicit Ground warmup. Public native run791-807 accepts a custom scene path. Together with079 public source validation this establishes a source-representable selected no-vista capture route; full ordinary generation/native runtime is not executed or claimed. Q005 absent-vista heading/height/policy/alias remains explicitly qualified; named flat fixture length3 is not a witness."
+  ],
+  "findings": [],
+  "global_clearance": false
+}

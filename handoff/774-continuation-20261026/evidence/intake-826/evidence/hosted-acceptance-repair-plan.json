@@ -1,0 +1,55 @@
+{
+  "snapshot": "ccb1b6944d674c0bf29d10e6820c0ac4c55092b7",
+  "discovery": {
+    "all13": "hosted-acceptance-pre-repair-all13.json",
+    "independent_reviews": [
+      "hosted-acceptance-code-review.json",
+      "hosted-acceptance-rule-review.json",
+      "hosted-acceptance-comment-review.json"
+    ],
+    "status": "complete focused pre-edit source discovery; not implementation/runtime/final clearance"
+  },
+  "ownership": "Root owns whole rust-quality.yml, explicit #780 agreement; canonical final target/feature confirmation still pending coherent receiver packet",
+  "findings": [
+    "HA-R1/HAC-C1/HOSTED-ACCEPTANCE-C1 missing existing connected-family execution cells",
+    "HA-R2/HOSTED-ACCEPTANCE-C2 Hair self-skips cannot count as native acceptance"
+  ],
+  "implementation_order": [
+    "Confirm final canonical module/feature/target names after #780 composes Root ccb and remaining own graph",
+    "Extend existing hosted execution cells and inline required-evidence verifier; no new test/probe/checker/helper",
+    "Successor complete13 and independent Code/Rule/Comment on actual workflow and current source graph",
+    "Finish complete integration/global13/all3 before push or CI request",
+    "Require all selected hosted execution and unchanged existing gates on final pushed SHA"
+  ],
+  "selected_policy": {
+    "compute": "Prefer full existing --package fabelgeist-compute --lib plus existing --test concurrent_kernels. This includes host_float numerical tests; historical failures are not a waiver. Any current failure blocks and requires bounded diagnosis, not filter removal.",
+    "bvh": "Existing --package fabelgeist-bvh --features gpu --lib cpu::tests:: and gpu::tests:: as separate invocations",
+    "hair": "Existing --package fabelgeist-hair --features render --lib gpu::tests:: and render::tests:: as separate invocations; capture --nocapture; existing verifier rejects no GPU: skipped for native cell",
+    "armor": "Existing --lib engraving::tests:: and gpu::metal::tests:: plus all eight existing top-level integration targets individually, nonempty required cell each",
+    "mesh": "Existing --package fabelgeist-mesh --features gpu --lib data::tests::",
+    "cloth": "Existing --package fabelgeist-cloth --lib cloth::tests::; ignored calibration remains visible and unevaluated",
+    "creator": "Extend existing creator_contract calls with --lib device_underlayer::, armor_metal::tests::, garment_material::tests:: and --bin adventuresim-character-creator underlayer_equipment::; preserve default offline-creator features and all current calls"
+  },
+  "evidence_contract": {
+    "identity": "Checkout and recorded revision must equal final PR head, not merely ancestor. Same identity for source, commands, logs, result registry and uploaded evidence.",
+    "commands": "Capture exact cargo command/target/features/filter before each existing execution, --locked, serial native threads, --nocapture, set -euo pipefail and actual cargo failure propagation.",
+    "registry": "Extend existing inline verifier rather than create a checker/helper/probe. Required new cells need successful nonempty results; Hair native cell additionally must contain no existing self-skip marker. Keep old required list/gates and record ignored counts.",
+    "provider": "Existing Mesa/Vulkan/XDG runtime setup, no added provider smoke tests. Provider absence remains an actual blocked native requirement.",
+    "artifacts": "Reuse current rig evidence upload; texture integration/docs additionally admitted by existing verifier with exact source identity; retain their current artifact upload."
+  },
+  "limits": [
+    "Existing generated runner prefills output from expected; passing existing cases is bounded compile/native/readback acceptance, not proof every write occurs.",
+    "No dedicated registered Scatter/fluid/GenericScan/extraction cases; no zero-match coverage claim or invented tests.",
+    "Hair render existing tests validate WGSL/POD rather than rendered pixels.",
+    "Historical numerical failures and Creator SIGSEGV are not current results; no --skip/new ignore/continue-on-error/allow-failure/weaker oracle or tolerances.",
+    "Existing ignored calibration and MHR asset fixtures are not evaluated by ordinary selections.",
+    "No browser/hardware-wide/32-bit/performance/calibrated renderer verdict."
+  ],
+  "statuses": {
+    "repair": "not started; canonical names awaited",
+    "source_validation": "not started",
+    "runtime_validation": "not run; hosted only",
+    "global_clearance": "incomplete"
+  },
+  "prohibited": "No new tests/cases/helpers/assertions/doctests; no local project execution/scanners/generators/probes; no independent producer repair; no code push/CI until whole connected graph complete; no merge."
+}

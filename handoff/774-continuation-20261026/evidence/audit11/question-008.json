@@ -1,0 +1,27 @@
+{
+  "id": "ADLER-CONT11-Q008",
+  "classification": "Qualified local architectural span/rectangle record ownership; not accepted/global-unique or current-main regression.",
+  "scope_index": 544,
+  "source_id": "pr-working:crates/adventuresim-building-generator/src/detail/arches/glazing.rs",
+  "sha256": "a0180fe822c3d5e6c8e77ab94e971e103c5ff964b4c4004bfd7c41f040829ade",
+  "ranges": [
+    [
+      16,
+      41
+    ],
+    [
+      44,
+      67
+    ],
+    [
+      75,
+      89
+    ]
+  ],
+  "observation": "Crown spans carry four positional metre values (left,right,leftheight,rightheight), then a Vec<(f32,f32,f32,f32)> carries rectangle(left,right,bottom,top) through separate generation/mesh loops. Actual uses establish coordinate roles, but collection records remain positional primitives beyond single scalar arithmetic. Must distinguish local glazing-plane spans from existing generic/architectural bounds owners and avoid a new duplicate concept.",
+  "qualification": "Existing frozen type-family findings, native numerical-kernel policy, P16/P17/current-main repairs and canonical record owners have not been reconciled. No actual mixup/runtime witness or unique finding accepted. Existing unwrap follows successful first on same immutable slice and is guaranteed nonempty; no false panic witness.",
+  "next": "Reconcile registered architectural local bounds/span owners and accepted family finding before any remedy.",
+  "new_unique_finding": false,
+  "repair": "not started",
+  "validation": "not run"
+}

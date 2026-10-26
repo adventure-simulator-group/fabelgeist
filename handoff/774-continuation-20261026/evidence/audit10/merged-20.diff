@@ -1,0 +1,28 @@
+diff --git a/crates/adventuresim-tactical-client/src/camera/collision/tests.rs b/crates/adventuresim-tactical-client/src/camera/collision/tests.rs
+index dfd21216d..ff058c6ae 100644
+--- a/crates/adventuresim-tactical-client/src/camera/collision/tests.rs
++++ b/crates/adventuresim-tactical-client/src/camera/collision/tests.rs
+@@ -102,22 +102,21 @@ fn assert_clear(
+             &obstacle.shape,
+             obstacle.position,
+             Quat::IDENTITY,
+             0.0,
+         )
+         .unwrap();
+         assert!(
+             contact.is_none_or(|contact| contact.penetration <= 0.0001),
+             "camera at {position:?} penetrated obstacle at {:?}: {contact:?}",
+             obstacle.position
+-        )
+-        .unwrap();
++        );
+     }
+ }
+ 
+ #[test]
+ fn close_view_clears_wall_and_keeps_subject_beside_manual_aim() {
+     let obstacles = [Obstacle::cuboid(
+         Vec3::new(0.0, 0.0, 1.0),
+         Vec3::new(8.0, 4.0, 0.2),
+     )];
+     let mut app = scene(&obstacles);

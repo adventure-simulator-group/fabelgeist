@@ -1,0 +1,27 @@
+diff --git a/crates/adventuresim-character-creator/src/hair_preview/render_test.rs b/crates/adventuresim-character-creator/src/hair_preview/render_test.rs
+index e2f5d334f..30c65cdaa 100644
+--- a/crates/adventuresim-character-creator/src/hair_preview/render_test.rs
++++ b/crates/adventuresim-character-creator/src/hair_preview/render_test.rs
+@@ -283,21 +283,21 @@ fn hair_renders() -> Result<()> {
+             "{form:?}: built in {:.2} s, {:.1}% of hair triangles buried in the skin",
+             built.as_secs_f32(),
+             buried * 100.0
+         );
+         let form_name = match form {
+             Form::Strands { level, .. } => format!("strands{level}"),
+             Form::Cards { level } => format!("cards{level}"),
+         };
+         // Drawn in the bind pose, skinned as the studio skins it but to one
+         // joint left where it is.
+-        let mesh = assets::mesh(&geometry, 0)?;
++        let mesh = assets::mesh(&geometry, fabelgeist_rig::RigJointOrdinal::from(0usize))?;
+         let paths = VIEWS
+             .iter()
+             .map(|view| {
+                 out.join(format!(
+                     "{subject_name}{preset_name}-{form_name}-{}.png",
+                     view.name
+                 ))
+             })
+             .collect();
+         hairs.push((form, mesh, geometry, paths));

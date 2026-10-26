@@ -1,0 +1,63 @@
+{
+  "id": "RECOVERY826-LATER-06-001",
+  "lens": "06",
+  "reviewer": "recovery_826",
+  "registry": "../shared-material-successor/source-extensions-196.json",
+  "receipts": [
+    {
+      "material_index": 178,
+      "source_id": "scope-amendment:pinned-registry:derive_more-impl-2.1.1/src/fmt/display.rs#single-field-display-body",
+      "sha256": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "ranges": [
+        [
+          439,
+          498
+        ]
+      ],
+      "registration_evidence": "../audit10/derive-candidate-008-macro-registration.json",
+      "source_basis": "Fresh recovery_826 personal read of registered exact bytes/ranges, analyzed independently for this lens; no root-personal or other-lens verdict credit.",
+      "analysis": "Native derive_more formatting expansion delegates the chosen field to its native formatting trait, preserving field-owned Display behavior. Shared formatting attributes are compiler metadata, not competing application cause/label owners. Only439-498 is read; no macro-wide or application error-family clearance.",
+      "disposition": "No additional accepted unique finding within bounded source; preserve existing qualifications."
+    },
+    {
+      "material_index": 179,
+      "source_id": "scope-amendment:pr-working:crates/strategic-web/static/strategic-navigation.js#navigation-lifecycle",
+      "sha256": "1419143934b4dacd73085c81a770534d63fbad34612ff6cc25bb886c430e6bff",
+      "ranges": [
+        [
+          1,
+          14
+        ],
+        [
+          91,
+          209
+        ]
+      ],
+      "registration_evidence": "../audit05/later-material/prospective-navigation-registration-001.json",
+      "source_basis": "Fresh recovery_826 personal read of registered exact bytes/ranges, analyzed independently for this lens; no root-personal or other-lens verdict credit.",
+      "analysis": "Browser URL/DOM/history/fetch/AbortController own their native representations here. Script profile/header values negotiate the server/browser boundary; generation and pending controller own local cancellation rather than strategic authority. No duplicate application owner demonstrated in registered ranges. Complete server header producers, helper definitions15-90 and renderer lifetime implementation remain outside this added source receipt.",
+      "disposition": "No additional accepted unique finding within bounded source; preserve existing qualifications."
+    },
+    {
+      "material_index": 180,
+      "source_id": "scope-amendment:pr-working:crates/strategic-web/src/templates/layout/shell.rs#persistent-live-shell",
+      "sha256": "f32130d3436df9a143d9be24ee09dba99ad5a9d4fbe01fb5663970119186ce6f",
+      "ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "registration_evidence": "../audit05/later-material/prospective-navigation-registration-002.json",
+      "source_basis": "Fresh recovery_826 personal read of registered exact bytes/ranges, analyzed independently for this lens; no root-personal or other-lens verdict credit.",
+      "analysis": "ScriptProfile is the shell-owned Entry/Live/Strategic choice consumed by page_shell/page_head and serialized once into script-profile markup. Presentation remains a distinct SettlementPresentation input, preserving family/skin/material axes; calendar constants are imported from canonical schema. Browser labels/DOM attrs are legitimate output adapters. No competing enum/owner is proved by this bounded shell.",
+      "disposition": "No additional accepted unique finding within bounded source; preserve existing qualifications."
+    }
+  ],
+  "first_unfinished_material": 181,
+  "status": "IN_PROGRESS_SAFE_FRONTIER",
+  "new_unique_findings": 0,
+  "clear": false,
+  "checks": "not run",
+  "source_edits": false
+}

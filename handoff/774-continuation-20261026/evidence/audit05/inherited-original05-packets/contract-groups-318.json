@@ -1,0 +1,114 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-318",
+  "at": "2026-10-23T07:41:40.086105+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_garment.rs",
+      "sha256": "33088136dedaa0cf15c3541ea4c9c3c2dd930c7cc1e4f8bb63c09c66680ccf6f",
+      "scope070_index": 734,
+      "actual_EOF": 290,
+      "scoped_ranges_compared": [
+        [
+          1,
+          290
+        ]
+      ],
+      "actual05_comparison": "Fresh complete host+embeddedWGSL and original source fixtures; aggregate fit-prefix/declared buffers/dispatch/candidate presence/skirt bounds/status and layer relationships compared. No GPU execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_garment/candidates.rs",
+      "sha256": "85c82bd05f3762bf1536f056c9c1d6986321e508337d7801196a565470d13649",
+      "scope070_index": 735,
+      "actual_EOF": 132,
+      "scoped_ranges_compared": [
+        [
+          1,
+          132
+        ]
+      ],
+      "actual05_comparison": "Fresh complete host+embeddedWGSL and original source fixtures; aggregate fit-prefix/declared buffers/dispatch/candidate presence/skirt bounds/status and layer relationships compared. No GPU execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_garment_kernel.rs",
+      "sha256": "7484d47aa4568e2fc5b3fed2daba4888a9f0d637e6af199bca5e4f85f218d60f",
+      "scope070_index": 736,
+      "actual_EOF": 287,
+      "scoped_ranges_compared": [
+        [
+          1,
+          287
+        ]
+      ],
+      "actual05_comparison": "Fresh complete host+embeddedWGSL and original source fixtures; aggregate fit-prefix/declared buffers/dispatch/candidate presence/skirt bounds/status and layer relationships compared. No GPU execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_garment_skirt.rs",
+      "sha256": "963e22ca61e7f29b6424e65db9f7d987fca66e0e9543944b1584d9873ec8e285",
+      "scope070_index": 737,
+      "actual_EOF": 461,
+      "scoped_ranges_compared": [
+        [
+          1,
+          461
+        ]
+      ],
+      "actual05_comparison": "Fresh complete host+embeddedWGSL and original source fixtures; aggregate fit-prefix/declared buffers/dispatch/candidate presence/skirt bounds/status and layer relationships compared. No GPU execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_garment_skirt/stations.rs",
+      "sha256": "34d0763456537f3f3ddbd56e6f961de819d7a1b6eb90b6ae6ceb4d7f8a59392b",
+      "scope070_index": 738,
+      "actual_EOF": 130,
+      "scoped_ranges_compared": [
+        [
+          1,
+          130
+        ]
+      ],
+      "actual05_comparison": "Fresh complete host+embeddedWGSL and original source fixtures; aggregate fit-prefix/declared buffers/dispatch/candidate presence/skirt bounds/status and layer relationships compared. No GPU execution."
+    }
+  ],
+  "groups": [
+    {
+      "id": "garment fit prefix and typed span",
+      "comparison": "Fit layout16words holds15partframe+failureword15 rather than DeviceFrame spanword15. UprightSpan pairs typedjointname+SignedLength offsets and unrestricted finiteRatio reach; shadercomputesactualtop/bottom thenchecks15finitewords,orthonormalaxes/positiveextents beforeFIT_FAILED. Currentfailureflag setbothsuccess0/fail1. Jointslots resolvedrequire_inandnativeadapter; samebodyjoints+region/headframesbound. Ratio notprobability; no<=1narrowingfromname. rawwords<16notcheckedinhelper butactualfitterconstantsmustsupplyboundedlayout."
+    },
+    {
+      "id": "generated native binding contract",
+      "comparison": "dispatch enumerates actual Bound list onceforWGSLstoragebindingN andsamePassParametersname. Access determinesf32/u32/atomic declaration, nativeJoint checkedadapter vsrawU vsF eachgeneratesmatchinguniformtype; pads loop makesnonempty4wordmultiples withatmost4PADS entries, soemptyrequestsafeindex0..3 andotherremainders<=3. Matchingfitbuffername determinesFRAME_SOURCE replacement; nofitdeclaresprivate16fallbackunusedframehelpers,notacceptedsurface. PointaccessorsonlyactualfloatRead/Write names fromfixedlist. Actualcallsite names/access/kernels needscopedcomparison, noarbitraryduplicatebinding/namegrammarproof; nativecompiler notrun."
+    },
+    {
+      "id": "candidate presence is explicit and deterministic",
+      "comparison": "BAND scans actualsupportarraylength, maskselectsvalidrows, returnsfalse/Infbounds withtotal0, near==total early doesnotinventonepointpayload. Fallback min(minimum,total) searchesfiniteheightdistance<=MAX_FINITE usingpresencebool/distance/vertex tie, breaksnomatch. This avoidsuninitializedbestpayload, actualcardinalitycan1 butcallerchecksbounddimensionswhereappropriate. Physicalsupportbufferbindingrange mustmatchlogicalbodyrows; arrayLength alonecannotprovepositionrowmembership ifnativeallocatorbindsroundedphysicalcapacity. Directnativebufferhelpernotreadfromname. record_candidate_status reducesnonzerocandidateflag tofitfailure, thenrecord_fit_status translatesfailure intoactualpartstatus."
+    },
+    {
+      "id": "support masks require bounded actual caller count",
+      "comparison": "record_region_support allocatesoneu32maskperhostname andassignsregionenumeratebits without<=32guard, unlikealreadyreadfoot728. It ispub(crate), current737callsfixed1or2, sothoseactualcallsshiftsafe; otherqueuedtorso/tubecallscountmustbeexplicitlycompared beforeglobalboundedclaim. Shaderusescountsamebody/dispatch andbitsderivedsameownedfamilypolicy, notraw English-name alias. NativeGPUcounts/skin numericvalidityremainseparate. No ordinary>32regioncallfindingfromabsenceguardalone."
+    },
+    {
+      "id": "skirt cage finite layout and stage sequence",
+      "comparison": "STATIONS17/DEPTH_SIDE17 andactualGARMENT_RING_SEGMENTS deriveCAGE→REQUIRED→DEPTH→SKIRT_FIT_WORDS consecutivebuffers,generatedlayoutusedbothhostalloc+shaderoffsets. Currenthips+headframes,typedspan andsharedfit;Tassets earlybranchownsupport+fitstatus. Fauldtopsectionrequiresbandpresentandpositivefinitebreadth/depth beforecandidate fit. FlexiblebothlegsactualSideLeft/Rightpairedcounts+buffers, absentnonflexiblelegs count0 withnativeplaceholderbufferdeliberatelynotread. Stationhelpers enumerate supportedbodythenleft/rightparts, fallbackfinitepresence, total0 flagscandidate; countoffsetarithmeticcapacity conditionalnative input. No false emptysectionpayload acceptedbytheseownhelpers."
+    },
+    {
+      "id": "smoothed cage restores enclosure requirement",
+      "comparison": "DRAPE_FINISH checksfailurebeforeaccess, propagatesupper-radiusmaxdowntohem, savesunsmoothedREQUIRED, eightdirectionwiseaxialsmoothingpasses thenrestoresworstshortfallacrossrows, sonewsmoothedprofilecannotbecontractedbeloworiginalrequirementforfinitearithmetic. Wrappercarrier→shell map derivedactualpart.shell_carriers andsamecount; shellbounds max/min per2words, thenWRAP skipsfitfailure andactualradius/sampleclampedindices. Flexibletorsohemseamblend andpaddedinsetintentionaldifferentframes; rigidfauldlamewallstep usescapturedshellheightspan, nondegenerateper-shellheightrange actualgeneratorpreconditionnotprovenhere."
+    },
+    {
+      "id": "synthetic layer status followthrough remains pending",
+      "comparison": "record_skirt_layers recordsLeft/Righttube,thickensparts,extendsframes andretainsDevicePart;recordsTorso,usescarrierhem andextendsframes. ItdoesnotretainDeviceRecording.checks orinspectsyntheticpart.status, whereasactualboot725explicitlayer_checksdid. Outerrecord_fitted_skirt returnschecksVecempty andonlymainpartstatus. Direct739/740couldreturnemptychecksandpropagateallrelevantfailureviaframes/outerfit; thosebodiesnotyetreadin05atthispacket, sononeclaimedclosedorsuccessfulbadouterpart. PendingactualfitfailurepathdependencyreportedRootbeforestrongfinding."
+    },
+    {
+      "id": "source fixtures and numeric policy",
+      "comparison": "Full736 GPU-normalizationfixture source reads zero,tiny3e-30/4e-30,ordinary3/4,large3e30/4e30 expectedunitdirectionswithroundoffbound; no execution. HOSTscalednormalization actualpreservesfinitevectornormavoidsnaivesquareoverflow; rem_tau explicitlyonlybelowtwoturnsprecondition,cubicweights/trig sourceconstantsnotgenericsemanticrangeproof. Fixedpolicyoffsets/ringcountduplication leftforown13onlyafter05complete. No test/generatedcase/newforeignsource."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Exact739/740syntheticlayerfailure/check/partstatuspropagation andactualsupportmaskcallercounts pending.",
+    "Nativeallocationlogicalbindingextent/DevicePartcarrierranges andsharedmath/FRAME/sourcehelpersremainexactscopeobligations, noforeigngraphwaiver."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

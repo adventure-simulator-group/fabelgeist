@@ -1,0 +1,82 @@
+use super::*;
+
+pub(super) fn attack_samples(state: &SkeletonState) -> AnimationValueResult<Vec<PoseSample>> {
+    let phase = state.action_phase();
+    let animation = state.attack_animation().unwrap_or(AttackAnimation::Thrust);
+    let start_guard =
+        if animation == AttackAnimation::Offhand && !state.attack_animations.offhand_preparation {
+            guard_pose(state.attack_preparation().to)
+        } else {
+            guard_pose(animation)
+        };
+    let end_guard = guard_pose(state.attack_preparation().to);
+    let contact =
+        if animation == AttackAnimation::Offhand && state.attack_animations.offhand_preparation {
+            SemanticPose::AttackOffhandPrepared
+        } else {
+            attack_pose(animation)
+        };
+    if let Some(continuation) = state.attack_continuation() {
+        return Ok(vec![PoseSample {
+            pose: start_guard,
+            sampling: PoseSampling::ContinuationSpan {
+                contact,
+                end: recovery_pose(animation),
+                outgoing: continuation_pose(animation),
+                finish: end_guard,
+                start_coordinate: continuation.start_coordinate,
+                incoming_tangent: continuation.incoming_tangent,
+                ready_phase: ContinuationReadiness::FOLLOW_READY,
+                progress: phase,
+            },
+            weight: BlendWeight::ONE,
+            mirror_lower_body: ClipMirror::Original,
+        }]);
+    }
+    let coordinate = if phase.fraction() < 0.5 || !state.attack_has_queued_continuation() {
+        state.attack_curve().coordinate(phase)?
+    } else {
+        state.attack_curve().queued_recovery_coordinate(phase)?
+    };
+    Ok(vec![PoseSample {
+        pose: start_guard,
+        sampling: PoseSampling::CurveSpan {
+            end: contact,
+            coordinate,
+        },
+        weight: BlendWeight::ONE,
+        mirror_lower_body: ClipMirror::Original,
+    }])
+}
+
+pub(super) fn guard_pose(animation: AttackAnimation) -> SemanticPose {
+    match animation {
+        AttackAnimation::Swing => SemanticPose::GuardSwing,
+        AttackAnimation::Thrust => SemanticPose::GuardThrust,
+        AttackAnimation::Offhand => SemanticPose::GuardOffhand,
+    }
+}
+
+fn attack_pose(animation: AttackAnimation) -> SemanticPose {
+    match animation {
+        AttackAnimation::Swing => SemanticPose::AttackSwing,
+        AttackAnimation::Thrust => SemanticPose::AttackThrust,
+        AttackAnimation::Offhand => SemanticPose::AttackOffhand,
+    }
+}
+
+fn recovery_pose(animation: AttackAnimation) -> SemanticPose {
+    match animation {
+        AttackAnimation::Swing => SemanticPose::RecoverSwing,
+        AttackAnimation::Thrust => SemanticPose::RecoverThrust,
+        AttackAnimation::Offhand => SemanticPose::GuardOffhand,
+    }
+}
+
+fn continuation_pose(animation: AttackAnimation) -> SemanticPose {
+    match animation {
+        AttackAnimation::Swing => SemanticPose::ContinueSwing,
+        AttackAnimation::Thrust => SemanticPose::ContinueThrust,
+        AttackAnimation::Offhand => SemanticPose::AttackOffhand,
+    }
+}

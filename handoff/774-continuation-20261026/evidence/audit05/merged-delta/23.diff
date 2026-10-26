@@ -1,0 +1,26 @@
+--- 6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/equipment/grab_world.rs
++++ 13fc9dcc71ab879de364117e5462310673e43210:crates/adventuresim-tactical-client/src/equipment/grab_world.rs
+@@ -1,6 +1,7 @@
+ //! World-space pickup and door targeting shared by grab input and outlines.
++use super::EquipmentHand;
+ 
+ use adventuresim_tactical_core::prelude::*;
+ use bevy::{ecs::system::SystemParam, prelude::*};
+ use bevy_mod_outline::OutlineVolume;
+ 
+@@ -137,5 +138,15 @@
+                 | GrabSelection::Door(selected)
+                 | GrabSelection::Window(selected)
+         ) if selected == target
+     )
+ }
++
++pub(super) fn held_item(
++    actor: Entity,
++    hand: EquipmentHand,
++    items: &Query<(Entity, &ItemOf, Option<&EquipSlot>)>,
++) -> Option<Entity> {
++    items.iter().find_map(|(entity, owner, slot)| {
++        (owner.0 == actor && slot.is_some_and(|slot| *slot == hand.slot())).then_some(entity)
++    })
++}

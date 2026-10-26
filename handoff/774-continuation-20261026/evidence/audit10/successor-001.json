@@ -1,0 +1,56 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-001",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1464,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/config.rs",
+      "sha256": "62f911a33b3857f7f42007f9773937a09e031bc7944bcf57536a64a030a6b9fa",
+      "ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "source_basis": "Root fresh personal complete frozen recovered-object read, exact hash verified; own10 semantics, no other-lens verdict credit.",
+      "trait_inventory_and_semantics": "Manual Default CameraRigConfig78-127 is semantic authored camera tuning: distinct lowered/raised profiles, signed stance offsets, nonzero distances/times and custom checked constant literals. Existing Debug/Clone/Copy/Resource derives are already mechanical.",
+      "disposition": "Keep explicit Default; derive(Default) would produce different values or require inappropriate numeric-leaf defaults and cannot preserve authored composition. authored_metres/window are checked const admission helpers, not candidate From/transparent construction derives.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1465,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/rig.rs",
+      "sha256": "1ec50b293b57a16a3f213a4e26d2a6a6f3d69500f61d3f586939745bc2978d01",
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "source_basis": "Root fresh personal complete frozen recovered-object read, exact hash verified; own10 semantics, no other-lens verdict credit.",
+      "trait_inventory_and_semantics": "No handwritten trait impl or wire codec. update_camera_rig observes Bevy state, admits elapsed/profile/frame and commits history only after checked preparation succeeds.",
+      "disposition": "No derive opportunity; operation/system boundary has semantic control flow and errors. Do not add serialization or conversion solely to replace runtime policy. Other-lens camera lifecycle/shared state questions remain.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1466,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/rig/observation.rs",
+      "sha256": "a0a88df02f4d557950c09e55645900e75731a2817d9d422b636fe3126f062ef1",
+      "ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "source_basis": "Root fresh personal complete frozen recovered-object read, exact hash verified; own10 semantics, no other-lens verdict credit.",
+      "trait_inventory_and_semantics": "No handwritten trait impl or wire codec. CameraRigInput observe/prepare/prepare_follow perform fallible pose admission, stance policy, collision query, typed state update, native vector calculations and complete observation assembly.",
+      "disposition": "Keep inherent functions; From/TryFrom derive would not express independent context queries/policy/error sequencing or borrowed argument roles. Field assembly follows checked computation and is not independent mechanical-record serialization. No generic wire/format traits added.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "new_unique_findings": 0,
+  "clear": false
+}

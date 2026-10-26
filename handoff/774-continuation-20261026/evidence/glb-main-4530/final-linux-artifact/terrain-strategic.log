@@ -1,0 +1,28 @@
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 0.57s
+[1m[92m     Running[0m unittests src/main.rs (target/debug/deps/adventuresim_tactical_client-6bb0fdc9d807cce8)
+
+running 21 tests
+test strategic_scene::buildings::tests::camp_has_no_settlement_street ... ok
+test strategic_scene::buildings::tests::interior_and_frontage_use_the_tactical_placement_without_scaling ... ok
+test strategic_scene::cached_views::demand_tests::requested_portraits_capture_on_first_visit_and_reuse_their_completed_images ... ok
+test strategic_scene::cached_views::environment_tests::new_and_reused_capture_cameras_inherit_environment_before_the_first_render ... ok
+test strategic_scene::cached_views::tests::layout_sync_preserves_the_compositors_resolved_render_target ... ok
+test strategic_scene::cached_views::tests::new_pipeline_work_does_not_invalidate_completed_images ... ok
+test strategic_scene::cached_views::tests::scrolling_crops_the_same_street_target_without_recapturing ... ok
+test strategic_scene::cached_views::travel::tests::return_trip_reuses_completed_images_but_changed_scene_or_dimensions_recapture ... ok
+test strategic_scene::protocol::tests::offscreen_views_do_not_create_invalid_gpu_viewports ... ok
+test strategic_scene::shadows::tests::live_views_restore_only_the_shadow_flags_owned_by_character_culling ... ok
+test strategic_scene::street::tests::frontage_keeps_full_size_buildings_and_their_furniture_together ... ok
+test strategic_scene::tests::layers_are_revisited_when_an_existing_mesh_is_attached_to_a_model ... ok
+test strategic_scene::tests::procedural_carry_recipes_survive_the_browser_appearance_boundary ... ok
+test strategic_scene::tests::strategic_equipment_gets_bounds_even_when_tactical_meshes_disable_automatic_bounds ... ok
+test strategic_scene::tests::strategic_scene_keeps_character_entities_without_tactical_authority ... ok
+test strategic_scene::views::tests::every_building_shares_one_street_camera ... ok
+test strategic_scene::views::tests::focused_views_exclude_other_characters_but_keep_the_room ... ok
+test strategic_scene::views::tests::one_character_can_appear_in_two_portrait_slots ... ok
+test strategic_scene::visibility::tests::finite_actor_view_retains_crossing_bounds_and_preserves_other_views ... ok
+test strategic_scene::visibility::tests::initial_mesh_gate_preserves_other_views_and_never_recloses ... ok
+test strategic_scene::world::tests::raw_scene_document_preserves_tactical_seed_and_rejects_invalid_input ... ok
+
+test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 680 filtered out; finished in 3.09s
+

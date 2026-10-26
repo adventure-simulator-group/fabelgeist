@@ -1,0 +1,88 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-214",
+  "at": "2026-10-25T21:45:35.340171+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2196,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/mod.rs",
+      "sha256": "e2c32d059f773c9dc53ca214859713765404865e75e82302ea6b978145960199",
+      "personally_read_ranges": [
+        [
+          1,
+          331
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all331lines gpu/mod.rs. ArmorGpu retains same context/cache/query/normals; build_in validates each PartFrame before upload, records carriers then shells, submits then reads the same part. DevicePart exposes phase-dependent positions/index and public placement buffer; arbitrary calls before shell recording/mismatched buffers require underlying PartBuild admission/provenance analysis, no ordinary misuse established.",
+        "Public plain upload and nearest_points raw buffers/counts retain inherited raw admission family. Public StagedResults/slots routes are dedup RIG-ADMISSION03-F051 after2201 source comparison; no new finding. Scratch documents zero initialization but this wrapper alone delegates backend initialization guarantee."
+      ]
+    },
+    {
+      "scope_index": 2201,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "c82ccc89151834ead198496d95805780ebc3770b1d259c1d7d61dafa9817f02e",
+      "personally_read_ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all77lines gpu/staging.rs. Staging privately collects buffer references, read_staged consumes one staging and retains returned vectors in StagedResults. Staged is public Copy ordinal only; get indexes native bytes, prefix truncates without minimum check, status indexes first word. Compared with normal DevicePart read which stages/reads/finishes same session2196.",
+        "Exact handle/results provenance gap already recorded as RIG-ADMISSION03-F051; actual normal pipeline is paired, latent cross-session API counterexample only, no demonstrated current misuse. Deduplicated, no new finding."
+      ]
+    },
+    {
+      "scope_index": 2202,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tasset_carrier.wgsl",
+      "sha256": "d2769977cd06ab462c3180b8faf97efd4b55c067d626ff300078d8a6baa6409d",
+      "personally_read_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all64lines wrapped_tasset_carrier.wgsl. Compared shared metadata offsets/HULL_START/HULL_WORDS with2204 generated layout and shape2203. Hull ray skips parallel edge; count loop bounds modulo only inside count>0; envelope requires high>low and count>=2, fit producer not established in this body. Signed exploratory sections explicitly allowed, final chart rejects nonpositive radii; exploratory probes not credited as invalid final state."
+      ]
+    },
+    {
+      "scope_index": 2203,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tasset_shape.wgsl",
+      "sha256": "6bf36983d7b2fe90b22fd0e5bccd860aa4e951be3fd90828a85c87438f8f6c40",
+      "personally_read_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all55lines wrapped_tasset_shape.wgsl. Compared course span and row lookup with2204 boundary prepass, 24-step bracket solve with explicit failure status after bounded expansion, same carrier section and final support-height/positive radii checks. Frame metadata allocation/count/height invariants remain actual fit-producer obligation, no arbitrary buffer witness treated ordinary."
+      ]
+    },
+    {
+      "scope_index": 2204,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs",
+      "sha256": "e3b42051512367ece0bf95da50fe255586f90159da138fc22385ba5304ba62b9",
+      "personally_read_ranges": [
+        [
+          1,
+          154
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all154lines wrapped_tassets.rs. Design.validate and exact WrappedTassets variant gate precede dispatch. Two sides share matching fits/status arrays and enumeration sign/frame; boundary prepass and final recipe use the same bottom/top/course formulas and COURSE_ROWS8. Layout constants generate shader values. Gauge+fluting/clearance projection retains existing RIG-PPS-F006 rather than duplicate.",
+        "Course division and metadata counts depend design validator and fit producer; caller-provided raw Buffer associations are public API surface but no ordinary malformed producer established. No execution or new finding."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "5 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "dedup": [
+    "RIG-ADMISSION03-F051",
+    "RIG-PPS-F006"
+  ]
+}

@@ -1,0 +1,142 @@
+//! Authored camera profiles and checked temporal shaping coefficients.
+
+use super::{
+    collision::CloseCameraProfile,
+    values::{FramingOffset, MuzzleOffset, ScreenWindow},
+};
+use adventuresim_tactical_core::animation::{AnimationElapsed, ResponseShapingTime};
+use bevy::prelude::*;
+use fabelgeist_geometry::SignedLength;
+
+// Checked during constant evaluation: no runtime input can reach this failure.
+const DEFAULT_COLLISION_HOLD: AnimationElapsed = match AnimationElapsed::from_seconds(0.12) {
+    Ok(value) => value,
+    Err(_) => panic!("authored camera collision hold must be valid"),
+};
+
+const DEFAULT_FOLLOW_TIME: ResponseShapingTime = match ResponseShapingTime::from_seconds(0.18) {
+    Ok(value) => value,
+    Err(_) => panic!("authored camera shaping seconds must be finite"),
+};
+
+const DEFAULT_VERTICAL_FOLLOW_TIME: ResponseShapingTime =
+    match ResponseShapingTime::from_seconds(0.34) {
+        Ok(value) => value,
+        Err(_) => panic!("authored camera shaping seconds must be finite"),
+    };
+
+const DEFAULT_RAISED_HORIZONTAL_TIME: ResponseShapingTime =
+    match ResponseShapingTime::from_seconds(0.055) {
+        Ok(value) => value,
+        Err(_) => panic!("authored camera shaping seconds must be finite"),
+    };
+
+const DEFAULT_RAISED_VERTICAL_TIME: ResponseShapingTime =
+    match ResponseShapingTime::from_seconds(0.08) {
+        Ok(value) => value,
+        Err(_) => panic!("authored camera shaping seconds must be finite"),
+    };
+
+const DEFAULT_COLLISION_RECOVERY_TIME: ResponseShapingTime =
+    match ResponseShapingTime::from_seconds(0.32) {
+        Ok(value) => value,
+        Err(_) => panic!("authored camera shaping seconds must be finite"),
+    };
+
+#[derive(Debug, Clone, Copy)]
+pub struct CameraProfile {
+    pub distance: SignedLength,
+    pub shoulder_offset: SignedLength,
+    /// Height above the controller transform, which is centered in its capsule.
+    pub focus_height: SignedLength,
+    pub horizontal_follow_time: ResponseShapingTime,
+    pub vertical_follow_time: ResponseShapingTime,
+    pub maximum_follow_error: SignedLength,
+    /// Half-extents in normalized screen coordinates.
+    pub sweet_spot: ScreenWindow,
+}
+
+#[derive(Resource, Debug, Clone, Copy)]
+pub struct CameraRigConfig {
+    pub lowered: CameraProfile,
+    pub raised: CameraProfile,
+    pub transition_time: ResponseShapingTime,
+    pub close: CloseCameraProfile,
+    pub collision_margin: SignedLength,
+    pub collision_recovery_time: ResponseShapingTime,
+    pub collision_hysteresis: SignedLength,
+    /// Seconds to hold a retracted view before recovering through a doorway.
+    pub collision_hold_time: AnimationElapsed,
+    pub teleport_distance: SignedLength,
+    pub crouch_focus_adjustment: SignedLength,
+    pub prone_focus_adjustment: SignedLength,
+    pub supine_focus_adjustment: SignedLength,
+    pub aim_distance: SignedLength,
+    pub muzzle_offset: MuzzleOffset,
+}
+
+impl Default for CameraRigConfig {
+    fn default() -> Self {
+        const {
+            Self {
+                lowered: CameraProfile {
+                    distance: authored_metres(3.75),
+                    shoulder_offset: authored_metres(0.0),
+                    focus_height: authored_metres(0.48),
+                    horizontal_follow_time: DEFAULT_FOLLOW_TIME,
+                    vertical_follow_time: DEFAULT_VERTICAL_FOLLOW_TIME,
+                    maximum_follow_error: authored_metres(0.85),
+                    sweet_spot: authored_window(Vec2::new(0.09, 0.065)),
+                },
+                raised: CameraProfile {
+                    distance: authored_metres(2.75),
+                    shoulder_offset: authored_metres(0.5),
+                    focus_height: authored_metres(0.62),
+                    horizontal_follow_time: DEFAULT_RAISED_HORIZONTAL_TIME,
+                    vertical_follow_time: DEFAULT_RAISED_VERTICAL_TIME,
+                    maximum_follow_error: authored_metres(0.22),
+                    sweet_spot: authored_window(Vec2::splat(0.01)),
+                },
+                transition_time: DEFAULT_FOLLOW_TIME,
+                close: CloseCameraProfile {
+                    start_distance: authored_metres(1.8),
+                    full_distance: authored_metres(0.65),
+                    offset: FramingOffset {
+                        right: authored_metres(0.38),
+                        up: authored_metres(0.12),
+                    },
+                },
+                collision_margin: authored_metres(0.04),
+                collision_recovery_time: DEFAULT_COLLISION_RECOVERY_TIME,
+                collision_hysteresis: authored_metres(0.08),
+                collision_hold_time: DEFAULT_COLLISION_HOLD,
+                teleport_distance: authored_metres(2.0),
+                crouch_focus_adjustment: authored_metres(-0.45),
+                prone_focus_adjustment: authored_metres(-0.82),
+                supine_focus_adjustment: authored_metres(-0.76),
+                aim_distance: authored_metres(100.0),
+                // Local right, up, and forward from the controller center.
+                muzzle_offset: MuzzleOffset {
+                    right: authored_metres(0.28),
+                    up: authored_metres(0.55),
+                    forward: authored_metres(0.42),
+                },
+            }
+        }
+    }
+}
+
+/// Authored literals are admitted during constant evaluation.
+pub(crate) const fn authored_metres(value: f32) -> SignedLength {
+    match SignedLength::from_metres(value) {
+        Ok(value) => value,
+        Err(_) => panic!("authored camera metres must be finite"),
+    }
+}
+
+const fn authored_window(value: Vec2) -> ScreenWindow {
+    match ScreenWindow::from_ndc_half_extents(value) {
+        Ok(value) => value,
+        Err(_) => panic!("authored camera window must be finite and nonnegative"),
+    }
+}

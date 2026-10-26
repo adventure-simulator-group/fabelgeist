@@ -1,0 +1,71 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-059",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1621,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/mod.rs",
+      "sha256": "365b296fd751df7d5a2a463d6c2ea22c5885f0a3b55d1c836004bb2617b38363",
+      "ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "MapState derives ResourceDefault; RegionalMapPlugin manual Plugin.build registers lifecycle/systems. MapCommand.apply and state open/pan/frame_route implement semanticdispatch/source/revision/hiding policy. No manualcodec or othertraitimpl.",
+      "disposition": "Keep imperativePlugin. No derivability candidate in commandapplication or nativecamerasetup; explicit checkedstatepublication semantics not fieldFrom.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1622,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/surface.rs",
+      "sha256": "bccc776702dc9fffcbe8d608fa0de1f2ab28f6fc601d4186762fa8641fd87022",
+      "ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "PresentedSurface/coverage/bounds and explicit surface/camera functions, no handwritten trait/manualcodec. Bounds fold valid sourceelevations, lifecycle publishes/retires native meshes/materials and camera appliesgeographicframe/viewport/elevation/clipgeometry.",
+      "disposition": "No derivability candidate. Semanticnativeadapter and state/resource mutation not mechanicallyderived. Otherlens sourceassociation/numericacceptance not cleared.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1623,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/sky/astrometry.rs",
+      "sha256": "553895e6bbe39722c38999355c9d30c0c5bd72f3e5a702b2143d5826b749b6f2",
+      "ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Equatorial-to-world native matrix function, no handwritten traits/codecs.",
+      "disposition": "No derivability candidate; checkedcalendar/geographicinputs become explicit coordinate/trigonometricrotation, representationchange not fieldFrom.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1625,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/strategic_scene_assets.rs",
+      "sha256": "0c9d0aabc0f31d29f92b8cc5884247ea436077a3c41c3ba434dbe5f24059f9f2",
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "PreparedStrategicScene derives Clone. Native generate validates input/digest, resolves recipes and furnishes interiors; no handwritten trait/manualcodec.",
+      "disposition": "No derivability candidate. Checkedgeneration and relatedaggregatebuilding/furniture synthesis semantic; nonwasmcfgretained. This role read out of order while1624 remains pending.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

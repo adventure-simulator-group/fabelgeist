@@ -1,0 +1,26 @@
+{
+  "id": "ADLER-CONT11-PARTIAL-411-001",
+  "scope_index": 411,
+  "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+  "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+  "scope_authority": "../audit05/original-scope-072.json: frozen_requested_change full body required",
+  "personally_read_ranges": [
+    [
+      1,
+      590
+    ]
+  ],
+  "next_line": 591,
+  "whole_role_credit": false,
+  "partial_observations": [
+    "Native Bevy query tuples carry framework projections; LoadingPlayer/AdmittedPlayer/SpawnRecipient separate loading, validated batch and enemy/party destination. Prepared batch validates before project; downstream bodies still pending.",
+    "AuthoritativeInputTick retains optional actual prior PlayerInputTick instead of invented initial observation. AnimationSampleTick contact timing is a distinct clock role; raw jump/posture sequence fields in older P16 need canonical newer-owner comparison, not automatic restoration.",
+    "CameraFacingIntent expresses Free/Aim/DownedAlign with actual priority; raised guard and downed-align inputs are not interchangeable truth flags. AttackFacing couples target entity, current position observation and expiry tick; actual update removes missing/expired target state.",
+    "DisconnectedProjection is Loading or whole ProjectedPlayerSnapshot, preserving motion, typed attack authority and optional pending contact/lunge across entity lifecycle. CharacterId, ReconnectToken and native Entity are different identity/authority roles.",
+    "Mission difficulty, enemy combat and countermeasure basis-point factors have different meanings; zero health-scale behavior is explicit. No new arbitrary positive-only bound or hidden penalty inference from partial read.",
+    "Durable SDK equipment location/channel enums map exhaustively to core catalog roles at the explicit generated transport boundary; no edited generated binding or compatibility alias."
+  ],
+  "repair": "not started",
+  "validation": "not run",
+  "new_unique_finding": false
+}

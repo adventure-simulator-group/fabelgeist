@@ -1,0 +1,29 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-225",
+  "at": "2026-10-25T21:53:11.393100+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2262,
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/design.rs",
+      "sha256": "752a641161b3427416832ced038eb618e4491be51882ee13d53c4d4e69ec373a",
+      "personally_read_ranges": [
+        [
+          1,
+          763
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all763lines design.rs in boundedranges1..390/391..763, including existing testsource. OrderedMap privateentries enforcesunique keys retaininginsertionorder. Designclones intentionallyshare RcRefCelltree+separatepath, deep_copydetacheswhole tree at samepath; set_v creates maps beforeleaf and copy_v retains exactValue. DynamicValue shapes andtypedaccesspanics are explicitly Python-style parameter policy, not universalvalidatedschemaowner.",
+        "Body privatelyretainsmap+order togethervia set_raw, but incrementalinsert intentionallydoesnotrederive; set andfrom_yaml eval dependencies. Missingrequiredmeasurementpanic at Resultparser is exact inherited RIG-ADMISSION03-F063. ParamSpec capturescurrentvalue+declaredkind/range withoutvalidation; actualUI/programadmissionpolicy beforeinvalidrangesclaim. scalar_yaml onlysupportsflatdesignlists ascomment, arbitrarynestedValue roundtripneedsactualproducerbeforefinding. Noexecution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "dedup": [
+    "RIG-ADMISSION03-F063"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-009",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1480,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/readiness.rs",
+      "sha256": "81632fbe7f7562ccfcfbdbeda4eb587bfcbb4fb62d60ad8c9e550837a1c968bb",
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "source_basis": "Fresh root personal complete exact frozen-object read; own10 comparison.",
+      "trait_inventory_and_semantics": "EquipmentReadiness already derives SystemParam; pending_summary/check are inherent live-query aggregation and readiness/failure policy. No handwritten trait or codec.",
+      "disposition": "Keep runtime classifier/diagnostic aggregation; do not add serialization just to substitute boolean/readiness semantic checks.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1481,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/render_binding.rs",
+      "sha256": "278723baa84e424a5faff89f4ed396c8f5591f507165e11ae62842cafe37c974",
+      "ranges": [
+        [
+          1,
+          234
+        ]
+      ],
+      "source_basis": "Fresh root personal complete exact frozen-object read; own10 comparison.",
+      "trait_inventory_and_semantics": "ProceduralEquipmentPart derives Component; EquipmentMeshSources derives Component/Clone. new and render_bundle are inherent construction with native defaults/visibility/outline policy; sync_render_bindings handles bound/unbound layout state, tests read only. No handwritten trait or codec.",
+      "disposition": "No derive opportunity. Native layout/visibility transitions and mesh recentering remain explicit; constructor field projection alone is not a handwritten trait to replace or reason to introduce unvalidated From.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1482,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment.rs",
+      "sha256": "6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c",
+      "ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "source_basis": "Fresh root personal complete exact frozen-object read; own10 comparison.",
+      "trait_inventory_and_semantics": "RuntimeEquipmentPresentation derives Component; body cache Resource/Default and CachedEquipment Clone already derive. prepare_runtime_equipment_body and presentation perform asynchronous asset/design readiness/failure/runtime-item classification. No handwritten trait or codec.",
+      "disposition": "No derive opportunity. Preserve contextual admission/default-placement policy and cache readiness, not replace with raw construction or new codec. Whole #780 runtime equipment coherence/error graph remains separate and uncleared.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

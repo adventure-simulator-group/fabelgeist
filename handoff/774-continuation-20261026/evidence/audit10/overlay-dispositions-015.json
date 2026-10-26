@@ -1,0 +1,18 @@
+{
+  "71": {
+    "inventory": "Actual P16 Position private native Vec3+PhantomData, structural transparent Serialize/Reflect with suppressed frame bounds, checked manual native decoder; semantic frame marker.",
+    "disposition": "Keep checked semantic decoder/native projections, no existing equivalent TryFrom. Explicit current P16 role comparison, no PR same-hash shortcut or unrelated coordinate/fixture credit."
+  },
+  "72": {
+    "inventory": "Actual P16 SpatialDirection Dir3+frame, structural Serialize/Reflect already derived. Manual Vec3 Deserialize rejects nonnormalized input via from_normalized; alternate from_vector normalizes and differs.",
+    "disposition": "Keep semantic checked decoder/native direction adapter; no equivalent TryFrom. No native normalization/kernel/runtime or other coordinate body clearance."
+  },
+  "73": {
+    "inventory": "Seed derives framed purpose/context bytes; native word offset/xor/unit projection; FromStr parses u64 then wraps fixed-width native seed bytes, two distinct Rand version Distribution implementations preserve one-word draw.",
+    "disposition": "Keep semantic seed representation/parsing/randomness adapters. Structural derive would alter byte/word representation or sampling protocol, not equivalent mechanical field projection; no unrelated sampler/hash/RNG runtime acceptance."
+  },
+  "74": {
+    "inventory": "Exact RNG imports and native next_seed/unit/inclusive-unit adapters deliberately consume one fixed-width next_u64 draw.",
+    "disposition": "Semantic fixed-draw sampling, no handwritten traits/codecs in ranges. Keep native unit mapping, no RNG/foreign package/unscoped sampling/test/runtime acceptance."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-344",
+  "at": "2026-10-25T23:27:27.344760+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 24,
+      "source_id": "native-dependency:spacetimedb-sdk-2.6.1/src/db_connection.rs",
+      "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+      "personally_read_ranges": [
+        [
+          187,
+          254
+        ],
+        [
+          410,
+          450
+        ],
+        [
+          727,
+          770
+        ],
+        [
+          1290,
+          1433
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Exact original registered SDK ranges187-254,410-450,727-770,1290-1433 personally read. Pending reducer invocation stores callback with request ID and same serialized reducer, then sends corresponding message. invoke_reducer_with_callback returns Ok after queueing, not commit acknowledgement.",
+        "Parsed nested outcome preserves success/update, reducer Err string, and internal error separately. Successful received result pops request correlation, constructs committed reducer event, applies cache update before row/reducer callback. Failure pops same correlation and returns error/panic status without applying update.",
+        "Parsing errors in reducer update/Err payload become generic ParsedMessage::Error rather than invoking reducer-specific callback in inspected parser path. Actual generic disconnect/failure cleanup and project waiter policy need receiving traces before claiming stranded request or false success. Nonunit return assertion assumes protocol contract; no malformed live server witness.",
+        "Native parser task and browser local task feed corresponding unbounded channel. TableHandle preserves cache, mutation channel and static table name; generated typed table identity is a separate contract. No entire SDK module/transport/cache locking behavior or runtime clearance."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,57 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-413",
+  "at": "2026-10-26T00:27:34.232868+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 300,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/surgery.rs",
+      "sha256": "e3beacbecc62d9b55e495bf21e6b2b430a08d0e464e6374a16047a4babf5ef08",
+      "personally_read_ranges": [
+        [
+          1,
+          1435
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full1435 lines. Durable wound aggregate stores cut/bruise/fracture/frostbite independently with initialized per-limb rows; projectedhealth uses cut+max(bruise,fracture)+frostbite and clamp. Missing row is invariantpanic not successful blank. Only committed tactical hit summaries cross persistence; no tickstate.",
+        "Actual commit_hit_injury passes cut/blunt unchanged to aggregate, increments retainedcut/bruise and per-hit fracture threshold, resets woundtreatment onnewcut, then projects health. Fresh exact receiving proof extends existing ROOT-INITIAL04-F043: logged repartition flows directly into persistent cut/bruise and later open-cut blood/infection paths. Sum projection maycoincide while distribution differs; no executed chart/bleed/disease consequence or specificloadout witnessed.",
+        "Preview blood uses actual unbandaged cut vector plus explicit recoveryminutes and is sideeffectfree. Settlement uses same plan, deterministic elapsed/healing, retainedprojectile modifier, splint-owned fracture healing, standing exposure and blood fraction; timeowner alone commits clock. Zeroelapsed reportsalive true withoutactualcharacter read; actualcallerpreconditions needed before terminalalive mismatch.",
+        "Convalescence computes max woundduration, rawf32 extreme/DC etc remain actual successful producer constraints. Inventory item/splint quantities plainu32sum supports existing F036; splint pair owner/row correlated only through actual checked appliedstate. equip/return moves row directly rather than physicalcustody helper; exactnormal splint requiresstableobject classification trace before newcustody bug.",
+        "Treatment exactreceipt compares every immutable field including contextualclaim, beforemutablelife/admission. Actuallivingcopresent pair, contextualconsent beforemutation and afterwait, checkedprocedure/DC/tools/soap and boundedshared disease+injury interval. Interrupted wait returnsOk without supplies/effect/receipt intentionally and mayretain ordinarytime/needs. Oncomplete consumescleansing/supply, applieswound/projectile and blood/infection, projects, refreshes ifsurvived and retainsreceipt. All actualerrors propagate transaction; no runtimeacceptance."
+      ]
+    },
+    {
+      "scope_index": 301,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/surgery/authority_tests.rs",
+      "sha256": "3e723b0e2fe8aff1ac257c3b4d77282b698f9f067a80d921c47d32535bf4e0e0",
+      "personally_read_ranges": [
+        [
+          1,
+          117
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full117 lines guarded existing treatmentfixture read. Verifies actualsuccessfulbandage/supply/receipt, exactreplay clock/injury/supplyunchanged, conflictingsoap rejection, interruptedlowblood no bandage/receipt/supply. Source-only assertions not executed; no acceptance transferred."
+      ]
+    },
+    {
+      "scope_index": 303,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/surgery/projectile_authority_tests.rs",
+      "sha256": "c8ea9d3119f03244e607275388d82626801d0a346e2ebd829162822e13313ed4",
+      "personally_read_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full59 lines guarded existing projectilefixture read. Arrow/ball kind andlimb exactrecord/source_damage/cut/bruise/DC, zerodamage no retainedprojectile. Handfixture values do not bound allrawcommit inputs. No tests/checks executed."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

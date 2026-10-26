@@ -1,0 +1,14 @@
+{
+  "scope_index": 1916,
+  "path": "crates/adventuresim-tactical-core/src/scene_input/buildings/identity.rs",
+  "implementations": [
+    {"range":[30,34],"family":"derive-candidate-001.json","comparison":"From<u64> for SceneBuildingId directly wraps identical owned nongeneric native field; existing derive_more::From produces the same infallible constructor and no added API/bounds."},
+    {"range":[36,40],"family":"derive-candidate-008.json","comparison":"Display delegates self.0.fmt(f); existing derive_more::Display single-field expansion forwards identical &u64 to the unchanged Formatter. No suffix/normalization or error policy."}
+  ],
+  "available_dependency": "Frozen owning tactical-core manifest1749 explicitly enables derive_more from/display. Exact pinned macro dbcea... direct field expansion and d890... single-field formatter forwarding already freshly read in008/002-occurrence003.",
+  "equivalent_repair": "Add derive_more::From and derive_more::Display beside existing basic/serde/Reflect derives and remove only the two manual impls. Preserve public tuple field, repr/serde transparency, identity semantics, output format and all existing consumers.",
+  "new_unique_findings_claimed": 0,
+  "status": "EXACT_EXISTING_DERIVE_OCCURRENCES_PENDING_SHARED_HISTORICAL_REMEDY_DEDUP",
+  "checks": "not run",
+  "source_edits": false
+}

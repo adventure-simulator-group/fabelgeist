@@ -1,0 +1,25 @@
+{
+  "id": "ADLER-CONT08-M182-001",
+  "lens": "08 behavior-preservation",
+  "registration": "shared-material-successor/registration-009.json",
+  "registry": "shared-material-successor/source-extensions-183.json",
+  "material_index": 182,
+  "source_id": "scope-amendment:native:glam-0.32.1/src/f32/vec3.rs#normalization-contract",
+  "sha256": "28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+  "source_read": [
+    [
+      573,
+      579
+    ],
+    [
+      626,
+      658
+    ]
+  ],
+  "chronology": "Hash verification and declaration-only navigation before prospective registration; actual requested bodies read only after registration009. Existing83 clamp range is not normalization coverage.",
+  "producer_consumer": "Original1645 natural.rs vertex receives same raw tangent_z.cross(tangent_x) from1964 source geometry and changes normalize to try_normalize, mapping None to DegenerateNormal before complete mesh return.",
+  "comparison": "normalize uses self.mul(self.length_recip()); try_normalize obtains same reciprocal and multiplies self * rcp when reciprocal finite and positive. Common length_recip calls same self.length().recip(). For successful finite positive reciprocal multiplication is the same Rust Mul operation, without reordering or a second normalization.",
+  "qualification": "Zero/tiny/nonfinite or norm-overflow causing reciprocal0/inf now fails explicitly; old normalize could assert or emit invalid/zero normal. This is an invalid/degenerate geometry policy change, not proof that every finite input succeeds or output is identical. No ordinary-source counterexample established.",
+  "disposition": "No actionable preservation regression for successful normalization in this actual connected path; retain degenerate-policy qualification.",
+  "credit": "Own08 material182 exact ranges only. No full SDK/original2853 credit or other-lens disposition."
+}

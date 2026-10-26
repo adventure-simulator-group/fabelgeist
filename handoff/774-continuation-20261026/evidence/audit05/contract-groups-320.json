@@ -1,0 +1,64 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-320",
+  "at": "2026-10-25T23:06:45.401598+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2666,
+      "source_id": "pr-working:crates/fabelgeist-numpy-storage/src/npy.rs",
+      "sha256": "68819769cfa8ef5618a5db759768165d38063bff4ba263f40c6e4d36fbdb547b",
+      "personally_read_ranges": [
+        [
+          1,
+          260
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-260: Npy admission keeps header shape/dtype/private payload correlated initially, but min10 + nonv1header8..12 directly slices10/11byte malformed input, unchecked shape product/end arithmetic and public shape/dtype mutation desynchronize retained body. Independently recognized then dedup1002metadata found exact RIG-ADMISSION03-F091; retain existing claimant, no newfinding. dtype numeric conversions may narrow/saturate intentionally, not finite validation. Scalar empty-shape product1 and zero extents distinct; tests read notrun."
+      ]
+    },
+    {
+      "scope_index": 2667,
+      "source_id": "pr-working:crates/fabelgeist-numpy-storage/src/zip.rs",
+      "sha256": "7e9b70f0870cf014d25bd11d783636ca6cb413bc69b6dfa00c12eee0241695de",
+      "personally_read_ranges": [
+        [
+          1,
+          232
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-232 pairedNpz2656: central directory fixed46 check does not bound variable name/extra before slicing; malformed metadata panic also exact RIG-ADMISSION03-F091. ZIP64 replacement fields ordered by saturatedslots; stored bytes borrow, deflated allocate/read, declared uncompressed length/CRC not compared here. Partial directory parse breaks then returns accepted subset; actual intended archive policy/producer trace needed, no expanded finding beyond exact admitted metadata gap. No archive reads beyond frozen source."
+      ]
+    },
+    {
+      "scope_index": 2669,
+      "source_id": "pr-working:crates/strategic-web/src/routes/inventory_forms.rs",
+      "sha256": "cd34587835aa6f2448bb0cff2e893950703e9da622db14c7da7ad65ee0b39718",
+      "personally_read_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-150: inventory form boundary independently filters empty comma fields then length-checks/parsespositive quantities, party offer zips from/to/inventory only after matching counts. Thus interior empty slots can collapse independently; whether browser/HTTP contract requires rejecting rather than compacting needs actual producer/caller trace. No strategic inventory mutation or authorization proof inferred. Default return_to/inventory_scope remain raw query boundary fields; tests personally read notrun."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "dedup": [
+    {
+      "finding_id": "RIG-ADMISSION03-F091",
+      "source_indices": [
+        2666,
+        2667
+      ],
+      "query": "all1002inheritedmetadata for numpy/npy.rs/zip.rs/fortran/parse_entries",
+      "result": "one exact source/counterexample existing claimant; no new successor finding"
+    }
+  ]
+}

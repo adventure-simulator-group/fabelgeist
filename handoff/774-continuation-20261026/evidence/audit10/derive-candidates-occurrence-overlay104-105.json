@@ -1,0 +1,27 @@
+{
+  "id": "OWN10-DETERMINISM-OVERLAY104-105-QUALIFICATIONS",
+  "occurrences": [
+    {
+      "overlay": 104,
+      "type": "Seed",
+      "existing_remedy": "candidate011",
+      "repair": "Standard derive Ord/PartialOrd is exact single u64 word ordering; retain manual Hash over to_le_bytes and native draw/purpose framing."
+    },
+    {
+      "overlay": 104,
+      "type": "Seed",
+      "qualified_remedies": "Single-u64 Display/LowerHex delegation, FromStr u64 parse and From<u64> construction are mechanical, not semantically underivable; owning Cargo currently has no suitable macro dependency. Separate global derive dependency/feature decision required."
+    },
+    {
+      "overlay": 105,
+      "type": "SamplingError",
+      "existing_remedy": "candidate015 with dependency gap",
+      "repair": "Three unit static labels and empty Error could use existing project thiserror, but owning Cargo has no thiserror normal dependency; separate global dependency/remedy decision. Preserve source(None), labels and existing traits."
+    }
+  ],
+  "cargo_sha256": "c39a8a5055ca88572a587d0eadbde46eeb889d9060ec6b8930f59bfb76e44303",
+  "limits": "Qualified suggestions, global dedup pending, no immediate product repair or new unique count. Fixed native Rand versions, sampling draws and custom LE Hash remain semantic; no wholesale derive replacement.",
+  "new_unique_finding": false,
+  "checks": "not run",
+  "clear": false
+}

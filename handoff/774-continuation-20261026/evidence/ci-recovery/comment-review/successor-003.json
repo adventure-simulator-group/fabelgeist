@@ -1,0 +1,152 @@
+{
+  "at": "2026-10-25T23:44:31.001919+00:00",
+  "head": "9a23392e275c78f850c10d1a9948c191029615c5",
+  "prior_head": "ea5b4c28ae4d8aadde3343a4cc9603e46bff6784",
+  "scope": "Independent Comment review successor; changed workflow and contributor instructions only. Prior reviews remain immutable. No source/Git/check/test mutations.",
+  "source_pins": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "ba5976e7c7fbb51718979108ea26fb4002870613323755e1d407199c3fc40dde",
+      "lines": 543,
+      "personally_read_ranges": [
+        [
+          1,
+          85
+        ],
+        [
+          396,
+          543
+        ]
+      ],
+      "snapshot": "target\\recovery-20261025\\ci-recovery\\comment-review\\successor-003\\0"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/gardens/README.md",
+      "sha256": "383e21957e747bb1597560dc05fe0141f1795717ed8fb5711fc0c17e37c56219",
+      "lines": 99,
+      "personally_read_ranges": "full",
+      "snapshot": "target\\recovery-20261025\\ci-recovery\\comment-review\\successor-003\\1"
+    },
+    {
+      "path": "crates/strategic-web/ART_DEMO.md",
+      "sha256": "bc8f2db31caff857a40bd17e7d1be0024de043b0028dc08d970aeb966726c4af",
+      "lines": 172,
+      "personally_read_ranges": [
+        [
+          113,
+          172
+        ]
+      ],
+      "snapshot": "target\\recovery-20261025\\ci-recovery\\comment-review\\successor-003\\2"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/Cargo.toml",
+      "sha256": "8aa55633cd7ff303e586406b52582fd208269232ae9217364c309fa085b074d1",
+      "lines": 132,
+      "personally_read_ranges": [
+        [
+          1,
+          36
+        ],
+        [
+          98,
+          124
+        ]
+      ],
+      "snapshot": "target\\recovery-20261025\\ci-recovery\\comment-review\\successor-003\\3"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer_main.rs",
+      "sha256": "c47317c7b2aa4afb18ac097c828f3b3bdd0c38bb2e52312dccbdc8b66bf80f69",
+      "lines": 254,
+      "personally_read_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "snapshot": "target\\recovery-20261025\\ci-recovery\\comment-review\\successor-003\\4"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/specimens.rs",
+      "sha256": "fc7ff2bd7a82b647f3d159373a29f47dbed689557c87cfddb5d3a0233a064beb",
+      "lines": 147,
+      "personally_read_ranges": [
+        [
+          58,
+          147
+        ]
+      ],
+      "snapshot": "target\\recovery-20261025\\ci-recovery\\comment-review\\successor-003\\5"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/art_demo/scenery.rs",
+      "sha256": "95a004dde106af96c0cf9b12ff034f21fdca47458dcc594df12b52abac2c7857",
+      "lines": 365,
+      "personally_read_ranges": [
+        [
+          231,
+          358
+        ]
+      ],
+      "snapshot": "target\\recovery-20261025\\ci-recovery\\comment-review\\successor-003\\6"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/bin/generate-scene-fixtures.rs",
+      "sha256": "3a9432cfc6a30402262e35b2283c4f0374c89801d23f387df6b207ad8803e06f",
+      "lines": 778,
+      "personally_read_ranges": [
+        [
+          72,
+          153
+        ],
+        [
+          296,
+          447
+        ]
+      ],
+      "snapshot": "target\\recovery-20261025\\ci-recovery\\comment-review\\successor-003\\7"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/examples/generate-art-demo-city.rs",
+      "sha256": "0f2d40b1baf7ecae172ac9f73c5bac55da1ad5646dcbe6b70ade4c5a90f5cfec",
+      "lines": 123,
+      "personally_read_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "snapshot": "target\\recovery-20261025\\ci-recovery\\comment-review\\successor-003\\8"
+    }
+  ],
+  "findings": [],
+  "CI-COMMENT-001": "closed; predecessor closure retained and new expanded exporter warning accurately requires all required export steps succeed before copying files",
+  "reviewed_contracts": [
+    "Hosted regeneration input excludes ordinary Linux quality and Windows portability jobs; revision-specific artifact and always-upload warning match actual workflow.",
+    "Envelope export precedes three individually selected scene invocations, then paired city outputs, conditional existing cloud receiver/exporter/recheck, oak impostor and shrub/leaf cases. Each exporter test uses exact populated result guard.",
+    "Cloud receiver checks source identity, byte count and nonempty payload; docs describe refresh on its existing check failure and do not claim rendered or ray-equivalence proof.",
+    "Prepared city writes layout then furniture; documentation correctly requires successful stages and preserves paired outputs rather than trusting artifact existence.",
+    "Ordinary Windows job unsets update mode, pins source, executes five existing filters and requires one nonempty successful result per log; docs call checks focused and do not promise exhaustive cross-platform identity.",
+    "Local tactical-scene-viewer command remains reachable: Cargo default debug feature includes the target; viewer main compiles presentation module."
+  ],
+  "remaining_uncertainties": [
+    "No exporter, snapshot, Linux/Windows hosted or rendered acceptance was executed or established by this review.",
+    "Asset dependency graph is supplemental navigation, not imported semantic clearance. This successor reviewed source snippets listed above and the actual workflow/docs delta.",
+    "Result guard requires nonzero cases per filter, not exact historical population ten; no prose claims exact enforced ten or exhaustive seeds.",
+    "No global774 or frozen lens05 coverage credit."
+  ],
+  "audit_checkpoint": {
+    "latest_packet": "contract-groups-365.json",
+    "successor_original_roles": 643,
+    "exact_mapped_originals": 2617,
+    "unresolved_originals": 236,
+    "historical_reported_total": 2624,
+    "historical_seven_mapping_gap_unproved": true,
+    "next_original": 113,
+    "partial_read_next_original": [
+      1,
+      210
+    ]
+  }
+}

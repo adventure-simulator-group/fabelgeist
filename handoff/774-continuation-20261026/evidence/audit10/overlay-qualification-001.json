@@ -1,0 +1,20 @@
+{
+  "id": "OWN10-OVERLAY-QUALIFICATION-001",
+  "corrects": "overlay-successor-015.json overlay73",
+  "actual_support": "Fresh seed.rs1-58/71-83 and exact owning Cargo.toml full read after initial source range comparison.",
+  "correction": "Seed backing is named u64 word, not eight-byte array. FromStr147-153 is mechanical u64 parse/map into from_u6471-74, not itself a wire/byte conversion. Do not use initial semantic-wire wording to dismiss this implementation as underivable.",
+  "disposition": "Already enabled owning dependencies have no derive_more/FromStr macro, so retain this tiny adapter unless global remedy dedup deliberately chooses to introduce an appropriate derive dependency/feature. No claim that a purpose-specific parse policy prevents deriving. Rand Distribution and purpose-framed hashing remain semantic/native protocols.",
+  "pins": [
+    {
+      "path": "crates/fabelgeist-determinism/Cargo.toml",
+      "sha256": "c39a8a5055ca88572a587d0eadbde46eeb889d9060ec6b8930f59bfb76e44303"
+    },
+    {
+      "path": "crates/fabelgeist-determinism/src/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4"
+    }
+  ],
+  "coverage": "Support-only; overlay73 exact registered ranges remain accounted, no material/other-lens credit.",
+  "new_unique_finding": false,
+  "checks": "not run"
+}

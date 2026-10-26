@@ -1,0 +1,13 @@
+{
+ "role":2555,
+ "revision":"039329518e264f19206cf5b0b98d177433f40c17",
+ "path":"crates/adventuresim-building-generator/src/plan_geometry.rs",
+ "ranges":[[9,49]],
+ "classification":"Additional exact existing-serde try_from occurrence in saved candidate014 family; present behavior correct, global remedy dedup pending",
+ "implementation":"ArchitecturalPlanPoint manual Deserialize decodes exactly Vec2 then calls from_metres and maps concrete GeometryError with serde::de::Error::custom. Existing TryFrom<Vec2> calls the identical from_metres constructor and returns the same error.",
+ "repair":"Add Deserialize to existing derive list and #[serde(try_from = \"Vec2\")] on existing type; remove only manual Deserialize. Preserve transparent Serialize, layout/Reflect/visibility, semantic TryFrom/native finite-axis admission and PlanVertex.",
+ "equivalence":"Existing serde derive try_from decodes Vec2 and invokes existing TryFrom with the same custom error formatting; same accepted values/axis priority/raw wire, no new conversion API or dependency. Scalar/array representation remains owned by existing Vec2 serde.",
+ "acceptance":"Only after exhaustive own10 and global remedy dedup; applicable existing serde/admission contracts, no new tests/cases/helpers/assertions and no checks/source edits here.",
+ "new_unique_findings_claimed":0,
+ "clear":false
+}

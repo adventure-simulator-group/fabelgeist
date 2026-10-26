@@ -1,0 +1,21 @@
+diff --git a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_visibility.rs b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_visibility.rs
+index 4a64d9162..623b05b7a 100644
+--- a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_visibility.rs
++++ b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_visibility.rs
+@@ -19,6 +19,7 @@ pub(super) type ProductionLeaves = (
+ #[cfg(test)]
+ mod tests {
+     use super::*;
++    use adventuresim_building_generator::spatial_geometry::Position;
+ 
+     #[test]
+     fn production_visibility_excludes_isolated_review_specimens() {
+@@ -29,7 +30,7 @@ mod tests {
+             TreeLeafRepresentation::AlphaCard,
+             UnderstoryReviewSpecimen {
+                 common_name: "common hazel",
+-                focus: Vec3::ZERO,
++                focus: Position::ORIGIN,
+             },
+         ));
+         let mut query = world.query_filtered::<Entity, ProductionLeaves>();

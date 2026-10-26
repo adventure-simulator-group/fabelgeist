@@ -1,0 +1,43 @@
+{
+  "lens": "02 existing type owners",
+  "registry": "../shared-material-successor/source-extensions-191.json",
+  "registry_sha256": "7748636f3b22b4f3434f814a759410c8a851a28f5dfc8a0aa71e70dbbcb42286",
+  "receipts": [
+    {
+      "material_index": 190,
+      "registration": {
+        "source_id": "native-support:http-1.5.0/src/uri/path.rs#scan-classification",
+        "sha256": "d69c30a915c83bb99f956da92d9a3cc16b754da43d1e940bd750676e9a7a5c7f",
+        "revision": "Cargo.lock pinned http1.5.0",
+        "archive_checksum": "918d3568bebf352712bc2ef3d46a8bcf1a75b373be6539de198e9105cbbf9ce0",
+        "ranges": [
+          [
+            412,
+            465
+          ]
+        ],
+        "actual_EOF": 709,
+        "registration_evidence": "registration-014.json",
+        "reason": "Exact classification maps/constants referenced by registered URI scanner; needed to establish literal fragment acceptance. Additive bounded dependency, no whole file.",
+        "prior_reads": "05 declaration names/span navigation only; table values/build bodies not consumed. Coordinator hash/prefix metadata only."
+      },
+      "source_sha256": "d69c30a915c83bb99f956da92d9a3cc16b754da43d1e940bd750676e9a7a5c7f",
+      "read_ranges": [
+        [
+          412,
+          465
+        ]
+      ],
+      "source_basis": "Fresh independent source read and hash verification for this lens. No other-lens coverage or verdict transfer.",
+      "analysis": "The class bytes and fixed 256-entry tables are native URI lexer representations. Literal # maps to CLASS_FRAGMENT in path and query; ? selects query in the path table, and percent is in the accepted ASCII range. Together with this lens's prior scanner/truncation receipt, this proves a literal fragment suffix is discarded from retained PathAndQuery. A browser URL with a fragment and stored http::Uri are not interchangeable owners. No game bespoke type or new parser wrapper is proposed.",
+      "disposition": "Exact native classification contract supports existing witness admission qualification; no new issue or repair.",
+      "limits": "Only412-465 and explicit same-lens earlier scanner receipt. No whole-file/SDK acceptance; MAX_LEN, parse_full and Authority details remain outside this bounded read.",
+      "new_unique_finding_claimed": false
+    }
+  ],
+  "previous_closure": "additive-closure-003.json",
+  "first_unfinished_material": null,
+  "final_clearance": false,
+  "source_edits": false,
+  "checks": "not run"
+}

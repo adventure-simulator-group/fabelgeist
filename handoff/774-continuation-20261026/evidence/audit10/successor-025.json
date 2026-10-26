@@ -1,0 +1,90 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-025",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1534,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation.rs",
+      "sha256": "80f83fdedc32c9d2a9c8f95d7a84c1d83972310ac6fe93cdb87201a7d8e14c37",
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "PreparedProducts Clone/Default, Dependencies Default/Serialize/Deserialize and GenerationJob/Product Serialize/Deserialize alreadyderive. GenerationJob::require_owner is inherent contextualproduct/presentationowner admission; no handwrittentrait/codec.",
+      "disposition": "No derive opportunity. Preserve explicitownerpolicy andactualimmutableproductwire enums; namedtransport/serde doesn'tprove payloadadmission, and automaticFrom cannotreplace ownercheckedrequest. No sourcechanges/validationclaim.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1535,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/building.rs",
+      "sha256": "1152ca1b81a23bb4bf4bf1128d479d5cbdc8109c653dd9d4a6057b4da7d6baae",
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "PreparedFacade alreadyderives Serialize/Deserialize. generate performs actualprogram/recipe/support/facade/shell/signclassification and fallibleorigin/siteconstruction; no handwrittentrait/codec.",
+      "disposition": "No derive opportunity. Keep semanticallygeneratedsource/frame association andfallbackshellpolicy explicit ratherthanrawFrom; existingautomaticwirecodec isnot blanketvalidityproof. Otherproducer/admission obligationsretained.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1536,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/city.rs",
+      "sha256": "dc50098c2f04955e49c7bc30582a809addb65cbd3e8107c64e282b585cdedb50",
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "PreparedCityProduct alreadyderives Serialize/Deserialize. generate/matches/jobs are inherentgraphicsconfigadmission, terrain/landform/sourceassociation, residencyselection and nativeJSONjobprojection; no handwrittentrait orcodec.",
+      "disposition": "No derive opportunity. serde_json::to_string delegates existingderivedjobcodec, so thereisnomechanicalmanualrecordwriter. Keep exactdocument/configcachepolicy and physicalsourcepreparation explicit; no addedcodec or rawFrom.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1537,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/error.rs",
+      "sha256": null,
+      "ranges": [],
+      "source_basis": "Fresh personal exact recovered-base read and frozen6533 current-path absence; no current-body coverage inferred.",
+      "trait_inventory_and_semantics": "Deletedgeneration/error.rs has no currentbody in frozen6533. Exact111line recoveredbase personallyread and hashverified; ProductKind values and PreparationError thiserror derives relocated to originalrole1612 presentation/preparation.rs, which addsVistaMesh concretecause/code. Base threeunboxed->boxedFrom impls are the same derivabilitycandidate assessedonlive1612.",
+      "disposition": "Account deletedrole by exactbase+currentabsence+actualrelocation only; do notrestoreoldmodule orcertify aslivebody. Existingcauses/wirecodes preserved by actualreplacementowner, not two competingerrors. MechanicalFrom candidate countedonlyagainst1612pendingdedup, no uniqueincrement.",
+      "new_finding": false,
+      "checks": "not run",
+      "base_sha256": "5034a63e3f88c50bf298567c52a6ac1e6d2734e6239e7434d5275eb4e757e8d9",
+      "base_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "qualification": "Deleted original role accounted by absence plus actual relocated owner1612; not restored or double-counted as live source."
+    },
+    {
+      "scope_index": 1612,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/preparation.rs",
+      "sha256": "35db8b8b632500bacb59de9fffe065979e5da709c52dbaf0ea4d80ae6847af12",
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Reached full115line relocatedPreparationError owner personallyread outoforder. ProductKind derives Clone/Copy/Debug/Eq and PreparationError Debug/thiserrorError with typed#[from]/#[source]. code() is inherentstablebrowserclassification. Threehandwritten From<SceneInputError|GenerationError|InteriorLayoutError> merely construct correspondingvariant(Box::new(error)).",
+      "disposition": "Concretequalifiedderivecandidate: existingderive_more::From plus explicit #[from(SourceError)] on eachofthreeboxedvariants can generate only unboxedFrom inputs while retaining thiserror field#[from] conversionsforBox<SourceError>. Actualpinnedderive_more2.1.1 FromTypes expansion forwardsinto declaredBoxfield, and nativeBox<T>::From<T> callsBox::new. Keep code() manualsemanticclassification; preserveallother thiserror conversions, ownederrorpayload, visibility andcauses. No globaluniquecount orsourcefix; exactmacrocoexistence mustbeverifiedat futureimplementationacceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

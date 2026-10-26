@@ -1,0 +1,17 @@
+{
+  "scope_index": 317,
+  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_actor.rs",
+  "sha256": "232be94a5acf0de9c374f0c16d546051e2d007c1005510b0adb7f3c0d41b28f6",
+  "personally_read_ranges": [
+    [
+      1,
+      370
+    ]
+  ],
+  "notes": [
+    "Context membership schemas and gateway projection read. Closed historical case/hostile membership differs from open strategic/road filtering; historical alive_at can be combined with current injury/treatment projection, requiring an actual historical case witness and policy before a finding. Public contact reference omits internal IDs; party visibility stays receiver-specific.",
+    "Context members sort ordinal, require open valid intervals; context_character_ids filters actual current alive status. Deterministic field_character_id hashes context/ordinal and sets upper bit, not a collision proof. Roster materialization read only through count clamp and start of existing-roster mismatch condition at370."
+  ],
+  "first_unread_line": 371,
+  "coverage": "partial source evidence only; no completed original-role credit"
+}

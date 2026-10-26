@@ -1,0 +1,85 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-434",
+  "at": "2026-10-26T00:48:25.433342+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 518,
+      "source_id": "pr-working:assets/shaders/tactical_terrain.wgsl",
+      "sha256": "3e1b93040592788f45f281cd81947315b64deedb33d1325c618959a3ca642e81",
+      "personally_read_ranges": [
+        [
+          1,
+          415
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full terrain1-415 in two bounded chunks. Material packs source_from_world, texture/mask/soil/litter/cliff, camera detail and LOD thresholds into one native shaderuniform; exact source/world mapping is explicit. Source-normal conversion assumes axis-aligned nonzeroX/Z scale; host must preserve that frame before reciprocal. Textureheight/normalpair and blood/ground UV association not proved by binding names.",
+        "Coarse-patch discard uses currentLODviewposition and detailradius, aggregate sward uses same camera-distance intent, while actualdrawgeometry/hostculling mustcover discarded area. Derivative normals guard denominator but normalization stillneeds validgeometry. No concrete camera-gap/texture-pair/normalframe counterexample or GPUexecution; current producer requirements remainqualified."
+      ]
+    },
+    {
+      "scope_index": 521,
+      "source_id": "pr-working:assets/shaders/tactical_weather.wgsl",
+      "sha256": "5c0a4dc16844e0840b502186ec82a5b7b8398061d2fd4d68226c8bffebd47636",
+      "personally_read_ranges": [
+        [
+          1,
+          317
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full weather1-317 in two bounded chunks. Vertex weatherkind selects rain/snow/splash/distantcurtain; distribution uses hostdata.x/y/z/w roles and camera-anchoredXZ. Terrainheight and shelter maps decode samepacked16bit height using distinctdeclaredranges and finiteextent denominators; matching dimensions/frame/source authoritative host contract.",
+        "Particle fallphase divides by weather_motion.w; snow/rain camera-facingbasis normalizations have degenerategeometry possibilities without observed producerwitness. Weatherkind/intensity/wind/capacity and shaderclock affect appearance only, no strategic disease/tacticalimpairment authority invented. Fragmentoutputs premultipliedalpha; sheltervisualsampling differs from gameplayexposure bypurpose, no automaticgameplayfinding."
+      ]
+    },
+    {
+      "scope_index": 522,
+      "source_id": "pr-working:content/dialogue/examples.yaml",
+      "sha256": "0b88481c5969b3dba36855dd3f2cdeff3895abda9e9696cd76e1f9eb263dbc7f",
+      "personally_read_ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full examples1-45. Butcher greeting closedroles andtimepriority; shop-with-assistant has actualtwoNPCroles, up to4customerplayers and majority singlechoiceprompt, explicitspeaker/addressee links/runtimepronouns. Allsampleeffects empty. Supports representability of multipleNPCauthoreddialogue, but does not prove actualnormalstartupbinding or wrongsideeffect recipient; earlier276/280firstNPCassociation question remainsqualified, no actualordinaryeffectbug."
+      ]
+    },
+    {
+      "scope_index": 523,
+      "source_id": "pr-working:content/dialogue/organizations.yaml",
+      "sha256": "57f566bbee311d7f54aa2cb344abbb5b0119fcdf7e321d2a2f2bda43bc2dcf67",
+      "personally_read_ranges": [
+        [
+          1,
+          707
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full organizations1-707 in three boundedchunks. Organizationrepresentative conversation binds current/none/suspended membership and dues/promotion/presentation facts to same player+representativeroles; prompts attach join/pay/promotion effects to correspondingchoice, directpresent effect onlyaftermembership/presentationconditions. Runtimequotes/text not standaloneauthority; actual organization effect receiver mustrecheck currentrole/currency/state.",
+        "Referraltestimony and return/expose investigation effects carry referenced actionidentity while utterances share actualspeaker/addressee. Everytopiclink/condition role currentlydeclared, but no compiledcatalogvalidator/run or membershipmutation acceptance claimed. No source repair or runtimeconversation witness."
+      ]
+    },
+    {
+      "scope_index": 524,
+      "source_id": "pr-working:content/dialogue/services.yaml",
+      "sha256": "72e3e18751e06c9334390f98ed3dec812147d32f089fd7dd4a03429b0c192556",
+      "personally_read_ranges": [
+        [
+          1,
+          246
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full services1-246; original combinedoutput truncated middle, then exact1-60 and61-144 re-read bounded,145-246 actualuntruncatedtail inspected. Service professions use priority/facts and matchingrole runtimegrammar; apprenticeship effectselected-service and servicecontractaccept/report use same authoredselectionlabels. Single-NPCproductionconversations here narrow earlierfirstNPCeffectquestion, while unrelatedexample522doesnotprovebadbinding.",
+        "Herbalist/physician observation explanation deliberatelydoesnotdiagnose hiddenillness; surgeon textdescribes directSurgery andindirectKnife/Tailoringexperience, actual300surgeryreceivingsemanticspreserved separately. Religion yeschoice sets explicitflag, referral/investigationeffects tiedtopic; authoritativebackendvalidation remainsactualreceiver, no conversationexecution or broadclinicalpolicyclearance."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "5 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

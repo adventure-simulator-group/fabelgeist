@@ -1,0 +1,7 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-010-ERRATUM-1",
+  "supersedes": "behavior-010-partial.json completed_original[1476] and inheritedemptydiffcomparisononly",
+  "reason": "Freshsourcecomparison returned base_equal:false. Inheritedown007 claimed emptydiff despite differentbefore/afterSHA; that emptydiff assertion is invalid evidence. Exactheadbodyproof may bepreserved but actualbefore/afterbehaviorcomparison needsfreshread.",
+  "correction": "1476 reverted toPARTIAL,1499completedoriginals; do notuse1476claimedcompletion. All1474fullhead/845actualdiff/source-specificfacts unchanged.",
+  "next": "Readactualbase/head1476body+entireeffective36c979overlaydiff; then writeindependent successor."
+}

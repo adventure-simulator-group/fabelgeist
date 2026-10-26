@@ -1,0 +1,53 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-323",
+  "at": "2026-10-25T23:08:52.721860+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2689,
+      "source_id": "p16:crates/adventuresim-tactical-server/src/combat/authority.rs",
+      "sha256": "115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+      "personally_read_ranges": [
+        [
+          1,
+          672
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-672 exactp16: ReportedPrecision deliberately admits allfinite valueswithoutclamp; privateMeleeAttackAuthority correlate windup/active viaobserve andclearboth onmiss/authorize; authorizationinclusive ready/expiry/cooldown andtarget/body optionalmatching. Intercepts saturatecount and offhand scalesactivepower. Ranged validatedHit usesexpects forposition/yaw afterotherindependentfacts, producercoherence required; no actualbadfacts caller established. Reflexwindowzero cannotqualifypositivedelay; active.start>incoming required. Test445raw1.0 versusSignedLength observe parameter remains snapshotcompilequalification; testsnotexecuted."
+      ]
+    },
+    {
+      "scope_index": 2690,
+      "source_id": "p16:crates/adventuresim-core/src/combat/incapacitation.rs",
+      "sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+      "personally_read_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-115 exactp16: performance is one minus clampedtotalincapacitation checkedUnitInterval, separateencumbrancesourceconversion only. RecoveryTime explicitlyCannotRecoveratpositivebase/zeroperformance, zerobase alwaysimmediate, positivearithmeticnonfinite returnsOverflow. Nohiddenfatiguepoolormovementpenaltyintroduced; noactualallcallerlegibilityclearance."
+      ]
+    },
+    {
+      "scope_index": 2692,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+      "sha256": "39cd6d057c070e586f5701d068b930beaafe12dc00d68465ffd460ede664c5ea",
+      "personally_read_ranges": [
+        [
+          1,
+          196
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-196 exactphysicalp16: context membershipvalidatesentered<=left andhalfopenactive interval; exactclaims correlatekind/ref/revision, uniquenessqueryrejectsmultipleoccupancy. Viewpartyvisibilitytiesleaderclock/context/canonicalplace/siteauthority/exactleadcoordinates/stage andcorrectiontime. Generatedaliasesrequireprovenance; characteralive combinesexistence/birth/deathtime. Nopersistencechanges, authorityfamilies/DBassumptionsoutsidefullclearance."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

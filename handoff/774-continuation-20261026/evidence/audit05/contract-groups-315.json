@@ -1,0 +1,53 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-315",
+  "at": "2026-10-25T23:04:05.791956+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2634,
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/triangulate/mod.rs",
+      "sha256": "18e60b537352a1753963980da26dd94705dee8a4b44232dece7c90fa07d8416b",
+      "personally_read_ranges": [
+        [
+          1,
+          413
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-413 compared garment2631: edge chains preserve input edge order/winding and share boundary endpoints; supplied seam counts select subdivision. Mesh filters Delaunay triangles by centroid containment only, not explicit constrained-edge intersection, so whole-triangle containment for arbitrary concave simple outlines is not established. Repeated/degenerate/nonfinite outline and tiny spacing may exhaust counts/unwrap; actual admitted pattern caller/counterexample remains pending. +infinity spacing yields one segment per edge with interior candidates rejected; no NaN-settings finding from2631 alone."
+      ]
+    },
+    {
+      "scope_index": 2635,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "1c55bd7318aad5de90e1269947be86e50e89d12439d37c0bba301f30d05a7668",
+      "personally_read_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-88: constructor parses original code then Naga validates with all capabilities, converts GLSL to WGSL, creates native module, conditionally waits for native validation error scope. Stored code is original while module uses translated string; PartialEq compares original code only. Browser/nonblocking creation does not synchronize validation; public Default code/module/error combination remains raw representability, no ordinary failed module witness or new finding."
+      ]
+    },
+    {
+      "scope_index": 2636,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+      "personally_read_ranges": [
+        [
+          1,
+          209
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-209 independently re-read as original role, same exact SHA as separately reviewed material63. ReflectedInterface preserves group.index but packs layouts/reflections by present BTreeMap keys; sparse original group numbers diverge from vector positions in previously read slow dispatch2279/pipeline2280, fast2243group0 only. Historical #826 qualifications retained; no current repair clearance. Multiple uniform globals share one uniform_binding and append members, handle reflection discards arrayed/comparison/multisample distinctions; actual API supported-shape/producer trace needed. Material63 comparison is not a second original role."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

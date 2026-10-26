@@ -1,0 +1,99 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-426",
+  "at": "2026-10-26T00:40:37.344719+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 466,
+      "source_id": "pinned-aeronet_websocket-0.21.0:src/client/backend.rs",
+      "sha256": "23dfe8915ad2b846fc6fefc68db46f83d144f77ae59771b5f1917fb323b6bc3b",
+      "personally_read_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read complete pinned aeronet_websocket0.21.0client/backend1-80. Browser creates native WebSocket targetstring and splitfrontend/backend, native resolves request/connects with actualconfig and obtains peer/local addresses. Only after complete prepared ToConnected does oneshot publish frontend; closedfrontend returns typederror. Runtime task socket state transitions remain dependency receiving contract; no external connection made."
+      ]
+    },
+    {
+      "scope_index": 467,
+      "source_id": "pinned-aeronet_websocket-0.21.0:src/client/mod.rs",
+      "sha256": "989293dad41e11f0b3d5c5bb4e10be8246e2645cd92c97090a19aa18bb385e93",
+      "personally_read_ranges": [
+        [
+          60,
+          178
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registeredclient/mod73-170 plus60-72scheduling/doc and171-178start of connected metadata context. connect owns config/target, establishes paired result/disconnect channels then inserts Connecting after spawning same task. Requestconversion error stays in ConnectTarget until backend466; sourceClientError variants retain concrete cause. No body outside178 or connecting poll implementation credit, no connection handshake/runtime acceptance."
+      ]
+    },
+    {
+      "scope_index": 468,
+      "source_id": "pinned-avian3d-0.7.0:src/collision/collider/mod.rs",
+      "sha256": "ca5bb9f61dfc7660c62dc29f09ae251c62a366a405904fbb3bff2a418dd30d6f",
+      "personally_read_ranges": [
+        [
+          230,
+          292
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered245-280 plus230-244necessary preceding method/signature context and281-292complete swept_aabb expression. SimpleColliderAABB explicitly delegates native Vector/Rotation to AnyCollider with fake unitcontext, sweptAABB joins endpointbounds rather than proving continuous rotation occupancy. Native type accepting vectors is not finite frame/shape aggregate admission; actual application333/334collider use traced, framework algorithm remains native port. No whole715-line collider coverage."
+      ]
+    },
+    {
+      "scope_index": 469,
+      "source_id": "pinned-avian3d-0.7.0:src/dynamics/rigid_body/mod.rs",
+      "sha256": "eb3a7e85f3ce1aca1e6959e5d335dc72a1f1fdcf3cd4835344c9d410efb247bd",
+      "personally_read_ranges": [
+        [
+          375,
+          447
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered389-440 plus375-388doccontext/441-447complete MaxLinearSpeed/default. LinearVelocity publicnative Vector wrapper exposes mutable/serde fields, zero explicit, MaxLinearSpeed default infinity intentionally means unbounded. Application checked SceneVelocity must project at this actual native kernel rather than expecting this dependency to admit finite semantic state. No reinterpretation of intentional infinity as universal defect; no full rigidbody body credit."
+      ]
+    },
+    {
+      "scope_index": 470,
+      "source_id": "pinned-bevy-replicon-0.41.1:src/shared/replication/registry/rule_fns.rs",
+      "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+      "personally_read_ranges": [
+        [
+          169,
+          300
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered175-290 plus169-174signature and291-300tail/start context. Default RuleFns uses postcard DeserializeOwned then entitymapping; in-place replacement assigns only after complete deserialize success. serialize_as/deser_as converts whole value using infallible From, mapping after conversion, so actual bespoke customDeserialize/admission remains applicationowner. consume_as_deserialize toggles ignore_mapping true then resets onlysuccess; error path leaves flag true within WriteCtx, actual context reuse/recovery needed before accepted mapping leak. serialize_diff prepares serializeddelta then commits cursor; no remainder300+diff-deserializer or runtime credit."
+      ]
+    },
+    {
+      "scope_index": 471,
+      "source_id": "pinned-bevy-replicon-0.41.1:src/shared/replication/rules.rs",
+      "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "personally_read_ranges": [
+        [
+          1,
+          159
+        ],
+        [
+          240,
+          282
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered1-145/250-277 plus effective153-159/273-278, and receiving context146-152/240-249/279-282. Default replication as-is uses postcard and customtypes' Deserialize; replicate_as imposes infallible Into/From and routes filteredconversion, documented transformquantization/native scale omission policies are explicit. No inference of applicationaggregate validation from method registration. Actual component receiving functions470 are ordinary Serde boundary, no whole1386-line rules credit."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "6 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

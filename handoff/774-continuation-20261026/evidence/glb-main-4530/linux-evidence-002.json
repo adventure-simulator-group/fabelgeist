@@ -1,0 +1,78 @@
+{
+  "head": "2ef288d1085c249fa056156182ea626a060bb8d1",
+  "run": 40339807509,
+  "job": 121631099743,
+  "artifact": 12664610481,
+  "conclusion": "success",
+  "required_cells": 48,
+  "required_execution": "All exact revision, accepted, >0 passed, zero failed.",
+  "export_cases": [
+    [
+      "export::assembly::tests::compact_components_keep_names_hinges_skin_and_all_morphs",
+      "ok"
+    ],
+    [
+      "export::morphs::tests::rejects_incompatible_channels_and_non_finite_deltas",
+      "ok"
+    ],
+    [
+      "export::skinning::tests::dropping_minor_influences_preserves_world_translation",
+      "ok"
+    ],
+    [
+      "export::tests::exports_clothing_as_a_separately_materialed_skinned_primitive",
+      "ok"
+    ],
+    [
+      "export::tests::exports_four_normalized_skin_influences_and_a_zero_animation_rig",
+      "ok"
+    ],
+    [
+      "export::tests::exports_independent_skinned_armor_topology_with_named_morph_targets",
+      "ok"
+    ],
+    [
+      "export::tests::exports_shell_only_equipment_without_character_attachment_geometry",
+      "ok"
+    ],
+    [
+      "export::tests::fitted_socket_resolves_uv_per_lod_and_bootstrap_recovers_the_anchor",
+      "ok"
+    ],
+    [
+      "export::tests::rejects_non_normalized_weights",
+      "ok"
+    ],
+    [
+      "export::textures::tests::normal_only_material_preserves_its_authored_metal_properties",
+      "ok"
+    ],
+    [
+      "export::textures::tests::separate_equipment_glbs_share_exact_surface_files_and_material_roles",
+      "ok"
+    ]
+  ],
+  "export_command": "cargo test --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --lib export:: -- --test-threads=1 --nocapture",
+  "baseline": {
+    "files": [
+      {
+        "path": "crates/adventuresim-character-creator/src/export.rs",
+        "ceiling": 778
+      }
+    ],
+    "functions": [
+      {
+        "path": "crates/adventuresim-character-creator/src/export.rs",
+        "item": "bootstrap_equipment_surface_uv",
+        "ceiling": 111
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/export.rs",
+        "item": "export_rigged_glb",
+        "ceiling": 247
+      }
+    ]
+  },
+  "quality_baseline_sha256": "5d40373d7d7fe72d65593aeee0145998680524c10ef8c61743cfafb33d118afa",
+  "limits": "Failure paths for oversized frames, allocation failure, 32-bit execution and filesystem failure source-reviewed only; frozen audit acceptance is separate."
+}

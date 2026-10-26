@@ -1,0 +1,98 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-216",
+  "at": "2026-10-25T21:46:39.070678+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2210,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/surface_grid.rs",
+      "sha256": "d2e76894c4233cad8a8656215bf15fe6defcce235adc2350b3e2d5ad0308465e",
+      "personally_read_ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all108lines surface_grid.rs. Public rows/columns/vertices/samples describe correlated grid; regular maps vertices modulo columns, vertex indexes native row*columns, remap applies supplied callback independently to vertices/samples. SurfaceColumn native blend permits arbitrary coordinate but bracket rejects nonfinite/out-of-range/zero columns. Existing RIG-ADMISSION03-F053 exactly owns raw grid dimension/index relation bypass; no duplicate, normal generator coherence not disproven."
+      ]
+    },
+    {
+      "scope_index": 2211,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/embedded.rs",
+      "sha256": "6c7f84f8e6b242d32e19ddecedfa1cfdb5f849bd984008eda7b0ea1da79e5345",
+      "personally_read_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all115lines tiling/embedded.rs. Private EmbeddedMesh retains grid/point/height/normal/texcoord per vertex and realizes same embeddings on base and every source morph, using base spacing/orientation. Skin interpolation uses same grid's four corner source indices and shares; output positions/normals/deltas follow identical vertex iteration. Source raw GeneratedArmor/morph/grid input relations inherited RIG-ADMISSION03-F053 and raw GeneratedArmor admission family; no ordinary producer mismatch established."
+      ]
+    },
+    {
+      "scope_index": 2212,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/lacing.rs",
+      "sha256": "cce09840d83fc6c71d1020fc45961df2a0c9b4c2a85d5702bc0f65d6fad902a4",
+      "personally_read_ranges": [
+        [
+          1,
+          321
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all321lines tiling/lacing.rs. Compared row run ranges to layout2213, matching grid indices throughout points/holes, same positive lacing radius and hole-pair count supplied after construction.validate2214. Binding closes only for run length>1; tube skips<2points and caps open endpoints, nearest hanger reports DegenerateSurface if below row empty. Private operations can fail on degenerate normals/geometry; actual validated geometry witness absent. No independent ordinary invalid-count finding."
+      ]
+    },
+    {
+      "scope_index": 2213,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/layout.rs",
+      "sha256": "9d9424e679eb33b176ce1687f202f9a81fcf765ef6d910fdd02bb1f409711fc2",
+      "personally_read_ranges": [
+        [
+          1,
+          342
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all342lines tiling/layout.rs including existing test source without execution. Layout owns tiles and per-grid rows/slopes, run ranges update from same append positions, empty runs omitted and closed only cyclic/no dropped tiles. Positive finite length is checked, plate pitch relies actual construction validator. MAX_TILES checked after each grid has been laid out, so quota is output admission not a proven preallocation bound; no actual huge surface producer established. No newfinding."
+      ]
+    },
+    {
+      "scope_index": 2214,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/mod.rs",
+      "sha256": "7ff5bfe0408afa8433957ee7575dd1fbb9f83d6afe4bb3af59a581a81724280d",
+      "personally_read_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all137lines tiling/mod.rs. Public constructed consumes GeneratedArmor, validates Construction first, uses exact same self grids/positions/normals, filters nonspanning and rejects bad/empty surfaces, then one Layout generates both tiles/lacing. design_hash combines source hash+construction; normal serialization gate holds finite validated design. Output component/grid clearing is deliberate rebuild of supported shells as documented; whole raw source admission remains inherited F053/GeneratedArmor family."
+      ]
+    },
+    {
+      "scope_index": 2215,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/surface.rs",
+      "sha256": "b11e892b1c5cebf91866d5ffeed3801659fd98201fe446753a33aadf65598020",
+      "personally_read_ranges": [
+        [
+          1,
+          441
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all441lines tiling/surface.rs including test source. is_spanning checks dimensions/cardinality but raw source index validity is inherited RIG-ADMISSION03-F053. Private base measures cumulative spacing and fixes orientation once; realized changes positions while retaining base coordinate correspondence, matching2211 morph intent. index_at handles equal-distance spans explicitly, frame.step rejects singular determinant; arbitrary zero/nonfinite intermediate geometry not credited as ordinary curated producer failure."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "6 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "dedup": [
+    "RIG-ADMISSION03-F053"
+  ]
+}

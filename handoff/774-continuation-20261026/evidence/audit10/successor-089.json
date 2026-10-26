@@ -1,0 +1,71 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-089",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1718,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms/sightlines.rs",
+      "sha256": "3b246c9e91979cdd7f23a8527adef2df1dbe28bf14662cd1060b557d89c77324",
+      "ranges": [
+        [
+          1,
+          288
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete288line sightline geometry and existing fixtures. Owner derives CloneCopyDebugEqPartialEq. Only manual trait From<&Blocker> for PreparedBlocker38-55 constructs a geometric cache including composed rotations, inverse, oriented/world half bounds and padding.",
+      "disposition": "KEEP small manual From: contextual cross-record geometry projection with native unit extraction, not derive_more same-constructor conversion. Slab intersections, visible frame classifier and weighted camera ranking are semantic operations. No new derivability candidate; fixtures not run.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1719,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/manifest.rs",
+      "sha256": "90d78c0c708175d63d2b3654ce3d96a08c32444ff581cf53e94f78d5f971bb96",
+      "ranges": [
+        [
+          1,
+          941
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete941line manifest, source summaries, capture validation and all fixtures read in consecutive bounded windows. Manifest/report codecs already Serialize derives. RepairSummary manual From<SceneRepairReport>63-75 copies named fields across distinct structs; PendingSceneCaptureManifest constructor/finalization gates publication on screenshot validation.",
+      "disposition": "KEEP small cross-record summary From: existing derive_more From would construct from tuple/field inputs, not project named fields from a different record. Report codecs already derive; validation/classification/profile-dependent thresholds and finalization are semantic. No existing exact derive equivalence for these operations, no new candidate, fixtures not executed.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1720,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/plant_lods.rs",
+      "sha256": "36ec27846639fcd39472f076870256cb3a37ae29dfd489fe49f7e93cbe40d0a7",
+      "ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete113line botanical observation and visibility fixture. Observation already CloneSerialize. Runtime query projects native camera visibility, range and mesh counts into report then sorts by semantic LOD index; no handwritten trait/codecs.",
+      "disposition": "No derivability candidate. Semantic query and selected ordering remain explicit; wire output already derives. Existing fixture read only.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1721,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/setup_obstacles.rs",
+      "sha256": "ed251a1127b90eec10478382e61cb9fc193e36c1d7c15104e43dfdefab03d3e4",
+      "ranges": [
+        [
+          1,
+          166
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete166line preadmitted obstacle setup. CapturedObstacles Default derived; SupportedObstacle/ObstacleVisual free constructors are terrain/source/native collider transforms. No manual traits/codecs.",
+      "disposition": "No derivability candidate. Fallible preadmission, original operation ordering, selected focus and native physics/overlay publication cannot be replaced by direct derives. No execution or global invariant verdict.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

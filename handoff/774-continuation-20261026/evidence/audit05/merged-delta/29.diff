@@ -1,0 +1,10 @@
+--- 6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs.rs
++++ 13fc9dcc71ab879de364117e5462310673e43210:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs.rs
+@@ -1,6 +1,6 @@
+-use crate::camera::authored_metres;
++use crate::camera::config::authored_metres;
+ use crate::presentation::TreeLeafRepresentation;
+ use adventuresim_tactical_core::animation::SignedAngleDegrees;
+ use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
+ use bevy::prelude::{Vec2, Vec3};
+ use fabelgeist_geometry::SignedLength;

@@ -1,0 +1,142 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-179",
+  "at": "2026-10-25T21:06:49.964319+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1934,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/occupancy.rs",
+      "sha256": "7eefddd45148b9b0b86dfc05fc848c5fb8ff0051308ae8100b0abdbc167dc4e7",
+      "personally_read_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full71 lines read. Occupancy inserts/query-enumerates the same footprint corner AABB across16m cells and exact SAT-checks stored full rotated footprint, so broad phase does not replace orientation-aware test. Multiple-cell duplicate storage changes performance, not pass/fail. Native arbitrarily giant admitted footprints can create large enumeration, but actual scene/candidate extents are bounded by owning inputs; no ordinary denial or false-clearance witness established. Existing multicell rotated comparison fixture read only."
+      ]
+    },
+    {
+      "scope_index": 1935,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/placement.rs",
+      "sha256": "f226a17d7921f5b1daa506cdfc8c4b0eac80e8bb72f3bde9d77a6b7f9753207f",
+      "personally_read_ranges": [
+        [
+          1,
+          180
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full180 lines read. generate prepares all route/obstacle reservations before acceptance, retains all accepted groups in one occupancy index, processes market then physical-ID-sorted building frontages and applies matching per-kind limit. accept rejects straddled authority scope, occupied footprint, any original-market containment failure, missing/wet/landform support or excessive sampled grade.",
+        "supported_instances transforms every LocalItem offset and each exact recipe support point by the same candidate footprint frame. It rejects empty support list, missing sample, excessive support-height mismatch and nonfinite admitted scene position, collects the whole group before occupancy/group/instance arrays mutate, then stores instances only in selected playable or vista vector. Current LocalCandidate nonempty composition closes empty-group representability at actual producer. Five-point grade is deliberate sampled criterion, not proof for arbitrary terrain between points.",
+        "This closes packet178 original-market quadrilateral candidate dependency: acceptance checks all full footprint corners against the actual patch. The auxiliary customer aisle reservation can extend past final row/market edge, but source has not established a contract that such nonphysical reservation must itself fit the patch; retain qualified policy question, no accepted spill defect."
+      ]
+    },
+    {
+      "scope_index": 1936,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/reservations.rs",
+      "sha256": "b361b5c1876380f15da1ee02bbcf6e5ae2d8c383edea537249f181fed5144026",
+      "personally_read_ranges": [
+        [
+          1,
+          288
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full288 lines read including gate-sweep fixtures. Reservations bind actual street corridors, market edge/cross aisles, exact building-site routes, accepted grounding doorway approaches, compound access/full gate sweep and cultivated garden bounds before candidate acceptance. Obstacles bind same building/site envelope, boundary fixed member pose/dimensions and actual generated tree/rock grid location with matching spacing and terrain centre.",
+        "route admits computed footprint before retention; zero-length native route uses identity orientation for a square reserve rather than inventing direction. Existing actual city-route validation owns admissible segment geometry. market_edge_clearance projects adjacent nearly aligned road corners into same edge tangent/inward frame and keeps maximum overlap. Full accepted doorway reservation adds shoulder once; gate square uses same constructed door hinge/size and boundary orientation. Tests source-check complete leaf sweep both hinges/three orientations but no execution."
+      ]
+    }
+  ],
+  "support_reads": [
+    {
+      "scope_index": 1542,
+      "ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "role_credit": "none; inherited source support"
+    },
+    {
+      "scope_index": 1545,
+      "ranges": [
+        [
+          1,
+          95
+        ],
+        [
+          140,
+          164
+        ]
+      ],
+      "role_credit": "none; inherited bounded source support"
+    },
+    {
+      "scope_index": 1625,
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "role_credit": "none; inherited source support"
+    },
+    {
+      "scope_index": 1678,
+      "ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "role_credit": "none; inherited bounded source support"
+    },
+    {
+      "scope_index": 1694,
+      "ranges": [
+        [
+          200,
+          270
+        ]
+      ],
+      "role_credit": "none; inherited fixture/source support"
+    },
+    {
+      "scope_index": 1698,
+      "ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "role_credit": "none; successor157 repeated support"
+    },
+    {
+      "scope_index": 1944,
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "role_credit": "none; future queued bounded support"
+    }
+  ],
+  "dependency_updates": [
+    {
+      "dependency": "packet178 interior partial installation publication",
+      "result": "Actual generation1944, native strategic1625 and worker activation1542 build a local scene and propagate failure, dropping partial instances. Promotion1678 mutates generated, but actual caller1698 owns generated by value and returns before root/props/queued buildings on failure. No normal partially installed furniture publication proved; native public mutation API weakness remains separately qualified."
+    },
+    {
+      "dependency": "packet178 worker-prepared interior identity",
+      "result": "PreparedVenue producer1545 furnishes from its own recipe.plan and recipe.program, and recipient1542 resolves venue by exact placement.program then uses that same recipe for destination GeneratedBuilding. Current ordinary producer association closed; arbitrary decoded/cache product coherence is a separate broader inherited cache/admission contract, not asserted invalid live result."
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

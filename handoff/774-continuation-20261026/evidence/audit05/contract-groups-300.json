@@ -1,0 +1,25 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-300",
+  "at": "2026-10-25T22:48:08.176525+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2575,
+      "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/deserializer.rs",
+      "sha256": "72b755ac168c5dd782c5b1bea90fce7488a9d4b9ba713fe26be33b553973362a",
+      "personally_read_ranges": [
+        [
+          1,
+          2941
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read entire2941-line frozen serde-saphyr streaming deserializer, contiguous chunks1-260,261-520,521-780,781-1040,1041-1300,1301-1560,1561-1820,1821-2080,2081-2340,2341-2600,2601-2941. Scalar view keeps raw/effective/tag/style/location and optional interpolation redaction context; typed integer methods validate core tag and width via target parse, concrete float calls parser without typeless finite setting. String/null/option handling intentionally differs (interpolated empty string retained for String, null-like Option becomesNone); unit and null containers admitted by documented path. Tuple wrapper rejects extra elements, general sequence drains unread remainder; maps enforce have_key/pending_value association, duplicate fingerprint policy and explicit-over-merge precedence, finish rejects unconsumed entries. Tagged enum modes carry selector and payload separately; tagged unit variants can discard node payload by implementation, with no actual project malformed enum producer established. Direct target serde visitors decide semantic admission; no normal bespoke constructor invocation inferred. No parser execution, fixture execution, broad dependency correctness/secret-redaction clearance, or new accepted project finding."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

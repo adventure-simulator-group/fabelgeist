@@ -1,0 +1,47 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-369",
+  "at": "2026-10-25T23:46:51.226065+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 135,
+      "source_id": "physical-p16:crates/adventuresim-core/src/settlement_economy.rs",
+      "sha256": "5ebaaf60d766322d2dc8bbd0cf1a54b0c790793a11d1d3f7b98e139861a3c54e",
+      "personally_read_ranges": [
+        [
+          1,
+          200
+        ],
+        [
+          233,
+          250
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read exact material union1-200 and233-250; item_stock_category begins196-200 but unregistered remainder201-232 was not read or cleared. Storefront enum/serviceID and action service mappings are explicit. Rest venue prefersTemple thenInn, none otherwise; authoritative no-charge reducer contract remains separate from predicate description.",
+        "Visible NPC tabs always includeOverview/Residences, conditionKeep, service-based market/forge/armoury/tailor/herbalist/inn/church/books, then standalone organization chapters. Chapter iterator plus lookup establishes expect precondition in same immutable catalogue. Matching is first exactlocation; duplicate authored labels/locations require catalogue uniqueness receiver, not automatic safety. This supplies actual navigability filter131 and physical co-location125; no adult-venue tab is emitted here, narrowing that source question."
+      ]
+    },
+    {
+      "scope_index": 136,
+      "source_id": "physical-p16:crates/adventuresim-core/src/settlement_population.rs",
+      "sha256": "427a6f6e78d9b203d41f9186e0c4722a1622a9f1d3e2916b43e1b69b73ef601e",
+      "personally_read_ranges": [
+        [
+          1,
+          667
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered population body1-667 read, declared age/demographics modules separate. choose filters positiveplausibility+curation and required availablebridges, sorts stable decision IDs, rejects duplicates, widens u32 products to u64 and delegates total-weight selection to RNG owner. Authored current small arrays constrain this producer; no arbitrary enormous weight collection is admitted through private choose.",
+        "Relation-specific framed seed derivation separates streams; context affects probabilities/trace but is not itself part of seed, so no general independent context claim. Generation selects age before age-dependent hair/household, provider overrides require profession override, serviceID absent becomes trace unknown. Actual planned-age override validation is delegated to demographics::choose_age, not proved by its declaration here.",
+        "Young adult-venue visitors with explicit household/home bridge are authored and existing test intent confirms rare bridged visitors, so role131 Child/location raw question is not by itself invalid age admission. Strategic UI tab producer135 lacksadultvenue, so ordinary visible UI receiver reach still requires actualcaller. Generated facts/decision vector remain independently mutable after return; no automatic trace-output consistency guarantee for arbitrary deserialization. All existing tests read, neverrun."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "scope_authority": "original-scope-072.json; bounded135 excludes unrelated tail; full136 includes authored tests without execution."
+}

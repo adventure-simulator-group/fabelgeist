@@ -1,0 +1,166 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-114",
+  "at": "2026-10-23T02:37:44.575332+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/armor.rs",
+      "sha256": "49cd8bc000aa19cd346741cd36179b1477050c9c1949bcddc4696e486cd0461c",
+      "scope049_index": 1878,
+      "actual_EOF": 53,
+      "scoped_ranges_compared": [
+        [
+          1,
+          53
+        ]
+      ],
+      "actual05_comparison": "Fresh complete53. Public ArmorItem scalar material/coverage/resistance/padding/flexibility/ROM and independent covered_parts[7]/coverage_geometry[7] do not establish covered+positive scalar→Some authored geometry correlation; ordinary Serde and opaque clone reflection preserve raw already inconsistent Self. Parent selected armor_layer_chain actually expects that relation (new direct REG026 actual1–78). A raw positive covered part with None geometry can panic; normal current spawn derives geometry later and can fail after Commands (existing F004 graph), no actual malformed shipped asset/run. ArmorSlot Arms/Legs OptionSide deliberately represents both sides, not missing-required-state; seven masks use exact BodyPart-index policy. ArmorLayerContact is a serialized observational product retaining same item/ID/material/geometry/intersection/selected/surface, public fields not proof token; constructor joins are actual REG026. TacticalInventoryItemId all-u64 records durable identity without membership guarantee.",
+      "source_body_proof": "Fresh full53"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/armor.rs",
+      "sha256": "49cd8bc000aa19cd346741cd36179b1477050c9c1949bcddc4696e486cd0461c",
+      "scope049_index": 356,
+      "actual_EOF": 53,
+      "scoped_ranges_compared": [
+        [
+          1,
+          53
+        ]
+      ],
+      "actual05_comparison": "Fresh complete53. Public ArmorItem scalar material/coverage/resistance/padding/flexibility/ROM and independent covered_parts[7]/coverage_geometry[7] do not establish covered+positive scalar→Some authored geometry correlation; ordinary Serde and opaque clone reflection preserve raw already inconsistent Self. Parent selected armor_layer_chain actually expects that relation (new direct REG026 actual1–78). A raw positive covered part with None geometry can panic; normal current spawn derives geometry later and can fail after Commands (existing F004 graph), no actual malformed shipped asset/run. ArmorSlot Arms/Legs OptionSide deliberately represents both sides, not missing-required-state; seven masks use exact BodyPart-index policy. ArmorLayerContact is a serialized observational product retaining same item/ID/material/geometry/intersection/selected/surface, public fields not proof token; constructor joins are actual REG026. TacticalInventoryItemId all-u64 records durable identity without membership guarantee. Personally compared entire P16/PR source diff empty, actual P16 spawn/player projection and same armor observers; no fingerprint carry.",
+      "source_body_proof": "Complete actual P16 counterpart diff and explicit role comparison"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/ordering.rs",
+      "sha256": "a16a4fd249e9a9fa97fa44588caa57dc7a15e35ef78bfd5e194267419a507f20",
+      "scope049_index": 1880,
+      "actual_EOF": 130,
+      "scoped_ranges_compared": [
+        [
+          1,
+          130
+        ]
+      ],
+      "actual05_comparison": "Fresh full130 including existing remap fixture source-only. EquipmentRootOrder private comparison tuple derived on demand from topology plus exact catalogue placement: only selected CharacterLocation occupancy, fit zone requires matching requirement index/location/channel; Reverse channel+layer yields outermost first, stable authored item/placement and fit zone avoid network Entity allocation order. Empty/no matching root→None intentional; attached-parent graph traversal is caller111. Valid root uniqueness is a precondition from accepted graph, raw duplicate topology can tie; no ordering getter itself seals uniqueness. Existing test reverses native Entity mapping and expects same anatomical order, not run. Borrowed tuple is no retained mutable cache; catalogue validation/graph admission separate roles.",
+      "source_body_proof": "Fresh full130"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/timing.rs",
+      "sha256": "d02da5117e785f6425ae9d21c2d48a30f0fb7818e22df987fa787f88a3cbab04",
+      "scope049_index": 1881,
+      "actual_EOF": 17,
+      "scoped_ranges_compared": [
+        [
+          1,
+          17
+        ]
+      ],
+      "actual05_comparison": "Fresh full17 tactical InventoryView timing operation. Captures one Option equipped weapon; same observation supplies inertia and unarmed bool, so no independently drifting two inputs internally. Actual Core timing97 independently read: finite inertia→max0, nonfinite→0.3 intentional fallback; unarmed base.36 else bounded .24+.40*sqrt(inertia/(inertia+.45)), style-specific scale/share produce both checked elapsed components in one Result before Self. Positive finiteMAX inertia addition.45 rounds back toMAX, ratio1; unlike sum-of-twoMAX counterexample no overflow here. Separate preparation/recovery purposes, no equality requirement, no family-specific extra cadence owner. Public MeleeAttackTiming leaves may be constructed independently as general schedule; no global authored-ratio promise outside factory. Full original fists/knife/cut/thrust/sword/mace and monotonic fixtures source-only, not executed.",
+      "source_body_proof": "Fresh full17"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/timing.rs",
+      "sha256": "d02da5117e785f6425ae9d21c2d48a30f0fb7818e22df987fa787f88a3cbab04",
+      "scope049_index": 358,
+      "actual_EOF": 17,
+      "scoped_ranges_compared": [
+        [
+          1,
+          17
+        ]
+      ],
+      "actual05_comparison": "Fresh full17 tactical InventoryView timing operation. Captures one Option equipped weapon; same observation supplies inertia and unarmed bool, so no independently drifting two inputs internally. Actual Core timing97 independently read: finite inertia→max0, nonfinite→0.3 intentional fallback; unarmed base.36 else bounded .24+.40*sqrt(inertia/(inertia+.45)), style-specific scale/share produce both checked elapsed components in one Result before Self. Positive finiteMAX inertia addition.45 rounds back toMAX, ratio1; unlike sum-of-twoMAX counterexample no overflow here. Separate preparation/recovery purposes, no equality requirement, no family-specific extra cadence owner. Public MeleeAttackTiming leaves may be constructed independently as general schedule; no global authored-ratio promise outside factory. Full original fists/knife/cut/thrust/sword/mace and monotonic fixtures source-only, not executed. Complete actual P16/PR tactical timing diff empty; same equipped Option and checked Core timing recipient, source-specific P16 leaf fields retained.",
+      "source_body_proof": "Complete actual P16 counterpart diff and explicit role comparison"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/quantity.rs",
+      "sha256": "6a0acac145fbe06b57ecbe43504dae3eca6d0923f65aedccf72c98c9e7977e33",
+      "scope049_index": 357,
+      "actual_EOF": 28,
+      "scoped_ranges_compared": [
+        [
+          1,
+          28
+        ]
+      ],
+      "actual05_comparison": "Fresh complete P16 quantity28. One public ItemQuantity canonical payload, DefaultONE and new delegate same checked leaf; transport/opaque clone reflection wrap canonical payload rather than independent raw count/cache. Cardinal quantity positive; no topology/stack-kind/capacity/mass-total guarantee inferred. Exact underlying ItemQuantity admission remains its canonical scoped obligation, actual parent inventory is_valid and graph independent; no arbitrary u32 guaranteed admitted just by transparent wrapper name.",
+      "source_body_proof": "Fresh full28"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment/timing.rs",
+      "sha256": "2d07455dadf2a1893ef4a3867f0b5ada5170e81c3a279d347ee86c1cc6ab4dfd",
+      "scope049_index": 921,
+      "actual_EOF": 97,
+      "scoped_ranges_compared": [
+        [
+          1,
+          97
+        ]
+      ],
+      "actual05_comparison": "Fresh full17 tactical InventoryView timing operation. Captures one Option equipped weapon; same observation supplies inertia and unarmed bool, so no independently drifting two inputs internally. Actual Core timing97 independently read: finite inertia→max0, nonfinite→0.3 intentional fallback; unarmed base.36 else bounded .24+.40*sqrt(inertia/(inertia+.45)), style-specific scale/share produce both checked elapsed components in one Result before Self. Positive finiteMAX inertia addition.45 rounds back toMAX, ratio1; unlike sum-of-twoMAX counterexample no overflow here. Separate preparation/recovery purposes, no equality requirement, no family-specific extra cadence owner. Public MeleeAttackTiming leaves may be constructed independently as general schedule; no global authored-ratio promise outside factory. Full original fists/knife/cut/thrust/sword/mace and monotonic fixtures source-only, not executed. This member is full canonical Core97, not merely imported function name.",
+      "source_body_proof": "Fresh full97"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment/timing.rs",
+      "sha256": "2d07455dadf2a1893ef4a3867f0b5ada5170e81c3a279d347ee86c1cc6ab4dfd",
+      "scope049_index": 103,
+      "actual_EOF": 97,
+      "scoped_ranges_compared": [
+        [
+          1,
+          97
+        ]
+      ],
+      "actual05_comparison": "Fresh full17 tactical InventoryView timing operation. Captures one Option equipped weapon; same observation supplies inertia and unarmed bool, so no independently drifting two inputs internally. Actual Core timing97 independently read: finite inertia→max0, nonfinite→0.3 intentional fallback; unarmed base.36 else bounded .24+.40*sqrt(inertia/(inertia+.45)), style-specific scale/share produce both checked elapsed components in one Result before Self. Positive finiteMAX inertia addition.45 rounds back toMAX, ratio1; unlike sum-of-twoMAX counterexample no overflow here. Separate preparation/recovery purposes, no equality requirement, no family-specific extra cadence owner. Public MeleeAttackTiming leaves may be constructed independently as general schedule; no global authored-ratio promise outside factory. Full original fists/knife/cut/thrust/sword/mace and monotonic fixtures source-only, not executed. Complete actual P16/PR canonical timing diff empty; personally compared current P16 consumers and factory/fallback/styled pair contracts.",
+      "source_body_proof": "Complete actual P16 counterpart diff and explicit role comparison"
+    }
+  ],
+  "registered_direct_dependencies": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/query.rs",
+      "sha256": "88a095239e91a987745462a6d940bd24f04148126ba2f0297a9365612ba6f512",
+      "registration_id": "NATIVE-INITIAL05-REG025",
+      "actual_EOF": 21,
+      "scoped_ranges_compared": [
+        [
+          1,
+          21
+        ]
+      ],
+      "actual05_comparison": "Fresh full21 after prospective registration. InventoryView::iter gets only selected root reverse InventoryItems then q_item.iter_many(list); it does NOT recheck ItemOf==root, relying native reverse-list coherence established by normal relationship hook. Raw stored-list/native scene restoration is broader (actual parent1877/355 public Serde/Reflect data), not an accepted ownership seal. item_at_slot derives first matching same iterator and carries item string plus optional durable ID from that one record. No duplicated scalar cache, no normal cross-owner state claimed.",
+      "source_body_proof": "Fresh registered direct body before analysis",
+      "global_scope_status": "pending Root reconciliation"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+      "sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+      "registration_id": "NATIVE-INITIAL05-REG026",
+      "actual_EOF": 205,
+      "scoped_ranges_compared": [
+        [
+          1,
+          78
+        ]
+      ],
+      "actual05_comparison": "Fresh exact1–78 after registration;79 blank excluded,80+tests not read. armor_layer_chain uses exact BodyPart index, filters covered+coverage>0, stable descending layer_order, computes first geometry.contains(sample) as selected, then derives every contact item/ID/material/geometry/intersected/selected/surface from same item. Both geometry expects rely on missing covered→Some correlation in public ArmorItem; latent raw construction/decoder panic, existing connected spawn preparation F004 graph, no actual bad installed actor/run. Empty/no intersected layers intentionally produces no selected contact. fold_armor_layers differs purpose: aggregate union coverage, additive resistance/padding, resistance-weighted flexibility, minROM, zero total resistance→flex0; not actual selected anatomical surface authority. Two finiteMAX resistance/flex1 entries yield Inf resistance and Inf/Inf flexibility, exact support for Root04F011 armor aggregation graph after current-role comparison, no new unique finding. BodyPart private mapping0..6 locally supplies valid index7-array; generic pub(super) index outside bound not actual parent caller. Raw values sanitized where specified, not blanket finite computed result.",
+      "source_body_proof": "Fresh registered direct body before analysis",
+      "global_scope_status": "pending Root reconciliation"
+    }
+  ],
+  "comparison_groups": {
+    "covered-geometry-product": "Raw mask/scalar versus optional authored interval is not correlated; actual recipient expects it. Existing F004 preparation graph.",
+    "reverse-relationship-owner": "Reverse list and actual ItemOf native reconstruction must agree; iterator trusts list, normal hooks distinct from raw restored native data.",
+    "physical-timing-pair": "One equipped Option and one Core factory derives checked preparation/recovery, not independent caches.",
+    "root-order-observer": "Computed authored comparison key stable across native entity mapping, raw topology uniqueness separate.",
+    "aggregate-versus-selected-armor": "Scalar union/weighted fold intentionally differs actual anatomical selected surface; RootF011 numerical support exact."
+  },
+  "new_unique_findings": [],
+  "independent_cross_lens_supports": [
+    "NATIVE-CAMERA-SUPPORT03-F004",
+    "ROOT-INITIAL04-F011"
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

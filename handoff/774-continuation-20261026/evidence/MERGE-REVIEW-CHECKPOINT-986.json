@@ -1,0 +1,35 @@
+{
+  "status": "READY_FOR_USER_MERGE_REVIEW",
+  "PR": 986,
+  "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/986",
+  "head": "f7305d139126e3f0a07a5df8869152b772947007",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "mergeable": true,
+  "draft": false,
+  "merged": false,
+  "tracked_source_clean": true,
+  "published_body_matches_reviewed_file": true,
+  "reviewed_body_sha256": "a66bb13244967358906a1586c028f95fa7f32e4f9874e53fb90b0f9ea38ef49f",
+  "validation": {
+    "run": 40266453178,
+    "conclusion": "success",
+    "Linux_job": 121389819635,
+    "Windows_job": 121389819851,
+    "Windows_existing_cases": 10,
+    "Creator_cases": 178,
+    "presentation_cases": 329,
+    "exact_oak_source_matching": "passed on both platforms",
+    "regenerator": "skipped as intended in ordinary run; separate export40262692854 succeeded",
+    "evidence": "ci-recovery/final-quality-f730-001.json"
+  },
+  "reviews": {
+    "Code_all13": "ci-recovery/oak-float-repair/code-review/CURRENT ->003",
+    "Rule": "ci-recovery/oak-float-repair/rule-review/output-successor-001.json",
+    "Comment": "ci-recovery/oak-float-repair/comment-review/review-005-final-validation.json"
+  },
+  "publication_proof": "ci-recovery/published-review-checkpoint-001.json",
+  "user_instruction": "Pause goal for individual ready PR review; user reviews/merges, no main merge or deep stack by agent.",
+  "agents": "All three reviewers/auditors stopped at saved checkpoints.",
+  "broader_audit_clear": false,
+  "preservation": "Three preexisting untracked source/handoff paths retained; no source clone moved or deleted."
+}

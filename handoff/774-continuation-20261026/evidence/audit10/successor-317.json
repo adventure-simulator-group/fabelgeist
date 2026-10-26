@@ -1,0 +1,64 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-317",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 2672,
+      "source_id": "native-dependency:spacetimedb-lib-2.6.1/src/lib.rs",
+      "sha256": "a7aa9b25f2c271998679ab0c79c861d0e44647bc42d6dc7d94d0c9f979b18b57",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/a7aa9b25f2c271998679ab0c79c861d0e44647bc42d6dc7d94d0c9f979b18b57",
+      "ranges": [
+        [
+          39,
+          49
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh pinned spacetimedb-lib2.6.1 exact native namespace/reexports39\u00e2\u20ac\u201c49, SATS derive/serde/protocol type routing.",
+      "disposition": "No handwritten traits/codecs or candidate. Reexport navigation only, no underlying implementations/SDK/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2673,
+      "source_id": "native-dependency:spacetimedb-sats-2.6.1/src/lib.rs",
+      "sha256": "402f09813045df7a27d95ceceac65b2191e570b9284371cd4bd948e1b1e79620",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/402f09813045df7a27d95ceceac65b2191e570b9284371cd4bd948e1b1e79620",
+      "ranges": [
+        [
+          74,
+          96
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh pinned spacetimedb-sats2.6.1 exact native self alias/type/Deserialize/Serialize reexports74\u00e2\u20ac\u201c96.",
+      "disposition": "No local trait/codec candidate. Namespace route only, no underlying schema/SDK/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2674,
+      "source_id": "native-dependency:spacetimedb-sats-2.6.1/src/typespace.rs",
+      "sha256": "2ff9ac1123584afecdb55ac04bc118f75d05afd96d3149ce46638a8f21ac3243",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/2ff9ac1123584afecdb55ac04bc118f75d05afd96d3149ce46638a8f21ac3243",
+      "ranges": [
+        [
+          320,
+          320
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh pinned SATS typespace exact line320 reexports SpacetimeType derive macro.",
+      "disposition": "No handwritten trait/codec or candidate; exact declaration route only, no typespace/macro/generic implementation or SDK/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

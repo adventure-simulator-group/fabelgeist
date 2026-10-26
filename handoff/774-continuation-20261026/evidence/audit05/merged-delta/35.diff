@@ -1,0 +1,10 @@
+--- 6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-mhr/src/model_def/tests.rs
++++ 13fc9dcc71ab879de364117e5462310673e43210:crates/fabelgeist-mhr/src/model_def/tests.rs
+@@ -1,6 +1,7 @@
+ use super::*;
++use fabelgeist_rig::RigJointOrdinal;
+ 
+ fn skeleton() -> Skeleton {
+     Skeleton {
+         names: vec!["root".into(), "child".into()].into(),
+         parents: vec![None, Some(RigJointOrdinal::from(0usize))].into(),

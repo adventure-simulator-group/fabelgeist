@@ -1,0 +1,18 @@
+{
+  "id": "OWN10-QUALIFIED-DISPLAY-OVERLAY143",
+  "overlay_index": 143,
+  "path": "crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+  "ranges": [
+    [
+      7,
+      32
+    ]
+  ],
+  "inventory": "SexSelectorError manual Display maps two static unit labels and formats indexed/string payloads. It deliberately does not implement std::error::Error.",
+  "qualified_remedy": "An appropriate existing-project derive_more::Display with explicit exact per-variant format labels could remove mechanical formatting, but owning Core Cargo lacks this macro dependency. Separate global dependency/remedy decision; keep small implementation unless chosen.",
+  "preserve": "Do not derive thiserror::Error merely to replace Display because that adds an Error API absent today; no serde runtime classifier introduced. Preserve exact indexed errors/borrowed string formatting.",
+  "classification": "Qualified display-boilerplate suggestion, global saved-remedy dedup pending; current behavior correct",
+  "new_unique_finding": false,
+  "checks": "not run",
+  "clear": false
+}

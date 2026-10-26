@@ -1,0 +1,119 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-019",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1514,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/compute.rs",
+      "sha256": "d681948a7f1f82b5ab95dfe90ffc820f8dafa85c558a29756c26603c5f208aba",
+      "ranges": [
+        [
+          1,
+          430
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "ViewParameters Clone/ShaderType, nativePipelines Resource, CityView QueryData, CityViews Resource/Default and OwnerViews Default alreadyderive. OwnerViews/GpuResources methods and install/initialize/prepare/cull/camera_groups perform contextualviewassociation, pipeline/nativebinding setup andGPUdispatch; no handwrittentraits/codecs.",
+      "disposition": "No derive opportunity. Keep nativebitfield/uniform/retainedview/camera/shadowpolicy and source/bufferassociation explicit, not rawFrom orserialization. Existing ShaderType coversnativeuniformlayout without proving semanticmetadata/operationbounds; othergraphicsobligations remainuncleared.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1515,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/frame.rs",
+      "sha256": "51939cee77e0767339534b9efe7543597e9698c3904d2ecaf559a5c14260c8e4",
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "CityFrame Clone/Copy/Debug/PartialEq/ShaderType and CityFrameError Debug/thiserrorError alreadyderive. HandwrittenDefault selects identitymatrices plus explicitpositiveX handedness. Inherentfrom_geographic_city computesaffine projection/inversetranspose/reflection; install performs bufferpublication.",
+      "disposition": "Keep smallmanualDefault: explicitidentity/handedness policy is not demonstratedequivalent to plainfieldDefault, and existingtacticalclient derivefeatures do notsupplycustomfieldDefault. No From/serde substitute for projection or falliblebufferinstall. Preserveframe/handedness association, no otherlensclearance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1516,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/geometry.rs",
+      "sha256": "29d5e171eb43f72999573edd891e5789074d9df1f31c061568965e17ef885740",
+      "ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Page Default and Slice Clone alreadyderive. Geometry manualDefault creates a nonemptyinitialPage and PAGE_BYTESlimit; nativeinsert/float3 helpers parsevertexformats, partitionboundedpages andconstructindices. Existingfixture ordinaryfunction.",
+      "disposition": "Keep manualDefault because nonemptyinitialpage and configuredlimit differfromemptyVec/zero fielddefaults; no equivalentequippedprojectderive shown. Otherfunctions are semanticnativepacking/formatpolicy, nottraitboilerplate. No newcodec/test/acceptanceclearance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1517,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/material.rs",
+      "sha256": "828e37839d5d4490e9ea77f264645c928c80d3fafa13251ea30a1c792d966dd6",
+      "ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "CityMaterial Asset/TypePath/AsBindGroup/Clone/Debug alreadyderive. HandwrittenMaterial provides fixedshaderrefs, computesalpha_mode frompackedcutoff and mutatesnativepipelinevertexpulling layout. Inherentfrom_source convertslinearcolor/nativePBR/UVfields semantically; existingfixture ordinaryfunction.",
+      "disposition": "Keep Material manual: actualsemanticshader/pipeline/alphapolicy has no demonstratedequivalentexistingderive; AsBindGroup alreadycoversmechanicalbindings. from_source is semanticrepresentation conversion, not plainfieldFrom. Do notaddserde or changeopaque/maskcutoff/normalflags.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1518,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/mod.rs",
+      "sha256": "76c13f913682347307d57a33b86d367ca3e074609de2365fa7833a0013fe2a38",
+      "ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "GpuBatch Clone, CityGpuScenes Resource/Clone/Default/ExtractResource, CityGpuScene Clone/Default and CityBatchAnchor Component alreadyderive. CityGpuPlugin::build imperativelyregistersresources/material/extraction/Lastassembly and nativecompute/draw setup; reset/visibility are ordinarycontextualmutation.",
+      "disposition": "Keep Plugin manual; no equivalentderive for nativeregistration and publicationordering. No additionalderive opportunity or serialization needed for runtimeReadiness/ownerclassifier.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1519,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/scratch.rs",
+      "sha256": "a552361866bcc278a46333d7ca2ee578a10cbf888f96cbd8f402eda84dcebc83",
+      "ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Scratch Resource/Default and CityScratch Default alreadyderive. geometry_layout/prepare are inherentnativeGPUdescriptor/capacity/buffer/sourceassociation and prepare-before-replacement flow. No handwrittentrait/codec.",
+      "disposition": "No derive opportunity. Indirectdraw wordencoding and bindgrouporder are semanticnativeABI, not mechanicalgenericserde; keep explicitsource/slot/devicecapacity policy and finalreplacement. No numeric/atomicityclearance beyond10.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1520,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/kit.rs",
+      "sha256": "57a7b0a2728f339fce3da666494543ca1e9a1e4f6424523d0bd30c00c2a2cdd0",
+      "ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "ComponentCache alreadyderives Default. get/append and WASM install_facade perform actualgeometrycacheidentity, LOD/static/facadepolicy, nativeoriginrebase andsource-retention publication; no handwrittentrait/codec.",
+      "disposition": "No derive opportunity. Preserve semanticcomponentkey/projection/owner/errorpolicy; no rawFrom for preparedfacadeinstallation or automaticserialization toreplace runtimeclassification.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

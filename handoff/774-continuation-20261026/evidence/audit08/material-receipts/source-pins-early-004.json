@@ -1,0 +1,134 @@
+[
+  {
+    "index": 16,
+    "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate_city_support/projection.rs",
+    "sha256": "b76680bbe81ab56774ea8d7881c3ce266977abb71f95fd956c1c58007c0e46e5",
+    "ranges": [
+      [
+        1,
+        66
+      ]
+    ],
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "object": "target\\recovery-20261025\\shared-material-successor\\source-objects\\b76680bbe81ab56774ea8d7881c3ce266977abb71f95fd956c1c58007c0e46e5",
+    "reason": "Newly reached exact return contract of projection::check called by1996 Composition::compile before accepted=true; necessary to verify result versus acceptance authority.",
+    "scope_limits": null
+  },
+  {
+    "index": 17,
+    "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/rigged.rs",
+    "sha256": "2f337baa2edb2356e1f086aacf549696c63bfac639d03c5f0a9b564d675bb397",
+    "ranges": [
+      [
+        1,
+        60
+      ]
+    ],
+    "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+    "object": "target\\recovery-20261025\\shared-material-successor\\source-objects\\2f337baa2edb2356e1f086aacf549696c63bfac639d03c5f0a9b564d675bb397",
+    "reason": "Actual RiggedMesh/RiggedShell declarations defining export_body and optional custom skin/surface/texture payloads.",
+    "scope_limits": null
+  },
+  {
+    "index": 18,
+    "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/validation.rs",
+    "sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+    "ranges": [
+      [
+        1,
+        164
+      ]
+    ],
+    "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+    "object": "target\\recovery-20261025\\shared-material-successor\\source-objects\\61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+    "reason": "Actual exported mesh/shell validation; required to distinguish invalid API shape from admitted normal product.",
+    "scope_limits": null
+  },
+  {
+    "index": 19,
+    "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/compact.rs",
+    "sha256": "4aa7045f30b54218cf1897ee3f74e1d8831a35debb7905ad3365a796e20f7ca9",
+    "ranges": [
+      [
+        1,
+        104
+      ]
+    ],
+    "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+    "object": "target\\recovery-20261025\\shared-material-successor\\source-objects\\4aa7045f30b54218cf1897ee3f74e1d8831a35debb7905ad3365a796e20f7ca9",
+    "reason": "Actual CompactShell constructor and rigged conversion may preserve/repair or flatten skin/surface payloads before shell writer.",
+    "scope_limits": null
+  },
+  {
+    "index": 20,
+    "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/textures.rs",
+    "sha256": "94523800edefb10ca1a28ebdf93b14b034f2b22b0900e406857bbfc8a5dbf99b",
+    "ranges": [
+      [
+        1,
+        170
+      ]
+    ],
+    "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+    "object": "target\\recovery-20261025\\shared-material-successor\\source-objects\\94523800edefb10ca1a28ebdf93b14b034f2b22b0900e406857bbfc8a5dbf99b",
+    "reason": "Actual GlbOutput/ShellTextures/SurfaceTextures and apply/apply_shell_textures needed to evaluate coexistence versus selection of texture sources.",
+    "scope_limits": null
+  },
+  {
+    "index": 21,
+    "source_id": "native-dependency:bevy_replicon-0.41.1/src/shared/replication/registry/rule_fns.rs",
+    "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+    "ranges": [
+      [
+        40,
+        145
+      ],
+      [
+        162,
+        225
+      ]
+    ],
+    "revision": null,
+    "object": "target\\recovery-20261025\\shared-material-successor\\source-objects\\07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+    "reason": "Actual locked native landform replication codec and generated internally-tagged enum deserializer contract; only referenced ranges scoped, not entire third-party crate.",
+    "scope_limits": null
+  },
+  {
+    "index": 22,
+    "source_id": "native-dependency:bevy_replicon-0.41.1/src/shared/replication/rules.rs",
+    "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+    "ranges": [
+      [
+        1,
+        58
+      ],
+      [
+        262,
+        281
+      ],
+      [
+        890,
+        920
+      ]
+    ],
+    "revision": null,
+    "object": "target\\recovery-20261025\\shared-material-successor\\source-objects\\037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+    "reason": "Actual locked native landform replication codec and generated internally-tagged enum deserializer contract; only referenced ranges scoped, not entire third-party crate.",
+    "scope_limits": null
+  },
+  {
+    "index": 23,
+    "source_id": "native-dependency:postcard-1.1.3/src/de/deserializer.rs",
+    "sha256": "20f5ff69404628e4d765f58ceb91b6ac8879ce998aef6dfe49a2fdb2c5f20ac2",
+    "ranges": [
+      [
+        208,
+        236
+      ]
+    ],
+    "revision": null,
+    "object": "target\\recovery-20261025\\shared-material-successor\\source-objects\\20f5ff69404628e4d765f58ceb91b6ac8879ce998aef6dfe49a2fdb2c5f20ac2",
+    "reason": "Actual locked native landform replication codec and generated internally-tagged enum deserializer contract; only referenced ranges scoped, not entire third-party crate.",
+    "scope_limits": null
+  }
+]

@@ -1,0 +1,81 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-290",
+  "at": "2026-10-25T22:42:15.044832+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2519,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/openings.rs",
+      "sha256": "14199ccf21d392bf19b46f9cfe2acb7675b248c2034bb65d04f9ace610aacc03",
+      "personally_read_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full217-line frozen P16 review openings fixture. Closed target enum selects corresponding compiled leaf or explicit fixed exterior glazing predicate. Typed frame constructors validate position/directions. ReviewLeafPose stores coherent closed transform, hinge and angle from one scene pose; selected open state rotates both centre and rotation about that hinge. state.view and camera index directly index arrays, whose validity depends capture-state/fixture constructor. Fixture spawning uses production SceneDoor/SceneWindow descriptors plus review pose and production observers. No fixture was executed."
+      ]
+    },
+    {
+      "scope_index": 2520,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+      "sha256": "da0f087a671bf4958225ba9cd45f834cff0b0d651c9ab03c1ebcc9242a01b1e0",
+      "personally_read_ranges": [
+        [
+          1,
+          301
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full301-line P16 capture readiness owner. Optional requirements/state permits non-review paths; Configure clears ready and pending timeout. Observation compares counts, GPU assets, three LOD discriminants per building, palette binding, glass texture/transmission and expected sign attributes; evidence emitted only once per view once observations pass. assets_ready checks base/normal/metallic-roughness textures but not every optional material texture: actual material bindings and GPU usage required before missing-readiness claim. readiness.recorded does not reset at Configure, so rerunning same indices would omit fresh evidence if same resource persists; actual capture lifecycle needed. Counts and selected attributes are bounded observational evidence, not full geometry/material correctness proof. Source read only, no capture or filesystem output executed."
+      ]
+    },
+    {
+      "scope_index": 2521,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/buildings.rs",
+      "sha256": "1ff4992f7b174c833e18baa1f5d3e7cdbb1c213ddd52e06d87d50d921d7c3cb3",
+      "personally_read_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full78-line P16 fixture buildings. Distant placement filter excludes IDs already playable but does not deduplicate duplicate distant inputs; ordinary input uniqueness remains owner contract. Boundary gate pose uses accepted elevation datum and shares descriptor with boundary scene. Tactical buildings compile openings and collision, queue authored sign on newly reserved entity, then insert descriptor/physics/transform; error can leave previously queued fixture entities, dependent on caller error termination. No fixture execution."
+      ]
+    },
+    {
+      "scope_index": 2522,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+      "sha256": "8d64dedb165f7ed83c658f1f3126c264e7d67aef759ccaeed83843d99190c86b",
+      "personally_read_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full93-line P16 compound descriptor. CityPropertyId and public serde boundary, gate and compound aggregates pair front/rear IDs, plot/court/access and boundary. Closed PropertySide maps sign/opposite; rear-range predicate requires merchant house without service. Public serde fields represent inconsistent or nonfinite raw states, with generation/admission validation obligations retained; no accepted malformed producer inferred."
+      ]
+    },
+    {
+      "scope_index": 2523,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout/compound/boundary.rs",
+      "sha256": "d9fb76fe3c22007ad7491c759dc3d5f4d6a2e9725cb73b08f6a349eade427d5e",
+      "personally_read_ranges": [
+        [
+          1,
+          266
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full266-line P16 boundary geometry owner. Fixed wall/cap members derive pose, dimensions, orientation and element identity together, typed constructors return element-qualified errors; gate posts remain GateRelative while walls GroundRelative and packing explicitly rebinds zero datum. Gate door derives centre, hinge, direction, dimensions and signed opening angle from same gate. Opening namespace uses constant OR property ID and bitmask classifier; arbitrary public property u64 can alias when reserved bits differ, but actual property ID allocation/range and opening namespace construction must be traced before defect. Positive finite dimensions checked by typed geometry; no broad admission or support-projection clearance."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "5 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

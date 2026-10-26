@@ -1,0 +1,44 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-006",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 393,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee.rs",
+      "sha256": "6fd64503e79c60d080ad7322bfdd270e451887f48d89c80898c47cd161532727",
+      "ranges": [
+        [
+          1,
+          363
+        ]
+      ],
+      "source_basis": "Fresh root complete personal exact frozen physical-p16 source read; independent own11 analysis.",
+      "concepts_actual_uses_and_mixup": "MeleeCompletion retains ValidatedMeleeAttack before authorization; authorize consumes it through mutable authority to return AuthorizedMeleeAttack. Active defense is prepared before that consumption, then committed only with authorized attack. Reported versus performance-impaired precision, contact versus defense-alignment samples, attempted versus effective response and damage versus power/performance factors remain distinct roles.",
+      "disposition": "Preserve validated/authorized stages and complete attack identity rather than merge record roles because fields overlap. Actual caller393264-297 preserves prepare-before-authorize-before-commit ordering. Current sample producers/receivers keep contact230/271/338 and alignment231/314 separate. Attempted/effective response forwarding is source-coherent but bare enum arguments can be swapped; qualified API-shape question Q001 saved, no gameplay failure or new unique count. Native arbitrary flanking/response/numeric leaf admissions remain existing families.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 394,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/active_defense.rs",
+      "sha256": "291b5d7171d5674bc929189b672bf92ee1b1348b9866f526f65d4377c8fbedbe",
+      "ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "source_basis": "Fresh root complete personal exact frozen physical-p16 source read; independent own11 analysis.",
+      "concepts_actual_uses_and_mixup": "DefenderCondition privately pairs current incapacitation and derived UnitInterval performance from same state. PreparedMeleeDefense carries deferred trade effect; commit_active_defense requires AuthorizedMeleeAttack, then charges actual attempted weapon defense work. commit_defense_during_attack distinguishes attempted parry cancellation from effective block transformation and engagement measure.",
+      "disposition": "Preserve condition/authorized-operation pairing and attempted/effective outcome association; damage/performance/fatigue-work are distinct semantic roles. A shared checked fraction beneath contextual roles must not erase authority or units. Save qualified Q001 about two bare response arguments; current only reviewed caller supplies correct stages. No extra fatigue pool/direct fatigue performance path established; physical work remains source family, no runtime execution.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "questions": [
+    "question-001.json"
+  ],
+  "clear": false
+}

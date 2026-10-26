@@ -1,0 +1,37 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-155",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 775,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/skinning.rs",
+      "sha256": "7ddf91c41655775cc2ac55844fa884d4f06dd8ba6951ee0d45b4550bbde5b199",
+      "ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "assessment": "Full63 read after hash verification, fixture35-63 read only. PackedRigSkin/RigInfluences retain typed canonical joint ordinals until native_u16 checked conversion at actual glTF boundary. Native VEC4 serialization intentionally selects strongest four; called helper body not inferred from fixture. Single computed skin sequence supplies both serialized joints and weights, local output channel correspondence. Input zip still assumes equal input counts, retained Q009 admission context; private actual caller767 validators apply, no arbitrary invalid ordinary witness. Return(joints,weights) semantic buffer-view tuple before serializer retains Q008 record question; numeric target/index bytes at actual wire boundary.",
+      "new_unique_finding": false,
+      "repair": "Qualified Q008/Q009 questions retained.",
+      "validation": "Frozen body not run; no local project checks."
+    },
+    {
+      "scope_index": 776,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/sockets.rs",
+      "sha256": "d51e531f136697d43d673cc1e6d16764b2c6fd35661d83d9a46b45a4eb5facdf",
+      "ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "assessment": "Full57 read after hash verification. Canonical ROOT.require_in obtains parent ordinal only when sockets nonempty; no string joint lookup. Same nodes.len immediately before push yields exact child indices. Earlier skeleton774 emits native node order from rig tables; this concrete sequence narrows ordinary ordinal-to-node indexing concern, conditional on caller shared table association. Actual JSON translation/rotation/scale and axes extras are wire contract. Public raw socket attachment ID/domain/UV/transform retain Q009 unique-name/frame and canonical admission question. No ordinary malformed socket witness or source identity with current987 inferred.",
+      "new_unique_finding": false,
+      "repair": "Qualified Q008/Q009 questions retained.",
+      "validation": "Frozen body not run; no local project checks."
+    }
+  ],
+  "clear": false
+}

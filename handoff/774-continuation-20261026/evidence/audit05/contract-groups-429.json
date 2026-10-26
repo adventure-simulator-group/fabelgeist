@@ -1,0 +1,122 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-429",
+  "at": "2026-10-26T00:43:19.192139+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 488,
+      "source_id": "pinned-registry:parry3d-0.27.0/src/math/mod.rs",
+      "sha256": "f1b05b3e1a27c95127e70c59bc0269e9a191b64f4c8f7b02d0f9e402f1752c8c",
+      "personally_read_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered Parrymath1-48. Scalar Real and vector/pose/rotation aliases are featuredependentf32/f64, supplied byglamx; epsilon nativeEPSILON. No checkedsemanticcoordinate/frame/policyproduct follows alias. Current Avian482/483makesactualnativeprecision boundary explicit, no full314-line mathcoverage."
+      ]
+    },
+    {
+      "scope_index": 489,
+      "source_id": "pinned-registry:parry3d-0.27.0/src/shape/cuboid.rs",
+      "sha256": "e096c59d8192dc997b7db25e0dcd024eefb5c9f37a00a2338bafd11f39582630",
+      "personally_read_ranges": [
+        [
+          45,
+          95
+        ],
+        [
+          100,
+          130
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered cuboid55-90/110-127 plus45-54/91-95/100-109/128-130context. Public half_extents documentedpositive but constructor118-120onlystoresnative Vector. ActualAvian481cuboid halvesfull dimensions then SharedShape490calls this; applicationgeometrymustown dimensionadmission. No dependency-specific positive guarantee or actual invalid productshape failure witness inferred."
+      ]
+    },
+    {
+      "scope_index": 490,
+      "source_id": "pinned-registry:parry3d-0.27.0/src/shape/shared_shape.rs",
+      "sha256": "7cec2012b2193c9dc60738a2a1ce2b9e873a83f730e6d0d15bfe616eead271c5",
+      "personally_read_ranges": [
+        [
+          275,
+          305
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered shared_shape282-300 plus275-281/301-305context. Cuboid/roundcuboid simplyconstructArc(Cuboid::new(...)) withrawhalfextents/radius. This closes actualnativeconstructorchain fromAvian481, confirmsdeclarationnotadmission. Capsuleheader/contextonly, no capsule/whole715-line behavior clearance."
+      ]
+    },
+    {
+      "scope_index": 491,
+      "source_id": "pinned-sdk-2.6.1:db_connection.rs",
+      "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+      "personally_read_ranges": [
+        [
+          700,
+          805
+        ],
+        [
+          920,
+          1044
+        ],
+        [
+          1128,
+          1198
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read exact SDK registered715-805/930-975/1138-1180 plus700-714/920-929/976-1044/1128-1137/1181-1198necessary receivingcontext. Reducer callback API enqueues andreturnsOk beforecommit, exact own24trace344confirmsactual requestcorrelation/result/cache callback processing separately. Nativebuild establishes websocket/runtime/cache/channels then returns while initialidentitymessage stillpending; expliciton_connect/on_connect_error/on_disconnect distinguishstates. Current P16sim321waitsonconnect+subscription beforeclaim, so merebuildOknotusedasreadiness.",
+        "Buildercallback setters rejectduplicates, preserveFnOncecontext and privatelyretained callback. Debugfilewrites mayinterleave explicitlydocumented; no debugfileopened here. Current concrete transport/runtimeerrors carriedInternalError, sourcechainqualification492. No entireSDKmodule or browserbuild body credit; actualprior24rangesseparate."
+      ]
+    },
+    {
+      "scope_index": 492,
+      "source_id": "pinned-sdk-2.6.1:error.rs",
+      "sha256": "e98badf5f0eaff8bfe959e31b3ed9e4a6ad5cf5ec4040bfe806f74dc0c692d38",
+      "personally_read_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full SDKerror1-104. Error variants distinguishdisconnect/connection/subscription/internal; InternalError retainsmessage+optionalArcconcretecause andDisplayprintsit. stdError::cause exposesstoredcause but source()returnsNone, so usualsourcechainwalklosesretainedcause evenwhendisplayincludesit. Existing broadcausepropagation familyrequires exactdedup/recipientpolicy; no newacceptedfindingfromdependencyAPIalone. No real connectionerror or logs loaded."
+      ]
+    },
+    {
+      "scope_index": 493,
+      "source_id": "pinned-sdk-2.6.1:lib.rs",
+      "sha256": "8de4cda1540f853eb47c888806c1529d3a7b2ed9e928d8fa01304f7d525e8161",
+      "personally_read_ranges": [
+        [
+          30,
+          70
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered SDKlib35-65 plus30-34/66-70closingcodegenmodule/context. Reexports Timestamp/Identity/etcfromactualspacetimedblib andgeneratedsupportfromSATS/schema; namesdon'treproveadmission ofunderlyingSDKrawrecords. Actualgeneratedmapping andclient462strictconversion contracts separate, no full76linesorbindingsregeneration executed."
+      ]
+    },
+    {
+      "scope_index": 494,
+      "source_id": "pinned-sdk-2.6.1:subscription.rs",
+      "sha256": "5b1c6b0def7c80c6afb1659ff676de3c9414173452a374041d4c9f27f760e729",
+      "personally_read_ranges": [
+        [
+          130,
+          200
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read registered subscription140-190 plus130-139onerrorcontext/191-200completedsubscribe. SubscriptionBuilder privatelypairsconnection/querysetID/callbacks andhandle; subscribequeuesexactclonedhandle thenreturnswrapper, not appliedack. on_error canrunafteron_applied duringlifetime explicitly, current321initialwaitdoesnotestablishpermanenthealthyprojection. Callbacksourceunwrapassumeserrorcontext invariant; noconcreteviolation. No full566-line lifecycle or runtime clearance."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "7 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

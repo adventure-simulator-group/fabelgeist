@@ -1,0 +1,85 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-183",
+  "at": "2026-10-25T21:11:36.800960+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1957,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/tests/occupied.rs",
+      "sha256": "a64ed774e7283e17ea7257d01b3a2973a8f8757069a507280cfd38a3d423e87f",
+      "personally_read_ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full179-line fixture body read. Exact occupied single-property reservations are bound before generation. Assertions preserve building ID/programme/centre/orientation, source terrain outside footprint, zero arbitrary building levelling, static collision/ground classification and obstacle exclusion. Distant placement changes input digest and accepted static support without entering tactical building population; only its floor changes through grounding. No execution or general fixture regression claim."
+      ]
+    },
+    {
+      "scope_index": 1958,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/tests/road.rs",
+      "sha256": "d35e66e32b787fd9b115f5aead54a0f66ea2c69a2a150e3a2816293600f7ce60",
+      "personally_read_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Deleted original role. Exact27-line recovered base body read from verified_object_sha256 d35e66e32b787fd9b115f5aead54a0f66ea2c69a2a150e3a2816293600f7ce60; catalogue explicitly marks source_state deleted and expected current-body SHA null. Do not substitute base as current source or claim current-body semantic coverage. Historical fixture ties same Goslar street, seed/detail noise and point to exact final height bits. Account this role by explicit frozen absence/base disposition, not an executed/current fixture or new runtime aggregate."
+      ],
+      "source_state": "deleted",
+      "coverage_kind": "explicit original-role absence/base disposition; no current-body coverage",
+      "absence_authority": "catalogue row1958 source_state/status/origin; recovered historical bytes only"
+    },
+    {
+      "scope_index": 1961,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_transition_mesh.rs",
+      "sha256": "9bfbec3a8d552438491d80b4939c112bde61108a815c2f3b4ff0129ad796e048",
+      "personally_read_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full82 lines read. Transition collider and renderer obtain corresponding components from same filtered SceneTerrain primitive; collider groups exact triples and renderer installs matching position/UV/index buffers before computed normals. Coarse stride derives same coarse/fine grid ratio; actual grid owner guarantees valid positive scale. Filter uses same admitted collar.cuts_out on admitted plan point, preserving outside heightfield authority. Parallel native buffers and arbitrary stride are internal kernel contracts, not independently validated here."
+      ]
+    },
+    {
+      "scope_index": 1962,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/terrain_transition.rs",
+      "sha256": "df252469b9538a750abdbc7646c7cb240e14f41a73eb79e640670ab4be6dda90",
+      "personally_read_ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full200 lines read. Private immutable TerrainTransitionCollar binds origin/tangent/extents/width/seed/wander/variation and derived noise seeds. Native construction and serde both check admitted direction/finite positive dimensions, width smaller than both half dimensions, nonnegative wander and <=50% width variation before retention. Serde reconstructs all noise seeds from same retained seed and preserves encoded normalized tangent bits rather than renormalizing.",
+        "cuts_out uses strict radial interior while contains includes boundary; local axis/wander/width derive one seed-frame association and blend uses same radial metric. Native scalar arithmetic can represent extreme finite ratios (for example width tiny enough that inner rounds to1 at boundary), but actual blend caller1872 uses checked quantized recipe1968 with metre-scale width/dimensions. No ordinary current producer NaN or arbitrary-collar blend invocation established; no accepted defect from representability alone. Existing root producer-propagation finding ROOT-PPS-F002 remains separate."
+      ]
+    },
+    {
+      "scope_index": 1963,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/terrain_transition/admission.rs",
+      "sha256": "b5fd9a68595105294678fd91c0f3c492e18e5d71d72be01dc8fe7b235f8f25a8",
+      "personally_read_ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full41 lines read. RuptureWander is opaque finite nonnegative metres with zero intentional; CollarWidthVariation is opaque0..5000 basis points. Native/serde enforce same bounds and reflection cannot alter raw fields. Aggregate relation to width/extents is enforced in1962 instead of introducing artificial leaf-wide positive wander or stricter percentage policy."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "5 newly accounted original roles, including1 explicit deleted-role/base disposition and4 full present-body reads; inherited1959/1960/1964 not recounted; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

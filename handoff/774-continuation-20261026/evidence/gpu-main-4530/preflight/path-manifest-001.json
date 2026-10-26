@@ -1,0 +1,322 @@
+{
+  "task": "read-only metadata/diff integration preflight",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "saved": "2e8b0cb0728bbcde65bb91c6e04c5488aac6fa23",
+  "main": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+  "parent_of_saved": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "paths": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "saved_status": "M",
+      "changed_base_to_main": true,
+      "pins": {
+        "base": {
+          "git_blob": "9f49fcf40aeb141430141e7981d1f17bad8a952f",
+          "sha256": "5c2ceb3c325776e498988e77ac4244d1ad60ea11783ac9366e83c034933a1cde",
+          "bytes": 23023
+        },
+        "saved": {
+          "git_blob": "007ac15008c2bc586aed030832bc86858aa96439",
+          "sha256": "7df64ed52df80c252acb7d215f51b3c502e2a04f0e8a4bfa7e550bb530830548",
+          "bytes": 26221
+        },
+        "main": {
+          "git_blob": "7a0ad98e87c60481eb05911888868c4ba7a4b922",
+          "sha256": "ba5976e7c7fbb51718979108ea26fb4002870613323755e1d407199c3fc40dde",
+          "bytes": 32152
+        }
+      }
+    },
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "saved_status": "M",
+      "changed_base_to_main": false,
+      "pins": {
+        "base": {
+          "git_blob": "17b819770621da7a62cdd83669d1a66f50fcbb7c",
+          "sha256": "08d7f871bf045349d897d2ddf58265738e80e85facfe1a1edef5e683f89d3fdc",
+          "bytes": 1242
+        },
+        "saved": {
+          "git_blob": "0e3026441132a049c2472bbccbc294cf7a279b82",
+          "sha256": "6df2befe9397b790ad88233dee3fe7ed4f4aaf918a41b939585a5c633fe0f3db",
+          "bytes": 1368
+        },
+        "main": {
+          "git_blob": "17b819770621da7a62cdd83669d1a66f50fcbb7c",
+          "sha256": "08d7f871bf045349d897d2ddf58265738e80e85facfe1a1edef5e683f89d3fdc",
+          "bytes": 1242
+        }
+      }
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "saved_status": "M",
+      "changed_base_to_main": false,
+      "pins": {
+        "base": {
+          "git_blob": "c51fc0bdc745be39c7ee7ed99af064245fda1ade",
+          "sha256": "7c7b4670cbdd5847e69c0111c94c0d23c85efdda6425ab68a88c0aadeba59da0",
+          "bytes": 279
+        },
+        "saved": {
+          "git_blob": "ae680d919df5352dd3fe2aeefa7a9eaf2dd614e0",
+          "sha256": "83ba1e1ca0719ccdc74c3bc70f4fdc197dca496600a89b41a5e18c7a020fece0",
+          "bytes": 377
+        },
+        "main": {
+          "git_blob": "c51fc0bdc745be39c7ee7ed99af064245fda1ade",
+          "sha256": "7c7b4670cbdd5847e69c0111c94c0d23c85efdda6425ab68a88c0aadeba59da0",
+          "bytes": 279
+        }
+      }
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "saved_status": "M",
+      "changed_base_to_main": false,
+      "pins": {
+        "base": {
+          "git_blob": "0ba6cad565dcbcf0819c09182cdd0a88c8611ead",
+          "sha256": "f39d58cf125a285049e50785f064d1d2ca80cfe654b9e593b5c62fc3670d246c",
+          "bytes": 23741
+        },
+        "saved": {
+          "git_blob": "b4c0357f3039588132ec78b9477f9ab9a709bcdd",
+          "sha256": "10387cbd21a9e79c1f7cac87677c5eb870460659e1c67ba5ac1f548d13b2d193",
+          "bytes": 22102
+        },
+        "main": {
+          "git_blob": "0ba6cad565dcbcf0819c09182cdd0a88c8611ead",
+          "sha256": "f39d58cf125a285049e50785f064d1d2ca80cfe654b9e593b5c62fc3670d246c",
+          "bytes": 23741
+        }
+      }
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "saved_status": "A",
+      "changed_base_to_main": false,
+      "pins": {
+        "base": null,
+        "saved": {
+          "git_blob": "72fa66f1609e75fc7da85fcfcee7839498011df4",
+          "sha256": "511194c4de7587bb7a66be59a5f2762c628354ea57f15b809804a22b47b7db67",
+          "bytes": 1649
+        },
+        "main": null
+      }
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "saved_status": "M",
+      "changed_base_to_main": false,
+      "pins": {
+        "base": {
+          "git_blob": "009e39b27dfaf9852567608fab6c225632d8475a",
+          "sha256": "54fd6bf08dac13bcf5ba8d9d64a54d6f6543a6a5e26beb1ff3a8d3f0989d81ea",
+          "bytes": 10775
+        },
+        "saved": {
+          "git_blob": "e7f51eabca236ff910d45d61b7926b95a68546d5",
+          "sha256": "d4d9df664fcd5207e09a8453fedfb5fae4ce9d139cd45d3bd8bc1e6a9f9ac12e",
+          "bytes": 9225
+        },
+        "main": {
+          "git_blob": "009e39b27dfaf9852567608fab6c225632d8475a",
+          "sha256": "54fd6bf08dac13bcf5ba8d9d64a54d6f6543a6a5e26beb1ff3a8d3f0989d81ea",
+          "bytes": 10775
+        }
+      }
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "saved_status": "A",
+      "changed_base_to_main": false,
+      "pins": {
+        "base": null,
+        "saved": {
+          "git_blob": "51f1976f97861f022441d14dfe2b2ceb156aeb14",
+          "sha256": "a94fcf69d2535906362378a5d753a9daf5898790120012fdc97a27037c0923cc",
+          "bytes": 1649
+        },
+        "main": null
+      }
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "saved_status": "M",
+      "changed_base_to_main": false,
+      "pins": {
+        "base": {
+          "git_blob": "26d4a573ad815123367b0e166a5eadc7abe31b48",
+          "sha256": "f0586f192d129825c11541db615cb1882433f862d473e768d8a224af53541bc0",
+          "bytes": 36387
+        },
+        "saved": {
+          "git_blob": "42b1a63f5bc1c1e207163b820d5985d0d9d39f34",
+          "sha256": "b86ab932de453c75553ba6a915d830406ac142dd7fe544a5d9fe5be25b14431a",
+          "bytes": 34892
+        },
+        "main": {
+          "git_blob": "26d4a573ad815123367b0e166a5eadc7abe31b48",
+          "sha256": "f0586f192d129825c11541db615cb1882433f862d473e768d8a224af53541bc0",
+          "bytes": 36387
+        }
+      }
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "saved_status": "A",
+      "changed_base_to_main": false,
+      "pins": {
+        "base": null,
+        "saved": {
+          "git_blob": "25ad6ce45801d221e5ffd9acdce61a84151c75f7",
+          "sha256": "b2ed5473c8f358bdddfb0f88344ef0380027d83cbbd6b94ee1384d577bf791f9",
+          "bytes": 1713
+        },
+        "main": null
+      }
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "saved_status": "A",
+      "changed_base_to_main": false,
+      "pins": {
+        "base": null,
+        "saved": {
+          "git_blob": "0f1c53361e3b7aaba047b6161c7c10788bf966b1",
+          "sha256": "3edcd2b38e8c913db88198f856e21575b66426c1b936c89f182d5f57211fe6b9",
+          "bytes": 4775
+        },
+        "main": null
+      }
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "saved_status": "M",
+      "changed_base_to_main": false,
+      "pins": {
+        "base": {
+          "git_blob": "bd89d8d2caa0431271a9cdb490919626b2a9b54d",
+          "sha256": "6e2670fe84e2a52c6a3564e86e21afea029ca881107b7d239503c08e65779bcd",
+          "bytes": 43
+        },
+        "saved": {
+          "git_blob": "d124c8b8bfac9cd00253d2e1c6541a8a5361c6d6",
+          "sha256": "e29d771de75a14d0d916156b8d9772beeb1f0241068625cf23b6412d91fdd9bb",
+          "bytes": 243
+        },
+        "main": {
+          "git_blob": "bd89d8d2caa0431271a9cdb490919626b2a9b54d",
+          "sha256": "6e2670fe84e2a52c6a3564e86e21afea029ca881107b7d239503c08e65779bcd",
+          "bytes": 43
+        }
+      }
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "saved_status": "A",
+      "changed_base_to_main": false,
+      "pins": {
+        "base": null,
+        "saved": {
+          "git_blob": "fd6300086bbe288e72a23935d0eaa066ecbd6341",
+          "sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+          "bytes": 3614
+        },
+        "main": null
+      }
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "saved_status": "M",
+      "changed_base_to_main": false,
+      "pins": {
+        "base": {
+          "git_blob": "061ef696844c75285b5d5edce22ecd0b9aa3030f",
+          "sha256": "dd7c6c3515b7f79314eccb5a4be41e3ec6856c0c5c26f3788df27473b1f12834",
+          "bytes": 12985
+        },
+        "saved": {
+          "git_blob": "3a540cc7fc3c763bdf6a5f808616df81ab99a2cb",
+          "sha256": "d225e430430ae842eb2b27a62da4e320547fbc9f07b67d0209b2579e3614896d",
+          "bytes": 12668
+        },
+        "main": {
+          "git_blob": "061ef696844c75285b5d5edce22ecd0b9aa3030f",
+          "sha256": "dd7c6c3515b7f79314eccb5a4be41e3ec6856c0c5c26f3788df27473b1f12834",
+          "bytes": 12985
+        }
+      }
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/fixtures/texture_views.json",
+      "saved_status": "A",
+      "changed_base_to_main": false,
+      "pins": {
+        "base": null,
+        "saved": {
+          "git_blob": "79be38777355e2397cc999babc5953ab98eee85b",
+          "sha256": "2fa289e171e23b95b647a08e4cda05155e304750376625a01ba8fb34802af800",
+          "bytes": 510
+        },
+        "main": null
+      }
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/texture_views.rs",
+      "saved_status": "A",
+      "changed_base_to_main": false,
+      "pins": {
+        "base": null,
+        "saved": {
+          "git_blob": "7b1de1dd73a883708b9b5f7204825183c8dd76a9",
+          "sha256": "95e306d123114d0fd5179e10175ec4820cd0801377c499e1ea2d7a7765548d6a",
+          "bytes": 7602
+        },
+        "main": null
+      }
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "saved_status": "A",
+      "changed_base_to_main": false,
+      "pins": {
+        "base": null,
+        "saved": {
+          "git_blob": "58186921f7797764736646551f1ac57e238f6722",
+          "sha256": "aefd85c07647fab825fdc409555029983347a756c01470b98fc6c442d9db4246",
+          "bytes": 3528
+        },
+        "main": null
+      }
+    }
+  ],
+  "workflow_anchor_metadata": {
+    "base": {
+      "next_step_anchor_count": 1,
+      "previous_readback_line_count": 1,
+      "next_step_line": 106,
+      "adjacent_before": true
+    },
+    "saved": {
+      "next_step_anchor_count": 1,
+      "previous_readback_line_count": 1,
+      "next_step_line": 152,
+      "adjacent_before": false
+    },
+    "main": {
+      "next_step_anchor_count": 1,
+      "previous_readback_line_count": 1,
+      "next_step_line": 115,
+      "adjacent_before": true
+    }
+  },
+  "source_mutations": false,
+  "git_state_mutations": false,
+  "checks": "not run",
+  "historical_reviews_freshly_cleared": false,
+  "cargo_lock_note": "Cargo.lock differs990->4530 outside the16-path candidate. This preflight makes no package-resolution equivalence claim."
+}

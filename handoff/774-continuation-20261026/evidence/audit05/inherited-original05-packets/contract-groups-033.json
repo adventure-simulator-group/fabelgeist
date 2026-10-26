@@ -1,0 +1,180 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-033",
+  "at": "2026-10-22T20:51:43.156292+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "sha256": "48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+      "scope026_index": 1781,
+      "actual_EOF": 2069,
+      "scoped_ranges_compared": [
+        [
+          1,
+          2069
+        ]
+      ],
+      "actual05_comparison": "BodyState is one discriminated physical mode; Stance owns raised intent; ActionState privately owns each action payload and timeline. Default, begin_dodge/block/attack, queued continuation and advance_action preserve whole payload assignment after all fallible calculations. transition_body cancels actions on downed modes and plants raised airborne intent. However independent restoration of active posture transition and action through SkeletonStateWire does not enforce begin_posture_transition cancellation; public transition_body can retain an obsolete transition across an unrelated body mode change. F010 traces these exact lifecycle combinations to advance methods. Public velocity/gait phase and capability flags remain broader than controlled builders; typed CyclePhase allows unwrapped public assignment, but wire, with_gait_phase and normal projection wrap. AttackSpec family/hand/animation remain independently authored; pack capability checks are selection helper policy, not universal begin_attack validation. Exact downstream semantic support and external publication remain separate pending cells.",
+      "source_body_proof": "Fresh complete PR State 1–2069 and seven child bodies personally read for current aggregate relationships. P16 two exact bounded bodies compared by full actual source diff against the freshly reviewed PR body, then explicitly compared by current role; no hash/verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs",
+      "sha256": "bc8baae81a0a5a732df8dba8928b78d85c6b941c193ec50a31780d1a5b43f816",
+      "scope026_index": 1786,
+      "actual_EOF": 158,
+      "scoped_ranges_compared": [
+        [
+          1,
+          158
+        ]
+      ],
+      "actual05_comparison": "Private whole transition constructor initializes positive duration, zero phase, no airborne/landing evidence. normalized only raises duration to one; cannot establish enclosing body/action/stance or dive evidence correlations. Derived Serde can restore independent dive_was_airborne/landing tick, and outer decoder does not re-admit lifecycle. Actual advance reads those retained facts to choose loading/landing/recovery phase and final body. Root-yaw helpers consume consecutive transition snapshots, direction-match or completion and clamp incremental progress; these are paired-observation preconditions, not proof arbitrary two snapshots have one history. F010 retains exact body/action lifecycle gap; no new guarantee of temporal chronology.",
+      "source_body_proof": "Fresh complete PR State 1–2069 and seven child bodies personally read for current aggregate relationships. P16 two exact bounded bodies compared by full actual source diff against the freshly reviewed PR body, then explicitly compared by current role; no hash/verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/raised_locomotion.rs",
+      "sha256": "a2f784e17dfc1ae6b606c9688428b0a9596f4a1b0da358f5a59eacb6494bdfe9",
+      "scope026_index": 1788,
+      "actual_EOF": 145,
+      "scoped_ranges_compared": [
+        [
+          1,
+          145
+        ]
+      ],
+      "actual05_comparison": "Opaque Moving owns normalized nonzero direction and positive moving speed together; planted stores neither. Raw decoder delegates same moving boundary and invalid/too-small request becomes planted. Actual advancing observed velocity wins over requested direction, then set_raised_locomotion enforces raised upright or plants. Retained footstep can preserve prior intent through a temporary stop; observed speed versus physical velocity provenance supplied by ProjectedObservation is compared, not equated by independent leaf names. No false claim all private input scalar norms are globally bounded.",
+      "source_body_proof": "Fresh complete PR State 1–2069 and seven child bodies personally read for current aggregate relationships. P16 two exact bounded bodies compared by full actual source diff against the freshly reviewed PR body, then explicitly compared by current role; no hash/verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/guard_footwork.rs",
+      "sha256": "6ee51d617e6768c1552325294a976d780baa694c28386d909d913ef01475aea0",
+      "scope026_index": 1784,
+      "actual_EOF": 153,
+      "scoped_ranges_compared": [
+        [
+          1,
+          153
+        ]
+      ],
+      "actual05_comparison": "Private plan is initialized from both default contacts, advects both planted contacts and swing endpoints by same displacement, advances one contact and sequence together, alternates next_swing, and builds timed landing from the same selected foot/contact. Step deadline saturates at sample MAX intentionally; progress denominator max-one and use-site clamp preserve phase. Actual generated gait values are in [0,1). Planning uses one local tuning snapshot but sample-rate helper is separate. Public raw Skeleton velocity or independently restored plan are broader; finite source leaves do not prove all vector products/subtractions remain finite. No actual normal invalid controller input claimed.",
+      "source_body_proof": "Fresh complete PR State 1–2069 and seven child bodies personally read for current aggregate relationships. P16 two exact bounded bodies compared by full actual source diff against the freshly reviewed PR body, then explicitly compared by current role; no hash/verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/guard_geometry.rs",
+      "sha256": "c0b137fbc417c7f671619a3cc9cc4b76cd30973682db603b40b27a6729ef5f2f",
+      "scope026_index": 1785,
+      "actual_EOF": 123,
+      "scoped_ranges_compared": [
+        [
+          1,
+          123
+        ]
+      ],
+      "actual05_comparison": "All longitudinal/lateral open/closed/travel outputs derive from one supplied leg length; signed nonpositive leg maps zero and travel clamps negative residual to zero. Direction blends anatomical width versus longitudinal separation, not two unrelated world lengths. Each final NonnegativeLength admission can fail overflow; no mutation before error. Existing fixture verifies relative lengths and two authored calibration distances; read only, not run. No exact-leg matching provenance promised by this standalone physical helper.",
+      "source_body_proof": "Fresh complete PR State 1–2069 and seven child bodies personally read for current aggregate relationships. P16 two exact bounded bodies compared by full actual source diff against the freshly reviewed PR body, then explicitly compared by current role; no hash/verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/projection.rs",
+      "sha256": "1c3d107a1b048fc5397ff0bd4ce896e703fd748296193bf90bea403fe7af7bab",
+      "scope026_index": 1787,
+      "actual_EOF": 272,
+      "scoped_ranges_compared": [
+        [
+          1,
+          272
+        ]
+      ],
+      "actual05_comparison": "SkeletonLocomotionInput privately admits finite orientation/velocity but not unit quaternion intentionally. ProjectedObservation derives and validates frame-specific local speed/physical norm/acceleration and optional landing from one input plus prior state before first mutation. Subsequent projection mutates velocities/tick/landing/body before fallible ground/action advances; no whole-call rollback guarantee. Sequence/tick continuity governs acceleration; landing sequence only support transition; default and actual builders normalize. Ground-cycle uses wrapped phase before advance and wraps result; raised footwork writes bounded phase. Therefore F008 normal projected gait producer is closed, while public state.gait_phase assignment remains a real raw/API path. No current normal phase-2 controller state or host symptom asserted.",
+      "source_body_proof": "Fresh complete PR State 1–2069 and seven child bodies personally read for current aggregate relationships. P16 two exact bounded bodies compared by full actual source diff against the freshly reviewed PR body, then explicitly compared by current role; no hash/verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/downed_facing.rs",
+      "sha256": "a9750618561952fe5915714dea2b3d942edf076b37f122e4c7518920255d7d63",
+      "scope026_index": 1783,
+      "actual_EOF": 353,
+      "scoped_ranges_compared": [
+        [
+          1,
+          353
+        ]
+      ],
+      "actual05_comparison": "Private retained coordinate/target/lateral command represent transient travel and sticky sector, not a requirement coordinate already equals target. new landed seeds exact contact, wire sanitizes finite coordinate/bounded command, normalized recanonicalizes target near coordinate. Actual advance gates Prone/Supine and no posture transition; derives all three fields from same old state/camera/step then commits one record after checked next coordinate. Body parity changes only at whole-turn contact and release removes facing. Body and downed-facing lifecycles are joined in enclosing state; raw incompatible outer decode remains F010. Existing camera-seam fixture source read, not executed.",
+      "source_body_proof": "Fresh complete PR State 1–2069 and seven child bodies personally read for current aggregate relationships. P16 two exact bounded bodies compared by full actual source diff against the freshly reviewed PR body, then explicitly compared by current role; no hash/verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+      "sha256": "bb92ce4b2c2252c6c68cc37955cba5f4d2c90ccdab05a4456a632a7f4adadc4e",
+      "scope026_index": 1789,
+      "actual_EOF": 432,
+      "scoped_ranges_compared": [
+        [
+          1,
+          432
+        ]
+      ],
+      "actual05_comparison": "TurnPolicy discriminates configured angular speed, positive half-turn interval, or checked angle+positive effective deadline, eliminating unused independent mode fields. Deadline uses max(remaining,elapsed), explicit no-direction/two-zero no-turn, and bounded completed yaw operation rather than storing transient quotient. Native forward/quaternion inputs retain actual kernel preconditions. tracking_residual is a diagnostic scalar, not a retained turn. Existing paused/deadline/reversal/frame/launch/contact source fixtures read fully; no execution and no fixed-unit Quaternion promise inferred.",
+      "source_body_proof": "Fresh complete PR State 1–2069 and seven child bodies personally read for current aggregate relationships. P16 two exact bounded bodies compared by full actual source diff against the freshly reviewed PR body, then explicitly compared by current role; no hash/verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/state/downed_facing.rs",
+      "sha256": "a9750618561952fe5915714dea2b3d942edf076b37f122e4c7518920255d7d63",
+      "scope026_index": 2717,
+      "actual_EOF": 353,
+      "scoped_ranges_compared": [
+        [
+          1,
+          325
+        ]
+      ],
+      "actual05_comparison": "Entire qualified production body has actual empty source diff from the freshly read PR production body, and current P16 role independently compared: Private retained coordinate/target/lateral command represent transient travel and sticky sector, not a requirement coordinate already equals target. new landed seeds exact contact, wire sanitizes finite coordinate/bounded command, normalized recanonicalizes target near coordinate. Actual advance gates Prone/Supine and no posture transition; derives all three fields from same old state/camera/step then commits one record after checked next coordinate. Body parity changes only at whole-turn contact and release removes facing. Body and downed-facing lifecycles are joined in enclosing state; raw incompatible outer decode remains F010. Existing camera-seam fixture source read, not executed. P16 existing tests/tail beyond the exact bounded range are excluded; no PR outer SkeletonState contract or whole-file P16 credit.",
+      "source_body_proof": "Fresh complete PR State 1–2069 and seven child bodies personally read for current aggregate relationships. P16 two exact bounded bodies compared by full actual source diff against the freshly reviewed PR body, then explicitly compared by current role; no hash/verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+      "sha256": "bb92ce4b2c2252c6c68cc37955cba5f4d2c90ccdab05a4456a632a7f4adadc4e",
+      "scope026_index": 2716,
+      "actual_EOF": 432,
+      "scoped_ranges_compared": [
+        [
+          1,
+          208
+        ]
+      ],
+      "actual05_comparison": "Entire qualified production body has actual empty source diff from the freshly read PR production body, and current P16 role independently compared: TurnPolicy discriminates configured angular speed, positive half-turn interval, or checked angle+positive effective deadline, eliminating unused independent mode fields. Deadline uses max(remaining,elapsed), explicit no-direction/two-zero no-turn, and bounded completed yaw operation rather than storing transient quotient. Native forward/quaternion inputs retain actual kernel preconditions. tracking_residual is a diagnostic scalar, not a retained turn. Existing paused/deadline/reversal/frame/launch/contact source fixtures read fully; no execution and no fixed-unit Quaternion promise inferred. P16 existing tests/tail beyond the exact bounded range are excluded; no PR outer SkeletonState contract or whole-file P16 credit.",
+      "source_body_proof": "Fresh complete PR State 1–2069 and seven child bodies personally read for current aggregate relationships. P16 two exact bounded bodies compared by full actual source diff against the freshly reviewed PR body, then explicitly compared by current role; no hash/verdict carry."
+    }
+  ],
+  "groups": {
+    "whole-action-payload-and-error-atomicity": {
+      "establishment": "State 501–557 normalizes raw numeric action inputs; constructors 1818–1974 set complete action variant. Queued continuation computes checked tangent, curve coordinate and timeline before queued assignment. advance_action 1977–2027 operates on local copied ActionState then commits only after timeline.sample succeeds.",
+      "relationship": "Action classification, timing and action-specific pose data have one canonical backing; Dodge preempts Attack/Block intentionally, repeated Dodge refuses restart; ordinary attacks/blocks require idle. Presentation-only phase setter explicitly leaves authoritative tick/contact policy unchanged.",
+      "limits": "Raw public AttackSpec fields/Curve may bypass factory relations; begin_attack does not universally enforce animation availability or animation/family/hand consistency. Actual named downstream consumers remain pending whole inventory; no blanket claim illegal normal pack selected."
+    },
+    "body-posture-action-lifecycle": {
+      "invariant": "A posture transition admitted by begin_posture_transition cancels action/raised guard/jump/sprint and is tied to the admitted source body, with explicit airborne dive progress allowed. Downed body cancels presentation actions.",
+      "proof": "State 1458–1479 enforces on normal start; 1196–1232 decoder restores stance/action/posture_transition separately then transition_body only cancels action for downed body; 1331–1356 retains transition on arbitrary body change. Current advance 1481–1557 and 1977–2027 then consume both retained states.",
+      "counterexample": "Otherwise valid upright wire with active UprightToProne transition and active Dodge action survives decode: transition_body(Upright) retains both; action_kind still Dodge and is_posture_transitioning true, impossible through normal begin_posture_transition. Separately normal public begin UprightToProne then transition_body(Ragdolled) retains old transition; advancing past deadline replaces Ragdolled with Prone. No current producer sends such wire/calls this sequence, and no runtime test is claimed.",
+      "connected_repair": "Canonical SkeletonState lifecycle plus decoder and transition_body/advance_posture_transition. Re-admit correlated body/transition/action/stance together, or encode admissible lifecycle payload; preserve ordinary airborne dive/landing and intentional Dodge preemption. Parent retains function ownership."
+    },
+    "periodic-phase-source-closure": {
+      "invariant": "Support kernel expects periodic cycle representative; generic CyclePhase intentionally finite unwrapped.",
+      "actual_sources": "State wire1208 wraps; with_gait_phase1316 wraps; set_weapon_guard resets; projection249/259 wraps before/after checked advance; guard-footwork77–91 emits [0,1). Prior Evaluation030 actual factory/cycle sample already wraps.",
+      "finding_qualification": "F008 remains public gait_support_weights accepting unwrapped phase and public SkeletonState.gait_phase assignment, including direct IK state consumer; the normal built-in producers reviewed here are closed. Do not describe a normal projected phase=2 symptom."
+    },
+    "foot-contact-and-tick-observation": {
+      "relationship": "Raised step stores contacts/swing foot/start+landing/deadline as one private plan; generation uses same selected foot. Handoff advances sequence and contact foot together. Foot movement/source admission and invalid raw standalone decoder remain distinct. Projection validates observation before first mutation but later errors can leave partial tick/body update, not an asserted host publication or rollback defect.",
+      "acceptance": "Keep complete contact plan mutation and two-frame identities; preserve wrapping sample/contact sequences, MAX tick saturation and stationary planted semantics. Any stronger atomic projection promise must cover actual caller/publication policy before fixing."
+    }
+  },
+  "new_unique_findings": [
+    "NATIVE-INITIAL05-F010"
+  ],
+  "finding_support": [
+    "NATIVE-INITIAL05-F008 narrowed normal producer closure; raw/public API counterexample preserved",
+    "NATIVE-ADMISSION03 standalone raw Curve/Guard/timeline distinctions retained"
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

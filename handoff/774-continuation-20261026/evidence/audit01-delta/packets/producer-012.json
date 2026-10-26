@@ -1,0 +1,219 @@
+{
+  "id": "ADLER-CONT01-LATER-012",
+  "lens": "producer-propagation",
+  "registry_sha256": "01e11726b2c32ab6f86d513d62a5aa88980e29a8b2ccaf8716319bf0e7629459",
+  "receipts": [
+    {
+      "extension_index": 165,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials/furniture.rs",
+      "sha256": "2335cdb45fb125b437642bd587707adc68aeb3d1b3e177f8ca23b5de97d4deda",
+      "source_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "actual_eof": 44,
+      "trace": {
+        "producer": "FurnitureWoodSurface closed role produces real native StandardMaterial handles; canonical BuildingLodMaterial::FurnitureWood surface projection used for endgrain/painted.",
+        "retained_and_operations": "Canonical srgb/roughness fields extract directly into actual Color/native material texture channels. Handled/replacement preserve authored texture tint and roughness multipliers.",
+        "actual_receiver": "Actual Assets<StandardMaterial>::add42 and native Color::srgb are concrete rendering configuration boundaries, not an intermediate application physical-material owner.",
+        "boundary_and_disposition": "No repeated primitive\u2192same owner reconstruction in bounded material adapter. Existing roughness scalar-versus-flat-reference policy question with173 remains unresolved, not a counted defect or reason to unify different texture colors. Broader physical/material/source/cause graph unclaimed."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 166,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials/workplace.rs",
+      "sha256": "60040ff58b1a6d59e8eb9a126073b8109d91b7793911d56f72617c2e1f0436c5",
+      "source_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "actual_eof": 50,
+      "trace": {
+        "producer": "Fourteen explicit BuildingLodMaterial roles map through canonical workplace_surface to native material handles.",
+        "retained_and_operations": "Closed role stays typed until canonical lookup; srgb/roughness/metallic project directly into StandardMaterial. No raw string reclassification.",
+        "actual_receiver": "Actual native material descriptor/asset collection, with173 proving every current selected role returnsSome.",
+        "boundary_and_disposition": "No fresh primitive producer gap in this native adapter. Existing broad-subset API/production expect rule and future role extension require owning correction if changed; current source is not ordinary missing-surface failure or complete material-family clearance."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 167,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/Cargo.toml",
+      "sha256": "6c4b6aca99dd4eacdda5f4723be9bd9a87b9cab7cb08b18f54ba170826b1bff5",
+      "source_ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "actual_eof": 23,
+      "trace": {
+        "producer": "StrategicSim manifest declares actual core/dialogue/schema/generatedclient/determinism/serde/error and HTTP dependencies.",
+        "retained_and_operations": "Compile-time capability only; no application value conversion/retainedprimitive.",
+        "actual_receiver": "Concrete declared libraries available to real boundary adapters.",
+        "boundary_and_disposition": "No semantic producer path from dependency list alone; do not infer ownership/defaults or add helper dependency speculatively."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 168,
+      "source_id": "pinned-registry:thiserror-2.0.20/src/lib.rs",
+      "sha256": "817cfdb6c24d60de78f399d4db84f2910c543dec9a9d75d191215b4308e19823",
+      "source_ranges": [
+        [
+          60,
+          97
+        ]
+      ],
+      "actual_eof": 291,
+      "trace": {
+        "producer": "Native thiserror docs allow current fields/tuple arguments in Display expressions.",
+        "retained_and_operations": "Expression is evaluated at formatter text port, not retained as substitute error classification.",
+        "actual_receiver": "Actual std::fmt native trait interface.",
+        "boundary_and_disposition": "No new application primitive escape; helper can be partial but derive does not admit values. Preserve actual field/cause/display semantics when replacing manual impl."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 169,
+      "source_id": "native-dependency:bevy_time-0.19.1/src/fixed.rs",
+      "sha256": "c3e4e4bee5d4cdde83d23e3016d7c8532b2ca00f98fbea93f34c23d316bfb963",
+      "source_ranges": [
+        [
+          70,
+          108
+        ],
+        [
+          116,
+          180
+        ]
+      ],
+      "actual_eof": 367,
+      "trace": {
+        "producer": "Native Time<Fixed> constructors accept real Duration/seconds/hz adapters; from_hz delegates reciprocal then Duration.",
+        "retained_and_operations": "Native timestep stored as Duration, actual setters reject zero duration and nonpositive/nonfinite seconds/rate; no second application floatclock retained.",
+        "actual_receiver": "Existing capture fixed-clock family calls actual native Time port. Reciprocal/Duration representability and nonzero resolution remain stricter than positivefinitehz; actual application rate policy not established by native docs alone.",
+        "boundary_and_disposition": "Native rate scalar is justified at real framework adapter, not a reason for internal raw sample-rate fields everywhere. Preserve exact clock/time distinctions and existing old/new behavior qualification; no new normal rate failure or native SDK repair."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 170,
+      "source_id": "registry:thiserror-impl-2.0.20/src/attr.rs",
+      "sha256": "d3c7fa9e8269973f140e5382f753664ac32bee44c09875f678100b890aea4d06",
+      "source_ranges": [
+        [
+          69,
+          122
+        ]
+      ],
+      "actual_eof": 358,
+      "trace": {
+        "producer": "Thiserror attribute parser recognizes explicit source/backtrace/barefrom and returns parsed compile-time metadata.",
+        "retained_and_operations": "Duplicate attrs rejected; list/namevalue from intentionally left to other derive owner.",
+        "actual_receiver": "Native macro AST/trait expansion, not application raw constructor.",
+        "boundary_and_disposition": "No implicit conversion or source guarantee without actual attr; no fresh01 type-erasure route in parser. Local value admission/cause migration remains own field schema."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 171,
+      "source_id": "registry:thiserror-impl-2.0.20/src/ast.rs",
+      "sha256": "c717fffeb2923b2840d58fd02923a1926a48fa8336039f57a9e94f9275ae7ec6",
+      "source_ranges": [
+        [
+          85,
+          128
+        ]
+      ],
+      "actual_eof": 185,
+      "trace": {
+        "producer": "Native thiserror AST copies container display/transparent/fmt default to variants only when explicit variant formatting absent.",
+        "retained_and_operations": "Compile-time selected metadata then expands shorthand for actual typed variant fields.",
+        "actual_receiver": "Native error trait generator consumes this AST; no runtime record converted through mutable prose.",
+        "boundary_and_disposition": "No new primitive producer gap or competing checked constructor. Do not confuse compiler template projection with application state admission."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 172,
+      "source_id": "installed-rust-src:nightly-2026-07-13/alloc/src/boxed/convert.rs",
+      "sha256": "1534b6cd36659f2753a6633dd4bd25d7f9bbccb0ff1d83e3adc5fb52569fb45e",
+      "source_ranges": [
+        [
+          19,
+          36
+        ]
+      ],
+      "actual_eof": 748,
+      "trace": {
+        "producer": "Installed alloc From<T> forBox<T> consumes actual owned T and delegates Box::new.",
+        "retained_and_operations": "Value type/cause survives heap allocation; no primitive intermediate or extra admission.",
+        "actual_receiver": "Real standard-library allocation/conversion interface.",
+        "boundary_and_disposition": "Source-only installed nightly corroboration, not frozen compiler execution. Can support equivalent selective boxing proof, not local error-family completion or test success."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 173,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/workplace/surfaces.rs",
+      "sha256": "7c0ffb3f7478e0ac8fcb9893cb5c9b741562a98e7c92cb24d54c09fac7bc1b30",
+      "source_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "actual_eof": 48,
+      "trace": {
+        "producer": "Canonical BuildingLodMaterial::workplace_surface maps closed authored role to fixed native surface DTO(srgb,roughness,metallic), returnsNone for other roles.",
+        "retained_and_operations": "Fixed scalar/array values are projection consumed directly by165/166 nativeColor/StandardMaterial. Role remains typed before final native descriptor; no arbitrary public caller-supplied WorkplaceSurface enters these specific consumers.",
+        "actual_receiver": "Actual165/166 rendering asset constructors. Both methodclassifications and currentfinite values personally read, original registration timing qualification retained.",
+        "boundary_and_disposition": "No new01 premature type loss at concrete render adapter. Other physical material/drape properties need their own canonical leaves; do not merge visual scalar into physics owner. Q003 roughness mapping policy unchanged; no inherited Root09 or03/07 verdict as01coverage."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 174,
+      "source_id": "pr-working:crates/strategic-web/static/art-demo/viewer.mjs",
+      "sha256": "18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+      "source_ranges": [
+        [
+          265,
+          290
+        ]
+      ],
+      "actual_eof": 327,
+      "trace": {
+        "producer": "Browser start fetches actual catalog.json, decodes response JSON, selects matching hashid or first catalog entry, initializes native WASM runtime and forwards selected.id.",
+        "retained_and_operations": "Raw JSONid remains open browser/wire identity; no kind/material/camera classification occurs in these26lines. Performance timestamps immediately become rounded millisecond console fields;200ms interval ends at actual browser scheduler.",
+        "actual_receiver": "Actual receiving call is select(...) at276 then send({type:show,exhibit:selected.id})289. Their helper bodies are outside registered265-290; only declaration-line navigation identified send32/select93. Native transport implementation is explicitly not yet source-traced here.",
+        "boundary_and_disposition": "This accounts exact bounded174 and closes119 immediateJS fetch/ID-forward source role, but NOT whole catalog\u2192WASM family. No schema validation beyond response.ok appears here; fixed119catalog is nonempty/finite, so malformed/empty/unknown-response failure is conditional, not ordinary case. Keep explicit untraced send/select receiving dependency; do not infer native boundary from privatehelper name or invent closed enum for opencatalogIDs. No unique count."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    }
+  ],
+  "global_clearance": false,
+  "new_unique_count": "not asserted; existing-remedy dedup required",
+  "extra": {
+    "source_basis": "Fresh01analysis on personally consumed165-173 exactfacts;17426line body personally read forfirstown01trace. No otherlensverdict credited.",
+    "pending_connected_receivers": [
+      "M174 same viewer.mjs source: send definition32, select definition93 bodies outside current registered ranges; root notified before any adjacent semantic read."
+    ]
+  }
+}

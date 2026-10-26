@@ -1,0 +1,66 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-050-PARTIAL",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1600,
+    1601,
+    1602
+  ],
+  "partial_original": [
+    1603
+  ],
+  "source_pin": "source-pins-and-scope-077.json",
+  "source_reads": {
+    "1600": {
+      "head": [
+        [
+          1,
+          1231
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1601": {
+      "head": [
+        [
+          1,
+          54
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1602": {
+      "head": [
+        [
+          1,
+          56
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1603": {
+      "head": [],
+      "actual_diff": [
+        [
+          1,
+          19
+        ]
+      ]
+    }
+  },
+  "analysis": [
+    "1600 entire1231 source is byte-identical to base and personally read. Exact same style tables/bake version16/tile sizes, perLOD primary/subcluster grouping, orientation/fit and selected minimum branch depth feed native raster calls and quad construction. Native image format/usage, pixel exposure, provenance records and per-primary bounds spheres are unchanged. Runtime whole-tree card emits only the first quad while retaining eight atlas directions as before.",
+    "1601 and1602 complete bodies are byte-identical. Actual card output is four native positions/normals/UVs with the same winding, while actual source branches supply the same crown-group/macro-cluster axes, maximum selection, fallback axes and seeded subcluster phase. Native inputs and calculations retain their bit/order semantics for the same source.",
+    "The skeleton1598 now personally traced supplies authored group/count bounds. Per-card u16 diagnostic count casts are unchanged; the actual representative oak and beech source counts fit. Arbitrary caller-supplied oversized/malformed inputs are not declared safe, and existing debug provenance checks are not confused with runtime admission.",
+    "1600 tree_source_geometry_hash707-744 still folds native f32 geometry words and casts fullu64 leaf shoot_id to f32 before hashing. This is an unchanged lossy identity representation and platform-dependent source identity, not a new preservation regression. It remains qualified; current CI full-ID repair evidence is kept in its separate review and is not substituted for frozen source or global clearance.",
+    "Visibility overlap/anchors/leaf and trunk handoffs, focal/radius scale formulas, material variation and every existing card/bake/atlas/budget/LOD oracle remain unchanged. Full fixture bodies were read without running them or treating shader includes as source reads.",
+    "Actual1603diff19 only adapts its existing fixture position to finite ScenePlanPoint using x/z, agreeing with actual1613 seed mapping and1907 constructor/getter. No new case/assertion. Its complete raster body976 remains pending and receives no source-body credit in this partial packet."
+  ],
+  "findings": [],
+  "qualifications": [
+    "Frozen6533 exact source only, not currentCI replacement. Native raster1603 and asset1604/production source/receiver paths pending.",
+    "All prior findings/policy qualifications retained; source equivalence does not prove cross-platform asset acceptance.",
+    "No project checks/tests/builds or source/Git mutation; no global clearance."
+  ],
+  "global_clearance": false
+}

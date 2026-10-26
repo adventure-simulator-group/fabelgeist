@@ -1,0 +1,82 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-213",
+  "at": "2026-10-25T21:44:57.872930+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2191,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "sha256": "48d91d7bad79387e928424c9c868a5137fc880d3764258c53f82224e65f9c7ec",
+      "personally_read_ranges": [
+        [
+          1,
+          262
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all262lines metal/bake.rs. Public textures validates Metal then size32..1024, resolves engraving cut before allocating same texel count across scratch/recess/slopes/output/finish buffers. Compared host parameter records against2192/2194/2195 shader fields and pitches: slopes2words,finish3words,RGBA1word. Image/relief discriminants must match before upload; parallax depth only Height relief, same depth and TILES_PER_METRE.",
+        "Private bake assumes validated caller; zero initialization of untouched scratch/recess/slopes depends Buffer::new backend guarantee, not established by this body alone. No uninitialized-read finding from assumption. Readback slices same texel count supplied to private scratch. No execution."
+      ]
+    },
+    {
+      "scope_index": 2192,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/metal/finish.rs",
+      "sha256": "644af66b116514a18cfcf826612c00ad8368777bafcdad735c44166fdc55d535",
+      "personally_read_ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all134lines metal/finish.rs. Checked constant FINISH_WORDS3 against allocation2191 and writes index*3+0..2. Same Metal::TILES_PER_METRE supplies physical finish scaling; periodic fixed nonzero lattice sizes bound wrap denominators, and texel-center sampling stays below one. Seed/layer/coordinate draws remain attached to each texel. No new aggregate finding."
+      ]
+    },
+    {
+      "scope_index": 2193,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "8dee677fcdf79dbea5c29ec06b65413435faef45bb0d8d0da7a35516f25e4a2c",
+      "personally_read_ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all126lines metal/mod.rs. MetalGpu privately owns context plus six kernels compiled up front; public textures delegates validated2191 entry. Buffer creation marks copy/readback uses, scratch ensures at least one word, batch and read use same owned context. KernelCache/context association is an API/backend contract beyond this body; no fabricated mixed-device witness. Errors flatten device failures into String, dedup existing error ownership family rather than new finding."
+      ]
+    },
+    {
+      "scope_index": 2194,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/metal/ornament.rs",
+      "sha256": "6a9f887c5c746b8b70fc8a3c9741ffa1a68dd3580a61483ca88fbc244dcb4152",
+      "personally_read_ranges": [
+        [
+          1,
+          198
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all198lines metal/ornament.rs. Compared12-field uniform with2191 record_ornament. Motif codes0..5, shared tile rotation/repeats and line widths, per-texel extent guard and same output recess index. Division by repeats/soft/strands relies actual Metal/Ornament validator later2206/2207; guilloche divides only inside loop. No ordinary invalid ornament established here."
+      ]
+    },
+    {
+      "scope_index": 2195,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/metal/textures.rs",
+      "sha256": "b7eedf258c742117f1e6dbcb5abfeb71614f57e3001a6bd335b88c160ffca0ee",
+      "personally_read_ranges": [
+        [
+          1,
+          335
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all335lines metal/textures.rs. Compared scratch draw count5 and workgroup64 to host; each scratch skips to id.y*5, nonnegative groove bit atomicMax establishes order-independent deepest sample. Image scalar/slopes2word layouts match discriminant host upload; rotated samples and normal slopes use same rotation, central differences wrap same dimensions. Final normal/roughness/depth records use index with same size and finish3word/slopes2word pitches. Host size gate32..1024 closes n*n and ordinary wrap denominators; untouched buffer zero guarantee remains backend qualification. No new accepted finding."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "5 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

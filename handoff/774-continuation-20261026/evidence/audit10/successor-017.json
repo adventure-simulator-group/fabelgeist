@@ -1,0 +1,87 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-017",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1508,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly.rs",
+      "sha256": "cbda2d52d625c9e1eb7fbb5d5aec2690066609512d42c9e95dfad4291ae59890",
+      "ranges": [
+        [
+          1,
+          355
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Building Clone/ShaderType, Part Clone, AssemblyError Debug/thiserrorError and publication/failure componentsalreadyderive. Allremainingfunctions perform componentbitpacking, nativebuffer/materialassetconstruction, sourcepublication/failure and owner-specificassembly. No handwrittentrait/codec.",
+      "disposition": "No derive opportunity. ExistingShaderType owns actualnativeGPUlayout while thiserror retainsconcreteassemblystates; custompacking/sourcecohortpublication is semantic, not mechanicalrecordserialization. Do notaddrawFrom/serde or infer numerical/atomicityclearance from namedPackedCity.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1509,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/input.rs",
+      "sha256": "f034c1a0aa3a41421c9cf823b2fa3c3b491889188a8e4ecc228a50d8e96c3399",
+      "ranges": [
+        [
+          1,
+          153
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "PendingGpuCities Resource/Default and PendingGpuBuildings Default alreadyderive. clear/set_publication/push/groups and Group::from_parts are inherentownerqueue/materialpalette/prototypegrouping semantics, not traitimplementations orcodec.",
+      "disposition": "No derive opportunity. Keep root/frame/appearance/compiledsourceassociation and actualpalette/groupkeypolicy explicit. from_parts is semanticgroupaggregation, so replacingbyFrom/derive would beincorrect; no serialization added.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1510,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/packing.rs",
+      "sha256": "73f096fbf7bd766dea82037bb3b7f9f83b1e3a20a5ef36355ff36dc6b9990cc1",
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "pack is one ordinaryfunction that cachesgeometry, computesbounds/LODflags, assemblesbuildingowner lists and nativeDrawRanges. No handwrittentrait/codec or localnewtypeconversion.",
+      "disposition": "No derive opportunity. Actualgeometryindex/bitfield/placementassociation is explicitnativepackingkernel, not mechanicalserde/From. Existinggraphicsbounds/owner obligationsremainuncleared.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1511,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/props.rs",
+      "sha256": "58055c79f3fdfbfcee3824dd3008ebe3b966a6697615b1e1fcf8f0f4efb80ff4",
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "parts is contextualnativeECS furniture/parent/material/fade selection and Part construction, no handwrittentrait/codec.",
+      "disposition": "No derive opportunity. Preserve actualscene/furniture/materialsourceclassification and nativeTransformextraction; no rawconstructionderive orserializationforruntimefilter.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1512,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/ranges.rs",
+      "sha256": "93018a75b7998c586b48974ab837dc5cefa3d9bf9af497c987bda989e6840615",
+      "ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "DrawRange Clone/ShaderType and RangeGroups Default alreadyderive. push/finish/unshared_ranges are inherentrange/ownerlist compaction, checkedcapacity andaggregation. Twoexistingtests are ordinaryfunctions; no handwrittentrait/codec.",
+      "disposition": "No derive opportunity. Keep semanticdeterministicgroupordering, duplicates/ownerassociation and explicitboundednativeaddresspacking; serde/rawFrom would changecontract andcannotreplace thiscalculation. NativeShaderType appropriateexistingderive, not proof allcapacitybounds valid.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

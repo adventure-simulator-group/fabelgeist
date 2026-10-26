@@ -1,0 +1,76 @@
+diff --git a/crates/adventuresim-tactical-client/examples/armor_browser_probe.rs b/crates/adventuresim-tactical-client/examples/armor_browser_probe.rs
+index 272e9fa5f..487f71bfd 100644
+--- a/crates/adventuresim-tactical-client/examples/armor_browser_probe.rs
++++ b/crates/adventuresim-tactical-client/examples/armor_browser_probe.rs
+@@ -2,20 +2,35 @@
+ mod armor_fixture;
+ 
+ fn main() {}
+ 
+ enum Probe {
+     Catalog(&'static str, &'static str),
+     Anime,
+     Wrapped,
+ }
+ 
++const PROBES: [Probe; 12] = [
++    Probe::Catalog("vambrace", "left"),
++    Probe::Catalog("breastplate", "worn"),
++    Probe::Catalog("gorget", "worn"),
++    Probe::Catalog("sallet", "worn"),
++    Probe::Catalog("mail_standard", "worn"),
++    Probe::Catalog("linen_tunic", "worn"),
++    Probe::Catalog("leather_boot", "left"),
++    Probe::Catalog("puffed_sleeve", "left"),
++    Probe::Catalog("puffed_hose", "left"),
++    Probe::Catalog("pauldron", "left"),
++    Probe::Anime,
++    Probe::Wrapped,
++];
++
+ #[cfg(target_family = "wasm")]
+ #[wasm_bindgen::prelude::wasm_bindgen]
+ pub async fn fit_probe(bytes: Vec<u8>) -> Result<String, String> {
+     std::panic::set_hook(Box::new(console_error_panic_hook::hook));
+     run(&bytes).await.map_err(|error| format!("{error:#}"))
+ }
+ 
+ #[cfg(target_family = "wasm")]
+ #[wasm_bindgen::prelude::wasm_bindgen]
+ pub async fn prepare_probe(bytes: Vec<u8>) -> Result<String, String> {
+@@ -50,34 +65,21 @@ pub async fn prepare_probe(bytes: Vec<u8>) -> Result<String, String> {
+ async fn run(bytes: &[u8]) -> anyhow::Result<String> {
+     use adventuresim_character_creator::{design_input, runtime_equipment};
+     use anyhow::Context;
+     let (body, _) = armor_fixture::load(bytes)?;
+     let bracer = design_input::load_bracer_design(None)?;
+     let breastplate = design_input::load_breastplate_design(None)?;
+     let gpu = adventuresim_character_creator::armor_gpu_async().await?;
+     let errors = capture_errors(gpu);
+     let mut results = Vec::new();
+     for round in 0..2 {
+-        for probe in [
+-            Probe::Catalog("vambrace", "left"),
+-            Probe::Catalog("breastplate", "worn"),
+-            Probe::Catalog("gorget", "worn"),
+-            Probe::Catalog("sallet", "worn"),
+-            Probe::Catalog("mail_standard", "worn"),
+-            Probe::Catalog("linen_tunic", "worn"),
+-            Probe::Catalog("leather_boot", "left"),
+-            Probe::Catalog("puffed_sleeve", "left"),
+-            Probe::Catalog("puffed_hose", "left"),
+-            Probe::Catalog("pauldron", "left"),
+-            Probe::Anime,
+-            Probe::Wrapped,
+-        ] {
++        for probe in PROBES {
+             let (item, placement) = match probe {
+                 Probe::Catalog(item, placement) => (item, placement),
+                 Probe::Anime => ("anime", "worn"),
+                 Probe::Wrapped => ("wrapped_tassets", "worn"),
+             };
+             let started = web_time::Instant::now();
+             let cached_kernels = gpu.cache().len();
+             let mut breastplate = breastplate.clone();
+             let armor = if matches!(probe, Probe::Wrapped) {
+                 wrapped(&body).await

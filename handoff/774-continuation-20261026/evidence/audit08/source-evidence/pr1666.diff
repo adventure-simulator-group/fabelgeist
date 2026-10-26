@@ -1,0 +1,15 @@
+diff --git a/crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared/extent_tests.rs b/crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared/extent_tests.rs
+index 09c01758a..3eacb891c 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared/extent_tests.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared/extent_tests.rs
+@@ -65,7 +65,9 @@ fn prepared_owned_paving_respects_selected_rings_and_matches_native_coverage() {
+                 (index == 0).then_some(&environment),
+                 environment.weather,
+                 input.landform.map(|r| r.transition_collar()),
+-            ) {
++            )
++            .unwrap()
++            {
+                 native.add_mesh(
+                     &mesh,
+                     Vec3::new(

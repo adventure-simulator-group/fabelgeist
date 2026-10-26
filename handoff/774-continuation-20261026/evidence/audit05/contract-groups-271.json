@@ -1,0 +1,28 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-271",
+  "at": "2026-10-25T22:28:58.189592+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2414,
+      "source_id": "pr-working:crates/strategic-web/static/dialogue-client.js",
+      "sha256": "dd5524466d59c0e52e3a527e31b8cc005ebf64f581b89a08801e2195943fcf19",
+      "personally_read_ranges": [
+        [
+          1,
+          825
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozen1-825 in three bounded chunks: completion/submission resolves exact label/ID, rejects empty, unknown and duplicate choices; prompt min/max checked before mutation. Topic bindings and asynchronous results check selectionGeneration, NPC, session and current revision; contextual mutations additionally bind active token/path. Selecting another NPC clears scripted/contextual prompts and state.",
+        "Dialogue start deduplicates in-flight actor/location/generation, follow-up social response verifies resident ID/generation. Context social/romance responses check binding currentness, but response subject identity is not independently rechecked in mutation result; actual endpoint contract remains producer authority. Errantry acceptance retains action ID on transport failure and resets on409/422; topic/answer/claim use fresh IDs and inherited receipt/retry semantics remain qualified.",
+        "Mount aborts listener lifecycle and remounts on page event; loadPeople success after await and several network continuations do not explicitly check aborted signal. Disconnected old DOM/global selection event interaction remains qualified lifecycle question pending canonical navigator/background-fetch cancellation authority; no reproduced race or new finding.",
+        "DOM textContent/escaped attributes render claims/topics/observer social answers. NPC fixtures are retained separately while people replace portrait children; catalogue digest supplied in chat context, exact response/catalogue correlation remains server contract. Source-link and returned redirect navigation rely canonical producer/helper target policy (existing target predicate family), not arbitrary URL safety clearance. No JS/browser execution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

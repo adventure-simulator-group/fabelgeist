@@ -1,0 +1,85 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-164",
+  "at": "2026-10-25T20:48:03.020488+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1720,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/plant_lods.rs",
+      "sha256": "36ec27846639fcd39472f076870256cb3a37ae29dfd489fe49f7e93cbe40d0a7",
+      "personally_read_ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full113 lines including fixture read. Plant observation pairs actual entity, PlantLodInstance, GlobalTransform and mesh handle in one query; distance/range and camera-specific VisibleEntities membership are kept separate. Selected root matches transform position; level sorting keeps species/mesh row intact. Missing mesh/index produces0 diagnostic triangles, not an admitted empty geometry proof. Parent only serializes this observation; no successful required geometry inference established.",
+        "Actual source fixture distinguishes per-camera membership from aggregate ViewVisibility and uses exact sampled instance ranges. Root position alone is not a branded unique plant identity; co-located distinct source populations would need actual producer proof before a mismatch claim. No test execution."
+      ]
+    },
+    {
+      "scope_index": 1721,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/setup_obstacles.rs",
+      "sha256": "ed251a1127b90eec10478382e61cb9fc193e36c1d7c15104e43dfdefab03d3e4",
+      "personally_read_ranges": [
+        [
+          1,
+          166
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full166 lines read. CapturedObstacles::spawn first admits every grid-decoded point, required support and final position into SupportedObstacle collection, then publishes physics/overlay entities. Failure before collection completes queues no obstacle cohort. Counts, focus point and focus entity are updated together from each actual kind/position; closest focus uses planar squared distance and full-width seed controls native rock yaw only at projection.",
+        "Obstacle physics and overlay share exact Transform. Actual capture producer uses unit scale and finite support position; prior debris ignore-scale concern is not a normal source witness for these capture entities. Position_sum is a native focus reduction and final parent focus is re-admitted; arbitrary extreme finite-sum overflow remains completed-operation admission question, not ordinary production failure."
+      ]
+    },
+    {
+      "scope_index": 1722,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs",
+      "sha256": "17a9a24f5d15cbd9db474bed73f9cecc39d1dddb1af6a7ff2d9d74a83ae13461",
+      "personally_read_ranges": [
+        [
+          1,
+          350
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full350 lines read. Camera pose dispatcher carries typed checked Scene positions, angle and length owners to actual SceneCameraView admission. Live-query poses reject the pure dispatcher explicitly; building cameras use checked ordinal lookup. Missing plant/vista/required authored camera is a structured error. Tree/rock/debris absent focus uses an explicit generic camera fallback, while actual manifest requires relevant detail payload for requested proof, so fallback does not itself certify absent target.",
+        "Fixed authored per-species framing uses the same selected tree focus, species observation and azimuth. Tree cold traversal floor is explicit camera policy; typed SignedLength can be zero/negative but private authored calls determine accepted view choices. New source policy or equivalence not inferred from helper names."
+      ]
+    },
+    {
+      "scope_index": 1723,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/landscape.rs",
+      "sha256": "8a9fe4f5dd1a72f306edf38bf29bb147569abd3314d13ff00e9f3fc01fb8e66e",
+      "personally_read_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full122 lines read. Landscape camera helpers require VistaCaptureGeometry for valley/peak and combine its actual maximum with terrain elevation for clearance. Optional horizon peak deliberately falls back to actual terrain/ground-eye values, not fabricated support. Native heading fallback chooses a valid axis when geometric heading is degenerate, and final camera position/target are checked by SceneCameraView. City-oblique framing uses actual extent+margin and typed angle; geographic payload relationships remain VistaCaptureGeometry owner contract."
+      ]
+    },
+    {
+      "scope_index": 1724,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/placement.rs",
+      "sha256": "1d7e47c42a77acec3c103a59dbd02b3810eb0fed0afacbc35c1866908cc55e30",
+      "personally_read_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full78 lines read. SceneCameraView looking_at checks actual computed forward and forward\u00d7up normalizability before publishing retained pose; distinct finite leaves alone are not treated as enough. SceneCameraOrientation is payload-bearing LookingAt or Fixed: fixed rotation is authoritative and target remains diagnostic focus, so no hidden dependency requiring look-at reconstruction. Native transform keeps original Bevy arithmetic and native vector projection only at render port.",
+        "Position/target fields are mutable within viewer visibility while orientation is private; an arbitrary internal mutation could break look-at relation, but actual parent1699 retains/copies the admitted value and does not mutate those fields. API representability alone is not an actual bad construction witness."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "5 newly accounted original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

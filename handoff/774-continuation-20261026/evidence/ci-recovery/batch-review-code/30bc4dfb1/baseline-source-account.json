@@ -1,0 +1,34 @@
+{
+  "hosted_run": 40248503551,
+  "artifact_revision": "e1637ef79452544906e25fa0261b42c386c895f6",
+  "artifact_baseline_sha256": "d6375fb56e198b2f18834d1c566580bc312fc1d3031907c620608f07f21d640a",
+  "auxiliary_vs_444_changed_paths": [
+    ".github/workflows/rust-quality.yml"
+  ],
+  "current_skeleton_equals_hosted_source_sha256": "d59e5d0392bd0c25edf67def3a92e1331ade6a36f935411a7b6847f61525c4c1",
+  "hosted_selected_measurements": [
+    {
+      "section": "files",
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+      "ceiling": 710
+    },
+    {
+      "section": "files",
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs",
+      "ceiling": 775
+    },
+    {
+      "section": "functions",
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+      "item": "procedural_oak_skeleton_with_gnarling",
+      "ceiling": 265
+    }
+  ],
+  "current_changes": "Only skeleton file727->710/function284->265 ceilings tightened; impostor ceiling774 unchanged. New currentimpostor has not been rescanned locally oraccepted hosted.",
+  "excluded_preexisting_reductions": "presentation/litter untouchedproduction reductions not adopted; no cutoff increase.",
+  "qualifications": [
+    "Artifactsource/payload parsing independentlyread; no fullhostedlogs or localprojectscanner executed.",
+    "Untracked computeWIP/hand-off paths observed but outsidecandidate andnotinspected/mutated. Alltrackedreviewedsource pinned byGit30bc.",
+    "NormalfinalLinux/Windows acceptance pending, no impliedsourceportabilityproof."
+  ]
+}

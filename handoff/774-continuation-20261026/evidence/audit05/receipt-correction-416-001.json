@@ -1,0 +1,7 @@
+{
+  "at": "2026-10-26T00:32:14.196896+00:00",
+  "corrects": "contract-groups-416.json",
+  "scope_index": 326,
+  "correction": "The metrics note incorrectly said invalid projection values map to Ratio::ONE. Actual lines101-106 construct Ratio::from_ratio(aspect_ratio.max(0.1)) and tan(fov/2), with fixed16:9 and tan40degrees only for nonperspective projections. No explicit finite validation or ONE fallback exists in this receiver. Personally read1-122 includes incidental beginning of blend_profile111-122, not its whole body; material registered contract1-100, receiving expression101-109. No new finding without Ratio owner and actual projection producer trace.",
+  "other_correction": "323 note content agents means Drive::Content agents."
+}

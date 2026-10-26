@@ -1,0 +1,70 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-161",
+  "at": "2026-10-25T20:44:54.203571+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1709,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/fixed_city_cameras.rs",
+      "sha256": "116ed503cb72625c577fd02ecf334fc72a8e6968aee36fe97cf6fdd82ac725df",
+      "personally_read_ranges": [
+        [
+          1,
+          232
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full232 lines includingfixtures read. Contract Document deserialization denies unknown fields and load checksversion2, exactly7exterior cameras, finite coordinates and nonvertical/nonzero look direction for every exterior+optional benchmark. apply prepares every checked camera and optional benchmark before replacing retained cameras/eye pair; failed preparation cannot install a partial camera vector. File write follows mutation at actual artifact boundary and canfail independently; no successful all-output transaction asserted.",
+        "The raw Cameravalidate subtraction/cross/squarednorm can overflow from individually finite extreme positions; later checked SceneCameraView is owning completed-pose admission. Actual authored terrain profile selection uses fixed camera index0,1,2,4,5,6 within7extent and unchangedFOV/lighting for foundation comparisons. playable building promotion owner is a separate module, gets no automatic coverage from declaration."
+      ]
+    },
+    {
+      "scope_index": 1710,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_capture.rs",
+      "sha256": "5b18a1ddb04059c6126b350b2df16288411ef3402b2573d661ab0bafcb582ea5",
+      "personally_read_ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full177 lines read. Furniture camera setup selects actual outdoor catalog kind instance and its exact recipe bound/orientation before terrain-supported view; absence rejects. Market centre division occurs only after nonemptyVendor subset, checked coordinate/elevation construction follows. ExpectedFurniture instance and meshbatch counts both derive from the same playable+distant layout/recipes, populated before readiness consumer. write_layout prepares complete recipe evidence before writing file. Production furniture spawns actual descriptor/transform/collider from each instance, missing recipe orsupport rejects.",
+        "Optional profile return distinguishes nooverride from a valid vector. Annotations carry only review overlays, not replacement furniture. UI/renderer behavior not executed; recipe association and native consumer relationships remain source contracts, no generic arbitrary snapshot certification."
+      ]
+    },
+    {
+      "scope_index": 1711,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_overlay.rs",
+      "sha256": "dabf3bf9fa2f2c3901d7d9737809119ec7f14c610b352fae3adcd159772bd386",
+      "personally_read_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full64 lines read. Overlay uses accepted footprint closedcorner array and modulo traversal; pair endpoints ownlinecentre/delta/rotation. Missing unsupported or nonfinite scene point skips debugannotation, not gameplaygeometry or requiredsupport. Mesh/material/transform are native projection and all overlays initiallyhidden under CaptureOverlay for explicit per-view visibility. No retained semantic absence fabricated or ordinary gameplay contract changed."
+      ]
+    },
+    {
+      "scope_index": 1712,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_readiness.rs",
+      "sha256": "8f349e6bcd0e513f6a77a8b70f6957051ba93b126b1d2f6a6fe384e2ee035ab3",
+      "personally_read_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full160 lines includingfixture read. Profile install links buildingreview/nativeGPUreadiness only when required and avoids duplicateGpuReadiness installation. Furniture Readiness Configure resetsready/pendingtime before observing requestedview. Observation requires actual nonemptyground and GPUresidentmesh/texture, exactfurniture+batch populations, parentdescriptor/materialpalette association and actualassetpresence; missingany returnsfalse until explicittimeout.",
+        "Expected counts prove cardinality, not arbitrary identity permutation; actual SceneFurniture producers1710 and parent association constrain ordinary path. Readiness writes per-view sourceevidence only after checks and doesnotprove screenshot/calibratedacceptance. No testsrun."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "4 newly accounted originalroles; lensincomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

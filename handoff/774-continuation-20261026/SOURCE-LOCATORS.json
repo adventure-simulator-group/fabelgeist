@@ -1,0 +1,71 @@
+{
+  "path_projection": {
+    "transported_evidence": "handoff/774-continuation-20261026/evidence/",
+    "original_ignored_root": "target/recovery-20261025/",
+    "rule": "Normalize Windows separators. For original workspace-relative target/recovery-20261025/... paths, strip that prefix and resolve beneath evidence/. For receipt-relative paths (including ../ or local filenames), resolve from that receipt's own directory, then apply the evidence-root projection. Some inventories explicitly declare root-relative paths; follow their declared base. Absolute old source/worktree/tmp paths remain provenance or require the explicit old handoff portability mapping. Never rerun historical helper scripts without checking their paths."
+  },
+  "frozen_774": {
+    "branch": "codex/774-audit-handoff-20261025",
+    "commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "root": "handoff/774/",
+    "original_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "original_base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "objects": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/<SHA256>",
+    "catalog": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/catalog.json",
+    "external_paths": "handoff/774/EXTERNAL-PATHS.json",
+    "warning": "About2460000000bytes across24000files; fetch Git objects and inspect only required paths/ranges, no full extraction."
+  },
+  "original_recovery_branches": [
+    {
+      "branch": "codex/780-recovery-handoff-20261025",
+      "commit": "7d3863f3dbea03908c18a9ce11d86804783ddd28",
+      "root": "handoff/780/",
+      "ledger": "handoff/780/evidence/ledger.json",
+      "skills": "handoff/780/skills/",
+      "source_snapshot": "14ab6617658ae3a94670db0e31b5d04531f1c7cc"
+    },
+    {
+      "branch": "codex/826-recovery-handoff-20261025",
+      "commit": "87cb9c9495c4ffea528e5997176442c3ac496d71",
+      "root": "handoff/826/",
+      "ledger": "handoff/826/evidence/ledger.json",
+      "skills": "handoff/826/skills/"
+    }
+  ],
+  "historical_repair_refs": [
+    {
+      "branch": "codex/774-handoff-20261021-p16",
+      "commit": "039329518e264f19206cf5b0b98d177433f40c17"
+    },
+    {
+      "branch": "codex/774-handoff-20261021-p17",
+      "commit": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696"
+    }
+  ],
+  "source_recovery": "For hash-named copies use evidence/HANDOFF-SOURCE-PORTABILITY.json. For missing frozen base objects use exact path at original_base and verify expected SHA256 before bounded read. File presence/hash bookkeeping is not source/lens coverage.",
+  "retrieval_example": "git show f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/<SHA256>",
+  "not_transported": [
+    "Old source clone and unrelated untracked compute files",
+    "Original780/826 ledgers and skill trees already published on pinned recovery branches",
+    "Duplicate large CI diffs and generated assets; retrieve source from exact commits and hosted artifacts by run/artifact IDs",
+    "Full public conversation snapshots; none published"
+  ],
+  "ci986": {
+    "merged_main": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+    "source": "f7305d139126e3f0a07a5df8869152b772947007",
+    "final_quality_run": 40266453178,
+    "exporter_source": "c94b96d9a",
+    "exporter_run": 40262692854,
+    "exporter_artifact": 12626297265,
+    "authoritative_export_comparison": "evidence/ci-recovery/math-export-output-review-002.json;001has an explicit erratum"
+  },
+  "ci987": {
+    "head": "2ef288d1085c249fa056156182ea626a060bb8d1",
+    "run": 40339807509,
+    "linux_job": 121631099743,
+    "windows_job": 121631099954,
+    "linux_artifact": 12664610481,
+    "windows_artifact": 12659234694,
+    "constraint_artifact": 12659837196
+  }
+}

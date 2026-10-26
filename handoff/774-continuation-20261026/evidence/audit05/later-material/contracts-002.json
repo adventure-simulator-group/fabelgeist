@@ -1,0 +1,212 @@
+{
+  "registry_snapshot": "registry-179.json",
+  "registry_sha256": "06d1e85af129d0513fbc0a5697d2d1f50c3e658c47b7d0dec766995f521adc46",
+  "members": [
+    {
+      "material_index": 4,
+      "registration": {
+        "source_id": "native-dependency:bevy_render-0.19.1/src/render_resource/uniform_buffer.rs",
+        "sha256": "09c699b99ca5712b61dc38ce3703155701999ab75801a5f38172475c23b73d1c",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/09c699b99ca5712b61dc38ce3703155701999ab75801a5f38172475c23b73d1c",
+        "ranges": [
+          [
+            1,
+            149
+          ]
+        ],
+        "registration_evidence": "redundant-authority/prospective-source-registration-004.json",
+        "reason": "Actual fixed CameraCullData uniformallocation native receiver, narrowextraSDKmaterial, not wholeSDKscope.",
+        "lenses": {
+          "producer-propagation": "newmaterial pending independentreconciliation;07 exact liveproof onlyfor07",
+          "existing-type-owners": "newmaterial pending independentreconciliation;07 exact liveproof onlyfor07",
+          "admission-contracts": "newmaterial pending independentreconciliation;07 exact liveproof onlyfor07",
+          "invariant-operations": "newmaterial pending independentreconciliation;07 exact liveproof onlyfor07",
+          "aggregate-states": "newmaterial pending independentreconciliation;07 exact liveproof onlyfor07",
+          "type-ownership": "newmaterial pending independentreconciliation;07 exact liveproof onlyfor07",
+          "redundant-authority": "newmaterial pending independentreconciliation;07 exact liveproof onlyfor07",
+          "behavior-preservation": "newmaterial pending independentreconciliation;07 exact liveproof onlyfor07",
+          "enum-shapes": "newmaterial pending independentreconciliation;07 exact liveproof onlyfor07",
+          "derivability": "newmaterial pending independentreconciliation;07 exact liveproof onlyfor07",
+          "type-granularity": "newmaterial pending independentreconciliation;07 exact liveproof onlyfor07",
+          "magic-strings": "newmaterial pending independentreconciliation;07 exact liveproof onlyfor07",
+          "magic-numbers": "newmaterial pending independentreconciliation;07 exact liveproof onlyfor07"
+        },
+        "status": "Exactbyteverified, no lenscredit."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          149
+        ]
+      ],
+      "disposition": "Read registered uniform buffer1-149 plus150-153binding completion. Private value/scratch/optionalGPUbuffer/label/changed/usages form lifecycle aggregate. Set/get_mut need no changed marker because write_buffer serializes every call; changed means descriptor/usage recreation. binding Option exposes unallocated state while IntoBinding expects preparation. Fixed ShaderType layout and default COPY_DST|UNIFORM constrain usage; dynamic buffer body outside scope, no GPU execution or caller scheduling clearance."
+    },
+    {
+      "material_index": 5,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/streams.rs",
+        "sha256": "eb233a67ab87212ae64dd30075b41f4708529607aea29596bbea32c4a0acc93d",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/eb233a67ab87212ae64dd30075b41f4708529607aea29596bbea32c4a0acc93d",
+        "ranges": [
+          [
+            1,
+            53
+          ]
+        ],
+        "registration_evidence": "redundant-authority/prospective-source-registration-005.json",
+        "reason": "Actual imported named random stream constants required for deterministic seed-role comparison, especially twig fixture raw parity vs production TWIG_SIDES. Not in old2853 catalog.",
+        "lenses": {
+          "producer-propagation": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "existing-type-owners": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "admission-contracts": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "invariant-operations": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "aggregate-states": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "type-ownership": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "redundant-authority": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "behavior-preservation": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "enum-shapes": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "derivability": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "type-granularity": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "magic-strings": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "magic-numbers": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative"
+        },
+        "status": "Exactsourceverifiedandrecovered only; unchanged2853historicaldenominator and no automaticlensclearance."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "disposition": "Full53line litter StreamId constants preserve purpose-specific replay namespaces for geometry/scatter/mesh variants. Declarations do not prove caller seed framing/order or cross-purpose independence; those remain owning generator operations."
+    },
+    {
+      "material_index": 6,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone/streams.rs",
+        "sha256": "80fc6b2fc6f287ef9c214f4492651b73006484371550db1c0ee58649f492d7ee",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/80fc6b2fc6f287ef9c214f4492651b73006484371550db1c0ee58649f492d7ee",
+        "ranges": [
+          [
+            1,
+            18
+          ]
+        ],
+        "registration_evidence": "redundant-authority/prospective-source-registration-006.json",
+        "reason": "Actual imported named random purpose owner required to compare independent mesh/billboard reconstruction roles and literal production variant source; absent old catalog.",
+        "lenses": {
+          "producer-propagation": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "existing-type-owners": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "admission-contracts": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "invariant-operations": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "aggregate-states": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "type-ownership": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "redundant-authority": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "behavior-preservation": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "enum-shapes": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "derivability": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "type-granularity": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "magic-strings": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "magic-numbers": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative"
+        },
+        "status": "Exactsourceverifiedandrecovered only; unchanged2853historicaldenominator and no automaticlensclearance."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "disposition": "Full18line loose-stone StreamIds separate cluster/facet/jitter/lattice/presence/radius/yaw, with test-only VARIANT. No aggregate generator state or random draw implementation credited."
+    },
+    {
+      "material_index": 7,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/understory/streams.rs",
+        "sha256": "af5f77b3bca6fcfb8ec098008e0b1cb339a495cf5bf3b423ad9c24c325caf916",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/af5f77b3bca6fcfb8ec098008e0b1cb339a495cf5bf3b423ad9c24c325caf916",
+        "ranges": [
+          [
+            1,
+            17
+          ]
+        ],
+        "registration_evidence": "redundant-authority/prospective-source-registration-007.json",
+        "reason": "Actual imported stream owner required for community/specimen/species identity cache dependency comparison, absent old2853 catalog.",
+        "lenses": {
+          "producer-propagation": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "existing-type-owners": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "admission-contracts": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "invariant-operations": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "aggregate-states": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "type-ownership": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "redundant-authority": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "behavior-preservation": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "enum-shapes": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "derivability": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "type-granularity": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "magic-strings": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "magic-numbers": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative"
+        },
+        "status": "Exactsourceverifiedandrecovered only; unchanged2853historicaldenominator and no automaticlensclearance."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "disposition": "Full17line understory namespaces separate community/structure/specimen/species with test-only purposes. Different visual.understory.species naming is literal replay identity, not inferred accidental collision; actual uses remain separate."
+    },
+    {
+      "material_index": 8,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/model/building_program.rs",
+        "sha256": "2ecfe5491e448871f85d33e15bc04c197311aae741054b4587143531548063a2",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/2ecfe5491e448871f85d33e15bc04c197311aae741054b4587143531548063a2",
+        "ranges": [
+          [
+            1,
+            66
+          ]
+        ],
+        "registration_evidence": "enum-shapes/additional-source-044A.json",
+        "reason": "DistantBuildingPlacement (1915) mirrors usage/service_size/archetype; inspect actual owning program semantic choices before finding or exemption. Materially reached declaration absent from frozen2853 catalog.",
+        "lenses": {
+          "producer-propagation": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "existing-type-owners": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "admission-contracts": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "invariant-operations": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "aggregate-states": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "type-ownership": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "redundant-authority": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "behavior-preservation": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "enum-shapes": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "derivability": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "type-granularity": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "magic-strings": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "magic-numbers": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative"
+        },
+        "status": "Exactsourceverifiedandrecovered only; unchanged2853historicaldenominator and no automaticlensclearance."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "disposition": "Full66line BuildingProgram declaration explicitly allows unbuildable combinations and delegates rejection to generate. Optional usage/service_size/timber/church/heating fields are raw recipe inputs, not admitted building invariants. Fixture dispatch includes Workplace via town_house seed+BARNusage+mediumsize; actual resulting archetype/with_service_size semantics must be checked before claiming coherent generated venue. No unsupported-program execution."
+    }
+  ],
+  "first_unfinished_material_index": 9,
+  "new_findings": []
+}

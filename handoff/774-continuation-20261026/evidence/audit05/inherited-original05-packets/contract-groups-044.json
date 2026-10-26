@@ -1,0 +1,93 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-044",
+  "at": "2026-10-22T21:21:22.884442+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/drive.rs",
+      "sha256": "10c455bd92024d36b8b6cfc339c73ba3f7ebebe1fc0971090e69d63497d59904",
+      "scope032_index": 1394,
+      "actual_EOF": 237,
+      "scoped_ranges_compared": [
+        [
+          1,
+          237
+        ]
+      ],
+      "actual05_comparison": "Actual private Ragdolling definition/body/joint/order correlations Native043 consumed: driven computed from same optional body+live transform, then expect55–60 justified by immutable queries in this operation. Joint reverseorder marks ancestors, forwards order composes same rig parent before child, pin_joint updates both samples/resetoffset (actual039) then final apply reasserts fullphysics pose after procedural passes. Body/rig must retain same generation; no runtime rebind guarantee invented. Raw body nativeTransform/parent inverse can nonfinite, not checked by dimension preparation. Terrain three-sphere end/center samples preserve signed segment; missing/nonfinite planpoint/terrain skipped intentionally, maxpenetration completedSignedLength then corrected ScenePosition admitted before position commit, only downwardverticalvelocity canceled. Terrain query absence not zeroheight promise. Full237 inline fixtures read, no execution.",
+      "source_body_proof": "Fresh full actual source plus original inline fixtures personally read; no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/muscles.rs",
+      "sha256": "4d66c5e28731d05a4ff8e3fb3489cbe7d05bec7c2e76af21c7e2d7a58d846998",
+      "scope032_index": 1398,
+      "actual_EOF": 275,
+      "scoped_ranges_compared": [
+        [
+          1,
+          275
+        ]
+      ],
+      "actual05_comparison": "Age+envelope computed before age commit; rejection keeps old age/spins. Stun/rise/limp compose one MuscleTone, Never distinct fromAfter; zero rise/limptime deliberately denominator max1e-3, not positivity invariant. Private same-definition muscle parent/child indices target actual bodies, get_many_mut rejects alias/missing; actual15body/14jointtree from043 guarantees normal parent!=child. Kick split gives kinematic pelvis zero, other pair ±half; damping child and nonpelvisparent asymmetric .5 policy intentional not conservation proof. Source raw physics rotations/spins/nativeclamp can propagate nonfinite, no sealed finite native output inferred; no actual malformedphysicscaller/run. No gameplay separate fatigue pool introduced. All fixtures179–275 read only.",
+      "source_body_proof": "Fresh full actual source plus original inline fixtures personally read; no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/foot_roll.rs",
+      "sha256": "7166759c52955028a3f30d17715d0b9abfe7b58c527666aeeebcaac588809717",
+      "scope032_index": 1365,
+      "actual_EOF": 118,
+      "scoped_ranges_compared": [
+        [
+          1,
+          118
+        ]
+      ],
+      "actual05_comparison": "Actual profile gait/action/guard/stationary gates returnZERO; nearest-contact signed bilateral phase selects heel/flat/toeoff/release same side, final SignedAngleDegrees admission before return; worldorientation multiplies same roll byactualriglateral thenbase quaternion, rawunit quaternion precondition remains. Profile/equal-reference F009 already actual029/031/040; no independent local radius-order gate or assumptions allCycleDelta<.25 fromname. Core profiles source actual; shared smoothstep helper procedural facade still pending owncell, so no unproved allauthoredradius success. Fixtures66–118 read only assert mirrored contacts and flat/release.",
+      "source_body_proof": "Fresh full actual source plus original inline fixtures personally read; no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/dive.rs",
+      "sha256": "26b5e25b95cf1676bd54e0138ece10b0c150bf9787a1b47818b88746e3b9bfb2",
+      "scope032_index": 1361,
+      "actual_EOF": 152,
+      "scoped_ranges_compared": [
+        [
+          1,
+          152
+        ]
+      ],
+      "actual05_comparison": "DiveInfluence private UnitInterval admits finite then intentionallyclamps0..1. Sole pelvis/owner matching DiveToDowned enum and currenttransition phase select influence rising to actualcontactconstant then falling1; actual nativequaternions require valid authored/bind frames. Whole descendant hierarchy rotates pelvis, upperbody-only clip masking promised inactualNative039sampling role; same amount both authored→bind orientation and directionlean, no independentstale target. Typed finite angle*boundedfraction preserves actualdefinedrange, normalization assumes nondegenerate nativequaternion. Original90–152 fixtures source-read direction±X/Z/fullbind/release exactlyauthored, no execution.",
+      "source_body_proof": "Fresh full actual source plus original inline fixtures personally read; no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/body_values.rs",
+      "sha256": "ac32044bdad9c67748eefca7b1b7db59a7eed439e3182af7581833f49076750b",
+      "scope032_index": 1359,
+      "actual_EOF": 211,
+      "scoped_ranges_compared": [
+        [
+          1,
+          211
+        ]
+      ],
+      "actual05_comparison": "Private finite signed BodyAngle/AngularVelocity/LocalVelocity/LocalAcceleration, defaults0; checked constructors reject wholeVec components, planar_squared separately rejects intermediate norm² overflow (finitecomponents not enough). BodyResponseAngles typed publicsuper twoaxis product has no sum1 semantics. checked_sum_capped first actualsum norm² finite then actualnonnegative angularcap; from_radians admits both components before Self. BodyResponseStep bundles samecandidate angles+velocity but actualcaller publication still pending. BrakingScale UnitInterval, inertial gain separate broaderquantity; no arbitrary normalization ofsignedbodyvectors.",
+      "source_body_proof": "Fresh full actual source plus original inline fixtures personally read; no execution."
+    }
+  ],
+  "comparison_groups": {
+    "physics-pose-lifecycle": "Actual native body readback→same-index pin/hold→reassert after procedural layers, dimension preflight not allnativepose seal. Server coarse root and local articulated presentation authority remain distinct.",
+    "bounded-influence-and-signed-response": "Dive/foot roll/body-response typed quantities current actualoperations compared; zero/signed/bodyframes retained. No name-based assumed cross-field radius or raw quaternion guarantee."
+  },
+  "new_unique_findings": [],
+  "finding_support": [
+    "F012 raw completed nativepose recipient qualification",
+    "F009 actual footroll profile dependency retained; no duplicatedfinding"
+  ],
+  "remaining_dependency_obligations": [
+    "Procedural facade shared smoothstep/currentbodyresponse/height operations and IKmain remain unread"
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

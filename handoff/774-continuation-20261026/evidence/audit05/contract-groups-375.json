@@ -1,0 +1,44 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-375",
+  "at": "2026-10-25T23:52:21.535161+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 162,
+      "source_id": "physical-p16:crates/adventuresim-core/src/weather.rs",
+      "sha256": "62c3d0b44fa30ce15dab8e231cc5ef90e631e633d9ef4ea34091c5c8c3f3fde9",
+      "personally_read_ranges": [
+        [
+          1,
+          958
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered weather1-958 read. Calculationowner samplescoarsecell/fixed360minuteinterval, snapshotsversion/time/cell and deterministicatmosphericderivedfacts; groundhistory isbounded16 andepochavailablehistory includesinterval0once. Currentrelativehumidity/wind/intensity/ground/snow/lift calculations clampnativeoutputs; cloudheight/base/topandprecipitation typecomposedfromcurrentfields, notindependentlyauthoredhistory.",
+        "Actualtemperature boundedbyderivedseasonal/diurnal/synoptic/elevation forordinaryEarthcoordinate input, so survival159 arbitraryi32MINsnapshot concern isnotordinary weather_at output. However weather_at signature acceptsallrawi32 coordinates; floorcell*250000 canoverflowfori32MINlatitude beforedivisiontoDegrees at612. This is additionalqualifiedabstract-coordinate inputquestion underexistingweathercomputedcoordinateboundary, not anordinaryEarthproducerbug ornewfinding. No globalpolicy narrowing inferred.",
+        "Weatherperiodstart expectisjustifiedforintervalderivedfromrepresentableStrategicMinute, whilefield163 independentlyhaslateclockadvectionoverflowexistingROOT-INITIAL04-F024. Numericcloud signal/arithmeticboundedbyprivateauthoredthresholdsandfieldbps; rawpublicsnapshot serdeitselfdoesnotadmitcrossfieldinvariants. Snowoverlayclampscoveronly, keepsunderlying/snowu16range; snowtraining widensproducts andclampsfraction/discount, splittingintegerremainders can lose subminutes acrossarbitrarychunks despite existingchosen600/6example. No universalquantizationinvarianceclaim fromonetest.",
+        "All existing958line testsource readnotexecuted; fullseed/platform/physicalhistoricalweatherfidelity orretainedversionmigration notcleared. Declaredstreamsmodbodyunreadseparate."
+      ]
+    },
+    {
+      "scope_index": 163,
+      "source_id": "physical-p16:crates/adventuresim-core/src/weather/field.rs",
+      "sha256": "8f11cdffeb39e9e0ca929c9cf3ac853b89c6d926c5bdd4d42c0ec9208e36cede",
+      "personally_read_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered field1-61 read. Domain/rules/t/y/xsampletuple separatesexactlatticecoordinates; signedtou64sampleencoding isintentionalseedport. fadefractionandlerpbps operateboundedremainder/positivefixedscalesand65535fractions fromcurrentprivatecaller, wideningproducts; no arbitrarydenominator/fractionAPIadmissionpromise.",
+        "IndependentP16 exactsource supports existingROOT-INITIAL04-F024: timecapguardsintervalproduct butnotnegative-longitudeheadroom inxsubtract; validEarthlon-1250000/cell-5andStrategicMinuteMAX reachesoverflow. StaticAPI/verylateclockqualification retained, noordinarycurrentclock/runclaim. Materialfieldrole notwholeRNG orSDK clearance."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "scope_authority": "original-scope-072.json full162/163; existingfinding supportonly, no newacceptedfinding."
+}

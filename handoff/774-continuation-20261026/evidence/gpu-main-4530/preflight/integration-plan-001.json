@@ -1,0 +1,90 @@
+{
+  "task": "GPU successor integration preflight; metadata and workflow diff only",
+  "saved_commit": "2e8b0cb0728bbcde65bb91c6e04c5488aac6fa23",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "comparison_main": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+  "scope": {
+    "paths": 16,
+    "existing_modified": 8,
+    "new_absent_from_main": 8,
+    "source_paths_changed_on_main": 0,
+    "shared_modified_paths": [
+      ".github/workflows/rust-quality.yml"
+    ]
+  },
+  "expected_conflicts": {
+    "likely_textual_conflicts": 0,
+    "reason": "Only shared modified path is workflow. Candidate adds46lines at base105 before resolvedBevyguard; main edits occur at unrelated original lines49/59/73/287/393. The unchanged previous readback line and following Bevy step remain adjacent exactly once on main, with next step at115. No cherry-pick/merge/apply was run, so this is a diff-based prediction.",
+    "candidate_zero_context_hunks": [
+      {
+        "old_start": 105,
+        "old_count": 0,
+        "new_start": 106,
+        "new_count": 46
+      }
+    ],
+    "main_zero_context_hunks": [
+      {
+        "old_start": 49,
+        "old_count": 0,
+        "new_start": 50,
+        "new_count": 5
+      },
+      {
+        "old_start": 59,
+        "old_count": 0,
+        "new_start": 65,
+        "new_count": 1
+      },
+      {
+        "old_start": 73,
+        "old_count": 0,
+        "new_start": 80,
+        "new_count": 3
+      },
+      {
+        "old_start": 287,
+        "old_count": 0,
+        "new_start": 297,
+        "new_count": 1
+      },
+      {
+        "old_start": 393,
+        "old_count": 0,
+        "new_start": 404,
+        "new_count": 140
+      }
+    ]
+  },
+  "retain_986_workflow": [
+    "workflow_dispatch.regenerate_fixtures boolean defaultfalse and ordinary rust-quality guard !inputs.regenerate_fixtures",
+    "cache shared-key rust-quality and cache-on-failure in existing jobs",
+    "20minute terrain presentation/retained scene test timeout",
+    "opt-in regenerate-fixtures job: source revision, pinned toolchain/linker/libraries, existing managed-hazel exporter and positive-one-case guard; dependent scene generator commands and prepared city assets",
+    "fixed-exhibit cloud oracle: only exact executed one-case failure permits exporter, then same oracle is rerun; compile/empty-case failure is rejected",
+    "existing tree impostor exporter and shrub/tree leaf contract steps; always-upload generated fixtures/source evidence, missing files error",
+    "ordinary foliage-portability Windows job guard, exact PR source checkout, configured bundled linker, five existing filters and required-positive population/log uploads",
+    "all ordinary Linux gates and artifact steps already on4530"
+  ],
+  "narrow_reconciliation_plan": [
+    "After987merge, compare newmain metadata against4530 for these16paths and the workflow anchors; keep987 and986 changes intact.",
+    "Recover only saved2e8b0cb delta onto that main. The15 GPU paths are identical-to990 or absent on4530; no source-level conflict is predicted at this comparison point.",
+    "For workflow, retain current-main complete file and insert saved46-line Test whole-texture format views plus evidence-upload steps between existing buffer-readback test and resolved Bevy guard. Do not replace workflow with saved snapshot.",
+    "Keep the exact three existing texture commands, exact source guard, one passing summary per command, populations4integration/positive doctest/1borrowed, ignored/failed rejection and always-upload evidence. New GPU steps belong to ordinaryLinux rust-quality, not regenerate-fixtures.",
+    "Freeze integrated hashes/diff, rerun independent affected-source Rule/CPU/GPU review as required and root-owned authoritative hosted acceptance. Historical candidate reviews do not automatically clear the new source/toolchain/lock/workflow context."
+  ],
+  "risks_and_limits": [
+    "Cargo.lock changed outside this candidate; no dependency or compiled behavior equivalence is established by matching GPU source paths.",
+    "No current source-body/caller/global audit credit is added. No new reconciliation of broader F2mutable-cache/device-association or other pending GPU families is claimed.",
+    "Existing candidate test/doc fixtures and canonical ValidationScope remain historic reviewed artifacts; do not replace their canonicalhelper with stale780 API during later full826integration.",
+    "PR987 remains separate and hosted pending; this plan creates no branch, stack or pull request."
+  ],
+  "evidence": [
+    "path-manifest-001.json",
+    "saved-workflow.diff",
+    "main-workflow-delta.diff"
+  ],
+  "source_or_git_mutation": false,
+  "local_project_checks": "not run",
+  "fresh_clearance": false
+}

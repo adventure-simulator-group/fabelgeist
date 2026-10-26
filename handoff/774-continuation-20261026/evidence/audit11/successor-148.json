@@ -1,0 +1,37 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-148",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 763,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/drape_worker.rs",
+      "sha256": "6e96818d06560c10bd8f74d121d84fc812726274dedc89b59f85bce7d0e6ca73",
+      "ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "assessment": "Full131 exact unchanged reached body personally read after SHA256 match. Worker starts each request by unzipping tags and inputs together; old cancelled handle must finish before fresh cancel/latest Arcs and tags replace it. Actual786 producer returns ordered input prefix, so worker preview/result zip in762 has concrete association proof on this path, no arbitrary mid-list omission witness. Named progress record is change packet, not automatically one exclusive state; options can reflect preview+finished together intentionally. Pending semantic tag/input tuples and related checkpoint collections retain Q008/Q009. Join failure converted to outcome error is controlled failure handling, not compatibility fallback; no separate error-lens clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 764,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "sha256": "da3139ef3625393db9041ad0680dc244b0f81235b86ea4519a87c9299763bdd6",
+      "ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "assessment": "Full146 actual source read after hash match including existing fixture only. EquipmentItemSelection admits filters once against wearable catalog and privately stores selected IDs, preserving duplicate catalog records intentionally. Typed wrapper owns whole selection policy; raw borrowed ID leaf/canonical shared owner still needs reconciliation, not automatic invalid-ID witness. Actual is_wearable requires a material and at least one nonempty equipment placement surface, narrowing694 nonempty premise; retained_placements core iterator semantics still needed before closing it. Public items/designs let callers bypass constructor but no ordinary malformed catalog shown. No current-main/runtime/global clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

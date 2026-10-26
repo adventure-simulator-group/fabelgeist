@@ -1,0 +1,28 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-402",
+  "at": "2026-10-26T00:18:29.983866+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 279,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+      "sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+      "personally_read_ranges": [
+        [
+          1,
+          781
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full781 lines. Source schema separates persisted private dialogue/chat authority and gateway projections. Viewer rows derive actualplayer participants; localchat derives current party membership rather than historicalsendtimeaudience, so actualpolicy for laterjoin/leave history remains qualified. Every view requires registeredgateway; Web perobserver filtering separate.",
+        "Parsed sessionID explicitly permits colon-containingnonce and numericowner with length/controlguard; native ActorId string representations remain differing roles. Promptmode/policy/state parsers reject unknownvalues; publicstored strings remain decodedatreceivers. DialogueAction contains session/actionkind/revision only, no actor/topic/ballotcapture, supporting278 limitedconflictingretry question without duplicateeffect claim.",
+        "Complete livepresence requires actual actorparty/settlement/personalclock, canonical selectedplace, allNPCprofile+scheduled typedpresence, physicalcopresence, exactchapterrepresentative. Typed NPC helper includes alive_at, so this receivinggate closes277 duration-only deadNPC question ifactualsessionmember/startpath invokesit. Actor ownalive not here, actualrequire_session_member follows. MultipleNPC firstprimary remains orderpolicyquestion ifsuchsessionnormal.",
+        "Read actual existing schema tests for taggedID/state/policy/corpsecoordinates; not executed, no generatedbindings/securityfamily acceptance."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

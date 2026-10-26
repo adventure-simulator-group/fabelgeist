@@ -1,0 +1,50 @@
+diff --git a/crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/batching/tests.rs b/crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/batching/tests.rs
+index 565bc2d58..29381b5a0 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/batching/tests.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/batching/tests.rs
+@@ -1,6 +1,7 @@
+ use super::*;
+ use adventuresim_tactical_core::{
+-    city_layout::grounding::BoundarySupportElement, prelude::CityBoundaryMaterial,
++    city_layout::grounding::{BoundarySupportElement, SupportElevation},
++    prelude::CityBoundaryMaterial,
+ };
+ use bevy::mesh::VertexAttributeValues;
+ 
+@@ -31,7 +32,15 @@ fn merged_terraced_enclosures_keep_exact_world_vertices_and_finite_surface_attri
+         cell(Vec3::new(-8.0, 3.0, 8.0)),
+     ];
+     for cell in &cells {
+-        batches.insert(cell, 15.0, Handle::default());
++        batches
++            .insert(
++                cell,
++                BoundaryPlacement::Scene(GateDatum::new(
++                    SupportElevation::from_metres(15.0).unwrap(),
++                )),
++                Handle::default(),
++            )
++            .unwrap();
+     }
+     let merged: Vec<_> = batches.finish().collect();
+     assert_eq!(merged.len(), 1);
+@@ -76,9 +85,17 @@ fn spatial_cells_and_shared_materials_bound_enclosure_draws() {
+     let timber = materials.add(StandardMaterial::default());
+     let mut batches = BoundaryBatches::default();
+     for x in [1.0, 5.0, 129.0, -10.0] {
+-        batches.insert(&cell(Vec3::new(x, 0.0, 0.0)), 0.0, stone.clone());
++        batches
++            .insert(
++                &cell(Vec3::new(x, 0.0, 0.0)),
++                BoundaryPlacement::GateRelative,
++                stone.clone(),
++            )
++            .unwrap();
+     }
+-    batches.insert(&cell(Vec3::X), 0.0, timber);
++    batches
++        .insert(&cell(Vec3::X), BoundaryPlacement::GateRelative, timber)
++        .unwrap();
+     assert_eq!(batches.members, 5);
+     assert_eq!(batches.finish().len(), 4);
+ }

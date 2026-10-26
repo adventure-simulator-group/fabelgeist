@@ -1,0 +1,412 @@
+{
+  "at": "2026-10-26T06:33:39.328545+00:00",
+  "task": "Metadata-only authoritative frontier map for global lenses12/13; no source semantic reads.",
+  "frozen_handoff_ref": "origin/codex/774-audit-handoff-20261025",
+  "frozen_handoff_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "lenses": {
+    "12": {
+      "lens": "magic-strings",
+      "baseline_authority": {
+        "git_path": "handoff/774/adler-original/HANDOVER.md",
+        "line": 110,
+        "status": "Not started"
+      },
+      "explicit_adoption": "No12/13 completed original/overlay/merged adoption: authoritative completed-adoption record applies03/06 only; live_progress_authority lacks12/13 and first_unfinished explicitly says12/13unfinished.",
+      "saved_progress": {
+        "ledger_discovery": "incomplete",
+        "legacy_changed_paths_reviewed_files": 0,
+        "legacy_changed_paths_remaining": 746,
+        "examined_contract_slices": [
+          {
+            "ledger_json_pointer": "/lenses/magic-strings/examined_contracts/0",
+            "record": {
+              "file": "crates/fabelgeist-fbx/src/object_name.rs",
+              "start": 22,
+              "end": 46,
+              "disposition": "format source boundary inspected",
+              "evidence": "Separator/namespace bytes and lossy UTF-8 policy belong to FBX admission; exact open rig identity remains open.",
+              "source_sha256": "e3dada8ff669d491646dde601f0d483e72806176c28582aace3cf9d71cc73037"
+            },
+            "exact_original_hash_path_matches": [
+              {
+                "scope_index": 2258,
+                "source_id": "pr-working:crates/fabelgeist-fbx/src/object_name.rs",
+                "scope_kind": "frozen_requested_change",
+                "catalog_line_count": 46,
+                "range_exceeds_catalog_EOF": false
+              }
+            ],
+            "credit": "Saved scoped observation only; no whole source-role/other-lens credit inferred."
+          },
+          {
+            "ledger_json_pointer": "/lenses/magic-strings/examined_contracts/1",
+            "record": {
+              "file": "crates/adventuresim-character-creator/src/rig_parameters.rs",
+              "start": 95,
+              "end": 99,
+              "disposition": "shader binding adapter inspected",
+              "evidence": "Closed uniform parameter roles become text only in PassParameters insertion, a concrete reflected shader-name boundary.",
+              "source_sha256": "f16955ae53a597eebce8b190c050f47e10671e50fb6f8426ce7bbed3164f14cc"
+            },
+            "exact_original_hash_path_matches": [
+              {
+                "scope_index": 826,
+                "source_id": "pr-working:crates/adventuresim-character-creator/src/rig_parameters.rs",
+                "scope_kind": "frozen_requested_change",
+                "catalog_line_count": 81,
+                "range_exceeds_catalog_EOF": true
+              }
+            ],
+            "credit": "Saved scoped observation only; no whole source-role/other-lens credit inferred."
+          },
+          {
+            "ledger_json_pointer": "/lenses/magic-strings/examined_contracts/2",
+            "record": {
+              "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+              "start": 94,
+              "end": 106,
+              "disposition": "report label boundary inspected",
+              "evidence": "BoneRole retained through internal map; lexical labels emitted at serialization and explicitly preserve report ordering.",
+              "source_sha256": "1178bf380da9126c00678608493b9d252af9746d853d347d5f334d451586b5bb"
+            },
+            "exact_original_hash_path_matches": [
+              {
+                "scope_index": 1431,
+                "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+                "scope_kind": "frozen_requested_change",
+                "catalog_line_count": 138,
+                "range_exceeds_catalog_EOF": false
+              }
+            ],
+            "credit": "Saved scoped observation only; no whole source-role/other-lens credit inferred."
+          },
+          {
+            "ledger_json_pointer": "/lenses/magic-strings/examined_contracts/3",
+            "record": {
+              "file": "crates/adventuresim-core/src/autoresolve/melee_iteration/error.rs",
+              "start": 22,
+              "end": 36,
+              "disposition": "rejected identity evidence retained",
+              "evidence": "Unknown weapon/shield/armor input strings are rejected source evidence, not admitted catalogue records; do not replace them with proven membership handles.",
+              "source_sha256": "9864f16e67033ea8f14d686f25f2b71c78ff6e8866be6f8459df6384c4c5b647"
+            },
+            "exact_original_hash_path_matches": [
+              {
+                "scope_index": 866,
+                "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/error.rs",
+                "scope_kind": "frozen_requested_change",
+                "catalog_line_count": 46,
+                "range_exceeds_catalog_EOF": false
+              }
+            ],
+            "credit": "Saved scoped observation only; no whole source-role/other-lens credit inferred."
+          }
+        ]
+      },
+      "verified_complete_frontier": {
+        "originals": {
+          "accounted_complete_roles_found": 0,
+          "total": 2853,
+          "first_unfinished_scope_index": 0,
+          "first_source_id": "dependency-wgpu29.0.4:src/api/device.rs",
+          "first_registered_ranges": [
+            [
+              398,
+              428
+            ],
+            [
+              752,
+              853
+            ]
+          ],
+          "authority": "original-scope-072.json exact source role0; no baseline restart, initial full-role review has not been adopted for this lens."
+        },
+        "mandatory_overlays": {
+          "adopted_or_own_completed_receipts_found": 0,
+          "total": 246,
+          "remaining_indices_inclusive": [
+            0,
+            245
+          ],
+          "first_overlay_id": "CONT-OWNER-RANGE-EXTENSION-001",
+          "first_source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+          "first_material_ranges": [
+            [
+              142,
+              155
+            ]
+          ]
+        },
+        "merged_deltas": {
+          "adopted_or_own_completed_receipts_found": 0,
+          "total": 38,
+          "remaining_indices_inclusive": [
+            0,
+            37
+          ],
+          "first_path": "crates/adventuresim-character-creator/Cargo.lock",
+          "limits": "Adoption38delta proof applies03/06, not12/13. Four saved ledger slices are not a full merged-delta inventory."
+        },
+        "shared_materials": {
+          "registry_count": 196,
+          "accounted_receipts_found": 0,
+          "all_indices_explicitly_pending_inclusive": [
+            0,
+            195
+          ],
+          "first_unfinished_index": 0,
+          "through195_meaning": "Indices0through195 inclusive,196 entries; preserves prior195-entry prefix and newestM195.",
+          "per_entry_evidence_pointer_template": "/entries/INDEX/lenses/magic-strings",
+          "generic_baseline_wording_limit": "Generic registry text saying completed/adopted baseline retained is not12/13 adoption authority; HANDOVER NotStarted and03/06-only adoption govern."
+        }
+      },
+      "adler1002_explicit_lens_record_count": 0,
+      "frontier_confidence": "Authoritative preserved NotStarted plus exact pending metadata and no dedicated receipts in checkedGit/local inventories. Counts mean verified saved/adopted completion evidence found, not a claim no unlocated historical work could ever exist."
+    },
+    "13": {
+      "lens": "magic-numbers",
+      "baseline_authority": {
+        "git_path": "handoff/774/adler-original/HANDOVER.md",
+        "line": 111,
+        "status": "Not started"
+      },
+      "explicit_adoption": "No12/13 completed original/overlay/merged adoption: authoritative completed-adoption record applies03/06 only; live_progress_authority lacks12/13 and first_unfinished explicitly says12/13unfinished.",
+      "saved_progress": {
+        "ledger_discovery": "incomplete",
+        "legacy_changed_paths_reviewed_files": 0,
+        "legacy_changed_paths_remaining": 746,
+        "examined_contract_slices": [
+          {
+            "ledger_json_pointer": "/lenses/magic-numbers/examined_contracts/0",
+            "record": {
+              "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+              "start": 1679,
+              "end": 1684,
+              "disposition": "M03",
+              "evidence": "0.12 is an authored policy width; checked literal construction does not make it canonical server tuning.",
+              "source_sha256": "b1645110395d62b1dab020f6328f9b3d3fde6cd3f64b88101d6c66d5e7d8b0e6"
+            },
+            "exact_original_hash_path_matches": [
+              {
+                "scope_index": 1370,
+                "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+                "scope_kind": "frozen_requested_change",
+                "catalog_line_count": 2973,
+                "range_exceeds_catalog_EOF": false
+              }
+            ],
+            "credit": "Saved scoped observation only; no whole source-role/other-lens credit inferred."
+          },
+          {
+            "ledger_json_pointer": "/lenses/magic-numbers/examined_contracts/1",
+            "record": {
+              "file": "crates/adventuresim-tactical-client/src/animation/foot_influence.rs",
+              "start": 64,
+              "end": 70,
+              "disposition": "M03",
+              "evidence": "0.11 is a distinct visual-contact tuning width with no current config owner.",
+              "source_sha256": "132728572eda6899b6d6f9ebe07e1c1dae458a7f8347e66f86d692edf4af3a1c"
+            },
+            "exact_original_hash_path_matches": [
+              {
+                "scope_index": 1324,
+                "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/foot_influence.rs",
+                "scope_kind": "frozen_requested_change",
+                "catalog_line_count": 124,
+                "range_exceeds_catalog_EOF": false
+              }
+            ],
+            "credit": "Saved scoped observation only; no whole source-role/other-lens credit inferred."
+          },
+          {
+            "ledger_json_pointer": "/lenses/magic-numbers/examined_contracts/2",
+            "record": {
+              "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+              "start": 1033,
+              "end": 1044,
+              "disposition": "F03",
+              "evidence": "INFINITY reduction seed becomes invented measured zero when no applicable measurements are available.",
+              "source_sha256": "aa04ddf1b466365d8e27a43076eab1904f9d1d4abfd1715e2af1578f5d4e5636"
+            },
+            "exact_original_hash_path_matches": [
+              {
+                "scope_index": 1433,
+                "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+                "scope_kind": "frozen_requested_change",
+                "catalog_line_count": 2050,
+                "range_exceeds_catalog_EOF": false
+              }
+            ],
+            "credit": "Saved scoped observation only; no whole source-role/other-lens credit inferred."
+          },
+          {
+            "ledger_json_pointer": "/lenses/magic-numbers/examined_contracts/3",
+            "record": {
+              "file": "crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+              "start": 87,
+              "end": 95,
+              "disposition": "explicit quantization policy retained",
+              "evidence": "Multiply, round, minimum-one and saturating float-to-u64 conversion are specified behavior; a rejecting conversion is not an equivalent replacement.",
+              "source_sha256": "ce44941a09ab6edf1bfe96d5617ad84d777c4bc3e0c8735d65ed6b369d727990"
+            },
+            "exact_original_hash_path_matches": [
+              {
+                "scope_index": 349,
+                "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+                "scope_kind": "materially_reached_owner_contract",
+                "catalog_line_count": 110,
+                "range_exceeds_catalog_EOF": false
+              },
+              {
+                "scope_index": 1776,
+                "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+                "scope_kind": "frozen_requested_change",
+                "catalog_line_count": 110,
+                "range_exceeds_catalog_EOF": false
+              }
+            ],
+            "credit": "Saved scoped observation only; no whole source-role/other-lens credit inferred."
+          }
+        ]
+      },
+      "verified_complete_frontier": {
+        "originals": {
+          "accounted_complete_roles_found": 0,
+          "total": 2853,
+          "first_unfinished_scope_index": 0,
+          "first_source_id": "dependency-wgpu29.0.4:src/api/device.rs",
+          "first_registered_ranges": [
+            [
+              398,
+              428
+            ],
+            [
+              752,
+              853
+            ]
+          ],
+          "authority": "original-scope-072.json exact source role0; no baseline restart, initial full-role review has not been adopted for this lens."
+        },
+        "mandatory_overlays": {
+          "adopted_or_own_completed_receipts_found": 0,
+          "total": 246,
+          "remaining_indices_inclusive": [
+            0,
+            245
+          ],
+          "first_overlay_id": "CONT-OWNER-RANGE-EXTENSION-001",
+          "first_source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+          "first_material_ranges": [
+            [
+              142,
+              155
+            ]
+          ]
+        },
+        "merged_deltas": {
+          "adopted_or_own_completed_receipts_found": 0,
+          "total": 38,
+          "remaining_indices_inclusive": [
+            0,
+            37
+          ],
+          "first_path": "crates/adventuresim-character-creator/Cargo.lock",
+          "limits": "Adoption38delta proof applies03/06, not12/13. Four saved ledger slices are not a full merged-delta inventory."
+        },
+        "shared_materials": {
+          "registry_count": 196,
+          "accounted_receipts_found": 0,
+          "all_indices_explicitly_pending_inclusive": [
+            0,
+            195
+          ],
+          "first_unfinished_index": 0,
+          "through195_meaning": "Indices0through195 inclusive,196 entries; preserves prior195-entry prefix and newestM195.",
+          "per_entry_evidence_pointer_template": "/entries/INDEX/lenses/magic-numbers",
+          "generic_baseline_wording_limit": "Generic registry text saying completed/adopted baseline retained is not12/13 adoption authority; HANDOVER NotStarted and03/06-only adoption govern."
+        }
+      },
+      "adler1002_explicit_lens_record_count": 0,
+      "frontier_confidence": "Authoritative preserved NotStarted plus exact pending metadata and no dedicated receipts in checkedGit/local inventories. Counts mean verified saved/adopted completion evidence found, not a claim no unlocated historical work could ever exist."
+    }
+  },
+  "preserved_range_anomalies": [
+    {
+      "lens": "magic-strings",
+      "slice_pointer": "/lenses/magic-strings/examined_contracts/1",
+      "problem": "Recorded95-99 lies beyond matching original826 catalogEOF81. Preserve unresolved range/revision evidence; no body or remapped range credited."
+    }
+  ],
+  "authority_pins": [
+    {
+      "git_path": "handoff/774/adler-original/HANDOVER.md",
+      "sha256": "beaa9fda59f0fa02c266bfb61a55383cad5ad712f7c68cb2c24c072984c4a31c",
+      "selected_lines": [
+        106,
+        111
+      ],
+      "identical_second_copy": "handoff/774/audit/reconcile-adler-20261023/HANDOVER.md"
+    },
+    {
+      "git_path": "handoff/774/audit/ledger.json",
+      "sha256": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+      "json_pointers": [
+        "/lenses/magic-strings",
+        "/lenses/magic-numbers"
+      ]
+    },
+    {
+      "git_path": "handoff/774/audit/reconcile-adler-20261023/audit-continuation/adopted-completed-audits.json",
+      "sha256": "fba6f946d3f53d3c2bc03c9155ad056b6e3f2de5e2b33e448dffcea289bfc506",
+      "json_pointers": [
+        "/id",
+        "/source_refs",
+        "/adoption",
+        "/current_delta"
+      ]
+    },
+    {
+      "git_path": "handoff/774/audit/reconcile-adler-20261023/AUDIT-CURRENT.json",
+      "sha256": "88e2a3788a3a4a4f4d309240b97d95ac6ec894dfa452299f4c5edf54c08ea196",
+      "json_pointers": [
+        "/first_unfinished",
+        "/live_progress_authority",
+        "/parallel_audit_claims"
+      ]
+    },
+    {
+      "local": "target\\recovery-20261025\\shared-material-successor\\source-extensions-196.json",
+      "sha256": "12adb62b53902f4e42f8e882ec18181d465c049956c8af8b5626d3d3192ff849",
+      "snapshot_entries": 196
+    },
+    {
+      "local": "target\\recovery-20261025\\audit05\\inherited\\adler-finding-records.json",
+      "sha256": "473fc7ce6d08f96419a86d239410cf94fa1ba9b8cf8c93ef45ba2d7b44d6942d",
+      "record_count": 1002
+    },
+    {
+      "local": "target\\recovery-20261025\\audit05\\original-scope-072.json",
+      "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+    },
+    {
+      "local": "target\\recovery-20261025\\audit05\\raw-overlay-registration-000.jsonl",
+      "sha256": "c26e2def8f8520c870f359ef66919ce730fcddb65beb051365fce42371a7bc68",
+      "git_path": "handoff/774/adler-original/audit/continuation/owner-range-extensions.jsonl"
+    }
+  ],
+  "negative_navigation_bounds": {
+    "dedicated_non_skill_Git_filenames_matching_magic_strings_magic_numbers_initial12_initial13": 0,
+    "local_dedicated12_13_state_directories_before_this_report": 0,
+    "explicit_lens12_13_adler1002_findingmetadata": 0,
+    "limit": "Metadata navigation supports the explicit authorities; absence of filenames alone is not coverage or a universal historical negative."
+  },
+  "execution_limits": [
+    "No quality-checker/CI success, GLB/texture scoped review, other-lens completion or material registration counted as12/13coverage.",
+    "No source bodies, project builds/tests/lints/scanners/generators, product/Git edits, globalclearance or PR987gate.",
+    "Four actual saved contract observations per lens retained; do not lose them or silently fix stale range when starting bounded source review."
+  ],
+  "project_execution": false,
+  "source_body_reads": false,
+  "source_or_git_mutation": false,
+  "global_clearance": false
+}

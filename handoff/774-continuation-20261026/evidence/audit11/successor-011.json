@@ -1,0 +1,68 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-011",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 401,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/attachment.rs",
+      "sha256": "d111cafcd0fbd3cecae5a066f6da8ce3ca7eaed114bde19daffad836153faed2",
+      "ranges": [
+        [
+          1,
+          248
+        ]
+      ],
+      "source_basis": "Fresh root full exact frozen physical-P16 source read in bounded windows.",
+      "concepts_actual_uses_and_mixup": [
+        "AttachmentTarget combines a supporting parent entity, authored point ID, channel and capacity ordinal. Explicitly selected identity tuples omit channel intentionally: channel acceptance is checked against the actual catalog point and ParentRequirement; parent/point/capacity distinguishes a slot from ordering/requirement ordinal.",
+        "ReachableTarget occupied versus empty attachment is a meaningful closed distinction. Occupied selection projects its supporting slots, empty selection names a concrete free capacity; deterministic sort prioritizes explicit selection and then parent/point/capacity. Selected membership is verified before a whole multi-parent topology is returned.",
+        "AttachmentPoint/placement/occupancy identity and capacity/requirement/order retain distinct semantics even where this older P16 source uses String/u16. Reusing a catalog identity owner during connected migration is preferable to inventing independent wrappers. This file alone does not establish full incoming graph admission."
+      ],
+      "disposition": "Retain meaningful identity/custody/authority/quantity/state distinctions and canonical projections; no new unique granularity issue established by these coherent local bodies. Catalog identity propagation and whole topology admission remain connected obligations, not silently cleared.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 402,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/environment.rs",
+      "sha256": "ef1f175feb5018520f404d2525f6354086adf4ecb8767ee54d841801fa0fbe37",
+      "ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "source_basis": "Fresh root full exact frozen physical-P16 source read in bounded windows.",
+      "concepts_actual_uses_and_mixup": [
+        "EquipmentEnvironment groups spatial collision querying, door authority and window authority as independent Bevy SystemParam capabilities. They cannot be collapsed into one generic mutable scene token merely because equipment actions consume them. No authored scalar/opaque wrapper or new validation bound is introduced here."
+      ],
+      "disposition": "Retain meaningful identity/custody/authority/quantity/state distinctions and canonical projections; no new unique granularity issue established by these coherent local bodies. Catalog identity propagation and whole topology admission remain connected obligations, not silently cleared.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 403,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/fit.rs",
+      "sha256": "4ba486d38eabcb85c3aa9ac546cc93bef6a830b083952cfa839aeae22ec56ba6",
+      "ranges": [
+        [
+          1,
+          252
+        ]
+      ],
+      "source_basis": "Fresh root full exact frozen physical-P16 source read in bounded windows.",
+      "concepts_actual_uses_and_mixup": [
+        "OccupancyRequirement is the canonical fit projection, distinct from stored topology occupancy and equipment catalog definition. Matching two character anchors gates authored_requirement; attachment conflicts use the actual parent/point/capacity predicate instead.",
+        "Candidate and current item/topology/occupancy triplets are semantically distinct correlation roles. Actual local loops pass matching records; arbitrary API mixing is not proved impossible by their common Rust types. The checked catalog requirement lookup preserves location/channel association; missing fit-zone falls back to the existing optional broad policy, not a new admitted exact-fit certificate.",
+        "The actor owner and ignored entity set bound conflict checks to current non-scene inventory; target_conflicts treats empty selection conservatively, while actual transfer caller remains next-role receiving work. Existing harness tests read complete22piece/neighbor/gauntlet behavior only, not executed."
+      ],
+      "disposition": "Retain meaningful identity/custody/authority/quantity/state distinctions and canonical projections; no new unique granularity issue established by these coherent local bodies. Catalog identity propagation and whole topology admission remain connected obligations, not silently cleared.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

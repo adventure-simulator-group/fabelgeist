@@ -1,0 +1,232 @@
+{
+  "id": "ADLER-CONT01-LATER-010",
+  "lens": "producer-propagation",
+  "registry_sha256": "01e11726b2c32ab6f86d513d62a5aa88980e29a8b2ccaf8716319bf0e7629459",
+  "receipts": [
+    {
+      "extension_index": 141,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer_main.rs",
+      "sha256": "c47317c7b2aa4afb18ac097c828f3b3bdd0c38bb2e52312dccbdc8b66bf80f69",
+      "source_ranges": [
+        [
+          25,
+          205
+        ]
+      ],
+      "actual_eof": 254,
+      "trace": {
+        "producer": "Clap admits closed CaptureProfile and constrained CLI values, but main163-205 converts profile enum to static raw strings before internal tactical_scene_viewer::run.",
+        "retained_and_operations": "Fresh actual frozen viewer.rs762-854 SHA f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1: run accepts profile:&staticstr, sends it to internal fixed camera contract/selected_capture_views and stores profile.to_owned in SceneSetupData. Native camera azimuth is admitted once through SignedAngleDegrees at780-789; strategic minute wrapped once at819-821.",
+        "actual_receiver": "Profile strings feed application selection/configuration, not native CLI/serde or Bevy interface, whereas angle later retained typed. Input fixture/path pair has CLI guard then unreachable internal fallback; view names/path output are actual openfile/view boundaries.",
+        "boundary_and_disposition": "Source-backed unfinished role propagation: one canonical capture profile should survive CLI\u2192run\u2192setup/state/selection, encode only actual metadata/CLI boundary; do not justify this String hop merely by callingrun an adapter. Preserve existing input-mode/benchmark/frame workflow family and all valid zero/open view policies. Dedup with original capture-profile/tooling findings before count; no normal invalid profile currently shown."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 142,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+      "sha256": "3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+      "source_ranges": [
+        [
+          44,
+          186
+        ]
+      ],
+      "actual_eof": 186,
+      "trace": {
+        "producer": "Review fixture/setup resolves actual building plans/signs/view specifications and compiles typed opening/camera products.",
+        "retained_and_operations": "Viewslug/fixture IDs are explicit open authoring/metadata keys; concrete camera/door/window outputs collected before resources published. Counts are review expectation metadata.",
+        "actual_receiver": "Actual Bevy resources/camera setup consume checked camera output and native compiled geometry; JSON report fixtures are real wire/text boundary.",
+        "boundary_and_disposition": "No new primitive position/frame reconstruction across internal layers shown in bounded setup. Existing profile141 role erasure/source-input workflow, count/report and typed cause/panic policies remain connected; fixture checks are not proof of all body/geometry validity."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 143,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/heating.rs",
+      "sha256": "132d482c3a2ff8afb67a63fe50cbb2d71d33bafe1e0e82649e14c65ac60a93f2",
+      "source_ranges": [
+        [
+          9,
+          156
+        ]
+      ],
+      "actual_eof": 156,
+      "trace": {
+        "producer": "HeatingTarget resolves selected actual hearth/stove/roof/support/floor and computes camera anchor/offset.",
+        "retained_and_operations": "Checked positions/displacements re-admit computed native geometry after actual finite-losing arithmetic, not trivial extraction before another application call. Floor rawu16 selector reaches actual floor membership lookup.",
+        "actual_receiver": "Actual building plan geometry lookup and camera anchor admission are concrete numerical consumers. Missing target returns typed error instead of fakezero.",
+        "boundary_and_disposition": "Do not prohibit unknown floor selector without owning building context. Existing ordinal/geometry/camera source producer family may reuse established floor index where it fits; no new ordinary missing-floor failure or complete physical-family clearance."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 144,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/openings.rs",
+      "sha256": "14199ccf21d392bf19b46f9cfe2acb7675b248c2034bb65d04f9ace610aacc03",
+      "source_ranges": [
+        [
+          6,
+          217
+        ]
+      ],
+      "actual_eof": 217,
+      "trace": {
+        "producer": "OpeningTarget/OpeningPose remain closed choices; private OpeningFrame constructor admits position and normalized directions, actual compiled door/window determines geometry.",
+        "retained_and_operations": "Native Transform/Quat/hinge/angle are carried in review leaf adapter to actual rendered components; selected enum remains typed until native pose construction.",
+        "actual_receiver": "Actual Bevy transform/mesh operations justify native vector/rotation fields at rendering boundary. Camera/fixture view indexing depends on admitted capture cohort142, not a new raw decoder.",
+        "boundary_and_disposition": "No fresh repeated same-owner numerical admission or string pose classification. Keep raw native transform validity, sourceassociation and review lifecycle obligations explicit; do not infer whole game door-state propagation from visual adapter."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 145,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/gardens.rs",
+      "sha256": "5936937971ea96478c9d052b5421c59c54e8866c41c7ed76fee9f3023f04371d",
+      "source_ranges": [
+        [
+          6,
+          115
+        ]
+      ],
+      "actual_eof": 115,
+      "trace": {
+        "producer": "Actual SceneGarden checked plant metadata feeds GardenObservation expected transforms/IDs; native entities supply GlobalTransform/children/material handles.",
+        "retained_and_operations": "Canonical centre/scale/orientation leaves extract directly to actual transform_point/Quat/comparison operations. GPU asset IDs remain typed.",
+        "actual_receiver": "Real Bevy transform operations and final review oracle consume primitives; no intermediary application re-admits same position/scale after flattening.",
+        "boundary_and_disposition": "Boundary justification is source-backed math/framework operation. Numerical NaN comparison/identity/cohort assumptions remain original observation/admission policies, not cleared by native handle checks. No new unique count."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 146,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/lod.rs",
+      "sha256": "4fd2d2aefa94b99bee1c8d2784f8399ed4f70bec9c3dfe9431d737192ef4a0e1",
+      "source_ranges": [
+        [
+          9,
+          98
+        ]
+      ],
+      "actual_eof": 98,
+      "trace": {
+        "producer": "Typed BuildingRenderLevel projects to ReviewLod; capture selects typed override and preserves original native VisibilityRange.",
+        "retained_and_operations": "Typed override maps to actual native range sentinels0/MAX, retains restoration history and serialized evidence only.",
+        "actual_receiver": "Actual Bevy VisibilityRange is required floating native range representation; evidence native JSON serializes closed ReviewLod.",
+        "boundary_and_disposition": "No premature application role flattening in this bounded route. Native MAX is display-range sentinel, not an arbitrary physical cap. Capture cohort and temporary override ownership remain original workflow."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 147,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/gpu_readiness.rs",
+      "sha256": "3fc7f599e45d69c79994c4044060d1cb7552f2d501830a6661d033a4fff9441e",
+      "source_ranges": [
+        [
+          14,
+          50
+        ]
+      ],
+      "actual_eof": 50,
+      "trace": {
+        "producer": "RenderCleanup observes actual typed RenderAssets and publishes typed AssetId sets into shared GpuReadiness.",
+        "retained_and_operations": "Resource IDs remain Mesh/Image-specific; contains computes ordinary residency bool from actual snapshot, no numeric/string asset ID reconstruction.",
+        "actual_receiver": "Garden/view capture readiness consumer145 checks same actual native handles; set/lock is framework snapshot adapter.",
+        "boundary_and_disposition": "No producer-type loss; residency presence is not semantic source/revision validation. Retain timing and in-place asset revision qualification, no renderer-ready/global source clearance."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 148,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/furniture/visibility.rs",
+      "sha256": "5a042944716f1246446ff570ea2d6bbf2bfff1a245ecda53087b881153302ef2",
+      "source_ranges": [
+        [
+          9,
+          63
+        ]
+      ],
+      "actual_eof": 211,
+      "trace": {
+        "producer": "Current camera/building queries and typed Interior furniture owner produce ordinary visibility predicate.",
+        "retained_and_operations": "Native world translations/distance are used directly for actual rendering proximity, building identity remains typed map key; exhibition is explicit runtime capability.",
+        "actual_receiver": "Final Bevy Visibility enum is concrete native target; no application owner re-admitted from measured distance/ID text.",
+        "boundary_and_disposition": "No fresh primitive producer gap within this presentation adapter. Parent/ID uniqueness/native transform source remains original owner responsibility; missing owner hidden in gameplay as existing policy."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 149,
+      "source_id": "native-dependency:spacetimedb-sdk-2.6.1/src/client_cache.rs",
+      "sha256": "1815445657f053bf0d24bdf218219eed822e9626511eade5d3afa0aca3fa7ff1",
+      "source_ranges": [
+        [
+          22,
+          79
+        ],
+        [
+          196,
+          214
+        ],
+        [
+          340,
+          406
+        ],
+        [
+          409,
+          452
+        ]
+      ],
+      "actual_eof": 636,
+      "trace": {
+        "producer": "Native SDK receives typed Row+BSATN bytes and maintains canonical tablecache plus query refcount; handles keep same module/row type and static table name.",
+        "retained_and_operations": "Actual Row survives clone through iter; bytes and stringnames are native protocol/index boundary. count converts native entries.len to nativeu64 table API.",
+        "actual_receiver": "Generated handle150 delegates this exact cache count/iter/query interface; no application primitive field owner is reconstructed inside SDK.",
+        "boundary_and_disposition": "Native codec/cache port justifies raw table/row byte identifiers, not game-level source authority. Do not hand-edit SDK/generated schema or infer row admission beyond actual transport; refcount update regions outside scope not globally cleared."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 150,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/backend_hostile_negotiations_table.rs",
+      "sha256": "ef0878fa2f385c6e35e1b4ef8e3702bbb114a81520c8cc3b6c35ddab4319065e",
+      "source_ranges": [
+        [
+          24,
+          57
+        ],
+        [
+          85,
+          90
+        ],
+        [
+          106,
+          120
+        ]
+      ],
+      "actual_eof": 120,
+      "trace": {
+        "producer": "Generated hostile-negotiation handle/registration/query access use canonical generated Row and exact static table name.",
+        "retained_and_operations": "Transport row type survives count/iter/callback/query native paths; no application Stringerror or classification conversion in selected ranges.",
+        "actual_receiver": "Actual SDK cache149 and native query builder require schema table name; repeated generated string is wire adapter.",
+        "boundary_and_disposition": "No fresh bespoke producer gap in generated glue. Schema changes must regenerate bindings; underlying row/application consumer type migration remains separate and not cleared here."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    }
+  ],
+  "global_clearance": false,
+  "new_unique_count": "not asserted; existing-remedy dedup required",
+  "extra": {
+    "source_basis": "Same exact personally read bodies141-150 reused with fresh01analysis; internal run762-854 freshly read because primitive profile escape required actual receiver proof."
+  }
+}

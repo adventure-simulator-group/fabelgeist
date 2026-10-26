@@ -1,0 +1,52 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-191",
+  "at": "2026-10-25T21:22:17.876106+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1999,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/regional_terrain.rs",
+      "sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+      "personally_read_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full57 lines read. Actual RegionalTerrain producer binds same requested origin/scale to fixed65x65 row-major samples, derives source digest from actual pack, samples native continuous-offset coordinates without intermediate quantization, and retains per-cell elevation/environment together. Missing source is explicit None; present elevation must admit before final exact-cardinality RegionalTerrain. This closes ordinary request/source/sample association dependency from packet176; arbitrary native constructor mismatch remains API-only."
+      ]
+    },
+    {
+      "scope_index": 2000,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input.rs",
+      "sha256": "03e1948b1e2d2492d4f2062ef4aebb1e6dc293f6e228bede4d15710785306b57",
+      "personally_read_ranges": [
+        [
+          1,
+          978
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full978 lines read in contiguous1-500,501-978 ranges. Imported scene constructor admits one WGS84 coordinate, samples centre elevation, derives stable settlement-or-mission seed, and builds playable/vista grids, weather, programme layout, home catalog and establishments from same source/context. Complete input is grounded against that exact layout before return. Absolute centre datum is subtracted once when sampling heights, preserving scene-relative floors and source absolute metadata.",
+        "Grid sample request retains dimensions/spacing/centre/datum/mode/seed as one private record. Current callers use positive closed specs; each sample emits height/environment from same pack cell, optional peak neighbors affect elevation only by explicit PreservePeaks policy. All three production vista origins are exactly0, so Q032 nonzero-origin clipping issue has no ordinary imported-source witness from this producer. No actual nonzero current production path established.",
+        "Nearest fault candidate keeps distance/tangent/quantized origin/LOD together through selection, rejects short segments before normalization, then requires mapped surface containment and admitted recipe. Detail/fringe change voxel resolution while retaining canonical position/dimensions; ordinary arbitrary mapped-geology/feature policy is delegated2002. Seed/stable physical settlement identity survives different mission visits.",
+        "materialize_scene_input hashes mission key into filename, refuses differing already-existing bytes and writes temporary then renames. Full input admission belongs actual producer; public helper does not itself validate. Concurrent different inputs sharing same mission/key/temp path require real caller/lifetime witness before immutable-file race defect; no process or filesystem export executed. Source tests cover coordinates, complete establishments, source/soil datum, regional holes and admitted-source preview identity; all assertions read only."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "dependency_updates": [
+    {
+      "dependency": "packet176 RegionalTerrain metadata/sample producer association",
+      "result": "Actual1999 samples same pack/origin/scale and digest into row-major paired samples; ordinary producer coherent, arbitrary constructor mismatch not runtime witness."
+    },
+    {
+      "dependency": "ADLER-RESUMED05-Q032 nonzero vista origin",
+      "result": "Actual imported dispatcher2000 samples every production ring with origin0; current imported path cannot witness nonzero-origin issue. Other source-backed nonzero producer/policy remains unestablished."
+    }
+  ]
+}

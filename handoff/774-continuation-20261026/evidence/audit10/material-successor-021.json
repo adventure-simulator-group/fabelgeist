@@ -1,0 +1,227 @@
+{
+  "lens": "derivability",
+  "registry": "../shared-material-successor/source-extensions-187.json",
+  "registry_sha256": "afd8158f9381deffcb264daf382e4db681880cd51b120b9a3fcc9b8bfc2ea3b9",
+  "receipts": [
+    {
+      "material_index": 80,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-puzzles/src/analysis.rs",
+        "sha256": "fb36566c1c5d3a10b22638406e6341f7fcd427c4226b20604e56153dc380caeb",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            1,
+            348
+          ]
+        ],
+        "registration_evidence": "enum-shapes/registration-507B-material.json",
+        "reason": "Changed PuzzleAuthority receiver is consumed by its actual analysis() contract used in replay/generation complexity fixtures; must inspect which typed clue/spec/witness fields supply reported possible_answers and structural_complexity before declaring their propagation coherent. This is concrete semantic receiver/callee of same authority types, not lib module export. Prospective full source registration; narrow actual affected contract ranges after first read.",
+        "qualification": "Only exact material ranges; fixtures/unread SDK remainder excluded. No original2853 count increment or other-lens transfer."
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-puzzles/src/analysis.rs",
+      "source_sha256": "fb36566c1c5d3a10b22638406e6341f7fcd427c4226b20604e56153dc380caeb",
+      "read_ranges": [
+        [
+          1,
+          348
+        ]
+      ],
+      "inventory_and_semantics": "Full PuzzleAnalysis record already derives Clone/Debug/PartialEq/serde. All handwritten bodies are puzzle-specific hypothesis enumeration, necessity inference, scoring and recursive rune-answer search; repeated result records contain different semantic fields, not trait/codec duplication. Numerical admission/saturation/counting correctness is outside this lens; no algorithm refactor proposed.",
+      "disposition": "No derivability candidate; existing derives or semantic/native behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies, independent lens10 assessment; source copy not coverage transfer",
+      "limits": "Only stated ranges; no algorithm/native/nonfinite/runtime/global acceptance"
+    },
+    {
+      "material_index": 81,
+      "registration": {
+        "source_id": "pinned-registry:serde_json-1.0.151/src/value/ser.rs",
+        "sha256": "11f2b7daa1eba826d4086d5497f73729478dd7647bff77deccde5e47b0f126f2",
+        "ranges": [
+          [
+            148,
+            158
+          ]
+        ],
+        "line_count": 1063,
+        "provenance": "Onlystatedrangespersonallyread; no fullcoverageunlessrangesreachactualEOF. Riggitexactcbbbca08c89a8768926799371f54cf6057312e5e. SerdeJSONcratec841b55e...matchesfrozenrigCargo.lockandactualmemberbytes; no otherSDKcoverage.",
+        "registration_evidence": "operations/contract-groups-592.json",
+        "reason": "Actual reached operation support; selected export receiver/native serialization, vector clamp or gate center producer/caller. Exact reason and proof retained in origin packet.",
+        "qualification": "Exact material ranges only. No whole SDK/library coverage, no original2853 increment, no automatic other-lens evidence transfer."
+      },
+      "source_origin": "../audit02-delta/sources/11f2b7daa1eba826d4086d5497f73729478dd7647bff77deccde5e47b0f126f2 (exact hash-verified source copy; no own02 verdict transferred)",
+      "source_sha256": "11f2b7daa1eba826d4086d5497f73729478dd7647bff77deccde5e47b0f126f2",
+      "read_ranges": [
+        [
+          148,
+          158
+        ]
+      ],
+      "inventory_and_semantics": "Native serde_json Serializer float methods delegate Value::from; upstream serializer trait requires this tiny method adaptation. No application derive/codec change; f32/f64 both read.",
+      "disposition": "No derivability candidate; existing derives or semantic/native behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies, independent lens10 assessment; source copy not coverage transfer",
+      "limits": "Only stated ranges; no algorithm/native/nonfinite/runtime/global acceptance"
+    },
+    {
+      "material_index": 82,
+      "registration": {
+        "source_id": "pinned-registry:serde_json-1.0.151/src/value/from.rs",
+        "sha256": "ae4b5f93b27e578fa40e3a8d25d0df2032fe40b680cddb15963e47cbd56db613",
+        "ranges": [
+          [
+            27,
+            52
+          ]
+        ],
+        "line_count": 284,
+        "provenance": "Onlystatedrangespersonallyread; no fullcoverageunlessrangesreachactualEOF. Riggitexactcbbbca08c89a8768926799371f54cf6057312e5e. SerdeJSONcratec841b55e...matchesfrozenrigCargo.lockandactualmemberbytes; no otherSDKcoverage.",
+        "registration_evidence": "operations/contract-groups-592.json",
+        "reason": "Actual reached operation support; selected export receiver/native serialization, vector clamp or gate center producer/caller. Exact reason and proof retained in origin packet.",
+        "qualification": "Exact material ranges only. No whole SDK/library coverage, no original2853 increment, no automatic other-lens evidence transfer."
+      },
+      "source_origin": "../audit02-delta/sources/ae4b5f93b27e578fa40e3a8d25d0df2032fe40b680cddb15963e47cbd56db613 (exact hash-verified source copy; no own02 verdict transferred)",
+      "source_sha256": "ae4b5f93b27e578fa40e3a8d25d0df2032fe40b680cddb15963e47cbd56db613",
+      "read_ranges": [
+        [
+          27,
+          52
+        ]
+      ],
+      "inventory_and_semantics": "Native Value::From<f32> maps Number::from_f32 to Number or Null for nonfinite; representation/validation policy, not transparent structural projection. f64 narrative prefix only27-52, no f64-body credit.",
+      "disposition": "No derivability candidate; existing derives or semantic/native behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies, independent lens10 assessment; source copy not coverage transfer",
+      "limits": "Only stated ranges; no algorithm/native/nonfinite/runtime/global acceptance"
+    },
+    {
+      "material_index": 83,
+      "registration": {
+        "source_id": "pinned-registry:glam-0.32.1/src/f32/vec3.rs",
+        "sha256": "28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+        "ranges": [
+          [
+            1021,
+            1032
+          ]
+        ],
+        "line_count": 2238,
+        "provenance": "Exact cached crate checksum matches frozen P16Cargo.lock; both pinned versions have same native clamp operation. Only stated range read, no wholeSDK credit.",
+        "registration_evidence": "operations/contract-groups-596.json",
+        "reason": "Actual reached operation support; selected export receiver/native serialization, vector clamp or gate center producer/caller. Exact reason and proof retained in origin packet.",
+        "qualification": "Exact material ranges only. No whole SDK/library coverage, no original2853 increment, no automatic other-lens evidence transfer."
+      },
+      "source_origin": "../audit02-delta/sources/28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c (exact hash-verified source copy; no own02 verdict transferred)",
+      "source_sha256": "28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+      "read_ranges": [
+        [
+          1021,
+          1032
+        ]
+      ],
+      "inventory_and_semantics": "Native glam0.32.1 clamp_length_max performs bound assertion, squared-length comparison and sqrt/scaling conditional; semantic numerical kernel, no handwritten trait/serde in registered body.",
+      "disposition": "No derivability candidate; existing derives or semantic/native behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies, independent lens10 assessment; source copy not coverage transfer",
+      "limits": "Only stated ranges; no algorithm/native/nonfinite/runtime/global acceptance"
+    },
+    {
+      "material_index": 84,
+      "registration": {
+        "source_id": "pinned-registry:glam-0.33.6/src/f32/vec3.rs",
+        "sha256": "3e72eeb9eddf937d45c43637677046bb2a00027a317770ad8ba72619fc6605fe",
+        "ranges": [
+          [
+            1043,
+            1054
+          ]
+        ],
+        "line_count": 2241,
+        "provenance": "Exact cached crate checksum matches frozen P16Cargo.lock; both pinned versions have same native clamp operation. Only stated range read, no wholeSDK credit.",
+        "registration_evidence": "operations/contract-groups-596.json",
+        "reason": "Actual reached operation support; selected export receiver/native serialization, vector clamp or gate center producer/caller. Exact reason and proof retained in origin packet.",
+        "qualification": "Exact material ranges only. No whole SDK/library coverage, no original2853 increment, no automatic other-lens evidence transfer."
+      },
+      "source_origin": "../audit02-delta/sources/3e72eeb9eddf937d45c43637677046bb2a00027a317770ad8ba72619fc6605fe (exact hash-verified source copy; no own02 verdict transferred)",
+      "source_sha256": "3e72eeb9eddf937d45c43637677046bb2a00027a317770ad8ba72619fc6605fe",
+      "read_ranges": [
+        [
+          1043,
+          1054
+        ]
+      ],
+      "inventory_and_semantics": "Native glam0.33.6 same registered clamp_length_max shape independently read from exact version bytes. Semantic kernel, no automatic cross-version equality/whole-dependency credit.",
+      "disposition": "No derivability candidate; existing derives or semantic/native behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies, independent lens10 assessment; source copy not coverage transfer",
+      "limits": "Only stated ranges; no algorithm/native/nonfinite/runtime/global acceptance"
+    },
+    {
+      "material_index": 85,
+      "registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout/compiled/property.rs",
+        "sha256": "ae34cb221f0a7fec0c9c65d49e88822262a16c26c965566e735cc95b510741de",
+        "ranges": [
+          [
+            1,
+            55
+          ],
+          [
+            110,
+            203
+          ]
+        ],
+        "line_count": 203,
+        "provenance": "Exact git0393295; onlystatedranges personallyread; separate live registration pendingcoordinator, no wholebodycreditwherepartial.",
+        "registration_evidence": "operations/contract-groups-606.json",
+        "reason": "Actual reached operation support; selected export receiver/native serialization, vector clamp or gate center producer/caller. Exact reason and proof retained in origin packet.",
+        "qualification": "Exact material ranges only. No whole SDK/library coverage, no original2853 increment, no automatic other-lens evidence transfer."
+      },
+      "source_origin": "../audit02-delta/sources/ae34cb221f0a7fec0c9c65d49e88822262a16c26c965566e735cc95b510741de (exact hash-verified source copy; no own02 verdict transferred)",
+      "source_sha256": "ae34cb221f0a7fec0c9c65d49e88822262a16c26c965566e735cc95b510741de",
+      "read_ranges": [
+        [
+          1,
+          55
+        ],
+        [
+          110,
+          203
+        ]
+      ],
+      "inventory_and_semantics": "P16 ClearanceCache already derives Default. Compile body partial and access/boundary construction implement checked placement, route clearance/cache policy and coordinate transforms; no mechanical codec/trait duplication. Missing56-109 not covered by this material role.",
+      "disposition": "No derivability candidate; existing derives or semantic/native behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies, independent lens10 assessment; source copy not coverage transfer",
+      "limits": "Only stated ranges; no algorithm/native/nonfinite/runtime/global acceptance"
+    },
+    {
+      "material_index": 86,
+      "registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout.rs",
+        "sha256": "d5aacb8a24fecfd5dadee9361c1b6c3d32bd19171bfc0bc984cd8b2efb183c8f",
+        "ranges": [
+          [
+            235,
+            315
+          ]
+        ],
+        "line_count": 338,
+        "provenance": "Exact git0393295; onlystatedranges personallyread; separate live registration pendingcoordinator, no wholebodycreditwherepartial.",
+        "registration_evidence": "operations/contract-groups-606.json",
+        "reason": "Actual reached operation support; selected export receiver/native serialization, vector clamp or gate center producer/caller. Exact reason and proof retained in origin packet.",
+        "qualification": "Exact material ranges only. No whole SDK/library coverage, no original2853 increment, no automatic other-lens evidence transfer."
+      },
+      "source_origin": "../audit02-delta/sources/d5aacb8a24fecfd5dadee9361c1b6c3d32bd19171bfc0bc984cd8b2efb183c8f (exact hash-verified source copy; no own02 verdict transferred)",
+      "source_sha256": "d5aacb8a24fecfd5dadee9361c1b6c3d32bd19171bfc0bc984cd8b2efb183c8f",
+      "read_ranges": [
+        [
+          235,
+          315
+        ]
+      ],
+      "inventory_and_semantics": "P16 city lot admission, deterministic passage selection and CandidateLot construction implement authored geometry/random policy. Existing explicit record projection is semantic; registered235-315 starts/ends midfunctions, no whole city algorithm verdict.",
+      "disposition": "No derivability candidate; existing derives or semantic/native behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies, independent lens10 assessment; source copy not coverage transfer",
+      "limits": "Only stated ranges; no algorithm/native/nonfinite/runtime/global acceptance"
+    }
+  ],
+  "checks": "not run",
+  "source_edits": false,
+  "clear": false
+}

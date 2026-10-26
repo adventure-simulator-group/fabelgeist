@@ -1,0 +1,162 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-067",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1658,
+    1678,
+    1688,
+    1689,
+    1690,
+    1694,
+    1695,
+    1697,
+    1698
+  ],
+  "source_pin": "source-pins-and-scope-096.json",
+  "source_reads": {
+    "1688": {
+      "head": [
+        [
+          1,
+          133
+        ]
+      ],
+      "actual_diff": [],
+      "head_sha256": "a336c40ca633f682bc6f03794f3d049316b2c1578ff0817d186b926ac4d2e93e",
+      "base_sha256": "a336c40ca633f682bc6f03794f3d049316b2c1578ff0817d186b926ac4d2e93e",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "1689": {
+      "head": [
+        [
+          1,
+          93
+        ]
+      ],
+      "actual_diff": [],
+      "head_sha256": "24723b09d19d3e854b960b1efe8dc118b2bf236352886ac871f5396e05dc9f40",
+      "base_sha256": "24723b09d19d3e854b960b1efe8dc118b2bf236352886ac871f5396e05dc9f40",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "1690": {
+      "head": [
+        [
+          1,
+          94
+        ]
+      ],
+      "actual_diff": [],
+      "head_sha256": "88162a5ba0e0b8ea382882acfed34414b1f0d04d2ea5ebd003a065c7e22b81a0",
+      "base_sha256": "88162a5ba0e0b8ea382882acfed34414b1f0d04d2ea5ebd003a065c7e22b81a0",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "1694": {
+      "head": [
+        [
+          1,
+          314
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          240
+        ]
+      ],
+      "head_sha256": "05e1262eceecd704375cc6d33a557bb5ad265eafb44ecf6697a08a74dc439197",
+      "base_sha256": "037f52b8ec7427db691029fa711ffcc5eacd7599f8e04f701d495b2b755d2b51",
+      "diff_sha256": "6c7e988ab72ca4c6e10f8d7d03e5265997096abf60c68089fd5a2b7bdbbd07ff"
+    },
+    "1695": {
+      "head": [
+        [
+          1,
+          361
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          57
+        ]
+      ],
+      "head_sha256": "61a75136cb8f74dc15d82067001e779adb530856156117c3a1a8502dfe23493c",
+      "base_sha256": "3756cca5fbb659950740fb9ff39798b369d061b359ec671bbad835ab8a899257",
+      "diff_sha256": "ea1dbc0ac84d866ee56e4fac519fed4988353b9a264456c666b6d28ab26ef320"
+    },
+    "1697": {
+      "head": [
+        [
+          1,
+          214
+        ]
+      ],
+      "actual_diff": [],
+      "head_sha256": "09366b1705b726c94763a99aaa47ffd35ccd1874b93bc11150436a9c8210595e",
+      "base_sha256": "09366b1705b726c94763a99aaa47ffd35ccd1874b93bc11150436a9c8210595e",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "prior_personal_full_receipts": {
+    "1658": [
+      "packets/behavior-057-partial.json",
+      "packets/behavior-058.json"
+    ],
+    "1678": [
+      "packets/behavior-065.json"
+    ],
+    "1698": [
+      "packets/behavior-054.json",
+      "packets/behavior-058.json"
+    ]
+  },
+  "support_reads": [
+    {
+      "index": 525,
+      "sha256": "87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b",
+      "ranges": [
+        [
+          4582,
+          4663
+        ]
+      ],
+      "qualification": "Critical canonical belt definition4582-4611, plus adjacent already registered requested-source text through4663 read; no additional original credit."
+    },
+    {
+      "index": 1658,
+      "sha256": "8534f53749dd9918cd0c3a9549561eab6825e7edb7b8908db60da2a8639ee64a",
+      "ranges": [
+        [
+          65,
+          81
+        ]
+      ],
+      "reason": "Fresh critical required_height_at owner reread; previous complete source/diff retained."
+    },
+    {
+      "index": 1698,
+      "sha256": "d957debd0155371a6487925b22efab792acadf0a9a374b35e8994126146a1f27",
+      "ranges": [
+        [
+          122,
+          177
+        ]
+      ],
+      "reason": "Fresh preparation publication and unchanged existing seed fixture reread; previous full source/diff retained."
+    }
+  ],
+  "analysis": {
+    "protocol1688": "Full133 baseequal: same pixel-origin/extent min, zero deactivation, fullsize>=1, crop offsets; unchanged serde fields/names and stage selected/fallback/requires_person logic. Existing offscreen viewport case/assertions unchanged.",
+    "diagnostics1689": "Full93 baseequal: same readiness/root-once gate, tag/name hierarchy precedence, stable BTree groups then visible-descending top20, native indexlen36 classification and serialized output; no new counter/rerender behavior.",
+    "shadows1690_visibility1697": "Full94/214 baseequal read: same active layer union and ownership-tagged NotShadowCaster restore; camera-specific far-plane support radius and inherited installation gate/latch preserve other views/light visibility and replacement stale-readiness frame. All original shadow, farplane crossing bounds and city replacement fixture cases/oracles read, not executed.",
+    "street1694": "Full314/diff240: same128clearance frontZ fold, door orientation/yaw, rotated extents, baymax18+gap4, sky8, width/centering order, furniture affine before->after relocation and Euler yaw, streetcamera1.7/height*.45, ground512 and .01lift. Typed relocation struct stores same before/after values; position getter unwrap retains native outputs. required_height_at replaces missing support0 fallback with concrete MissingSupport point; explicit admission policy, not unconditional behavior equality for absent terrain. Accepted support uses same actual foreground first then vista triangle interpolation. Same fullsize frontage/furniture invariance fixture with getters only.",
+    "venues1678_backdrop1658_world1698": "Earlier personally full bodies/diffs now closed against actual street/error/status recipients. Venue selection/furnish/street ordering remains; support at origin,approach/front now required rather than silent defaults. PreparedBackdrop precomputes meshes before new root publication; world122-161 publishes backdrop only after venues succeed. Qualification retained: old root retirement/reset occurs before prepare, so failing replacement does not preserve old strategic scene. No general transactional asset/generated-state rollback promised (furnish/building mutations may precede later error). Existing typed error retained inArc and serialized at1692, no string compatibility promised.",
+    "tests1695": "Full361/diff57: original hierarchy reattachment/culling/carry roundtrip and all strategic authority/roster/rank/equipment/unequip/103layers/forge/portrait demand assertions unchanged. Venue fixture uses same zero/X and identity poses. Visible fixture input item changes leather_belt->belt; actual frozen catalog5254582-4611 supplies canonical belt physical dimensions. This is explicit fixture adaptation to canonical catalog, not byte-identical input or added case/assertion. Existingfullu64id9007199254740993 remains string. No fixture/runtime validation claimed."
+  },
+  "findings": [],
+  "qualifications": [
+    "Earliest1462 and all other saved partial/candidate/policy qualifications remain. No #774 global clearance or current-main inference.",
+    "Source-only read, no checks/tests/native rendering/publication."
+  ],
+  "global_clearance": false
+}

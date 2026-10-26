@@ -1,0 +1,64 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-113",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1810,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs",
+      "sha256": "f9abcd66e159994c71c72f4cbf44f1562f9e72eb376d07cbef3f09f01cd2053b",
+      "ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh exact frozen263line enclosure role. Scope072 RIG-OWNER-SUPPORT-BOUNDARY-KERNELS-063 covers1-263. Basic/serde/thiserror traits already derive. Two handwritten TryFrom adapters are semantic admission: BoundaryCellWire delegates through new/prism validation; BoundaryMeshWire validates cells against the retained binding before constructing the runtime mesh. Diagnostic factories select owner/member IDs, concrete construction causes and units; mesh native projection/collider assembly is geometric conversion.",
+      "disposition": "Retain checked TryFrom and explicit semantic factories. A direct From/transparent Deserialize derive would bypass prism or owner-cell topology admission and change failure semantics. Existing derived wire serialization remains. No new derivability candidate; no geometry/collider/runtime acceptance claim.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1811,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+      "sha256": "9db0cfc4b4c3053884d835faaca49a404c9942f7f0599b3069b89729fd8d7ae3",
+      "ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "scope_kind": "materially_reached_producer_contract",
+      "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh personally read exact producer contract1-199 as registered ROOT-PPS-TERRAIN-DISPATCH-WEB-037/NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015. BoundaryOwnerBinding basic/serde and error traits already derive; BindingWire TryFrom assembles fields then validates nonzero owner, exactly two members, nonempty unique authored elements and forbidden element variants. BoundaryDescriptorDigest explicitly hashes ordered authored wall/gate scalars in little-endian representation and hinge tag; it is semantic identity, not interchangeable with std Hash or serde output. from_property derives members/elements and maps concrete geometry/support failures; validate_scene binds owner/front/descriptor and validate_cells enforces element coverage/topology.",
+      "disposition": "Retain checked BindingWire conversion; a direct field From or raw Deserialize bypasses validation. Digest representation and scene/cell checks are semantic operations and cannot be replaced by mechanical derives. No candidate within registered1-199. Error-tail and projection declaration beyond199 were incidentally visible in exact Git show but receive no registered-source coverage credit or retrospective scope extension.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1812,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/projection.rs",
+      "sha256": "b9c9f5a56ca087ccf2cd618c4136ff2fe79d900005cdb98d007270cfc41bf1d1",
+      "ranges": [
+        [
+          1,
+          272
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh exact registered272line unchanged projection support body; Scope072 RIG-OWNER-SUPPORT-BOUNDARY-KERNELS-0631-272. No handwritten traits/custom codec. Explicit functions enforce source property/member binding, select gate datum with missing/ambiguous errors, construct source-bound owner binding, clip geometric members onto foundation triangles, enforce coverage, admit typed gate-relative positions and preserve concrete geometry/support errors. MemberLevels and MemberProjection are internal computation state rather than wire projection.",
+      "disposition": "No derivability candidate. Source selection, numeric geometry, checked coordinate conversion and error context are semantic multi-input operations; derive would not preserve them. No runtime/geometry correctness or other-lens credit.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

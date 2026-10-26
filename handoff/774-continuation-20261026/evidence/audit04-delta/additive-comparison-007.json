@@ -1,0 +1,105 @@
+{
+  "lens": "04 invariant operations",
+  "registry": "../shared-material-successor/source-extensions-190.json",
+  "registry_sha256": "ef68ea95d642cad0495e1eb0185e8b7de0b805a478b8a71e09f63e4aba9e93ac",
+  "receipts": [
+    {
+      "material_index": 188,
+      "registration": {
+        "source_id": "native-support:http-1.5.0/src/uri/mod.rs",
+        "sha256": "adf4235a0d72b03ca71582f4acab50fff8a146f2b92517a227806d372300186b",
+        "revision": "Cargo.lock pinned http1.5.0",
+        "archive_checksum": "918d3568bebf352712bc2ef3d46a8bcf1a75b373be6539de198e9105cbbf9ce0",
+        "ranges": [
+          [
+            293,
+            341
+          ],
+          [
+            709,
+            716
+          ],
+          [
+            718,
+            725
+          ],
+          [
+            890,
+            897
+          ]
+        ],
+        "actual_EOF": 1132,
+        "registration_evidence": "registration-013.json",
+        "reason": "F005 current-source reconciliation needs actual admitted URI fragment parsing contract before retaining frozen witness. Narrow publicparse/PathAndQuery fragment contracts only, not whole SDK.",
+        "prior_reads": "05 declaration signatures/spans/hash/archive metadata navigation only, no parse/fragment body or verdict. Coordinator hash/copy/count plus Cargo.lock identity only before registration."
+      },
+      "source_sha256": "adf4235a0d72b03ca71582f4acab50fff8a146f2b92517a227806d372300186b",
+      "read_ranges": [
+        [
+          293,
+          341
+        ],
+        [
+          709,
+          716
+        ],
+        [
+          718,
+          725
+        ],
+        [
+          890,
+          897
+        ]
+      ],
+      "source_basis": "Fresh independent source read and exact hash verification for this lens; no other-lens coverage or verdict transfer.",
+      "analysis": "Length is checked before indexed reads: the one-byte branch dominates s[0], empty returns before later s[0], and other failures propagate before publishing a Uri. Parsing mutates only local owned components. Public string/byte adapters preserve InvalidUri and no retained product state is changed on rejection.",
+      "disposition": "Native contract supports existing witness qualification; no new issue, repair, or unique finding.",
+      "limits": "Only registered ranges. parse_full, Authority parsing, MAX_LEN, lookup-table values and whole-SDK behavior are not independently covered here. No probe or project check run."
+    },
+    {
+      "material_index": 189,
+      "registration": {
+        "source_id": "native-support:http-1.5.0/src/uri/path.rs",
+        "sha256": "d69c30a915c83bb99f956da92d9a3cc16b754da43d1e940bd750676e9a7a5c7f",
+        "revision": "Cargo.lock pinned http1.5.0",
+        "archive_checksum": "918d3568bebf352712bc2ef3d46a8bcf1a75b373be6539de198e9105cbbf9ce0",
+        "ranges": [
+          [
+            21,
+            39
+          ],
+          [
+            467,
+            538
+          ]
+        ],
+        "actual_EOF": 709,
+        "registration_evidence": "registration-013.json",
+        "reason": "F005 current-source reconciliation needs actual admitted URI fragment parsing contract before retaining frozen witness. Narrow publicparse/PathAndQuery fragment contracts only, not whole SDK.",
+        "prior_reads": "05 declaration signatures/spans/hash/archive metadata navigation only, no parse/fragment body or verdict. Coordinator hash/copy/count plus Cargo.lock identity only before registration."
+      },
+      "source_sha256": "d69c30a915c83bb99f956da92d9a3cc16b754da43d1e940bd750676e9a7a5c7f",
+      "read_ranges": [
+        [
+          21,
+          39
+        ],
+        [
+          467,
+          538
+        ]
+      ],
+      "source_basis": "Fresh independent source read and exact hash verification for this lens; no other-lens coverage or verdict transfer.",
+      "analysis": "Scanner rejects empty/too-long input, bounds byte reads by i<len, increments i after byte classification, and records query/fragment offsets. Detected fragment truncation occurs on local owned Bytes; later UTF-8 rejection drops the local candidate before publication. Index casts to u16 depend on MAX_LEN, and unsafe UTF-8 fast path depends on the byte-class maps. Exact constants/table definitions are outside registered ranges, so no exhaustive SDK arithmetic/unsafe proof is claimed. Detected fragment handling supports existing witness qualification; no new source defect or normal failure asserted.",
+      "disposition": "Native contract supports existing witness qualification; no new issue, repair, or unique finding.",
+      "limits": "Only registered ranges. parse_full, Authority parsing, MAX_LEN, lookup-table values and whole-SDK behavior are not independently covered here. No probe or project check run."
+    }
+  ],
+  "previous_closure": "additive-closure-002.json",
+  "first_unfinished_material": null,
+  "new_unique_findings_claimed": 0,
+  "final_clearance": false,
+  "source_edits": false,
+  "checks": "not run"
+}

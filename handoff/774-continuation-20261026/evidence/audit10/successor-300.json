@@ -1,0 +1,84 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-300",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 2588,
+      "source_id": "dependency-serde_core1.0.229:src/de/impls.rs",
+      "sha256": "2f8e2ef9d343875bb996319e69feae0dee2287e2548cedd8d3c752b64812331c",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/2f8e2ef9d343875bb996319e69feae0dee2287e2548cedd8d3c752b64812331c",
+      "ranges": [
+        [
+          129,
+          152
+        ],
+        [
+          222,
+          242
+        ],
+        [
+          450,
+          456
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh exact pinned serde_core1.0.229 numeric Deserialize generator/f32 invocation/cast visitor. Native concrete visitor dispatch and feature-selected NaN sign-preserving f64\u00e2\u2020\u2019f32 conversion read.",
+      "disposition": "Existing primitive codec implementation, no downstream derive candidate. Retain native conversion/visitor semantics; no unrelated NonZero/Saturating/SDK or numeric/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2589,
+      "source_id": "dependency-serde_json1.0.151:src/value/de.rs",
+      "sha256": "ceda1bf415aafde89caa83bf275811b70d393717d4e1038e0c61822d2da02993",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/ceda1bf415aafde89caa83bf275811b70d393717d4e1038e0c61822d2da02993",
+      "ranges": [
+        [
+          169,
+          193
+        ],
+        [
+          313,
+          313
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh exact pinned serde_json Value numeric decoder macro/f32 invocation. Native Number/invalid-type dispatch versus arbitrary_precision typed dispatch read.",
+      "disposition": "Semantic JSON numeric decoder remains explicit; no project structural codec candidate. No unrelated Value/SDK/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2590,
+      "source_id": "dependency-serde_json1.0.151:src/number.rs",
+      "sha256": "70b83c36286f6c58123f544f27db2b54a1135f928fe33b08b521b2997773f862",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/70b83c36286f6c58123f544f27db2b54a1135f928fe33b08b521b2997773f862",
+      "ranges": [
+        [
+          535,
+          580
+        ],
+        [
+          582,
+          600
+        ],
+        [
+          602,
+          618
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh exact pinned JSON Number numeric Deserialize macros/implementation. Actual owned/ref numeric representations, integer/float visitor dispatch and feature-selected decimal parse/error routes read.",
+      "disposition": "Native numeric codec/derivation machinery, no downstream boilerplate candidate. Preserve representation/precision/visitor behavior; no whole JSON/numeric/SDK/runtime clearance.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

@@ -1,0 +1,120 @@
+{
+  "reviewer": "recovery_826",
+  "kind": "Independent Rule successor: baseline-only delta",
+  "head": "2ef288d1085c249fa056156182ea626a060bb8d1",
+  "base": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+  "previous_source_review_head": "6431c2faf1b50608344d1031d0f9413830c271fa",
+  "prior_own_review": "review-001.json",
+  "source_pins": [
+    {
+      "path": "crates/adventuresim-character-creator/README.md",
+      "old_blob": "77e18677cdd3092bfd5f6c992c5ee55687e39d94",
+      "new_blob": "77e18677cdd3092bfd5f6c992c5ee55687e39d94",
+      "sha256": "95e3abd4304b0585e8c5c4d5ec1d4585493c7ef5c15b4fe013c6523aa2357bdb",
+      "byte_identical": true,
+      "matches_prior_pin": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "old_blob": "85dfe90f90e6ab7dcdae56905d9b1fe3450eddb9",
+      "new_blob": "85dfe90f90e6ab7dcdae56905d9b1fe3450eddb9",
+      "sha256": "fe5c1027be20d6ab87b6bd34c3227d38b5eddaf7e33382917ff75e1459a37d69",
+      "byte_identical": true,
+      "matches_prior_pin": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb.rs",
+      "old_blob": "731c90cc25b4b51b2dc7290d14e5154e782a1111",
+      "new_blob": "731c90cc25b4b51b2dc7290d14e5154e782a1111",
+      "sha256": "54be7e4aa7f3cdef3e59c0ffd22ce5594034e9be9b15deb6c141586002d58c29",
+      "byte_identical": true,
+      "matches_prior_pin": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb/error.rs",
+      "old_blob": "40620301ac3d446306dbe76a92bcd7ec2966dd23",
+      "new_blob": "40620301ac3d446306dbe76a92bcd7ec2966dd23",
+      "sha256": "a9f6695f0d792b48a94a12333c437769a0b6f6f262484c402327018a0e491ecc",
+      "byte_identical": true,
+      "matches_prior_pin": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb/layout.rs",
+      "old_blob": "a2837aa54db0331d325f93e2c168ed35e464bc6d",
+      "new_blob": "a2837aa54db0331d325f93e2c168ed35e464bc6d",
+      "sha256": "c7598f12fd08c312d0422f86b062f038090e0a9527106a79b369a4e971cc469f",
+      "byte_identical": true,
+      "matches_prior_pin": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/profiling.rs",
+      "old_blob": "b8c89fa1a05d9769f2ee75b5bddaa7ff66e92729",
+      "new_blob": "b8c89fa1a05d9769f2ee75b5bddaa7ff66e92729",
+      "sha256": "e4bc8f373cddb24d0b8772fa66a004d59e8a69a5113d82b34f288e268bdfaf95",
+      "byte_identical": true,
+      "matches_prior_pin": true
+    }
+  ],
+  "official_artifact": {
+    "path": "../linux-artifact/quality-baseline.toml",
+    "sha256": "5d40373d7d7fe72d65593aeee0145998680524c10ef8c61743cfafb33d118afa",
+    "recorded_run": 40274774510,
+    "recorded_artifact": 12634601650,
+    "matches_receipt": true,
+    "selected_entries": [
+      {
+        "kind": "files",
+        "path": "crates/adventuresim-character-creator/src/export.rs",
+        "ceiling": 778
+      },
+      {
+        "kind": "functions",
+        "path": "crates/adventuresim-character-creator/src/export.rs",
+        "item": "export_rigged_glb",
+        "ceiling": 247
+      }
+    ]
+  },
+  "head_delta": {
+    "path": "rust-quality-baseline.toml",
+    "changes": [
+      {
+        "kind": "files",
+        "before": {
+          "path": "crates/adventuresim-character-creator/src/export.rs",
+          "ceiling": 803
+        },
+        "after": {
+          "path": "crates/adventuresim-character-creator/src/export.rs",
+          "ceiling": 778
+        }
+      },
+      {
+        "kind": "functions",
+        "before": {
+          "path": "crates/adventuresim-character-creator/src/export.rs",
+          "item": "export_rigged_glb",
+          "ceiling": 268
+        },
+        "after": {
+          "path": "crates/adventuresim-character-creator/src/export.rs",
+          "item": "export_rigged_glb",
+          "ceiling": 247
+        }
+      }
+    ],
+    "other_changed_paths_since_prior_review": [
+      "rust-quality-baseline.toml"
+    ]
+  },
+  "findings": [],
+  "verdict": "CLEAR_WITH_SCOPE_AND_LIMITS",
+  "basis": "Personally inspected exact Git baseline diff and actual official hosted baseline selected entries; independently hash-checked all six unchanged source blobs against previous reviewed head and prior recorded pins. Only803->778 file ceiling and268->247 function ceiling change; both equal official recorded-source artifact entries. No unrelated changes, ceiling increases, exemptions or source/test edits in successor. Earlier personal six-source Rule analysis is carried by exact byte identity rather than repeated body audit.",
+  "limits": [
+    "Prior six-source review scope/limits remain unchanged; this successor establishes only baseline reduction provenance and unchanged reviewed bytes.",
+    "Full hosted40274774510 success for previous6431 source is parent-supplied acceptance evidence, not newly executed or independently queried by this source-only review.",
+    "Final exact-new-head CI remains pending; no runtime, merge or global audit clearance."
+  ],
+  "checks": "No local project checks run",
+  "source_or_git_mutation": false
+}

@@ -1,0 +1,56 @@
+[
+  {
+    "record": "handoff/774/audit/reconcile-adler-20261023/audit-continuation/behavior-preservation/contract-groups-008.json",
+    "row": {
+      "scope_index": 1457,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/audio_config.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": "d1111aa5bdab4e1897a07e82062d8ffc5ffbed8a0790fa75a4c0c482d2e36063",
+      "before_status": "present",
+      "after_sha256": "d1111aa5bdab4e1897a07e82062d8ffc5ffbed8a0790fa75a4c0c482d2e36063",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1457-base-d1111aa5bdab4e1897a07e82062d8ffc5ffbed8a0790fa75a4c0c482d2e36063",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/d1111aa5bdab4e1897a07e82062d8ffc5ffbed8a0790fa75a4c0c482d2e36063",
+      "diff": "source-evidence/1457.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          206
+        ]
+      ],
+      "old_new_comparison": "Full body and entire actual diff consumed, including moved-before source where specified.",
+      "contract": "Audio YAML schema and ordered validation",
+      "facts": [
+        "Full206-line body and empty actual PR diff read. Same raw schemas, Serde deny_unknown_fields,32KiB size gate, YAML/IO String formatting and path context.",
+        "Volume fields retain inclusive unit bounds with finite check; pitches/radius/exponents/response require finite positive; wind threshold<one whole and heavy-rain threshold<1 retain exact order; pitch range keeps finite positive lower and finite ordered upper.",
+        "Existing shipped/invalid pitch fixtures read and unexecuted. No direct numerical or acceptance behavior change established in this file."
+      ],
+      "disposition": "Bounded own08 source comparison complete with explicit connected-source limits; no whole graphics/audio/generation clearance.",
+      "limits": [
+        "Actual native audio playback/timing and all authored content are separate pending source roles. Retained cause migration remains ROOT-PP-018."
+      ],
+      "acceptance": "Preserve admitted source values, field validation order, errors and actual terminal classification, while retaining structured cause to the final formatting port. No tests/builds/checks executed."
+    }
+  },
+  {
+    "record": "handoff/774/audit/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-inventory.json",
+    "row": {
+      "scope_index": 1457,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/audio_config.rs",
+      "snapshot": "pr-working",
+      "path": "crates/adventuresim-tactical-client/src/audio_config.rs",
+      "expected_sha256": "d1111aa5bdab4e1897a07e82062d8ffc5ffbed8a0790fa75a4c0c482d2e36063",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/audio_config.rs",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/d1111aa5bdab4e1897a07e82062d8ffc5ffbed8a0790fa75a4c0c482d2e36063",
+      "line_count": 206,
+      "comparison_pin": {
+        "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+        "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "overlay": "Four exact dirty files use36c97923da8ee84d0ab8994e7cfedf6a0cdea641 only where catalogexpectedhashmatches"
+      },
+      "review_status": "pending08; metadata recovery is notbehaviorcomparison"
+    }
+  }
+]

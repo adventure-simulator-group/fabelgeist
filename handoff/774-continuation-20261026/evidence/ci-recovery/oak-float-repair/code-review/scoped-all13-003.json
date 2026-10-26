@@ -1,0 +1,243 @@
+{
+  "schema": 1,
+  "reviewer": "recovery_780",
+  "head": "f7305d139126e3f0a07a5df8869152b772947007",
+  "export_source": "c94b96d9a47453538985bbfb1ce2bd2b4874e627",
+  "export_run": 40262692854,
+  "export_job": 121378260220,
+  "artifact_id": 12626297265,
+  "source_fingerprint": "433898493e95ea9da9fb42c0fef43a698036e8a7c21856484ee08199a44d3ace",
+  "fingerprint_encoding": "SHA256 of ordered path + NUL + SHA256 + LF records",
+  "paths": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "197d8605659fa581961b37f9c18f2a46b04db822a666d3abefe5653b4204401a"
+    },
+    {
+      "path": "content/tactical/garden-hazel-envelope.json",
+      "sha256": "7a49ad28b8a21469ab00a862e1c757e65510ecd0599856658dd6018cbfe9410d"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/Cargo.toml",
+      "sha256": "736240a91cfc44359688a19535bd9984824264c4c2d9f5637ef5e477c17924a1"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry.rs",
+      "sha256": "b730b2dc02270ffc2b2990aceb80eb7ae0dc0a268b0c9c99974b05d87a5f0db9"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/arrangement.rs",
+      "sha256": "08200ee848bdbb6c0fa054926133bdf10cef64231fecb5506da098ce0210e73b"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+      "sha256": "661e960ce52adbbd70eff6d9b7f9e4704273a9b2de2b0ad64b9dcea9de9ecf38"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs",
+      "sha256": "b436cbf44b376a8eff01bc3e1ff7592cb839a353fa7ab1cb986943417dcb0ec4"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_plan.rs",
+      "sha256": "edb14de1c8633e1c97b7e6d5b4cb4b150d04e908a68db882eb1bd92ff1ae9012"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_profile.rs",
+      "sha256": "d95e1f977abe46b3b6d27f3f9b12f3fe78aa33c8e2406e4b6ad89ebc3b542c23"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs",
+      "sha256": "89d34cfa5179d198fb44055235ef1638c1626b9fa979bdc722f0e06ba62a632a"
+    },
+    {
+      "path": "crates/strategic-web/ART_DEMO.md",
+      "sha256": "ba93cbcaa705efcd50d8deb01f035678aca84b192c61edad3d7d49b459820b4c"
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "ba5976e7c7fbb51718979108ea26fb4002870613323755e1d407199c3fc40dde"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor_assets.rs",
+      "sha256": "792c336a1d9612c83b4ae0f385c94a35175009ae202f71d4e3231d10179f899a"
+    },
+    {
+      "path": "assets/art-demo/oak.tree-impostors",
+      "sha256": "ad8e45cecb13f3cdadb98588e36c8db7c79f786a4a4852b746e9008d8b47f22c"
+    }
+  ],
+  "changed_paths_since_own_8d6_review": [
+    "Cargo.lock",
+    "assets/art-demo/oak.tree-impostors",
+    "content/tactical/garden-hazel-envelope.json",
+    "crates/adventuresim-tactical-client/Cargo.toml",
+    "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry.rs",
+    "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/arrangement.rs",
+    "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+    "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs",
+    "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_plan.rs",
+    "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_profile.rs",
+    "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs",
+    "crates/strategic-web/ART_DEMO.md"
+  ],
+  "previous_code": "code-review-002.json",
+  "previous_scoped13": "scoped-all13-002.json",
+  "previous_source_identity": "final-source-identity-002.json",
+  "source_carry": "Actual10 executable/doc/dependency proposal002 file hashes unchanged. Envelope proposal bytes atc94 match prior review; only regenerated envelope and new binary differ atf730. Both diagnostic-restored files remain exact8d6. Own8d6 source report carried only outside these12 path deltas.",
+  "findings": [],
+  "execution": "Read-only source/Git object extraction and standard-library byte/hash/JSON/gzip bookkeeping. No product/Git mutation, project check, test, generator, build, lint, new case/assertion/helper or network query.",
+  "disposition": "Fresh scoped13 output-successor analysis complete with no actionable new finding; source/hosted qualifications retained.",
+  "lenses": [
+    {
+      "lens": "01",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-producer-propagation/SKILL.md",
+      "skill_sha256": "9d202f015eed4818d6d2753c7624faa64fb5522e03cc55284fc68a366a204293",
+      "skill_read": "Same captured focused skill personally read in full for predecessor review; hash reverified unchanged.",
+      "source_carry": "Predecessor own source analysis carried only at exact current hashes; output delta freshly analyzed under this lens.",
+      "disposition": "No actionable delta finding within pinned refresh; pending acceptance explicitly qualified.",
+      "output_analysis": "Existing software-math source producers feed the canonical envelope JSON and prepared tree bake generator; retained outputs at final head exactly match the c94-source artifact. Generator and ordinary oracle derive the same oak site/environment before six-bake construction.",
+      "source_anchors": "Actual specimens72-146; scenery264-280/313-334; impostor_assets148-199; output-source-proof001",
+      "limits": "No new primitive storage/API added; final receiver/source hash agreement remains a separate runtime gate."
+    },
+    {
+      "lens": "02",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-existing-type-owners/SKILL.md",
+      "skill_sha256": "0876e49f57d2b5397d23735b9c49916d5d20087b33c110746beaa73c1c8cba3f",
+      "skill_read": "Same captured focused skill personally read in full for predecessor review; hash reverified unchanged.",
+      "source_carry": "Predecessor own source analysis carried only at exact current hashes; output delta freshly analyzed under this lens.",
+      "disposition": "No actionable delta finding within pinned refresh; pending acceptance explicitly qualified.",
+      "output_analysis": "Refresh reuses existing canonical envelope and prepared-asset owners/paths. No parallel schema, geometry clone, local source math helper or new dependency introduced by the data delta.",
+      "source_anchors": "14-path final pin; two generated output paths; prior proposal002 executable hashes",
+      "limits": "Existing broad raw models are not declared correct by generated byte identity."
+    },
+    {
+      "lens": "03",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-admission-contracts/SKILL.md",
+      "skill_sha256": "de63b991f5d4a11423f639efc1a5c37b4593a10045ac3d93d88da4c9b95d249f",
+      "skill_read": "Same captured focused skill personally read in full for predecessor review; hash reverified unchanged.",
+      "source_carry": "Predecessor own source analysis carried only at exact current hashes; output delta freshly analyzed under this lens.",
+      "disposition": "No actionable delta finding within pinned refresh; pending acceptance explicitly qualified.",
+      "output_analysis": "JSON schema keys/array lengths and finite numeric data are preserved; existing generator checks finite vertices and builds hull. Prepared reader is unchanged gzip/postcard deserialization; exporter assertion proves count6, not all semantic admission.",
+      "source_anchors": "specimens86-145; impostor_assets52-58/79-95; scenery329-332",
+      "limits": "Loaded-envelope containment/matching and native prepared-asset semantic/source assertions remain final acceptance; arbitrary retained arrays not cleared."
+    },
+    {
+      "lens": "04",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-invariant-operations/SKILL.md",
+      "skill_sha256": "94c0fc73e926619b9a9a50ef9f342a0c8f6210840f1aa1f3c5b5d9637994519d",
+      "skill_read": "Same captured focused skill personally read in full for predecessor review; hash reverified unchanged.",
+      "source_carry": "Predecessor own source analysis carried only at exact current hashes; output delta freshly analyzed under this lens.",
+      "disposition": "No actionable delta finding within pinned refresh; pending acceptance explicitly qualified.",
+      "output_analysis": "Only regenerated first hull point changes by2.4e-7m; seed/heights/counts and topology lengths unchanged. No new arithmetic, denominator, narrowing, clamp or transform introduced by importing bytes.",
+      "source_anchors": "output-source-proof001 exact recursive deltas; unchanged source fingerprint implementation carried",
+      "limits": "Finite geometry and binary decompression are not a proof of every native receiver invariant or cross-host identity."
+    },
+    {
+      "lens": "05",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-aggregate-states/SKILL.md",
+      "skill_sha256": "39d26ba8acbf1007875b37d7e0d6c35766fb246a01852d4237fa741139b12a82",
+      "skill_read": "Same captured focused skill personally read in full for predecessor review; hash reverified unchanged.",
+      "source_carry": "Predecessor own source analysis carried only at exact current hashes; output delta freshly analyzed under this lens.",
+      "disposition": "No actionable delta finding within pinned refresh; pending acceptance explicitly qualified.",
+      "output_analysis": "All six envelope fields come from the same generator pass, and one complete prepared binary is copied from the same pinned export.11 outputs jointly compared, nine unchanged; no partial field reconstruction or mixed source revision.",
+      "source_anchors": "artifact revision c94; all11 byte comparisons; specimens127-135 full document write",
+      "limits": "Final native receiver and matching gates remain required; no all-or-nothing renderer/asset transaction inferred."
+    },
+    {
+      "lens": "06",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-type-ownership/SKILL.md",
+      "skill_sha256": "4e6ed19f7244c134db991a339145858059bb098ac2b804076675c8fe71de87e0",
+      "skill_read": "Same captured focused skill personally read in full for predecessor review; hash reverified unchanged.",
+      "source_carry": "Predecessor own source analysis carried only at exact current hashes; output delta freshly analyzed under this lens.",
+      "disposition": "No actionable delta finding within pinned refresh; pending acceptance explicitly qualified.",
+      "output_analysis": "Canonical garden envelope continues to own physical hull/height metadata; prepared tree asset remains derived presentation data. Source math policy and version ownership unchanged from proposal002.",
+      "source_anchors": "same JSON and binary owning paths; original10 source hashes; version19/revision4 source report",
+      "limits": "No new ownership layer or broader family repair credited."
+    },
+    {
+      "lens": "07",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-redundant-authority/SKILL.md",
+      "skill_sha256": "9cf22aed78c7a55df0493264038f217f4c7d752c554741733cd8ed0795fbfeab",
+      "skill_read": "Same captured focused skill personally read in full for predecessor review; hash reverified unchanged.",
+      "source_carry": "Predecessor own source analysis carried only at exact current hashes; output delta freshly analyzed under this lens.",
+      "disposition": "No actionable delta finding within pinned refresh; pending acceptance explicitly qualified.",
+      "output_analysis": "Versioned prepared cache is regenerated after the source math change, and fingerprint algorithm remains unchanged. Existing matches_art_demo explicitly compares all4 playable and2 vista records to recomputed source hashes.",
+      "source_anchors": "impostor_assets98-144/148-199; scenery264-280; final-source pin",
+      "limits": "Count6 exporter assertion cannot establish agreement; final ordinary Linux/Windows matching remains pending, with no native/legacy fallback introduced."
+    },
+    {
+      "lens": "08",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-behavior-preservation/SKILL.md",
+      "skill_sha256": "7413ca56a7a637a20cb56f6a35c7623253934e806415e26131af076050fa685c",
+      "skill_read": "Same captured focused skill personally read in full for predecessor review; hash reverified unchanged.",
+      "source_carry": "Predecessor own source analysis carried only at exact current hashes; output delta freshly analyzed under this lens.",
+      "disposition": "No actionable delta finding within pinned refresh; pending acceptance explicitly qualified.",
+      "output_analysis": "This refresh realizes the authorized source-math change. Two hull coordinates and tree binary change; nine regenerated dependent outputs remain exact. Every existing case/assertion and executable source is unchanged by the output commit.",
+      "source_anchors": "f730 versus c94 changed-path proof; all11 artifact byte identities; bounded logs",
+      "limits": "No old-output bit-equivalence or Windows acceptance claim. Final normal checks must validate these exact committed bytes."
+    },
+    {
+      "lens": "09",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-enum-shapes/SKILL.md",
+      "skill_sha256": "964ebea7b08a545b5abcabf605c22b92ac0dbb09ed79e6f79651ea2f141a3500",
+      "skill_read": "Same captured focused skill personally read in full for predecessor review; hash reverified unchanged.",
+      "source_carry": "Predecessor own source analysis carried only at exact current hashes; output delta freshly analyzed under this lens.",
+      "disposition": "No actionable delta finding within pinned refresh; pending acceptance explicitly qualified.",
+      "output_analysis": "No enum/tag/flag/Option/schema change in output commit. Existing6 bake shape remains4 playable LODs and2 vista species atLOD4, using existing usage/species enum variants.",
+      "source_anchors": "impostor_assets162-199; existing PreparedTreeImpostorUsage/species_tag declarations",
+      "limits": "Binary enum semantics are not locally independently decoded; hosted exporter shape plus final ordinary oracle govern acceptance."
+    },
+    {
+      "lens": "10",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-derivability/SKILL.md",
+      "skill_sha256": "6c0f78f4e40e0432071f2e10db701d3da72efbafec83e2f678e03a550406a599",
+      "skill_read": "Same captured focused skill personally read in full for predecessor review; hash reverified unchanged.",
+      "source_carry": "Predecessor own source analysis carried only at exact current hashes; output delta freshly analyzed under this lens.",
+      "disposition": "No actionable delta finding within pinned refresh; pending acceptance explicitly qualified.",
+      "output_analysis": "No trait/manual serialization/delegation code added; unchanged canonical serde/postcard/gzip producers generate the two payloads. Existing implementation/derive dispositions carry at exact hashes.",
+      "source_anchors": "impostor_assets79-84; specimens127-135; source pins",
+      "limits": "No new derivability inventory or full dependency package audit claimed."
+    },
+    {
+      "lens": "11",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-type-granularity/SKILL.md",
+      "skill_sha256": "3a1fbf7f53c752e35eefe7763cbd49b9f280bd4b978ea998f74c3a68e45dc106",
+      "skill_read": "Same captured focused skill personally read in full for predecessor review; hash reverified unchanged.",
+      "source_carry": "Predecessor own source analysis carried only at exact current hashes; output delta freshly analyzed under this lens.",
+      "disposition": "No actionable delta finding within pinned refresh; pending acceptance explicitly qualified.",
+      "output_analysis": "No new wrapper/alias/record in the data refresh. Existing typed Seed/site/source owners remain before native serialized floats and bake buffers; outputs remain complete owner products.",
+      "source_anchors": "same14-path source context and actual generator inputs",
+      "limits": "No global type-granularity clearance or lossy identity conversion introduced."
+    },
+    {
+      "lens": "12",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-magic-strings/SKILL.md",
+      "skill_sha256": "4288426f134e7b781da6ea3b9167722776db976f577b56e7936e787306fb277c",
+      "skill_read": "Same captured focused skill personally read in full for predecessor review; hash reverified unchanged.",
+      "source_carry": "Predecessor own source analysis carried only at exact current hashes; output delta freshly analyzed under this lens.",
+      "disposition": "No actionable delta finding within pinned refresh; pending acceptance explicitly qualified.",
+      "output_analysis": "No text dispatch key, protocol label or schema field added. Exact existing JSON keys and prepared binary purpose/paths retained; documentation/executable strings unchanged.",
+      "source_anchors": "JSON key-set comparison; file identities",
+      "limits": "Opaque byte differences are generated payload, not a new stringly typed application distinction."
+    },
+    {
+      "lens": "13",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-magic-numbers/SKILL.md",
+      "skill_sha256": "d71feffe9ef2d777c5d447840f4d3fbcec2e1f4b2cc354fc331e0c899b558dee",
+      "skill_read": "Same captured focused skill personally read in full for predecessor review; hash reverified unchanged.",
+      "source_carry": "Predecessor own source analysis carried only at exact current hashes; output delta freshly analyzed under this lens.",
+      "disposition": "No actionable delta finding within pinned refresh; pending acceptance explicitly qualified.",
+      "output_analysis": "Revision4 and bake19 are the already-reviewed owner invalidation markers. New numeric hull values are generated coordinates, not copied tuning policy; source seed, heights, counts and existing budgets/assertions unchanged.",
+      "source_anchors": "proposal002 versus final14 hashes; output recursive deltas; native6-bake source",
+      "limits": "Hosted no-growth and final native output acceptance are pending, with no ceiling increase or new platform expectation."
+    }
+  ],
+  "qualifications": [
+    "Static source/output provenance review completed; no final ordinary Linux/Windows, source-fingerprint matching or hosted no-growth success is asserted.",
+    "Imported export log runs one ignored tree-generator case; it validates gzip/postcard decoding into six bakes. The separate non-ignored matching oracle validates each usage/species/seed/lod hash and current bake version; it is pending on final output head.",
+    "Envelope export update mode validates finite generated source vertices and finite nontrivial hull/height construction while writing output, and deliberately skips loaded-envelope containment/count/hull matching. Those normal checks remain required on final committed bytes.",
+    "Run/job/artifact metadata comes from coordinator provenance report002. Independently verified extracted revision, all11 exact output bytes against artifact/worktree/final Git head, c94 comparison, actual relevant generator bodies and bounded existing-case logs. No independent GitHub API request.",
+    "Tree binary is treated as an opaque native prepared-asset payload beyond independent gzip CRC/decompression and hosted six-bake decode evidence. No local postcard/schema/array semantic validation, visual approval or portability proof.",
+    "All broader #774/#780/#826 type/admission/native constraints and prior findings remain qualified; this does not clear frozen inventory or whole physical/material families."
+  ]
+}

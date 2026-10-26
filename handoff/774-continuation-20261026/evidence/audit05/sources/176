@@ -1,0 +1,266 @@
+use super::*;
+use adventuresim_core::elapsed::{AnimationElapsed, ElapsedResult};
+use adventuresim_core::strategic_schedule::EquippedCombatItem;
+use fabelgeist_geometry::SignedLength;
+
+/// A native item row is borrowed only while preparing its checked projection.
+#[derive(Clone, Copy)]
+pub(super) struct CheckedStrategicWeapon<'a> {
+    pub(super) item: &'a Item,
+    selected_reach: SignedLength,
+}
+
+/// Selected-row capability policy is distinct from per-instance combat geometry.
+pub(super) struct StrategicWeaponCapability {
+    pub(super) weapon_skills: adventuresim_core::equipment::WeaponSkillDistribution,
+    pub(super) melee: bool,
+    pub(super) ranged: bool,
+    pub(super) preferred_melee_style: MeleeAttackStyle,
+    pub(super) weight: f32,
+    pub(super) precision: f32,
+    pub(super) reach: SignedLength,
+    pub(super) balance: f32,
+    pub(super) moment_of_inertia_kg_m2: f32,
+}
+
+pub(super) struct StrategicHeldEquipment {
+    pub(super) hands: [Option<EquippedCombatItem>; 2],
+    pub(super) weapon: Option<StrategicWeaponCapability>,
+    pub(super) weapon_side: Option<BodySide>,
+    pub(super) combat_weapon: Option<CombatWeapon>,
+    pub(super) melee_weapon: Option<CombatWeapon>,
+    pub(super) melee_weapon_inventory_id: Option<u64>,
+    pub(super) melee_weapon_side: Option<BodySide>,
+    pub(super) ranged_weapon: Option<CombatWeapon>,
+    pub(super) ranged_weapon_inventory_id: Option<u64>,
+    pub(super) ranged_weapon_side: Option<BodySide>,
+    pub(super) ranged_projectile_kind: Option<ProjectileKind>,
+    pub(super) shield_block_bonus: f32,
+    pub(super) shield_inventory_id: Option<u64>,
+    pub(super) shield_side: Option<BodySide>,
+}
+
+/// Native SDK rows live only during one load operation, before admission.
+pub(super) struct NativeHands {
+    inventory_ids: [Option<u64>; 2],
+    items: [Option<Item>; 2],
+}
+
+struct NativeHandSelections {
+    weapon: Option<usize>,
+    melee: Option<usize>,
+    ranged: Option<usize>,
+    shield: Option<usize>,
+}
+
+impl NativeHandSelections {
+    fn observe(items: &[Option<Item>; 2]) -> Self {
+        Self {
+            weapon: items.iter().position(|item| item.as_ref().is_some_and(|item| {
+                item.kind == CatalogItemKind::Weapon
+            })),
+            melee: items.iter().position(|item| item.as_ref().is_some_and(|item| {
+                item.kind == CatalogItemKind::Weapon && item.melee
+            })),
+            ranged: items.iter().position(|item| item.as_ref().is_some_and(|item| {
+                item.kind == CatalogItemKind::Weapon && item.ranged
+            })),
+            shield: items.iter().position(|item| item.as_ref().is_some_and(|item| {
+                item.kind == CatalogItemKind::Shield
+            })),
+        }
+    }
+}
+
+impl NativeHands {
+    pub(super) fn observe(ctx: &ReducerContext, character_id: u64) -> Self {
+        let normalized_hand = |location| {
+            ctx.db
+                .equipment_occupancy()
+                .character_id()
+                .filter(character_id)
+                .find(|row| row.location == Some(location) && row.channel == EquipmentChannel::Held)
+                .map(|row| row.inventory_item_id)
+        };
+        let inventory_ids = [
+            normalized_hand(EquipmentLocation::LeftHand),
+            normalized_hand(EquipmentLocation::RightHand),
+        ];
+        Self {
+            inventory_ids,
+            items: inventory_ids.map(|inventory_id| effective_item_definition(ctx, inventory_id)),
+        }
+    }
+
+    pub(super) fn admit(self, ctx: &ReducerContext) -> StrategicOperationResult<StrategicHeldEquipment> {
+        let selections = NativeHandSelections::observe(&self.items);
+        let [left, right] = [0, 1].map(|index| {
+            if ![selections.weapon, selections.melee, selections.ranged].contains(&Some(index)) {
+                return Ok(None);
+            }
+            self.items[index].as_ref().map(CheckedStrategicWeapon::admit).transpose()
+        });
+        let admitted = [left?, right?];
+        let selected = selections.weapon.and_then(|index| admitted[index]);
+        let melee = selections.melee.and_then(|index| admitted[index]);
+        let ranged = selections.ranged.and_then(|index| admitted[index]);
+        let instance = self.melee_geometry(ctx, selections.melee)?;
+        let selected_combat = selected.map(|source| {
+            combat_weapon(source, instance.filter(|_| source.item.melee))
+        }).transpose()?;
+        let melee_weapon = melee.map(|source| combat_weapon(source, instance)).transpose()?;
+        let ranged_weapon = ranged.map(|source| combat_weapon(source, None)).transpose()?;
+        let ranged_projectile_kind = ranged.map(|source| {
+            if source.item.id.contains("arquebus") {
+                ProjectileKind::Ball
+            } else {
+                ProjectileKind::Arrowhead
+            }
+        });
+        let shield_block_bonus = selections.shield
+            .and_then(|index| self.items[index].as_ref())
+            .map_or(0.0, |item| item.block);
+        let weapon = selected.map(|source| source.capability(instance));
+        let hands = self.items.map(|item| item.map(|item| EquippedCombatItem {
+            weapons: item.weapon_skills,
+            shield: item.kind == CatalogItemKind::Shield,
+            balance: item.balance,
+        }));
+        Ok(StrategicHeldEquipment {
+            hands,
+            weapon,
+            weapon_side: selections.weapon.map(hand_side),
+            combat_weapon: selected_combat,
+            melee_weapon,
+            melee_weapon_inventory_id: selections.melee.and_then(|index| self.inventory_ids[index]),
+            melee_weapon_side: selections.melee.map(hand_side),
+            ranged_weapon,
+            ranged_weapon_inventory_id: selections.ranged.and_then(|index| self.inventory_ids[index]),
+            ranged_weapon_side: selections.ranged.map(hand_side),
+            ranged_projectile_kind,
+            shield_block_bonus,
+            shield_inventory_id: selections.shield.and_then(|index| self.inventory_ids[index]),
+            shield_side: selections.shield.map(hand_side),
+        })
+    }
+
+    fn melee_geometry(
+        &self,
+        ctx: &ReducerContext,
+        selected: Option<usize>,
+    ) -> StrategicOperationResult<Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry>> {
+        let item = selected.and_then(|index| self.items[index].as_ref());
+        let geometry = item.zip(selected.and_then(|index| self.inventory_ids[index]))
+            .map(|(item, inventory_id)| {
+                crate::weapon_instance::combat_geometry(ctx, inventory_id, &item.id)
+            }).transpose()?.flatten();
+        if let Some(item) = item
+            && adventuresim_weapon_model::default_design(&item.id).is_some()
+            && geometry.is_none()
+        {
+            return Err(StrategicOperationError::MissingWeaponRecipe { item: item.id.clone() });
+        }
+        Ok(geometry)
+    }
+}
+
+impl<'a> CheckedStrategicWeapon<'a> {
+    pub(super) fn admit(item: &'a Item) -> StrategicOperationResult<Self> {
+        Ok(Self {
+            item,
+            selected_reach: SignedLength::from_metres(item.reach)?,
+        })
+    }
+
+    pub(super) fn capability(
+        self,
+        instance: Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry>,
+    ) -> StrategicWeaponCapability {
+        let item = self.item;
+        StrategicWeaponCapability {
+            weapon_skills: item.weapon_skills,
+            melee: item.melee,
+            ranged: item.ranged,
+            preferred_melee_style: item.preferred_melee_style,
+            weight: item.weight,
+            precision: instance.filter(|_| item.melee).map_or(item.precision, |geometry| {
+                geometry.conditioned_precision(&item.id, item.precision)
+            }),
+            reach: self.selected_reach,
+            balance: item.balance,
+            moment_of_inertia_kg_m2: item.moment_of_inertia_kg_m2,
+        }
+    }
+}
+
+pub(super) fn combat_weapon(
+    source: CheckedStrategicWeapon<'_>,
+    instance: Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry>,
+) -> StrategicOperationResult<CombatWeapon> {
+    let item = source.item;
+    let definition = adventuresim_core::item_catalog::definition(&item.id).ok_or_else(|| {
+        StrategicOperationError::MissingWeaponDefinition { item: item.id.clone() }
+    })?;
+    let equipment = definition.equipment.as_ref().ok_or_else(|| {
+        StrategicOperationError::MissingWeaponGeometry { item: item.id.clone() }
+    })?;
+    let grip_to_tip_m = instance.map_or(equipment.physical.grip_to_tip_m, |value| {
+        value.grip_to_tip_m
+    });
+    let dimensions = equipment.physical.dimensions_m;
+    let total_length_m = dimensions.y_length();
+    let striking_head_length_m = instance.map_or(dimensions.x_length().max(dimensions.z_length()), |value| {
+        value.striking_head_length_m
+    });
+    let moment_of_inertia_kg_m2 = instance.map_or(item.moment_of_inertia_kg_m2, |value| {
+        value.moment_of_inertia_kg_m2
+    });
+    let weight = instance.map_or(item.weight, |value| value.mass_kg);
+    Ok(CombatWeapon {
+        skills: item.weapon_skills,
+        melee: item.melee,
+        ranged: item.ranged,
+        preferred_melee_style: item.preferred_melee_style,
+        weight,
+        moment_of_inertia_kg_m2,
+        precision: instance.map_or(item.precision, |value| {
+            value.conditioned_precision(&item.id, item.precision)
+        }),
+        melee_reach: if item.melee {
+            instance.map_or(source.selected_reach, |value| value.melee_reach_m())
+        } else {
+            SignedLength::ZERO
+        },
+        grip_to_tip_m,
+        total_length_m: instance.map_or(total_length_m, |value| value.total_length_m),
+        striking_head_length_m,
+        distal_headed: adventuresim_core::combat::has_distal_striking_surface(
+            grip_to_tip_m,
+            striking_head_length_m,
+            equipment.material,
+            equipment.striking_material,
+        ),
+        body_material: equipment.material,
+        striking_material: equipment.striking_material,
+        ranged_range: if item.ranged { source.selected_reach } else { SignedLength::ZERO },
+        attack_interval_seconds: weapon_attack_interval(item, moment_of_inertia_kg_m2)?,
+        balance: instance.map_or(item.balance, |value| value.balance),
+        ranged_force_joules: 40.0 * weight.max(0.5),
+    })
+}
+
+fn weapon_attack_interval(
+    item: &Item,
+    moment_of_inertia_kg_m2: f32,
+) -> ElapsedResult<AnimationElapsed> {
+    if item.melee {
+        let timing = adventuresim_core::equipment::melee_attack_timing(
+            item.preferred_melee_style,
+            moment_of_inertia_kg_m2,
+            false,
+        )?;
+        timing.preparation_secs.checked_add(timing.recovery_secs)
+    } else {
+        AnimationElapsed::from_seconds((0.4 + item.weight.max(0.1) * 0.15 + 0.45).clamp(0.35, 3.0))
+    }
+}

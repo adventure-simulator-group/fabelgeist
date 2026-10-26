@@ -1,0 +1,54 @@
+{
+  "id": "ADLER-CONT11-Q005-SUCCESSOR-001",
+  "classification": "Source-backed local paired loot-form admission gap; global finding/remedy dedup pending, no unique increment",
+  "source_id": "physical-p16:crates/strategic-web/src/routes/quests.rs",
+  "sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+  "ranges": [
+    [
+      438,
+      475
+    ]
+  ],
+  "source_observation": "StoreLootForm carries independent comma strings. store_battle_loot independently filter_map parses each list before outgoing JSON, removing invalid tokens at unrelated positions.",
+  "conceptual_local_parse_witness": {
+    "item_ids": "1,x,2",
+    "quantities": "1,9,x",
+    "parsed_item_ids": [
+      1,
+      2
+    ],
+    "parsed_quantities": [
+      1,
+      9
+    ]
+  },
+  "unproved": "Actual frozen reducer/HTML producer acceptance and effect not traced. This demonstrates local position loss, not a successful inventory mutation or ordinary browser flow.",
+  "dedup": "Own05 agent bounded1002savedfindinglookup noexactstore_battle_loot/lootfilter_mapmatch. BroaderRIG-PPS-F016 malformedomittedobservation isdifferentciteddialoguecontract, notglobaluniquenessproof.",
+  "next": "Reconcile global savedfinding identity and canonical currentmain before connected repair; parse completepairedselection fallibly and preserve deliberateemptyStoreAll as explicitdifferentstate. No testsorprojectchecksperformed.",
+  "new_unique_finding": false,
+  "repair": "not started",
+  "validation": "not run",
+  "previous": "question-005.json",
+  "receiver_support": {
+    "scope_index": 287,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+    "sha256": "85c8f2c699beb1c00311678bbe179a5cc75bb33c607051bd967e91c9e6eba749",
+    "ranges": [
+      [
+        1430,
+        1570
+      ]
+    ],
+    "credit": "Root fresh actual supportread, inheritedoriginalrole noincrement; no sharedmaterial/lens transfer"
+  },
+  "actual_receiver": "Reducer1449checks only equal lengths, then1480-1495zipsadmittedIDsandquantities and1531-1548moves indicatedquantities. EmptyIDlist1477-1478meansallavailableloot. Malformedtokenscanthereforeerasepairpositions orturnmalformedalltokensintoexistingStoreAllinterpretation before receiver seesinvalidoriginalform.",
+  "conceptual_api_witness": {
+    "inputs": {
+      "item_ids": "1,x,2",
+      "quantities": "1,9,x"
+    },
+    "assumptions": "Authenticatedlivingcharacterownsvalidbattle/party, lootIDs1/2existandhave>=1/>=9units, positive recordedlivingparticipants and validobjectivevalues/stakes",
+    "effect": "LocalformparserproducesIDs[1,2], quantities[1,9], satisfiesequal-lengthguard; receivercannotrecoverlostoriginalpairpositions. NoobservedDBrunorordinaryHTMLproducerclaim."
+  },
+  "known_limits": "FrozenHTMLproduceronlylocatedbygitgrep quest.rs580, bodyunread/unregistered; no newmaterialentryorcoverage. StaticAPIrequestcounterexample, not ordinarybrowserincident. Whole3250lineDBsource notnewlyread. Globaldedupoutsideboundedown05lookup remains."
+}

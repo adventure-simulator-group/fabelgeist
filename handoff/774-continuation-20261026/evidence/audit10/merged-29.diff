@@ -1,0 +1,17 @@
+diff --git a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs.rs b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs.rs
+index 77f6817f8..a45cd0c1a 100644
+--- a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs.rs
++++ b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs.rs
+@@ -1,11 +1,11 @@
+-use crate::camera::authored_metres;
++use crate::camera::config::authored_metres;
+ use crate::presentation::TreeLeafRepresentation;
+ use adventuresim_tactical_core::animation::SignedAngleDegrees;
+ use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
+ use bevy::prelude::{Vec2, Vec3};
+ use fabelgeist_geometry::SignedLength;
+ 
+ pub(super) const TREE_BILLBOARD_TRANSITION_SCALES: [f32; 3] = [0.357, 0.345, 0.333];
+ 
+ #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+ pub(super) enum TreeLightingModeId {

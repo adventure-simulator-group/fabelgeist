@@ -1,0 +1,119 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-065",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1637,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/details.rs",
+      "sha256": "15095204e03f1e13f74d77b1afbd17e33489f798b7732c59acfbacdfcc219307",
+      "ranges": [
+        [
+          1,
+          362
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete362line distant rock/tree presentation role: free native geometry/scatter/environment/visibility functions, no handwritten trait or codec.",
+      "disposition": "No derivability candidate. Sampling/classification, deterministic placement, angular visibility and native mesh/Aabb encoding are semantic adapters, not record traits. No numeric or resource acceptance inferred.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1638,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/error.rs",
+      "sha256": "0dcc310f1d6919c226afcb66bdbce1186f7417e49c24e6b3b292857980cbb1bb",
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "VistaMeshError derives Debug and thiserror::Error; transparent Geometry and TerrainSupport errors already use #[from].",
+      "disposition": "Already derives equivalent Display/Error/From; no manual boilerplate or candidate.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1639,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/focused.rs",
+      "sha256": "d1bb5a38bc3cecf8703fb9165e1c290037f3ae5d346d3285a7f34e256458c83e",
+      "ranges": [
+        [
+          1,
+          144
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "FocusedGround/GroundChunk have inherent fallible install/spawn/reflected methods and no manualtraits/codecs. Reads prepared product, constructs resources and queues native renderer entities.",
+      "disposition": "No derivability candidate. Installation, reflection and publication behavior requires semantic code.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1640,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/focused/meshes.rs",
+      "sha256": "d61a67fcf466b67a7f9f3b27752a4c27605ede3b1d12850ef7fc5a962dc4740a",
+      "ranges": [
+        [
+          1,
+          144
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "GroundMeshes/VistaChunks inherent constructors prepare native ground/support/landform/vista chunks and fallible reflection. GroundPreparationError already derives thiserror with transparent From variants.",
+      "disposition": "No derivability candidate; preserve validation, selected representation and failure sequencing. Derived error handling already present.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1641,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/grass.rs",
+      "sha256": "d6c99d033f27462e88a6c1dbafd194a210933ababf7450d35111f18e155ad01e",
+      "ranges": [
+        [
+          1,
+          253
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "VistaTuftPlacement manually implements TuftPlacement lattice_bounds/cell_allows/coverage/height/community. Each computes domain behavior with exact playable-interior gate, owned versus sampled surface/normal policy, and mutable cached community. Remaining free functions create tier batches and native renderer instances; no codec.",
+      "disposition": "Keep behaviorful placement trait; not field delegation or derivable constructor. No other handwritten trait/codec candidate.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1642,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/grass/tests.rs",
+      "sha256": "413e7f0a46f9ade07d36de3a8527daee18a330a7bec2faad7de40f69d7b8724e",
+      "ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete119line existing grass fixtures and helpers read, covering owned surface roots, missing support/steep slope rejection and sampled height policy; no handwritten traits/codecs.",
+      "disposition": "No derivability candidate. Fixture execution and broader behavior correctness not claimed.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1643,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/ground.rs",
+      "sha256": "ba28b2b2e5c003d146de3b09771d7a8e55584f1410dc43b71c954f69ff82a830",
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Free functions select owned/sampled vista mesh sources, validate source metadata, resolve physical supports and encode checked native transforms. No handwritten traits/codecs.",
+      "disposition": "No derivability candidate. Conditional policy, fallibility, checked coordinates and representation changes remain explicit.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

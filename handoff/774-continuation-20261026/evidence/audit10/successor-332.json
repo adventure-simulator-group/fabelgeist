@@ -1,0 +1,129 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-332",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 2759,
+      "source_id": "native-rand0.9.5:src/distr/uniform_int.rs",
+      "sha256": "30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0",
+      "ranges": [
+        [
+          1,
+          160
+        ],
+        [
+          280,
+          280
+        ]
+      ],
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "scope_limits": [
+        "Actualu64 UniformInt state+genericintegerconstructor/newinclusive/sample+u64macroinstantiation; sample_single/SIMD/usize/float/otherint/tests excluded",
+        "DirectimportsWideningMultiply andUniformIntderive/representation/Lemirecontract context; notsample_single/SIMD/tests graph."
+      ],
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh exact recovered rand0.9.5 union1-70/71-160/u64 invocation280. UniformInt derives structural/optional serde; macro implements associated SampleUniform and native wrapping-range/threshold/widened-multiply rejection sampler. Generic trait methods contain numerical policy, not boilerplate.",
+      "disposition": "Keep native distribution law; no macro execution or rest-of-SDK coverage.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2760,
+      "source_id": "native-rand0.9.5:src/distr/weighted/mod.rs",
+      "sha256": "52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe",
+      "ranges": [
+        [
+          25,
+          60
+        ],
+        [
+          85,
+          115
+        ]
+      ],
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "scope_limits": [
+        "Concreteu64 Weightchecked_add_assignmacro+instantiation, canonicalweightedErrorvariants/format only; floatWeight62-83 excluded."
+      ],
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh exact recovered rand registered Weight trait/integer macro and weighted Error static Display/std-gated empty Error. Weight checked-add mutates only on success. External SDK Error formatter is tiny and core-compatible while Error only std-gated.",
+      "disposition": "Keep native checked arithmetic and small SDK diagnostic adapter. No project thiserror availability imported into upstream rand, no new external dependency/feature change proposed. Excluded derived header61-84 not credited.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2761,
+      "source_id": "native-rand0.9.5:src/distr/utils.rs",
+      "sha256": "a631940e728257c9b0cb753bc64fa631958c92ce52d5b2265c7ed06a46567b8f",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/a631940e728257c9b0cb753bc64fa631958c92ce52d5b2265c7ed06a46567b8f",
+      "ranges": [
+        [
+          16,
+          61
+        ]
+      ],
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "scope_limits": [
+        "ActualscalarWideningMultiplyu64\u2192u128high/low proof+u64macroinstantiation; SIMDmacrocontextonly, othernativekernels/usize/floats/tests excluded."
+      ],
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh exact recovered WideningMultiply trait and scalar/SIMD macro16-61, including u64/u128 invocation; explicit wide product/high-low words.",
+      "disposition": "Keep semantic numerical trait implementation; no generic arithmetic derive substitutes high/low result contract.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2762,
+      "source_id": "native-rand0.9.5:src/distr/integer.rs",
+      "sha256": "69ac205b6fed57ae09e2f8f1b15ae3d2049b85874bc4da3f246a18188b42d8ea",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/69ac205b6fed57ae09e2f8f1b15ae3d2049b85874bc4da3f246a18188b42d8ea",
+      "ranges": [
+        [
+          49,
+          54
+        ]
+      ],
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "scope_limits": [
+        "ExactStandardUniformDistribution<u64>::sample actualnext_u64nativewordprojection only; u8/u16/u32/u128/SIMD/tests excluded."
+      ],
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh exact recovered StandardUniform Distribution<u64> native RngCore next_u64 adapter.",
+      "disposition": "Keep tiny native SDK sampling boundary; no unobserved blanket/native bodies credited.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2763,
+      "source_id": "native-rand0.9.5:src/rng.rs",
+      "sha256": "19a29d58ea169c50ae7fea0a941c405e4a8f3a9b2ac0dc0edd9f7a55e9431703",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/19a29d58ea169c50ae7fea0a941c405e4a8f3a9b2ac0dc0edd9f7a55e9431703",
+      "ranges": [
+        [
+          58,
+          58
+        ],
+        [
+          95,
+          103
+        ],
+        [
+          357,
+          357
+        ]
+      ],
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "scope_limits": [
+        "ExactRng:RngCore traitbinding, genericrandomdelegation andblanketRngimpl; otherRngmethodalgorithms excluded."
+      ],
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh exact recovered Rng supertrait/default random method and generic RngCore blanket implementation; delegates StandardUniform native Distribution contract.",
+      "disposition": "Keep generic SDK default/blanket implementation and bounds. Exact ranges only, no RNG runtime claim.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

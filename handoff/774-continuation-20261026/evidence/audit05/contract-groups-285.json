@@ -1,0 +1,87 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-285",
+  "at": "2026-10-25T22:37:36.887875+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2476,
+      "source_id": "sdk-noiz-0.5.0:src/lib.rs",
+      "sha256": "75fd184c107067ee24f751adf6f49829c698ba89899a3595e6a608b63c6413f6",
+      "personally_read_ranges": [
+        [
+          1,
+          441
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full exact sdk-noiz0.5.0 lib1-441 in two chunks. Noise<N> wraps function/seed/frequency; sample_raw copies seed and scales location once, function-composition evaluate xors local seed and forwards same evolving RNG through tuple pipeline. RawNoise intentionally omits scaling. Public frequency setter accepts arbitraryf32 and period reciprocal admits0/inf per documented not-recommended policy; project admissibility belongs local callers, no externalSDK defect inferred.",
+        "Associated generic output/input types preserve stage type composition; dynamic sampling delegates same sample path. Seed is perinput deterministic default0, no tactical state persistence. Entire frozen source including docs/examples read, no examples or noise evaluation executed."
+      ]
+    },
+    {
+      "scope_index": 2477,
+      "source_id": "sdk-spacetimedb-sats-2.6.1:timestamp.rs",
+      "sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "personally_read_ranges": [
+        [
+          1,
+          343
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full exact sdk-spacetimedb-sats2.6.1 timestamp1-343 in two chunks. Timestamp privately stores signedi64 epochmicroseconds; checked signed difference/add/sub returnOption on overflow, algebraic conversion exact product value. Operators explicitlyunwrap checked results; SystemTime conversion rejects preepoch and overrange, formattingunwrapschrono conversion, so rawi64constructor does not mean everyplatform/timeformat accepts wholei64range.",
+        "Negative MIN timestamp to_duration negation and positive-only from_system_time roundtrip limits, Duration->TimeDuration checked-named conversion behavior remain targeted SDK/caller questions; no project accepted extreme timestamp witness or thirdparty repair claim. Tests269-343 source only, not run. Actual SDK revision distinct from current installed library."
+      ]
+    },
+    {
+      "scope_index": 2478,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+      "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+      "personally_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full physical-p16 geometryerror1-28: finite adapter pairs x/y/z native values with canonical axis error, typed Bevy direction errors exhaustivelytranslate zero/infinite/NaN. No stringcause erasure or new aggregate finding; source authority preserved."
+      ]
+    },
+    {
+      "scope_index": 2481,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact/count.rs",
+      "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+      "personally_read_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full pr-working contact/count1-55: hostColliderCountusize separate fromu32 native capacity, initial16, nextpoweroftwo growth and byte length64*n. fit/bind truncatehostcountu32 and nextpow canoverflow/truncate. API/cardinality semantics retain explicit native projection policy; ordinary hugecollider allocation witness notestablished, inherited capacity family remains qualified. Noallocation/testexecution."
+      ]
+    },
+    {
+      "scope_index": 2482,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+      "sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+      "personally_read_ranges": [
+        [
+          1,
+          218
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full pr-working collider1-218: enum couples each shape-specific payload, pack layout16floats stores kind bitpattern and friction/thickness matching shader2329. Public numeric/quaternion invalidstate admission remains existingfamily; validbox-centre host/shader outwardnormal disagreement now recordedF007 with response receiving trace and primarybuiltin semantics. Prior zero-normal question narrowed and resolved for physicsowner; unrelated hairM65 remains separate latermaterial obligation.",
+        "Sphere/capsule degenerate direction fallback, capsulezero-length sphere semantics and quaternion application preserved. pack_colliders keeps each full collider record together. No GPU or hostquery execution."
+      ]
+    }
+  ],
+  "findings": [
+    "ADLER-RESUMED05-F007"
+  ],
+  "discovery": "5 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "external_authority_note": "Official language/API documentation consulted for builtin sign difference only. Does not replace frozen source objects or add original/later repository-role credit."
+}

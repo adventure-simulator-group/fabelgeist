@@ -1,0 +1,28 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-340",
+  "at": "2026-10-25T23:24:38.227775+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 0,
+      "source_id": "dependency-wgpu29.0.4:src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "personally_read_ranges": [
+        [
+          1,
+          877
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "New personally read original gap role, full877 frozen wgpu Device API source; not inferred from inherited count. Dispatch handle is private; Buffer constructor retains size/usage/map context from same descriptor used to create underlying buffer, Texture retains descriptor with nonowning label/view formats removed. Backend validation/identity implementation remains separate.",
+        "Normal shader creation requests checked runtime checks; trusted/passthrough creation exposes explicit unsafe caller obligations. HAL import requires same device, initialized resource and matching descriptor. Feature/limits access reports enabled request scope rather than adapter maximum.",
+        "ErrorScopeGuard privately couples device/index/popped and is neither Send nor Sync; explicit pop marks state before dispatch and takes effect immediately, Drop pops/discards pending error if needed. Reverse nesting and selected error filter remain caller obligations. Error variants carry paired description/source, out-of-memory has source only.",
+        "Device poll is no-op for browser backend and native queue-empty result can race concurrent submissions. No project readiness/capture/error-handling correctness follows from API contract alone; actual receiving callers remain required. Full source review is static, no GPU/device/custom backend execution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

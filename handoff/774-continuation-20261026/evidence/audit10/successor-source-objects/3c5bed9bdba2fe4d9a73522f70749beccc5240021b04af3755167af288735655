@@ -1,0 +1,31 @@
+[package]
+name = "adventuresim-world-schema"
+version.workspace = true
+edition.workspace = true
+repository.workspace = true
+license.workspace = true
+build = "build.rs"
+
+[features]
+default = []
+spacetimedb = ["dep:spacetimedb-lib"]
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+fabelgeist-determinism.workspace = true
+spacetimedb-lib = { workspace = true, optional = true }
+strum = { version = "0.28", features = ["derive"] }
+
+[build-dependencies]
+serde = { workspace = true, features = ["derive"] }
+serde_json.workspace = true
+sha2.workspace = true
+spacetimedb-lib.workspace = true
+strum = { version = "0.28", features = ["derive"] }
+
+[dev-dependencies]
+serde_json.workspace = true
+
+[lints]
+workspace = true

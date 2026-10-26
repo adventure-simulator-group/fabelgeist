@@ -1,0 +1,41 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-002",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 386,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/contact.rs",
+      "sha256": "c92333b6813f028d894f8de669a20b823341813213103079ddb3c038388e44d6",
+      "ranges": [
+        [
+          1,
+          161
+        ]
+      ],
+      "source_basis": "Fresh root complete personal exact frozen physical-p16 source read; no other-lens verdict or current-main substitution.",
+      "concepts_actual_uses_and_mixup": "InitialMeleeContact groups two independent random draws, optional selected BodyPart and weapon reach. Contact location draw and defense-alignment draw have different uses despite same f32 range; no merged draw/order change justified. Canonical impact kernel transforms attacker into target-local coordinates and returns point and face normal in different geometric roles. Windup uses AnimationSampleTick difference/locomotion sample rate then admits CombatDuration.",
+      "disposition": "Preserve sample-role identity and time/frame/point-versus-normal distinctions; share numeric invariant beneath roles if needed, not broad unit validator or arbitrary stricter bounds. Target-local kernel values must not be tagged as Scene/world merely because Vec3. Existing physical/contact/frame/source family obligations retained; actual later receiver must close frame/sample propagation, no observed mix-up or new unique finding established from this body.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 387,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/defense.rs",
+      "sha256": "68cb46b9efe6c4f44ba41fe4386c02fa7000314c52d6e10b7d33fa9742290d8e",
+      "ranges": [
+        [
+          1,
+          255
+        ]
+      ],
+      "source_basis": "Fresh root complete personal exact frozen physical-p16 source read; no other-lens verdict or current-main substitution.",
+      "concepts_actual_uses_and_mixup": "PreparedMeleeDefense distinguishes deferred FinishTrade from ordinary DefenderResponse: both can project responseNone, but commit mutates MeleeAttackAuthority only for FinishTrade. This distinction prevents dropping a real state effect. CombatInstant/CombatDuration preserve absolute point versus elapsed window; incapacitation amount and performance factor remain different roles. Dodge reflex and roll effectiveness compose distinct quantities; zero reflex window explicitly supported.",
+      "disposition": "Keep prepared operation enum and actual commit boundary, not flatten to response/bool or add numeric constraints merely to justify types. Shared checked scalar roles for probabilities/performance must preserve existing dimensional/input/authority meaning; do not borrow unrelated animation frequency/health wrappers. Source-backed support for inherited P16 physical/attack lifecycle and raw-owner requirements; no new normal defense failure or global unique issue. Existing tests read only.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

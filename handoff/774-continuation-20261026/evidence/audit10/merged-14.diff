@@ -1,0 +1,33 @@
+diff --git a/crates/adventuresim-character-creator/src/wardrobe_tab.rs b/crates/adventuresim-character-creator/src/wardrobe_tab.rs
+index 0eefa457c..d01b58744 100644
+--- a/crates/adventuresim-character-creator/src/wardrobe_tab.rs
++++ b/crates/adventuresim-character-creator/src/wardrobe_tab.rs
+@@ -212,24 +212,24 @@ pub(super) fn update(
+         // The design's own appearance, so chainmail edits show without draping.
+         Showing::Design => wardrobe
+             .drape
+             .as_ref()
+             .and_then(|drape| Some((wardrobe.garment.clone(), drape.garment.clone()?))),
+         Showing::Saved(name) => fit_saved(wardrobe, &model, &studio, &name),
+     };
+     for entity in &garments {
+         scene.commands.entity(entity).despawn();
+     }
+-    if let Some((selection, garment)) = shown {
+-        if let Err(error) = spawn(&mut scene, &mut mail, &selection, garment) {
+-            wardrobe.fit_problems = Some(format!("{error:#}"));
+-        }
++    if let Some((selection, garment)) = shown
++        && let Err(error) = spawn(&mut scene, &mut mail, &selection, garment)
++    {
++        wardrobe.fit_problems = Some(format!("{error:#}"));
+     }
+ }
+ 
+ /// Take the running drape's progress, and show it when the design is shown.
+ fn collect(wardrobe: &mut WardrobeTab, studio: &mut Studio) {
+     let progress = wardrobe.worker.poll();
+     let Some(drape) = wardrobe.drape.as_mut() else {
+         return;
+     };
+     if let Some(garment) = progress

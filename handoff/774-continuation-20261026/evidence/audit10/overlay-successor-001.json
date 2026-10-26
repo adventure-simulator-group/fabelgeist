@@ -1,0 +1,171 @@
+{
+  "id": "OWN10-OVERLAY-SUCCESSOR-001",
+  "lens": "derivability",
+  "registration_authority": "../audit05/raw-overlay-registration-000.jsonl",
+  "registration_sha256": "c26e2def8f8520c870f359ef66919ce730fcddb65beb051365fce42371a7bc68",
+  "receipts": [
+    {
+      "overlay_index": 0,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-001",
+        "at": "2026-10-22T02:37:47.777217+00:00",
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+        "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+        "material_ranges": [
+          [
+            142,
+            155
+          ]
+        ],
+        "audit_owner": "camera",
+        "reason": "Actual TryFrom<f32> constructor delegation used by serde try_from adapters for ReferenceAcceleration/ResponseRate; bounded symbol navigation only before explicit body scope.",
+        "scope_limits": "Only these adapters, in addition to already scoped1\u201385; no unrelated controller/other measurement coverage.",
+        "owner_fit": "incomplete body read after this registration",
+        "producer_followup": "pending same owner-reached contract supplement before admission",
+        "source_or_other_lens_credit": "none from metadata registration"
+      },
+      "source_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "source_sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "read_ranges": [
+        [
+          142,
+          155
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "ReferenceAcceleration and ResponseRate TryFrom<f32> call checked named constructors; existing serde try_from derives call these adapters. Fresh supporting1-141 read confirms quantity-specific positive versus zero-permitting policy.",
+      "disposition": "Keep tiny semantic checked adapters; deriving field construction would bypass validation and change AnimationValueError. No extra candidate."
+    },
+    {
+      "overlay_index": 1,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-002",
+        "at": "2026-10-22T02:49:56.736027+00:00",
+        "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+        "sha256": "4ccc1188de7d5f8bdbf63b71160b8557f76fb524ae47f924381325da11198ee8",
+        "material_ranges": [
+          [
+            101,
+            105
+          ]
+        ],
+        "audit_owner": "rig",
+        "reason": "Actual called dimensions admission constructor tail; needed for LeafDimensions positivity policy, no unrelated PlanDimensions/PlanExtents operations.",
+        "scope_limits": "Only exact necessary constructor/helper tail; no whole-file or other-lens credit.",
+        "owner_fit": "incomplete body comparison after registration",
+        "producer_followup": "pending newlyreached owner contract reconciliation beforeadmission",
+        "source_credit": "none from metadata"
+      },
+      "source_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+      "source_sha256": "4ccc1188de7d5f8bdbf63b71160b8557f76fb524ae47f924381325da11198ee8",
+      "read_ranges": [
+        [
+          101,
+          105
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "Tail completes dimensions finite/nonnegative/strict-positive axis-specific failure kernel. Fresh support1-100 connects LeafDimensions, PlanDimensions and PlanExtents decoders to this checker.",
+      "disposition": "No traits in overlay tail. Keep semantic predicate and checked decoding; no existing matching TryFrom native representation was found in actual105 body. No whole geometry/runtime clearance."
+    },
+    {
+      "overlay_index": 2,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-003",
+        "at": "2026-10-22T02:49:56.736027+00:00",
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+        "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+        "material_ranges": [
+          [
+            201,
+            213
+          ]
+        ],
+        "audit_owner": "rig",
+        "reason": "Actual SceneDoor constructor tail needed to connect checked source leaves and retained geometry fields.",
+        "scope_limits": "Only exact necessary constructor/helper tail; no whole-file or other-lens credit.",
+        "owner_fit": "incomplete body comparison after registration",
+        "producer_followup": "pending newlyreached owner contract reconciliation beforeadmission",
+        "source_credit": "none from metadata"
+      },
+      "source_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "source_sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+      "read_ranges": [
+        [
+          201,
+          213
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "SceneDoor decoder tail normalizes outward and wraps cause with building/opening identity. Fresh support120-200 reads complete decoder start/local derived SerializedDoor native view.",
+      "disposition": "Keep explicit checked semantic mapping and contextual serde error. Existing local structural derive already handles record reading; no equivalent raw target derive."
+    },
+    {
+      "overlay_index": 3,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-004",
+        "at": "2026-10-22T02:53:57.298518+00:00",
+        "source_id": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+        "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+        "material_ranges": [
+          [
+            1,
+            65
+          ]
+        ],
+        "audit_owner": "camera",
+        "reason": "ThreatId definition and string admission needed for exact owner comparison against syntactic IDs and successfully compiled catalogue membership.",
+        "scope_limits": "Exact definition only in addition to existing90\u2013125; no whole1558 credit.",
+        "owner_fit": "incomplete body read after registration",
+        "producer_followup": "pending before admission",
+        "source_or_other_lens_credit": "none from registration"
+      },
+      "source_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/bestiary.rs",
+      "source_sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "ThreatId compact len/63byte representation and syntactic admission; derives structural comparison/hash only. Fresh108-123 FromStr performs catalogue membership and Debug semantic string projection.",
+      "disposition": "Keep compact representation/admission; structural field serde/Debug would alter string wire or label. No new candidate; no blanket catalogue/unsafe-boundary clearance."
+    },
+    {
+      "overlay_index": 4,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-005",
+        "at": "2026-10-22T02:56:50.959891+00:00",
+        "source_id": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+        "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+        "material_ranges": [
+          [
+            124,
+            137
+          ]
+        ],
+        "audit_owner": "camera",
+        "reason": "Actual Serialize/Deserialize adapters for ThreatId distinguish syntactic try_new from catalogue-validating FromStr.",
+        "scope_limits": "Necessary adapter tails only; no wholebestiary credit.",
+        "owner_fit": "incomplete until actual bodycomparison",
+        "producer_followup": "pending before admission",
+        "source_or_other_lens_credit": "none from registration"
+      },
+      "source_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/bestiary.rs",
+      "source_sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "read_ranges": [
+        [
+          124,
+          137
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "ThreatId Serialize writes as_str; Deserialize reads String then FromStr. Actual FromStr108-116 checks both syntax and catalogue membership.",
+      "disposition": "Keep semantic string representation and catalogue admission. serde transparent/raw inner-field derives differ; no existing matching checked conversion derive proven. No new candidate."
+    }
+  ],
+  "checks": "not run",
+  "source_edits": false,
+  "clear": false
+}

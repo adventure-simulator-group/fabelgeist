@@ -1,0 +1,40 @@
+diff --git a/crates/adventuresim-stdb-module/src/character/weapon_carry.rs b/crates/adventuresim-stdb-module/src/character/weapon_carry.rs
+index 18c531401..04d54841d 100644
+--- a/crates/adventuresim-stdb-module/src/character/weapon_carry.rs
++++ b/crates/adventuresim-stdb-module/src/character/weapon_carry.rs
+@@ -148,10 +148,35 @@ fn sheath_compatible_parent_placement_index(
+     let definition = ctx
+         .db
+         .item()
+         .id()
+         .find(item_id.to_owned())
+         .ok_or_else(|| format!("Generated sidearm {item_id} is missing"))?;
+     select_sheath_compatible_parent_placement(&definition.equipment_placements).ok_or_else(|| {
+         format!("Sheathable sidearm {item_id} lacks a single containment parent placement")
+     })
+ }
++
++pub(super) fn require_weapon_carry_placement(
++    item_id: &str,
++    placement: &crate::item::PersistedEquipmentPlacement,
++) -> Result<(), String> {
++    match adventuresim_core::item_catalog::weapon_carry(item_id) {
++        Some(adventuresim_core::item_catalog::WeaponCarry::HandOnly)
++            if !hand_only_placement_is_held_root(placement) =>
++        {
++            return Err(format!(
++                "Can't equip hand-only weapon {} anywhere except one held left/right hand root",
++                item_id
++            ));
++        }
++        Some(adventuresim_core::item_catalog::WeaponCarry::Sheathable) => {}
++        _ if !placement.parents.is_empty() => {
++            return Err(format!(
++                "Can't attach weapon {} without an authored sheathable carry contract",
++                item_id
++            ));
++        }
++        _ => {}
++    }
++    Ok(())
++}

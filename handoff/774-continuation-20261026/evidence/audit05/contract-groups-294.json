@@ -1,0 +1,53 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-294",
+  "at": "2026-10-25T22:44:30.414799+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2566,
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/impls/common.rs",
+      "sha256": "6e65257643e17c838d46d84974d833438e1635cbde5beceb9ffafb0da69e1f96",
+      "personally_read_ranges": [
+        [
+          1,
+          257
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full257-line frozen common reflection codegen. Reflect::set replaces self only after exact Reflect::take type check, while as_any_mut exposes concrete mutable object. Remote any adapters address wrapped field; partial reflection returns self and delegates hash/equality/order/debug by declared attributes. Auto-registration excludes generic/opted-out types, static path gated by feature/env and mutex-protected per-crate export cache, inventory alternative feature-exclusive. Registration makes reflected operations available; it does not enforce correlated project fields or prove an ordinary mutating caller. No compile/cache export executed."
+      ]
+    },
+    {
+      "scope_index": 2567,
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/remote.rs",
+      "sha256": "0aa256befa40e782f57b2924d697041ca71ebb4107d124fb006ea9f026ef0811",
+      "personally_read_ranges": [
+        [
+          1,
+          500
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full500-line frozen remote wrapper owner. Generated wrapper is actual repr(transparent) one-field newtype around remote type, so reference/owned transmute adapters operate on that representation and ManuallyDrop avoids double drop. Active remote field assertions equate wrapper Remote associated type with actual field type; definition assertions verify declared field types/enum cases. These compile-time consistency checks do not invoke semantic constructors. Public as_remote_mut exposes remote aggregate; caller validity obligations retained. No actual project wrapper mismatch or unsound instantiated generic identified; no macro expansion executed."
+      ]
+    },
+    {
+      "scope_index": 2568,
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/registration.rs",
+      "sha256": "c069e2d3114fe1ba4276ce53531d7a1fd0b7bad25b9da0d56ffeb294736bd7aa",
+      "personally_read_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full59-line frozen type-registration generator. Registration starts TypeRegistration::of<Self>, inserts ReflectFromPtr, conditionally generated ReflectFromReflect, serialization metadata and declared type data from same ReflectMeta; dependency registrations come from provided type iterator. Disabling auto FromReflect omits its type data, so cannot infer reconstruction availability from Reflect alone. Registration/type availability separate from value-level semantic validation and ordinary project deserialization/mutation reachability."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

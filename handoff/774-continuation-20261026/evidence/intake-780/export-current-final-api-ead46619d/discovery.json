@@ -1,0 +1,908 @@
+{
+  "kind": "CURRENT_FINAL_API_ALL13_PREINVENTORY_NOT_REPAIR_OR_CLEARANCE",
+  "root": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator",
+  "head": "ead46619dec5ef45993f63202cb289bd3986b018",
+  "archived_discovery_sha256": "4ec46312c95ddd4d588f32e2bafb1df3141e55ba21cdf4d480ec0243491b24f2",
+  "source_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb.rs",
+      "current_sha256": "99b359ccf03e94e704e08e8f66f7b23c4dcf00a358ac7b1fabd98993530d26f8",
+      "current_lines": 38,
+      "read_extent": "whole current source, all production and existing inline fixtures; all changed PBR admission/receiving responsibilities freshly read",
+      "original_discovery_sha256": "99b359ccf03e94e704e08e8f66f7b23c4dcf00a358ac7b1fabd98993530d26f8",
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/validation.rs",
+      "current_sha256": "dc8418b20e33ff08fc66ccfe4c1f9aee75d43c450ade95fd7e86ebf36030dfb4",
+      "current_lines": 160,
+      "read_extent": "whole current source, all production and existing inline fixtures; all changed PBR admission/receiving responsibilities freshly read",
+      "original_discovery_sha256": "2f01964984a42e98201c8cb2be6095d0779a2f6292d8571021b64f70bc976656",
+      "drift_from_original": true,
+      "exact_original_blob_found": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/material-pbr-before-d000e848f/source/crates/adventuresim-character-creator/src/export/validation.rs",
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/morphs.rs",
+      "current_sha256": "7eede3013d854f1905e7e4806f7914bd978b9a54a0d9201b001578bfa3e63013",
+      "current_lines": 162,
+      "read_extent": "whole current source, all production and existing inline fixtures; all changed PBR admission/receiving responsibilities freshly read",
+      "original_discovery_sha256": "7eede3013d854f1905e7e4806f7914bd978b9a54a0d9201b001578bfa3e63013",
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/sockets.rs",
+      "current_sha256": "d51e531f136697d43d673cc1e6d16764b2c6fd35661d83d9a46b45a4eb5facdf",
+      "current_lines": 57,
+      "read_extent": "whole current source, all production and existing inline fixtures; all changed PBR admission/receiving responsibilities freshly read",
+      "original_discovery_sha256": "d51e531f136697d43d673cc1e6d16764b2c6fd35661d83d9a46b45a4eb5facdf",
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/skeleton.rs",
+      "current_sha256": "ac761936db58c742f2c58ab7381b8e26a8b6f819bfb91c0b29c54170fe96abff",
+      "current_lines": 69,
+      "read_extent": "whole current source, all production and existing inline fixtures; all changed PBR admission/receiving responsibilities freshly read",
+      "original_discovery_sha256": "ac761936db58c742f2c58ab7381b8e26a8b6f819bfb91c0b29c54170fe96abff",
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/assembly.rs",
+      "current_sha256": "92f6f5351a361dc257d646c8b9b411e53a7af03ea6aef9043536eb2bdb707c72",
+      "current_lines": 313,
+      "read_extent": "whole current source, all production and existing inline fixtures; all changed PBR admission/receiving responsibilities freshly read",
+      "original_discovery_sha256": "92f6f5351a361dc257d646c8b9b411e53a7af03ea6aef9043536eb2bdb707c72",
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/skinning.rs",
+      "current_sha256": "7ddf91c41655775cc2ac55844fa884d4f06dd8ba6951ee0d45b4550bbde5b199",
+      "current_lines": 63,
+      "read_extent": "whole current source, all production and existing inline fixtures; all changed PBR admission/receiving responsibilities freshly read",
+      "original_discovery_sha256": "7ddf91c41655775cc2ac55844fa884d4f06dd8ba6951ee0d45b4550bbde5b199",
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/buffer.rs",
+      "current_sha256": "c92b80be46c77268cf276c3686aaedbd70bba5be1e4f7d5eaef7041f865be104",
+      "current_lines": 49,
+      "read_extent": "whole current source, all production and existing inline fixtures; all changed PBR admission/receiving responsibilities freshly read",
+      "original_discovery_sha256": "c92b80be46c77268cf276c3686aaedbd70bba5be1e4f7d5eaef7041f865be104",
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/compact.rs",
+      "current_sha256": "4caf4186ff5bdf5bbeef68f6dc21fd1efe09273d6a51a778862c5c3699db34ef",
+      "current_lines": 103,
+      "read_extent": "whole current source, all production and existing inline fixtures; all changed PBR admission/receiving responsibilities freshly read",
+      "original_discovery_sha256": "4caf4186ff5bdf5bbeef68f6dc21fd1efe09273d6a51a778862c5c3699db34ef",
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/rigged.rs",
+      "current_sha256": "73b6b6c79dad123790c5136a530112273cc766f8602f07360d36ffe5b1bb8cd6",
+      "current_lines": 60,
+      "read_extent": "whole current source, all production and existing inline fixtures; all changed PBR admission/receiving responsibilities freshly read",
+      "original_discovery_sha256": "73b6b6c79dad123790c5136a530112273cc766f8602f07360d36ffe5b1bb8cd6",
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+      "current_sha256": "e430c45bc2b8f6b87ab984c3b1684a287e124a4275eb29f8ab86906db79093e2",
+      "current_lines": 117,
+      "read_extent": "whole current source, all production and existing inline fixtures; all changed PBR admission/receiving responsibilities freshly read",
+      "original_discovery_sha256": "37d9aad2bed62e065620cccd542180cc439dba8aae9726d0b3177d9f7cb7311a",
+      "drift_from_original": true,
+      "exact_original_blob_found": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/material-pbr-before-d000e848f/source/crates/adventuresim-character-creator/src/export/shell.rs",
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+      "current_sha256": "5d23e1c4decd680acec00f3d2bf5f5a66beac501291d73165cafe7f9ccd26322",
+      "current_lines": 250,
+      "read_extent": "whole current source, all production and existing inline fixtures; all changed PBR admission/receiving responsibilities freshly read",
+      "original_discovery_sha256": "1d5fcb4d3997b5c4137ad31b6fc871cc065f0b8ee3689cb87beb35e64b8e07fd",
+      "drift_from_original": true,
+      "exact_original_blob_found": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/material-pbr-before-d000e848f/source/crates/adventuresim-character-creator/src/export/textures.rs",
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "current_sha256": "117a80aebc7a1de9da1a89065490b5407d182b9fbbdae2b70735945084fc353c",
+      "current_lines": 1765,
+      "read_extent": "whole current source, all production and existing inline fixtures; all changed PBR admission/receiving responsibilities freshly read",
+      "original_discovery_sha256": "75e4883991e588f368586235ea281a654d0e0e8ef9eed79db58a2afdc9c24a1a",
+      "drift_from_original": true,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export.rs",
+      "current_sha256": "6210517f4a5b5ff82c940bfaddb1581c206b3c92630e45a1e733c2ccf5f23bdd",
+      "current_lines": 242,
+      "read_extent": "whole current source, all production and existing inline fixtures; all changed PBR admission/receiving responsibilities freshly read",
+      "original_discovery_sha256": "bcb85488d0dd9de343443715fd6d963684585658282e8a7d53411e4b41e42698",
+      "drift_from_original": true,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "current_sha256": "dbbb086bd77ecd0153686025543f523cc7787e9a909a030625275c6d124a9b59",
+      "current_lines": 342,
+      "read_extent": "whole current source, all production and existing inline fixtures; all changed PBR admission/receiving responsibilities freshly read",
+      "original_discovery_sha256": "dbbb086bd77ecd0153686025543f523cc7787e9a909a030625275c6d124a9b59",
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/lod.rs",
+      "current_sha256": "73ad82b91f4b15146231c922544a72466849407fc7fca6ebe2268d78f45d7fa3",
+      "current_lines": 39,
+      "read_extent": "whole current source, all production and existing inline fixtures; all changed PBR admission/receiving responsibilities freshly read",
+      "original_discovery_sha256": "73ad82b91f4b15146231c922544a72466849407fc7fca6ebe2268d78f45d7fa3",
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/model_controls.rs",
+      "current_sha256": "f52b873a70ee6fd3ac34fc78e3acb63fac9b6466d973114ca313fe066105b5ae",
+      "current_lines": 40,
+      "read_extent": "whole current source, all production and existing inline fixtures; all changed PBR admission/receiving responsibilities freshly read",
+      "original_discovery_sha256": "f52b873a70ee6fd3ac34fc78e3acb63fac9b6466d973114ca313fe066105b5ae",
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "current_sha256": "366087f0e3753b4917fc7fb7fe1f5aa1c6bc654dd4fe3ed03d97c7df0f3395e8",
+      "current_lines": 668,
+      "read_extent": "402-438: whole load_body_model and surrounding actual LOD/reload receiver boundary; rest of binary not re-reviewed",
+      "original_discovery_sha256": "03cb9dc880e607bf6e4b60e3c7a92df3e48fa0cb6c57eaa0d841814a6726f474",
+      "drift_from_original": true,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/data.rs",
+      "current_sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "current_lines": 293,
+      "read_extent": "1-200: exact MeshData admission/reuse comparison, not whole GPU/data family",
+      "original_discovery_sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/export/error.rs",
+      "current_sha256": "9a6b4ec4caa2f2942c4ed56febc4e4ff025a73319b24a4efc69000a03b0a6d41",
+      "current_lines": 99,
+      "read_extent": "whole current source, all production and existing inline fixtures; all changed PBR admission/receiving responsibilities freshly read",
+      "original_discovery_sha256": "9a6b4ec4caa2f2942c4ed56febc4e4ff025a73319b24a4efc69000a03b0a6d41",
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/skin.rs",
+      "current_sha256": "c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206",
+      "current_lines": 226,
+      "read_extent": "whole current source, all production and existing inline fixtures; all changed PBR admission/receiving responsibilities freshly read",
+      "original_discovery_sha256": "c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206",
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/textures/tests.rs",
+      "current_sha256": "461ae69b0d57a3e9e0c4f412dfbf39ad34864bdc72fe6e5c964d292e50391c89",
+      "current_lines": 201,
+      "read_extent": "whole current source, all production and existing inline fixtures; all changed PBR admission/receiving responsibilities freshly read",
+      "original_discovery_sha256": "461ae69b0d57a3e9e0c4f412dfbf39ad34864bdc72fe6e5c964d292e50391c89",
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/surface_projection.rs",
+      "current_sha256": "d0cb73bb8dee9cf7def0509cd17744d40598b5a9cb99dc0a5fceec0ff16bc24d",
+      "current_lines": 69,
+      "read_extent": "whole current source, all production and existing inline fixtures; all changed PBR admission/receiving responsibilities freshly read",
+      "original_discovery_sha256": "5e0b6b456e8f4c6ecca65e178e88c6be775e9e1a702ba59ca95f6edf73cd7802",
+      "drift_from_original": true,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.toml",
+      "current_sha256": "89cf06ca88fa0b2863f103f8cf6961345e3c5cfc2c52ad8802bbe3f452d70361",
+      "current_lines": 83,
+      "read_extent": "whole current source, all production and existing inline fixtures; all changed PBR admission/receiving responsibilities freshly read",
+      "original_discovery_sha256": "89cf06ca88fa0b2863f103f8cf6961345e3c5cfc2c52ad8802bbe3f452d70361",
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "current_sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "current_lines": 192,
+      "read_extent": "whole governing rule source",
+      "original_discovery_sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "current_sha256": "3014f331d32d092248326e49b6966aca09036b86b68220167f56924abf160d84",
+      "current_lines": 304,
+      "read_extent": "1-175: actual cfg-gated export/lod and native projection exports; unrelated later recipes not re-reviewed",
+      "original_discovery_sha256": null,
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/lib.rs",
+      "current_sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "current_lines": 155,
+      "read_extent": "whole identity/ordinal/lookup/error owner (excluding external test module)",
+      "original_discovery_sha256": null,
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/table.rs",
+      "current_sha256": "491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282",
+      "current_lines": 108,
+      "read_extent": "whole rig-column ownership/admission/indexing source",
+      "original_discovery_sha256": null,
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/names.rs",
+      "current_sha256": "94146b1b91f11d9711a5439e607b357cd8bb2fe828de4763cb432f58b0225554",
+      "current_lines": 78,
+      "read_extent": "1-91: whole authored name constants source",
+      "original_discovery_sha256": null,
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/math.rs",
+      "current_sha256": "20b8033a4cd2771f494d9a73e0820bd9c27c5cdce23c097687360719bfc46b0a",
+      "current_lines": 357,
+      "read_extent": "1-235: quaternion math, Transform and exact compose/inverse/to_skel_state paths; remaining affine routines not reviewed",
+      "original_discovery_sha256": null,
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/model.rs",
+      "current_sha256": "40ffb38f7e31078dc362350d86467b2a82568d14153ad3e7eef940961b828f84",
+      "current_lines": 609,
+      "read_extent": "1-70: canonical MIN/MAX_LOD and native MhrOutput contract only",
+      "original_discovery_sha256": null,
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/lib.rs",
+      "current_sha256": "9d99fd95ed9ec73c741b282a32784af8c92b4a8d3abcbc8ae15914f94a50f06b",
+      "current_lines": 43,
+      "read_extent": "37-43: actual canonical LOD/model reexports only",
+      "original_discovery_sha256": null,
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-core/src/character_proportions.rs",
+      "current_sha256": "7a3b0a5797dbb6d8c811aa2e2df9d831e7424367faf501cf6b3b9bffe1683433",
+      "current_lines": 208,
+      "read_extent": "130-175: whole JointProportionBasis data/translation/is_finite owner and fixture opening; other proportions algorithms not re-reviewed",
+      "original_discovery_sha256": null,
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/fabelgeist-mesh/src/count.rs",
+      "current_sha256": "e609778b6bd24b4ee231f3d3281d463764a55d5b787f02f4015f4ff7c4b4072b",
+      "current_lines": 135,
+      "read_extent": "whole canonical mesh count admission/arithmetic (no test module)",
+      "original_discovery_sha256": null,
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/surface_material.rs",
+      "current_sha256": "ea2e7125a8a3e4191aac2a1ab33237df671f8cf0aac607ccbef869fd2f7e691e",
+      "current_lines": 25,
+      "read_extent": "whole typed source appearance/finiteness owner",
+      "original_discovery_sha256": null,
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/profiling.rs",
+      "current_sha256": "73eb7657f5e30926f9ad6d5f5f3603b03284b29f3c1fe7c39e895b723729b950",
+      "current_lines": 42,
+      "read_extent": "whole timing wrapper/recording production source",
+      "original_discovery_sha256": null,
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_morphs.rs",
+      "current_sha256": "c2ccb364a4ac459ff340265962f4d5dd1a171be1cf9a8554a5de11a82e558865",
+      "current_lines": 385,
+      "read_extent": "175-310: armor targets tail, complete component_materials/rigged_clothing/rigged_armor constructors, remove_skeletal_translation and fixture opening; other generation not re-reviewed",
+      "original_discovery_sha256": null,
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "current_sha256": "c5e9761baffad2f4392216dddc34d97d391a670f3526dc7ea5a1d28bdc29c415",
+      "current_lines": 146,
+      "read_extent": "whole export hair producer/retained shell/native image/source cache paths",
+      "original_discovery_sha256": null,
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/export.rs",
+      "current_sha256": "d4d9bf1aea7c1a69e348644cf11a09056260ce34f97b340357aed60c646c4a5a",
+      "current_lines": 30,
+      "read_extent": "whole actual draped/mail RiggedShell constructor",
+      "original_discovery_sha256": null,
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/textile_export.rs",
+      "current_sha256": "2af2db51fbec555697e97ac7e653f95ae09e381dd8acbc9bb110f66b6346c314",
+      "current_lines": 108,
+      "read_extent": "whole existing external export fixture and all oracles",
+      "original_discovery_sha256": null,
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh source extent read, not inherited clearance"
+    },
+    {
+      "path": "Cargo.lock",
+      "current_sha256": "ba4082d74f3bdcafdb689588768e1ef4b37041e55493745dcc15e5c541fae33c",
+      "current_lines": 13119,
+      "read_extent": "full TOML parse of package records for actual thiserror/serde_json/anyhow versions only",
+      "original_discovery_sha256": null,
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "dependency metadata only"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "current_sha256": "a068c4409c2ddee8160dba37c314676eebaafb33c324984a872a9478ebd3e354",
+      "current_lines": 12318,
+      "read_extent": "full TOML parse of package records for actual thiserror/serde_json/anyhow versions only",
+      "original_discovery_sha256": null,
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "dependency metadata only"
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/components.rs",
+      "current_sha256": "39076111488cb7bfbc945fbbb14171173b6db894259f1c877af261ddde6109fe",
+      "current_lines": 154,
+      "read_extent": "1-25: actual ArmorHinge metre-space public origin/axis fields, serde construction and retained ArmorComponent optional hinge; rest of components not re-reviewed",
+      "original_discovery_sha256": null,
+      "drift_from_original": false,
+      "exact_original_blob_found": null,
+      "coverage": "fresh bounded source read, no whole component-family clearance"
+    }
+  ],
+  "fixture_asset_accounts": [
+    {
+      "path": "assets_src/equipment/materials/mail-base-color.png",
+      "sha256": "da1a5fbb246602080895023758024b4072838b3fd72ee20e074bf16cd4ffac64",
+      "read_extent": "fixture include dependency: raw bytes hashed only; no pixel/image behavior review"
+    },
+    {
+      "path": "assets_src/equipment/materials/mail-normal.png",
+      "sha256": "f34896f80e1b01a61a9e4952217c8400e5197b749535e7725754cd83726e6d5e",
+      "read_extent": "fixture include dependency: raw bytes hashed only; no pixel/image behavior review"
+    },
+    {
+      "path": "assets_src/equipment/materials/mail-occlusion.png",
+      "sha256": "a6f24a4a8570d8a269530f58fa266a41e72e7b93d69681085ed22e94bd5bccbc",
+      "read_extent": "fixture include dependency: raw bytes hashed only; no pixel/image behavior review"
+    }
+  ],
+  "original25_count": 25,
+  "current_source_count": 43,
+  "findings": [
+    {
+      "id": "UV-R1-CURRENT",
+      "priority": 2,
+      "location": "export/validation.rs;export/morphs.rs;export/skeleton.rs",
+      "contract": "Stable owned input-admission errors and canonical lower source identities.",
+      "evidence": "All existing guard classifications remain anonymous anyhow bail/ensure; PBR migrated final finite guard to SurfaceMaterial but not its typed failure ownership.",
+      "repair": "One ExportAdmissionError + descriptive ExportAdmissionResult; typed body/shell subject and relevant payloads; canonical CharacterLodError at lod; no duplicate validator."
+    },
+    {
+      "id": "UV-R2-CURRENT",
+      "priority": 2,
+      "location": "export/glb.rs:13-26",
+      "contract": "Native frame padding, complete additions and all u32 headers checked on actual payload lengths before any GLB path operations.",
+      "evidence": "next_multiple_of(4), usize total sum, as-u32 JSON/BIN/total and infallible Vec::with_capacity remain unchanged from old discovery.",
+      "repair": "Private checked layout and one prepared packet; actual TryFromIntError and TryReserveError retained; GlbError separates serde/layout/allocation/directory/write causes."
+    },
+    {
+      "id": "EXPORT-FINITE-BODY",
+      "priority": 2,
+      "location": "export/validation.rs:13-16;export.rs:305-313,414",
+      "contract": "Actual exported body position/normal native words must be finite.",
+      "evidence": "Public body arrays only population checked, unlike shell arrays; NaN/Inf reaches BIN and bounds JSON.",
+      "repair": "Add finite positions/normals admission at same source boundary before compaction/native buffer construction; no norm-length/range or topology policy."
+    },
+    {
+      "id": "EXPORT-FINITE-JOINT-SOURCE",
+      "priority": 2,
+      "location": "export/validation.rs:25-36;export/skeleton.rs:20-33",
+      "contract": "Retained raw joint states are actual finite source input to native transforms.",
+      "evidence": "Public globals table checked only for length; shell-only finite geometry plus NaN joint translation passes and reaches null node JSON/nonfinite inverse bind bytes.",
+      "repair": "Separate typed nonfinite source-state guard with actual ordinal before native construction. Negative/zero/denormal scale policy is not invented by this check."
+    },
+    {
+      "id": "EXPORT-FINITE-HINGE",
+      "priority": 2,
+      "location": "export/validation.rs:146-158;export/assembly.rs:38-42",
+      "contract": "Optional native hinge metadata components must be finite.",
+      "evidence": "Public optional hinge origin/axis bypass current geometry/PBR finite guard and serialize directly; nonfinite source becomes null JSON metadata.",
+      "repair": "Typed finite-only optional hinge admission; no normalization, length threshold, sign or physical solve policy."
+    },
+    {
+      "id": "EXPORT-NATIVE-PROJECTION",
+      "priority": 2,
+      "location": "export.rs:400-407,553-576;export/skeleton.rs:20-33;fabelgeist-mhr/src/math.rs:152-220",
+      "contract": "Finite source alone does not certify representable finite native node/matrix output.",
+      "evidence": "Transform inverse divides by scale and compose/narrowing can overflow; zero or sufficiently tiny finite scale may produce nonfinite inverse-bind words, even after source finite guard.",
+      "repair": "Guard actual derived inverse-bind matrix and node to_skel_state f32 components at receiving projection; typed native projection error distinct from malformed source; retain exact math and all finite outputs. No positive-scale/clamp policy."
+    },
+    {
+      "id": "EXPORT-NATIVE-UNWRAP",
+      "priority": 3,
+      "location": "export/morphs.rs:74-78;export/assembly.rs:22",
+      "contract": "No production unwrap; typed native assembly is distinct from authored input.",
+      "evidence": "Known producer uses JSON primitives arrays but both private native transformations call unwrap.",
+      "repair": "Prefer direct actual Vec ownership if chosen before repair; otherwise fallible shape extraction with one focused ExportAssemblyError and descriptive alias. Propagate through existing top anyhow, no compatibility path."
+    },
+    {
+      "id": "EXPORT-LOD-EXPECT",
+      "priority": 3,
+      "location": "model_controls.rs:14-16",
+      "contract": "No production expect; LOD accepted range stays at canonical owner.",
+      "evidence": "Formatter unconditionally expects TryFrom despite actual fallible API and explicit no-expect rule.",
+      "repair": "Handle formatting failure at actual UI boundary while retaining same valid display and no clamp; main load_body_model propagates canonical source via ?."
+    },
+    {
+      "id": "EXPORT-PROFILING-EXPECT",
+      "priority": 3,
+      "location": "profiling.rs:36-43",
+      "contract": "No production expect; optional profiling must not alter operation return/cause.",
+      "evidence": "GLB profiling wrappers invoke record, which expects serde encoding of Timing.",
+      "repair": "Handle diagnostic serialization result explicitly; keep generic measure<T> operation result intact and profiling optional. No new export error for telemetry or swallowed operation failure."
+    },
+    {
+      "id": "EXPORT-RULE-ORDER-RECORDS",
+      "priority": 3,
+      "location": "export.rs module declarations;export/morphs.rs:5-18;export/assembly.rs:13-22;export/skeleton.rs:5-9;export/shell.rs:3;export/skinning.rs:8",
+      "contract": "Public before private free functions; named semantic records and existing owner reuse; no-growth responsibilities.",
+      "evidence": "morphs private channels precedes public validate/write; channels carries semantic target/population tuple. Native parts use name/hinge/shell triple; native skeleton tuple and shell/skin view tuples encode semantic roles. These are source-backed rule debt, not demonstrated runtime failures.",
+      "repair": "Before editing each responsibility, choose named MorphChannel, native Parts/Nodes/SkinViews/ShellViews where touched; direct typed collection approach may close shape/tuple roles together. Move complete docs/attrs with items; keep existing production export oversized math outside expansion or extract only actual new responsibility."
+    }
+  ],
+  "guard_inventory": [
+    {
+      "family": "CharacterLod::try_from",
+      "role": "CanonicalLod",
+      "location": "lod.rs:8-18",
+      "contract": "requested u8, actual MIN/MAX owners; same4..=6 accepted; source-preserving CharacterLodError"
+    },
+    {
+      "family": "body population",
+      "role": "GeometryPopulation",
+      "location": "export/validation.rs:13-16",
+      "contract": "positions nonempty; normals same length; preserve actual host usize counts"
+    },
+    {
+      "family": "body geometry finiteness",
+      "role": "NonFiniteGeometry",
+      "location": "export/validation.rs:13-16 (missing)",
+      "contract": "positions and normals finite before buffer construction; newly reject NaN/Inf source only"
+    },
+    {
+      "family": "body skin populations",
+      "role": "SkinPopulation",
+      "location": "export/validation.rs:17-19",
+      "contract": "indices/weights exactly positions; both native host counts retained"
+    },
+    {
+      "family": "body rig bound",
+      "role": "SkinRigBound",
+      "location": "export/validation.rs:21-24",
+      "contract": "reuse actual RigJointCount from skin/table; equal bound does not prove rig instance identity"
+    },
+    {
+      "family": "skeleton populations",
+      "role": "SkeletonPopulation",
+      "location": "export/validation.rs:25-28",
+      "contract": "joint names nonempty, parents/globals equal lengths"
+    },
+    {
+      "family": "native joint width policy",
+      "role": "JointLimit",
+      "location": "export/validation.rs:29-31",
+      "contract": "retain exactly65535 current cap, no65536 widening and no GPU ceiling"
+    },
+    {
+      "family": "parent order",
+      "role": "InvalidParent",
+      "location": "export/validation.rs:32-36",
+      "contract": "reuse RigJointOrdinal; Some parent < current; first parent therefore None"
+    },
+    {
+      "family": "retained global source finiteness",
+      "role": "NonFiniteJointState",
+      "location": "export/validation.rs:25-36 (missing)",
+      "contract": "actual raw [f32;8] components finite; no normalization or sign/range addition"
+    },
+    {
+      "family": "body faces",
+      "role": "MissingVertex",
+      "location": "export/validation.rs:37-44",
+      "contract": "every body u32 corner within body positions, even shell-only body topology used for sockets"
+    },
+    {
+      "family": "body weight sums",
+      "role": "WeightsSum",
+      "location": "export/validation.rs:45-50",
+      "contract": "same finite sum and absolute budget1e-4; preserve skin weights sum Display oracle; do not add nonnegative weights policy"
+    },
+    {
+      "family": "baked plate maps",
+      "role": "EmptyMap",
+      "location": "export/validation.rs:52-58",
+      "contract": "normal and metalroughness Vec nonempty; no PNG decoding policy"
+    },
+    {
+      "family": "UV presence",
+      "role": "MissingUvs",
+      "location": "export/validation.rs:59-62",
+      "contract": "either map family requires sole texcoords; no per-map alternative UV owner"
+    },
+    {
+      "family": "UV population/finiteness",
+      "role": "UvPopulation/NonFiniteUvs",
+      "location": "export/validation.rs:63-68",
+      "contract": "rows equal shell positions and finite; signed/outside-unit UVs remain accepted"
+    },
+    {
+      "family": "shell name",
+      "role": "BlankShellName",
+      "location": "export/validation.rs:101-103",
+      "contract": "trim only for emptiness; retain original authored text in errors/output"
+    },
+    {
+      "family": "shell geometry shape",
+      "role": "GeometryPopulation",
+      "location": "export/validation.rs:104-110",
+      "contract": "positions and faces nonempty; normals equal positions"
+    },
+    {
+      "family": "shell skin availability",
+      "role": "IndependentSkin",
+      "location": "export/validation.rs:111-122",
+      "contract": "both supplied or neither with body vertex-count topology; preserve same count contract, no newly inferred identity"
+    },
+    {
+      "family": "shell rig bound/populations",
+      "role": "SkinRigBound/SkinPopulation",
+      "location": "export/validation.rs:123-129",
+      "contract": "same rig bound; exact rows; reuse existing Rig owners"
+    },
+    {
+      "family": "shell weight sums",
+      "role": "WeightsSum",
+      "location": "export/validation.rs:130-135",
+      "contract": "same finite sum and tolerance, native weight behavior unchanged"
+    },
+    {
+      "family": "shell faces",
+      "role": "MissingVertex",
+      "location": "export/validation.rs:136-145",
+      "contract": "every shell face within shell positions; plate-edge old filter policy unchanged"
+    },
+    {
+      "family": "shell geometry/PBR finiteness",
+      "role": "NonFiniteGeometry/NonFiniteAppearance",
+      "location": "export/validation.rs:146-158",
+      "contract": "source positions/normals and ORIGINAL SurfaceMaterial.is_finite; retain source finite even if texture later shadows color"
+    },
+    {
+      "family": "hinge metadata finiteness",
+      "role": "NonFiniteHinge",
+      "location": "export/validation.rs + export/assembly.rs:38-42 (missing)",
+      "contract": "raw optional origin/axis currently emitted directly; finite check only, no axis-length/sign/normalization policy"
+    },
+    {
+      "family": "morph channel order",
+      "role": "MorphChannels",
+      "location": "export/morphs.rs:20-32",
+      "contract": "body participates only export_body; all selected primitives same ordered names; use named MorphChannel record"
+    },
+    {
+      "family": "morph target admission",
+      "role": "MorphTarget",
+      "location": "export/morphs.rs:34-49",
+      "contract": "nonblank unique name, position/normal delta rows equal vertices, all finite; retain original names"
+    },
+    {
+      "family": "proportion basis admission",
+      "role": "Proportions",
+      "location": "export/skeleton.rs:45-55",
+      "contract": "empty or same joint length; actual JointProportionBasis::is_finite; move admission earlier only if documented error order change"
+    },
+    {
+      "family": "socket identity",
+      "role": "SocketIdentity",
+      "location": "export/validation.rs:73-80",
+      "contract": "nonblank unique open attachment IDs; preserve actual index/name context"
+    },
+    {
+      "family": "socket native state",
+      "role": "SocketTransform",
+      "location": "export/validation.rs:74,81-86",
+      "contract": "to_skel_state actual [f32;8] finite, including native narrowing; no new source quaternion policy"
+    },
+    {
+      "family": "socket UV/domain",
+      "role": "SocketUv",
+      "location": "export/validation.rs:87-94",
+      "contract": "domain nonblank and UV finite, no domain enum/range restriction added"
+    },
+    {
+      "family": "native skeleton root",
+      "role": "SkeletonRoot",
+      "location": "export.rs:486-490",
+      "contract": "current local missing-root Context root; preserve or replace with actual roots output, not human prose"
+    },
+    {
+      "family": "native primitives shape",
+      "role": "Primitives",
+      "location": "export/morphs.rs:74-78;export/assembly.rs:22",
+      "contract": "two production unwraps: consume actual typed Vec or return stable native assembly error; no dummy/default geometry"
+    },
+    {
+      "family": "socket native node shape",
+      "role": "NodeObject/NodeChildren",
+      "location": "export/sockets.rs:47-54",
+      "contract": "existing object/children array guards become native assembly errors; canonical ROOT require_in keeps RigJointLookupError source"
+    },
+    {
+      "family": "derived native joint projection",
+      "role": "NonFiniteNativeJoint",
+      "location": "export.rs:400-407,553-576;export/skeleton.rs:20-33",
+      "contract": "finite raw source may still produce nonfinite inverse-bind f32/node f32 output; check actual projection before publishing, no physical math rewrite"
+    },
+    {
+      "family": "profiling serialization",
+      "role": "DiagnosticEncoding",
+      "location": "profiling.rs:36-43",
+      "contract": "production expect reached by glb_serialize/glb_write when enabled; handle diagnostic encode error while preserving generic operation result"
+    }
+  ],
+  "final_api_recommendation": {
+    "public_export": "Keep export_rigged_glb(output,...,mesh,shells,sockets)->anyhow::Result<()>; existing callers and contexts naturally retain concrete typed roots through ?. Do not widen/duplicate a global export error merely to shorten this mixed operation.",
+    "source_admission": "New focused export/admission_error.rs: public ExportAdmissionError, ExportAdmissionResult<T>, ExportSubject::Body | Shell { index:usize, name:String }; closed column/morph/socket violation roles only where payload contract shares actual meaning. Error variants carry exact host counts and canonical RigJointOrdinal/RigJointCount where available. Own diagnostic strings only at error production; no string-driven branching.",
+    "lod": "lod.rs owns CharacterLodError with requested u8 and canonical MIN/MAX Display; TryFrom keeps Result<Self,Self::Error>, no alias-only trait signature. Do not copy range into export error or change stored u8 public input as incidental compatibility bridge. main loader ? retains source; formatter handles Err without expect.",
+    "validation": "validate/validate_shell/morphs::validate/validate_proportions use actual ExportAdmissionResult. Preserve original guard order where practical, signed/out-of-range UV acceptance, same skin tolerance and joint cap. If proportions move into initial admission to establish one phase, remove late duplicate and inventory changed error priority explicitly.",
+    "native_assembly": "One focused ExportAssemblyError/Result (or named equivalent) for current missing primitives/native object/children/root shape errors; canonical RigJointLookupError can remain a source variant. Either pass actual Vec<Value> rather than extracting array from Value, or use checked extraction. Do not return fabricated empty primitives; public top retains anyhow conversion. Typed native projection failures belong here or a focused sibling projection owner, not source admission.",
+    "glb_error": "glb/error.rs (or small glb.rs owner) exports GlbError and cohesive GlbResult<T>. Actual families Serialize(serde_json::Error), Layout(GlbLayoutError), Reserve(TryReserveError), CreateDirectory{path:PathBuf,source:io::Error}, Write{path:PathBuf,source:io::Error}. Derive Debug/Error with #[from]/#[source] as appropriate; no String cause or manual flattening. Publicly reexport errors needed for downcast/type classification; only genuinely public payload role types exposed.",
+    "layout": "Private glb/layout.rs GlbLayout constructor takes actual JSON Vec len and BIN Vec len; no Default/serde/public fields. Named ChunkLayout for json/bin and total32 certificate; store only private coherent derived fields needed by encode. GlbLengthRole::{Json,Bin,Container} names native field. Checked padding add and complete total add; Width{role,bytes,source:TryFromIntError} distinct from Overflow{role} which has no fabricated std cause.",
+    "packet": "Prepare from actual serde_json::to_vec(document)? and consumed BIN Vec; admit layout BEFORE any padding mutation/reserve/header/filesystem. Fallibly reserve exact final frame capacity once and write original payloads plus pad bytes into final Vec; avoid separate padded JSON/BIN reallocations. Prepared packet retains only complete bytes (layout can be consumed), so no competing mutable metadata. This is production format ownership, not a metadata-only testing adapter.",
+    "writer": "glb::write(path,document,bin)->GlbResult<()> constructs complete packet first, then existing mkdir and fs::write with exact paths/sources. Top uses glb::write(...)?;Ok(()) to convert into mixed anyhow. No GLB create/truncate/write on invalid layout or failed preparation; later IO may partially write, no transaction/rename framework.",
+    "publication": "TextureImages.finish still occurs first and may publish sibling PNGs / create parent directory. No all-output-atomicity claim. Keep hashes/cache/corrupt-shared-file rejection and surface alpha/sampler/image precedence exact.",
+    "pbr": "Retain validation of original SurfaceMaterial.is_finite. Writer applies SurfaceTextures::scalar_appearance then canonical LinearSurfaceMaterial::try_from; white selection precedes decode when base color map exists. Projection error remains SurfaceProjectionError source, not recoded as UV/missing-map/admission error. Finite out-of-unit source factors remain accepted where representable, no recipe bounds/clamp added.",
+    "fixtures": "No new tests/cases/helpers/assertions/doctests/probes. Existing whole fixture source read; only necessary API/import/? adaptations allowed. Preserve oracles skin weights sum, ordered morph rejection/matching/NaN,4..=6 u8 loop, GLB native parse/image/skin/UV/morph/hinge/socket and shared texture corruption."
+  },
+  "lenses": [
+    {
+      "order": 1,
+      "lens": "producer-propagation",
+      "source_contract": "Public raw RiggedMesh/Shell/Socket -> single source admission -> compact remap -> skin/native accessor/texture/PBR -> skeleton/morph/socket/assembly -> actual JSON/BIN -> checked packet -> file. All actual direct application and existing fixture callers read.",
+      "disposition": "ACTIONABLE typed-root migration and finite bypasses; no repair performed.",
+      "connected_repair": "admission+native errors propagate by ? through current mixed anyhow without prose conversion; fresh review of all touched receivers after implementation.",
+      "dependencies": "canonical LOD/Rig/PBR and actual direct caller APIs; no native peer edits needed.",
+      "acceptance": "No compatibility fields, obsolete infallible get/forwarder, second validator or swallowed native failure."
+    },
+    {
+      "order": 2,
+      "lens": "existing-type-owners",
+      "source_contract": "Rig owns ordinals/count/bounds and lookup source; LOD owns4..=6; Color/Armor/Creator own source appearance/native projection. GLB owns container bytes. Mesh counts restrict u32 and MeshData adds unrelated cap/optional attributes/skin policy.",
+      "disposition": "Reuse available exact owners; raw usize source counts remain honest diagnostics for possibly invalid values.",
+      "connected_repair": "Export-owned local input/native errors; glb layout/error ownership; no GPU byte/count/launch or HairDataError substitution.",
+      "dependencies": "Current canonical count.rs, Rig, MHR constants and PBR sources read.",
+      "acceptance": "No duplicate LOD range, universal mesh certificate, native byte wrapper identical to foreign GPU meaning or widened rejection."
+    },
+    {
+      "order": 3,
+      "lens": "admission-contracts",
+      "source_contract": "Every current guard and missing geometry/joint/hinge finite source path enumerated separately; actual original PBR input and effective native appearance both retain their distinct checks.",
+      "disposition": "Full guard inventory fresh; new finite source corrections explicit before repair; source API final naming pending Root choice.",
+      "connected_repair": "Typed focused guards and canonicalLOD; packet layout sole constructor.",
+      "dependencies": "Source-finite is not derived-native-finite; projection admission separate.",
+      "acceptance": "Same valid shapes, optional maps, UV semantics, cap/tolerance; no new normalization/positive-scale/negative-weight policy."
+    },
+    {
+      "order": 4,
+      "lens": "invariant-operations",
+      "source_contract": "Alignment, host total additions, native width and reserve checked before frame allocation/output; actual compose/inverse/f32 narrowing and strongest_four operations inspected.",
+      "disposition": "UV-R2 confirmed; finite source alone insufficient for native transform output.",
+      "connected_repair": "Checked actual layout; receiving finite guards for actual emitted joint matrices/states; same math unchanged.",
+      "dependencies": "Existing Vec/serde allocation earlier in buffer pipeline not made globally fallible by final frame reserve.",
+      "acceptance": "No overflow/truncation; no fabricated TryFrom cause; all representable regular output bytes exact."
+    },
+    {
+      "order": 5,
+      "lens": "aggregate-states",
+      "source_contract": "One private native packet binds actual payloads, pads, chunk lengths and total. Named subject ties actual body/shell/target/socket context. Compact retains sole UV/remap across all columns and same target order.",
+      "disposition": "No duplicate schema/certificate selected; native primitives JSON shape currently assumed.",
+      "connected_repair": "Immutable layout/packet, named MorphChannel and native record/shape errors; retain source data as authority.",
+      "dependencies": "Source borrowed public records stay immutable during synchronous export; no need branded public mesh wrapper.",
+      "acceptance": "Headers equal exact bytes, no independently mutable layout facts; no fake empty geometry/default success."
+    },
+    {
+      "order": 6,
+      "lens": "type-ownership",
+      "source_contract": "Source admission, native assembly/projection, container framing, lowerRig/LOD and PBR each have lowest shared real owner.",
+      "disposition": "Root sole implementation; no826nativeownership blocker for this family.",
+      "connected_repair": "Focused new modules before growing old oversized export.rs; descriptive results; types before impl/functions/tests.",
+      "dependencies": "Public reexports/cfg offline-creator; thiserror/serde_json already direct deps.",
+      "acceptance": "No passthrough framework, parallel public legacy writer, aliases for compatibility or misplaced Hair/GPU error owner."
+    },
+    {
+      "order": 7,
+      "lens": "redundant-authority",
+      "source_contract": "One validator and one current typed PBR projection; effective white policy is SurfaceTextures owner; source does not store native factors. Morph target order derived from same channel vector.",
+      "disposition": "Current message roots and ad hoc casts are not stable authority; replacement must remove old paths directly.",
+      "connected_repair": "One checked layout and named ordered channels, no separate mutable cached target-name list.",
+      "dependencies": "Keep pointer-based shell texture reuse and content hash identity unchanged.",
+      "acceptance": "No dual validator/writer/projection; no error prose status or re-admission loops."
+    },
+    {
+      "order": 8,
+      "lens": "behavior-preservation",
+      "source_contract": "Exact current PNG-before-GLB order, GLB header/magic/chunks/padding, existing tests and all literal oracles read; finite invalid rejection deliberately added.",
+      "disposition": "No runtime evidence or blanket old verdict; source-ready acceptance only.",
+      "connected_repair": "Source inverse for unchanged bodies/fixtures; document error priority if proportions moved; no serialization-order drift.",
+      "dependencies": "Existing hosted gates later; no new tests available for huge layout edge cases.",
+      "acceptance": "No GLB file operations before successful packet; sibling PNGs may already exist; no atomic later-IO promise."
+    },
+    {
+      "order": 9,
+      "lens": "enum-shapes",
+      "source_contract": "Body/shell, input column/violation, JSON/BIN/container and local native shape roles are closed; authored names/paths remain open. Existing export_body is a meaningful named emission predicate.",
+      "disposition": "Closed prose classification requires typed payload; no arbitrary enum of numeric indices.",
+      "connected_repair": "Error subjects/roles with actual relevant payload; named or tagged Parts for body vs shell if touched.",
+      "dependencies": "Canonical Rig names remain authored strings; dimensions/nativeGLTF codes true external tokens.",
+      "acceptance": "No optional-payload bag, boolean error category, dual role/name authority or unnecessary new enum for ordinary predicate."
+    },
+    {
+      "order": 10,
+      "lens": "derivability",
+      "source_contract": "Creator direct thiserror2.0.20 permits source-preserving derive; serde_json1.0.151/anyhow1.0.104 both locks inspected. Layout readonly no uncheckedDefault/Deserialize needed.",
+      "disposition": "Typed errors can derive; actual std integer/IO/reserve/serde source types retained.",
+      "connected_repair": "Derive Debug/Error; explicit traitResult; ordinary cohesive aliases; no error Clone requirement for IO.",
+      "dependencies": "No Cargo/lock changes anticipated unless Root chooses unnecessary new dependency; native source chain reviewed after repair.",
+      "acceptance": "No handcoded Error boilerplate/cause stringification or fake source for checked_add None."
+    },
+    {
+      "order": 11,
+      "lens": "type-granularity",
+      "source_contract": "Native frame lengths are format u32 bytes, not mesh population. Morph channels and native view/part/skeleton record tuples carry distinct roles, currently unnamed.",
+      "disposition": "Source-backed named-record debt in touched responsibilities explicit; broad geometry tuple/math rewrite outside selected repair.",
+      "connected_repair": "Small checked layout + focused error owners + named actual receiving records; avoid per-field wrapper explosion.",
+      "dependencies": "Source counts may exceed u32 when diagnosing malformed input; do not force MeshVertexCount prematurely.",
+      "acceptance": "Real responsibility extraction, no arbitrary extra API layer/one-use primitive adapter; no file/function ceiling growth."
+    },
+    {
+      "order": 12,
+      "lens": "magic-strings",
+      "source_contract": "Existing source-error roots closed; glTF schema keys/type names, paths, open authored IDs and morph names legitimate native/source boundary strings.",
+      "disposition": "Typed local roots required; diagnostics remain terminal only; nativeJSON unwraps not silently waived.",
+      "connected_repair": "Stable variant roles; preserve required skin weights sum oracle; no Display/Debug branching.",
+      "dependencies": "Profiling expect separate diagnostic boundary; PBR native projection preserves actual source.",
+      "acceptance": "No string source fabrication, human prose classifier, duplicated JSON parser or protocol fallback."
+    },
+    {
+      "order": 13,
+      "lens": "magic-numbers",
+      "source_contract": "GLB12/8/4/version2/chunk words native format, finite guard no tolerance; existing skin1e-4 and joint65535 exact existing policy. Metres are source/native coordinate contract, not altered here.",
+      "disposition": "No new caps or epsilons; actual byte arithmetic currently unchecked.",
+      "connected_repair": "Owning framing constants/checked native lengths; preserve all original calibration, UV/skin/physical formulas.",
+      "dependencies": "Mesh/GPU count and native dispatch owners distinct; no sourceextentpolicy migration hidden in frame fix.",
+      "acceptance": "Same finite normal data/native bytepacking; invalid size rejects without truncation; exact pad spaces/zeros incl empty BIN chunk."
+    }
+  ],
+  "dependency_versions": {
+    "Cargo.lock": {
+      "anyhow": "1.0.104",
+      "serde_json": "1.0.151",
+      "thiserror": "2.0.20"
+    },
+    "crates/adventuresim-character-creator/Cargo.lock": {
+      "anyhow": "1.0.104",
+      "serde_json": "1.0.151",
+      "thiserror": "2.0.20"
+    }
+  },
+  "source_drift": {
+    "exact_old_found": [
+      "crates/adventuresim-character-creator/src/export/validation.rs",
+      "crates/adventuresim-character-creator/src/export/shell.rs",
+      "crates/adventuresim-character-creator/src/export/textures.rs"
+    ],
+    "drift_unrecovered": [
+      "crates/adventuresim-character-creator/src/export.rs",
+      "crates/adventuresim-character-creator/src/character_export.rs",
+      "crates/adventuresim-character-creator/src/main.rs",
+      "crates/adventuresim-character-creator/src/surface_projection.rs"
+    ],
+    "explanation": "validation: three primitive scalar fields replaced by SurfaceMaterial.is_finite; shell: effective-white canonical checked LinearSurfaceMaterial projection and Result propagation; textures: same white policy moved to sole scalar_appearance owner plus full item moves. Four prior WIP blobs not recovered exactly; complete current source reread except explicitly bounded main; no old clearance carried."
+  },
+  "preinventory_status": "All thirteen CURRENT named export-admission/native frame responsibilities inventoried before repair. Exact final API names and selection of newly found joint/hinge/native projection/diagnostic corrections remain Root decisions to record before edits. Broader numeric algorithms are not cleared.",
+  "limits": [
+    "No production edits, checks, builds, tests, scanners, probes, generators, new tests/cases/helpers/assertions/doctests, push, CI or publication.",
+    "Fresh whole current export.rs/all export child files/all existing export fixtures, complete character/equipment direct callers and textile external fixture. Actual import/search enumerations locate callers but source reads\u2014not searches\u2014establish the listed coverage.",
+    "Main only402-438, character_morphs175-310, MHR math1-235/model1-70 and other source ranges explicit; no claim entire binary, runtime model/procedural generation, rig universe or physical socket solver policy audited.",
+    "Public external downstream Rust consumers beyond this repository not enumerated. Current actual in-repository direct export_rigged_glb call sites all read.",
+    "No execution covers huge native frame/overflow/allocation failure; checked source reasoning and existing later hosted checks are required.",
+    "Preparing a final frame does not make earlier BufferBuilder/serde/texture allocations fallible or all output transactional. Shared PNGs may publish first; later IO may partially write.",
+    "No global/final same-pushed-SHA review or CI pass; generated/native GPU receiving and broader physical/count/seed/engraving/trim/cause families remain open."
+  ]
+}

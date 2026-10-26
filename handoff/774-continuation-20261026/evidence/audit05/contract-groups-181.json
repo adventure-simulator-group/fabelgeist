@@ -1,0 +1,57 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-181",
+  "at": "2026-10-25T21:08:10.285810+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1941,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/gardens.rs",
+      "sha256": "88cce4f821e3d6ebebb7c824257e51bab60d4f73fafbd0ebfb6b2ce93695eded",
+      "personally_read_ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full208 lines read. Private SceneGarden binds immutable authoritative descriptor with ordered GardenPlantSupport membership. Native/serde from_support rejects zero/out-of-range owner, zero building/plant IDs, duplicate plant IDs, missing/reordered/extra roots before retention. Root elevation already admitted as finite SupportElevation. It does not independently certify all CityGarden geometry or soil identity; source validation and authority projection own those concerns.",
+        "Scene input validator binds each garden owner to exact physical front-building ID, rejects duplicate property/member/plant ownership across compounds/gardens, requires owner centre in plot but outside cultivated region and runs actual geometry/access/plant clearance validation. Cross-garden/compound plot overlap rejects. Full rendered-building clearance is explicitly a separate authoring audit, not runtime loading; lack of mesh generation here is documented policy.",
+        "generate emits only gardens with active generated owner; distant-owner garden stays presentation authority and exact descriptor remains available. This is deliberate partition, not a missing-root repair or ownership loss."
+      ]
+    },
+    {
+      "scope_index": 1942,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/gardens/support.rs",
+      "sha256": "b0b818220b4bf6eba139dfd10bc3dec1053a7d8e74f77eb1243e3c669ffab6cd",
+      "personally_read_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full96 lines read. project samples each authoritative plant centre from the actual supplied scene terrain and returns identity/location-specific MissingSoil on the first absent root. It collects the complete ordered root vector before from_support publication, retaining every descriptor plant without reseeding/moving/omission. Terrain is explicitly complete geographic/support source, not house floor.",
+        "Missing-root fixture expects whole projection error with exact plant/point identity. Postcard finite-elevation fixture requires serde reject NaN/infinities and retain signed elevation. No execution or blanket route-grade/enclosure acceptance asserted; those are declared separate contracts."
+      ]
+    },
+    {
+      "scope_index": 1943,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/gardens/tests.rs",
+      "sha256": "b9d33ebabd8995ca9df26d355b9a2caf726b0dbbc89a290d7af29175ee413661",
+      "personally_read_ranges": [
+        [
+          1,
+          330
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full330-line fixture source read. Tests distinguish detailed authoring clearance from runtime ownership/geometry validation. Sloped/root fixture explicitly rebinds changed source through generated grounding, compares each ordered ID/root to exact scene/geographic soil rather than building floor, preserves horizontal descriptor and cultivated soil relief, prevents furniture in cultivated area and checks serialization roundtrip.",
+        "Straddling/distant fixtures preserve exact roots beyond playable edge and deliberately withhold tactical SceneGarden when owner is distant; explicit presentation projection uses same complete soil. Modified vista source must reject stale grounding instead of bypassing root projection. Helper moves complete descriptor pieces for authored test setup; no successful runtime partial-transform proof or test execution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

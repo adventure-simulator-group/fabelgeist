@@ -1,0 +1,120 @@
+{
+  "id": "ADLER-CONT04-MATERIAL-004",
+  "lens": "04 invariant operations",
+  "sources": [
+    {
+      "index": 135,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/focus.rs",
+      "sha256": "0e170d10cea11d48678f3c192e21fb6f2273e9cd1edcdc93fecb2d908e8386d0",
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "line_count": 40,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\0e170d10cea11d48678f3c192e21fb6f2273e9cd1edcdc93fecb2d908e8386d0",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\0e170d10cea11d48678f3c192e21fb6f2273e9cd1edcdc93fecb2d908e8386d0",
+      "disposition": "City focus filters missing rectangle, excessive span and source-mismatched overlay before squared geographic-distance comparison. Native east/north squared distance is compared against radius before minimum selection. No retained value mutation; geographic projection bounds remain with their owner.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 136,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/connections.rs",
+      "sha256": "96d604645187dd0d74c64974f909dbb8cc14a6ee8c5d8a6d56e71b29597d3970",
+      "ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "line_count": 217,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\96d604645187dd0d74c64974f909dbb8cc14a6ee8c5d8a6d56e71b29597d3970",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\96d604645187dd0d74c64974f909dbb8cc14a6ee8c5d8a6d56e71b29597d3970",
+      "disposition": "Connections derive width from pose span and canvas height, prepare all class meshes before installing assets, then publish replacement and retire old assets. Capacity failure is explicit. Seven individually bounded builders keep the aggregate vertex sum representable. Width denominator/finiteness requires actual rectangle admission; keep Q002 instead of claiming an ordinary rendering failure.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 137,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/routes.rs",
+      "sha256": "afe345727adbff233fdc700aa56b6a3b15104e18a24218e64bf33529335c4f8d",
+      "ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "line_count": 177,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\afe345727adbff233fdc700aa56b6a3b15104e18a24218e64bf33529335c4f8d",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\afe345727adbff233fdc700aa56b6a3b15104e18a24218e64bf33529335c4f8d",
+      "disposition": "Route presentation requires same-source route/terrain and matching request before mesh creation. Capacity failure and uncovered geometry have distinct states. Complete mesh precedes asset and retained-record publication. Width division shares Q002; byte-color conversion is bounded.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 138,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/path_geometry.rs",
+      "sha256": "08afd9a444a46f1add41fd92ff00d046203e0991c24041ae11bf4033c714fb76",
+      "ranges": [
+        [
+          1,
+          241
+        ]
+      ],
+      "line_count": 241,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\08afd9a444a46f1add41fd92ff00d046203e0991c24041ae11bf4033c714fb76",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\08afd9a444a46f1add41fd92ff00d046203e0991c24041ae11bf4033c714fb76",
+      "disposition": "The builder clips and splits into bounded grid intervals, sorts knots, skips zero ribbon direction and checks vertex capacity after each four-vertex append. Partial builder failure is dropped by callers before publication. Native casts stay below 262144 plus one append. At-least-two-point lines, positive spacing/support normalY and finite width remain input-owner prerequisites for Q002; arbitrary private inputs are not normal witnesses.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 139,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/path_geometry/city.rs",
+      "sha256": "b7ecb82d2b5d2e208f81ac48422b040c186340cf8ff33d407ea5cbd8ec71e4d5",
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "line_count": 78,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\b7ecb82d2b5d2e208f81ac48422b040c186340cf8ff33d407ea5cbd8ec71e4d5",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\b7ecb82d2b5d2e208f81ac48422b040c186340cf8ff33d407ea5cbd8ec71e4d5",
+      "disposition": "City path mode derives bounded grid intervals, skips zero direction and rejects capacity before adding a three-vertex triangle. Zero dashed intervals execute no division. Partial callback output is discarded on propagated error before caller publication. Actual frame/width/support finiteness remains Q002; no observed invalid city mesh is claimed.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 140,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/landform_product.rs",
+      "sha256": "5f34b8da039a49d218521a208782d301f7095b7e0092698b5309f3d3b0a369c4",
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "line_count": 17,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\5f34b8da039a49d218521a208782d301f7095b7e0092698b5309f3d3b0a369c4",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\5f34b8da039a49d218521a208782d301f7095b7e0092698b5309f3d3b0a369c4",
+      "disposition": "PreparedTerrainLandform maps None to Natural and Some actual SceneTerrainPatch to Patch without arithmetic, mutation, sentinel or fabricated support.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    }
+  ],
+  "new_unique_findings_claimed": 0,
+  "execution": "No project execution, source edits or Git changes",
+  "source_questions": [
+    {
+      "id": "ADLER-CONT04-Q002",
+      "materials": [
+        136,
+        137,
+        138,
+        139
+      ],
+      "question": "Close nonzero canvas height, representable width and support/frame preconditions at actual pose/geographic owners before diagnosing normal rendering failures. These adapters divide by full_height and support normal.y, but arbitrary malformed private inputs alone are not admitted normal-path evidence.",
+      "related_existing_remedy_candidates": [
+        "M61 checked graphics/aggregate producers",
+        "M79 pixel layout; different concrete consumer, no automatic alias"
+      ]
+    }
+  ]
+}

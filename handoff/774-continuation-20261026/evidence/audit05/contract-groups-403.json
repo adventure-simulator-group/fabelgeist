@@ -1,0 +1,29 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-403",
+  "at": "2026-10-26T00:18:47.380938+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 280,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs",
+      "sha256": "bf32ce83dd633973a32cabdb638590e85dca6b4b06eec2a45d135f6c1c138cf0",
+      "personally_read_ranges": [
+        [
+          1,
+          351
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full351 lines. Normal start requires livingactor, party/settlement, navigablecanonicalplace, pairwise-soft effectivefrontier, exactresidentprofile/chapter, typed scheduledNPC alive_at presence/canonicalcopresence and exactcompiledconversation. Before writes, parsed sessionowner mustmatch actor; reusedsession comparesconversation/settlement/location/catalogue then full livepresence. New session creates primaryplayer+NPCperrole and validatescardinality+all liveNPCpresence; this closes277/279 deadNPC startup concern.",
+        "MultipleNPC roles are representable normal session producer: primarychosen by firstNPCrole, additionalactualcopresentresident chosen withoutconversation/role-specificrequirements beyondactualavailableprofile. Corresponding276 HashSetfallback and effectfirstNPC remain open multi-role intendedrecipient issue pending actualauthoredconversationrole witness; not blanketwrongrecipient claim.",
+        "Existingstart replay does not compare requested npc_actor_id against boundprimary, only requestedNPCvalidity and sameconversation/place; conflictingrequest capturequestion qualifiedlike278. No duplicateeffect asserted.",
+        "Onstart turns use resolve_fragments with originalsourcevector, whereas normaltopics use resolve_turn expansion-awarealignment; PublicThreat referral writes receipt Vec<String> into source_refs_json consumedasOption<SourceRef>, supports existing RIG-PPS-F016 actualincompatiblecodec. Own runtimebinding sourcealignment effect needs exactslotexpansion witness beforeothernewfinding.",
+        "Surface ordinaryrumor, validate delivery, emit observer-safeevent, receiveactualjournal receipt, bindsocialcapability and refreshtopics. All errors propagate transaction; no tests/checks."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

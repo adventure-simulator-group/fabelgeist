@@ -1,0 +1,108 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-039",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1554,
+    1555,
+    1556,
+    1557,
+    1558,
+    1559,
+    1560,
+    1561
+  ],
+  "source_pin": "source-pins-and-scope-059.json",
+  "source_reads": {
+    "1554": {
+      "head": [
+        [
+          1,
+          623
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          592
+        ]
+      ]
+    },
+    "1555": {
+      "head": [
+        [
+          1,
+          86
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1556": {
+      "head": [
+        [
+          1,
+          54
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1557": {
+      "head": [
+        [
+          1,
+          47
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1558": {
+      "head": [
+        [
+          1,
+          88
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1559": {
+      "head": [
+        [
+          1,
+          7
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1560": {
+      "head": [
+        [
+          1,
+          24
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1561": {
+      "head": [
+        [
+          1,
+          167
+        ]
+      ],
+      "actual_diff": "empty"
+    }
+  },
+  "reuse": "1554 head120\u2013252 was personally read in038; read1\u2013119/253\u2013623 now, without replay. Full actual592diff includes all old relocated definitions.",
+  "comparisons": [
+    "1554 relocates types, constants and helpers without changing their values or ordering at calls. TuftPlacement retains ScenePlanPoint/SupportElevation until native InstanceData.position. Old height body already admitted the same scene point into SupportQuery::unbounded; current body removes only its redundant raw conversion, preserving surface_below, >=0.72 normal gate and elevation bits. Old/new loops use same inclusive lattice range, full seed context, per-cell and per-tuft jitter, coverage-before-height/community rejection and species/index/seed packing.",
+    "TuftVariation consumes all RNG slots before rejection exactly as before: jitter two draws, next_seed species, rotation draw*TAU, final next_u64 narrowed into shader_seed. New finite centre check occurs after those fixed draws; its rejection cannot change another tuft stream. Existing integer/usize capacities and overflow limits are not claimed universally admitted by graphics config. No new ordinary finite placement regression established.",
+    "prepare_scene_tufts preserves fault collar masking, seeds/XORs, Near then Far, exact NearEdge cloning, and Vista final pass. GeometryResult failure occurs before batch publication; present logs and continues without InstancedGrassPresented, allowing later retry, which is an explicit new finite-mask error route. Successful native meshes/materials/marker publication and existing interaction smoothing, delta clamp, idle write suppression and camera exclusion are unchanged.",
+    "1555 material creation per tier precedes per-species take; empty instances skip native geometry, so fitted_batch_aabb is not called on empty batches through this path. Same native mesh seed context/species/tier, retained Arc instances, material handles, metadata, visibility and shadow flags; no whole native allocator lifetime/alias guarantee invented. Existing623-line fixture oracles read unchanged for per-cell shoot counts, fade intervals, AABB bounds and coverage byte packing.",
+    "1556 culling metadata reads exact POSITION/UV1 roots from1550 native mesh, preserving white RGB and radius in alpha, same geometry/wind/interaction bounds. Original animated bound fixture unchanged.1557 counts mesh triangles before asset add, maps each exact tier shadow setting and same wind/params/shading values to1558. Material uniform conversion copies all five Vec4 values; no prepass, double-sided culling and MSAA alpha-to-coverage specialization unchanged.",
+    "1561 uses actual current view entity/native frustum data; removes missing/inactive view buffers, updates resident uniform or creates matching group2 binding. Cull skips missing pipelines/buffers/zero pages, binds view group2 and page compute/common0/1, resets indirect draw counters before select in one pass, uses64-wide and65535-row dispatch. Actual bevy_eidolon allocator/page/shader internals remain separately scoped; unchanged source and native call signatures are not GPU execution or portable rendering acceptance.",
+    "1559 three stream names and1560 full seed draw order read directly, same bytes as base. Pipeline/renderer comments describe existing paths; no new compatibility aliases, fallback APIs or product schema introduced."
+  ],
+  "new_unique_findings": [],
+  "disposition": "Eight exact frozen roles source-accounted WITH finite-mask error/retry policy, preexisting size admission limits and native GPU/allocator/shader qualifications. No blanket instanced rendering or global774 clearance.",
+  "global_clearance": false,
+  "execution": "No source/Git mutations, project checks/tests/native probes/new cases/assertions."
+}

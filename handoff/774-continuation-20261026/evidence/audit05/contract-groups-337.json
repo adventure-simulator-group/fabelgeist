@@ -1,0 +1,27 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-337",
+  "at": "2026-10-25T23:21:04.833655+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2785,
+      "source_id": "dependency-serde_json1.0.151:src/map.rs",
+      "sha256": "b5a2fd1ee865e6cfd83ef2da0a2e1057f892465ac7ede8a78a11354a60526f33",
+      "personally_read_ranges": [
+        [
+          1,
+          1181
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1181-line pinned serde_json Map source personally read. Backing aggregate is BTreeMap by default or IndexMap under preserve_order; insert/extend/append replace duplicate keys, deserialize visit_map repeatedly inserts and does not reject duplicates. This establishes a receiving-boundary fact for project callers, not an independent dependency defect.",
+        "Order-sensitive contracts differ: preserve_order remove/remove_entry/occupied remove swap last entry, explicit shift variants preserve relative order, sort_keys affects only current map, and Hash sorts preserve_order pairs. Index access panics for absent keys; get is fallible. Actual enabled feature graph and project order assumptions are separate obligations.",
+        "Entry wrappers and iterator macros delegate backing-map behavior without parallel key/value positional storage. Source-read inventory only, no underlying IndexMap/BTreeMap code proof, serializer/deserializer runtime or doctest execution. Earlier SATS duplicate-column-to-map question remains qualified until actual SQL column uniqueness/caller policy is established."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

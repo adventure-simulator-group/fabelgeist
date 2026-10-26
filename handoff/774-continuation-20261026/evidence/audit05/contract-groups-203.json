@@ -1,0 +1,83 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-203",
+  "at": "2026-10-25T21:34:33.070464+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2152,
+      "source_id": "pr-working:crates/adventuresim-world-import/src/bin/build-strategic-map.rs",
+      "sha256": "04e204bfa41896b53eb82671ad9b0378036a21b7ec54b3fce0e4c285c0b097bb",
+      "personally_read_ranges": [
+        [
+          1,
+          1194
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full strategic-map compiler and existing fixtures: fixed checked playable bounds, initialized file inventory/name/url/hash/size, active-year/classified roads and clipped finite geometry; documented-base roads/wetlands/bounds/resolution checked before validated compiled world digest match.",
+        "Final terrain and vector roads derive same sorted full-precision geometry. Cultivation candidates and quotas allocated then converted one polygon per canonical1km square with exact repeated closing corner. Allocator source/adjacency and nonlinear projection raster geometry remain unreached here; see Q033, no accepted finding. All fixtures read only."
+      ]
+    },
+    {
+      "scope_index": 2153,
+      "source_id": "pr-working:crates/adventuresim-world-import/src/bin/build-strategic-map/terrain_features.rs",
+      "sha256": "e4be1391bce49d102c596d622f3dcb646e44ac71555c5ded9028a50f5beeeeaa",
+      "personally_read_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full native map handoff: one Package emits road kinds/points and matching geometry order; base Features retains polygon ring groups; finalize moves exact cultivated polygons/digest and clones same world terrain features.",
+        "Closes actual road mask/vector source association. Fixed ordinary compiler bounds close generic out-of-world terrain-builder question for this caller; raw public builder remains native adapter."
+      ]
+    },
+    {
+      "scope_index": 2154,
+      "source_id": "pr-working:crates/adventuresim-world-import/src/sources/road_inference.rs",
+      "sha256": "f74f07db1d321f14985590625124b5cbaccae7ff6ef35b7430a0749d2d8cfcf5",
+      "personally_read_ranges": [
+        [
+          1,
+          299
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full bounded road inference: documented-base source required, candidate node IDs/coordinates paired, sorted proximity and unordered-pair dedup, per-end degree/evaluation caps, route length/time/geometry bounds, endpoints overwritten from exact source nodes.",
+        "Accepted inferred geometry receives collision-checked stable ID; adjacency updated per accepted edge, report digest/count/source and world list updated together. Passed world validation/source uniqueness remains caller dependency; no alternate independent mutable authority returned. Existing fixtures read only."
+      ]
+    },
+    {
+      "scope_index": 2155,
+      "source_id": "pr-working:crates/adventuresim-world-schema/build.rs",
+      "sha256": "1cbb4c6032d77345ba85c017d2e5f94b1600c1a4064ff586f0e1872afd63df74",
+      "personally_read_ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full name-catalog build producer: sorted source files, relative path+bytes digest, typed documents merged, fragments apply to named repertoires, complete catalog validation before generated JSON/digest output.",
+        "Exact source merge/fragment policy depends forthcoming catalog validation; build script read only, not executed. Failure leaves no returned accepted catalog; no blanket atomic output filesystem claim."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "4 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "qualified_questions": [
+    {
+      "id": "ADLER-RESUMED05-Q033",
+      "sources": [
+        2079,
+        2152,
+        2153
+      ],
+      "question": "Terrain polygon_mask XORs expanded floor..ceil scanline spans across separate polygons. Actual cultivation producer emits one polygon per allocated projected1km square; adjacent disjoint squares may touch the same native pixel after expansion. Need actual allocation adjacency and projected boundary/raster policy or source witness before accepted failure.",
+      "disposition": "qualified source question only; no normal compiled-output loss demonstrated; no repair plan"
+    }
+  ]
+}

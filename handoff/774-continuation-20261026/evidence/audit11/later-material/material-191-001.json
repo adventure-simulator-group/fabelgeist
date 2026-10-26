@@ -1,0 +1,18 @@
+{
+  "id": "ADLER-CONT11-MATERIAL-191-001",
+  "lens": "type-granularity",
+  "material_index": 191,
+  "source_id": "native-support:http-1.5.0/src/uri/mod.rs#maximum-length",
+  "sha256": "adf4235a0d72b03ca71582f4acab50fff8a146f2b92517a227806d372300186b",
+  "ranges": [
+    [
+      145,
+      145
+    ]
+  ],
+  "source_basis": "Fresh root exact singleline read after prospective registration015 and sourcehashmatch.",
+  "assessment": "NativeUri MAX_LEN is(u16::MAX-1) as usize=65534, intrinsically derived storage/index capacity bound. Thiscloses actualmod.rsconstructor lengthvalue qualification for thatdefinition; selectedbyteposition withinacceptedlength fitsu16. No fullparser/Authority/othermodulebinding/firstpartycaller or runtime proof, and no newdomainowner toreplace requirednativecapacity arithmetic.",
+  "new_unique_finding": false,
+  "repair": "not started",
+  "validation": "not run"
+}

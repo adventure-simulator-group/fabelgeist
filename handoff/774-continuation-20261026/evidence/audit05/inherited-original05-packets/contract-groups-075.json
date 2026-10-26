@@ -1,0 +1,216 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-075",
+  "at": "2026-10-23T01:00:57.540885+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/measurement.rs",
+      "sha256": "6bf7e931e120e7f023858ffebeedc30845b61f861c39ec75d03c500564192bc1",
+      "scope041_index": 1828,
+      "actual_EOF": 261,
+      "scoped_ranges_compared": [
+        [
+          1,
+          261
+        ]
+      ],
+      "actual05_comparison": "Fresh complete261. DiagnosticMetres signed finite, Area finite>=0, Count allu64 remain distinct. BoundViolation payload owns actual and correct minimum/maximum/exact limit, so operations retain comparison direction; SupportViolation carries typed unit or explicit Unmeasurable. maximum adapter admits completed numerical controls and keeps unit/bound when invalid instead of inventing finite geometry. Count f64→u64 conversion saturates/truncates diagnostic input: actual count callers must supply intended integral range, no reverse geometry admission. Numeric values/Infinity are presentation ports only, not accepted surface state. Public diagnostic enum can describe controls that do not actually violate a bound; no proof-token promise. No area/length mixing via generic T.",
+      "source_body_proof": "Fresh complete current frozen body personally read, or exact registered full production range; existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/location.rs",
+      "sha256": "a11423ff0d43b8b2f1167c4fe16aa9b53f3da611fa697c38fb90105d69178f1d",
+      "scope041_index": 1827,
+      "actual_EOF": 46,
+      "scoped_ranges_compared": [
+        [
+          1,
+          46
+        ]
+      ],
+      "actual05_comparison": "Fresh full46. SupportDiagnosticLocation sum separates checked ScenePlanPoint from private raw rejected coordinates; from_attempt_metres preserves original rejected input after failed admission, scene_point returns None for it. attempted_metres is explicit presentation/numerical evidence projection, no conversion to usable geometry or zero replacement. Raw nonfinite diagnostic payload is intentionally representable, so cannot indiscriminately use finite point type to erase it. No conflicting independent kind/coordinate flag.",
+      "source_body_proof": "Fresh complete current frozen body personally read, or exact registered full production range; existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/query.rs",
+      "sha256": "f10e81a1d2a2040a7bb9aaaf1cb83951a49f47404a6c2e7ae3db66175b393637",
+      "scope041_index": 1837,
+      "actual_EOF": 61,
+      "scoped_ranges_compared": [
+        [
+          1,
+          61
+        ]
+      ],
+      "actual05_comparison": "Fresh full61 including compile-fail source documentation. SupportCeiling is Bounded(checked elevation) or Unbounded; unbounded query never uses infinity as scene geometry. Query pairs checked point and explicit ceiling without requiring arbitrary equality or positiveworldheight. Vec3 adapter checks complete XYZ via point+elevation before returning. permits uses supplied tolerance as native numerical comparison; actual callers own nonnegative finite tolerance and overflow policy, not sealed by raw f32 parameter. Both raw public typed variants are meaningful, no allqueries must have ceiling restriction.",
+      "source_body_proof": "Fresh complete current frozen body personally read, or exact registered full production range; existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface_hit.rs",
+      "sha256": "27d50aec52ef52b5d464e0e14d56fd1099e965784ab7db2198744ec9de96e558",
+      "scope041_index": 1848,
+      "actual_EOF": 37,
+      "scoped_ranges_compared": [
+        [
+          1,
+          37
+        ]
+      ],
+      "actual05_comparison": "Fresh full37 incl original25+fixtures, source-only. SurfaceHit couples elevation and native Dir3 from SAME completed geometry callback: finite elevation then actual Dir3::new(normal). Public typed fields/new accept canonical leaves independently and make no hidden original-query identity claim. Actual sampled query feeds its own triangle height+normal together. Native direction constructor actual15 rejects zero/nonfinite completed length before normalized result; raw unchecked native Dir3 is not automatically sealed by type name. Zero elevation and scaled nonunit inputnormal normalize legitimately, no global strictlypositiveelevation.",
+      "source_body_proof": "Fresh complete current frozen body personally read, or exact registered full production range; existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/policy.rs",
+      "sha256": "2a2a18dafb072f8878e496462df0257b5bdaa9481895595affbee001b0e52e46",
+      "scope041_index": 1835,
+      "actual_EOF": 64,
+      "scoped_ranges_compared": [
+        [
+          1,
+          64
+        ]
+      ],
+      "actual05_comparison": "Fresh full64. SupportGrade private finite strictlypositive ratio, manual Serde and opaque reflection; TerrainGradeLimit zero-valid repair policy is a different role. SupportLimits three typed policy values constructed together but no promised relative ordering between displacement and tolerance or <=1 grade. Public constructor accepts already checked leaves, pubsuper fields preserve units; actual application of limits in profile/plan compiler must establish each aggregate inequality. No arbitrary max/min policy invented.",
+      "source_body_proof": "Fresh complete current frozen body personally read, or exact registered full production range; existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+      "sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+      "scope041_index": 2708,
+      "actual_EOF": 58,
+      "scoped_ranges_compared": [
+        [
+          1,
+          58
+        ]
+      ],
+      "actual05_comparison": "Fresh exact1–44. Six-vertex support prism validates all vertices and completed sum finite, exact paired XZ, each top>=base and at least one strict height. Repeated/collinear plan positions and tiny winding reversals intentionally allowed quantized contact cells; no epsilon merging or universal convex/nondegenerate footprint requirement. All checks before Ok; array fixed6 owns pairing cardinality. Collider representability and member/query/topology are separate issue variants checked by actual consumer, not automatically covered by this single predicate.",
+      "source_body_proof": "Fresh complete current frozen body personally read, or exact registered full production range; existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/members.rs",
+      "sha256": "9e11219c566b928235ef911905fcfbb6f5ee39eaae0b88b00c7852dda97892bc",
+      "scope041_index": 2694,
+      "actual_EOF": 52,
+      "scoped_ranges_compared": [
+        [
+          1,
+          52
+        ]
+      ],
+      "actual05_comparison": "Fresh exact1–52. PropertyMembers private Vec checked nonempty, nonzero SceneBuildingId and duplicates rejected with both first/current indices; insertion order retained, not sort/dedup repair. New and manual Serde share same predicate; getters immutable, no unchecked vector conversion/field setter. This proves local ordered unique membership only, not presence in actual catalogue/plan, correct owner or complete required roster. Native opaque reflection copies existing Self. No elaborate brand for arbitrary source provenance.",
+      "source_body_proof": "Fresh complete current frozen body personally read, or exact registered full production range; existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/profile.rs",
+      "sha256": "e8662abeffcf5acd766443246d2f7a45d909bc367cb1b2d2e0d13676503506ce",
+      "scope041_index": 1836,
+      "actual_EOF": 260,
+      "scoped_ranges_compared": [
+        [
+          1,
+          260
+        ]
+      ],
+      "actual05_comparison": "Fresh full260 including original tests167+, source-only. SupportProfile has first+remainder private nonempty storage. stepped accepts finite nondecreasing coordinates/elevations; repeated ordinates represent vertical retaining faces intentionally. height_at chooses earliest endpoint at seam and skips equal-run pairs for greater distances, so no reachable zero divisor from repeated coordinates; f64 fallback preserves finite interpolation for extreme endpoints. translated_for_floor_basis rebuilds locally and re-admits stepped sequence, expressly NOT certified passage grade. checked requires strict positive run and grade+tolerance before stepped admission, but f32 subtraction/product overflow defeats this aggregate check: F022. Same private type can represent stepped court or checked passage, actual plan compiler must choose correct factory and final acceptance; normal caller/final gate still pending.",
+      "source_body_proof": "Fresh complete current frozen body personally read, or exact registered full production range; existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+      "scope041_index": 1803,
+      "actual_EOF": 407,
+      "scoped_ranges_compared": [
+        [
+          1,
+          407
+        ]
+      ],
+      "actual05_comparison": "Fresh full407. SupportElevation private finite signed, zero valid, manual Serde and completed translation check. SurfaceElevations stores all physical retaining candidates; empty intentional absence, not implicit zero support. MemberSupport and CompoundSupportLevels raw public input observations do not alone prove matching owner/contact/floor. CompoundSupportPlan private whole state constructed through compound::compile; same property/reservation/levels/profiles used by getters, mesh, foundation and physical point queries. Actual compiler checks still pending separate source, not inferred from private field. Distinct gate/court/building/street floors intentional. floor_translation_basis clones and shifts local relevant elevations/profiles/stairs without publishing on failure; documented affine probe never final accepted support. validate_displacement_at is point diagnostic only, missing point has no candidate max0; complete cut/fill acceptance uses actual triangles elsewhere, so do not classify diagnostic0 as whole surface acceptance. Error cause/treatment retained.",
+      "source_body_proof": "Fresh complete current frozen body personally read, or exact registered full production range; existing tests source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/diagnostic.rs",
+      "sha256": "520b5ce55ac4b5404d138e55e4d055f098d08b02377b7779dbc54bd970f3db62",
+      "scope041_index": 1809,
+      "actual_EOF": 233,
+      "scoped_ranges_compared": [
+        [
+          1,
+          233
+        ]
+      ],
+      "actual05_comparison": "Fresh complete233. SupportDiagnostic carries immutable property/member context from same property/mesh and typed actual constraint/boundary/location/violation; methods attach exact construction cause without replacing it with String. Unit derived exhaustively from constraint, not arbitrary last numeric cast; minimum/exact conversions retain same controls. Raw public output may be fabricated but is not geometry/authority token. Attempted treatment begins NotSelected and enclosing compiler attaches actual selected treatment; no claim original provenance checked by Serde. Entrance Option is separate observed context. Constructor values1/0 for inability/membership diagnostics are Count evidence, not actual physical length. Actual diagnostic consumers and severity sorting remain their own source cells.",
+      "source_body_proof": "Fresh complete current frozen body personally read, or exact registered full production range; existing tests source-only."
+    },
+    {
+      "source_id": "native-dependency:bevy_math-0.19.1/src/direction.rs",
+      "sha256": "0aef18fddadf5d5361c4c11f0b9d5561637a7cee6dabde16dfd2816dcf2e521c",
+      "scope041_index": 15,
+      "actual_EOF": 1511,
+      "scoped_ranges_compared": [
+        [
+          1,
+          201
+        ],
+        [
+          559,
+          616
+        ]
+      ],
+      "context_only_ranges": [
+        [
+          203,
+          205
+        ],
+        [
+          550,
+          558
+        ],
+        [
+          618,
+          660
+        ]
+      ],
+      "actual05_comparison": "Fresh exact globally registered native material1–205/550–660 read; only actual error/Dir2 declaration/constants/constructors and Dir3 new/new_and_length/unchecked/accessor analyzed. New normalizes only completed finite length>0, returns direction and SAME measuredlength together; zero/overflow/NaN explicit typed errors. new_unchecked trusts normalized input and only debug asserts, so native type alone is not application admission. Ordinary helper caller SurfaceHit::from_geometry uses checked new, not unchecked. InvalidDirectionError classifies actual completed length, not accepted raw geometry. Dir2 derive attributes visible, but Dir3 declaration outside scoped material is NOT inferred from Dir2. from_angle203–205 partial signature, earlierconsttail550–558 and slerp618–660 unused context, no methods/other foreign graph credit.",
+      "source_body_proof": "Fresh bounded native current role comparison; no unrelated operators, foreign tests or full1511 exemption."
+    }
+  ],
+  "comparison_groups": {
+    "profile-relationship": "Nonempty ordered stepped storage versus strictly graded passage acceptance and local affine probes explicitly separated; completed arithmetic gap F022 qualified.",
+    "typed-diagnostic-product": "Rejected raw coordinates and Unmeasurable evidence remain distinct from accepted geometry; exact error cause/owner context retained.",
+    "local-membership": "Private unique ordered PropertyMembers proves local count/order/duplicates, not catalogue membership or producer provenance.",
+    "native-normal-admission": "Actual completed native Dir3 length predicate joined to same triangle SurfaceHit factory, unchecked APIs retained as port preconditions."
+  },
+  "new_unique_findings": [
+    {
+      "id": "NATIVE-INITIAL05-F022",
+      "lens": "audit-aggregate-states",
+      "classification": "finite profile endpoints overflow the checked passage grade comparison",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/profile.rs",
+      "sha256": "e8662abeffcf5acd766443246d2f7a45d909bc367cb1b2d2e0d13676503506ce",
+      "source_ranges": [
+        [
+          85,
+          119
+        ]
+      ],
+      "relationship": "A checked passage profile must preserve its permitted rise/run bound across otherwise valid finite ordered endpoint values.",
+      "source_counterexample": "Two admitted ProfileCoordinates(-f32MAX,+f32MAX), SupportElevations(-f32MAX,+f32MAX), valid SupportGrade .1 and positive finite tolerance yield run=Inf, rise=Inf, permitted=Inf. At98, run<=0 is false and Inf>Inf+tolerance is false. stepped then checks only finite elevations/nondecreasing coordinates and accepts. Mathematical grade is1, exceeding .1. No execution/new case.",
+      "actual_path": "Crate helper/API accepted-combination weakness. SupportProfile is also deliberately used for stepped courts, and comments retain later final plan acceptance; actual normal compiler paths/final gate not yet traced, so no normal unwalkable passage or unsafe installed surface claim.",
+      "connected_repair": "Connected property support/profile construction graph under Root authority; distinguish checked walkable profile from stepped/affine probe semantics. No supplier repair transfer or blanket new brand.",
+      "acceptance": "Compare completed run/rise/limit without f32 overflow, e.g widened differences/products or an explicit finite checked branch, before accepting passage. Preserve valid coordinate0, signed elevations, nondecreasing repeated-coordinate retaining steps through stepped factory, endpoint seam policy and affine probes; do not indiscriminately reject all extreme endpoint profiles whose stable interpolation is valid.",
+      "proof_ref": "contract-groups-075.json",
+      "repair": "frozen",
+      "validation": "not_established"
+    }
+  ],
+  "remaining_dependency_obligations": [
+    "Actual compound compiler/profile caller and final plan/surface gate needed to qualify F022 normal reachability.",
+    "Owned support mesh/native collider/query capacity and exact source reconstruction remain own remaining inventory cells; no whole property graph clearance."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}
