@@ -130,11 +130,7 @@ impl Texture2d {
         // waits for a queue that never empties. The same rule the shader and
         // pipeline paths follow: only a context that owns its device drains it.
         #[cfg(not(target_arch = "wasm32"))]
-        let error_scope = context.blocking_validation.then(|| {
-            context
-                .device
-                .push_error_scope(wgpu::ErrorFilter::Validation)
-        });
+        let error_scope = context.validation_observation.start_scope(&context.device);
 
         let texture = context.device.create_texture(&texture_desc);
 

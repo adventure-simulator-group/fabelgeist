@@ -1,8 +1,10 @@
+use super::ValidationObservation;
 use anyhow::{Result, anyhow};
+pub use blitter::Blitter;
 use std::sync::Arc;
 use wgpu::{Adapter, Device, Instance, Queue};
+
 pub mod blitter;
-pub use blitter::Blitter;
 
 #[derive(Clone)]
 pub struct WgpuContext {
@@ -15,18 +17,18 @@ pub struct WgpuContext {
     pub surface: Option<Arc<wgpu::Surface<'static>>>,
     pub blitter: Option<Arc<Blitter>>,
     pub blit_lock: Arc<async_lock::Mutex<()>>,
-    /// Whether shader, pipeline and whole-texture format-view creation may wait
-    /// for the device to read back a native validation error scope.
+    /// How shader, pipeline and whole-texture format-view creation observe
+    /// native validation errors.
     ///
-    /// Owned native contexts enable this observation. Borrowed contexts and
-    /// browser targets disable it to avoid synchronously waiting on another
-    /// application's active device or the browser event loop. Native errors
-    /// then follow the provider's uncaptured-error policy.
+    /// Contexts that create a native device select blocking scopes. Contexts
+    /// wrapping an existing device and browser targets select uncaptured errors
+    /// to avoid synchronously waiting on another application's active device or
+    /// the browser event loop.
     ///
     /// Texture constructors and cube subresource views have separate validation
     /// paths and do not yet consistently honor this policy. Observing a scope
     /// does not establish the device's global health or roll back prior work.
-    pub blocking_validation: bool,
+    pub validation_observation: ValidationObservation,
 }
 
 /// Reports which GPU the adapter request actually landed on. `device_type: Cpu`
@@ -111,7 +113,7 @@ impl WgpuContext {
             blit_lock: Arc::new(async_lock::Mutex::new(())),
             // Someone else's device, and very likely someone else's render
             // loop with it.
-            blocking_validation: false,
+            validation_observation: ValidationObservation::Uncaptured,
         }
     }
 
@@ -126,7 +128,7 @@ impl WgpuContext {
     /// Waits on a submission index rather than the whole queue, so it is safe
     /// on a device shared with a renderer -- unlike `poll(wait_indefinitely)`,
     /// which never returns while something else keeps submitting. See
-    /// [`WgpuContext::blocking_validation`].
+    /// [`WgpuContext::validation_observation`].
     pub async fn submitted_work_done(&self) {
         #[cfg(not(target_arch = "wasm32"))]
         {
@@ -265,7 +267,11 @@ impl WgpuContext {
             surface,
             blitter,
             blit_lock: Arc::new(async_lock::Mutex::new(())),
-            blocking_validation: !cfg!(target_arch = "wasm32"),
+            validation_observation: if cfg!(target_arch = "wasm32") {
+                ValidationObservation::Uncaptured
+            } else {
+                ValidationObservation::BlockingScopes
+            },
         })
     }
 }
@@ -289,7 +295,10 @@ mod tests {
     async fn a_borrowed_device_skips_blocking_validation() -> Result<()> {
         let owned = WgpuContext::new().await?;
         assert!(
-            owned.blocking_validation,
+            matches!(
+                owned.validation_observation,
+                ValidationObservation::BlockingScopes
+            ),
             "a context that owns its device can afford to read the error scope"
         );
 
@@ -300,7 +309,10 @@ mod tests {
             owned.queue.clone(),
         );
         assert!(
-            !borrowed.blocking_validation,
+            matches!(
+                borrowed.validation_observation,
+                ValidationObservation::Uncaptured
+            ),
             "a borrowed device may have someone else submitting to it; draining              its queue would block until the driver gives up"
         );
         assert!(borrowed.surface.is_none());

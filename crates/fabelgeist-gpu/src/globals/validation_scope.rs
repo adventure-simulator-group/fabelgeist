@@ -2,6 +2,7 @@
 
 #[cfg(not(target_arch = "wasm32"))]
 use super::WgpuContext;
+use derive_more::{Display, Error};
 #[cfg(not(target_arch = "wasm32"))]
 use std::sync::Arc;
 use std::{error::Error, fmt};
@@ -24,10 +25,12 @@ pub struct ValidationScope {
 }
 
 /// Native rejection or incomplete progress while observing validation.
-#[derive(Debug)]
+#[derive(Debug, Display, Error)]
 pub enum ValidationScopeError {
-    Native(wgpu::Error),
-    Progress(ValidationProgressError),
+    #[display("{_0}")]
+    Native(#[error(source)] wgpu::Error),
+    #[display("{_0}")]
+    Progress(#[error(source)] ValidationProgressError),
 }
 
 impl fmt::Display for ValidationProgressError {
@@ -55,13 +58,12 @@ impl Error for ValidationProgressError {
 
 #[cfg(not(target_arch = "wasm32"))]
 impl ValidationScope {
-    /// Return no guard when `context.blocking_validation` is disabled.
+    /// Return no guard when the context leaves validation errors uncaptured.
     pub fn new(context: &WgpuContext) -> Option<Self> {
-        context.blocking_validation.then(|| Self {
+        let guard = context.validation_observation.start_scope(&context.device)?;
+        Some(Self {
             device: context.device.clone(),
-            guard: context
-                .device
-                .push_error_scope(wgpu::ErrorFilter::Validation),
+            guard,
         })
     }
 
@@ -91,23 +93,5 @@ impl ValidationScopeError {
             Self::Native(cause) => anyhow::Error::new(cause),
             Self::Progress(cause) => anyhow::Error::new(cause),
         }
-    }
-}
-
-impl fmt::Display for ValidationScopeError {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match self {
-            Self::Native(cause) => fmt::Display::fmt(cause, formatter),
-            Self::Progress(cause) => fmt::Display::fmt(cause, formatter),
-        }
-    }
-}
-
-impl Error for ValidationScopeError {
-    fn source(&self) -> Option<&(dyn Error + 'static)> {
-        Some(match self {
-            Self::Native(cause) => cause,
-            Self::Progress(cause) => cause,
-        })
     }
 }

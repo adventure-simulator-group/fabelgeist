@@ -4,6 +4,7 @@ use super::TextureFormat;
 use crate::globals::ValidationProgressError;
 #[cfg(not(target_arch = "wasm32"))]
 use crate::globals::ValidationScopeError;
+use derive_more::Display;
 
 /// The concrete result of selecting a whole-texture format view.
 ///
@@ -23,29 +24,37 @@ pub enum TextureViewOperation {
 ///
 /// Native variants retain the original request, even when storage binding
 /// requires its linear counterpart at the WebGPU descriptor boundary.
-#[derive(Debug)]
+#[derive(Debug, Display)]
 pub enum TextureViewError {
     /// The operation requires a native texture, but none is present.
+    #[display("Texture is not initialized")]
     Uninitialized,
     /// The operation requires a cached view, but none is present.
+    #[display("Texture has no view")]
     MissingView,
     /// Failed progress retains the request and any captured native rejection.
+    #[display(
+        "WGPU {operation:?} view validation observation Error (requested {requested:?}): {cause}"
+    )]
     Progress {
         requested: TextureFormat,
         operation: TextureViewOperation,
         cause: Box<ValidationProgressError>,
     },
     /// Native rejection of a two-dimensional texture view.
+    #[display("WGPU Texture2d view_with_format Error (requested {requested:?}): {cause}")]
     Texture2d {
         requested: TextureFormat,
         cause: Box<wgpu::Error>,
     },
     /// Native rejection of a three-dimensional texture view.
+    #[display("WGPU Texture3d view_with_format Error (requested {requested:?}): {cause}")]
     Texture3d {
         requested: TextureFormat,
         cause: Box<wgpu::Error>,
     },
     /// Native rejection of a cube texture view.
+    #[display("WGPU TextureCube view_with_format Error (requested {requested:?}): {cause}")]
     TextureCube {
         requested: TextureFormat,
         cause: Box<wgpu::Error>,
@@ -78,35 +87,9 @@ impl TextureViewError {
     }
 }
 
-impl std::fmt::Display for TextureViewError {
-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            Self::Uninitialized => formatter.write_str("Texture is not initialized"),
-            Self::MissingView => formatter.write_str("Texture has no view"),
-            Self::Progress {
-                requested,
-                operation,
-                cause,
-            } => write!(
-                formatter,
-                "WGPU {operation:?} view validation observation Error (requested {requested:?}): {cause}"
-            ),
-            Self::Texture2d { requested, cause } => write!(
-                formatter,
-                "WGPU Texture2d view_with_format Error (requested {requested:?}): {cause}"
-            ),
-            Self::Texture3d { requested, cause } => write!(
-                formatter,
-                "WGPU Texture3d view_with_format Error (requested {requested:?}): {cause}"
-            ),
-            Self::TextureCube { requested, cause } => write!(
-                formatter,
-                "WGPU TextureCube view_with_format Error (requested {requested:?}): {cause}"
-            ),
-        }
-    }
-}
-
+// Keep the concrete error behind each box as the dynamic source for downcasts.
+// Deriving Error would expose the Box itself; the progress box also has a
+// different concrete type from the three native-error boxes.
 impl std::error::Error for TextureViewError {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         match self {

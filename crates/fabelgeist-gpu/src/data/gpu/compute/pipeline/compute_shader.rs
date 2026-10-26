@@ -48,11 +48,7 @@ impl ComputeShader {
 
         // 3. WGPU Validation & Creation
         #[cfg(not(target_arch = "wasm32"))]
-        let error_scope = context.blocking_validation.then(|| {
-            context
-                .device
-                .push_error_scope(wgpu::ErrorFilter::Validation)
-        });
+        let error_scope = context.validation_observation.start_scope(&context.device);
 
         let sm = context
             .device

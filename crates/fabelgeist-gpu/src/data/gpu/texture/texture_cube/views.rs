@@ -8,13 +8,14 @@ use crate::{
     globals::WgpuContext,
 };
 use std::sync::Arc;
+use wgpu::TextureView;
 
 impl TextureCube {
     pub fn view_with_format(
         &self,
         _ctx: &WgpuContext,
         format: TextureFormat,
-    ) -> TextureViewResult<Arc<wgpu::TextureView>> {
+    ) -> TextureViewResult<Arc<TextureView>> {
         if format == self.format {
             return self.view.clone().ok_or(TextureViewError::MissingView);
         }

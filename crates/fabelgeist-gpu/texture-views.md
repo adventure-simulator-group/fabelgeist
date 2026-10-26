@@ -44,10 +44,13 @@ Storage binding requires an sRGB request to select its linear counterpart at
 the descriptor boundary. The original request remains in a rejection. The
 method preserves descriptor inference, cube layers, labels and validation
 filtering. Cached returns do not poll. On native targets, alternate-format view
-creation observes validation only when `WgpuContext::blocking_validation` is
-enabled. Borrowed contexts disable that policy and leave native errors to the
-provider's uncaptured-error handling. Browser targets do not synchronously wait
-for a native validation scope.
+creation observes validation only when
+`WgpuContext::validation_observation` selects
+`ValidationObservation::BlockingScopes`. Borrowed and browser contexts select
+`ValidationObservation::Uncaptured`, leaving native errors to the provider's
+uncaptured-error handling. The same policy type is carried through shader,
+pipeline and compute fast-path creation. Ownership and presentation are
+independent of this observation choice.
 
 Enabled observation attempts the native wait and then always pops its scope,
 including after a polling failure. A captured rejection returns its native
