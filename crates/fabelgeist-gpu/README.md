@@ -29,3 +29,7 @@ explicit. Storage includes copy-source and copy-destination capability.
 Empty uploads fail allocation. Armor consumers explicitly call
 `with_empty_word` when an empty logical input still requires a scalar binding.
 The generic buffer layer does not silently pad every input.
+
+Addressed uploads return `BufferWriteError` with the rejected byte quantities.
+See [checked buffer writes](buffer-writes.md) for error matching, logical
+extent admission and native queue validation.
