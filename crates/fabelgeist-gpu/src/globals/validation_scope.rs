@@ -60,7 +60,9 @@ impl Error for ValidationProgressError {
 impl ValidationScope {
     /// Return no guard when the context leaves validation errors uncaptured.
     pub fn new(context: &WgpuContext) -> Option<Self> {
-        let guard = context.validation_observation.start_scope(&context.device)?;
+        let guard = context
+            .validation_observation
+            .start_scope(&context.device)?;
         Some(Self {
             device: context.device.clone(),
             guard,
