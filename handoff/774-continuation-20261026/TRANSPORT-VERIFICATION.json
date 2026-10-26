@@ -1,7 +1,7 @@
 {
   "kind": "Handoff transport byte verification; no project execution or new source audit",
-  "included_files": 8067,
-  "included_bytes": 179102379,
+  "included_files": 8068,
+  "included_bytes": 179103678,
   "manifest_exact_all_files": true,
   "original_source_evidence_exact": true,
   "shared_material_count": 196,
@@ -13,5 +13,14 @@
   "original_refs_verified": "All three prior handoff branches plus P16/P17 match SOURCE-LOCATORS pins.",
   "independent_entrypoint_review": "evidence/HANDOFF-REVIEW.json",
   "publication_content_review": "evidence/HANDOFF-PUBLICATION-REVIEW.json",
-  "unrelated_untracked_preserved": "evidence/HANDOFF-PRESERVATION.json"
+  "unrelated_untracked_preserved": "evidence/HANDOFF-PRESERVATION.json",
+  "entrypoint_review_scope_note": "Independent HANDOFF-REVIEW applies to initial snapshot. Subsequent instructions update records verified user merge of #987; historical review hashes are preserved.",
+  "merge_update": {
+    "pr": 987,
+    "merge_commit": "a411abb4370bb6f6609622cef5da59988a37aee9",
+    "github_confirmed": true,
+    "fetched_main_matches": true,
+    "changed_evidence_manifest_hashes_updated": true,
+    "new_source_or_project_validation": "none"
+  }
 }

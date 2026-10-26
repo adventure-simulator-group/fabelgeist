@@ -1,8 +1,8 @@
 # Fabelgeist continuation handoff to segovb
 
 Resume the unfinished #774 audit and the connected #780/#826 implementation
-from this checkpoint. The CI recovery is merged. A separate GLB export PR is
-ready for review, and the next texture-view change is preserved as WIP.
+from this checkpoint. The CI recovery (#986) and GLB export change (#987) are
+merged. The next implementation step is the preserved #826 texture-view WIP.
 Neither original implementation PR nor the full audit is complete.
 
 This is a handoff branch, not a product change to merge into main. The user
@@ -34,8 +34,8 @@ the raw records. Keep historical receipts as evidence; do not mistake an old
 
 | Work | Branch or PR | Exact revision and status |
 | --- | --- | --- |
-| CI recovery | [#986](https://github.com/adventure-simulator-group/fabelgeist/pull/986) | Merged as `4530fc19ce16641df65eae28735d69e86bbaa8ae`; current main at handoff. |
-| Checked GLB framing | [#987](https://github.com/adventure-simulator-group/fabelgeist/pull/987), `codex/checked-glb-framing-review` | `2ef288d1085c249fa056156182ea626a060bb8d1`; ready for review, open, unmerged. |
+| CI recovery | [#986](https://github.com/adventure-simulator-group/fabelgeist/pull/986) | Merged as `4530fc19ce16641df65eae28735d69e86bbaa8ae`. |
+| Checked GLB framing | [#987](https://github.com/adventure-simulator-group/fabelgeist/pull/987) | Reviewed head `2ef288d1085c249fa056156182ea626a060bb8d1`; merged as `a411abb4370bb6f6609622cef5da59988a37aee9`, current main at this update. |
 | Typed texture-view errors | `codex/826-view-error-wip-handoff-20261026` | `2e8b0cb0728bbcde65bb91c6e04c5488aac6fa23`; WIP based on older main `990430b77a9f63548ffcb642074185f61ddb3322`. |
 
 #987 checks actual serialized JSON/BIN lengths, padding and total frame size
@@ -53,6 +53,8 @@ correctly skipped. Evidence is in `evidence/glb-main-4530/`, particularly
 `linux-evidence-002.json`, `windows-evidence-002.json`,
 `final-hosted-run-002.json` and `published-ready-001.json`. The final published
 PR body matches its independent wording review after line-ending normalization.
+`published-merged-001.json` records the verified merge. Earlier ready-for-review
+records and entry-point review hashes describe the initial handoff snapshot.
 
 Do not broaden those successful-path checks into oversized allocation,
 reservation failure, 32-bit or filesystem-failure execution claims. Earlier
@@ -61,17 +63,20 @@ been published and filesystem output is not transactional.
 
 ## Next implementation
 
-Keep #987 as the next review/merge checkpoint. The user reviews and merges each
-individual PR; agents must stop and escalate when each PR is ready. Do not
-merge automatically or build a deep stack.
+#987 is merged; no further review or merge action is pending for that PR. The
+user reviews and merges each subsequent individual PR; agents must stop and
+escalate when each PR is ready. Do not merge automatically or build a deep stack.
 
-After the user merges #987, start the texture-view slice from fresh main. Read
+Start the #826 texture-view slice from freshly fetched main, now including
+`a411abb4370bb6f6609622cef5da59988a37aee9`. Read
 `evidence/gpu-main-4530/preflight/integration-plan-001.json` and its path
 manifest. Recover only the saved commit's delta; do not merge either old
 #780/#826 recovery branch wholesale. Fifteen GPU paths were unchanged/absent
 between the saved base and `4530fc19`; the workflow was the only overlapping
 path. This is a preflight prediction, not an applied or tested integration.
 Recheck the new main and dependency context first.
+The preflight was recorded before #987 merged; its old pending-merge language
+is historical and does not impose another wait.
 
 Preserve every #986 workflow gate, exporter guard, cache/timeout adjustment,
 positive-execution check and Windows portability step. Insert the saved texture
@@ -105,5 +110,6 @@ receiving records at each connected function.
 
 The evidence bundle deliberately excludes large duplicate CI diffs, generated
 scene/image artifacts, and the old source clone. Retrieval references are
-provided. No ZIP, new worktree, merge, database operation or public conversation
+provided. The user merged #987; the handoff branch itself must remain separate
+from main. No ZIP, new worktree, database operation or public conversation
 snapshot is part of this handoff.

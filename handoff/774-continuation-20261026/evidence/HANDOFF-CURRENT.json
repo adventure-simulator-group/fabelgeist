@@ -2,30 +2,33 @@
   "kind": "Authoritative segovb continuation handoff",
   "prepared_at_utc": "2026-10-26T16:23:53.539847+00:00",
   "handoff_branch": "codex/774-continuation-handoff-20261026",
-  "main_at_handoff": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+  "main_at_handoff": "a411abb4370bb6f6609622cef5da59988a37aee9",
   "user_instruction": "Hand work back to segovb using one or more branches, not ZIP; use main physical worktree; stop for user review at individual merge-ready PRs, no deep stack.",
-  "status": "Implementation stopped for handoff; #987 ready for review, no merge performed. Audit incomplete.",
+  "status": "Implementation remains stopped for handoff; user merged #987. Next implementation is #826 texture-view WIP on fresh main. Audit incomplete.",
   "implementation": [
     {
       "topic": "GLB framing",
       "branch": "codex/checked-glb-framing-review",
       "head": "2ef288d1085c249fa056156182ea626a060bb8d1",
       "pr": 987,
-      "status": "ready_for_review_open_unmerged",
+      "status": "merged_by_user",
       "base": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
       "checks": "full hosted run40339807509success;48requiredgroups;11namedexportcases;10Windowscases",
       "reviews": [
         "evidence/glb-main-4530/code-review/CURRENT.json",
         "evidence/glb-main-4530/rule-review/review-002.json",
         "evidence/glb-main-4530/comment-review/body-review-002-final.json"
-      ]
+      ],
+      "merge_commit": "a411abb4370bb6f6609622cef5da59988a37aee9",
+      "merged_at": "2026-10-26T16:33:57Z",
+      "merge_confirmation": "evidence/glb-main-4530/published-merged-001.json"
     },
     {
       "topic": "GPU whole-texture view errors and canonical validation scope",
       "branch": "codex/826-view-error-wip-handoff-20261026",
       "head": "2e8b0cb0728bbcde65bb91c6e04c5488aac6fa23",
       "base": "990430b77a9f63548ffcb642074185f61ddb3322",
-      "status": "saved WIP,not integrated onto4530,not freshly validated,not merge-ready",
+      "status": "saved WIP, not integrated onto post-987 main, not freshly validated, not merge-ready",
       "preflight": "evidence/gpu-main-4530/preflight/integration-plan-001.json"
     }
   ],
@@ -109,10 +112,12 @@
     "new_global_unique_count": "Not established; preserve inherited findings and alias reconciliation."
   },
   "next_steps": [
-    "User review/merge #987 separately; do not merge handoff branch.",
-    "Fetch current main after merge; recover only2e8b0cb delta and reconcile current workflow/lock/callers.",
-    "Fresh affected reviews and full hosted CI on integrated GPU slice, then next user merge checkpoint.",
+    "Fetch current main including a411abb4370bb6f6609622cef5da59988a37aee9; #987 is already merged and needs no further merge action. Keep the handoff branch separate from main.",
+    "Recover only the saved2e8b0cb delta onto that main; recheck preflight paths and reconcile current workflow, lock and callers, preserving #986/#987.",
+    "Fresh affected reviews and full hosted CI on integrated GPU slice, then pause for the next user merge checkpoint.",
     "Continue each unfinished lens from exact receipt; preserve partials and source qualifications, then connected repairs/successor waves/global acceptance."
   ],
-  "supersedes": "Historical current/status aliases in evidence/STATE.json and prior handoff records. Exact source and receipt facts remain preserved."
+  "supersedes": "Historical current/status aliases in evidence/STATE.json and prior handoff records. Exact source and receipt facts remain preserved.",
+  "initial_main_at_handoff": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+  "updated_at_utc": "2026-10-26T16:35:18Z"
 }

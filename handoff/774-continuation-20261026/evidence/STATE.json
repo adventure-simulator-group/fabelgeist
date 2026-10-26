@@ -9,7 +9,7 @@
     "source_branch": "codex/checked-glb-framing-review",
     "source_head": "2ef288d1085c249fa056156182ea626a060bb8d1",
     "pr": "https://github.com/adventure-simulator-group/fabelgeist/pull/987",
-    "pr_state": "ready for review; open, unmerged, mergeable",
+    "pr_state": "merged by user",
     "candidate": "glb-main-4530/candidate-002.json",
     "source_reviews": {
       "Code_all13": "glb-main-4530/code-review/CURRENT.json",
@@ -19,13 +19,13 @@
     "ordinary_quality_run": 40339807509,
     "windows_evidence": "glb-main-4530/windows-evidence-002.json",
     "linux_status": "Exact final head full hosted Linux and Windows workflow completed success",
-    "remaining": [
-      "User merge review; no merge authorized."
-    ],
+    "remaining": [],
     "source_parent_run": 40274774510,
     "source_parent_conclusion": "success",
     "baseline": "glb-main-4530/baseline-reductions-001.json",
-    "linux_evidence": "glb-main-4530/linux-evidence-002.json"
+    "linux_evidence": "glb-main-4530/linux-evidence-002.json",
+    "merge_commit": "a411abb4370bb6f6609622cef5da59988a37aee9",
+    "merged_at": "2026-10-26T16:33:57Z"
   },
   "preservation": {
     "source_export": "6018filesexactmerged774;kept unchanged",
@@ -410,5 +410,7 @@
     "own13": "audit13/STATE.json; seven assessed of0-9,0/5/9 partial,firstunfinished0,firstunread10; no broad adopted baseline"
   },
   "handoff_request": "User requested branch handoff to segovb; stop implementation and preserve portable exact checkpoints.",
-  "current_authority": "HANDOFF-CURRENT.json supersedes historical current/status aliases"
+  "current_authority": "HANDOFF-CURRENT.json supersedes historical current/status aliases",
+  "merge_confirmation_987": "glb-main-4530/published-merged-001.json",
+  "next_implementation": "Fetch main including a411abb4370bb6f6609622cef5da59988a37aee9, reconcile saved #826 texture-view delta; implementation remains handed off."
 }

@@ -73,9 +73,10 @@ receipts and inherited limits.
 
 Lens 05's `FINAL-HANDOFF-SUCCESSOR-008.json` and
 `remedy-reconciliation/main4530/current-comparison-complete-001.json` compare
-the current main context. Thirteen relevant owner blobs match the earlier
-baseline; the HTTP dependency mapping was checked separately. Its ten retained
-concerns remain qualified and unrepaired:
+main at `4530fc19`, before #987 merged. Later main needs a fresh comparison;
+the merge adds no audit coverage. Thirteen relevant owner blobs matched the
+earlier baseline; the HTTP dependency mapping was checked separately. Its ten
+retained concerns remain qualified and unrepaired:
 
 1. Dispatcher port arithmetic increments a `u16` before launch.
 2. Peat-region construction and deserialization need one accepted-value policy.
