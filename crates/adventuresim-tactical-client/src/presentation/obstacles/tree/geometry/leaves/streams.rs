@@ -29,4 +29,3 @@ pub(super) const TORSION: StreamId = StreamId::new("visual.obstacles.tree.geomet
 pub(super) const VERTICAL_LIFT: StreamId =
     StreamId::new("visual.obstacles.tree.geometry.leaves.vertical-lift");
 pub(super) const WIDTH: StreamId = StreamId::new("visual.obstacles.tree.geometry.leaves.width");
-pub(super) const SHOOT_IDENTITY: StreamId = StreamId::new("visual.tree.shoot-identity");

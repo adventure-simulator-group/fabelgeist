@@ -1,5 +1,6 @@
 //! Species-specific leaf positions and terminal-shoot arrangement.
 use super::*;
+use libm::{cosf, sinf};
 
 pub(in crate::presentation) fn procedural_oak_leaves(
     seed: Seed,
@@ -12,11 +13,10 @@ pub(in crate::presentation) fn procedural_oak_leaves(
     // The pulsed shoot layout then cuts redundant alpha overlap while
     // retaining the oak's irregular shell.
     let leaves_per_shoot = 16_u64;
-    for shoot in branches
+    for (shoot_id, shoot) in branches
         .iter()
-        .filter(|branch| branch.depth == 3 && branch.is_limb_tip)
+        .filter_map(|branch| branch.foliage.map(|identity| (identity, branch)))
     {
-        let shoot_id = shoot_identity(shoot);
         let direction = (shoot.end - shoot.start).normalize();
         let tangent = direction.cross(Vec3::Y).normalize_or_zero();
         let tangent = if tangent.length_squared() < 0.25 {
@@ -26,7 +26,7 @@ pub(in crate::presentation) fn procedural_oak_leaves(
         };
         let binormal = direction.cross(tangent).normalize();
         for leaf_index in 0..leaves_per_shoot {
-            let leaf_seed = streams::LEAF.seed(seed, &[shoot_id, leaf_index]);
+            let leaf_seed = streams::LEAF.seed(seed, &[shoot_id.seed().to_u64(), leaf_index]);
             let leaf_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
                 purpose.rng(leaf_seed, &[]).inclusive_unit_f32()
             };
@@ -43,7 +43,7 @@ pub(in crate::presentation) fn procedural_oak_leaves(
             let alternate = if leaf_index & 1 == 0 { 1.0 } else { -1.0 };
             let spiral =
                 leaf_index as f32 * 2.399_963_1 + (leaf_unit_draw(streams::SPIRAL) - 0.5) * 0.65;
-            let radial = (tangent * spiral.cos() + binormal * spiral.sin()).normalize();
+            let radial = (tangent * cosf(spiral) + binormal * sinf(spiral)).normalize();
             let leaf_up = (radial * (0.46 + leaf_unit_draw(streams::RADIAL_LIFT) * 0.24)
                 + direction * (0.42 + leaf_unit_draw(streams::DIRECTION_LIFT) * 0.18)
                 + Vec3::Y * (0.08 + leaf_unit_draw(streams::VERTICAL_LIFT) * 0.18))
@@ -121,11 +121,10 @@ fn procedural_beech_leaves(
 ) -> Vec<TreeLeaf> {
     let mut leaves = Vec::new();
     let leaves_per_shoot = u64::from(parameters.leaves_per_shoot.max(4));
-    for shoot in branches
+    for (shoot_id, shoot) in branches
         .iter()
-        .filter(|branch| branch.depth == 3 && branch.is_limb_tip)
+        .filter_map(|branch| branch.foliage.map(|identity| (identity, branch)))
     {
-        let shoot_id = shoot_identity(shoot);
         let direction = (shoot.end - shoot.start).normalize();
         let horizontal = Vec3::new(direction.x, 0.0, direction.z).normalize_or_zero();
         let spray_forward = if horizontal.length_squared() > 0.25 {
@@ -135,7 +134,7 @@ fn procedural_beech_leaves(
         };
         let spray_side = Vec3::Y.cross(spray_forward).normalize();
         for leaf_index in 0..leaves_per_shoot {
-            let leaf_seed = streams::LEAF.seed(seed, &[shoot_id, leaf_index]);
+            let leaf_seed = streams::LEAF.seed(seed, &[shoot_id.seed().to_u64(), leaf_index]);
             let leaf_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
                 purpose.rng(leaf_seed, &[]).inclusive_unit_f32()
             };
@@ -206,15 +205,14 @@ fn procedural_multistem_shrub_leaves(
 ) -> Vec<TreeLeaf> {
     let mut leaves = Vec::new();
     let leaves_per_shoot = u64::from(parameters.leaves_per_shoot.max(4));
-    for shoot in branches
+    for (shoot_id, shoot) in branches
         .iter()
-        .filter(|branch| branch.depth == 3 && branch.is_limb_tip)
+        .filter_map(|branch| branch.foliage.map(|identity| (identity, branch)))
     {
-        let shoot_id = shoot_identity(shoot);
         let direction = (shoot.end - shoot.start).normalize();
         let (frame_right, frame_up) = branch_frame(direction);
         for leaf_index in 0..leaves_per_shoot {
-            let leaf_seed = streams::LEAF.seed(seed, &[shoot_id, leaf_index]);
+            let leaf_seed = streams::LEAF.seed(seed, &[shoot_id.seed().to_u64(), leaf_index]);
             let leaf_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
                 purpose.rng(leaf_seed, &[]).inclusive_unit_f32()
             };
@@ -227,7 +225,7 @@ fn procedural_multistem_shrub_leaves(
             let side = if leaf_index & 1 == 0 { 1.0 } else { -1.0 };
             let phase =
                 side * (0.82 + leaf_unit_draw(streams::SPIRAL) * 0.28) + leaf_index as f32 * 0.32;
-            let radial = (frame_right * phase.cos() + frame_up * phase.sin()).normalize();
+            let radial = (frame_right * cosf(phase) + frame_up * sinf(phase)).normalize();
             let leaf_up = (radial * 0.72 + direction * 0.48 + Vec3::Y * 0.16).normalize();
             let azimuth_normal = direction.cross(radial).normalize_or_zero();
             let azimuth_normal = if azimuth_normal.length_squared() > 0.25 {

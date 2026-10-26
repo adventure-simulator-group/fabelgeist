@@ -25,10 +25,10 @@ pub(super) fn initial_image(
     prebaked: Option<&PrebakedCloudEnvironment>,
     procedural: impl FnOnce() -> Image,
 ) -> Image {
-    prebaked.map_or_else(procedural, |asset| image_from_rgba8(asset.rgba8))
+    prebaked.map_or_else(procedural, |asset| image_from_rgba8(asset.rgba8.to_vec()))
 }
 
-pub(super) fn image_from_rgba8(pixels: &[u8]) -> Image {
+pub(super) fn image_from_rgba8(pixels: Vec<u8>) -> Image {
     assert_eq!(
         pixels.len(),
         CLOUD_BAKE_TEXTURE_WIDTH as usize
@@ -43,7 +43,7 @@ pub(super) fn image_from_rgba8(pixels: &[u8]) -> Image {
             depth_or_array_layers: 1,
         },
         TextureDimension::D2,
-        pixels.to_vec(),
+        pixels,
         TextureFormat::Rgba8Unorm,
         RenderAssetUsages::RENDER_WORLD,
     );

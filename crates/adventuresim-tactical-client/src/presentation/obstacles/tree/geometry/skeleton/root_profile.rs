@@ -1,4 +1,5 @@
 //! Root shoulder exposure and the tapered return into soil.
+use libm::{cosf, sinf};
 
 use bevy::math::{FloatExt, Vec3};
 use fabelgeist_determinism::Seed;
@@ -11,11 +12,11 @@ pub(super) fn oak_root_points(
     root: OakRootSpec,
     gnarling: OakGnarlingParameters,
 ) -> [Vec3; 3] {
-    let outward = Vec3::new(root.angle.cos(), 0.0, root.angle.sin());
-    let tangent = Vec3::new(-root.angle.sin(), 0.0, root.angle.cos());
+    let outward = Vec3::new(cosf(root.angle), 0.0, sinf(root.angle));
+    let tangent = Vec3::new(-sinf(root.angle), 0.0, cosf(root.angle));
     let contact_radius = 0.36 + (root.base_radius - 0.14) * 0.32;
     let meander = (gnarling.root_meander.clamp(0.0, 1.0) * root.reach * 0.32)
-        * (root.angle * 2.7 + root.reach * 3.1).sin();
+        * sinf(root.angle * 2.7 + root.reach * 3.1);
     let exposure = gnarling.root_exposure.clamp(0.0, 1.0);
     let contact =
         trunk_base + outward * contact_radius + tangent * (root.shoulder_lift - 0.0375) * 1.4;
