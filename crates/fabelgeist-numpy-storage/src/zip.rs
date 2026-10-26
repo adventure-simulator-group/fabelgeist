@@ -38,11 +38,9 @@ impl std::ops::Deref for ArchiveData {
     }
 }
 
-const END_OF_CENTRAL_DIRECTORY: u32 = 0x0605_4b50;
-const CENTRAL_FILE_HEADER: u32 = 0x0201_4b50;
-const LOCAL_FILE_HEADER: u32 = 0x0403_4b50;
-const ZIP64_END_OF_CENTRAL_DIRECTORY: u32 = 0x0606_4b50;
-const ZIP64_LOCATOR: u32 = 0x0706_4b50;
+mod record_kind;
+
+use record_kind::ZipRecordKind;
 
 pub(crate) struct Entry {
     pub name: String,
@@ -104,7 +102,7 @@ fn find_central_directory(data: &[u8]) -> Result<(u64, u64)> {
     let earliest = data.len().saturating_sub(66_000);
     let mut eocd = None;
     for offset in (earliest..data.len().saturating_sub(21)).rev() {
-        if u32_at(data, offset) == END_OF_CENTRAL_DIRECTORY {
+        if ZipRecordKind::read_at(data, offset) == ZipRecordKind::EndDirectory {
             eocd = Some(offset);
             break;
         }
@@ -115,9 +113,11 @@ fn find_central_directory(data: &[u8]) -> Result<(u64, u64)> {
 
     if (count == u16::MAX as u64 || offset == u32::MAX as u64) && eocd >= 20 {
         let locator = eocd - 20;
-        if u32_at(data, locator) == ZIP64_LOCATOR {
+        if ZipRecordKind::read_at(data, locator) == ZipRecordKind::Zip64Locator {
             let record = u64_at(data, locator + 8) as usize;
-            if record + 56 <= data.len() && u32_at(data, record) == ZIP64_END_OF_CENTRAL_DIRECTORY {
+            if record + 56 <= data.len()
+                && ZipRecordKind::read_at(data, record) == ZipRecordKind::Zip64End
+            {
                 count = u64_at(data, record + 32);
                 offset = u64_at(data, record + 48);
             }
@@ -147,7 +147,9 @@ impl ZipArchive {
         let mut entries = Vec::with_capacity(count.min(4096) as usize);
         for _ in 0..count {
             let base = offset as usize;
-            if base + 46 > data.len() || u32_at(&data, base) != CENTRAL_FILE_HEADER {
+            if base + 46 > data.len()
+                || ZipRecordKind::read_at(&data, base) != ZipRecordKind::CentralMember
+            {
                 break;
             }
             let name_len = u16_at(&data, base + 28) as usize;
@@ -204,7 +206,9 @@ impl ZipArchive {
 
     pub(crate) fn entry_bytes(&self, entry: &Entry) -> Result<Cow<'_, [u8]>> {
         let base = entry.local_header_offset as usize;
-        if base + 30 > self.data.len() || u32_at(&self.data, base) != LOCAL_FILE_HEADER {
+        if base + 30 > self.data.len()
+            || ZipRecordKind::read_at(&self.data, base) != ZipRecordKind::LocalMember
+        {
             bail!("corrupt zip entry {}", entry.name);
         }
         // The local header repeats the name and may carry a different extra field.
