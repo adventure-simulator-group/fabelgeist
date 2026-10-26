@@ -4,7 +4,9 @@ use super::TextureCube;
 #[cfg(not(target_arch = "wasm32"))]
 use crate::{data::gpu::texture::TextureViewOperation, globals::ValidationScope};
 use crate::{
-    data::gpu::texture::{CubeFace, TextureFormat, TextureView, TextureViewError, TextureViewResult},
+    data::gpu::texture::{
+        CubeFace, TextureFormat, TextureView, TextureViewError, TextureViewResult,
+    },
     globals::WgpuContext,
 };
 use std::sync::Arc;
