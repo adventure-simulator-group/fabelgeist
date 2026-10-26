@@ -112,6 +112,13 @@ impl PreparedTreeImpostorAsset {
         );
         let source_hash =
             tree_source_geometry_hash(&branches, &leaves) ^ u64::from(TREE_IMPOSTOR_BAKE_VERSION);
+        eprintln!(
+            "prepared tree source: species={species:?} seed={variant_seed:?} variant={variant_index} competition={competition:?} hash={source_hash:016x} branches={} leaves={} first_branch={:?} first_leaf={:?}",
+            branches.len(),
+            leaves.len(),
+            branches.first(),
+            leaves.first(),
+        );
         if !(1..=4).all(|lod| {
             self.resolve(
                 PreparedTreeImpostorUsage::Playable,
@@ -119,7 +126,13 @@ impl PreparedTreeImpostorAsset {
                 variant_seed,
                 lod,
             )
-            .is_some_and(|bake| bake.provenance.source_geometry_hash == source_hash)
+            .is_some_and(|bake| {
+                eprintln!(
+                    "prepared tree stored: lod={lod} hash={:016x}",
+                    bake.provenance.source_geometry_hash,
+                );
+                bake.provenance.source_geometry_hash == source_hash
+            })
         }) {
             return false;
         }

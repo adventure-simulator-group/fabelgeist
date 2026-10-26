@@ -48,6 +48,10 @@ on:
       - ".github/workflows/rust-quality.yml"
   workflow_dispatch:
     inputs:
+      diagnose_prepared_tree:
+        description: Trace the existing prepared-tree case before ordinary Linux checks
+        type: boolean
+        default: false
       regenerate_fixtures:
         description: Regenerate procedural fixtures with the existing exporters
         type: boolean
@@ -92,6 +96,13 @@ jobs:
           mold libasound2-dev libudev-dev libwayland-dev libx11-dev
           libxcursor-dev libxinerama-dev libxkbcommon-dev libxkbcommon-x11-dev
           libxrandr-dev libxi-dev libvulkan1 mesa-vulkan-drivers
+      - name: Trace existing prepared-tree source
+        if: inputs.diagnose_prepared_tree
+        run: |
+          set -euo pipefail
+          mkdir -p target/rig-contracts
+          git rev-parse HEAD > target/rig-contracts/tree-source-revision.txt
+          cargo test --locked --package adventuresim-tactical-client --bin art-demo art_demo::scenery::tests::fixed_oak_exhibit_has_every_matching_prebaked_impostor -- --exact --nocapture --color=never --test-threads=1 2>&1 | tee target/rig-contracts/tree-source.log
       - name: Check formatting
         run: |
           format_status=0
@@ -521,7 +532,7 @@ jobs:
           cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::ground_scatter::specimens::tests::managed_hazel_matches_shared_envelope -- --exact --color=never --test-threads=1 2>&1 | tee target/foliage-portability/envelope.log
           cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::obstacles::tree::geometry::leaves::tests:: -- --color=never --test-threads=1 2>&1 | tee target/foliage-portability/leaves.log
           cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::obstacles::tree::impostor::raster::tests::coarse_leaf_sampling_preserves_positions_across_every_shoot -- --exact --color=never --test-threads=1 2>&1 | tee target/foliage-portability/sampling.log
-          cargo test --locked --package adventuresim-tactical-client --bin art-demo art_demo::scenery::tests::fixed_oak_exhibit_has_every_matching_prebaked_impostor -- --exact --color=never --test-threads=1 2>&1 | tee target/foliage-portability/prepared-impostors.log
+          cargo test --locked --package adventuresim-tactical-client --bin art-demo art_demo::scenery::tests::fixed_oak_exhibit_has_every_matching_prebaked_impostor -- --exact --nocapture --color=never --test-threads=1 2>&1 | tee target/foliage-portability/prepared-impostors.log
       - name: Verify required existing cases executed
         run: |
           python - <<'PY'
