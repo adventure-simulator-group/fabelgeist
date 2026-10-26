@@ -908,6 +908,7 @@ mod tests {
             primary_group: 0,
             secondary_group: 0,
             is_limb_tip: true,
+            foliage: None,
         }];
         let mesh = procedural_tree_branch_mesh(&branches, 1);
         let Some(VertexAttributeValues::Float32x2(uvs)) = mesh.attribute(Mesh::ATTRIBUTE_UV_0)
@@ -995,26 +996,26 @@ mod tests {
 
         // Seed 42 is the representative oak fixture used by the tree suite.
         // These exact reductions guard both the LOD budget and the simplified
-        // one-cap terminal topology: 9,540/15,523 -> 4,810/7,099 for LOD1,
-        // and 1,119/1,897 -> 462/700 for LOD2 (vertices/triangles).
-        assert_eq!(full_lod1.count_vertices(), 9_540);
+        // one-cap terminal topology: 9,556/15,551 -> 4,630/6,811 for LOD1,
+        // and 1,135/1,925 -> 462/700 for LOD2 (vertices/triangles).
+        assert_eq!(full_lod1.count_vertices(), 9_556);
         assert_eq!(
             full_lod1.indices().expect("full LOD1 is indexed").len() / 3,
-            15_523
+            15_551
         );
-        assert_eq!(aggregate_lod1.count_vertices(), 4_810);
+        assert_eq!(aggregate_lod1.count_vertices(), 4_630);
         assert_eq!(
             aggregate_lod1
                 .indices()
                 .expect("aggregate LOD1 is indexed")
                 .len()
                 / 3,
-            7_099
+            6_811
         );
-        assert_eq!(full_lod2.count_vertices(), 1_119);
+        assert_eq!(full_lod2.count_vertices(), 1_135);
         assert_eq!(
             full_lod2.indices().expect("full LOD2 is indexed").len() / 3,
-            1_897
+            1_925
         );
         assert_eq!(aggregate_lod2.count_vertices(), 462);
         assert_eq!(
@@ -1108,13 +1109,13 @@ mod tests {
         // Seed 42 is the representative oak fixture used by the tree suite.
         // Exact counts lock the nine-sided, 0.9-metre, one-cap budget and
         // verify that the root-only close mesh remains substantially denser.
-        assert_eq!(full.count_vertices(), 771);
+        assert_eq!(full.count_vertices(), 857);
         assert_eq!(
             full.indices().expect("full trunk is indexed").len() / 3,
-            1_344
+            1_488
         );
-        assert_eq!(mid.count_vertices(), 173);
-        assert_eq!(indices.len() / 3, 279);
+        assert_eq!(mid.count_vertices(), 236);
+        assert_eq!(indices.len() / 3, 360);
         assert!(mid.count_vertices() * 2 < full.count_vertices());
         assert!(indices.len() / 3 * 2 < full.indices().unwrap().len() / 3);
 
@@ -1319,6 +1320,7 @@ mod tests {
                 primary_group: 0,
                 secondary_group: 0,
                 is_limb_tip: true,
+                foliage: None,
             };
             (0..96)
                 .map(|index| {

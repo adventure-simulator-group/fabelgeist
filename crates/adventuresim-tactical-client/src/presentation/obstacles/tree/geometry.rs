@@ -255,6 +255,8 @@ pub(in crate::presentation) struct TreeBranchSegment {
     pub(in crate::presentation) primary_group: u8,
     pub(in crate::presentation) secondary_group: u16,
     pub(in crate::presentation) is_limb_tip: bool,
+    /// Present only on the terminal segment of a foliage-bearing shoot.
+    pub(in crate::presentation) foliage: Option<TreeShootId>,
 }
 
 mod leaves;
@@ -262,11 +264,11 @@ mod skeleton;
 mod wood_mesh;
 
 pub(in crate::presentation) use leaves::{
-    TreeLeaf, procedural_oak_bud_group_mesh, procedural_oak_bud_mesh,
+    TreeLeaf, TreeShootId, procedural_oak_bud_group_mesh, procedural_oak_bud_mesh,
     procedural_oak_leaf_card_group_mesh, procedural_oak_leaf_card_mesh, procedural_oak_leaves,
     procedural_oak_textured_leaf_group_mesh, procedural_oak_textured_leaf_mesh,
     procedural_woody_cambered_leaf_mesh, procedural_woody_leaf_card_mesh,
-    procedural_woody_plant_leaves, procedural_woody_sparse_leaf_card_mesh, shoot_identity,
+    procedural_woody_plant_leaves, procedural_woody_sparse_leaf_card_mesh,
 };
 pub(in crate::presentation) use skeleton::{
     procedural_oak_skeleton_with_gnarling, procedural_tree_skeleton,
