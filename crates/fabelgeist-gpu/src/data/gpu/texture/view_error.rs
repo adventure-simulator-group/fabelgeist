@@ -31,9 +31,7 @@ pub enum TextureViewError {
     #[display("Texture has no view")]
     MissingView,
     /// The request and the complete failure of its validation observation.
-    #[display(
-        "WGPU {operation:?} view validation failed (requested {requested:?}): {cause}"
-    )]
+    #[display("WGPU {operation:?} view validation failed (requested {requested:?}): {cause}")]
     Observation {
         requested: TextureFormat,
         operation: TextureViewOperation,
