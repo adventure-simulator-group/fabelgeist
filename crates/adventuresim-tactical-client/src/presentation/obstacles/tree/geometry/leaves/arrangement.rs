@@ -1,5 +1,6 @@
 //! Species-specific leaf positions and terminal-shoot arrangement.
 use super::*;
+use libm::{cosf, sinf};
 
 pub(in crate::presentation) fn procedural_oak_leaves(
     seed: Seed,
@@ -42,7 +43,7 @@ pub(in crate::presentation) fn procedural_oak_leaves(
             let alternate = if leaf_index & 1 == 0 { 1.0 } else { -1.0 };
             let spiral =
                 leaf_index as f32 * 2.399_963_1 + (leaf_unit_draw(streams::SPIRAL) - 0.5) * 0.65;
-            let radial = (tangent * spiral.cos() + binormal * spiral.sin()).normalize();
+            let radial = (tangent * cosf(spiral) + binormal * sinf(spiral)).normalize();
             let leaf_up = (radial * (0.46 + leaf_unit_draw(streams::RADIAL_LIFT) * 0.24)
                 + direction * (0.42 + leaf_unit_draw(streams::DIRECTION_LIFT) * 0.18)
                 + Vec3::Y * (0.08 + leaf_unit_draw(streams::VERTICAL_LIFT) * 0.18))
@@ -224,7 +225,7 @@ fn procedural_multistem_shrub_leaves(
             let side = if leaf_index & 1 == 0 { 1.0 } else { -1.0 };
             let phase =
                 side * (0.82 + leaf_unit_draw(streams::SPIRAL) * 0.28) + leaf_index as f32 * 0.32;
-            let radial = (frame_right * phase.cos() + frame_up * phase.sin()).normalize();
+            let radial = (frame_right * cosf(phase) + frame_up * sinf(phase)).normalize();
             let leaf_up = (radial * 0.72 + direction * 0.48 + Vec3::Y * 0.16).normalize();
             let azimuth_normal = direction.cross(radial).normalize_or_zero();
             let azimuth_normal = if azimuth_normal.length_squared() > 0.25 {

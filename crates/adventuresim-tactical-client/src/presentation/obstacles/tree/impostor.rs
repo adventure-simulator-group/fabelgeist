@@ -11,7 +11,7 @@ use raster::*;
 use super::super::super::*;
 use super::geometry::*;
 
-pub(in crate::presentation) const TREE_IMPOSTOR_BAKE_VERSION: u32 = 18;
+pub(in crate::presentation) const TREE_IMPOSTOR_BAKE_VERSION: u32 = 19;
 pub(in crate::presentation) const TREE_IMPOSTOR_RENDER_METHOD: &str =
     "deterministic software triangle render with species-calibrated crown coverage";
 /// Per-LOD atlas tiles, from near aggregate cards through the whole-tree

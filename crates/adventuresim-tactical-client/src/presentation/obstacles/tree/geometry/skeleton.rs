@@ -1,21 +1,22 @@
-mod growth_axes;
+use adventuresim_tactical_core::prelude::TREE_TRUNK_HEIGHT_METRES;
+use bevy::math::{FloatExt, Vec3, Vec3Swizzles};
 use fabelgeist_determinism::Seed;
 use growth_axes::{append_shrub_shoots, oak_trunk_points};
-mod root_plan;
+use libm::{cosf, powf, sinf};
 use root_plan::{
     append_beech_roots, append_oak_roots, procedural_oak_root_specs_with_gnarling, root_plan_angles,
 };
-mod root_profile;
-mod streams;
-
-use adventuresim_tactical_core::prelude::TREE_TRUNK_HEIGHT_METRES;
-use bevy::math::{FloatExt, Vec3, Vec3Swizzles};
 
 use super::{
     ENGLISH_OAK_PARAMETERS, NATURAL_OAK_GNARLING, OakGnarlingParameters, TREE_PRIMARY_GROUP_COUNT,
     TREE_SECONDARY_GROUP_STRIDE, TreeBranchSegment, TreeShootId, WoodyPlantForm,
     WoodyPlantParameters, branch_frame,
 };
+
+mod growth_axes;
+mod root_plan;
+mod root_profile;
+mod streams;
 
 const OAK_ROOT_MIN_COUNT: usize = 4;
 const OAK_ROOT_MAX_COUNT: usize = 5;
@@ -93,7 +94,7 @@ fn oak_root_segment_count(roots: &[OakRootSpec]) -> usize {
 }
 
 fn curve_radius_at(start_radius: f32, end_radius: f32, t: f32) -> f32 {
-    start_radius.lerp(end_radius, t.clamp(0.0, 1.0).powf(0.64))
+    start_radius.lerp(end_radius, powf(t.clamp(0.0, 1.0), 0.64))
 }
 
 fn child_base_radius(authored: f32, parent_radius: f32) -> f32 {
@@ -148,8 +149,8 @@ pub(in crate::presentation) fn procedural_oak_skeleton_with_gnarling(
             purpose.rng(primary_seed, &[]).inclusive_unit_f32()
         };
         let phase = oak_primary_scaffold_phase(crown_phase, primary_index, primary_seed);
-        let outward = Vec3::new(phase.cos(), 0.0, phase.sin());
-        let tangent = Vec3::new(-phase.sin(), 0.0, phase.cos());
+        let outward = Vec3::new(cosf(phase), 0.0, sinf(phase));
+        let tangent = Vec3::new(-sinf(phase), 0.0, cosf(phase));
         let (isolated_attach, competitive_attach) = if dominant {
             (
                 [0.38, 0.56, 0.72, 0.86][primary_index as usize],
@@ -198,7 +199,7 @@ pub(in crate::presentation) fn procedural_oak_skeleton_with_gnarling(
             (2.1 - rank * 0.1, 2.15 + rank * 0.08)
         };
         let asymmetry =
-            1.0 + gnarling.crown_asymmetry.clamp(0.0, 1.0) * 0.38 * (phase - lean_phase).cos();
+            1.0 + gnarling.crown_asymmetry.clamp(0.0, 1.0) * 0.38 * cosf(phase - lean_phase);
         let reach = isolated_reach.lerp(competitive_reach, canopy_competition) * asymmetry;
         let lift = isolated_lift.lerp(competitive_lift, canopy_competition);
         let sag = isolated_sag.lerp(0.32, canopy_competition);
@@ -211,21 +212,21 @@ pub(in crate::presentation) fn procedural_oak_skeleton_with_gnarling(
                 let eased = t * (0.72 + 0.28 * t);
                 start
                     + outward * reach * eased
-                    + tangent * lateral * (core::f32::consts::PI * t).sin()
+                    + tangent * lateral * sinf(core::f32::consts::PI * t)
                     + tangent
                         * (0.22 + gnarling.scaffold_contortion.clamp(0.0, 1.0) * 0.62)
-                        * (core::f32::consts::TAU * t + torsion_phase).sin()
-                        * (core::f32::consts::PI * t).sin()
+                        * sinf(core::f32::consts::TAU * t + torsion_phase)
+                        * sinf(core::f32::consts::PI * t)
                     + Vec3::Y
-                        * (-sag * (core::f32::consts::PI * t).sin()
+                        * (-sag * sinf(core::f32::consts::PI * t)
                             - gnarling.scaffold_droop.clamp(0.0, 1.0)
                                 * reach
                                 * 0.16
-                                * (core::f32::consts::PI * t).sin().powi(2)
-                            + lift * t.powf(1.85)
+                                * powf(sinf(core::f32::consts::PI * t), 2.0)
+                            + lift * powf(t, 1.85)
                             + 0.16
-                                * (core::f32::consts::TAU * t + torsion_phase * 0.7).sin()
-                                * (core::f32::consts::PI * t).sin())
+                                * sinf(core::f32::consts::TAU * t + torsion_phase * 0.7)
+                                * sinf(core::f32::consts::PI * t))
             })
             .collect::<Vec<_>>();
         let (authored_primary_start_radius, primary_end_radius) = if dominant {
@@ -285,14 +286,14 @@ pub(in crate::presentation) fn procedural_oak_skeleton_with_gnarling(
                 0.96
             } else {
                 let normalized = secondary_index as f32 / (secondary_count - 2) as f32;
-                0.14_f32.lerp(0.24, canopy_competition) + normalized.powf(0.7) * 0.72
+                0.14_f32.lerp(0.24, canopy_competition) + powf(normalized, 0.7) * 0.72
             };
             let secondary_start = sample_polyline(&primary_points, attach);
             let inherited = polyline_tangent(&primary_points, attach);
             let (frame_right, frame_up) = branch_frame(inherited);
             let branch_phase = secondary_index as f32 * 2.399_963_1
                 + secondary_unit_draw(streams::SECONDARY_PHASE) * 0.55;
-            let radial = frame_right * branch_phase.cos() + frame_up * branch_phase.sin();
+            let radial = frame_right * cosf(branch_phase) + frame_up * sinf(branch_phase);
             let inherited_weight = if is_terminal_axis { 0.78 } else { 0.38 };
             let lateral_weight = if is_terminal_axis { 0.2 } else { 0.68 };
             let mut secondary_direction = (inherited
@@ -316,8 +317,8 @@ pub(in crate::presentation) fn procedural_oak_skeleton_with_gnarling(
                     let t = point_index as f32 / 3.0;
                     secondary_start
                         + secondary_direction * secondary_length * t
-                        + secondary_bend * (core::f32::consts::PI * t).sin()
-                        + Vec3::Y * (0.2 * t.powf(1.7))
+                        + secondary_bend * sinf(core::f32::consts::PI * t)
+                        + Vec3::Y * (0.2 * powf(t, 1.7))
                 })
                 .collect::<Vec<_>>();
             let secondary_group =
@@ -365,7 +366,7 @@ pub(in crate::presentation) fn procedural_oak_skeleton_with_gnarling(
                 let (frame_right, frame_up) = branch_frame(inherited);
                 let spiral = shoot_index as f32 * 2.399_963_1
                     + shoot_unit_draw(streams::SHOOT_PHASE) * core::f32::consts::TAU;
-                let radial = frame_right * spiral.cos() + frame_up * spiral.sin();
+                let radial = frame_right * cosf(spiral) + frame_up * sinf(spiral);
                 let open_vertical = -0.2 + shoot_unit_draw(streams::SHOOT_LIFT) * 0.48;
                 let competitive_vertical = 0.04 + shoot_unit_draw(streams::SHOOT_LIFT) * 0.24;
                 let vertical = open_vertical.lerp(competitive_vertical, canopy_competition);
@@ -447,7 +448,7 @@ fn append_oak_knots(
         let axis = polyline_tangent(trunk, attach);
         let (right, forward) = branch_frame(axis);
         let phase = knot_unit_draw(streams::KNOT_PHASE) * core::f32::consts::TAU;
-        let radial = right * phase.cos() + forward * phase.sin();
+        let radial = right * cosf(phase) + forward * sinf(phase);
         let scale = 0.055
             + gnarling.knot_scale.clamp(0.0, 1.0) * 0.18
             + gnarling.burl_scale.clamp(0.0, 1.0) * knot_unit_draw(streams::KNOT_SCALE) * 0.24;
@@ -485,11 +486,11 @@ fn procedural_beech_skeleton(
     let trunk_points = (0..=10)
         .map(|index| {
             let t = index as f32 / 10.0;
-            let sweep = (core::f32::consts::PI * t).sin() * (0.045 + 0.025 * competition);
+            let sweep = sinf(core::f32::consts::PI * t) * (0.045 + 0.025 * competition);
             Vec3::new(
-                crown_phase.cos() * sweep,
+                cosf(crown_phase) * sweep,
                 trunk_base.y + height * t,
-                crown_phase.sin() * sweep,
+                sinf(crown_phase) * sweep,
             )
         })
         .collect::<Vec<_>>();
@@ -512,31 +513,29 @@ fn procedural_beech_skeleton(
         };
         let layer = primary_index as f32 / 19.0;
         let height_fraction = (clear_bole_fraction
-            + layer.powf(0.88) * (0.95 - clear_bole_fraction)
+            + powf(layer, 0.88) * (0.95 - clear_bole_fraction)
             + (primary_unit_draw(streams::BEECH_PRIMARY_ATTACHMENT) - 0.5) * 0.032)
             .clamp(clear_bole_fraction, 0.96);
         let start = sample_polyline(&trunk_points, height_fraction);
         let phase = crown_phase
             + primary_index as f32 * 2.399_963_1
             + (primary_unit_draw(streams::PRIMARY_PHASE) - 0.5) * 0.42;
-        let radial = Vec3::new(phase.cos(), 0.0, phase.sin());
-        let tangent = Vec3::new(-phase.sin(), 0.0, phase.cos());
+        let radial = Vec3::new(cosf(phase), 0.0, sinf(phase));
+        let tangent = Vec3::new(-sinf(phase), 0.0, cosf(phase));
         // A continuous ovate crown is widest below mid-crown and closes
         // steadily toward the leader. Unequal reach prevents shelf tiers from
         // reading as repeated horizontal plates.
-        let crown_profile = (core::f32::consts::PI * (0.12 + layer * 0.8))
-            .sin()
-            .max(0.28);
+        let crown_profile = sinf(core::f32::consts::PI * (0.12 + layer * 0.8)).max(0.28);
         let reach = crown_radius
             * crown_profile
             * (0.78 + primary_unit_draw(streams::PRIMARY_REACH) * 0.36);
         let primary_points = (0..=5)
             .map(|index| {
                 let t = index as f32 / 5.0;
-                let arch = (core::f32::consts::PI * t).sin();
+                let arch = sinf(core::f32::consts::PI * t);
                 start
                     + radial * reach * (t * (0.86 + 0.14 * t))
-                    + Vec3::Y * (reach * (0.18 * arch + (0.5 + layer * 0.3) * t.powf(1.35)))
+                    + Vec3::Y * (reach * (0.18 * arch + (0.5 + layer * 0.3) * powf(t, 1.35)))
                     + tangent * (primary_unit_draw(streams::PRIMARY_LIFT) - 0.5) * 0.42 * arch
             })
             .collect::<Vec<_>>();
@@ -604,8 +603,8 @@ fn procedural_beech_skeleton(
                 let (right, up) = branch_frame(direction);
                 let phase = twig_index as f32 * 2.399_963_1 + twig_unit_draw(streams::TWIG_PHASE);
                 let twig_direction = (direction * 0.48
-                    + right * phase.cos() * 0.52
-                    + up * phase.sin() * 0.3
+                    + right * cosf(phase) * 0.52
+                    + up * sinf(phase) * 0.3
                     + Vec3::Y * (0.08 + layer * 0.08))
                     .normalize();
                 let twig_length = 0.4 + twig_unit_draw(streams::TWIG_LENGTH) * 0.27;
@@ -640,8 +639,8 @@ fn procedural_multistem_shrub_skeleton(
             purpose.rng(stem_seed, &[]).inclusive_unit_f32()
         };
         let phase = stem_index as f32 * 2.399_963_1 + stem_unit_draw(streams::STEM_PHASE) * 0.55;
-        let outward = Vec3::new(phase.cos(), 0.0, phase.sin());
-        let tangent = Vec3::new(-phase.sin(), 0.0, phase.cos());
+        let outward = Vec3::new(cosf(phase), 0.0, sinf(phase));
+        let tangent = Vec3::new(-sinf(phase), 0.0, cosf(phase));
         let height =
             parameters.height_metres * (0.76 + stem_unit_draw(streams::STEM_HEIGHT) * 0.24);
         let lean =
@@ -650,8 +649,8 @@ fn procedural_multistem_shrub_skeleton(
             .map(|point_index| {
                 let t = point_index as f32 / 6.0;
                 Vec3::Y * height * t
-                    + outward * lean * t.powf(1.35)
-                    + tangent * 0.11 * (core::f32::consts::PI * t).sin()
+                    + outward * lean * powf(t, 1.35)
+                    + tangent * 0.11 * sinf(core::f32::consts::PI * t)
             })
             .collect::<Vec<_>>();
         append_branch_curve(
@@ -669,7 +668,7 @@ fn procedural_multistem_shrub_skeleton(
             let start = sample_polyline(&stem_points, attach);
             let inherited = polyline_tangent(&stem_points, attach);
             let spiral = phase + branch_index as f32 * 2.399_963_1;
-            let radial = Vec3::new(spiral.cos(), 0.0, spiral.sin());
+            let radial = Vec3::new(cosf(spiral), 0.0, sinf(spiral));
             let direction =
                 (inherited * 0.26 + radial * 0.88 + Vec3::Y * (0.3 - attach * 0.17)).normalize();
             let length = parameters.crown_radius_metres
@@ -714,7 +713,7 @@ fn procedural_multistem_shrub_skeleton(
         // The stem itself ends in a short leafy flush. Without this terminal
         // continuation the shared shrub reads as a bundle of pruned rods and
         // develops an artificial flat top.
-        let stem_tip = *stem_points.last().unwrap();
+        let stem_tip = stem_points[6];
         let stem_direction = polyline_tangent(&stem_points, 1.0);
         let (stem_right, stem_up) = branch_frame(stem_direction);
         for tip_index in 0..5_u64 {
@@ -724,8 +723,8 @@ fn procedural_multistem_shrub_skeleton(
             };
             let phase = tip_index as f32 * 2.399_963_1 + tip_unit_draw(streams::TIP_PHASE) * 0.4;
             let direction = (stem_direction * 0.5
-                + stem_right * phase.cos() * 0.58
-                + stem_up * phase.sin() * 0.42)
+                + stem_right * cosf(phase) * 0.58
+                + stem_up * sinf(phase) * 0.42)
                 .normalize();
             let length = 0.16 + tip_unit_draw(streams::TIP_LENGTH) * 0.12;
             append_branch_curve(
@@ -763,8 +762,8 @@ fn append_branch_curve(
         branches.push(TreeBranchSegment {
             start: points[index],
             end: points[index + 1],
-            start_radius: start_radius.lerp(end_radius, t0.powf(0.64)),
-            end_radius: start_radius.lerp(end_radius, t1.powf(0.64)),
+            start_radius: start_radius.lerp(end_radius, powf(t0, 0.64)),
+            end_radius: start_radius.lerp(end_radius, powf(t1, 0.64)),
             depth,
             primary_group,
             secondary_group,

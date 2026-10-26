@@ -169,4 +169,7 @@ artifacts, dependent garden and city refreshes, and the separate Linux and
 focused Windows acceptance checks.
 
 The non-ignored art-demo tests verify that every expected playable and vista
-impostor exists and was baked from the current native source geometry.
+impostor exists and carries the current source-geometry fingerprint. Centreline
+and leaf-placement transcendentals use the pinned software math library so that
+Linux and Windows can check the same prepared asset. Mesh tessellation, software
+rasterization and shaders retain their separate native arithmetic contracts.

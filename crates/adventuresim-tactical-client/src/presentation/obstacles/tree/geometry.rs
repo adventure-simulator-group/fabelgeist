@@ -1,3 +1,9 @@
+//! Woody source geometry and its render meshes.
+//!
+//! Source centreline and leaf-placement transcendentals use pinned software
+//! math so prepared impostors can retain exact source fingerprints across hosts.
+//! Mesh tessellation and shader arithmetic remain separate native boundaries.
+
 use bevy::math::{Quat, Vec3};
 
 pub(in crate::presentation) const TREE_PRIMARY_GROUP_COUNT: u8 = 7;
