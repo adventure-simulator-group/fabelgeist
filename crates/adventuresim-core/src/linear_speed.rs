@@ -218,13 +218,6 @@ impl From<NonnegativeSpeed> for SignedSpeed {
         Self(speed.0)
     }
 }
-impl TryFrom<SignedSpeed> for NonnegativeSpeed {
-    type Error = SpeedError;
-
-    fn try_from(speed: SignedSpeed) -> SpeedResult<Self> {
-        Self::from_metres_per_second(speed.0)
-    }
-}
 impl From<NonnegativeSpeed> for f32 {
     fn from(speed: NonnegativeSpeed) -> Self {
         speed.0
