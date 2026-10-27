@@ -306,6 +306,10 @@ jobs:
         run: |
           set -euo pipefail
           cargo test --locked --package adventuresim-tactical-core --lib animation:: -- --test-threads=1 2>&1 | tee target/rig-contracts/tactical-core-animation.log
+      - name: Test existing movement speed consumers
+        run: |
+          set -euo pipefail
+          cargo test --locked --package adventuresim-tactical-core --lib physics::movement_speed::tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/tactical-core-movement-speed.log
       - name: Test canonical combat configuration
         env:
           EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -391,6 +395,7 @@ jobs:
               "rig", "autoresolve", "contact-defense", "mhr", "strategic-bootstrap",
               "geometry-admission", "geometry-doc", "native-iteration",
               "camera", "equipment-chronology", "equipment-mapping",
+              "tactical-core-movement-speed",
               "animation", "audio", "weather-audio", "animation-reports", "equipment", "maneuver-consumers",
               "creator-armor-frames", "creator-clothing",
               "creator-device-frames", "creator-gorget-bib",
