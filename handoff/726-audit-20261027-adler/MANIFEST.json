@@ -1,9 +1,9 @@
 {
   "kind": "Byte transport manifest, not audit source/lens or runtime clearance",
-  "at": "2026-10-27T17:58:27.828643+00:00",
+  "at": "2026-10-27T18:40:03.995061+00:00",
   "root_projection": "evidence/ -> ignored target/recovery-20261025/",
-  "entry_count": 14999,
-  "total_bytes": 270543049,
+  "entry_count": 15001,
+  "total_bytes": 270543858,
   "entries": [
     {
       "path": "evidence/HANDOFF-CURRENT.json",
@@ -74999,6 +74999,16 @@
       "path": "skills/bespoke-audit/agents/openai.yaml",
       "bytes": 284,
       "sha256": "6addca6935bdd548e53fe026f6662b79e1ff4dcfaad16dd7e5f90a7f1ea6271d"
+    },
+    {
+      "path": ".gitattributes",
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    {
+      "path": "PUBLICATION-AUTHORIZATION.json",
+      "bytes": 801,
+      "sha256": "c11fe4642582fde143629da080ac1eac641de0f3ba7f420ff6167f6d7083304d"
     }
   ],
   "excludes": "This manifest itself and later transport-verification metadata are not recursively included. No stash/environment/conversation/credential files selected."
