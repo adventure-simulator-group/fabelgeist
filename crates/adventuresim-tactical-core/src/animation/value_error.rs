@@ -183,6 +183,7 @@ impl From<adventuresim_core::linear_speed::SpeedError> for AnimationValueError {
             SpeedError::Negative => Self::Negative { quantity },
             SpeedError::NonPositive => Self::NonPositive { quantity },
             SpeedError::Overflow => Self::Overflow { quantity },
+            SpeedError::Fraction(error) => Self::from(error),
         }
     }
 }

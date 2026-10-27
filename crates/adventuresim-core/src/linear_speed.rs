@@ -1,7 +1,7 @@
 //! Checked scalar linear speeds shared by tactical and strategic mechanics.
 
+use crate::unit_interval::{FractionError, UnitInterval};
 use serde::{Deserialize, Serialize};
-use std::fmt;
 
 pub type SpeedResult<T> = Result<T, SpeedError>;
 
@@ -17,12 +17,18 @@ pub struct SignedSpeed(f32);
 #[serde(try_from = "f32", into = "f32")]
 pub struct PositiveSpeed(NonnegativeSpeed);
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, thiserror::Error)]
 pub enum SpeedError {
+    #[error("linear speed must be finite")]
     NonFinite,
+    #[error("linear speed must be nonnegative")]
     Negative,
+    #[error("linear speed must be positive")]
     NonPositive,
+    #[error("linear speed arithmetic overflowed")]
     Overflow,
+    #[error("invalid speed interpolation fraction: {0}")]
+    Fraction(#[from] FractionError),
 }
 
 impl NonnegativeSpeed {
@@ -58,7 +64,8 @@ impl NonnegativeSpeed {
         })
     }
 
-    pub fn checked_lerp(self, other: Self, factor: f32) -> SpeedResult<Self> {
+    pub fn checked_lerp(self, other: Self, factor: UnitInterval) -> SpeedResult<Self> {
+        let factor = factor.fraction();
         // Same scalar operation order as the pinned Bevy/glam FloatExt kernel.
         Self::from_metres_per_second(self.0 + (other.0 - self.0) * factor).map_err(|error| {
             if error == SpeedError::NonFinite {
@@ -125,18 +132,6 @@ impl PositiveSpeed {
         Self(self.0.min(other.0))
     }
 }
-
-impl fmt::Display for SpeedError {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        formatter.write_str(match self {
-            Self::NonFinite => "linear speed must be finite",
-            Self::Negative => "linear speed must be nonnegative",
-            Self::NonPositive => "linear speed must be positive",
-            Self::Overflow => "linear speed arithmetic overflowed",
-        })
-    }
-}
-impl std::error::Error for SpeedError {}
 
 impl From<NonnegativeSpeed> for SignedSpeed {
     fn from(speed: NonnegativeSpeed) -> Self {

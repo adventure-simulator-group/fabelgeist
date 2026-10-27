@@ -5,6 +5,7 @@ use crate::animation::{BodyState, WeaponGuardState};
 use crate::{combat_config::TacticalMovementConfig, player::TacticalPlayerView};
 use adventuresim_core::linear_speed::{NonnegativeSpeed, SpeedResult};
 use adventuresim_core::prelude::*;
+use adventuresim_core::unit_interval::UnitInterval;
 use bevy::prelude::Vec2;
 
 pub const TACTICAL_WALK_SPEED_METRES_PER_SECOND: NonnegativeSpeed = authored_speed(1.7);
@@ -40,7 +41,9 @@ pub(super) const UNATTRIBUTED_JOG_SPEED: NonnegativeSpeed = authored_speed(3.75)
 pub fn tactical_jog_speed(endurance: f32) -> SpeedResult<NonnegativeSpeed> {
     let endurance = endurance.clamp(0.0, 5.0);
     if endurance <= 1.0 {
-        let smooth_endurance = endurance * endurance * (3.0 - 2.0 * endurance);
+        let smooth_endurance = UnitInterval::from_fraction(
+            (endurance * endurance * (3.0 - 2.0 * endurance)).clamp(0.0, 1.0),
+        )?;
         return TACTICAL_WALK_SPEED_METRES_PER_SECOND
             .checked_lerp(MINIMUM_JOG_SPEED_METRES_PER_SECOND, smooth_endurance);
     }

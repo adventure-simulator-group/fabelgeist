@@ -2,7 +2,7 @@
 
 use super::{
     AnimationQuantity, AnimationValueError, AnimationValueResult, LOCOMOTION_SECOND_CONTACT_PHASE,
-    LeadFoot,
+    LeadFoot, UnitInterval,
 };
 use serde::{Deserialize, Serialize};
 
@@ -94,10 +94,10 @@ impl CycleDelta {
     pub fn from_unit_cycles(value: super::UnitInterval) -> Self {
         Self(value.fraction())
     }
-    /// Native interpolation of two cycle displacements, before retaining the result.
-    pub fn checked_lerp(self, other: Self, fraction: f32) -> AnimationValueResult<Self> {
+    /// Native interpolation of two cycle displacements using an admitted fraction.
+    pub fn checked_lerp(self, other: Self, fraction: UnitInterval) -> AnimationValueResult<Self> {
         use bevy::math::FloatExt;
-        Self::from_arithmetic(self.0.lerp(other.0, fraction))
+        Self::from_arithmetic(self.0.lerp(other.0, fraction.fraction()))
     }
 
     pub const ZERO: Self = Self(0.0);

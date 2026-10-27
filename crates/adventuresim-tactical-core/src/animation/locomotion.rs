@@ -143,12 +143,14 @@ pub fn locomotion_profile(
     }
     let walk = walk_locomotion_profile();
     let run_profile = run_locomotion_profile();
-    let run = ((speed.metres_per_second() - walk.reference_speed.metres_per_second())
-        / (run_profile.reference_speed.metres_per_second()
-            - walk.reference_speed.metres_per_second()))
-    .clamp(0.0, 1.0);
+    let run = UnitInterval::from_fraction(
+        ((speed.metres_per_second() - walk.reference_speed.metres_per_second())
+            / (run_profile.reference_speed.metres_per_second()
+                - walk.reference_speed.metres_per_second()))
+        .clamp(0.0, 1.0),
+    )?;
     Ok(LocomotionProfile {
-        gait: if run >= 0.5 {
+        gait: if run >= UnitInterval::HALF {
             LocomotionGait::Run
         } else {
             LocomotionGait::Walk
@@ -162,10 +164,8 @@ pub fn locomotion_profile(
             .checked_lerp(run_profile.support_phase_radius, run)?,
         bounce_metres: walk
             .bounce_metres
-            .scaled_by(UnitInterval::from_fraction(1.0 - run)?)?,
-        flight_apex_metres: run_profile
-            .flight_apex_metres
-            .scaled_by(UnitInterval::from_fraction(run)?)?,
+            .scaled_by(UnitInterval::from_fraction(1.0 - run.fraction())?)?,
+        flight_apex_metres: run_profile.flight_apex_metres.scaled_by(run)?,
         landing: landing_profile(),
     })
 }
