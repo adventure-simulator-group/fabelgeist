@@ -32,7 +32,13 @@ impl AnimationLocomotionConfig {
         &self,
         initial_locomotion_speed: NonnegativeSpeed,
     ) -> Result<(), TacticalCombatConfigError> {
-        let gaits = [self.walk, self.run, self.raised_guard, self.prone, self.supine];
+        let gaits = [
+            self.walk,
+            self.run,
+            self.raised_guard,
+            self.prone,
+            self.supine,
+        ];
         if gaits.into_iter().any(|gait| {
             gait.support_phase_radius < CycleDelta::ZERO
                 || gait.support_phase_radius >= CycleDelta::from_unit_cycles(UnitInterval::HALF)
@@ -41,8 +47,7 @@ impl AnimationLocomotionConfig {
                 "invalid animation locomotion tuning",
             ));
         }
-        if self.run.reference_speed_metres_per_second
-            <= self.walk.reference_speed_metres_per_second
+        if self.run.reference_speed_metres_per_second <= self.walk.reference_speed_metres_per_second
         {
             return Err(TacticalCombatConfigError::Validation(
                 "run reference speed must exceed walk reference speed",

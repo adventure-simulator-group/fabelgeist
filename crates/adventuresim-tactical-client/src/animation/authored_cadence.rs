@@ -62,7 +62,9 @@ impl CalibrationMotion {
 impl AuthoredStrideMeasurement {
     pub(super) fn lerp(self, other: Self, amount: UnitInterval) -> AnimationValueResult<Self> {
         Ok(Self {
-            step_distance: self.step_distance.checked_lerp(other.step_distance, amount)?,
+            step_distance: self
+                .step_distance
+                .checked_lerp(other.step_distance, amount)?,
             maximum_stance_slip: self
                 .maximum_stance_slip
                 .checked_lerp(other.maximum_stance_slip, amount)?,

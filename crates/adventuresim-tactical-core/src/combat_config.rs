@@ -632,9 +632,11 @@ impl TacticalCombatConfig {
         }
 
         let animation = self.animation;
-        animation
-            .locomotion
-            .validate(animation.playback.initial_locomotion_speed_metres_per_second)?;
+        animation.locomotion.validate(
+            animation
+                .playback
+                .initial_locomotion_speed_metres_per_second,
+        )?;
         let guard = animation.guard_footwork;
         if ![
             guard.default_half_width_metres,
