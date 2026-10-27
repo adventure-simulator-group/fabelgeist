@@ -4,6 +4,8 @@ use std::sync::Arc;
 
 use anyhow::Result;
 
+#[cfg(not(target_arch = "wasm32"))]
+use crate::globals::ValidationScope;
 use crate::{data::gpu::texture::TextureFormat, data::vector::Vec2, globals::WgpuContext};
 
 mod image;
@@ -58,8 +60,6 @@ impl Texture2d {
         )
     }
     pub fn create(context: &WgpuContext, size: Vec2, format: TextureFormat) -> Result<Texture2d> {
-        let _wgpu_format: wgpu::TextureFormat = format.into();
-
         let limits = context.device.limits();
         let max_dim = limits.max_texture_dimension_2d;
 
@@ -125,12 +125,8 @@ impl Texture2d {
             view_formats: &view_formats,
         };
 
-        // Reading the error scope means draining the queue, and on a borrowed
-        // device -- one an application is submitting to every frame -- that
-        // waits for a queue that never empties. The same rule the shader and
-        // pipeline paths follow: only a context that owns its device drains it.
         #[cfg(not(target_arch = "wasm32"))]
-        let error_scope = context.validation_observation.start_scope(&context.device);
+        let error_scope = ValidationScope::new(context);
 
         let texture = context.device.create_texture(&texture_desc);
 
@@ -148,10 +144,7 @@ impl Texture2d {
 
         #[cfg(not(target_arch = "wasm32"))]
         if let Some(error_scope) = error_scope {
-            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
-            if let Some(err) = pollster::block_on(error_scope.pop()) {
-                return Err(anyhow::anyhow!("WGPU Texture2d Creation Error: {}", err));
-            }
+            error_scope.finish()?;
         }
 
         let texture_value = Texture2d {

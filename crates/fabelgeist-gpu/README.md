@@ -1,7 +1,7 @@
 # GPU buffers
 
-Whole-texture format selection retains typed failures and native causes; see
-[whole-texture format views](texture-views.md).
+Texture creation and format views share validation observation; see
+[texture validation and format views](texture-views.md).
 
 `BufferUpload` borrows the native bytes of `NoUninit` host elements through
 queue submission. `Buffer::from_upload`, `write`, and `write_at` consume that
