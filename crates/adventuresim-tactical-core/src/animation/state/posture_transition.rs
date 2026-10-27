@@ -68,7 +68,7 @@ impl PostureTransitionState {
         let tuning = crate::combat_config::runtime_animation_config().state_transitions;
         let root_handoff_end_fraction = match trajectory {
             // Slides finish the transfer at the transition endpoint; airborne
-            // recovery uses the configured earlier handoff endpoint.
+            // recovery uses the configured handoff endpoint.
             DiveTrajectory::GroundedSlide => UnitInterval::ONE,
             DiveTrajectory::Airborne => tuning.dive_airborne_root_handoff_end_fraction,
         };

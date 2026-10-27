@@ -23,7 +23,6 @@ impl<'a> PoseSampleResolver<'a> {
         let PoseSampling::Span { end, progress } = sample.sampling else {
             return Ok(());
         };
-        let progress = progress.fraction();
         let Some(span) = self.resolve_span(start, sample.pose, end) else {
             return append_weighted_anchor(
                 weighted,
@@ -39,16 +38,14 @@ impl<'a> PoseSampleResolver<'a> {
             span.start.frame,
             sample
                 .weight
-                .checked_scale(BlendWeight::from_factor(1.0 - progress)?)?,
+                .checked_scale(BlendWeight::from(progress.complement()))?,
             layer,
         )?;
         append_weighted_anchor(
             weighted,
             &span.end.anchor,
             span.end.frame,
-            sample
-                .weight
-                .checked_scale(BlendWeight::from_factor(progress)?)?,
+            sample.weight.checked_scale(BlendWeight::from(progress))?,
             layer,
         )
     }
